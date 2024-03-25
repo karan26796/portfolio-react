@@ -1,0 +1,21 @@
+.container-project {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1600px;
+    width: 50vw;
+    margin: auto;
+
+    h4,
+    h5,
+    h6,
+    li {
+        font-weight: 400;
+        font-size: 1.4em;
+    }
+
+    h4 {
+        font-weight: 700;
+        text-transform: uppercase;
+    }
+}
