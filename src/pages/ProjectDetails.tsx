@@ -4,7 +4,7 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { projectDetails } from "../utils/ProjectDetailing";
 import '../styles/ProjectDetails.scss'
-import { ProjectDetail, ImageDetail } from "../utils/interfaces"; // Assuming this import path is correct
+import { ProjectDetail, ImageDetail, ImageContainer } from "../utils/interfaces"; // Assuming this import path is correct
 
 const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -45,6 +45,21 @@ const ProjectDetails: React.FC = () => {
                   <figcaption>{imageContent.caption}</figcaption>
                 )}
               </figure>
+            );
+          case "img-container":
+            const imgContainer = detail.content as ImageContainer;
+            return (
+              <div className="img-container">
+                <h4 className="header">{imgContainer.header}</h4>
+                <h3 className="title">{imgContainer.title}</h3>
+                <p className="text">{imgContainer.body}</p>
+                {Array.isArray(imgContainer.img) && imgContainer.img.map((image, i) => (
+                  <figure key={i}>
+                    <img src={image.url} alt={image.caption || ''} />
+                    {image.caption && <figcaption>{image.caption}</figcaption>}
+                  </figure>
+                ))}
+              </div>
             );
           default:
             return null;

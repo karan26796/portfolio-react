@@ -1,11 +1,10 @@
-let numCols = 10; // Number of columns
-let numRows = 10; // Number of rows
-let squareSize;
+let squareSize = 70; // Size of each square
+let numCols, numRows; // Number of columns and rows
 let previousHover = { x: -1, y: -1 }; // Tracks the last hovered square
 
 function setup() {
-  createCanvas(400, 400);
-  squareSize = width / numCols; // Calculate the size of each square based on the canvas width
+  createCanvas(windowWidth, document.body.offsetHeight);
+  calculateGridDimensions(); // Calculate the number of columns and rows
   noLoop(); // Static drawing, no need for a draw loop
 }
 
@@ -14,7 +13,11 @@ function drawGrid() {
     for (let j = 0; j < numRows; j++) {
       let x = i * squareSize;
       let y = j * squareSize;
-      fill(255); // Default fill color (white)
+      if (previousHover.x === i && previousHover.y === j) {
+        fillGradient(x, y); // Apply gradient fill if it's the previous hovered square
+      } else {
+        fill(255); // Default fill color (white)
+      }
       stroke(200); // Set the stroke color to light grey
       rect(x, y, squareSize, squareSize);
     }
@@ -23,12 +26,18 @@ function drawGrid() {
 
 function draw() {
   background(255); // Set background to white
-  drawGrid(); // Draw the initial grid
+  calculateGridDimensions(); // Recalculate grid dimensions based on canvas size
+  drawGrid(); // Draw the grid with updated dimensions
+}
+
+function calculateGridDimensions() {
+  numCols = ceil(width / squareSize); // Ensure that the number of columns covers the entire width
+  numRows = ceil(height / squareSize); // Ensure that the number of rows covers the entire height
 }
 
 function mouseMoved() {
-  let col = Math.floor(mouseX / squareSize);
-  let row = Math.floor(mouseY / squareSize);
+  let col = floor(mouseX / squareSize);
+  let row = floor(mouseY / squareSize);
 
   // Check if the mouse is within the canvas
   if (col >= 0 && col < numCols && row >= 0 && row < numRows) {
@@ -38,6 +47,10 @@ function mouseMoved() {
       updateSquare(col, row, true); // Highlight the new hovered square
       previousHover = { x: col, y: row }; // Update the previous hover position
     }
+  } else {
+    // If mouse moves outside canvas, reset the previous hovered square
+    updateSquare(previousHover.x, previousHover.y, false);
+    previousHover = { x: -1, y: -1 }; // Reset previous hover position
   }
 }
 
@@ -49,10 +62,13 @@ function updateSquare(col, row, highlight) {
 
     // Choose fill style based on whether the square is highlighted
     if (highlight) {
-      fillGradient(x, y); // Apply gradient fill if highlighting
+      // If the square is being highlighted, fill it with gradient
+      fillGradient(x, y);
     } else {
-      fill(255); // Reset to default fill color (white) otherwise
+      // Otherwise, fill it with the default color
+      fill(255);
     }
+    stroke(200); // Set the stroke color to light grey
     rect(x, y, squareSize, squareSize); // Redraw the square
   }
 }

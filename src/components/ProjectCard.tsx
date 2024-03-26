@@ -24,7 +24,7 @@ const ProjectCard: React.FC<{ data: ProjectCardData }> = ({ data }) => {
             {/* {data.tags.map(tag => <span key={tag}>{tag}</span>)} */}
           </div>
         </div>
-        <div className="divider"></div>
+        {/* <div className="divider"></div> */}
       </div>
     </div>
   );

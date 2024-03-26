@@ -7,16 +7,24 @@ import HeaderWithCarousel from './components/HeaderwithCarousel';
 
 const App: React.FC = () => {
   return (
-    <body style={{backgroundImage:'./assets/mesh.png', objectFit:'cover'}}>
     <Router>
-      <HeaderWithCarousel/>
-      <StickyNavBar />
-      <Routes>
-        <Route path="/" element={<ProjectList />} />
-        <Route path="/project/:projectId" element={<ProjectDetails />} />
-      </Routes>
+      <div style={{ backgroundImage: 'url(./assets/mesh.png)', objectFit: 'cover' }}>
+        <StickyNavBar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/project/:projectId" element={<ProjectDetails />} />
+        </Routes>
+      </div>
     </Router>
-    </body>
+  );
+};
+
+const HomePage: React.FC = () => {
+  return (
+    <>
+      <HeaderWithCarousel />
+      <ProjectList />
+    </>
   );
 };
 

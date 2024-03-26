@@ -16,7 +16,16 @@ import editorQuestion from "../project-imgs/loop-note/editor-question.webp";
 
 export const projectDetails: { [key: string]: ProjectDetail[] } = {
   "2": [
-    { type: "img-container", content: "" },
+    {
+      type: "h3",
+      content:
+        "Based on our research, it takes 5-6 rewatches of a user interview to get actionable insights out of it. Therefore, a 1 hour interview takes 5-6 hours to tag, summarize, and share with one's team.",
+    },
+    {
+      type: "h3",
+      content:
+        "To make it easier for teams to get the most out of research calls and projects, we designed a note-taker that lets researchers take notes while taking an interview on Zoom.",
+    },
     { type: "h2", content: "Prototype Testing" },
     { type: "h4", content: "First cut for Usability Testing" },
     {
@@ -221,26 +230,6 @@ export const projectDetails: { [key: string]: ProjectDetail[] } = {
     { type: "h1", content: "Introduction" },
     { type: "h2", content: "Design Process" },
     { type: "bullet", content: ["Research", "Implementation", "Testing"] },
-    {
-      type: "img-container",
-      content: {
-        header: "Hello",
-        title: "Hello",
-        body: "Hello Deer",
-        bullet: ["Hello", "Hello", "Hello"],
-        quote: "null",
-        img: [
-          {
-            url: task1,
-            caption: "Hello",
-          },
-          {
-            url: task1,
-            caption: "Hello",
-          },
-        ]
-      },
-    },
     {
       type: "image",
       content: {
