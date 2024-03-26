@@ -27,7 +27,7 @@ const ProjectDetails: React.FC = () => {
           case "h6":
             const Tag = detail.type as keyof JSX.IntrinsicElements;
             return <Tag key={index}>{detail.content as string}</Tag>;
-          case "bullet":
+            case "bullet":
             return (
               <ul key={index}>
                 {(detail.content as string[]).map((item, idx) => (
