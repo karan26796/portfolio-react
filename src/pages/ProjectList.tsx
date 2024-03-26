@@ -10,7 +10,7 @@ import '../styles/ProjectList.scss'
 const ProjectList: React.FC = () => {
   return (
     <ResponsiveMasonry className='grid-projects'
-      columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 2 }}
+      columnsCountBreakPoints={{ 350: 1, 750: 2, 900: 1 }}
     >
       <Masonry gutter="2em">
         {projectSummaries.map((project) => (
