@@ -27,7 +27,7 @@ const ProjectDetails: React.FC = () => {
           case "h6":
             const Tag = detail.type as keyof JSX.IntrinsicElements;
             return <Tag key={index}>{detail.content as string}</Tag>;
-            case "bullet":
+          case "bullet":
             return (
               <ul key={index}>
                 {(detail.content as string[]).map((item, idx) => (
@@ -53,6 +53,12 @@ const ProjectDetails: React.FC = () => {
                 <h4 className="header">{imgContainer.header}</h4>
                 <h3 className="title">{imgContainer.title}</h3>
                 <p className="text">{imgContainer.body}</p>
+                <ul key={index}>
+                  {(imgContainer.bullet as string[]).map((item, idx) => (
+                    <li key={idx}>{item}</li>
+                  ))}
+                </ul>
+                <h4 className="quote">{imgContainer.quote}</h4>
                 {Array.isArray(imgContainer.img) && imgContainer.img.map((image, i) => (
                   <figure key={i}>
                     <img src={image.url} alt={image.caption || ''} />
