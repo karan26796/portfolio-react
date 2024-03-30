@@ -1,0 +1,46 @@
+.stack-container {
+  position: fixed; // Fix the position to the viewport
+  top: 0;
+  left: 0;
+  width: 100vw; // Viewport Width
+  height: 100vh; // Viewport Height
+  overflow: hidden; // Prevent scrolling within this container
+  display: flex;
+  justify-content: center; // Center cards horizontally
+  align-items: center; // Center cards vertically
+}
+
+.card {
+  width: 320px; // Width of the card
+  height: 180px; // Height of the card
+  position: absolute; // Absolutely position each card within the stack container
+  will-change: transform; // Optimize for animations
+  transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; // Smooth transition for stacking
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Optional: adds shadow for depth
+  border-radius: 8px; // Optional: rounds the corners of the cards
+
+  // Initially position off the bottom of the view, ready to animate in
+  transform: translateY(100vh) scale(0.9);
+  opacity: 0;
+
+  // When the card is stacked, it's positioned in a staggered fashion
+  &.stacked {
+    opacity: 1; // Make the card visible
+    transform: translateY(calc(var(--card-index) * -20px)) scale(1); // Stagger the stacked cards, replace 20px with desired distance
+    // Use a CSS variable --card-index to represent each card's index
+  }
+}
+
+// If needed, add responsiveness or media queries
+@media (max-width: 600px) {
+  .stack-container {
+    justify-content: center;
+    align-items: flex-start; // Start aligning items from the top on smaller screens
+  }
+
+  .card {
+    width: 90%; // Adjust width for smaller screens
+    height: auto; // Adjust height for smaller screens
+    // Adjust the translateY value if the stacking distance needs to change on smaller screens
+  }
+}

@@ -1,78 +1,55 @@
-// ProjectDetails.tsx
-
-import React from "react";
-import { useParams } from "react-router-dom";
-import { projectDetails } from "../utils/ProjectDetailing";
-import '../styles/ProjectDetails.scss'
-import { ProjectDetail, ImageDetail, ImageContainer } from "../utils/interfaces"; // Assuming this import path is correct
+// ProjectDetail.tsx
+import React, { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import "../styles/ProjectDetails.scss"
 
 const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
+  const [projectData, setProjectData] = useState<any[]>([]);
 
-  const details = projectId ? projectDetails[projectId] : null;
+  useEffect(() => {
+    const loadProjectData = async () => {
+      try {
+        const data = await import(`../utils/projectcontent/project${projectId}`);
+        setProjectData(data.default);
+      } catch (error) {
+        console.error("Failed to load project data:", error);
+      }
+    };
 
-  if (!details) {
-    return <div>Project not found</div>;
-  }
+    if (projectId) loadProjectData();
+  }, [projectId]);
 
   return (
-    <div className="container-project">
-      {details.map((detail, index) => {
-        switch (detail.type) {
-          case "h1":
-          case "h2":
-          case "h3":
-          case "h4":
-          case "h5":
-          case "h6":
-            const Tag = detail.type as keyof JSX.IntrinsicElements;
-            return <Tag key={index}>{detail.content as string}</Tag>;
-          case "bullet":
-            return (
-              <ul key={index}>
-                {(detail.content as string[]).map((item, idx) => (
-                  <li key={idx}>{item}</li>
-                ))}
-              </ul>
-            );
-          case "image":
-            // Make sure to cast the content to the correct type for TypeScript
-            const imageContent = detail.content as ImageDetail;
-            return (
-              <figure key={index}>
-                <img src={imageContent.url} alt="" />
-                {imageContent.caption && (
-                  <figcaption>{imageContent.caption}</figcaption>
-                )}
-              </figure>
-            );
-          case "img-container":
-            const imgContainer = detail.content as ImageContainer;
-            return (
-              <div className="img-container">
-                <h4 className="header">{imgContainer.header}</h4>
-                <h3 className="title">{imgContainer.title}</h3>
-                <p className="text">{imgContainer.body}</p>
-                <ul key={index}>
-                  {(imgContainer.bullet as string[]).map((item, idx) => (
-                    <li key={idx}>{item}</li>
-                  ))}
-                </ul>
-                <h4 className="quote">{imgContainer.quote}</h4>
-                {Array.isArray(imgContainer.img) && imgContainer.img.map((image, i) => (
-                  <figure key={i}>
-                    <img src={image.url} alt={image.caption || ''} />
-                    {image.caption && <figcaption>{image.caption}</figcaption>}
-                  </figure>
-                ))}
-              </div>
-            );
-          default:
-            return null;
-        }
-      })}
-    </div>
+    <div className='container-project'>
+      {projectData.map((element, index) => (
+        <React.Fragment key={index}>
+          {element.type === 'header' && (
+            <React.Fragment>
+              {React.createElement(`h${element.level}`, null, element.text)}
+              <hr />
+            </React.Fragment>
+          )}
+          {element.type === 'bullet' && (
+            <ul>
+              {(element.text as string[]).map((item, idx) => (
+                <li key={idx}>{item}</li>
+              ))}
+            </ul>
+          )}
+          {element.type === 'figure' && (
+            <figure>
+              <img src={element.image} alt={element.caption} />
+              <figcaption>{element.caption}</figcaption>
+            </figure>
+          )}
+          {element.type === 'custom' && element.content}
+        </React.Fragment>
+      ))
+      }
+    </div >
   );
 };
 
 export default ProjectDetails;
+

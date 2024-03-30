@@ -1,14 +1,12 @@
-.container {
-
     .project-container {
         display: flex;
         flex-direction: column;
         overflow: hidden;
-        background-color: #fff;
-        // border-radius: 1.5em;
-        // border: 1px solid #e3e3e3;
-        box-shadow: 0px 0px 30px 10px #00000010;
         transition: box-shadow 0.15s ease-in-out;
+
+        a {
+            color: inherit;
+        }
 
         .divider {
             border-radius: 0 0 1em 1em;
@@ -18,8 +16,8 @@
 
         &:hover {
             // background-color: #eaebf3;
-            
-            box-shadow: 0px 0px 30px 10px #00000020;
+
+            // box-shadow: 0px 0px 30px 10px #00000020;
 
             .project-image {
                 transform: scale(1);
@@ -37,13 +35,16 @@
         }
 
         .project-card {
+            border-radius: 1em;
             display: flex;
             position: relative;
             flex-direction: column;
             align-items: start;
-            transition: box-shadow .3s ease-in-out;
+
+            text-decoration: none;
+            // transition: box-shadow .3s ease-in-out;
             gap: .5em;
-            padding: 2em 2em 2.5em 2em;
+            padding: 1em 0 1.5em 0;
             // background: radial-gradient(50% 50% at 50% 50%, #7DB2FF 0%, rgba(61, 226, 248, 0.90) 100%);
 
             h3 {
@@ -57,10 +58,10 @@
             }
 
             .desc {
-                display: none;
-                font-size: 1.2em;
+                font-size: 1em;
                 margin: 0;
                 font-weight: 400;
+                text-decoration: none;
             }
         }
 
@@ -74,7 +75,7 @@
             display: flex;
             flex-direction: row;
             align-items: center;
-            font-size: 1em;
+            font-size: .8em;
             border: none;
             font-weight: 400;
             cursor: pointer;
@@ -85,7 +86,7 @@
         }
 
         .project-meta {
-            font-size: 1em;
+            font-size: .8em;
             margin: 0;
             font-weight: 500;
         }
@@ -109,20 +110,21 @@
             display: flex;
             flex-direction: column;
             overflow: hidden;
+            border: 1px solid var(--border-color);
         }
 
         .material-icons {
             transition: transform 0.3s ease-out;
-            font-size: 1em;
+            font-size: 1.25em;
         }
 
         .project-controls {
             width: -webkit-fill-available;
-            display: flex;
+            display: none;
             flex-direction: column;
             align-items: center;
             justify-items: center;
-            height: 1.25em;
+            height: 1.5em;
             overflow: hidden;
             position: relative;
         }
@@ -133,4 +135,3 @@
             left: 0;
         }
     }
-}

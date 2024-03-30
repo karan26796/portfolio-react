@@ -4,6 +4,9 @@ import ProjectList from './pages/ProjectList'; // Component for listing project 
 import ProjectDetails from './pages/ProjectDetails'; // Component for showing details of a selected project
 import StickyNavBar from './components/StickyNavBar'; // Your StickyNavBar component
 import HeaderWithCarousel from './components/HeaderwithCarousel';
+import ProjectCard from './components/ProjectCard';
+import { projectSummaries } from './utils/ProjectSummaries';
+import ImageCarousel from './components/ImageCarousel';
 
 const App: React.FC = () => {
   return (
@@ -23,7 +26,8 @@ const HomePage: React.FC = () => {
   return (
     <>
       <HeaderWithCarousel />
-      <ProjectList />
+      <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
+      <ImageCarousel/>
     </>
   );
 };

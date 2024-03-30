@@ -6,15 +6,14 @@ import "../styles/ProjectCard.scss";
 
 const ProjectCard: React.FC<{ data: ProjectCardData }> = ({ data }) => {
   return (
-    <div className="container">
       <div className="project-container">
         <div className="img-container">
           <img className="project-image" src={data.img} alt={data.title} />
         </div>
-        <div className="divider"></div>
+        {/* <div className="divider"></div> */}
         <div className="project-card">
           <h3>{data.title}</h3>
-          <h4 className="desc">{data.description}</h4>
+          <p className="desc">{data.description}</p>
           <div className="project-controls">
             <h4 className="project-meta text">{data.tags.join(", ")}</h4>
             <button className="read-more text">
@@ -26,7 +25,6 @@ const ProjectCard: React.FC<{ data: ProjectCardData }> = ({ data }) => {
         </div>
         {/* <div className="divider"></div> */}
       </div>
-    </div>
   );
 };
 

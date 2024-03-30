@@ -1,4 +1,8 @@
 .grid-projects {
     width: var(--max-width-container);
     margin: auto;
+    display: grid;
+    grid-template-columns: repeat(2,1fr);
+    gap:2em;
+    grid-auto-rows: 1fr;
 }
