@@ -11,7 +11,7 @@ import ImageCarousel from './components/ImageCarousel';
 const App: React.FC = () => {
   return (
     <Router>
-      <div style={{ backgroundImage: 'url(./assets/mesh.png)', objectFit: 'cover' }}>
+      <div>
         <StickyNavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />

@@ -8,6 +8,13 @@ export interface ProjectCardData {
 }
 
 export type BodyElement = HeaderElement | BulletElement | ParagraphElement;
+export type ProjectElement = HeaderElement | BulletElement | FigureElement | CustomElement | ParagraphElement | ImageText | IntroElement;
+
+export interface IntroElement{
+  type: 'intro';
+  text:HeaderElement;
+  desc:ParagraphElement;
+}
 
 export interface HeaderElement {
   type: 'header';
@@ -34,7 +41,7 @@ export interface FigureElement {
 export interface ImageText {
   type: 'imgtext'
   body: BodyElement[];
-  image: FigureElement | null;
+  image: FigureElement[];
 }
 
 export interface CustomElement {

@@ -13,7 +13,7 @@ const ImageCarousel: React.FC = () => {
 
     return (
         <div className="carousel-container">
-            <h1> Figma community and YouTube Tutorials</h1>
+            <h3> Figma community and YouTube Tutorials</h3>
             <div className="carousel-track">
                 {duplicatedImages.map((image: ImageItem, index: number) => (
                     <a key={`image-${index}`} href={image.link} className="carousel-item" target="_blank" rel="noopener noreferrer">

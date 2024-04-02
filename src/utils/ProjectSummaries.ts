@@ -4,7 +4,7 @@ import indieImg from './project-imgs/thumb-indie.png'
 export const projectSummaries: ProjectCardData[] = [
   {
     id: "1",
-    description:'Discover Premium and Affordable Homegrown brands.',
+    description:'Discover Premium and Affordable Homegrown brands',
     title:
       "IndieFinds",
     img: indieImg,
@@ -31,7 +31,7 @@ export const projectSummaries: ProjectCardData[] = [
   },
   {
     id: "4",
-    description:'Redesigned Nepal&apos;s Superapp by creating a design system',
+    description:"Redesigned Nepal's Superapp by creating a design system",
     title: "Nepal's superapp's design library",
     img: "https://www.kadankapoor.com/projects/images-kurakaani/thumb.gif",
     tags: ["DESIGN SYSTEM", "COMPONENT LIBRARY"],
@@ -47,7 +47,7 @@ export const projectSummaries: ProjectCardData[] = [
   },
   {
     id: "6",
-    description:': A mindful device for overcoming binge behavior when you&aposre bored',
+    description:"A mindful device for overcoming binge behavior when you&aposre bored",
     title: "AWACON",
     img: "https://www.kadankapoor.com/projects/binge-eating/binge.gif",
     tags: ["DESIGN", "RESEARCH", "PSYCHOLOGY"],

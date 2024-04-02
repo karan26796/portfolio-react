@@ -11,13 +11,16 @@ interface ProjectListProps {
 
 const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: CardComponent }) => {
   return (
-    <div className='grid-projects'>
+    <ResponsiveMasonry
+      columnsCountBreakPoints={{350: 1, 750: 2, 900: 2}}>
+      <Masonry style={{maxWidth:"1280px", margin:"auto"}} gutter="2em">
         {projectData.map((project) => (
           <Link key={project.id} to={`/project/${project.id}`} style={{ textDecoration: 'none' }}>
             <CardComponent data={project} />
           </Link>
         ))}
-    </div>
+      </Masonry>
+    </ResponsiveMasonry>
   );
 };
 
