@@ -2,8 +2,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    width: 40vw;
+    max-width: 9600px;
+    min-width: 840px;
+    width: 70vw;
     margin: auto;
+
+    h1,h2,h3,h4,h5,h6,p,li{
+        max-width: 50%;
+    }
 
     h5,
     h6,
@@ -31,5 +37,19 @@
         h5 {}
 
         p {}
+    }
+}
+
+.imgtext-parent{
+    display: flex;
+    flex-direction: column;
+    // border: 1px solid var(--border-color);
+    border-radius: 2em;
+    padding: 2em;
+    margin-bottom: 6em;
+    background-color: rgba(0, 0, 0, 0.1921568627);
+
+    .body-element{
+        max-width: 600px;
     }
 }
