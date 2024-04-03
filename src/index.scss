@@ -20,7 +20,7 @@
     --grey-500: #3e3e3e;
     --grey-600: #1e1e1e;
     --grey-700: #010101;
-    --border-color: #262626;
+    --border-color: #5f6272;
     --visited-link: #ffffff;
     --highlight-color: #9DC9FF;
 
@@ -118,14 +118,13 @@
   }
 
   figure {
-    width: 130%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
     padding: 0;
     margin: 2em 0;
     gap: .3em;
-    transform: translateX(-15%);
 
     img {
       width: -webkit-fill-available;

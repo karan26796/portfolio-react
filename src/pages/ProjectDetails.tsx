@@ -89,18 +89,25 @@ const ProjectDetails: React.FC = () => {
         );
       case "imgtext":
         return (
-          <div key={`imgtext-${element.body.map((el) => el.text).join("-")}`}>
-            {element.body.map((bodyElement, bodyIndex) => (
-              <React.Fragment key={`imgtext-body-${bodyIndex}`}>
-                {renderElement(bodyElement)}
-              </React.Fragment>
-            ))}
-            {element.image.map((img, imgIndex) => (
-              <figure key={`imgtext-img-${imgIndex}`}>
-                <img src={img.image} alt={img.caption} />
-                {img.caption && <figcaption>{img.caption}</figcaption>}
-              </figure>
-            ))}
+          <div className="img-text-parent">
+            <div
+              className="body-element"
+              key={`imgtext-${element.body.map((el) => el.text).join("-")}`}
+            >
+              {element.body.map((bodyElement, bodyIndex) => (
+                <React.Fragment key={`imgtext-body-${bodyIndex}`}>
+                  {renderElement(bodyElement)}
+                </React.Fragment>
+              ))}
+            </div>
+            <div>
+              {element.image.map((img, imgIndex) => (
+                <figure key={`imgtext-img-${imgIndex}`}>
+                  <img src={img.image} alt={img.caption} />
+                  {img.caption && <figcaption>{img.caption}</figcaption>}
+                </figure>
+              ))}
+            </div>
           </div>
         );
       default:

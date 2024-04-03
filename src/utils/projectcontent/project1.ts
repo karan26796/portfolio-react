@@ -139,7 +139,17 @@ const project1: ProjectElement[] = [
   },
   {
     type: "imgtext",
-    body: [],
+    body: [
+      {
+        type: "header",
+        text: "Part II : Structured note-taking",
+        level: 2,
+      },
+      {
+        type: "p",
+        text: `We observed researchers were using a template to take notes during research calls. The templates either contained theme based questionnaire or task based questionnaire`,
+      },
+    ],
     image: [
       {
         type: "figure",
