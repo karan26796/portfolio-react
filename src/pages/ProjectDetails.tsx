@@ -100,7 +100,7 @@ const ProjectDetails: React.FC = () => {
                 </React.Fragment>
               ))}
             </div>
-            <div>
+            <div className="figure-element">
               {element.image.map((img, imgIndex) => (
                 <figure key={`imgtext-img-${imgIndex}`}>
                   <img src={img.image} alt={img.caption} />
