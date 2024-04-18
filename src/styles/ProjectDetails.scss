@@ -1,4 +1,5 @@
 .container-project {
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,29 +32,25 @@
         h4 {
             text-transform: uppercase;
         }
-
-        h5 {}
-
-        p {}
     }
 }
 
-.img-text-parent{
+.img-text-parent {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: start;
     max-width: 960px;
     min-width: 840px;
     width: 70vw;
-    // border: 1px solid var(--border-color);
-    border-radius: 2em;
-    padding: 2em;
-    margin-bottom: 6em;
+    margin: 2em auto;
 
-    .body-element{
+    .body-element {
         max-width: 600px;
+        padding: 2em 0;
+        margin: auto;
     }
-    .figure-element{
+
+    .figure-element {
         width: 100%;
     }
 }

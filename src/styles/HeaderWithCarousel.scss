@@ -1,19 +1,26 @@
 .header-with-carousel {
     display: flex;
+    align-items: center;
     flex-direction: column;
-    align-items: start;
-    margin: auto;
-    padding: 4em 0 8em 0;
-    width: var(--max-width-container);
-
     .header-details {
-        width: 100%;
         display: flex;
         flex-direction: column;
+        align-items: start;
+        padding:  4em;
+        width: var(--width-container);
+        max-width: var(--max-width-container);
+        margin: 0 auto;
         gap: .5em;
 
-        h1,h5,h2,h3{
+        h1,
+        h5,
+        h2,
+        h3 {
             margin: 0;
         }
+    }
+
+    .length-xxs{
+        max-width: 20ch;
     }
 }

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Looppanel - Note taking project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains Mono">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../containers.css">
+    <link rel="stylesheet" href="../containers-blog.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.png">
+    <script src="../actions.js"></script>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style type="text/css">
+        h2 {
+            margin-bottom: 0;
+        }
+
+        .container-title {
+            grid-column: span 2;
+            background-color: var(--primary-color);
+            border: 0px;
+        }
+
+        .project-rel h3 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .project-rel .p-tag {
+            font-size: 1em;
+        }
+
+        @media only screen and (max-width: 776px) {
+            .container-title {
+                grid-column: span 1;
+            }
+        }
+    </style>
+
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "icz6p1ntmg");
+    </script>
+
+
+    <script async="" src="https://analytics.umami.is/script.js" data-website-id="be1cb1ad-62fd-4845-9093-8bc90c705477"></script>
+</head>
+
+<body>
+    <div class="root-container blog" style="gap:0px;justify-content:center;">
+
+        <!-- Done -->
+        <div class="nav-bar">
+            <a href="../index.html">
+                <p class="nav"><i class="ri-arrow-left-line"></i> Back To Home</p>
+            </a>
+            <a href="loop-insights-view.html">
+                <p class="nav">Next Project <i class="ri-arrow-right-line"></i></p>
+            </a>
+        </div>
+
+        <div class="container-home padding-blog" style="align-items: center; margin-bottom: -2px;">
+            <h1 style="max-width:20ch; text-align: center;">Creating a Zoom note-taking sidekick for user interviews
+            </h1>
+            <p class="p-tag blog">UX DESIGN - UX RESEARCH - USABILITY TESTING</p>
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/loop-note.gif" class="img-blog">
+        </div>
+
+        <div id="#top" class="container-blog" style="margin-top:6em">
+            <h2>Part I : Let's start with the problem</h2>
+        </div>
+
+        <div class="container-home padding-blog">
+            <h3>Based on our research, it takes 5-6 rewatches of a user interview to
+                get actionable insights out of it. Therefore, a 1 hour interview takes 5-6 hours to
+                tag, summarize, and share with one's team.</h3>
+            <p><span>To make it easier for teams to get the most out of research calls and projects,
+                    we designed a note-taker that lets researchers take notes while taking an interview on Zoom.</span>
+            </p>
+        </div>
+
+        <div id="#top" class="container-blog" style="margin-top:6em">
+            <h2>Prototype Testing</h2>
+        </div>
+
+        <div class="container-home padding-blog">
+
+            <h4>First cut for Usability Testing</h4>
+            <p>I created a prototype in Protopie to mock how people will take notes in Looppanel.</p>
+
+            <h4>What didn't work</h4>
+            <ul>
+                <li>The users weren't able to use the shortcuts or the controls in the interface.</li>
+                <li>The interface looked like a chat window which the users couldn't connect with.</li>
+            </ul>
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/proto-notes.webp" class="img-blog">
+            <p>Zoom and Looppanel working side by side</p>
+        </div>
+
+        <div class="container-home padding-blog" style="margin-top:6em">
+            <h4>Second iteration for Usability Testing</h4>
+            <p>I removed the shortcuts and added some instructions for people to understand the note taking screen</p>
+
+            <h4>What didn't work</h4>
+            <ul>
+                <li>The interface wasn't suited for a split screen use.</li>
+                <li>People didn't use the bookmarking feature a lot.</li>
+            </ul>
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/iteration-01.webp" class="img-blog">
+            <p>Instructive note-taking with two panels</p>
+        </div>
+
+        <div class="container-home padding-blog" style="margin-top:6em">
+            <h4>Third iteration for Usability Testing</h4>
+            <p>Since a lot of people during our research used Notion and Google Docs, I tried making the interface as
+                close to those tools as possible.</p>
+
+            <h4>What didn't work</h4>
+            <ul>
+                <li>The interface didn't work visually.</li>
+            </ul>
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/iteration-02.webp" class="img-blog">
+            <p>Instructive note-taking with two panels</p>
+        </div>
+
+        <div class="container-home padding-blog" style="margin-top:6em">
+            <h4>Fourth iteration for Usability Testing</h4>
+            <p>To higlight who's taken the note, I added the names of note takers in different colors</p>
+
+            <h4>What didn't work</h4>
+            <ul>
+                <li>The different colors for note takers created distraction during note taking.</li>
+                <li>The name of note takers takes up a lot of space without adding much to the interface</li>
+            </ul>
+
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/iteration-03.webp" class="img-blog">
+            <p>Note taking with names and time stamp</p>
+        </div>
+
+        <div class="container-home padding-blog" style="margin-top:6em">
+            <h4>Final Design based on testing</h4>
+            <ul>
+                <li>Muted the name and time stamp colors to bring focus on the note.</li>
+                <li>Removed the emojis as they could not be interacted with during the call.</li>
+                <li>Added a bookmark feature which could be accessed using the "//" shortcut. This reduces the number of
+                    decisions a person
+                    makes during the call
+                </li>
+            </ul><br>
+            <h3>People didn't expect the note-taking space to look like a chat, so we changed it into a more open
+                space that makes the experience similar to a document.</h3>
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/updated-note.webp" class="img-blog">
+            <p>Doc-like notetaking view</p>
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/loop-note-notes.webp" class="img-blog">
+            <p>Editor View with notes</p>
+        </div>
+
+        <!-- <div class="container-home padding-blog">
+
+			<h4>What we learned</h4>
+			<ul>
+				<li>We assumed people would engage with the emojis the most, but those were the least used during a
+					call. This pointed towards the fact that they wanted the note-taking doc to be in the backend, not
+					front-end,
+					during a call.</li>
+				<li>Familiarity with the interface was the most important factor in getting a hang of the screen. This
+					pointed towards the fact that when people wanted an experience to a Google or Notion doc.</li>
+			</ul>
+
+			<h3>To add structure to user calls, we ran another experiment in which we introduced a Question Script to
+				the live notetaking experience.</h3>
+		</div> -->
+
+        <!-- Part II Starts -->
+
+        <div id="#top" class="container-blog" style="margin-top:6em">
+            <h2>Part II: Structured note-taking</h2>
+        </div>
+
+        <div class="container-home padding-blog">
+            <h4>Context</h4>
+            <h3>We observed researchers were using a template to take notes during research calls. The templates either
+                contained theme based questionnaire or task based questionnaire</h3>
+            <p>Below are some examples of the templates they use.</p>
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/task-1.png" class="img-blog">
+            <p>Theme-based questionnaire</p>
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/task-2.png" class="img-blog">
+            <p>Task-based questionnaire</p>
+        </div>
+
+        <div id="#top" class="container-blog" style="margin-top:6em">
+            <h2>Prototype Testing</h2>
+        </div>
+
+        <div class="container-home padding-blog">
+            <h4>Iterating and testing a question script</h4>
+            <h3>We iterated on top of previous designs and added sections to the note-taking view and tested with the
+                users.</h3>
+
+            <h4>What didn't work</h4>
+            <ul>
+                <li>Users were not able to use the shortcuts during note taking hence we removed it. </li>
+                <li>Users wanted to see the upcoming questions in this view without using a shortcut. </li>
+            </ul>
+        </div>
+
+
+        <div class="img-container"><img src="./images-loop-note/iteration-1.webp" class="img-blog">
+            <p>Shortcut based navigation for questions</p>
+        </div>
+
+        <div class="container-home padding-blog" style="margin-top:6em">
+            <h3>Question script as a side menu</h3>
+
+            <h4>What didn't work</h4>
+            <ul>
+                <li>The side menu didn't work for a split screen view. </li>
+            </ul>
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/iteration-2.webp" class="img-blog">
+            <p>Side menu for questions</p>
+        </div>
+
+        <div class="container-home padding-blog" style="margin-top:6em">
+            <h4>Question list at the top</h4>
+            <h3>We put the list at the top so it's accessible at all times.</h3>
+
+            <h4>What didn't work</h4>
+            <ul>
+                <li>Users didn't need a consistent list since it distracted them from the main task of notetaking.</li>
+                <li>Additional features were causing a lot of distraction from notetaking.</li>
+            </ul>
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/iteration-3.webp" class="img-blog">
+            <p>Question list at the top</p>
+        </div>
+
+        <div class="container-home padding-blog" style="margin-top:6em">
+
+            <h4>Final Design</h4>
+            <p><span>Based on usability testing, we decided to remove the navigation from the question script as users
+                    didn't
+                    face issues with traversing the script.</span><br><br></p>
+            <h3>There was no need for a persistent list since they moved progressively between questions.</h3>
+
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/final-design.webp" class="img-blog">
+            <p>Final design with a question list</p>
+        </div>
+
+        <div class="img-container"><img src="./images-loop-note/editor-question.webp" class="img-blog">
+            <p>Editor screen with question script</p>
+        </div>
+
+        <div class="container-home padding-blog" style="margin-top:6em">
+
+            <h4>What I learned</h4>
+            <ul>
+                <li>Users liked the idea of unstructured notes since it gave a way to take notes that didn't fit in any
+                    question</li>
+                <li>Users needed simple ways to capture their thoughts without having to remember a lot of shortcuts
+                </li>
+            </ul>
+            <h3>Details on more experiments soon. 😎</h3>
+
+        </div>
+
+		<div class="nav-bar bottom">
+			<a class="go-to-top" href="#top">Back to top<i class="ri-arrow-up-line"></i></a>
+			<div class="nav-options">
+				<a href="../about.html">
+					<p class="nav">About Me</p>
+				</a>
+				<a href="../design-archive.html">
+					<p class="nav">Design Archive</p>
+				</a>
+			</div>
+		</div>
+
+    </div>
+</body>
+
+</html>

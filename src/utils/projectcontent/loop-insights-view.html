@@ -1,0 +1,226 @@
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Looppanel - Note taking project</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&amp;display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=JetBrains Mono">
+    <link rel="stylesheet" href="../styles.css">
+    <link rel="stylesheet" href="../containers.css">
+    <link rel="stylesheet" href="../containers-blog.css">
+    <link rel="stylesheet" href="../infinite-carousel.css">
+    <link rel="icon" type="image/x-icon" href="../favicon.png">
+    <script src="../actions.js"></script>
+    <script src="https://unpkg.com/ionicons@5.0.0/dist/ionicons.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@3.5.0/fonts/remixicon.css" rel="stylesheet">
+    <style type="text/css">
+        h2 {
+            margin-bottom: 0;
+        }
+    </style>
+
+    <script type="text/javascript">
+        (function (c, l, a, r, i, t, y) {
+            c[a] = c[a] || function () { (c[a].q = c[a].q || []).push(arguments) };
+            t = l.createElement(r); t.async = 1; t.src = "https://www.clarity.ms/tag/" + i;
+            y = l.getElementsByTagName(r)[0]; y.parentNode.insertBefore(t, y);
+        })(window, document, "clarity", "script", "icz6p1ntmg");
+    </script>
+
+
+    <script async="" src="https://analytics.umami.is/script.js"
+        data-website-id="be1cb1ad-62fd-4845-9093-8bc90c705477"></script>
+</head>
+
+<body>
+    <div class="root-container blog" style="gap:0px;justify-content:center;">
+
+        <!-- Done -->
+        <div class="nav-bar">
+            <a href="../index.html">
+                <p class="nav"><i class="ri-arrow-left-line"></i> Back To Home</p>
+            </a>
+            <a href="kurakaani.html">
+                <p class="nav">Next Project <i class="ri-arrow-right-line"></i></p>
+            </a>
+        </div>
+
+        <div class="container-home padding-blog" style="align-items: center; margin-bottom: -2px;">
+            <h1 style="max-width:20ch; text-align: center;">Designing ways to zoom in and out of research data</h1>
+            <p class="p-tag blog">UX DESIGN - UX RESEARCH - USABILITY TESTING</p>
+        </div>
+
+        <div class="img-container"><img src="./looppanel-insights/insight-thumb.gif" class="img-blog">
+        </div>
+
+        <div class="container-blog" style="margin-top:6em">
+            <h2>Let's start with the problem</h2>
+        </div>
+
+        <div class="container-home padding-blog">
+            <h3>During research, we realized people zoom-in and out of the research data available to them. They go back and
+                forth between call notes, the call recordings, the transcripts, and project highlights. But the product's information heirarchy didn't reflect that.</h3>
+                <p>This case study only talks about the highlights page redesign with some references made to the product wide information revamp.</p>
+        </div>
+
+        <div id="#top" class="container-blog" style="margin-top:6em">
+            <h2>Old Highlight Page Design</h2>
+        </div>
+
+        <div class="container-home padding-blog">
+            <h3>The original highlights view in Looppanel required an overhaul after the introduction of projects and question script in the
+                product.</h3>
+        </div>
+
+        <div class="img-container"><img src="./looppanel-insights/old-highlights.webp" class="img-blog">
+            <p>Old Design</p>
+        </div>
+
+        <div class="container-blog" style="margin-top:6em">
+            <h2>First Release</h2>
+        </div>
+
+        <div class="img-container"><img src="./looppanel-insights/iteration-mid.gif" class="img-blog">
+            <p>Phase-I release of the new highlights page</p>
+        </div>
+
+        <div class="container-home padding-blog">
+            <h4>New Additions</h4>
+            <ul>
+                <li>Ability to add a call to a project directly from the highlights screen.</li>
+                <li>Search and filter by tag & calls.</li>
+                <li>Icons to signify a video snippet & a note.</li>
+            </ul>
+        </div>
+
+        <div class="container-blog" style="margin-top:6em">
+            <h2>Integrating project structure</h2>
+        </div>
+
+        <div class="container-home padding-blog">
+
+            <h4>Design Direction I: Questions in a side panel</h4>
+            <p>I tried a variation where the question script of the project was in a side panel, and notes inside it on
+                the right, segrated based on calls.</p>
+
+            <h4>What didn't work</h4>
+            <ul>
+                <li>The mental model of projects &gt; calls &gt; notes/video snippets wasn't reflected in the design.
+                </li>
+                <li>Hard to see a lot of notes within a given question.</li>
+            </ul>
+        </div>
+
+        <div class="img-container"><img src="./looppanel-insights/side-question-01.webp" class="img-blog">
+            <p>Questions on the left with notes on the right</p>
+        </div>
+
+        <div class="img-container"><img src="./looppanel-insights/side-question-02.webp" class="img-blog">
+            <p>Side menu for questions</p>
+        </div>
+
+        <div class="container-home padding-blog" style="margin-top:6em">
+            <h4>Design Direction II: Questions at the top</h4>
+            <p>To reflect the mental model of model of projects &gt; calls &gt; notes/video snippets, I designed the
+                following two screens to represent that. </p>
+
+            <h4>What didn't work</h4>
+            <ul>
+                <li>It was hard to visualize the entire question script or focus on a particular question.</li>
+                <li>The new heirarchy of product didn't come out very well.</li>
+            </ul>
+
+        </div>
+
+        <div class="img-container"><img src="./looppanel-insights/top-bottom-1.webp" class="img-blog">
+            <p>Call name at top with question inside</p>
+        </div>
+
+        <div class="img-container"><img src="./looppanel-insights/top-bottom-2.webp" class="img-blog">
+            <p>Questions on the left, with call name on top with note inside </p>
+        </div>
+
+        <div class="container-blog" style="margin-top:6em">
+            <h2>Final Design based on testing</h2>
+        </div>
+
+        <div class="container-home padding-blog">
+            <h3>This version worked to a large extend since it reflected people's existing ways of zooming in and out of
+                their work.</h3>
+
+            <h4>New Additions</h4>
+            
+            <ul>
+                <li>Added questions from question script at top to reflect new flow of information in the product.</li>
+                <li>Created a collapsible view for questions to help researchers focus on one question at a time.</li>
+                <li>Ways to go into an individual call and view transcript text.</li>
+            </ul><br>
+        </div>
+
+        <div class="img-container"><img src="./looppanel-insights/new-insights.gif" class="img-blog">
+            <p>New analysis screen prototype</p>
+        </div>
+
+        <div class="container-blog" style="margin-top:6em">
+            <h2>Summary view</h2>
+        </div>
+
+        <div class="container-home padding-blog">
+            <h3>To wrap up the entire experience, we made a summary view that could be shared with the team.</h3>
+            <p>The first step is to start grouping notes, then selecting what insight to put it under. All of this can
+                be shared using a link.</p>
+        </div>
+
+        <div class="img-container"><img src="./looppanel-insights/summary.gif" class="img-blog">
+            <p>Summary view</p>
+        </div>
+
+    <!------------------------------------- resources --------------------------------------- -->
+
+    <div class="container-blog" style="margin-top:6em">
+        <h2>Changes across other parts of the product</h2>
+    </div>
+
+    <div class="container-home" style="margin-bottom:0">
+      <div class="logos-figma">
+
+        <div class="logos-slide-figma">
+        <img src="./looppanel-insights/5.webp">
+        <img src="./looppanel-insights/6.webp">
+        <img src="./looppanel-insights/7.webp">
+        <img src="./looppanel-insights/8.webp">
+        </div>
+
+        <div class="logos-slide-figma">
+        <img src="./looppanel-insights/5.webp">
+        <img src="./looppanel-insights/6.webp">
+        <img src="./looppanel-insights/7.webp">
+        <img src="./looppanel-insights/8.webp">
+        </div>
+
+      </div>
+
+    </div>
+        
+		<div class="nav-bar bottom">
+			<a class="go-to-top" href="#top">Back to top<i class="ri-arrow-up-line"></i></a>
+			<div class="nav-options">
+				<a href="../about.html">
+					<p class="nav">About Me</p>
+				</a>
+				<a href="../design-archive.html">
+					<p class="nav">Design Archive</p>
+				</a>
+			</div>
+		</div>
+
+    </div>
+</body>
+
+</html>

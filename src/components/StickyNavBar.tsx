@@ -27,7 +27,8 @@ const StickyNavBar: React.FC = () => {
   return (
     <div className="container-nav">
       <nav className={`navbar ${isVisible ? "active" : ""}`}>
-        <Link className='a-header' to="/page1">Page 1</Link>
+        <Link className='a-header' to="/about">About</Link>
+        <Link className='a-header' to="/home">Home</Link>
         {/* <img src={logo} alt="Logo" style={{ height: "50px", width:"50px"}} /> */}
         <Link className='a-header' to="/page2">Page 2</Link>
       </nav>

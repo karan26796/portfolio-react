@@ -1,5 +1,5 @@
 import React from "react";
-import "../styles/ImageCarousel.scss";
+import "../styles/LogoCarousel.scss";
 import { ImageItem } from "../utils/communityFiles"; // Ensure this is the correct path
 
 // Interface for the props of the content rendering component
@@ -22,9 +22,8 @@ const LogoCarousel: React.FC<ImageCarouselProps> = ({
   const duplicatedImages: ImageItem[] = [...imagesData, ...imagesData];
 
   return (
-    <div className="carousel-container">
-      <h3>Figma community and YouTube Tutorials</h3>
-      <div className="carousel-track">
+    <div className="carousel-container-logo">
+      <div className="carousel-track-logo">
         <ContentComponent images={duplicatedImages} />
       </div>
     </div>

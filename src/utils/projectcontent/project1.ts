@@ -38,20 +38,20 @@ type ProjectElement =
 
 // Dummy data for a project
 const project1: ProjectElement[] = [
-  {
-    type: "intro",
-    text: {
-      type: "header",
-      text: "Part I : Let's start with the problem",
-      level: 2,
-    },
-    desc: {
-      type: "p",
-      text: `Based on our research, it takes 5-6 rewatches of a user interview to get actionable insights out of it. Therefore, a 1 hour interview takes 5-6 hours to tag, summarize, and share with one&apos;s team. 
+  // {
+  //   type: "intro",
+  //   text: {
+  //     type: "header",
+  //     text: "Part I : Let's start with the problem",
+  //     level: 2,
+  //   },
+  //   desc: {
+  //     type: "p",
+  //     text: `Based on our research, it takes 5-6 rewatches of a user interview to get actionable insights out of it. Therefore, a 1 hour interview takes 5-6 hours to tag, summarize, and share with one&apos;s team. 
       
-      To make it easier for teams to get the most out of research calls and projects, we designed a note-taker that lets researchers take notes while taking an interview on Zoom.`,
-    },
-  },
+  //     To make it easier for teams to get the most out of research calls and projects, we designed a note-taker that lets researchers take notes while taking an interview on Zoom.`,
+  //   },
+  // },
   {
     type: "imgtext",
     body: [
@@ -125,18 +125,18 @@ const project1: ProjectElement[] = [
       },
     ],
   },
-  {
-    type: "intro",
-    text: {
-      type: "header",
-      text: "Part II : Structured note-taking",
-      level: 2,
-    },
-    desc: {
-      type: "p",
-      text: `We observed researchers were using a template to take notes during research calls. The templates either contained theme based questionnaire or task based questionnaire`,
-    },
-  },
+  // {
+  //   type: "intro",
+  //   text: {
+  //     type: "header",
+  //     text: "Part II : Structured note-taking",
+  //     level: 2,
+  //   },
+  //   desc: {
+  //     type: "p",
+  //     text: `We observed researchers were using a template to take notes during research calls. The templates either contained theme based questionnaire or task based questionnaire`,
+  //   },
+  // },
   {
     type: "imgtext",
     body: [

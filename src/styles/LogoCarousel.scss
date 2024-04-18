@@ -1,44 +1,40 @@
-@keyframes scroll {
+@keyframes scrolling {
     0% {
         transform: translateX(0);
     }
 
     100% {
-        transform: translateX(-100%);
+        transform: translateX(-200%);
     }
 
     // Move only half the duplicated content
 }
 
-.carousel-container {
+.carousel-container-logo {
     display: flex;
     flex-direction: column;
     overflow: hidden;
-    width: var(--width-container);
-    max-width: var(--width-container);
-    box-sizing: border-box;
     position: relative; // Added to position the absolute elements
-    gap: 4em;
-    // background: linear-gradient(335deg, #131b3f 0%, #0C0D11 100%);
-    border: 1px solid var(--border-color);
-    padding: 4em;
-    background-color: #e5f0ff;
-    // border-radius: 2em;
+    margin: 4em auto;
 
-    h3 {
+    width: var(--width-container);
+    max-width: var(--max-width-container);
+
+    h2 {
         font-size: 1.75em;
         margin: 0;
         // text-align: center;
     }
 
-    .carousel-track {
+    .carousel-track-logo {
         width: 100%;
         display: flex;
-        animation: scroll 15s linear infinite; // Adjusted for smooth continuous scroll
+        animation: scrolling 40s linear infinite; // Adjusted for smooth continuous scroll
     }
 
-    .carousel-item {
+    .carousel-item-logo {
         flex: 0 0 auto; // Ensure items do not grow or shrink
+        border-radius: 1em;
         overflow: hidden;
         margin: .5em;
         position: relative; // Ensure z-index stacking context
@@ -47,8 +43,10 @@
         img {
             display: block;
             object-fit: cover;
+            filter: invert(1);
+            opacity: 20%;
             width: 100%; // Adjusted to fill the carousel-item
-            height: 50vh; // Adjust height to maintain aspect ratio
+            height: 4vh; // Adjust height to maintain aspect ratio
         }
     }
 }

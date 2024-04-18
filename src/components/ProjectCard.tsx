@@ -3,30 +3,24 @@
 import React from "react";
 import { ProjectCardData } from "../utils/interfaces";
 import "../styles/ProjectCard.scss";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faArrowRight } from '@fortawesome/free-solid-svg-icons';
-
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 
 const ProjectCard: React.FC<{ data: ProjectCardData }> = ({ data }) => {
   return (
-    <div className="project-container"
-    >
+    <div className="project-container">
+      {/* style={{background:data.bgcolor}}> */}
       <div className="img-container">
         <img className="project-image" src={data.img} alt={data.title} />
       </div>
-      {/* <div className="divider"></div> */}
       <div className="project-card">
         <div className="project-data">
           <h2>{data.title}</h2>
+          <h4 className="project-meta text">{data.tags.join(", ")}</h4>
           <p className="desc">{data.description}</p>
         </div>
         <div className="project-controls">
-          {/* <h4 className="project-meta text">{data.tags.join(", ")}</h4>
-          <button className="read-more text">
-            Read More
-            <i className="material-icons">arrow_forward</i>
-          </button> */}
+          {/* <FontAwesomeIcon style={{color:data.textcolor}}  */}
           <FontAwesomeIcon className="icon" icon={faArrowRight} />
         </div>
       </div>

@@ -5,6 +5,8 @@ export interface ProjectCardData {
   img: string;
   tags: string[];
   link: string;
+  bgcolor:string;
+  textcolor:string;
 }
 
 export type BodyElement = HeaderElement | BulletElement | ParagraphElement;

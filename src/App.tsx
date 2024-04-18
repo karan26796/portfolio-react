@@ -7,6 +7,9 @@ import HeaderWithCarousel from './components/HeaderwithCarousel';
 import ProjectCard from './components/ProjectCard';
 import { projectSummaries } from './utils/ProjectSummaries';
 import ImageCarousel from './components/ImageCarousel';
+import CarouselContent from './components/CarouselContent';
+import imagesData from './utils/communityFiles'; // Ensure this is the correct path to your data
+import About from './pages/About';
 
 const App: React.FC = () => {
   return (
@@ -14,8 +17,9 @@ const App: React.FC = () => {
       <div>
         <StickyNavBar />
         <Routes>
-          <Route path="/" element={<HomePage />} />
+          <Route path="/home" element={<HomePage />} />
           <Route path="/project/:projectId" element={<ProjectDetails />} />
+          <Route path="/about" element={<About/>}/>
         </Routes>
       </div>
     </Router>
@@ -27,7 +31,7 @@ const HomePage: React.FC = () => {
     <>
       <HeaderWithCarousel />
       <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
-      <ImageCarousel/>
+      {/* <ImageCarousel imagesData={imagesData} ContentComponent={CarouselContent}/> */}
     </>
   );
 };
