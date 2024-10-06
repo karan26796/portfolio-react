@@ -1,13 +1,16 @@
-// ProjectData.ts// ProjectData.ts
+// ProjectData.ts
 import oldhighlight from "../project-imgs/looppanel-insights/old-highlights.webp";
 import firstrelease from "../project-imgs/looppanel-insights/iteration-mid.gif";
 import projectstructure from "../project-imgs/looppanel-insights/side-question-01.webp";
 import projectstructure01 from "../project-imgs/looppanel-insights/side-question-02.webp";
 import topbottom from "../project-imgs/looppanel-insights/top-bottom-1.webp";
 import topbottom01 from "../project-imgs/looppanel-insights/top-bottom-2.webp";
-import questiontop from "../project-imgs/looppanel-insights/5.webp";
 import finaldesign from "../project-imgs/looppanel-insights/new-insights.gif";
 import summaryview from "../project-imgs/looppanel-insights/summary.gif";
+import img5 from "../project-imgs/looppanel-insights/5.webp";
+import img6 from "../project-imgs/looppanel-insights/6.webp";
+import img7 from "../project-imgs/looppanel-insights/7.webp";
+import img8 from "../project-imgs/looppanel-insights/8.webp";
 
 import {
   BodyElement,
@@ -20,8 +23,6 @@ import {
   ParagraphElement,
 } from "../interfaces";
 
-// Define the type for the array of elements
-// Dummy data for a project
 type ProjectElement =
   | HeaderElement
   | BulletElement
@@ -32,34 +33,47 @@ type ProjectElement =
   | ImageText
   | IntroElement;
 
-// Dummy data for a project
 const project2: ProjectElement[] = [
-  {
-    type: "intro",
-    text: {
-      type: "header",
-      text: "Let's start with the problem",
-      level: 2,
-    },
-    desc: {
-      type: "p",
-      text: `During research, we realized people zoom-in and out of the research data available to them. They go back and forth between call notes, the call recordings, the transcripts, and project highlights. But the product's information heirarchy didn't reflect that.`,
-    },
-  },
+  // {
+  //   type: "custom",
+  //   content: "This case study only talks about the highlights page redesign with some references made to the product wide information revamp."
+  // },
   {
     type: "imgtext",
     body: [
-      { type: "header", text: "Old Highlight Page Design", level: 2 },
+      {
+        type: "header",
+        text: "Let's start with the problem",
+        level: 2,
+      },
+      {
+        type: "p",
+        text: "During research, we realized people zoom-in and out of the research data available to them. They go back and forth between call notes, the call recordings, the transcripts, and project highlights. But the product's information hierarchy didn't reflect that.",
+      },
+    ],
+
+    image: [
+    ],
+  },
+  
+  {
+    type: "imgtext",
+    body: [
+      { 
+        type: "header", 
+        text: "Old highlighs page design", 
+        level: 2 
+      },
       {
         type: "header",
         text: "The original highlights view in Looppanel required an overhaul after the introduction of projects and question script in the product.",
         level: 3,
-      },
+      }
     ],
     image: [
       {
         type: "figure",
-        image: oldhighlight, // Assuming protoNotes is a relevant image for this section
+        image: oldhighlight,
         caption: "Old Design",
       },
     ],
@@ -67,12 +81,16 @@ const project2: ProjectElement[] = [
   {
     type: "imgtext",
     body: [
-      { type: "header", text: "First Release", level: 2 },
-      {
-        type: "p",
-        text: `Since a lot of people during our research used Notion and Google Docs, I tried making the interface as close to those tools as possible.`,
+      { 
+        type: "header", 
+        text: "First release", 
+        level: 2 
       },
-      { type: "header", text: "What Didn't work", level: 4 },
+      {
+        type: "header",
+        text: "New additions",
+        level: 4,
+      },
       {
         type: "bullet",
         text: [
@@ -85,7 +103,7 @@ const project2: ProjectElement[] = [
     image: [
       {
         type: "figure",
-        image: firstrelease, // Assuming protoNotes is a relevant image for this section
+        image: firstrelease,
         caption: "Phase-I release of the new highlights page",
       },
     ],
@@ -100,12 +118,12 @@ const project2: ProjectElement[] = [
       },
       {
         type: "header",
-        text: "Design Direction I: Questions in side panel",
+        text: "Design direction I: questions in side panel",
         level: 4,
       },
       {
         type: "p",
-        text: "I tried a variation where the question script of the project was in a side panel, and notes inside it on the right, segrated based on calls.",
+        text: "I tried a variation where the question script of the project was in a side panel, and notes inside it on the right, segregated based on calls.",
       },
       {
         type: "header",
@@ -119,24 +137,16 @@ const project2: ProjectElement[] = [
           "Hard to see a lot of notes within a given question.",
         ],
       },
-      {
-        type: "bullet",
-        text: [
-          "Muted the name and time stamp colors to bring focus on the note.",
-          `Added a bookmark feature which could be accessed using the '//' shortcut. This reduces the number of decisions a person makes during the call`,
-          "Removed the emojis as they could not be interacted with during the call.",
-        ],
-      },
     ],
     image: [
       {
         type: "figure",
-        image: projectstructure, // Assuming protoNotes is a relevant image for this section
+        image: projectstructure,
         caption: "Questions on the left with notes on the right",
       },
       {
         type: "figure",
-        image: projectstructure01, // Assuming protoNotes is a relevant image for this section
+        image: projectstructure01,
         caption: "Side menu for questions",
       },
     ],
@@ -146,17 +156,12 @@ const project2: ProjectElement[] = [
     body: [
       {
         type: "header",
-        text: "Integrating project structure",
-        level: 2,
-      },
-      {
-        type: "header",
-        text: "Design Direction II: Questions in side panel",
+        text: "Design direction II: questions at the top",
         level: 4,
       },
       {
         type: "p",
-        text: "To reflect the mental model of model of projects > calls > notes/video snippets, I designed the following two screens to represent that.",
+        text: "To reflect the mental model of projects > calls > notes/video snippets, I designed the following two screens to represent that.",
       },
       {
         type: "header",
@@ -167,27 +172,19 @@ const project2: ProjectElement[] = [
         type: "bullet",
         text: [
           "It was hard to visualize the entire question script or focus on a particular question.",
-          "The new heirarchy of product didn't come out very well.",
-        ],
-      },
-      {
-        type: "bullet",
-        text: [
-          "Muted the name and time stamp colors to bring focus on the note.",
-          `Added a bookmark feature which could be accessed using the '//' shortcut. This reduces the number of decisions a person makes during the call`,
-          "Removed the emojis as they could not be interacted with during the call.",
+          "The new hierarchy of product didn't come out very well.",
         ],
       },
     ],
     image: [
       {
         type: "figure",
-        image: topbottom, // Assuming protoNotes is a relevant image for this section
+        image: topbottom,
         caption: "Call name at top with question inside",
       },
       {
         type: "figure",
-        image: topbottom01, // Assuming protoNotes is a relevant image for this section
+        image: topbottom01,
         caption: "Questions on the left, with call name on top with note inside",
       },
     ],
@@ -197,12 +194,12 @@ const project2: ProjectElement[] = [
     body: [
       {
         type: "header",
-        text: "Final Design based on testing",
+        text: "Final design based on testing",
         level: 2,
       },
       {
         type: "header",
-        text: "This version worked to a large extend since it reflected people's existing ways of zooming in and out of their work.        ",
+        text: "This version worked to a large extent since it reflected people's existing ways of zooming in and out of their work.",
         level: 3,
       },
       {
@@ -215,20 +212,15 @@ const project2: ProjectElement[] = [
         text: [
           "Added questions from question script at top to reflect new flow of information in the product.",
           "Created a collapsible view for questions to help researchers focus on one question at a time.",
-          "Ways to go into an individual call and view transcript text."
+          "Ways to go into an individual call and view transcript text.",
         ],
       },
     ],
     image: [
       {
         type: "figure",
-        image: topbottom, // Assuming protoNotes is a relevant image for this section
-        caption: "Call name at top with question inside",
-      },
-      {
-        type: "figure",
-        image: topbottom01, // Assuming protoNotes is a relevant image for this section
-        caption: "Questions on the left, with call name on top with note inside",
+        image: finaldesign,
+        caption: "New analysis screen prototype",
       },
     ],
   },
@@ -237,7 +229,7 @@ const project2: ProjectElement[] = [
     body: [
       {
         type: "header",
-        text: "Summary View",
+        text: "Summary view",
         level: 2,
       },
       {
@@ -253,9 +245,37 @@ const project2: ProjectElement[] = [
     image: [
       {
         type: "figure",
-        image: summaryview, // Assuming protoNotes is a relevant image for this section
-        caption: "Call name at top with question inside",
+        image: summaryview,
+        caption: "Summary view",
       },
+    ],
+  },
+  {
+    type: "imgtext",
+    body: [
+      {
+        type: "header",
+        text: "Changes across other parts of the product",
+        level: 2,
+      },
+    ],
+    image: [
+      // {
+      //   type: "figure",
+      //   image: img5,
+      // },
+      // {
+      //   type: "figure",
+      //   image: img6,
+      // },
+      // {
+      //   type: "figure",
+      //   image: img7,
+      // },
+      // {
+      //   type: "figure",
+      //   image: img8,
+      // },
     ],
   },
 ];

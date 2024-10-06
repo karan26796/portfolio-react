@@ -12,7 +12,7 @@ interface ProjectListProps {
 const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: CardComponent }) => {
   return (
     <ResponsiveMasonry className='project-parent'
-      columnsCountBreakPoints={{350: 1, 750: 1, 900: 1}}>
+      columnsCountBreakPoints={{350: 1, 750: 1, 900: 2 }}>
       <Masonry className='project-list' gutter="2em">
         {projectData.map((project) => (
           <Link key={project.id} to={`/project/${project.id}`} style={{ textDecoration: 'none' }}>

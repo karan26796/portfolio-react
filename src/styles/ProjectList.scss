@@ -1,10 +1,12 @@
 .project-parent {
-    width: var(--width-container);
+    // width: var(--width-container);
     max-width: var(--max-width-container);
     margin: auto;
-    padding: 2em;
+    // padding: 2em;
 
     .project-list {
         width: 100%;
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
     }
 }

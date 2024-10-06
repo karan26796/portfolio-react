@@ -1,88 +1,52 @@
     .project-container {
         display: flex;
         height: 89svh;
-        flex-direction: column-reverse;
+        background-color: #ffffff15; 
+        flex-direction: column;
         overflow: hidden;
         align-items: center;
         justify-content: space-between;
         transition: box-shadow 0.15s ease-in-out;
         height: auto;
-        border-radius: 1em;
-        background: linear-gradient(335deg, #f5f6f9 0%, #fff 100%);
-        border: 2px solid var(--border-color);
-
-        a {
-            color: inherit;
-        }
-
-        .divider {
-            border-radius: 0 0 1em 1em;
-            height: .125em;
-            background: linear-gradient(90deg, rgba(212, 230, 255, 0.23) 3.66%, #3D89F8 24.73%, #3D89F8 75.41%, rgba(212, 230, 255, 0.01) 100%);
-        }
-
-        &:hover {
-            .read-more {
-                opacity: 1;
-            }
-        }
+        border-radius: .75em;
+        // padding: 0 1em;
+        // border: 2px solid var(--border-color);
 
         .project-card {
-            width: 60%;
+            width: -webkit-fill-available;
             display: flex;
             position: relative;
             flex-direction: row;
-            align-items: end;
+            align-items: center;
             justify-content: space-between;
             text-decoration: none;
-            padding: 4em;
+            padding: .5em 1em;
             gap: .5em;
-
-            h2 {
-                color: #430052;
-                font-size: 2.25em;
-                margin: 0;
-                // text-align: center;
-            }
-
-            h3 {
-                font-size: 1.5em;
-                margin: 0;
-            }
-
-            h4 {
-                margin: 0.5em 0;
-                text-transform: lowercase;
-            }
 
             img {
                 width: 100%;
                 border-radius: .5em;
             }
 
-            .project-data {
+            // .project-data {
+            //     display: flex;
+            //     flex-direction: column;
+            //     gap: .25em;
 
-                .desc {
-                    font-size: 1.25em;
-                    margin: 0;
-                    font-weight: 400;
-                    text-decoration: none;
-                    max-width: 30ch;
-                    // text-align: center;
-                }
-            }
+            //     .desc {
+            //         font-size: 1.25em;
+            //         margin: 0;
+            //         font-weight: 400;
+            //         text-decoration: none;
+            //         max-width: 30ch;
+            //     }
+            // }
 
             .project-controls {
                 display: flex;
                 position: relative;
                 flex-direction: column;
                 align-items: end;
-
-                .project-meta {
-                    font-size: 1.25em;
-                    margin: 0;
-                    font-weight: 500;
-                }
             }
 
             .shadow {
@@ -91,31 +55,13 @@
         }
     }
 
-    .img-container {
-        width: 60%;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        // overflow: hidden;
-        transform: translateY(1em);
-        transition: transform 0.3s ease-in-out;
-
-        .project-image {
-            width: 100%;
-            height: auto;
-            display: block;
-            object-fit: cover;
-            transform-origin: center;
-            border-radius: 1em 1em 0 0;
-            scale: 1.02;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 8px 8px -8px #00000053;
-        }
-    }
-
-    .project-container:hover .img-container {
-        // transform: translateX(0px) translateY(0px);
-        // transform: scale(1.04);
+    .project-image {
+        width: 100%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        border-radius: .75em;
+        transform-origin: center;
     }
 
     .project-container:hover .svg-inline--fa {
@@ -124,6 +70,7 @@
     }
 
     .svg-inline--fa {
+        color: var(--grey-100);
         opacity: 0;
         transition: all 0.3s ease-out;
         transform: translateX(-5px);

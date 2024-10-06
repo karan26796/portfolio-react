@@ -18,18 +18,14 @@
     max-width: var(--width-container);
     box-sizing: border-box;
     position: relative; // Added to position the absolute elements
-    gap: 4em;
-    // background: linear-gradient(335deg, #131b3f 0%, #0C0D11 100%);
+    gap: 1em;
+    background-color: #ffffff15;
+    margin: auto;
+
     border: 1px solid var(--border-color);
     padding: 4em;
-    background-color: #e5f0ff;
+    // background-color: #e5f0ff;
     // border-radius: 2em;
-
-    h3 {
-        font-size: 1.75em;
-        margin: 0;
-        // text-align: center;
-    }
 
     .carousel-track {
         width: 100%;

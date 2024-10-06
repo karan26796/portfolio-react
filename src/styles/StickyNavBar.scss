@@ -1,61 +1,63 @@
 .container-nav {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  align-items: center;
+
+  .navbar {
+    width: 30%;
+    background-color: var(--bg-color-high);
+    position: fixed;
+    bottom: 0;
+    padding: 1em 2em;
+    margin-bottom: 2em;
+    border-radius: 5em;
     display: flex;
-    flex-direction: column;
-    position: relative;
+    justify-content: space-between;
     align-items: center;
-  
-    .navbar {
-      width: 30%;
-      background-color: white;
-      border: 1px solid #f1f1f1;
-      position: fixed;
-      bottom: 0;
-      padding: 1em 2em;
-      margin-bottom: 2em;
-      border-radius: 5em;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      z-index: 10;
-      transition: transform 0.3s ease;
-      box-shadow: 0px -12px 45px 3px rgba(0, 72, 42, 0.12);
-  
-      &.active {
-        transform: translateY(0);
-        text-decoration: underline;
-      }
-  
-      &:not(.active) {
-        transform: translateY(100%);
-        text-decoration: none;
-      }
+    z-index: 10;
+    transition: transform 0.3s ease;
+    box-shadow: 0px -12px 45px 3px rgba(0, 72, 42, 0.12);
+
+    &.active {
+      transform: translateY(0);
     }
-  
-    .a-header {
-      font-size: 1.25em;
-      font-weight: 600;
-      text-decoration: none;
-      color: var(--grey-600);
-      padding: .25em;
-  
-      &:hover {
-        background-color: var(--grey-200);
-        border-radius: .5em .5em 0 0;
-        cursor: pointer;
-      }
-  
-      &:visited {
-        text-decoration: none;
-      }
-  
-      &.active {
-        border: solid var(--primary-color);
-        border-width: 0 0 1px 0;
-      }
-    }
-  
-    .logo {
-      width: 50px;
+
+    &:not(.active) {
+      transform: translateY(100%);
     }
   }
-  
+
+  .a-header, .next-project-btn {
+    font-size: 1.25em;
+    font-weight: 600;
+    text-decoration: none;
+    color: var(--grey-200);
+    padding: .25em;
+    background: none;
+    border: none;
+    cursor: pointer;
+
+    &:hover {
+      color: var(--grey-300);
+      border-radius: .5em .5em 0 0;
+    }
+
+    &:visited {
+      text-decoration: none;
+    }
+
+    &.active {
+      border: solid var(--highlight-color);
+      border-width: 0 0 1px 0;
+    }
+  }
+
+  .next-project-btn {
+    // Add any specific styles for the button if needed
+  }
+
+  .logo {
+    width: 50px;
+  }
+}

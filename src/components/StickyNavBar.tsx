@@ -1,11 +1,14 @@
-// StickyNavBar.tsx
 import React, { useState, useEffect } from "react";
-import "../styles/StickyNavBar.scss"; // Ensure you have the corresponding CSS file
-// import logo from "../logo.svg"; // Update the path to your logo
-import { Link } from "react-router-dom";
+import "../styles/StickyNavBar.scss";
+import { Link, useLocation, useMatch, useNavigate } from "react-router-dom";
+import { projectSummaries } from "../utils/ProjectSummaries";
 
 const StickyNavBar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
+  const location = useLocation();
+  const navigate = useNavigate();
+  const match = useMatch('/project/:projectId');
+  const projectId = match?.params?.projectId;
   let lastScrollTop = 0;
 
   useEffect(() => {
@@ -16,21 +19,58 @@ const StickyNavBar: React.FC = () => {
       } else {
         setIsVisible(false);
       }
-      lastScrollTop = currentScrollPos <= 0 ? 0 : currentScrollPos; // For Mobile or negative scrolling
+      lastScrollTop = currentScrollPos <= 0 ? 0 : currentScrollPos;
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
-
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
+  const isProjectDetails = location.pathname.startsWith('/project/');
+
+  const getNextProjectId = () => {
+    if (!projectId) return null;
+    
+    const currentIndex = projectSummaries.findIndex(p => p.id === projectId);
+    if (currentIndex === -1) return null;
+    
+    const nextIndex = (currentIndex + 1) % projectSummaries.length;
+    return projectSummaries[nextIndex].id;
+  };
+
+  const handleNextProject = () => {
+    const nextId = getNextProjectId();
+    if (nextId) {
+      navigate(`/project/${nextId}`);
+    }
+  };
+
+  if (isProjectDetails) {
+    const nextProjectId = getNextProjectId();
+    return (
+      <div className="container-nav">
+        <nav className={`navbar ${isVisible ? "active" : ""}`}>
+          <Link className='a-header' to="/home">Back to Home</Link>
+          {nextProjectId && (
+            <button 
+              className='a-header next-project-btn' 
+              onClick={handleNextProject}
+            >
+              Next Project ({nextProjectId})
+            </button>
+          )}
+        </nav>
+      </div>
+    );
+  }
 
   return (
     <div className="container-nav">
       <nav className={`navbar ${isVisible ? "active" : ""}`}>
         <Link className='a-header' to="/about">About</Link>
         <Link className='a-header' to="/home">Home</Link>
-        {/* <img src={logo} alt="Logo" style={{ height: "50px", width:"50px"}} /> */}
-        <Link className='a-header' to="/page2">Page 2</Link>
+        <Link className='a-header' to="/gallery">Gallery</Link>
+        <Link className='a-header' to="/figma-training">Figma Training</Link>
       </nav>
     </div>
   );

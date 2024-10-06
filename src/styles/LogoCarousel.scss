@@ -15,7 +15,7 @@
     flex-direction: column;
     overflow: hidden;
     position: relative; // Added to position the absolute elements
-    margin: 4em auto;
+    margin: 0em auto 2em auto;
 
     width: var(--width-container);
     max-width: var(--max-width-container);
@@ -43,10 +43,10 @@
         img {
             display: block;
             object-fit: cover;
-            filter: invert(1);
-            opacity: 20%;
+            // filter: invert(1);
+            opacity: 70%;
             width: 100%; // Adjusted to fill the carousel-item
-            height: 4vh; // Adjust height to maintain aspect ratio
+            height: 6vh; // Adjust height to maintain aspect ratio
         }
     }
 }
