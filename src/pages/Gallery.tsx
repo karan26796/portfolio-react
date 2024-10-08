@@ -1,13 +1,56 @@
 import { useState, useEffect } from "react";
 import "../styles/Gallery.scss";
 
+// Define an interface for the locations object
+interface LocationsType {
+  [key: number]: string;
+}
+
 const Gallery = () => {
   const [columns, setColumns] = useState(3);
-  // Reverse the image numbers array
-  const imageNumbers = Array.from({ length: 30 }, (_, i) => 30 - i);
+  const [isMobile, setIsMobile] = useState(false);
+  
+  const imageNumbers = Array.from({ length: 33 }, (_, i) => 33 - i);
 
-  // Dynamic imports in reverse order
-  const images = imageNumbers.map(num => {
+  // Now TypeScript knows this object can have any number as a key
+  const locations: LocationsType = {
+    1: "Tabo, Himachal",
+    2: "Chandratal lake, Himachal",
+    3: "Langza, Spiti Valley",
+    4: "Serolsar lake trek, Himachal",
+    5: "Dhanushkodi, Rameswaram",
+    6: "Parashar lake trek, Himachal",
+    7: "Munnar, Kerala",
+    8: "My balcony, Delhi",
+    9: "Kaza, Spiti Valley",
+    10: "Humayun's Tomb, Delhi",
+    11: "Langza, Spiti Valley",
+    12: "Tabo, Himachal",
+    13: "Kashmir",
+    14: "Bir, Himachal",
+    15: "Doodhpathri, Kashmir",
+    16: "Srinagar, Kashmir",
+    17: "Shanti stupa, Leh",
+    18: "Indian Astronomical Observatory, Hanle, Ladakh",
+    19: "Bir, Himachal",
+    20: "Bir, Himachal",
+    21: "Doodhpathri, Kashmir",
+    22: "Hanle, Ladakh",
+    23: "Lamayuru moonland, Ladakh",
+    24: "Leh, Ladakh",
+    25: "Surajtal, Himachal",
+    26: "Srinagar, Kashmir",
+    27: "Pahalgam, Kashmir",
+    28: "Hanle, Ladakh",
+    29: "Tso Moriri, Ladakh",
+    30: "en route Umling La, Ladakh",
+    31: "Kashmir",
+    32: "Doodhpathri, Kashmir",
+    33: "Doodhpathri, Kashmir"
+  };
+
+  // Type the images array
+  const images: (string | null)[] = imageNumbers.map(num => {
     try {
       return require(`../utils/gallery/${num}.webp`);
     } catch (e) {
@@ -17,20 +60,22 @@ const Gallery = () => {
   });
 
   useEffect(() => {
-    const updateColumns = () => {
-      if (window.innerWidth < 750) {
+    const updateLayout = () => {
+      const width = window.innerWidth;
+      setIsMobile(width < 750);
+      if (width < 750) {
         setColumns(1);
-      } else if (window.innerWidth < 900) {
+      } else if (width < 900) {
         setColumns(2);
       } else {
         setColumns(2);
       }
     };
 
-    window.addEventListener("resize", updateColumns);
-    updateColumns();
+    window.addEventListener("resize", updateLayout);
+    updateLayout();
 
-    return () => window.removeEventListener("resize", updateColumns);
+    return () => window.removeEventListener("resize", updateLayout);
   }, []);
 
   const getColumns = () => {
@@ -54,17 +99,21 @@ const Gallery = () => {
           )}
           {imageNumbers
             .filter((_, index) => index % columns === i)
-            .map((num, index) => {
-              const imagePath = images[30 - num];
+            .map((num) => {
+              const imagePath = images[33 - num];
               if (!imagePath) return null;
 
               return (
-                <img
-                  key={num}
-                  src={imagePath}
-                  alt={`Gallery image ${num}`}
-                  className="gallery-image"
-                />
+                <div key={num} className="image-container">
+                  <img
+                    src={imagePath}
+                    alt={`Gallery image ${num}`}
+                    className="gallery-image"
+                  />
+                  <div className={`location-text ${isMobile ? 'always-visible' : ''}`}>
+                    {locations[num] || `Location ${num}`}
+                  </div>
+                </div>
               );
             })}
         </div>
