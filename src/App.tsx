@@ -50,7 +50,7 @@ const HomePage: React.FC = () => {
     <>
       <HeaderWithCarousel />
       <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
-      <ImageCarousel imagesData={imagesData} ContentComponent={CarouselContent}/>
+      {/* <ImageCarousel imagesData={imagesData} ContentComponent={CarouselContent}/> */}
     </>
   );
 };

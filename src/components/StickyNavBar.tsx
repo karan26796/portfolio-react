@@ -70,7 +70,7 @@ const StickyNavBar: React.FC = () => {
         <Link className='a-header' to="/about">About</Link>
         <Link className='a-header' to="/home">Home</Link>
         <Link className='a-header' to="/gallery">Gallery</Link>
-        <Link className='a-header' to="/figma-training">Figma Training</Link>
+        {/* <Link className='a-header' to="/figma-training">Figma Training</Link> */}
       </nav>
     </div>
   );

@@ -1,7 +1,7 @@
     .project-container {
         display: flex;
         height: 89svh;
-        background-color: #ffffff15; 
+        background-color: #fff;
         flex-direction: column;
         overflow: hidden;
         align-items: center;
@@ -9,69 +9,74 @@
         transition: box-shadow 0.15s ease-in-out;
         height: auto;
         border-radius: .75em;
-        // padding: 0 1em;
-        // border: 2px solid var(--border-color);
+        padding: 1em;
+        border: 2px solid var(--border-color);
+
+        img {
+            width: 100%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: .75em;
+            transform-origin: center;
+        }
 
         .project-card {
             width: -webkit-fill-available;
             display: flex;
             position: relative;
             flex-direction: row;
-            align-items: center;
             justify-content: space-between;
-            text-decoration: none;
-            padding: .5em 1em;
-            gap: .5em;
+            align-items: center;
 
-            img {
-                width: 100%;
-                border-radius: .5em;
-            }
-
-            // .project-data {
-            //     display: flex;
-            //     flex-direction: column;
-            //     gap: .25em;
-
-            //     .desc {
-            //         font-size: 1.25em;
-            //         margin: 0;
-            //         font-weight: 400;
-            //         text-decoration: none;
-            //         max-width: 30ch;
-            //     }
-            // }
-
-            .project-controls {
+            .project-card-data {
                 display: flex;
-                position: relative;
                 flex-direction: column;
-                align-items: end;
+                align-items: start;
+                justify-content: space-between;
+                text-decoration: none;
+                padding-top: 1em;
+                gap: .2em;
+
+                h2,
+                h5,
+                h6,
+                h3,
+                p {
+                    margin: 0;
+                }
+
+                h5 {
+                    font-family: "Architects Daughter", Helvetica, sans-serif;
+                    // color: white;
+                    text-transform: capitalize;
+                    padding: 0 .2em;
+                    font-size: 1.2em;
+                    // background: var(--highlight-color);
+                }
+
+                h3 {
+                    width: 22ch;
+                    font-size: 2em;
+                }
             }
 
-            .shadow {
-                text-shadow: 0px 0px 1px #00000053;
+            button{
+                background-color: var(--highlight-color);
+                color: white;
+                border: transparent;
+                height: fit-content;
+                font-size: 1.2em;
+                padding: .75em;
+                border-radius: .75em;
+                cursor: pointer;
+                transition: box-shadow ease-in-out .1s;
+                box-shadow: 0px 6px 0px 0px var(--highlight-color-high);
+
+                &:hover{
+                    // box-shadow: none;
+                    scale: .96;
+                }
             }
         }
-    }
-
-    .project-image {
-        width: 100%;
-        height: auto;
-        display: block;
-        object-fit: cover;
-        border-radius: .75em;
-        transform-origin: center;
-    }
-
-    .project-container:hover .svg-inline--fa {
-        opacity: 1;
-        transform: translateX(0px);
-    }
-
-    .svg-inline--fa {
-        color: var(--grey-100);
-        opacity: 0;
-        transition: all 0.3s ease-out;
-        transform: translateX(-5px);
     }

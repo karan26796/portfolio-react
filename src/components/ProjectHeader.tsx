@@ -8,8 +8,8 @@ const ProjectHeader: React.FC<{ data: ProjectCardData }> = ({ data }) => {
   return (
     <div className="project-header">
       <div className="project-header-data">
-        <h2>{data.description}</h2>
-        <h4 className="project-tags">{data.tags.join(", ")}</h4>
+        <h1>{data.title}</h1>
+        <h5>{data.tags.join(", ")}</h5>
       </div>
       <img className="project-header-image" src={data.img} alt={data.title} />
       {/* <div className="divider"></div> */}

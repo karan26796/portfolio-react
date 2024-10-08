@@ -11,10 +11,12 @@ const ProjectCard: React.FC<{ data: ProjectCardData }> = ({ data }) => {
     <div className="project-container">
       <img className="project-image" src={data.img} alt={data.title} />
       <div className="project-card">
-        {/* <h4 className="project-meta text">{data.tags.join(", ")}</h4> */}
-        <h3>{data.title}</h3>
-        {/* <p className="desc">{data.description}</p> */}
-        <FontAwesomeIcon className="icon" icon={faArrowRight} />
+        <div className="project-card-data">
+          <h5>{data.tags.join(", ")}</h5>
+          <h3 className="slab">{data.title}</h3>
+          {/* <p>{data.description}</p> */}
+        </div>
+        <button> Read more</button>
       </div>
     </div>
   );
