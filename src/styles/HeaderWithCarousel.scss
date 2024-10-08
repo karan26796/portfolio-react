@@ -17,6 +17,11 @@
         background-repeat: no-repeat;
         box-shadow: 1px 1px 13px 1px #00000012;
         /* Prevents the image from repeating */
+
+        @media screen and (max-width: 767px) {
+            width: 5em;
+            height: 5em;
+        }
     }
 
     .header-details {
@@ -36,6 +41,12 @@
             margin: 0;
         }
 
+        h1 {
+            @media screen and (max-width: 767px) {
+                font-size: 2em;
+            }
+        }
+
         h3 {
             color: var(--tertiary-text);
         }
@@ -43,6 +54,27 @@
         .length-xxs {
             max-width: 25ch;
             color: var(--secondary-text);
+        }
+
+        @media screen and (min-width: 1024px) {
+            // padding: 4em 2em 2em 2em;
+        }
+
+        /* Medium screens (tablet) */
+        @media screen and (max-width: 1023px) and (min-width: 768px) {
+            // padding: 3em 1.5em 1.5em 1.5em;
+            width: 90%;
+        }
+
+        /* Small screens (mobile) */
+        @media screen and (max-width: 767px) {
+            padding: 2em 1em 1em 1em;
+            gap: 0.6em;
+            width: 95%;
+
+            .length-xxs {
+                max-width: 100%;
+            }
         }
     }
 }

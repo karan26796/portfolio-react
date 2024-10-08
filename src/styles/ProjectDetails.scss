@@ -1,31 +1,26 @@
 .container-project {
-    width: var(--max-width-container);
-    // padding-left: 5em;
+    max-width: var(--max-width-container);
     display: flex;
     flex-direction: column;
-    align-items: center;
+    // align-items: center;
     margin: auto;
 
     .project-details {
         width: var(--max-width-container);
 
-        .red{
-            background-color:  #d50019;
+        .red {
+            background-color: #d50019;
             color: white;
             width: fit-content;
             padding: .25em;
         }
 
-        section{
+        section {
             max-width: 70%;
-            // margin: auto;
         }
 
         h3 {
             padding: .75em;
-            // margin-left: 1em;
-            // margin-top: 1em;
-            // border-left: 4px solid var(--grey-200);
             border-radius: .5em;
             background: #ffffff09;
         }
@@ -49,7 +44,6 @@
         }
 
         .img-container {
-
             h4 {
                 text-transform: uppercase;
             }
@@ -57,24 +51,54 @@
     }
 }
 
+/* Breakpoints */
+@media (max-width: 1024px) {
+    .project-details {
+        max-width: -webkit-fill-available;
 
-.img-text-parent {
-    display: flex;
-    flex-direction: column;
-    align-items: start;
-    max-width: 840px;
-    width: 70vw;
-    // margin: 2em auto;
-    // padding-top: 2em;
-    // border-top: 4px solid var(--border-color);
+        section {
+            max-width: 70% !important;
+            padding: 0 1em;
+        }
 
-    .body-element {
-        max-width: 640px;
-        // padding: 2em 0;
-        // margin: auto;
+        figure {
+            max-width: -webkit-fill-available !important;
+            padding: 0 1em;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+
+    .project-details {
+        max-width: -webkit-fill-available;
+
+        section {
+            width: 85vw;
+            min-width: 80vw;
+            max-width: 95vw !important;
+            padding: 0 1em;
+        }
+
+        figure {
+            max-width: -webkit-fill-available !important;
+            padding: 0em 1em;
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .container-project {
+        width: 100%;
     }
 
-    .figure-element {
-        width: 100%;
+    .project-details {
+        section {
+            max-width: 100%;
+        }
+
+        .intro {
+            max-width: 100%;
+        }
     }
 }

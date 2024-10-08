@@ -8,6 +8,10 @@
     -moz-osx-font-smoothing: grayscale;
 
     font-size: 16px;
+    @media (max-width: 768px) {
+      font-size: 12px;
+    }
+
     position: relative;
 
     --bg-color: #f1f1f1;
@@ -72,6 +76,7 @@
       color: var(--secondary-text);
       letter-spacing: -.5px;
       line-height: 140%;
+
     }
 
     h4 {
@@ -94,15 +99,21 @@
     h3 {
       font-size: 1.8em;
       letter-spacing: -1px;
+
+      @media screen and (max-width: 767px) {
+        font-size: 1.4em;
+      }
     }
 
-    h4{
+    h4 {
       font-size: 1.6em;
       letter-spacing: -.2px;
       margin-bottom: .4em;
     }
 
-    h1,h2,h4{
+    h1,
+    h2,
+    h4 {
       font-family: "Roboto Slab", Helvetica, sans-serif;
     }
 
@@ -115,16 +126,18 @@
       font-size: 1.25em;
     }
 
-    h5{
+    h5 {
       font-family: "Architects Daughter", Helvetica, sans-serif;
       font-size: 1.4em;
     }
 
-    h6,p,li {
+    h6,
+    p,
+    li {
       font-size: 1.5em;
       color: var(--secondary-text);
       line-height: 130%;
-      letter-spacing: -0.8px;  
+      letter-spacing: -0.8px;
     }
 
     li {
@@ -157,7 +170,7 @@
     }
   }
 
-  a{
+  a {
     text-decoration: none;
   }
 
@@ -185,7 +198,11 @@
     max-width: 30ch;
   }
 
-  .slab{
+  .slab {
     font-family: "Roboto Slab", Helvetica, sans-serif;
+  }
+
+  .hand {
+    font-family: "Reenie Beanie", Helvetica, sans-serif;
   }
 }

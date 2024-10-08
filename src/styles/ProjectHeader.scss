@@ -1,7 +1,6 @@
 .project-header {
-    max-width: 840px;
+    max-width: var(--max-width-container);
     // min-width: 840px;
-    width: 70vw;
     display: flex;
     flex-direction: column;
     // align-items: center;
@@ -34,4 +33,23 @@
             color: var(--grey-300);
         }
     }
+}
+
+@media (max-width: 1024px) {
+}
+
+@media (max-width: 768px) {
+    .project-header{
+        width: -webkit-fill-available;
+        padding: 2em 1em;
+
+        .project-header-data {
+            h1{
+                width: fit-content;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
 }

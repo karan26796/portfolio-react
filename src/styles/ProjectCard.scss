@@ -29,6 +29,24 @@
             justify-content: space-between;
             align-items: center;
 
+            @media screen and (min-width: 1024px) {}
+
+            /* Medium screens (tablet) */
+            @media screen and (max-width: 1023px) and (min-width: 768px) {}
+
+            /* Small screens (mobile) */
+            @media screen and (max-width: 767px) {
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+            }
+
+            @media screen and (max-width: 367px) {
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+            }
+
             .project-card-data {
                 display: flex;
                 flex-direction: column;
@@ -56,26 +74,34 @@
                 }
 
                 h3 {
-                    width: 22ch;
-                    font-size: 2em;
+                    width: 30ch;
+                    // font-size: 2em;
+
+                    @media screen and (max-width: 767px) {
+                        width: 100%;
+                    }
                 }
             }
 
-            button{
+            button {
                 background-color: var(--highlight-color);
                 color: white;
                 border: transparent;
                 height: fit-content;
                 font-size: 1.2em;
-                padding: .75em;
+                padding:.75em;
                 border-radius: .75em;
                 cursor: pointer;
                 transition: box-shadow ease-in-out .1s;
-                box-shadow: 0px 6px 0px 0px var(--highlight-color-high);
+                
+                @media screen and (max-width: 767px) {
+                    display: none;
+                }
 
-                &:hover{
+                &:hover {
                     // box-shadow: none;
-                    scale: .96;
+                    // scale: .96;
+                    box-shadow: inset 0px -6px 0px 0px var(--highlight-color-high);
                 }
             }
         }
