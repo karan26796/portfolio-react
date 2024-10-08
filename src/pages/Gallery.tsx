@@ -1,4 +1,3 @@
-// Gallery.tsx
 import { useState, useEffect } from "react";
 import "../styles/Gallery.scss";
 
@@ -42,12 +41,23 @@ const Gallery = () => {
           key={i}
           className="column"
         >
+          {i === 0 && (
+            <div className="gallery-content">
+              <h1>Photo gallery</h1>
+              <p>
+                I have been fortunate to visit some of the most stunning places in India. 
+                Here are some of my favorite pictures. I hope you like them! 😌
+                <br/><br/>
+                Follow on <a href="instagram.com/kadankapoor">Instagram</a> for more such photos.
+              </p>
+            </div>
+          )}
           {imageNumbers
             .filter((_, index) => index % columns === i)
             .map((num, index) => {
               const imagePath = images[30 - num];
               if (!imagePath) return null;
-              
+
               return (
                 <img
                   key={num}
@@ -64,13 +74,15 @@ const Gallery = () => {
   };
 
   return (
-    <div
-      className="gallery-grid"
-      style={{
-        gridTemplateColumns: `repeat(${columns}, 1fr)`,
-      }}
-    >
-      {getColumns()}
+    <div className="gallery-parent">
+      <div
+        className="gallery-grid"
+        style={{
+          gridTemplateColumns: `repeat(${columns}, 1fr)`,
+        }}
+      >
+        {getColumns()}
+      </div>
     </div>
   );
 };

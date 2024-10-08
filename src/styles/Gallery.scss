@@ -1,17 +1,31 @@
-// Gallery.scss
-.gallery-grid {
-    display: grid;
-    gap: 0.5em;
-  }
-  
-  .column {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5em;
-  }
-  
-  .gallery-image {
-    width: 100%;
-    height: auto;
-    border-radius: 0.5em;
-  }
+.gallery-parent {
+    padding: 1em;
+    .gallery-grid {
+        display: grid;
+        gap: 0.5em;
+    }
+
+    .gallery-content {
+        width: -webkit-fill-available;
+        border: 1px solid var(--border-color);
+        background-color: var(--bg-color-high);
+        border-radius: 0.5em;
+        padding: 1.5em;
+
+        h1,p {
+            width: 75%;
+        }
+    }
+
+    .column {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+    }
+
+    .gallery-image {
+        width: 100%;
+        height: auto;
+        border-radius: 0.5em;
+    }
+}
