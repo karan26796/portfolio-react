@@ -1,189 +1,158 @@
 import React from "react";
-import img01 from "../utils/project-imgs/kurakaani/01.webp";
-import img02 from "../utils/project-imgs/kurakaani/02.webp";
-import img03 from "../utils/project-imgs/kurakaani/03.webp";
-import imgDs from "../utils/project-imgs/kurakaani/ds.webp";
-import img04 from "../utils/project-imgs/kurakaani/04.webp";
-import img05 from "../utils/project-imgs/kurakaani/05.webp";
-import img06 from "../utils/project-imgs/kurakaani/06.webp";
-import img07 from "../utils/project-imgs/kurakaani/07.webp";
-import img08 from "../utils/project-imgs/kurakaani/08.webp";
-import img09 from "../utils/project-imgs/kurakaani/09.webp";
-import img10 from "../utils/project-imgs/kurakaani/10.webp";
-import img11 from "../utils/project-imgs/kurakaani/11.webp";
-import img12 from "../utils/project-imgs/kurakaani/12.webp";
+import bingGif from "../utils/project-imgs/binge-eating/binge.gif";
+import img01 from "../utils/project-imgs/binge-eating/1.webp";
+import img03 from "../utils/project-imgs/binge-eating/3.webp";
+import img04 from "../utils/project-imgs/binge-eating/4.webp";
+import img05 from "../utils/project-imgs/binge-eating/5.webp";
+import boreeImg from "../utils/project-imgs/binge-eating/boree.webp";
+import img06 from "../utils/project-imgs/binge-eating/6.webp";
+import img07 from "../utils/project-imgs/binge-eating/7.webp";
+import img02 from "../utils/project-imgs/binge-eating/2.webp";
+import img08 from "../utils/project-imgs/binge-eating/8.webp";
+import img11 from "../utils/project-imgs/binge-eating/11.webp";
+import img09 from "../utils/project-imgs/binge-eating/9.webp";
+import img10 from "../utils/project-imgs/binge-eating/10.webp";
 
 const Project4: React.FC = () => {
   return (
     <div className="project-details">
       <section>
-        <h2>Quick Summary</h2>
-        <p>
-          The Atomic Design principle uses the concept of atoms and molecules to
-          set up a Design Language System. Having worked on maintaining and
-          creating design systems, I created one for Nimbuzz Kurakaani, Nepal's
-          Super App, as a part of their application redesign.
-        </p>
+        <h2>Quick summary</h2>
+        <p>Binge eating and watching are usually related, and their starting point in many cases is boredom. Although boredom is not bad but it presents an endless loop that is hard to escape and shifts our attention to future thinking.</p>
+        <p>To help people make the best use of boredom, I created a device that suggests mindful activities at the click of a button. These activities have been proven to break the boredom loop and bring attention back to the present by initiating a mindful state.</p>
+        <h2>Context</h2>
+        <p>As our classroom course on problem-solving at NID, we are encouraged to pick our personal problems as project topics. I chose binge eating and overeating since I've dealt with drastic weight changes because of my eating habits in the past few years.</p>
+      </section>
 
-        <h2>Project Description</h2>
-        <p>
-          Nimbuzz Kurakaani is Nepal's digital platform that houses multiple
-          services like shopping, chat, quizzing, money transfer & much more in
-          one app.
-        </p>
-        <p>
-          I was commissioned as a UI Designer to Redesign the app by creating a
-          component-based system.
-        </p>
+      <figure>
+        <img src={img01} alt="Personal problem illustration" />
+      </figure>
 
-        <h2>Goals of the redesign</h2>
+      <section>
+        <blockquote>"I binged a Netflix show for 10 hours, and regretted it the next morning" --- YouTube comment</blockquote>
+        <h2>Primary research to understand the current binge habits of people</h2>
+        <p>I conducted 5 user interviews over 3 days of people I recruited from WhatsApp, Slack Channels, and the campus. Participants were aged between 23-30yrs. Here are the key findings from the research</p>
         <ul>
-          <li>
-            Update the design language to have a modern and cheerful vibe for a
-            younger audience
-          </li>
-          <li>Create a system that is scalable and easy to maintain</li>
-          <li>
-            Inculcate different platform guidelines to improve the designs
-          </li>
+          <li>Participants often started binge-watching to fill time as it'd become a habit, and they couldn't think of any alternatives.</li>
+          <li>Participants reported watching series/shows to avoid stressful conversations with friends or family.</li>
+          <li>Participants reported watching TV series suggested by friends or family to engage in a conversation with them.</li>
+          <li>Participants also reported watching series/shows to learn new languages, but that was rare.</li>
         </ul>
       </section>
 
       <section>
-        <h2>Old Designs</h2>
+        <h2>Secondary research to get a broader perspective</h2>
+        <p>To understand the phenomenon better, I conducted online research and found out</p>
+        <p>Our environment shapes our behaviour immensely. Everything around us is designed to make us consume more, from transparent fridge doors to large food containers</p>
       </section>
 
       <figure>
-        <img src={img01} alt="Old Design of the connect and quiz screens" />
-        <figcaption>Old Design of the connect and quiz screens</figcaption>
-      </figure>
-      <figure>
-        <img src={img02} alt="Old Design of the courses and shop screens" />
-        <figcaption>Old Design of the courses and shop screens</figcaption>
+        <img src={img03} alt="Environment influence illustration" />
       </figure>
 
       <section>
-        <h2>My Approach</h2>
-        <h4>
-          Having worked on multiple projects where I've used a component
-          library, I started with an Atomic Design approach to creating a
-          component library.
-        </h4>
-      </section>
-
-      <figure>
-        <img
-          src={img03}
-          alt="Naming the components in the file system format"
-        />
-        <figcaption>Naming the components in the file system format</figcaption>
-      </figure>
-      <figure>
-        <img src={imgDs} alt="Snippet of the design system for the project" />
-        <figcaption>Snippet of the design system for the project</figcaption>
-      </figure>
-
-      <section>
-        <h2>Revamp of the connect feature</h2>
-        <h4>
-          Updated the connect screens of the app to feel more human and
-          cheerful.
-        </h4>
-      </section>
-
-        <figure>
-          <img src={img04} alt="Redesign of connect/sending request screen" />
-          <caption>Redesign of connect/sending request screen</caption>
-        </figure>
-        <figure>
-          <img src={img05} alt="New design of a person's profile" />
-          <figcaption>New design of a person's profile</figcaption>
-        </figure>
-
-      <section>
-        <h2>Revamp of the shop section</h2>
-        <h4>
-          Made the design feel more modern in tune with the latest e-commerce
-          apps.
-        </h4>
-      </section>
-
-        <figure>
-          <img src={img06} alt="Redesign of the shopping landing page" />
-          <figcaption>Redesign of the shopping landing page</figcaption>
-        </figure>
-        <figure>
-          <img src={img07} alt="Redesign of the product detail page" />
-          <figcaption>Redesign of the product detail page</figcaption>
-        </figure>
-
-      <section>
-        <h2>Revamp of the learn section</h2>
-        <h4>Updated the screens to look and feel more like online courses.</h4>
-      </section>
-
-        <figure>
-          <img src={img08} alt="Redesign of the courses listing page" />
-          <figcaption>Redesign of the courses listing page</figcaption>
-        </figure>
-        <figure>
-          <img src={img09} alt="Redesign of the course description page" />
-          <figcaption>Redesign of the course description page</figcaption>
-        </figure>
-
-      <section>
-        <h2>Revamp of the payment screen</h2>
-        <h4>
-          Updated the icons to feel more vibrant and match the design system.
-        </h4>
-      </section>
-
-        <figure>
-          <img src={img10} alt="Redesign of the payment screen" />
-          <figcaption>Redesign of the payment screen</figcaption>
-        </figure>
-
-      <section>
-        <h2>Revamp of the quiz section</h2>
-        <h4>
-          Updated the quizzing screens to look like an online gaming app/show.
-        </h4>
-      </section>
-
-
-        <figure>
-          <img src={img11} alt="Redesign of the quiz screens" />
-          <figcaption>Redesign of the quiz screens</figcaption>
-        </figure>
-
-      <section>
-        <h2>Creation of the chat section</h2>
-        <h4>
-          Chat section was imagined from scratch keeping in mind what platforms
-          people use on a daily basis.
-        </h4>
-      </section>
-
-        <figure>
-          <img src={img12} alt="Redesign of the chat screens" />
-          <figcaption>Redesign of the chat screens</figcaption>
-        </figure>
-
-      <section>
-        <h2>Outcome of the project</h2>
+        <h2>Other Findings</h2>
         <ul>
-          <li>
-            With the creation of a design library, the time to design flows and
-            screens reduced by ~60%
-          </li>
-          <li>
-            The hand-off process got easier as the components were defined in
-            one place and developers could pick the specs from there.
-          </li>
-          <li>
-            The flows in the application were more refined and clear compared to
-            the earlier version. This meant easy communication across teams.
-          </li>
+          <li>Binge-watching is followed by binge-eating in many cases, and it happens subconsciously.</li>
+          <li>Boredom is the biggest reason people start binge-eating or watching.</li>
+          <li>Awareness of boredom loops & our environment can help us avoid bad choices.</li>
+          <li>Being idle is important as it helps us wind down and reflect on things we've learned.</li>
+        </ul>
+        <p>Based on primary and secondary research, I decided to shift my focus from binge behaviour to boredom and started thinking of an intervention at the conjunction of boredom and binge watching.</p>
+      </section>
+
+      <figure>
+        <img src={img04} alt="Research shift illustration" />
+      </figure>
+
+      <section>
+        <h2>Research on boredom</h2>
+        <p>Boredom/Idleness is a loop. Binge-watching and eating provide an effortless way out of this seemingly endless loop. If we are aware we're in a loop, it helps us find ways to get out of it.</p>
+      </section>
+
+      {/* Continue with the same pattern for the rest of the content */}
+
+      <section>
+        <h2>What's wrong with boredom?</h2>
+      </section>
+
+      <figure>
+        <img src={boreeImg} alt="Boredom illustration" />
+      </figure>
+      <figure>
+        <img src={img06} alt="Boredom effects illustration" />
+      </figure>
+
+      <section>
+        <p>Based on my research on boredom, I ran a 5 day experiment during which I asked people to send me a voice note or text whenever they were idle and I sent them an activity they could take up in that moment.</p>
+      </section>
+
+      <figure>
+        <img src={img07} alt="Experiment illustration" />
+      </figure>
+
+      <section>
+        <h2>Feedback from participants</h2>
+        <p>People reacted positively to the experiment and were more aware of their idle time towards the end.</p>
+        <blockquote>
+          "I was able to understand the different cues around me and make distinction between my idle and work time." --- Shreya, 24 · College Student
+        </blockquote>
+        <blockquote>
+          "I enjoyed doing small activities that were also fun, moreover I was aware of when I was wasting my time and when I was actually idle" --- Shubham, 26 · Manager at an MNC.
+        </blockquote>
+        <p>Post the experiment, I compiled all the findings and decided to create a device</p>
+      </section>
+
+      <figure>
+        <img src={img02} alt="Device capabilities" />
+        <figcaption>Capabilities of the device</figcaption>
+      </figure>
+
+      <section>
+        <h2>What does the device do?</h2>
+        <p>It suggests constructive (not productive) activities from Berkeley University's Greater Good in Action Website which contains science backed practices for a meaningful life. These activities shift our focus from the future to the present & initiate a mindful state. All of it with a click of a button.</p>
+      </section>
+
+      <figure>
+        <img src={img08} alt="Device function illustration" />
+      </figure>
+      <figure>
+        <img src={img11} alt="Device usage illustration" />
+      </figure>
+
+      <section>
+        <h2>More Features</h2>
+        <ul>
+          <li>It lets people generate activities voluntarily, hence giving them back control over their actions. Once they complete an activity, they'll be motivated to complete other productive tasks in their day.</li>
+          <li>Habits follow the framework of Trigger/Cue, Behaviour, and Consequence. An effective way to change habits is to keep the trigger same but change the behaviour.</li>
+        </ul>
+        <p>The device does that by replacing the behavior of pulling out phone from the pocket for scrolling with getting an activity suggestion from the device.</p>
+      </section>
+
+      <figure>
+        <img src={img09} alt="Habit framework" />
+        <figcaption>Habit framework</figcaption>
+      </figure>
+
+
+      <figure>
+        <img src={img10} alt="Final illustration" />
+      </figure>
+
+      <section>
+        <h2>Why is idle time important?</h2>
+        <ul>
+          <li>When we're idle, our brains can connect between unrelated concepts that have been fed into our subconscious. Some of the most important discoveries have happened when people were not working.</li>
+          <li>If we spend our idle time well, we can focus better. Clearly demarcating idle time and focus time, helps our mind wanders less.</li>
+          <li>We can learn or internalize our previously learned skills, like an instrument, if we're not focused on anything.</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Interesting findings</h2>
+        <ul>
+          <li>My assumption that stress/trauma is the biggest contributing factor to binge habits turned out false, as boredom turned out to be the biggest factor.</li>
+          <li>No amount of problem solving can solve for awareness. If we're aware of our surroundings and pay attention to our own behaviour, we've solved 90% the problem.</li>
         </ul>
       </section>
     </div>

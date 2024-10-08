@@ -8,7 +8,7 @@ const HeaderWithCarousel: React.FC = () => {
   return (
     <div className="header-with-carousel">
       <div className="header-details">
-        <div className="profile"></div>
+        <div className="profile"/>
         <h1 className="semibold">Karan Kapoor</h1>
         <h3 style={{fontSize:"1.6em"}}>SPD @Keka HR — XR Designer — Figma Trainer</h3>
         <h3 className="length-xxs">

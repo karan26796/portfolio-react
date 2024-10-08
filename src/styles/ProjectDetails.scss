@@ -36,6 +36,15 @@
             margin-bottom: .5em;
         }
 
+        blockquote {
+            font-family: "Roboto Slab", Helvetica, sans-serif;
+            font-size: 2em;
+            color: var(--highlight-color);
+            padding: .5em; 
+            border-left: 4px solid var(--highlight-color);
+            background-color: white;
+        }
+
         .intro {
             max-width: 640px;
             display: flex;

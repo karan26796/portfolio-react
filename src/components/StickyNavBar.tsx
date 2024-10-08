@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "../styles/StickyNavBar.scss";
-import { Link, useLocation, useMatch, useNavigate } from "react-router-dom";
+import { Link, useLocation, useMatch } from "react-router-dom";
 import { projectSummaries } from "../utils/ProjectSummaries";
+import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 
 const StickyNavBar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
   const location = useLocation();
-  const navigate = useNavigate();
   const match = useMatch('/project/:projectId');
   const projectId = match?.params?.projectId;
   let lastScrollTop = 0;
@@ -30,34 +30,31 @@ const StickyNavBar: React.FC = () => {
 
   const getNextProjectId = () => {
     if (!projectId) return null;
-    
+
     const currentIndex = projectSummaries.findIndex(p => p.id === projectId);
     if (currentIndex === -1) return null;
-    
+
     const nextIndex = (currentIndex + 1) % projectSummaries.length;
     return projectSummaries[nextIndex].id;
-  };
-
-  const handleNextProject = () => {
-    const nextId = getNextProjectId();
-    if (nextId) {
-      navigate(`/project/${nextId}`);
-    }
   };
 
   if (isProjectDetails) {
     const nextProjectId = getNextProjectId();
     return (
       <div className="container-nav">
-        <nav className={`navbar ${isVisible ? "active" : ""}`}>
-          <Link className='a-header' to="/home">Back to Home</Link>
+        <nav className={`navbar project-nav ${isVisible ? "active" : ""}`}>
+          <Link className='a-header back-btn' to="/home">
+            <ArrowLeft size={18} weight="bold" />
+            <span>Back</span>
+          </Link>
           {nextProjectId && (
-            <button 
+            <Link 
               className='a-header next-project-btn' 
-              onClick={handleNextProject}
+              to={`/project/${nextProjectId}`}
             >
-              Next Project ({nextProjectId})
-            </button>
+              <span>Next</span>
+              <ArrowRight size={18} weight="bold" />
+            </Link>
           )}
         </nav>
       </div>
@@ -66,11 +63,10 @@ const StickyNavBar: React.FC = () => {
 
   return (
     <div className="container-nav">
-      <nav className={`navbar ${isVisible ? "active" : ""}`}>
-        <Link className='a-header' to="/about">About</Link>
+      <nav className={`navbar main-nav ${isVisible ? "active" : ""}`}>
+        {/* <Link className='a-header' to="/about">About</Link> */}
         <Link className='a-header' to="/home">Home</Link>
         <Link className='a-header' to="/gallery">Gallery</Link>
-        {/* <Link className='a-header' to="/figma-training">Figma Training</Link> */}
       </nav>
     </div>
   );

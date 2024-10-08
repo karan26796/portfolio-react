@@ -43,6 +43,27 @@ export const projectSummaries: ProjectCardData[] = [
   },
   {
     id: "3",
+    description: "Redesigned Nepal's Superapp by creating a design system",
+    title: "Component library for Nimbuzz Kurakaani — Nepal's superapp",
+    img: kurakaani,
+    tags: ["Design system", "Component library"],
+    link: "",
+    bgcolor: "#ffeee2",
+    textcolor: "#e05d00",
+  },
+  {
+    id: "4",
+    description:
+      "A mindful device for overcoming binge behavior when you're bored",
+    title: "A mindful device for overcoming binge behavior",
+    img: awaconimg,
+    tags: ["Design", "Research", "Psychology"],
+    link: "",
+    bgcolor: "#efefef",
+    textcolor: "#000000",
+  },
+  {
+    id: "5",
     description:
       "Found ways to better discoverabilty of features & data organization.",
     title: "Product redesign for features discovery & data re-organization.",
@@ -52,27 +73,6 @@ export const projectSummaries: ProjectCardData[] = [
     bgcolor: "#f1e8ff",
     textcolor: "#7b3dd5",
   },
-  {
-    id: "4",
-    description: "Redesigned Nepal's Superapp by creating a design system",
-    title: "Component library for Nimbuzz Kurakaani — Nepal's superapp",
-    img: kurakaani,
-    tags: ["Design system", "Component library"],
-    link: "",
-    bgcolor: "#ffeee2",
-    textcolor: "#e05d00",
-  },
-  // {
-  //   id: "5",
-  //   description:
-  //     "A mindful device for overcoming binge behavior when you're bored",
-  //   title: "A mindful device for overcoming binge behavior",
-  //   img: awaconimg,
-  //   tags: ["Design", "Research", "Psychology"],
-  //   link: "",
-  //   bgcolor: "#efefef",
-  //   textcolor: "#000000",
-  // },
   // {
   //   id: "6",
   //   description:
