@@ -62,17 +62,17 @@ export const projectSummaries: ProjectCardData[] = [
     bgcolor: "#efefef",
     textcolor: "#000000",
   },
-  {
-    id: "5",
-    description:
-      "Found ways to better discoverabilty of features & data organization.",
-    title: "Product redesign for features discovery & data re-organization.",
-    img: loopdata,
-    tags: ["Product", "Design research"],
-    link: "",
-    bgcolor: "#f1e8ff",
-    textcolor: "#7b3dd5",
-  },
+  // {
+  //   id: "5",
+  //   description:
+  //     "Found ways to better discoverabilty of features & data organization.",
+  //   title: "Product redesign for features discovery & data re-organization.",
+  //   img: loopdata,
+  //   tags: ["Product", "Design research"],
+  //   link: "",
+  //   bgcolor: "#f1e8ff",
+  //   textcolor: "#7b3dd5",
+  // },
   // {
   //   id: "6",
   //   description:
