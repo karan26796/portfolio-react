@@ -22,7 +22,7 @@
         // margin-bottom: 4em;
 
 
-        h1{
+        h1 {
             // text-align: center;
             margin: 0;
             width: 20ch;
@@ -36,20 +36,23 @@
 }
 
 @media (max-width: 1024px) {
+    .project-header {
+        width: -webkit-fill-available;
+        padding: 2em 1em !important;
+    }
 }
 
 @media (max-width: 768px) {
-    .project-header{
+    .project-header {
         width: -webkit-fill-available;
         padding: 2em 1em;
 
         .project-header-data {
-            h1{
+            h1 {
                 width: fit-content;
             }
         }
     }
 }
 
-@media (max-width: 480px) {
-}
+@media (max-width: 480px) {}
