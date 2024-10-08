@@ -65,5 +65,9 @@
         .location-text {
             opacity: 1;
         }
+
+        h1,p{
+            width: -webkit-fill-available;
+        }
     }
 }
