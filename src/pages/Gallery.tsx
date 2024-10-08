@@ -1,5 +1,6 @@
-import React from "react";
+// Gallery.tsx
 import { useState, useEffect } from "react";
+import "../styles/Gallery.scss";
 
 const Gallery = () => {
   const [columns, setColumns] = useState(3);
@@ -40,7 +41,6 @@ const Gallery = () => {
         <div
           key={i}
           className="column"
-          style={{ display: "flex", flexDirection: "column", gap: "0.5em" }}
         >
           {imageNumbers
             .filter((_, index) => index % columns === i)
@@ -53,7 +53,7 @@ const Gallery = () => {
                   key={num}
                   src={imagePath}
                   alt={`Gallery image ${num}`}
-                  style={{ width: "100%", height: "auto", borderRadius:".75em" }}
+                  className="gallery-image"
                 />
               );
             })}
@@ -67,9 +67,7 @@ const Gallery = () => {
     <div
       className="gallery-grid"
       style={{
-        display: "grid",
         gridTemplateColumns: `repeat(${columns}, 1fr)`,
-        gap: "0.5em",
       }}
     >
       {getColumns()}
