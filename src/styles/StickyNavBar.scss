@@ -41,7 +41,7 @@
       }
 
       @media (max-width: 480px) {
-        width: 50vw;
+        width: 50vw !important;
       }
     }
 
@@ -51,7 +51,7 @@
       box-shadow: 0px 4px 10px rgba(0, 72, 42, 0.2);
 
       .a-header {
-        color: var(--grey-100);
+        color: var(--tertiary-color);
 
         &:hover {
           color: var(--grey-250);
@@ -71,7 +71,7 @@
       }
 
       @media (max-width: 480px) {
-        width: 50vw;
+        width: 50vw !important;
       }
     }
   }
