@@ -33,11 +33,11 @@
       box-shadow: 0px 4px 10px rgba(0, 72, 42, 0.2);
 
       @media (max-width: 1024px) {
-        width: 10vw;
+        width: 20vw !important;
       }
 
       @media (max-width: 768px) {
-        width: 25vw !important;
+        width: 35vw !important;
       }
 
       @media (max-width: 480px) {
