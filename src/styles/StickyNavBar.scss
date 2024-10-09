@@ -1,3 +1,4 @@
+// SCSS styles
 .container-nav {
   display: flex;
   flex-direction: column;
@@ -6,7 +7,6 @@
 
   .navbar {
     background-color: var(--grey-600);
-    // border: 1px solid var(--border-color);
     position: fixed;
     bottom: 0;
     padding: 1em 2em;
@@ -48,8 +48,6 @@
     // Styles for project navigation
     &.project-nav {
       width: 30vw;
-      background-color: var(--grey-600);
-      // border-color: var(--border-color);
       box-shadow: 0px 4px 10px rgba(0, 72, 42, 0.2);
 
       .a-header {
@@ -88,6 +86,11 @@
 
     &:hover {
       color: var(--grey-250);
+    }
+
+    // New styles for active tab
+    &.active {
+      color: var(--accent-color); // You can replace with your accent color
     }
 
     &.back-btn {

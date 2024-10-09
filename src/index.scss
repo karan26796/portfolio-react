@@ -27,13 +27,15 @@
     --grey-100: #f6f6f6;
     --grey-200: #eaeaea;
     --grey-250: #d4d4d4;
-    --grey-300: #757575;
+    --grey-300: #6d6d6d;
     --grey-400: #464646;
     --grey-600: #010101;
 
+    --accent-color: #68D1FC;
+
     --primary-text: var(--grey-600);
-    --secondary-text: var(--grey-400);
-    --tertiary-text: var(--grey-300);
+    --secondary-text: var(--grey-300);
+    --tertiary-text: var(--grey-400);
 
     --border-color: var(--grey-200);
     --visited-link: #ffffff;
@@ -42,6 +44,8 @@
 
     --max-width-container: 840px;
     --width-container: 70vw;
+
+    margin-bottom: 5em;
 
     main {
       width: 100vw;

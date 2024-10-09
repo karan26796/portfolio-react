@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/StickyNavBar.scss";
 import { Link, useLocation, useMatch } from "react-router-dom";
 import { projectSummaries } from "../utils/ProjectSummaries";
-import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
+import { ArrowLeft, ArrowRight, House, Image } from "@phosphor-icons/react";
 
 const StickyNavBar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -64,9 +64,18 @@ const StickyNavBar: React.FC = () => {
   return (
     <div className="container-nav">
       <nav className={`navbar main-nav ${isVisible ? "active" : ""}`}>
-        {/* <Link className='a-header' to="/about">About</Link> */}
-        <Link className='a-header' to="/home">Home</Link>
-        <Link className='a-header' to="/gallery">Gallery</Link>
+        <Link 
+          className={`a-header ${location.pathname === '/home' ? 'active' : ''}`} 
+          to="/home"
+        >
+          <House size={18} weight="bold" />Home
+        </Link>
+        <Link 
+          className={`a-header ${location.pathname === '/gallery' ? 'active' : ''}`} 
+          to="/gallery"
+        >
+          <Image size={18} weight="bold" />Gallery
+        </Link>
       </nav>
     </div>
   );
