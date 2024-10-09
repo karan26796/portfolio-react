@@ -25,10 +25,10 @@ const Project2: React.FC = () => {
 
       <section>
         <h2>Old highlights page design</h2>
-        <h3>
+        <h4>
           The original highlights view in Looppanel required an overhaul after
           the introduction of projects and question script in the product.
-        </h3>
+        </h4>
         <figure>
           <img src={oldHighlights} alt="Old Design" />
           <figcaption>Old Design</figcaption>

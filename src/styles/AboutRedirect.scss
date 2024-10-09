@@ -1,0 +1,12 @@
+.about-redirect{
+    max-width: var(--max-width-container);
+    display: flex;
+    background-color: #fff;
+    flex-direction: column;
+    align-items: start;
+    transition: box-shadow 0.15s ease-in-out;
+    height: auto;
+    border-radius: .75em;
+    padding: 1em;
+    border: 2px solid var(--border-color);
+}

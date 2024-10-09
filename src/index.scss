@@ -1,6 +1,6 @@
 * {
   font-family: "DM Sans", Helvetica, sans-serif;
-  font-weight: 500;
+  font-weight: 400;
 
   body {
     margin: 0;
@@ -24,15 +24,12 @@
 
     --bg-color-high: #f7f7f7;
 
-    --gradient-color: #04041b;
-    --accent-color: #04041b;
-
-    --grey-100: #010101;
+    --grey-100: #f6f6f6;
     --grey-200: #eaeaea;
     --grey-250: #d4d4d4;
     --grey-300: #757575;
+    --grey-400: #464646;
     --grey-600: #010101;
-    --grey-400: #383838;
 
     --primary-text: var(--grey-600);
     --secondary-text: var(--grey-400);

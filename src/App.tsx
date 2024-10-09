@@ -13,6 +13,9 @@ import About from './pages/About';
 import Gallery from './pages/Gallery';
 import TrainingList from './pages/TrainingList';
 
+import './styles/AboutRedirect.scss'
+import Resume from './components/Resume';
+
 const App: React.FC = () => {
   return (
     <Router>
@@ -25,17 +28,17 @@ const App: React.FC = () => {
               <Routes>
                 <Route path="/" element={<HomePage />} />
                 <Route path="/home" element={<HomePage />} />
-                <Route 
-                  path="/project/:projectId" 
+                <Route
+                  path="/project/:projectId"
                   element={
                     <React.Suspense fallback={<div>Loading...</div>}>
                       <ProjectDetails />
                     </React.Suspense>
-                  } 
+                  }
                 />
-                <Route path="/about" element={<About/>}/>
-                <Route path="/gallery" element={<Gallery/>}/>
-                <Route path="/figma-training" element={<TrainingList/>}/>
+                <Route path="/about" element={<About />} />
+                <Route path="/gallery" element={<Gallery />} />
+                <Route path="/figma-training" element={<TrainingList />} />
               </Routes>
             </>
           }
@@ -50,9 +53,19 @@ const HomePage: React.FC = () => {
     <>
       <HeaderWithCarousel />
       <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
+      {/* <Resume></Resume> */}
+      {/* <AboutLink></AboutLink> */}
       {/* <ImageCarousel imagesData={imagesData} ContentComponent={CarouselContent}/> */}
     </>
   );
 };
+
+const AboutLink: React.FC = () => {
+  return (
+    <div className='about-redirect'>
+      <div></div>
+    </div>
+  );
+}
 
 export default App;
