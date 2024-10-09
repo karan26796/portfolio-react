@@ -1,31 +1,13 @@
 import React from "react";
 import "../styles/LogoCarousel.scss";
-import { ImageItem } from "../utils/communityFiles"; // Ensure this is the correct path
+import logos from "../utils/logos";
 
-// Interface for the props of the content rendering component
-interface ContentComponentProps {
-  images: ImageItem[];
-}
-
-// Interface for the props of the ImageCarousel component itself
-interface ImageCarouselProps {
-  imagesData: ImageItem[];
-  ContentComponent: React.ComponentType<ContentComponentProps>; // Prop to specify the component used for rendering the carousel's content
-}
-
-// The ImageCarousel component
-const LogoCarousel: React.FC<ImageCarouselProps> = ({
-  imagesData,
-  ContentComponent,
-}) => {
-  // Duplicate the images for infinite scrolling
-  const duplicatedImages: ImageItem[] = [...imagesData, ...imagesData];
-
+const LogoCarousel: React.FC = () => {
   return (
     <div className="carousel-container-logo">
-      <div className="carousel-track-logo">
-        <ContentComponent images={duplicatedImages} />
-      </div>
+      {logos.map((image, index) => (
+        <img src={image.url} alt="" />
+      ))}
     </div>
   );
 };

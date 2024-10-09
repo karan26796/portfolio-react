@@ -13,16 +13,21 @@ import qoohoo from "./logos/qoohoo.webp";
 import zuddl from "./logos/zuddl.webp";
 import medianet from "./logos/media-net.webp";
 import pyxis from "./logos/pixis.webp";
+import keka from "./logos/keka-logo.webp";
 
 const logos: ImageItem[] = [
-    {
-      url: iima,
-      link: "",
-    },
-    {
-      url: iimsbp,
-      link: "",
-    },
+  {
+    url: keka,
+    link: "",
+  },
+    // {
+    //   url: iima,
+    //   link: "",
+    // },
+    // {
+    //   url: iimsbp,
+    //   link: "",
+    // },
     {
       url: obvious,
       link: "",
@@ -39,30 +44,31 @@ const logos: ImageItem[] = [
       url: shaadi,
       link: "",
     },
-    {
-      url: frontrow,
-      link: "",
-    },
-    {
-      url: iitm,
-      link: "",
-    },
-    {
-      url: qoohoo,
-      link: "",
-    },
-    {
-      url: zuddl,
-      link: "",
-    },
-    {
-      url: medianet,
-      link: "",
-    },
-    {
-      url: pyxis,
-      link: "",
-    },
+    // {
+    //   url: frontrow,
+    //   link: "",
+    // },
+    // {
+    //   url: iitm,
+    //   link: "",
+    // },
+    // {
+    //   url: qoohoo,
+    //   link: "",
+    // },
+    // {
+    //   url: zuddl,
+    //   link: "",
+    // },
+    // {
+    //   url: medianet,
+    //   link: "",
+    // },
+    // {
+    //   url: pyxis,
+    //   link: "",
+    // },
+    
   ];
 
   export default logos;

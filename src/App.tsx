@@ -6,15 +6,13 @@ import StickyNavBar from './components/StickyNavBar';
 import HeaderWithCarousel from './components/HeaderwithCarousel';
 import ProjectCard from './components/ProjectCard';
 import { projectSummaries } from './utils/ProjectSummaries';
-import ImageCarousel from './components/ImageCarousel';
-import CarouselContent from './components/CarouselContent';
-import imagesData from './utils/communityFiles';
 import About from './pages/About';
 import Gallery from './pages/Gallery';
 import TrainingList from './pages/TrainingList';
 
 import './styles/AboutRedirect.scss'
-import Resume from './components/Resume';
+import Testimonials from './components/Testimonials';
+import LogoCarousel from './components/LogoCarousel';
 
 const App: React.FC = () => {
   return (
@@ -53,9 +51,7 @@ const HomePage: React.FC = () => {
     <>
       <HeaderWithCarousel />
       <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
-      {/* <Resume></Resume> */}
-      {/* <AboutLink></AboutLink> */}
-      {/* <ImageCarousel imagesData={imagesData} ContentComponent={CarouselContent}/> */}
+      <Testimonials/>
     </>
   );
 };

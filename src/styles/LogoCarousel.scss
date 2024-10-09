@@ -1,52 +1,18 @@
-@keyframes scrolling {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-200%);
-    }
-
-    // Move only half the duplicated content
-}
-
 .carousel-container-logo {
+    width: 100%;
     display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    position: relative; // Added to position the absolute elements
-    margin: 0em auto 2em auto;
-
-    width: var(--width-container);
+    flex-direction: row;
+    // width: var(--width-container);
     max-width: var(--max-width-container);
-
-    h2 {
-        font-size: 1.75em;
-        margin: 0;
-        // text-align: center;
-    }
-
-    .carousel-track-logo {
-        width: 100%;
-        display: flex;
-        animation: scrolling 40s linear infinite; // Adjusted for smooth continuous scroll
-    }
-
-    .carousel-item-logo {
-        flex: 0 0 auto; // Ensure items do not grow or shrink
-        border-radius: 1em;
-        overflow: hidden;
-        margin: .5em;
-        position: relative; // Ensure z-index stacking context
-        z-index: 1; // Ensures items are stacked correctly
+    flex-wrap: wrap;
+    gap: 1em;
 
         img {
+            width: auto;
             display: block;
             object-fit: cover;
-            // filter: invert(1);
-            opacity: 70%;
-            width: 100%; // Adjusted to fill the carousel-item
-            height: 6vh; // Adjust height to maintain aspect ratio
+            opacity: 50%;
+            filter: invert(1);
+            height: 40px;
         }
-    }
 }
