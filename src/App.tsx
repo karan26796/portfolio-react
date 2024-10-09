@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import ProjectList from './pages/ProjectList';
 import ProjectDetails from './pages/ProjectDetails';
 import StickyNavBar from './components/StickyNavBar';
@@ -26,7 +26,7 @@ const App: React.FC = () => {
             <>
               <StickyNavBar />
               <Routes>
-                <Route path="/" element={<HomePage />} />
+                <Route path="/" element={<Navigate replace to="/home" />} />
                 <Route path="/home" element={<HomePage />} />
                 <Route
                   path="/project/:projectId"
