@@ -28,14 +28,14 @@
     --grey-200: #eaeaea;
     --grey-250: #d4d4d4;
     --grey-300: #6d6d6d;
-    --grey-400: #464646;
+    --grey-400: #363636;
     --grey-600: #010101;
 
     --accent-color: #68D1FC;
 
     --primary-text: var(--grey-600);
-    --secondary-text: var(--grey-300);
-    --tertiary-text: var(--grey-400);
+    --secondary-text: var(--grey-400);
+    --tertiary-text: var(--grey-300);
 
     --border-color: var(--grey-200);
     --visited-link: #ffffff;
@@ -79,7 +79,7 @@
     h3 {
       font-weight: 500;
       margin: .4em 0;
-      color: var(--secondary-text);
+      color: var(--grey-600);
       letter-spacing: -.5px;
       line-height: 140%;
 

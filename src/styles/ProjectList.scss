@@ -1,8 +1,16 @@
 .project-parent {
     // width: var(--width-container);
+    display: flex;
     max-width: var(--max-width-container);
     margin: auto;
+    flex-direction: column;
+    gap: 2em;
     // padding: 2em;
+
+    @media (max-width: 768px) {
+        padding: 1em;
+        gap: 1em;
+      }
 
     .project-list {
         width: 100%;
