@@ -160,7 +160,8 @@
     object-fit: cover;
 
     img {
-      width: -webkit-fill-available;
+      width: 100%;
+      height: auto;
       border: 1px solid var(--border-color);
       border-radius: 1em;
     }
