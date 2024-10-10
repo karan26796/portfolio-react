@@ -24,9 +24,7 @@ const LogoCarousel: React.FC<ImageCarouselProps> = ({
   return (
     <div className="carousel-container">
       <h3>Figma community and YouTube Tutorials</h3>
-      <div className="carousel-track">
-        <ContentComponent images={duplicatedImages} />
-      </div>
+      <ContentComponent images={duplicatedImages} />
     </div>
   );
 };

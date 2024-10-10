@@ -16,7 +16,7 @@ const ProjectCard: React.FC<{ data: ProjectCardData }> = ({ data }) => {
           <h3 className="slab">{data.title}</h3>
           {/* <p>{data.description}</p> */}
         </div>
-        <button> Read more</button>
+        <button className="read-more-button"> Read more</button>
       </div>
     </div>
   );

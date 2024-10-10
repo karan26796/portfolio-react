@@ -83,25 +83,12 @@
                 }
             }
 
-            button {
-                background-color: var(--highlight-color);
-                color: white;
-                border: transparent;
-                height: fit-content;
+            .read-more-button {
                 font-size: 1.2em;
                 padding:.75em;
-                border-radius: .75em;
-                cursor: pointer;
-                transition: box-shadow ease-in-out .1s;
                 
                 @media screen and (max-width: 767px) {
                     display: none;
-                }
-
-                &:hover {
-                    // box-shadow: none;
-                    // scale: .96;
-                    box-shadow: inset 0px -6px 0px 0px var(--highlight-color-high);
                 }
             }
         }

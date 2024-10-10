@@ -14,6 +14,8 @@ import './styles/AboutRedirect.scss'
 import Testimonials from './components/Testimonials';
 import LogoCarousel from './components/LogoCarousel';
 import Footer from './components/Footer';
+import ContactForm from './components/ContactForm';
+import Buttons from './components/Buttons';
 
 const App: React.FC = () => {
   return (
@@ -51,9 +53,19 @@ const HomePage: React.FC = () => {
   return (
     <>
       <HeaderWithCarousel />
+      <Buttons
+        text="Primary Button"
+        iconName="CaretRight"
+        withIcon={true}
+        withText={true}
+        size="m"
+        variant="primary"
+        onClick={() => console.log('Primary button clicked!')}
+      />
       <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
       <Testimonials/>
       <Footer/>
+      <ContactForm/>
     </>
   );
 };
