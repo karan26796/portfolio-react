@@ -45,14 +45,14 @@ const StickyNavBar: React.FC = () => {
         <nav className={`navbar project-nav ${isVisible ? "active" : ""}`}>
           <Link className='a-header back-btn' to="/home">
             <ArrowLeft size={18} weight="bold" />
-            <span>Back</span>
+            Back
           </Link>
           {nextProjectId && (
             <Link 
               className='a-header next-project-btn' 
               to={`/project/${nextProjectId}`}
             >
-              <span>Next</span>
+              Next
               <ArrowRight size={18} weight="bold" />
             </Link>
           )}

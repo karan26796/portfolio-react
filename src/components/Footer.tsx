@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { User, ReadCvLogo } from "@phosphor-icons/react";
 import '../styles/Footer.scss';
-import ResumePopup from '../pages/ResumePopup'; // Import the new ResumePopup component
+import ResumePopup from '../pages/ResumePopup';
 
 const Footer: React.FC = () => {
     const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
@@ -19,10 +19,10 @@ const Footer: React.FC = () => {
       <>
         <div className="footer-container">
           <div className="links">
-            <button className="a-footer" onClick={toggleResume}>
+            <Link to="#" className="a-footer" onClick={toggleResume}>
               <ReadCvLogo size={28} weight="duotone" />
               Resume
-            </button>
+            </Link>
             <Link className="a-footer" to="/gallery">
               <User size={28} weight="duotone" /> About Me
             </Link>

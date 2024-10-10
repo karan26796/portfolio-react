@@ -1,33 +1,38 @@
 import React, { useState, useEffect } from 'react';
-import Resume from '../components/Resume'; // Assuming your existing Resume component is in this file
+import { Link } from "react-router-dom";
+import Resume from '../components/Resume';
 import '../styles/ResumePopup.scss'
+import {X} from "@phosphor-icons/react";
 
 interface ResumePopupProps {
     isOpen: boolean;
     onClose: () => void;
-  }
-  
-  const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
-    const [animationClass, setAnimationClass] = useState('');
-  
+}
+
+const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
+    const [isVisible, setIsVisible] = useState(false);
+    const [contentClass, setContentClass] = useState('');
+
     useEffect(() => {
-      if (isOpen) {
-        setAnimationClass('slide-up');
-      } else {
-        setAnimationClass('slide-down');
-      }
+        if (isOpen) {
+            setIsVisible(true);
+            setTimeout(() => setContentClass('slide-up'), 10);
+        } else {
+            setContentClass('slide-down');
+            setTimeout(() => setIsVisible(false), 300);
+        }
     }, [isOpen]);
-  
-    if (!isOpen && animationClass !== 'slide-up') return null;
-  
+
+    if (!isVisible) return null;
+
     return (
-      <div className={`resume-popup-overlay ${animationClass}`} onClick={onClose}>
-        <div className="resume-popup-content" onClick={(e) => e.stopPropagation()}>
-          <button className="close-button" onClick={onClose}>×</button>
-          <Resume />
+        <div className={`resume-popup-overlay ${isOpen ? 'fade-in' : 'fade-out'}`} onClick={onClose}>
+            <div className={`resume-popup-content ${contentClass}`} onClick={(e) => e.stopPropagation()}>
+                <Link to="#" onClick={onClose} className="close-button"><X size={18} weight="bold" /></Link>
+                <Resume />
+            </div>
         </div>
-      </div>
     );
-  };
-  
-  export default ResumePopup;
+};
+
+export default ResumePopup;

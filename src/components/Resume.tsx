@@ -1,11 +1,11 @@
-import '../styles/Experience.scss'
-import obviousLogo from '../utils/logos/obvious-logo.svg'
-import guesthouser from '../utils/logos/guesthouser.png'
-import aphelia from '../utils/logos/aphelia-innovations.webp'
-import keka from '../utils/logos/keka-logo.svg'
-import looppanel from '../utils/logos/looppanel-logo.svg'
-import immertive from '../utils/logos/immertive_logo.jpeg'
-import keLogo from '../utils/logos/ke-logo.svg'
+import "../styles/Experience.scss";
+import obviousLogo from "../utils/logos/obvious-logo.svg";
+import guesthouser from "../utils/logos/guesthouser.png";
+import aphelia from "../utils/logos/aphelia-innovations.webp";
+import keka from "../utils/logos/keka-logo.svg";
+import looppanel from "../utils/logos/looppanel-logo.svg";
+import immertive from "../utils/logos/immertive_logo.jpeg";
+import keLogo from "../utils/logos/ke-logo.svg";
 // import obviousLogo from '../utils/logos/obvious-logo.svg'
 
 interface JobEntryProps {
@@ -25,10 +25,12 @@ const JobEntry: React.FC<JobEntryProps> = ({
 }) => {
   return (
     <div className="job-entry">
-      <img src={img} className="company-logo" alt=''></img>
+      <img src={img} className="company-logo" alt=""></img>
       <div className="job-details">
+        <h4>
+          {companyName} · {jobTitle}
+        </h4>
         <h5>{tenure}</h5>
-        <h4>{companyName} · {jobTitle}</h4>
         <ul>
           {descriptions.map((description, index) => (
             <li key={index}>{description}</li>

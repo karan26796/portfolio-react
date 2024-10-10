@@ -8,51 +8,80 @@
     display: flex;
     justify-content: center;
     align-items: flex-end;
-    z-index: 1000;
-  }
-  
-  .resume-popup-content {
+    z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+.resume-popup-overlay.fade-in {
+    opacity: 1;
+}
+
+.resume-popup-overlay.fade-out {
+    opacity: 0;
+}
+
+.resume-popup-content {
     background-color: white;
-    padding: 20px;
-    border-radius: 10px 10px 0 0;
-    width: 100%;
+    padding: 2em;
+    padding-bottom: 5em;
+    border-radius: 1em 1em 0 0;
+    width: auto;
     max-height: 80vh;
     overflow-y: auto;
     position: relative;
-  }
-  
-  .close-button {
+    transform: translateY(100%);
+    transition: transform 0.3s ease-out;
+}
+
+.resume-popup-content.slide-up {
+    transform: translateY(0);
+}
+
+.resume-popup-content.slide-down {
+    transform: translateY(100%);
+}
+
+.close-button {
+    display: flex;
+    width: 50px;
+    height: 50px;
     position: absolute;
-    top: 10px;
-    right: 10px;
-    background: none;
-    border: none;
-    font-size: 24px;
+    bottom: 2em;
+    left: 50%;
+    transform: translateX(-50%);
     cursor: pointer;
-  }
-  
-  .slide-up {
-    animation: slideUp 0.3s ease-out forwards;
-  }
-  
-  .slide-down {
-    animation: slideDown 0.3s ease-in forwards;
-  }
-  
-  @keyframes slideUp {
-    from {
-      transform: translateY(100%);
+    color: white;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--highlight-color);
+    border-radius: 50%;
+    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
+    z-index: 11;
+}
+
+@media (max-width: 768px) {
+    .resume-popup-content {
+        padding: 1.5em;
+        padding-bottom: 4em;
     }
-    to {
-      transform: translateY(0);
+
+    .close-button {
+        width: 40px;
+        height: 40px;
+        bottom: 1.5em;
     }
-  }
-  
-  @keyframes slideDown {
-    from {
-      transform: translateY(0);
+}
+
+@media (max-width: 480px) {
+    .resume-popup-content {
+        padding: 1em;
+        padding-bottom: 3.5em;
     }
-    to {
-      transform: translateY(100%);
+
+    .close-button {
+        width: 36px;
+        height: 36px;
+        bottom: 1em;
     }
-  }
+}

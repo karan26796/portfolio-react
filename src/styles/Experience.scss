@@ -9,6 +9,10 @@
     border-radius: .75em;
     border: 2px solid var(--border-color);
 
+    @media (max-width : 700px){
+        width: 100%;
+    }
+
     .job-entry {
         width: -webkit-fill-available;
         display: flex;
@@ -33,6 +37,7 @@
 
             h4,
             h5 {
+                font-size: 1.3em;
                 margin: 0;
             }
 
