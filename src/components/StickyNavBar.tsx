@@ -68,13 +68,13 @@ const StickyNavBar: React.FC = () => {
           className={`a-header ${location.pathname === '/home' ? 'active' : ''}`} 
           to="/home"
         >
-          <House size={18} weight="bold" />Home
+          <House size={18} weight="duotone" />Home
         </Link>
         <Link 
           className={`a-header ${location.pathname === '/gallery' ? 'active' : ''}`} 
           to="/gallery"
         >
-          <Image size={18} weight="bold" />Gallery
+          <Image size={18} weight="duotone" />Gallery
         </Link>
       </nav>
     </div>

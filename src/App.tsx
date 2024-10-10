@@ -1,21 +1,24 @@
-import React from 'react';
-import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import ProjectList from './pages/ProjectList';
-import ProjectDetails from './pages/ProjectDetails';
-import StickyNavBar from './components/StickyNavBar';
-import HeaderWithCarousel from './components/HeaderwithCarousel';
-import ProjectCard from './components/ProjectCard';
-import { projectSummaries } from './utils/ProjectSummaries';
-import About from './pages/About';
-import Gallery from './pages/Gallery';
-import TrainingList from './pages/TrainingList';
-
-import './styles/AboutRedirect.scss'
-import Testimonials from './components/Testimonials';
-import LogoCarousel from './components/LogoCarousel';
-import Footer from './components/Footer';
-import ContactForm from './components/ContactForm';
-import Buttons from './components/Buttons';
+import React from "react";
+import {
+  BrowserRouter as Router,
+  Route,
+  Routes,
+  Navigate,
+} from "react-router-dom";
+import ProjectList from "./pages/ProjectList";
+import ProjectDetails from "./pages/ProjectDetails";
+import StickyNavBar from "./components/StickyNavBar";
+import HeaderWithCarousel from "./components/HeaderwithCarousel";
+import ProjectCard from "./components/ProjectCard";
+import { projectSummaries } from "./utils/ProjectSummaries";
+import About from "./pages/About";
+import Gallery from "./pages/Gallery";
+import TrainingList from "./pages/TrainingList";
+import "./styles/AboutRedirect.scss";
+import Testimonials from "./components/Testimonials";
+import Footer from "./components/Footer";
+import ContactForm from "./components/ContactForm";
+import Buttons from "./components/Buttons";
 
 const App: React.FC = () => {
   return (
@@ -41,6 +44,7 @@ const App: React.FC = () => {
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/figma-training" element={<TrainingList />} />
               </Routes>
+              <Footer />
             </>
           }
         />
@@ -53,29 +57,19 @@ const HomePage: React.FC = () => {
   return (
     <>
       <HeaderWithCarousel />
-      <Buttons
-        text="Primary Button"
-        iconName="CaretRight"
-        withIcon={true}
-        withText={true}
-        size="m"
-        variant="primary"
-        onClick={() => console.log('Primary button clicked!')}
-      />
       <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
-      <Testimonials/>
-      <Footer/>
-      <ContactForm/>
+      <Testimonials />
+      <ContactForm />
     </>
   );
 };
 
 const AboutLink: React.FC = () => {
   return (
-    <div className='about-redirect'>
+    <div className="about-redirect">
       <div></div>
     </div>
   );
-}
+};
 
 export default App;

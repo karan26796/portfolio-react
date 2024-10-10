@@ -6,6 +6,7 @@
 
   body {
     margin: 0;
+
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 
@@ -174,7 +175,8 @@
       border-radius: 1em;
     }
 
-    figcaption, caption {
+    figcaption,
+    caption {
       color: var(--tertiary-text);
       font-weight: 500;
       font-size: 1em;

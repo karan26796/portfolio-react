@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/Gallery.scss";
+import { MapPin } from "@phosphor-icons/react";
 
 // Define an interface for the locations object
 interface LocationsType {
@@ -9,7 +10,7 @@ interface LocationsType {
 const Gallery = () => {
   const [columns, setColumns] = useState(3);
   const [isMobile, setIsMobile] = useState(false);
-  
+
   const imageNumbers = Array.from({ length: 33 }, (_, i) => 33 - i);
 
   // Now TypeScript knows this object can have any number as a key
@@ -46,11 +47,11 @@ const Gallery = () => {
     30: "en route Umling La, Ladakh",
     31: "Kashmir",
     32: "Doodhpathri, Kashmir",
-    33: "Doodhpathri, Kashmir"
+    33: "Doodhpathri, Kashmir",
   };
 
   // Type the images array
-  const images: (string | null)[] = imageNumbers.map(num => {
+  const images: (string | null)[] = imageNumbers.map((num) => {
     try {
       return require(`../utils/gallery/${num}.webp`);
     } catch (e) {
@@ -82,18 +83,18 @@ const Gallery = () => {
     let cols = [];
     for (let i = 0; i < columns; i++) {
       cols.push(
-        <div
-          key={i}
-          className="column"
-        >
+        <div key={i} className="column">
           {i === 0 && (
             <div className="gallery-content">
               <h1>Photo gallery</h1>
               <p>
-                I have been fortunate to visit some of the most stunning places in India. 
-                Here are some of my favorite pictures. I hope you like them! 😌
-                <br/><br/>
-                Follow on <a href="instagram.com/kadankapoor">Instagram</a> for more such photos.
+                I have been fortunate to visit some of the most stunning places
+                in India. Here are some of my favorite pictures. I hope you like
+                them! 😌
+                <br />
+                <br />
+                Follow on <a href="instagram.com/kadankapoor">Instagram</a> for
+                more such photos.
               </p>
             </div>
           )}
@@ -110,7 +111,12 @@ const Gallery = () => {
                     alt={`Gallery image ${num}`}
                     className="gallery-image"
                   />
-                  <div className={`location-text ${isMobile ? 'always-visible' : ''}`}>
+                  <div
+                    className={`location-text ${
+                      isMobile ? "always-visible" : ""
+                    }`}
+                  >
+                    <MapPin size='1.2em' weight="regular" />{" "}
                     {locations[num] || `Location ${num}`}
                   </div>
                 </div>

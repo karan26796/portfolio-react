@@ -43,19 +43,11 @@
 }
 
 .close-button {
-    display: flex;
-    width: 50px;
-    height: 50px;
-    position: absolute;
+    position: fixed;
     bottom: 2em;
+    // top: 1em;
     left: 50%;
     transform: translateX(-50%);
-    cursor: pointer;
-    color: white;
-    align-items: center;
-    justify-content: center;
-    background-color: var(--highlight-color);
-    border-radius: 50%;
     box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
     z-index: 11;
 }
@@ -80,8 +72,6 @@
     }
 
     .close-button {
-        width: 36px;
-        height: 36px;
         bottom: 1em;
     }
 }

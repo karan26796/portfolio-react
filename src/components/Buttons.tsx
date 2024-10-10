@@ -1,48 +1,61 @@
 import React from 'react';
-import { IconProps } from 'phosphor-react';
+import * as PhosphorIcons from '@phosphor-icons/react';
+import { Icon as PhosphorIcon } from '@phosphor-icons/react';
 import '../styles/Button.scss';
 
+type IconWeight = 'thin' | 'light' | 'regular' | 'bold' | 'duotone' | 'fill';
+
 type ButtonProps = {
-  text?: string; // Optional text for the button
-  iconName?: keyof typeof import('phosphor-react'); // Icon name from phosphor icons
-  withIcon?: boolean; // Whether the button has an icon or not
-  withText?: boolean; // Whether the button has text or not
-  size?: 's' | 'm' | 'l'; // Size variant for the button (small, medium, large)
-  variant?: 'primary' | 'secondary' | 'danger' | 'success'; // Style variant
-  onClick?: () => void; // Click handler for the button
+  className?:string;
+  text?: string;
+  iconName?: keyof typeof PhosphorIcons;
+  withIcon?: boolean;
+  iconDirection?: 'left' | 'right';
+  withText?: boolean;
+  size?: 's' | 'm' | 'l';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'success';
+  weight?: IconWeight;
+  type?: 'button' | 'submit' | 'reset'; // Added type options for button
+  onClick?: () => void;
 };
 
-const Buttons: React.FC<ButtonProps> = ({
+const Button: React.FC<ButtonProps> = ({
+  className,
   text,
   iconName,
   withIcon = false,
+  iconDirection = 'left',
   withText = true,
-  size = 'm', // Default to medium size
-  variant = 'primary', // Default to primary style
+  size = 'm',
+  variant = 'primary',
+  weight = 'regular',
+  type = 'button', // Default type to 'button'
   onClick,
 }) => {
-  // Dynamically import the icon from Phosphor Icons
-  const IconComponent = iconName ? (require('phosphor-react')[iconName] as React.FC<IconProps>) : null;
+  // Properly type the IconComponent
+  const IconComponent = iconName ? (PhosphorIcons[iconName] as PhosphorIcon) : null;
 
-  // Define sizes for the icon and text
   const sizeConfig = {
-    s: { iconSize: 16, fontSize: '0.75em' }, // Small size
-    m: { iconSize: 24, fontSize: '1em' },   // Medium size
-    l: { iconSize: 32, fontSize: '1.25em' }, // Large size
+    s: { iconSize: '1.2em', fontSize: '1em' },
+    m: { iconSize: '1.5em', fontSize: '1.25em' },
+    l: { iconSize: '1.8em', fontSize: '1.5em' },
   };
 
   const { iconSize, fontSize } = sizeConfig[size];
 
   return (
     <button 
-      className={`custom-button custom-button-${size} custom-button-${variant}`}
+      className={`${className} custom-button custom-button-${size} custom-button-${variant} custom-button-${iconDirection}`}
       onClick={onClick}
       style={{ fontSize }}
+      type={type} // Set the button type
     >
-      {withIcon && IconComponent && <IconComponent size={iconSize} />}
+      {withIcon && IconComponent && (
+        <IconComponent size={iconSize} weight={weight} />
+      )}
       {withText && text && <span>{text}</span>}
     </button>
   );
 };
 
-export default Buttons;
+export default Button;

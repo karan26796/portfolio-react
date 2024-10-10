@@ -1,36 +1,53 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import { User, ReadCvLogo } from "@phosphor-icons/react";
-import '../styles/Footer.scss';
-import ResumePopup from '../pages/ResumePopup';
+import React from "react";
+import "../styles/Footer.scss";
+import Button from "./Buttons";
 
 const Footer: React.FC = () => {
-    const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
-  
-    const toggleResume = (): void => {
-      setIsResumeOpen(!isResumeOpen);
-    };
-  
-    const closeResume = (): void => {
-      setIsResumeOpen(false);
-    };
-  
-    return (
-      <>
-        <div className="footer-container">
-          <div className="links">
-            <Link to="#" className="a-footer" onClick={toggleResume}>
-              <ReadCvLogo size={28} weight="duotone" />
-              Resume
-            </Link>
-            <Link className="a-footer" to="/gallery">
-              <User size={28} weight="duotone" /> About Me
-            </Link>
-          </div>
-        </div>
-        <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
-      </>
-    );
+  const handleSocialMediaClick = (url: string) => {
+    window.open(url, "_blank"); // Opens the URL in a new tab
   };
-  
-  export default Footer;
+
+  return (
+    <div className="footer-container">
+      <div className="links">
+        <Button
+          text="LinkedIn"
+          iconName="LinkedinLogo"
+          withIcon={true}
+          iconDirection="left"
+          withText={false}
+          size="m"
+          variant="secondary"
+          weight="regular"
+          onClick={() => handleSocialMediaClick("https://www.linkedin.com/in/karankapoorux")}
+        />
+
+        <Button
+          text="Twitter"
+          iconName="XLogo"
+          withIcon={true}
+          iconDirection="left"
+          withText={false}
+          size="m"
+          variant="secondary"
+          weight="regular"
+          onClick={() => handleSocialMediaClick("https://twitter.con/kadankapoor")}
+        />
+
+        <Button
+          text="Instagram"
+          iconName="InstagramLogo"
+          withIcon={true}
+          iconDirection="left"
+          withText={false}
+          size="m"
+          variant="secondary"
+          weight="regular"
+          onClick={() => handleSocialMediaClick("https://www.instagram.com/kadankapoor")}
+        />
+      </div>
+    </div>
+  );
+};
+
+export default Footer;

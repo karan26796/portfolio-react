@@ -1,5 +1,6 @@
 import React, { useState, FormEvent, useMemo } from 'react';
 import '../styles/ContactForm.scss';
+import Button from './Buttons';
 
 const vibrantColors = [
   { bg: '#fefefe', text: '#FF4D4D' }, // Red
@@ -47,7 +48,7 @@ const ContactForm: React.FC = () => {
   }, []);
 
   return (
-    <div className="contact-form-container">
+    <div id="contact" className="contact-form-container">
       <h1>Get in touch for</h1>
       <div className='tag-container'>
         {tagTexts.map((text, index) => (
@@ -94,12 +95,19 @@ const ContactForm: React.FC = () => {
           onChange={(e) => setMessage(e.target.value)}
           required
         />
-        <button 
+
+        <Button
           className='submit-button'
-          type="submit" 
-        >
-          Submit
-        </button>
+          text="Submit"
+          // iconName="XLogo"
+          withIcon={false}
+          iconDirection="left"
+          withText={true}
+          size="l"
+          variant="primary"
+          weight="regular"
+          type='submit'
+        />
       </form>
     </div>
   );

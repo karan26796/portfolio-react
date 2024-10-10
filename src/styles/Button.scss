@@ -1,54 +1,69 @@
 .custom-button {
     display: flex;
     align-items: center;
-    padding: 0.75em 1.5em;
+    justify-content: center;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    gap: .5em;
   
     span {
-      margin-left: 0.5em;
+    //   margin-left: 0.5em;
     }
   
     svg {
       display: inline-block;
       vertical-align: middle;
     }
+
+    &.custom-button-left{
+        flex-direction: row;
+    }
+
+    &.custom-button-right{
+        flex-direction: row-reverse;
+    }
   
     // Size variants
     &.custom-button-s {
-      padding: 0.5em 1em;
+      padding: 0.75em 1em;
+      border-radius: .5em;
     }
   
     &.custom-button-m {
       padding: 0.75em 1.5em; // Default medium size
+      border-radius: .75em;
     }
   
     &.custom-button-l {
       padding: 1em 2em;
+      border-radius: 1em;
     }
   
     // Variant styles
     &.custom-button-primary {
-      background-color: #007bff;
-      color: #ffffff;
+      background-color: var(--highlight-color);
+      color: white;
   
       &:hover {
-        background-color: #0056b3;
+        background-color: var(--highlight-color-light);
       }
     }
   
     &.custom-button-secondary {
-      background-color: #6c757d;
-      color: #ffffff;
+      background-color: white;
+      color: var(--highlight-color);
+    //   border-radius: 2em;
+      border: 1px solid var(--border-color);
+      box-shadow: none;
   
       &:hover {
-        background-color: #5a6268;
+        background-color: var(--grey-100);
       }
     }
   
-    &.custom-button-danger {
+    &.custom-button-tertiary {
       background-color: #dc3545;
       color: #ffffff;
   
@@ -57,7 +72,7 @@
       }
     }
   
-    &.custom-button-success {
+    &.custom-button-link {
       background-color: #28a745;
       color: #ffffff;
   
