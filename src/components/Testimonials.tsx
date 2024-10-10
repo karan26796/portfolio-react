@@ -24,7 +24,7 @@ const testimonialsData: Testimonial[] = [
     "company": "Looppanel",
     "avatarUrl": kritika,
     "testimonial": "Karan was a dedicated employee who gave his work his all. He excelled in design iteration and effectively conducted user research.",
-    "highlightedWords": ["design iteration", "user research"] // Words to highlight
+    "highlightedWords": ["excelled in design iteration", "effectively conducted user research"] // Words to highlight
   },
   {
     "id": 2,

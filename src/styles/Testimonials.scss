@@ -1,4 +1,6 @@
 .testimonials-section {
+    width: var(--width-container);
+    max-width: var(--max-width-container);
     display: flex;
     flex-direction: column;
     gap: 2em;
@@ -22,26 +24,26 @@
     .testimonials-grid {
         display: grid;
         gap: 1em;
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto auto;
 
         /* Breakpoint above 768px for row spans */
         @media (min-width: 1024px) {
-            .item-1 {
-                grid-row: 1 / span 2; /* Span across two rows */
-            }
+            // .item-1 {
+            //     grid-column: 1 / 4; /* Span across two rows */
+            // }
 
-            .item-3 {
-                grid-row: 2 / span 1; /* Adjust row span */
-            }
+            // .item-2 {
+            //     grid-column: 4 / 8; /* Adjust row span */
+            // }
 
-            .item-2 {
-                grid-row: 1 / span 1; /* Adjust row span */
-            }
+            // .item-3 {
+            //     grid-column: 1 / 5; /* Span across two rows */
+            // }
 
-            .item-4 {
-                grid-row: 1 / span 2; /* Span across two rows */
-            }
+            // .item-4 {
+            //     grid-column: 5 / 8; /* Adjust row span */
+            // }
         }
 
         /* For screens below 768px */
