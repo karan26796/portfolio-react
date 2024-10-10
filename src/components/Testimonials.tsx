@@ -13,58 +13,79 @@ interface Testimonial {
   company: string;
   avatarUrl: string;
   testimonial: string;
+  highlightedWords?: string[]; // Add this new property
 }
 
 const testimonialsData: Testimonial[] = [
   {
-    id: 1,
-    name: "Kritika Oberoi",
-    role: "Co-Founder",
-    company: "Looppanel",
-    avatarUrl: kritika,
-    testimonial: "Karan was a part-time employee at Looppanel but he gave his work his all, took feedback very well, iterated on designs endlessly and learned how to run effective user research."
+    "id": 1,
+    "name": "Kritika Oberoi",
+    "role": "Co-Founder",
+    "company": "Looppanel",
+    "avatarUrl": kritika,
+    "testimonial": "Karan was a dedicated employee who gave his work his all. He excelled in design iteration and effectively conducted user research.",
+    "highlightedWords": ["design iteration", "user research"] // Words to highlight
   },
   {
-    id: 2,
-    name: "Malavika Susan",
-    role: "UX Designer",
-    company: "Aphelia Innovations",
-    avatarUrl: malavika,
-    testimonial: "Karan's emphasis on design standardization, by meticulous planning and strategizing, made way for a strong foundation in design for me and all our future projects. His ability to combine technology with art is exceptional."
+    "id": 2,
+    "name": "Megha Agarwal",
+    "role": "Designer",
+    "company": "Looppanel",
+    "avatarUrl": megha,
+    "testimonial": "Karan is an exceptional designer who brings clarity to highly ambiguous problems. He established a comprehensive design system that maintained consistency in our fast-moving startup.",
+    "highlightedWords": ["brings clarity to highly ambiguous problems", "established a comprehensive design system"] // Words to highlight
   },
   {
-    id: 3,
-    name: "Nitin Prakash",
-    role: "Android Developer",
-    company: "Guesthouser",
-    avatarUrl: nitin,
-    testimonial: "I had a pleasure of working with Karan at Guesthouser. He is not only a product designer but also has a great skill of programming which makes his work outstanding. He has superb UI/UX skills and can solve complex problems easily"
+    "id": 3,
+    "name": "Malavika Susan",
+    "role": "Designer",
+    "company": "Aphelia Innovations",
+    "avatarUrl": malavika,
+    "testimonial": "Karan is exceptional at combining technology with art through meticulous planning. His emphasis on design standardization created a strong foundation for all our projects.",
+    "highlightedWords": ["meticulous planning", "design standardization"]
   },
   {
-    id: 3,
-    name: "Megha Agarwal",
-    role: "Senior Product Designer",
-    company: "Looppanel",
-    avatarUrl: megha,
-    testimonial: "I had the pleasure of working alongside Karan from July to September 2022 at Looppanel. Karan is an exceptional designer, mentor, and collaborator. He possesses a unique ability to bring clarity to highly ambiguous problem statements, a skill that is invaluable in the design field. Karan is also highly proficient with design tools, which he utilized to establish a comprehensive design system at Looppanel early on. This significantly contributed to maintaining pace and consistency within our fast-moving startup environment. Karan's enthusiasm is contagious, and I’m confident he would be an invaluable asset to any product team!"
+    "id": 4,
+    "name": "Nitin Prakash",
+    "role": "Android Developer",
+    "company": "Guesthouser",
+    "avatarUrl": nitin,
+    "testimonial": "Karan is an outstanding product designer with valuable development skills. He can solve complex problems easily and has superb UI/UX capabilities.",
+    "highlightedWords": ["valuable development skills", "solve complex problems easily"] // Words to highlight
   }
-];
+]
 
 const Testimonials: React.FC = () => {
-  const duplicatedData = [...testimonialsData, ...testimonialsData];
+  const duplicatedData = [...testimonialsData];
+
+  const highlightText = (text: string, wordsToHighlight: string[] = []) => {
+    if (!wordsToHighlight.length) return text;
+
+    const parts = text.split(new RegExp(`(${wordsToHighlight.join('|')})`, 'gi'));
+    return parts.map((part, index) => {
+      const isHighlighted = wordsToHighlight.some(word =>
+        part.toLowerCase() === word.toLowerCase()
+      );
+      return isHighlighted ?
+        <span key={index} className="highlighted">{part}</span> :
+        <React.Fragment key={index}>{part}</React.Fragment>;
+    });
+  };
 
   return (
     <div className="testimonials-section">
-      <h1>Hear from the people I've worked with</h1>
+      <h1>Hear from the people I've worked with</h1 >
       <div className="scroll-container">
         <div className="scroll-track testimonials-grid">
           {duplicatedData.map((testimonial, index) => (
             <div key={`${testimonial.id}-${index}`} className="testimonial-card">
-              <p>{testimonial.testimonial}</p>
+              <p>
+                {highlightText(testimonial.testimonial, testimonial.highlightedWords)}
+              </p>
               <div className="testimonial-header">
-                <img 
-                  src={testimonial.avatarUrl} 
-                  alt={`${testimonial.name}'s avatar`} 
+                <img
+                  src={testimonial.avatarUrl}
+                  alt={`${testimonial.name}'s avatar`}
                   className="testimonial-avatar"
                 />
                 <div className="testimonial-meta">
@@ -81,4 +102,3 @@ const Testimonials: React.FC = () => {
 };
 
 export default Testimonials;
-

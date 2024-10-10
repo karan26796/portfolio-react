@@ -6,23 +6,29 @@
     gap: 2em;
     padding: 4rem 2rem;
     margin: auto;
+    overflow: hidden;
+    align-items: center;
 
     .scroll-container {
         width: 100%;
-        overflow: hidden;
     }
 
     .scroll-track {
-        display: flex;
-        animation: scroll 15s linear infinite;
-        &:hover {
-            animation-play-state: paused;
-        }
+        // display: flex;
+        // animation: scroll 15s linear infinite;
+        // &:hover {
+        //     animation-play-state: paused;
+        // }
     }
 
     .testimonials-grid {
-        display: flex;
-        gap: 2rem;
+        display: grid;
+        gap: 1em;
+        grid-template-columns: repeat(2,1fr);
+
+        @media (max-width: 768px){
+            grid-template-columns: repeat(1,1fr);
+        }
     }
 
     .testimonial-card {
@@ -41,6 +47,25 @@
         p{
             font-size: 1.5em;
             margin: 0;
+            line-height: 145%;
+
+            .highlighted {
+                color: var(--highlight-color);
+                box-decoration-break: clone;
+                -webkit-box-decoration-break: clone;
+                
+                // Method 1: Using padding
+                padding: 0 0.1em; // Horizontal padding for spacing
+                background: #0052FF20;
+                border-radius: 0.2em;
+                
+                /* Method 2: Using box-shadow (alternative)
+                box-shadow: 
+                    0.1em 0 0 #0052FF20,
+                    -0.1em 0 0 #0052FF20;
+                background: #0052FF20;
+                */
+            }
         }
     }
 
@@ -51,15 +76,15 @@
 
         .testimonial-meta{
             h4, h5{
-                font-size: 1.4em;
+                font-size: 1.2em;
                 margin: 0;
             }
         }
     }
 
     .testimonial-avatar {
-        width: 4em;
-        height: 4em;
+        width: 3em;
+        height: 3em;
         border-radius: 50%;
         object-fit: cover;
         background-color: wheat;
