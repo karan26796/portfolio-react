@@ -1,13 +1,13 @@
 .testimonials-section {
-    width: var(--width-container);
     max-width: var(--max-width-container);
     display: flex;
     flex-direction: column;
     gap: 2em;
-    padding: 4rem 2rem;
+    // padding: 4rem 2rem;
     margin: auto;
     overflow: hidden;
     align-items: center;
+    margin-top: 2em ;
 
     .scroll-container {
         width: 100%;
@@ -47,7 +47,7 @@
         }
 
         /* For screens below 768px */
-        @media (max-width: 768px) {
+        @media (max-width: 677px) {
             grid-template-columns: repeat(1, 1fr); /* Single column layout */
             grid-template-rows: auto auto; /* Rows automatically adjust, no row span applied */
         }
@@ -67,7 +67,6 @@
         gap: 2em;
 
         p {
-            font-size: 1.3em;
             margin: 0;
             line-height: 145%;
 
@@ -117,10 +116,6 @@
 /* Responsive adjustments */
 @media (max-width: 768px) {
     .testimonials-section {
-        padding: 3rem 1rem;
-
-        .testimonials-title {
-            font-size: 2rem;
-        }
+        padding: 0rem 1rem;
     }
 }

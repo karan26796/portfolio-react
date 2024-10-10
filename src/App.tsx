@@ -13,6 +13,7 @@ import TrainingList from './pages/TrainingList';
 import './styles/AboutRedirect.scss'
 import Testimonials from './components/Testimonials';
 import LogoCarousel from './components/LogoCarousel';
+import Footer from './components/Footer';
 
 const App: React.FC = () => {
   return (
@@ -52,6 +53,7 @@ const HomePage: React.FC = () => {
       <HeaderWithCarousel />
       <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
       <Testimonials/>
+      <Footer/>
     </>
   );
 };
