@@ -7,12 +7,16 @@
     flex-wrap: wrap;
     gap: 1em;
 
-        img {
-            width: auto;
-            display: block;
-            object-fit: cover;
-            opacity: 50%;
-            filter: invert(1);
-            height: 40px;
+    img {
+        width: auto;
+        display: block;
+        object-fit: cover;
+        opacity: 50%;
+        filter: invert(1);
+        height: 40px;
+
+        @media (max-width: 768px) {
+            height: 35px;
         }
+    }
 }

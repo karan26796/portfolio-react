@@ -78,7 +78,10 @@ const Testimonials: React.FC = () => {
       <div className="scroll-container">
         <div className="scroll-track testimonials-grid">
           {duplicatedData.map((testimonial, index) => (
-            <div key={`${testimonial.id}-${index}`} className="testimonial-card">
+            <div
+              key={`${testimonial.id}-${index}`}
+              className={`testimonial-card item-${index+1}`}
+            >
               <p>
                 {highlightText(testimonial.testimonial, testimonial.highlightedWords)}
               </p>
