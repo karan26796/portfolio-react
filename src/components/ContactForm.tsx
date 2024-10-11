@@ -43,11 +43,13 @@ const Tag: React.FC<TagProps> = ({ text, color, rotation }) => {
 };
 
 const ContactForm: React.FC = () => {
-  const [name, setName] = useState('');
-  const [company, setCompany] = useState('');
-  const [phone, setPhone] = useState('');
-  const [email, setEmail] = useState('');
-  const [message, setMessage] = useState('');
+  const [formData, setFormData] = useState({
+    name: '',
+    company: '',
+    phone: '',
+    email: '',
+    message: ''
+  });
   const [status, setStatus] = useState<StatusType>({ type: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -59,6 +61,53 @@ const ContactForm: React.FC = () => {
       rotation: Math.random() * 4 - 2
     }));
   }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
+  };
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+    setStatus({ type: '', message: '' });
+
+    try {
+      const response = await fetch('https://formspree.io/f/mldeerwo', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (!response.ok) {
+        throw new Error('Failed to submit form');
+      }
+
+      setStatus({
+        type: 'success',
+        message: 'Thank you for your message. We will get back to you soon!'
+      });
+      setFormData({
+        name: '',
+        company: '',
+        phone: '',
+        email: '',
+        message: ''
+      });
+    } catch (error) {
+      setStatus({
+        type: 'error',
+        message: 'There was an error submitting your message. Please try again.'
+      });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div id="contact" className="contact-form-container">
@@ -79,55 +128,48 @@ const ContactForm: React.FC = () => {
         </div>
       )}
       <form
-        action="https://formsubmit.co/7fb200f3e6e189e8a15af2f523cf79dd" // Replace with your FormSubmit email
-        method="POST"
+        onSubmit={handleSubmit}
         className="contact-form"
-        onSubmit={() => setIsSubmitting(true)}
       >
         <input
           type="text"
           name="name"
           placeholder="Name"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
+          value={formData.name}
+          onChange={handleChange}
           required
         />
         <input
           type="text"
           name="company"
           placeholder="Company"
-          value={company}
-          onChange={(e) => setCompany(e.target.value)}
+          value={formData.company}
+          onChange={handleChange}
           required
         />
         <input
           type="tel"
           name="phone"
           placeholder="Phone"
-          value={phone}
-          onChange={(e) => setPhone(e.target.value)}
+          value={formData.phone}
+          onChange={handleChange}
           required
         />
         <input
           type="email"
           name="email"
           placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={formData.email}
+          onChange={handleChange}
           required
         />
         <textarea
           name="message"
           placeholder="Message"
-          value={message}
-          onChange={(e) => setMessage(e.target.value)}
+          value={formData.message}
+          onChange={handleChange}
           required
         />
-
-        {/* Hidden inputs for additional configurations */}
-        <input type="hidden" name="_subject" value="New contact form submission" />
-        <input type="hidden" name="_captcha" value="false" />
-        <input type="hidden" name="_next" value="https://yourdomain.com/thank-you" />
 
         <Button
           className='submit-button'
