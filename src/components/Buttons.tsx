@@ -6,7 +6,7 @@ import '../styles/Button.scss';
 type IconWeight = 'thin' | 'light' | 'regular' | 'bold' | 'duotone' | 'fill';
 
 type ButtonProps = {
-  className?:string;
+  className?: string;
   text?: string;
   iconName?: keyof typeof PhosphorIcons;
   withIcon?: boolean;
@@ -15,8 +15,9 @@ type ButtonProps = {
   size?: 's' | 'm' | 'l';
   variant?: 'primary' | 'secondary' | 'tertiary' | 'success';
   weight?: IconWeight;
-  type?: 'button' | 'submit' | 'reset'; // Added type options for button
+  type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
+  disabled?: boolean; // Added disabled prop
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -29,10 +30,10 @@ const Button: React.FC<ButtonProps> = ({
   size = 'm',
   variant = 'primary',
   weight = 'regular',
-  type = 'button', // Default type to 'button'
+  type = 'button',
   onClick,
+  disabled = false, // Default to false
 }) => {
-  // Properly type the IconComponent
   const IconComponent = iconName ? (PhosphorIcons[iconName] as PhosphorIcon) : null;
 
   const sizeConfig = {
@@ -48,7 +49,8 @@ const Button: React.FC<ButtonProps> = ({
       className={`${className} custom-button custom-button-${size} custom-button-${variant} custom-button-${iconDirection}`}
       onClick={onClick}
       style={{ fontSize }}
-      type={type} // Set the button type
+      type={type}
+      disabled={disabled}
     >
       {withIcon && IconComponent && (
         <IconComponent size={iconSize} weight={weight} />

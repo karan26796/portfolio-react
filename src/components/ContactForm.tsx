@@ -1,19 +1,36 @@
 import React, { useState, FormEvent, useMemo } from 'react';
-import '../styles/ContactForm.scss';
+import '../styles/ContactForm.scss'
 import Button from './Buttons';
 
-const vibrantColors = [
-  { bg: '#fefefe', text: '#FF4D4D' }, // Red
-  { bg: '#fefefe', text: '#00CC66' }, // Green
-  { bg: '#fefefe', text: '#3399FF' }, // Blue
-  { bg: '#fefefe', text: '#FF9933' }, // Orange
-  { bg: '#fefefe', text: '#9933FF' }, // Purple
+// Define types
+type VibrantColor = {
+  bg: string;
+  text: string;
+};
+
+type TagProps = {
+  text: string;
+  color: VibrantColor;
+  rotation: number;
+};
+
+type StatusType = {
+  type: '' | 'success' | 'error';
+  message: string;
+};
+
+const vibrantColors: VibrantColor[] = [
+  { bg: '#fefefe', text: '#FF4D4D' },
+  { bg: '#fefefe', text: '#00CC66' },
+  { bg: '#fefefe', text: '#3399FF' },
+  { bg: '#fefefe', text: '#FF9933' },
+  { bg: '#fefefe', text: '#9933FF' },
 ];
 
-const Tag: React.FC<{ text: string; color: typeof vibrantColors[0]; rotation: number }> = ({ text, color, rotation }) => {
+const Tag: React.FC<TagProps> = ({ text, color, rotation }) => {
   return (
-    <h3 
-      className='tag' 
+    <h3
+      className='tag'
       style={{
         backgroundColor: color.bg,
         color: color.text,
@@ -31,12 +48,8 @@ const ContactForm: React.FC = () => {
   const [phone, setPhone] = useState('');
   const [email, setEmail] = useState('');
   const [message, setMessage] = useState('');
-
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    console.log('Form submitted:', { name, company, phone, email, message });
-    // Add your form submission logic here
-  };
+  const [status, setStatus] = useState<StatusType>({ type: '', message: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const tagTexts = ['App/Website redesign', 'MVP Design', 'XR Design', '0-1 Product Design', 'Corporate Figma Training', '1:1 Figma Session'];
 
@@ -52,17 +65,28 @@ const ContactForm: React.FC = () => {
       <h1>Get in touch for</h1>
       <div className='tag-container'>
         {tagTexts.map((text, index) => (
-          <Tag 
-            key={index} 
-            text={text} 
+          <Tag
+            key={index}
+            text={text}
             color={tagProperties[index].color}
             rotation={tagProperties[index].rotation}
           />
         ))}
       </div>
-      <form onSubmit={handleSubmit} className="contact-form">
+      {status.type && (
+        <div className={`status-message ${status.type}`}>
+          {status.message}
+        </div>
+      )}
+      <form
+        action="https://formsubmit.co/7fb200f3e6e189e8a15af2f523cf79dd" // Replace with your FormSubmit email
+        method="POST"
+        className="contact-form"
+        onSubmit={() => setIsSubmitting(true)}
+      >
         <input
           type="text"
+          name="name"
           placeholder="Name"
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -70,6 +94,7 @@ const ContactForm: React.FC = () => {
         />
         <input
           type="text"
+          name="company"
           placeholder="Company"
           value={company}
           onChange={(e) => setCompany(e.target.value)}
@@ -77,6 +102,7 @@ const ContactForm: React.FC = () => {
         />
         <input
           type="tel"
+          name="phone"
           placeholder="Phone"
           value={phone}
           onChange={(e) => setPhone(e.target.value)}
@@ -84,29 +110,36 @@ const ContactForm: React.FC = () => {
         />
         <input
           type="email"
+          name="email"
           placeholder="Email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           required
         />
         <textarea
+          name="message"
           placeholder="Message"
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           required
         />
 
+        {/* Hidden inputs for additional configurations */}
+        <input type="hidden" name="_subject" value="New contact form submission" />
+        <input type="hidden" name="_captcha" value="false" />
+        <input type="hidden" name="_next" value="https://yourdomain.com/thank-you" />
+
         <Button
           className='submit-button'
-          text="Submit"
-          // iconName="XLogo"
+          text={isSubmitting ? 'Sending...' : 'Submit'}
           withIcon={false}
           iconDirection="left"
           withText={true}
           size="l"
           variant="primary"
           weight="regular"
-          type='submit'
+          type="submit"
+          disabled={isSubmitting}
         />
       </form>
     </div>
