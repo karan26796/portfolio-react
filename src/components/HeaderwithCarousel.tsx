@@ -28,7 +28,7 @@ const HeaderWithCarousel: React.FC = () => {
       <LogoCarousel />
       <div className="button-group">
         <Buttons
-          text="Get in touch"
+          text="Let's  work together"
           iconName="ArrowRight"
           withIcon={true}
           iconDirection="right"
