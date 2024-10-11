@@ -184,23 +184,6 @@
     }
   }
 
-  button {
-    background-color: var(--highlight-color);
-    color: white;
-    border: transparent;
-    height: fit-content;
-    border-radius: .75em;
-    cursor: pointer;
-    box-shadow: inset 0px -6px 0px 0px var(--highlight-color-high);
-
-    transition: scale ease-in-out .2s;
-
-    &:hover {
-      background-color: var(--highlight-color-light);
-      scale: .99;
-    }
-  }
-
   a {
     text-decoration: none;
   }

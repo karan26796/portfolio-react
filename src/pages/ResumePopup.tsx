@@ -35,23 +35,20 @@ const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
         className={`resume-popup-content ${contentClass}`}
         onClick={(e) => e.stopPropagation()}
       >
-        {/* <Link to="#" onClick={onClose} className="close-button">
-          <X size={18} weight="bold" />
-        </Link> */}
         <Resume />
       </div>
       <Button
-          className="close-button"
-          text="Submit"
-          iconName="X"
-          withIcon={true}
-          iconDirection="left"
-          withText={false}
-          size="s"
-          variant="primary"
-          weight="regular"
-          onClick={onClose}
-        />
+        className="close-button"
+        text="Submit"
+        iconName="X"
+        withIcon={true}
+        iconDirection="left"
+        withText={false}
+        size="m"
+        variant="primary"
+        weight="regular"
+        onClick={onClose}
+      />
     </div>
   );
 };
