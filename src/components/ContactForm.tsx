@@ -1,6 +1,6 @@
-import React, { useState, FormEvent, useMemo } from 'react';
-import '../styles/ContactForm.scss'
-import Button from './Buttons';
+import React, { useState, FormEvent, useMemo } from "react";
+import "../styles/ContactForm.scss";
+import Button from "./Buttons";
 
 // Define types
 type VibrantColor = {
@@ -15,26 +15,26 @@ type TagProps = {
 };
 
 type StatusType = {
-  type: '' | 'success' | 'error';
+  type: "" | "success" | "error";
   message: string;
 };
 
 const vibrantColors: VibrantColor[] = [
-  { bg: '#fefefe', text: '#FF4D4D' },
-  { bg: '#fefefe', text: '#00CC66' },
-  { bg: '#fefefe', text: '#3399FF' },
-  { bg: '#fefefe', text: '#FF9933' },
-  { bg: '#fefefe', text: '#9933FF' },
+  { bg: "#fefefe", text: "#FF4D4D" },
+  { bg: "#fefefe", text: "#00CC66" },
+  { bg: "#fefefe", text: "#3399FF" },
+  { bg: "#fefefe", text: "#FF9933" },
+  { bg: "#fefefe", text: "#9933FF" },
 ];
 
 const Tag: React.FC<TagProps> = ({ text, color, rotation }) => {
   return (
     <h3
-      className='tag'
+      className="tag"
       style={{
         backgroundColor: color.bg,
         color: color.text,
-        transform: `rotate(${rotation}deg)`
+        transform: `rotate(${rotation}deg)`,
       }}
     >
       {text}
@@ -44,65 +44,93 @@ const Tag: React.FC<TagProps> = ({ text, color, rotation }) => {
 
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
-    name: '',
-    company: '',
-    phone: '',
-    email: '',
-    message: ''
+    name: "",
+    company: "",
+    contact: "", // Combined field for email or phone
+    message: "",
   });
-  const [status, setStatus] = useState<StatusType>({ type: '', message: '' });
+  const [status, setStatus] = useState<StatusType>({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [contactType, setContactType] = useState<"email" | "phone">("email");
 
-  const tagTexts = ['App/Website redesign', 'MVP Design', 'XR Design', '0-1 Product Design', 'Corporate Figma Training', '1:1 Figma Session'];
+  const tagTexts = [
+    "App/Website redesign",
+    "MVP Design",
+    "XR Design",
+    "0-1 Product Design",
+    "Corporate Figma Training",
+    "1:1 Figma Session",
+  ];
 
   const tagProperties = useMemo(() => {
     return tagTexts.map(() => ({
       color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)],
-      rotation: Math.random() * 4 - 2
+      rotation: Math.random() * 4 - 2,
     }));
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
-    setFormData(prev => ({
+    setFormData((prev) => ({
       ...prev,
-      [name]: value
+      [name]: value,
     }));
+
+    // Automatically detect if input is email or phone
+    if (name === "contact") {
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const phoneRegex = /^\+?[\d\s-]+$/;
+
+      if (emailRegex.test(value)) {
+        setContactType("email");
+      } else if (phoneRegex.test(value)) {
+        setContactType("phone");
+      }
+    }
   };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
-    setStatus({ type: '', message: '' });
+    setStatus({ type: "", message: "" });
+
+    // Prepare the form data with the correct field name
+    const submissionData = {
+      ...formData,
+      [contactType]: formData.contact,
+    };
 
     try {
-      const response = await fetch('https://formspree.io/f/mldeerwo', {
-        method: 'POST',
+      const response = await fetch("https://formspree.io/f/mldeerwo", {
+        method: "POST",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(submissionData),
       });
 
       if (!response.ok) {
-        throw new Error('Failed to submit form');
+        throw new Error("Failed to submit form");
       }
 
       setStatus({
-        type: 'success',
-        message: 'Thank you for your message. We will get back to you soon!'
+        type: "success",
+        message:
+          "Thank you for your message. I will get back to you at the earliest!",
       });
       setFormData({
-        name: '',
-        company: '',
-        phone: '',
-        email: '',
-        message: ''
+        name: "",
+        company: "",
+        contact: "",
+        message: "",
       });
     } catch (error) {
       setStatus({
-        type: 'error',
-        message: 'There was an error submitting your message. Please try again.'
+        type: "error",
+        message:
+          "There was an error submitting your message. Please try again.",
       });
     } finally {
       setIsSubmitting(false);
@@ -112,7 +140,7 @@ const ContactForm: React.FC = () => {
   return (
     <div id="contact" className="contact-form-container">
       <h1>Get in touch for</h1>
-      <div className='tag-container'>
+      <div className="tag-container">
         {tagTexts.map((text, index) => (
           <Tag
             key={index}
@@ -123,18 +151,13 @@ const ContactForm: React.FC = () => {
         ))}
       </div>
       {status.type && (
-        <div className={`status-message ${status.type}`}>
-          {status.message}
-        </div>
+        <div className={`status-message ${status.type}`}>{status.message}</div>
       )}
-      <form
-        onSubmit={handleSubmit}
-        className="contact-form"
-      >
+      <form onSubmit={handleSubmit} className="contact-form">
         <input
           type="text"
           name="name"
-          placeholder="Name"
+          placeholder="Your name"
           value={formData.name}
           onChange={handleChange}
           required
@@ -142,38 +165,31 @@ const ContactForm: React.FC = () => {
         <input
           type="text"
           name="company"
-          placeholder="Company"
+          placeholder="Company (optional)"
           value={formData.company}
           onChange={handleChange}
-          required
         />
         <input
-          type="tel"
-          name="phone"
-          placeholder="Phone"
-          value={formData.phone}
-          onChange={handleChange}
-          required
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          value={formData.email}
+          className="input-3"
+          type="text"
+          name="contact"
+          placeholder="Email or Phone number"
+          value={formData.contact}
           onChange={handleChange}
           required
         />
         <textarea
+        className="textarea-full"
           name="message"
-          placeholder="Message"
+          placeholder="How can we collaborate?"
           value={formData.message}
           onChange={handleChange}
           required
         />
 
         <Button
-          className='submit-button'
-          text={isSubmitting ? 'Sending...' : 'Submit'}
+          className="submit-button"
+          text={isSubmitting ? "Sending..." : "Let's work together"}
           withIcon={false}
           iconDirection="left"
           withText={true}
