@@ -59,7 +59,7 @@ const HomePage: React.FC = () => {
       <HeaderWithCarousel />
       <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
       <Testimonials />
-      <ContactForm />
+      {/* <ContactForm /> */}
     </>
   );
 };

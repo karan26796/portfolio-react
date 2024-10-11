@@ -27,7 +27,7 @@ const HeaderWithCarousel: React.FC = () => {
       </h3>
       <LogoCarousel />
       <div className="button-group">
-        <Buttons
+        {/* <Buttons
           text="Get in touch"
           iconName="ArrowRight"
           withIcon={true}
@@ -42,7 +42,7 @@ const HeaderWithCarousel: React.FC = () => {
               contactSection.scrollIntoView({ behavior: "smooth" });
             }
           }}
-        />
+        /> */}
 
         {/* <Buttons
           text="Secondary Button Large"
