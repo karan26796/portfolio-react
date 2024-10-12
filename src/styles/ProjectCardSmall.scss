@@ -1,0 +1,92 @@
+    .project-container-small {
+        // width: var(--width-container);
+        max-width: var(--max-width-container);
+        margin: auto;
+        display: flex;
+        height: auto;
+        background-color: #fff;
+        flex-direction: row;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+        transition: box-shadow 0.15s ease-in-out;
+        height: auto;
+        border-radius: .75em;
+        gap: 1em;
+        padding: 1em;
+        border: 2px solid var(--border-color);
+
+        img {
+            width: 30%;
+            height: auto;
+            display: block;
+            object-fit: cover;
+            border-radius: .75em;
+            transform-origin: center;
+        }
+
+        .project-card {
+            width: -webkit-fill-available;
+            display: flex;
+            position: relative;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+
+            /* Small screens (mobile) */
+            @media screen and (max-width: 767px) {
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+            }
+
+            @media screen and (max-width: 367px) {
+                flex-direction: column;
+                justify-content: start;
+                align-items: start;
+            }
+
+            .project-card-data {
+                display: flex;
+                flex-direction: column;
+                align-items: start;
+                justify-content: space-between;
+                text-decoration: none;
+                padding-top: 1em;
+                gap: .2em;
+
+                h2,
+                h5,
+                h6,
+                h3,
+                p {
+                    margin: 0;
+                }
+
+                h5 {
+                    font-family: "Architects Daughter", Helvetica, sans-serif;
+                    // color: white;
+                    text-transform: capitalize;
+                    padding: 0 .2em;
+                    font-size: 1.2em;
+                    // background: var(--highlight-color);
+                }
+
+                h3 {
+                    width: 30ch;
+                    // font-size: 2em;
+
+                    @media screen and (max-width: 767px) {
+                        width: 100%;
+                    }
+                }
+            }
+
+            .read-more-button {
+                
+                @media screen and (max-width: 767px) {
+                    display: none;
+                }
+            }
+        }
+    }
