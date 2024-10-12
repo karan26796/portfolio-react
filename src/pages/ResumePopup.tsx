@@ -4,6 +4,7 @@ import Resume from "../components/Resume";
 import "../styles/ResumePopup.scss";
 import Button from "../components/Buttons";
 
+
 interface ResumePopupProps {
   isOpen: boolean;
   onClose: () => void;

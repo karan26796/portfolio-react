@@ -79,33 +79,35 @@ const Gallery = () => {
     return () => window.removeEventListener("resize", updateLayout);
   }, []);
 
+  const getRotation = (index: number) => {
+    const isOdd = index % 2 !== 0;
+    if (isOdd) {
+      return Math.random() * -1;
+    } else {
+      return Math.random() * 1;
+    }
+  };
+
   const getColumns = () => {
     let cols = [];
     for (let i = 0; i < columns; i++) {
       cols.push(
         <div key={i} className="column">
-          {i === 0 && (
-            <div className="gallery-content">
-              <h1>Photo gallery</h1>
-              <p>
-                I have been fortunate to visit some of the most stunning places
-                in India. Here are some of my favorite pictures. I hope you like
-                them! 😌
-                <br />
-                <br />
-                Follow on <a href="instagram.com/kadankapoor">Instagram</a> for
-                more such photos.
-              </p>
-            </div>
-          )}
           {imageNumbers
             .filter((_, index) => index % columns === i)
-            .map((num) => {
+            .map((num, index) => {
               const imagePath = images[33 - num];
               if (!imagePath) return null;
 
+              const rotation = getRotation(index);
+
               return (
-                <div key={num} className="image-container">
+                <div 
+                  key={num} 
+                  className="image-container"
+                  style={{ transform: `rotate(${rotation}deg)`,
+                  transition: 'transform 0.3s ease'}}
+                >
                   <img
                     src={imagePath}
                     alt={`Gallery image ${num}`}
@@ -116,8 +118,7 @@ const Gallery = () => {
                       isMobile ? "always-visible" : ""
                     }`}
                   >
-                    <MapPin size='1.2em' weight="regular" />{" "}
-                    {locations[num] || `Location ${num}`}
+                    <MapPin size={18} /> {locations[num] || `Location ${num}`}
                   </div>
                 </div>
               );
@@ -130,6 +131,18 @@ const Gallery = () => {
 
   return (
     <div className="gallery-parent">
+      <div className="gallery-content">
+        <h1>Photo gallery</h1>
+        <p>
+          I have been fortunate to visit some of the most stunning places
+          in India. Here are some of my favorite pictures. I hope you like
+          them! 😌
+          <br />
+          <br />
+          Follow on <a href="https://instagram.com/kadankapoor">Instagram</a> for
+          more such photos.
+        </p>
+      </div>
       <div
         className="gallery-grid"
         style={{
