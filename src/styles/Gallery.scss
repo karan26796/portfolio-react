@@ -1,21 +1,29 @@
 .gallery-parent {
-    padding: 1em;
+    width: var(--width-container);
+    max-width: 1280px;
+    margin: auto;
 
     .gallery-grid {
         display: grid;
         gap: 0.5em;
+    padding: 1.5em;
+
     }
 
     .gallery-content {
         width: -webkit-fill-available;
-        border: 1px solid var(--border-color);
-        background-color: var(--bg-color-high);
+        // border: 1px solid var(--border-color);
+        // background-color: var(--bg-color-high);
         border-radius: 0.5em;
         padding: 1.5em;
 
         h1,
         p {
-            width: 75%;
+            width: 55%;
+
+            @media (max-width: 800px) {
+                width: 70%;
+            }
         }
     }
 
@@ -29,9 +37,16 @@
         position: relative;
         overflow: hidden;
         border-radius: 0.5em;
+        padding: .5em;
+        background-color: white;
+        box-shadow: 1px 1px 1px 1px #00000014;
 
-        &:hover .location-text:not(.always-visible) {
-            opacity: 1;
+        &:hover {
+            transform: rotate(0deg) !important;
+
+            .location-text:not(.always-visible) {
+                opacity: 1;
+            }
         }
     }
 
@@ -42,18 +57,16 @@
     }
 
     .location-text {
+        font-family: 'Architects Daughter', Courier, monospace;
         display: flex;
         align-items: center;
         justify-content: center;
         gap: .2em;
-        position: absolute;
-        top: 1em;
-        right: 1em;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
+        font-size: 1.3em;
+        color: var(--secondary-text);
         padding: .5em .75em;
         border-radius: .75em;
-        opacity: 0;
+        // opacity: 0;
         transition: opacity 0.3s ease;
 
         &.always-visible {
