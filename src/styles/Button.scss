@@ -70,11 +70,12 @@
     }
   
     &.custom-button-tertiary {
-      background-color: #dc3545;
-      color: #ffffff;
+      background-color: white;
+      color: var(--highlight-color);
+      padding: .5em !important;
   
       &:hover {
-        background-color: #c82333;
+        background-color: var(--grey-100);
       }
     }
   

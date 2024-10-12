@@ -19,6 +19,7 @@ import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 import ContactForm from "./components/ContactForm";
 import Buttons from "./components/Buttons";
+import ProjectCardSmall from "./components/ProjectCardSmall";
 
 const App: React.FC = () => {
   return (
