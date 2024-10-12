@@ -16,6 +16,10 @@
         padding: 1em;
         border: 2px solid var(--border-color);
 
+        &:hover{
+            cursor: pointer;
+        }
+
         img {
             width: 30%;
             height: auto;
