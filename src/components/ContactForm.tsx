@@ -1,18 +1,7 @@
 import React, { useState, FormEvent, useMemo } from "react";
 import "../styles/ContactForm.scss";
 import Button from "./Buttons";
-
-// Define types
-type VibrantColor = {
-  bg: string;
-  text: string;
-};
-
-type TagProps = {
-  text: string;
-  color: VibrantColor;
-  rotation: number;
-};
+import Tag, { VibrantColor } from "./Tag";
 
 type StatusType = {
   type: "" | "success" | "error";
@@ -26,21 +15,6 @@ const vibrantColors: VibrantColor[] = [
   { bg: "#fefefe", text: "#FF9933" },
   { bg: "#fefefe", text: "#9933FF" },
 ];
-
-const Tag: React.FC<TagProps> = ({ text, color, rotation }) => {
-  return (
-    <h3
-      className="tag"
-      style={{
-        backgroundColor: color.bg,
-        color: color.text,
-        transform: `rotate(${rotation}deg)`,
-      }}
-    >
-      {text}
-    </h3>
-  );
-};
 
 const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
