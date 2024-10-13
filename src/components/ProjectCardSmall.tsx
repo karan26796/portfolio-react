@@ -7,11 +7,11 @@ import Buttons from "./Buttons";
 const ProjectCardSmall: React.FC = () => {
   const handleButtonClick = () => {
     // Replace 'https://example.com' with the actual URL you want to open
-    window.open("indiefinds.in", "_blank", "noopener,noreferrer");
+    window.open("https://indiefinds.in", "_blank", "noopener,noreferrer");
   };
 
   return (
-    <div className="project-container-small">
+    <a className="project-container-small" onClick={handleButtonClick}>
       <img className="project-image" src={indieImg} alt={indieImg} />
       <div className="project-card">
         <div className="project-card-data">
@@ -35,7 +35,7 @@ const ProjectCardSmall: React.FC = () => {
         onClick={handleButtonClick}
         // weight="regular"
       />
-    </div>
+    </a>
   );
 };
 

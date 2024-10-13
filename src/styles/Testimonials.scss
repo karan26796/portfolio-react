@@ -3,22 +3,13 @@
     display: flex;
     flex-direction: column;
     gap: 2em;
-    // padding: 4rem 2rem;
     margin: auto;
     overflow: hidden;
     align-items: center;
-    margin-top: 2em ;
+    margin-top: 2em;
 
     .scroll-container {
         width: 100%;
-    }
-
-    .scroll-track {
-        // display: flex;
-        // animation: scroll 15s linear infinite;
-        // &:hover {
-        //     animation-play-state: paused;
-        // }
     }
 
     .testimonials-grid {
@@ -27,29 +18,9 @@
         grid-template-columns: repeat(2, 1fr);
         grid-template-rows: auto auto;
 
-        /* Breakpoint above 768px for row spans */
-        @media (min-width: 1024px) {
-            // .item-1 {
-            //     grid-column: 1 / 4; /* Span across two rows */
-            // }
-
-            // .item-2 {
-            //     grid-column: 4 / 8; /* Adjust row span */
-            // }
-
-            // .item-3 {
-            //     grid-column: 1 / 5; /* Span across two rows */
-            // }
-
-            // .item-4 {
-            //     grid-column: 5 / 8; /* Adjust row span */
-            // }
-        }
-
-        /* For screens below 768px */
         @media (max-width: 677px) {
-            grid-template-columns: repeat(1, 1fr); /* Single column layout */
-            grid-template-rows: auto auto; /* Rows automatically adjust, no row span applied */
+            grid-template-columns: repeat(1, 1fr);
+            grid-template-rows: auto auto;
         }
     }
 
@@ -60,11 +31,23 @@
         background-color: white;
         flex: 0 0 30em;
         border-radius: .75em;
-        transition: transform 0.3s ease;
         padding: 1.5em;
         border: 2px solid var(--border-color);
         justify-content: space-between;
         gap: 2em;
+        transition: transform 0.3s ease, rotate 0.3s ease;
+        
+        // Add random rotation
+        @for $i from 1 through 4 {
+            &:nth-child(#{$i}) {
+                rotate: #{random(4) - 2}deg;
+            }
+        }
+
+        &:hover {
+            rotate: 0deg;
+            // transform: scale(1.02);
+        }
 
         p {
             margin: 0;
@@ -103,17 +86,6 @@
     }
 }
 
-@keyframes scroll {
-    0% {
-        transform: translateX(0);
-    }
-
-    100% {
-        transform: translateX(-200%);
-    }
-}
-
-/* Responsive adjustments */
 @media (max-width: 768px) {
     .testimonials-section {
         padding: 0rem 1rem;

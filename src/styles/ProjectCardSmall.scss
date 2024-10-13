@@ -2,6 +2,7 @@
         // width: var(--width-container);
         max-width: var(--max-width-container);
         margin: auto;
+        margin-top: 2em;
         display: flex;
         height: auto;
         background-color: #fff;
@@ -16,9 +17,13 @@
         padding: 1em;
         border: 2px solid var(--border-color);
 
+        &:hover{
+            cursor: pointer;
+        }
+
         img {
             width: 30%;
-            height: auto;
+            height: 100%;
             display: block;
             object-fit: cover;
             border-radius: .75em;
