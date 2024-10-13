@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import "../styles/HeaderWithCarousel.scss";
 import LogoCarousel from "./LogoCarousel";
 import Buttons from "./Buttons";
 import ResumePopup from "../pages/ResumePopup";
+import Tag, { VibrantColor } from "./Tag";
 
 const HeaderWithCarousel: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
@@ -15,12 +16,42 @@ const HeaderWithCarousel: React.FC = () => {
     setIsResumeOpen(false);
   };
 
+  const vibrantColors: VibrantColor[] = [
+    { bg: "#fefefe", text: "#FF4D4D" },
+    { bg: "#fefefe", text: "#00CC66" },
+    { bg: "#fefefe", text: "#3399FF" },
+    { bg: "#fefefe", text: "#FF9933" },
+    { bg: "#fefefe", text: "#9933FF" },
+  ];
+
+  const tagTexts = [
+    "SPD@Keka HR",
+    "XR Designer",
+    "Figma Trainer"
+  ];
+
+  const tagProperties = useMemo(() => {
+    return tagTexts.map(() => ({
+      color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)],
+      rotation: Math.random() * 4 - 2,
+    }));
+  }, []);
+
   return (
     <div className="header-details">
       <div className="profile" />
       <h1 className="semibold">Karan Kapoor</h1>
-      <h3>SPD@Keka HR — XR Designer — Figma Trainer</h3>
-      <h3 className="length-xxs">
+      <div className="tags-header">
+        {tagTexts.map((text, index) => (
+          <Tag
+            key={index}
+            text={text}
+            color={tagProperties[index].color}
+            rotation={tagProperties[index].rotation}
+          />
+        ))}
+      </div>
+      <h3 className="length-xxs" style={{textAlign:'center'}}>
         In my ~6 years as a designer, I have helped startups of different sizes
         build 0-to-1 products, achieve product-market fit, and conducted design
         workshops at leading organizations in India and the US.
@@ -44,18 +75,6 @@ const HeaderWithCarousel: React.FC = () => {
           }}
         />
 
-        {/* <Buttons
-          text="Secondary Button Large"
-          iconName="User"
-          withIcon={true}
-          iconDirection="left"
-          withText={true}
-          size="m"
-          variant="secondary"
-          weight="duotone"
-          onClick={() => console.log("Primary button clicked!")}
-        /> */}
-        
         <Buttons
           text="Resume"
           iconName="ReadCvLogo"

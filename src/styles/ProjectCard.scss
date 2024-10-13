@@ -11,6 +11,13 @@
         border-radius: .75em;
         padding: 1em;
         border: 2px solid var(--border-color);
+        transition: all linear .2s;
+
+        &:hover{
+            cursor: pointer;
+            background-color: var(--grey-100);
+            // scale: .99;
+        }
 
         img {
             width: 100%;

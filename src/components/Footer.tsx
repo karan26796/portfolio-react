@@ -46,6 +46,8 @@ const Footer: React.FC = () => {
           onClick={() => handleSocialMediaClick("https://www.instagram.com/kadankapoor")}
         />
       </div>
+      <h5>Made with ❤️ in react. Hosted on vercel</h5>
+      {/* <p>Portfolio inspirations : Mehak Samaiya, Studio Sense</p> */}
     </div>
   );
 };

@@ -36,10 +36,12 @@
 
 .resume-popup-content.slide-up {
     transform: translateY(0);
+    // scale: 1;
 }
 
 .resume-popup-content.slide-down {
     transform: translateY(100%);
+    // scale: 1.23;
 }
 
 .close-button {

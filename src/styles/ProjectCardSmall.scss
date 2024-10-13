@@ -2,7 +2,7 @@
         // width: var(--width-container);
         max-width: var(--max-width-container);
         margin: auto;
-        margin-top: 2em;
+        margin-top: 1em;
         display: flex;
         height: auto;
         background-color: #fff;
@@ -16,9 +16,12 @@
         gap: 1em;
         padding: 1em;
         border: 2px solid var(--border-color);
+        transition: all linear .2s;
 
         &:hover{
             cursor: pointer;
+            background-color: var(--grey-100);
+            // scale: .99;
         }
 
         img {
