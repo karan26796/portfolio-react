@@ -15,7 +15,7 @@ const ProjectCardSmall: React.FC = () => {
       <img className="project-image" src={indieImg} alt={indieImg} />
       <div className="project-card">
         <div className="project-card-data">
-          {/* <h5>Web development, React, Design engineering</h5> */}
+          <h5>Personal project</h5>
           <h3 className="slab">IndieFinds.in</h3>
           <p>
             Discover premium and affordable Indian brands across sneakers,
