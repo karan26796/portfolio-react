@@ -6,10 +6,10 @@
   align-items: center;
 
   .navbar {
-    background-color: var(--grey-600);
+    background-color: var(--highlight-color);
     position: fixed;
     bottom: 0;
-    padding: 1em 2em;
+    padding: .5em;
     margin-bottom: 2em;
     border-radius: 1em;
     display: flex;
@@ -17,6 +17,7 @@
     align-items: center;
     z-index: 10;
     transition: all 0.3s ease;
+    gap: .5em;
 
     &.active {
       transform: translateY(0);
@@ -28,26 +29,27 @@
 
     // Styles for main navigation
     &.main-nav {
-      min-width: 15vw;
-      width: 15vw;
+      min-width: auto;
+      // width: 20vw;
       box-shadow: 0px 4px 10px rgba(0, 72, 42, 0.2);
 
       @media (max-width: 1024px) {
-        width: 20vw !important;
+        // width: 20vw !important;
       }
 
       @media (max-width: 768px) {
-        width: 35vw !important;
+        // width: 35vw !important;
       }
 
       @media (max-width: 480px) {
-        width: 50vw !important;
+        // width: 50vw !important;
       }
     }
 
     // Styles for project navigation
     &.project-nav {
-      width: 30vw;
+      width: auto;
+      gap: 4em;
       box-shadow: 0px 4px 10px rgba(0, 72, 42, 0.2);
 
       .a-header {
@@ -61,18 +63,6 @@
           position: relative;
         }
       }
-
-      @media (max-width: 1024px) {
-        width: 30vw;
-      }
-
-      @media (max-width: 768px) {
-        width: 35vw !important;
-      }
-
-      @media (max-width: 480px) {
-        width: 50vw !important;
-      }
     }
   }
 
@@ -81,16 +71,23 @@
     display: flex;
     align-items: center;
     gap: 0.5em;
-    color: var(--grey-100);
+    padding: .5em 1em;
+    color: var(--grey-200);
     transition: all 0.3s ease;
+    border-radius: .75em;
+    transition: all linear .2s;
 
     &:hover {
       color: var(--grey-250);
+      border-radius: .75em;
+      background-color: var(--highlight-color-light);
     }
 
     // New styles for active tab
     &.active {
-      color: var(--accent-color); // You can replace with your accent color
+      color: var(--highlight-color); // You can replace with your accent color
+      background-color: #ffffff;
+      border-radius: .75em;
     }
 
     &.back-btn {

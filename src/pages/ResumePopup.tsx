@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
 import Resume from "../components/Resume";
 import "../styles/ResumePopup.scss";
 import Button from "../components/Buttons";
-
 
 interface ResumePopupProps {
   isOpen: boolean;

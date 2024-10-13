@@ -1,12 +1,12 @@
     .header-details {
         display: flex;
         flex-direction: column;
-        align-items: start;
+        align-items: center;
         padding: 4em 0em 2em 0em;
         width: var(--width-container);
         max-width: var(--max-width-container);
         margin: 0 auto;
-        gap: .5em;
+        gap: 1em;
 
         .profile {
             width: 7.5em;
@@ -22,6 +22,15 @@
             background-repeat: no-repeat;
             box-shadow: 1px 1px 13px 1px #00000012;
             /* Prevents the image from repeating */
+        }
+
+        .tags-header{
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+            gap: 1em;
         }
 
         h1,
@@ -50,7 +59,7 @@
             display: flex;
             flex-direction: row-reverse;
             gap: 1em;
-            margin-top: 1em;
+            // margin-top: 1em;
         }
 
         @media screen and (min-width: 1024px) {
