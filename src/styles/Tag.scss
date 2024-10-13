@@ -1,11 +1,25 @@
-.tag {
+.tag-parent {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: .75em;
+  padding: .25em .75em;
+  border-radius: 5em;
+
+  .dot {
+    width: .6em;
+    height: .6em;
+    border-radius: 2em;
+  }
+
+  .tag {
     font-size: 1.4em;
     letter-spacing: -.5px;
-    padding: .25em .75em;
-    border-radius: 5em;
     transition: transform 0.3s ease;
+    margin: 0;
 
-    &:hover{
+    &:hover {
       transform: rotate(0deg);
     }
   }
+}

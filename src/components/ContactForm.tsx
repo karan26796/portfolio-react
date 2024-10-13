@@ -121,6 +121,7 @@ const ContactForm: React.FC = () => {
             text={text}
             color={tagProperties[index].color}
             rotation={tagProperties[index].rotation}
+            dot={false}
           />
         ))}
       </div>
@@ -167,7 +168,7 @@ const ContactForm: React.FC = () => {
           withIcon={false}
           iconDirection="left"
           withText={true}
-          size="l"
+          size="m"
           variant="primary"
           weight="regular"
           type="submit"

@@ -18,8 +18,7 @@ import "./styles/AboutRedirect.scss";
 import Testimonials from "./components/Testimonials";
 import Footer from "./components/Footer";
 import ContactForm from "./components/ContactForm";
-import Buttons from "./components/Buttons";
-import ProjectCardSmall from "./components/ProjectCardSmall";
+import Archive from "./pages/Archive"
 
 const App: React.FC = () => {
   return (
@@ -43,6 +42,7 @@ const App: React.FC = () => {
                 />
                 <Route path="/about" element={<About />} />
                 <Route path="/gallery" element={<Gallery />} />
+                <Route path="/archive" element={<Archive />} />
                 <Route path="/figma-training" element={<TrainingList />} />
               </Routes>
               <Footer />

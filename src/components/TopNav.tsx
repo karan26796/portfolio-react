@@ -1,8 +1,8 @@
 import React from "react";
-import "../styles/Footer.scss";
+import "../styles/TopNav.scss";
 import Button from "./Buttons";
 
-const Footer: React.FC = () => {
+const TopNav: React.FC = () => {
   const handleSocialMediaClick = (url: string) => {
     window.open(url, "_blank"); // Opens the URL in a new tab
   };
@@ -53,4 +53,4 @@ const Footer: React.FC = () => {
   );
 };
 
-export default Footer;
+export default TopNav;

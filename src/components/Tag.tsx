@@ -1,30 +1,38 @@
-import React, { useState, useEffect } from "react";
-import '../styles/Tag.scss'
+import React from "react";
+import "../styles/Tag.scss";
 
 export interface VibrantColor {
   bg: string;
   text: string;
-};
+}
 
-type TagProps = {
+interface TagProps {
   text: string;
   color: VibrantColor;
   rotation: number;
-};
+  dot: boolean;
+}
 
-const Tag: React.FC<TagProps> = ({ text, color, rotation }) => {
-    return (
+const Tag: React.FC<TagProps> = ({ text, color, rotation, dot }) => {
+  return (
+    <div
+      className="tag-parent"
+      style={{
+        backgroundColor: color.bg,
+        transform: `rotate(${rotation}deg)`,
+      }}
+    >
+      {dot && <div className="dot" style={{ backgroundColor: color.text }}></div>}
       <h3
         className="tag"
         style={{
-          backgroundColor: color.bg,
           color: color.text,
-          transform: `rotate(${rotation}deg)`,
         }}
       >
         {text}
       </h3>
-    );
-  };
+    </div>
+  );
+};
 
-  export default Tag;
+export default Tag;

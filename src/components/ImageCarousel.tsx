@@ -14,7 +14,7 @@ interface ImageCarouselProps {
 }
 
 // The ImageCarousel component
-const LogoCarousel: React.FC<ImageCarouselProps> = ({
+const ImageCarousel: React.FC<ImageCarouselProps> = ({
   imagesData,
   ContentComponent,
 }) => {
@@ -29,4 +29,4 @@ const LogoCarousel: React.FC<ImageCarouselProps> = ({
   );
 };
 
-export default LogoCarousel;
+export default ImageCarousel;

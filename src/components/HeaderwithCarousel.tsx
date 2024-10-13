@@ -24,11 +24,9 @@ const HeaderWithCarousel: React.FC = () => {
     { bg: "#fefefe", text: "#9933FF" },
   ];
 
-  const tagTexts = [
-    "SPD@Keka HR",
-    "XR Designer",
-    "Figma Trainer"
-  ];
+  const work: VibrantColor[] = [{ bg: "#fefefe", text: "#02bd69" }];
+
+  const tagTexts = ["SPD@Keka HR", "XR Designer", "Figma Trainer"];
 
   const tagProperties = useMemo(() => {
     return tagTexts.map(() => ({
@@ -48,19 +46,26 @@ const HeaderWithCarousel: React.FC = () => {
             text={text}
             color={tagProperties[index].color}
             rotation={tagProperties[index].rotation}
+            dot={false}
           />
         ))}
       </div>
-      <h3 className="length-xxs" style={{textAlign:'center'}}>
+      <h3 className="length-xxs" style={{ textAlign: "center" }}>
         In my ~6 years as a designer, I have helped startups of different sizes
         build 0-to-1 products, achieve product-market fit, and conducted design
         workshops at leading organizations in India and the US.
       </h3>
       <LogoCarousel />
+      <Tag
+        text={"open for freelance and part-time work"}
+        color={work[0]}
+        rotation={0}
+        dot={true}
+      />
       <div className="button-group">
         <Buttons
           text="Let's  work together"
-          iconName="ArrowRight"
+          // iconName="ArrowRight"
           withIcon={true}
           iconDirection="right"
           withText={true}
@@ -75,7 +80,7 @@ const HeaderWithCarousel: React.FC = () => {
           }}
         />
 
-        <Buttons
+        {/* <Buttons
           text="Resume"
           iconName="ReadCvLogo"
           withIcon={true}
@@ -85,8 +90,9 @@ const HeaderWithCarousel: React.FC = () => {
           variant="secondary"
           weight="duotone"
           onClick={toggleResume}
-        />
+        /> */}
       </div>
+      
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>
   );
