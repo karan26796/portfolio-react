@@ -6,7 +6,7 @@
         width: var(--width-container);
         max-width: var(--max-width-container);
         margin: 0 auto;
-        gap: 1em;
+        gap: .6em;
 
         .profile {
             width: 7.5em;
@@ -36,7 +36,8 @@
         h1,
         h5,
         h2,
-        h3 {
+        h3,
+        p {
             margin: 0;
         }
 
@@ -46,8 +47,9 @@
             }
         }
 
-        h3 {
+        p {
             color: var(--tertiary-text);
+            font-size: 1.4em;
         }
 
         .length-xxs {

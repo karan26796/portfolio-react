@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { ArrowSquareOut } from "phosphor-react";
+import { ArrowSquareOut } from "@phosphor-icons/react";
 import communityFiles from "../utils/communityFiles";
 import '../styles/Archive.scss'
 import Experiments from '../components/Experiments'

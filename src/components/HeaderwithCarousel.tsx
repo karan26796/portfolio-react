@@ -39,7 +39,8 @@ const HeaderWithCarousel: React.FC = () => {
     <div className="header-details">
       <div className="profile" />
       <h1 className="semibold">Karan Kapoor</h1>
-      <div className="tags-header">
+      <p style={{margin:'0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
+      {/* <div className="tags-header">
         {tagTexts.map((text, index) => (
           <Tag
             key={index}
@@ -49,19 +50,19 @@ const HeaderWithCarousel: React.FC = () => {
             dot={false}
           />
         ))}
-      </div>
-      <h3 className="length-xxs" style={{ textAlign: "center" }}>
+      </div> */}
+      <h3 className="length-xxs" style={{ textAlign: "center", margin:'0' }}>
         In my ~6 years as a designer, I have helped startups of different sizes
         build 0-to-1 products, achieve product-market fit, and conducted design
         workshops at leading organizations in India and the US.
       </h3>
       <LogoCarousel />
-      <Tag
+      {/* <Tag
         text={"open for freelance and part-time work"}
         color={work[0]}
         rotation={0}
         dot={true}
-      />
+      /> */}
       <div className="button-group">
         <Buttons
           text="Let's  work together"
