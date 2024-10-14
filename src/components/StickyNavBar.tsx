@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import "../styles/StickyNavBar.scss";
 import { Link, useLocation, useMatch } from "react-router-dom";
 import { projectSummaries } from "../utils/ProjectSummaries";
-import { Archive, ArrowLeft, ArrowRight, House, Image } from "@phosphor-icons/react";
+import { Archive, ArrowLeft, ArrowRight, FigmaLogo, House, Image } from "@phosphor-icons/react";
 
 const StickyNavBar: React.FC = () => {
   const [isVisible, setIsVisible] = useState(true);
@@ -82,6 +82,12 @@ const StickyNavBar: React.FC = () => {
         >
           <Archive size={18} weight="duotone" />Archive
         </Link>
+        {/* <Link 
+          className={`a-header ${location.pathname === '/figma-training' ? 'active' : ''}`} 
+          to="/figma-training"
+        >
+          <FigmaLogo size={18} weight="duotone" />Figma Training
+        </Link> */}
       </nav>
     </div>
   );

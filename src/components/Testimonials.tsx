@@ -75,30 +75,28 @@ const Testimonials: React.FC = () => {
   return (
     <div className="testimonials-section">
       <h1>Hear from the people I've worked with</h1 >
-      <div className="scroll-container">
-        <div className="scroll-track testimonials-grid">
-          {duplicatedData.map((testimonial, index) => (
-            <div
-              key={`${testimonial.id}-${index}`}
-              className={`testimonial-card item-${index+1}`}
-            >
-              <p>
-                {highlightText(testimonial.testimonial, testimonial.highlightedWords)}
-              </p>
-              <div className="testimonial-header">
-                <img
-                  src={testimonial.avatarUrl}
-                  alt={`${testimonial.name}'s avatar`}
-                  className="testimonial-avatar"
-                />
-                <div className="testimonial-meta">
-                  <h4>{testimonial.name} · {testimonial.role}</h4>
-                  <h5>Worked together at {testimonial.company}</h5>
-                </div>
+      <div className="scroll-track testimonials-grid">
+        {duplicatedData.map((testimonial, index) => (
+          <div
+            key={`${testimonial.id}-${index}`}
+            className={`testimonial-card item-${index + 1}`}
+          >
+            <p>
+              {highlightText(testimonial.testimonial, testimonial.highlightedWords)}
+            </p>
+            <div className="testimonial-header">
+              <img
+                src={testimonial.avatarUrl}
+                alt={`${testimonial.name}'s avatar`}
+                className="testimonial-avatar"
+              />
+              <div className="testimonial-meta">
+                <h4>{testimonial.name} · {testimonial.role}</h4>
+                <h5>Worked together at {testimonial.company}</h5>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </div>
   );

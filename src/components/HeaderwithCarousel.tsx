@@ -56,16 +56,19 @@ const HeaderWithCarousel: React.FC = () => {
         build 0-to-1 products, achieve product-market fit, and conducted design
         workshops at leading organizations in India and the US.
       </h3>
-      {/* <Tag
+      
+      <div className="button-group">
+      <Tag
         text={"open for freelance and part-time work"}
         color={work[0]}
         rotation={0}
         dot={true}
-      /> */}
-      <div className="button-group">
+        pulsatingDot={true}
+        variant='small'
+      />
         <Buttons
           text="Let's  work together"
-          // iconName="ArrowRight"
+          iconName="ArrowRight"
           withIcon={true}
           iconDirection="right"
           withText={true}
@@ -92,6 +95,7 @@ const HeaderWithCarousel: React.FC = () => {
           onClick={toggleResume}
         /> */}
       </div>
+      
       <LogoCarousel />
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>

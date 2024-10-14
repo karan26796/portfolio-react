@@ -1,5 +1,6 @@
 import React from 'react';
 import '../styles/TrainingList.scss';
+import Button from '../components/Buttons';
 
 // Interfaces
 interface TopicsListProps {
@@ -35,12 +36,19 @@ const TrainingForm: React.FC<TrainingFormProps> = ({ id, title, fields }) => (
   <form id={id}>
     <h2>{title}</h2>
     {fields.map((field) => (
-      <div key={field.id}>
-        <label htmlFor={field.id}>{field.label}</label>
-        <input id={field.id} type={field.type} />
-      </div>
+      <input id={field.id} type={field.type} placeholder={field.type}/>
     ))}
-    <button className='primary' type="submit">Submit</button>
+    <Button
+      className="submit-button"
+      text={'Get a quote'}
+      withIcon={false}
+      iconDirection="left"
+      withText={true}
+      size="m"
+      variant="primary"
+      weight="regular"
+      type="submit"
+    />
   </form>
 );
 
@@ -82,17 +90,27 @@ const TrainingList: React.FC = () => {
         <h2>For Individuals</h2>
         <p>Inaugural Offer: ₹1000 flat for one hour</p>
         <TopicsList title="What You'll Learn" items={individualLearningTopics} />
-        <button className='primary' type="submit">Submit</button>
+        <Button
+          className="submit-button"
+          text={'Enquire now'}
+          withIcon={false}
+          iconDirection="left"
+          withText={true}
+          size="m"
+          variant="primary"
+          weight="regular"
+          type="submit"
+        />
       </div>
 
       {/* Company Section */}
       <div className='training'>
         <h2>For Companies</h2>
         <TopicsList title="Team Training" items={companyTeamTraining} />
-        <TrainingForm 
-          id="companyForm" 
-          title="Enquire Now" 
-          fields={companyFormFields} 
+        <TrainingForm
+          id="companyForm"
+          title="Enquire Now"
+          fields={companyFormFields}
         />
       </div>
     </div>
