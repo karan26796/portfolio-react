@@ -56,7 +56,6 @@ const HeaderWithCarousel: React.FC = () => {
         build 0-to-1 products, achieve product-market fit, and conducted design
         workshops at leading organizations in India and the US.
       </h3>
-      <LogoCarousel />
       {/* <Tag
         text={"open for freelance and part-time work"}
         color={work[0]}
@@ -93,7 +92,7 @@ const HeaderWithCarousel: React.FC = () => {
           onClick={toggleResume}
         /> */}
       </div>
-      
+      <LogoCarousel />
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>
   );

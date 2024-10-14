@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { ArrowSquareOut } from "@phosphor-icons/react";
 import communityFiles from "../utils/communityFiles";
 import '../styles/Archive.scss'
 import Experiments from '../components/Experiments'
@@ -52,7 +51,6 @@ const Archive: React.FC = () => {
   return (
     <div className="archive-container">
       <Experiments/>
-
       <h1>Figma community resources</h1>
       <div 
         className="community-files-grid"

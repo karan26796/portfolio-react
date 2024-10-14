@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, useMemo } from "react";
+import React, { useState, FormEvent, useMemo, useEffect } from "react";
 import "../styles/ContactForm.scss";
 import Button from "./Buttons";
 import Tag, { VibrantColor } from "./Tag";
@@ -20,12 +20,13 @@ const ContactForm: React.FC = () => {
   const [formData, setFormData] = useState({
     name: "",
     company: "",
-    contact: "", // Combined field for email or phone
+    contact: "",
     message: "",
   });
   const [status, setStatus] = useState<StatusType>({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [contactType, setContactType] = useState<"email" | "phone">("email");
+  const [redirectCountdown, setRedirectCountdown] = useState<number | null>(null);
 
   const tagTexts = [
     "App/Website redesign",
@@ -43,6 +44,18 @@ const ContactForm: React.FC = () => {
     }));
   }, []);
 
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (redirectCountdown !== null && redirectCountdown > 0) {
+      timer = setTimeout(() => {
+        setRedirectCountdown(redirectCountdown - 1);
+      }, 1000);
+    } else if (redirectCountdown === 0) {
+      window.open("https://calendly.com/karankapoor/project-discussion", "_blank");
+    }
+    return () => clearTimeout(timer);
+  }, [redirectCountdown]);
+
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
@@ -52,7 +65,6 @@ const ContactForm: React.FC = () => {
       [name]: value,
     }));
 
-    // Automatically detect if input is email or phone
     if (name === "contact") {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const phoneRegex = /^\+?[\d\s-]+$/;
@@ -70,7 +82,6 @@ const ContactForm: React.FC = () => {
     setIsSubmitting(true);
     setStatus({ type: "", message: "" });
 
-    // Prepare the form data with the correct field name
     const submissionData = {
       ...formData,
       [contactType]: formData.contact,
@@ -91,8 +102,7 @@ const ContactForm: React.FC = () => {
 
       setStatus({
         type: "success",
-        message:
-          "Thank you for your message. I will get back to you at the earliest!",
+        message: "Thank you for your message. You will be redirected to schedule a meeting in",
       });
       setFormData({
         name: "",
@@ -100,6 +110,7 @@ const ContactForm: React.FC = () => {
         contact: "",
         message: "",
       });
+      setRedirectCountdown(3);
     } catch (error) {
       setStatus({
         type: "error",
@@ -126,9 +137,12 @@ const ContactForm: React.FC = () => {
         ))}
       </div>
       {status.type && (
-        <div className={`status-message ${status.type}`}>{status.message}</div>
+        <div className={`status-message ${status.type}`}>
+          {status.message}
+          {redirectCountdown !== null && ` ${redirectCountdown} seconds.`}
+        </div>
       )}
-      <form onSubmit={handleSubmit} className="contact-form">
+      <form onSubmit={handleSubmit}>
         <input
           type="text"
           name="name"
@@ -154,7 +168,7 @@ const ContactForm: React.FC = () => {
           required
         />
         <textarea
-        className="textarea-full"
+          className="textarea-full"
           name="message"
           placeholder="How can we collaborate?"
           value={formData.message}
