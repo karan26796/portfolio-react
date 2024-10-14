@@ -7,6 +7,15 @@
     margin: auto;
     gap: 1.25em;
 
+    @media (max-width: 1024px) {
+        padding: 0 1em;
+        gap: 1em;
+    }
+
+    h1{
+        text-align: center;
+    }
+
     .community-files-grid {
         // display: grid;
         // grid-template-columns: repeat(2, 1fr);
