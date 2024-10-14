@@ -82,12 +82,12 @@ const StickyNavBar: React.FC = () => {
         >
           <Archive size={18} weight="duotone" />Archive
         </Link>
-        {/* <Link 
+        <Link 
           className={`a-header ${location.pathname === '/figma-training' ? 'active' : ''}`} 
           to="/figma-training"
         >
           <FigmaLogo size={18} weight="duotone" />Figma Training
-        </Link> */}
+        </Link>
       </nav>
     </div>
   );
