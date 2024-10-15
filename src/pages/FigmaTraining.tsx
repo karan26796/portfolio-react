@@ -13,7 +13,6 @@ import iima from "../utils/logos/iima.webp";
 import iimsbp from "../utils/logos/iim-sbp.webp";
 import iitm from "../utils/logos/IIT-M.webp";
 import zuddl from "../utils/logos/zuddl.webp";
-import { ImageItem } from "../utils/communityFiles";
 import { BuildingOffice, ChalkboardTeacher, Student } from "@phosphor-icons/react";
 import { Logo } from "../utils/logos";
 
