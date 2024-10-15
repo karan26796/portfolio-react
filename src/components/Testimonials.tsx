@@ -33,7 +33,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title }) => {
 
   return (
     <div className="testimonials-section">
-      <h2>{title}</h2>
+      <h1>{title}</h1>
       <div className="testimonials-grid">
         {data.map((testimonial) => (
           <div key={testimonial.id} className="testimonial-card">

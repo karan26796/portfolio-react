@@ -86,7 +86,7 @@ const StickyNavBar: React.FC = () => {
           className={`a-header ${location.pathname === '/figma-training' ? 'active' : ''}`} 
           to="/figma-training"
         >
-          <FigmaLogo size={18} weight="duotone" />Figma Training
+          <FigmaLogo size={18} weight="duotone" />Training
         </Link>
       </nav>
     </div>
