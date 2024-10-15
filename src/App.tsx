@@ -19,6 +19,7 @@ import "./styles/AboutRedirect.scss";
 import Footer from "./components/Footer";
 import ContactForm from "./components/ContactForm";
 import Archive from "./pages/Archive"
+import { Analytics } from "@vercel/analytics/react";
 
 import Testimonials, { Testimonial } from "./components/Testimonials";
 import kritika from './utils/testimonials/pfp-02.jpg'
@@ -29,6 +30,7 @@ import megha from './utils/testimonials/megha-pfp.jpeg'
 const App: React.FC = () => {
   return (
     <Router>
+      <Analytics />
       <Routes>
         <Route
           path="*"
