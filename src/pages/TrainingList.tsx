@@ -39,7 +39,7 @@ const TrainingList: React.FC = () => {
   return (
     <div className='training-parent'>
 
-      <IntroSection 
+      <IntroSection
         onIndividualClick={() => scrollToSection(individualRef)}
         onCompanyClick={() => scrollToSection(companyRef)}
       />
@@ -81,18 +81,18 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
     </div>
     <div className="button-group">
 
-    <a href="#individual">
-      <Button
-        text="Book 1:1 Session"
-        withIcon={true}
-        iconName="User"
-        iconDirection="left"
-        withText={true}
-        size="m"
-        variant="secondary"
-        weight="regular"
-        type="button"
-      />
+      <a href="#individual">
+        <Button
+          text="Book 1:1 Session"
+          withIcon={true}
+          iconName="User"
+          iconDirection="left"
+          withText={true}
+          size="m"
+          variant="secondary"
+          weight="regular"
+          type="button"
+        />
       </a>
 
       <a href="#company">
