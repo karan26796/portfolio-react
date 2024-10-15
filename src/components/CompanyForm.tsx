@@ -83,7 +83,7 @@ const CompanyForm: React.FC = () => {
         <input
           type="text"
           name="companyName"
-          placeholder="Company Name"
+          placeholder="Company/Institution Name"
           value={formData.companyName}
           onChange={handleChange}
           required
@@ -107,7 +107,7 @@ const CompanyForm: React.FC = () => {
         <input
           type="number"
           name="teamSize"
-          placeholder="Team Size"
+          placeholder="Cohort Size"
           value={formData.teamSize}
           onChange={handleChange}
           required
@@ -115,7 +115,7 @@ const CompanyForm: React.FC = () => {
         <textarea
         className="textarea-full"
           name="message"
-          placeholder="How can we collaborate?"
+          placeholder="What topics do you want a workshop on?"
           value={formData.message}
           onChange={handleChange}
           required

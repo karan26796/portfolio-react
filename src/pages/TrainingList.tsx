@@ -80,10 +80,12 @@ const IntroSection: React.FC = () => (
 );
 
 const TestimonialsSection: React.FC = () => (
+  <div style={{marginTop:"4em"}}>
   <Testimonials
     data={trainingTestimonialsData}
     title="What people have said about the training"
   />
+  </div>
 );
 
 interface TrainingSectionProps {
@@ -92,7 +94,7 @@ interface TrainingSectionProps {
 
 const IndividualTrainingSection: React.FC<TrainingSectionProps> = ({ tagProperties }) => (
   <div id="individual" className='training'>
-    <h2>For Individuals</h2>
+    <h1>For Individuals</h1>
     <h3>Inaugural Offer: ₹1000 flat for one hour</h3>
     <TagsSection tagProperties={tagProperties} tagTexts={tagTextIndividual} />
     <CalendlyWidget />
@@ -101,7 +103,7 @@ const IndividualTrainingSection: React.FC<TrainingSectionProps> = ({ tagProperti
 
 const CompanyTrainingSection: React.FC<TrainingSectionProps> = ({ tagProperties }) => (
   <div id="company" className='training'>
-    <h2>For Companies</h2>
+    <h1>For Companies & Institutes</h1>
     <TagsSection tagProperties={tagProperties} tagTexts={tagTextCompany} />
     <CompanyForm />
   </div>
