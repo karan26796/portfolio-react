@@ -39,7 +39,23 @@ const TrainingList: React.FC = () => {
 const IntroSection: React.FC = () => (
   <div className='intro'>
     <h1>Figma Training</h1>
-    <h3>In the past 5 years, I've trained and taught Figma to more than 10k people across organizations in India and the US.</h3>
+    <h3>In the past 5 years, I've trained and taught Figma to more than 10k people across organizations and institutions in India and the US.
+    </h3>
+
+    <div className="data">
+      <div className="data-points">
+        <h2>100+</h2>
+        <p>Online + Offline Workshops</p>
+      </div>
+      <div className="data-points">
+        <h2>10+</h2>
+        <p>Corporate training</p>
+      </div>
+      <div className="data-points">
+        <h2>5+</h2>
+        <p>Educational workshops</p>
+      </div>
+    </div>
     <div className="button-group">
       <Button
         text="Book 1:1 Session"
@@ -80,11 +96,11 @@ const IntroSection: React.FC = () => (
 );
 
 const TestimonialsSection: React.FC = () => (
-  <div style={{marginTop:"4em"}}>
-  <Testimonials
-    data={trainingTestimonialsData}
-    title="What people have said about the training"
-  />
+  <div style={{ marginTop: "4em" }}>
+    <Testimonials
+      data={trainingTestimonialsData}
+      title="What people have said about the training"
+    />
   </div>
 );
 
@@ -95,7 +111,16 @@ interface TrainingSectionProps {
 const IndividualTrainingSection: React.FC<TrainingSectionProps> = ({ tagProperties }) => (
   <div id="individual" className='training'>
     <h1>For Individuals</h1>
-    <h3>Inaugural Offer: ₹1000 flat for one hour</h3>
+    <Tag
+      text={"Inaugural Offer: ₹1000 flat for one hour"}
+      color={tagProperties[0].color}
+      rotation={0}
+      dot={true}
+      pulsatingDot={true}
+    />
+
+    <h3></h3>
+    <h6>You'll receive an email post blocking a time slot to pay</h6>
     <TagsSection tagProperties={tagProperties} tagTexts={tagTextIndividual} />
     <CalendlyWidget />
   </div>

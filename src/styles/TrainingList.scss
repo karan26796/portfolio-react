@@ -27,20 +27,61 @@ $border-radius: 0.75em;
   justify-content: center;
   padding: $gap*4;
 
+  .data {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1em;
+    margin-bottom: 2em;
+
+    @media(max-width:800px) {
+      display: flex;
+      flex-wrap: wrap;
+      flex-grow: 1;
+    }
+
+    .data-points {
+      width: -webkit-fill-available;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: start;
+      padding: 1em;
+      background-color: white;
+      border: 1px solid var(--border-color);
+      border-radius: .75em;
+      gap: 1em;
+
+      h2,
+      p {
+        text-align: left;
+        margin: 0;
+      }
+    }
+  }
+
   .button-group {
     display: flex;
     gap: $gap;
 
-    @media (max-width: 800px){
+    @media (max-width: 800px) {
       flex-direction: column-reverse;
     }
   }
 
-  h3{
+  h3 {
     text-align: center;
+    max-width: 35ch;
   }
 
-  h1,h3{
+  p,
+  h6 {
+    text-align: center;
+    max-width: 30ch;
+  }
+
+  h1,
+  h3,
+  p {
     margin-top: 0em;
   }
 }
@@ -98,7 +139,7 @@ $border-radius: 0.75em;
   border: none;
 }
 
-.company-form-container{
+.company-form-container {
   width: -webkit-fill-available;
 }
 
@@ -114,26 +155,26 @@ form {
   }
 
   input,
-    textarea {
-      padding: 1.25em;
-      border-radius: .75em;
-      border: 2px solid var(--border-color);
-      box-sizing: border-box;
-      font-size: 1.2em;
+  textarea {
+    padding: 1.25em;
+    border-radius: .75em;
+    border: 2px solid var(--border-color);
+    box-sizing: border-box;
+    font-size: 1.2em;
 
-      &:focus-visible {
-        outline: transparent;
-        border: 2px solid var(--highlight-color);
-      }
+    &:focus-visible {
+      outline: transparent;
+      border: 2px solid var(--highlight-color);
     }
+  }
 
-    textarea{
-      grid-column: 1/3;
+  textarea {
+    grid-column: 1/3;
 
-      @media (max-width: 800px){
-        grid-column: 1/1;
-      }
+    @media (max-width: 800px) {
+      grid-column: 1/1;
     }
+  }
 
   input {
     width: 100%;
