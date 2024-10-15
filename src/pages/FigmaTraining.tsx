@@ -15,8 +15,21 @@ import iitm from "../utils/logos/IIT-M.webp";
 import zuddl from "../utils/logos/zuddl.webp";
 import { ImageItem } from "../utils/communityFiles";
 import { BuildingOffice, ChalkboardTeacher, Student } from "@phosphor-icons/react";
+import { Logo } from "../utils/logos";
 
 const TrainingList: React.FC = () => {
+
+  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+    e.preventDefault();
+    const href = e.currentTarget.getAttribute('href');
+    if (href) {
+      const targetElement = document.querySelector(href);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth' });
+      }
+    }
+  };
+  
   // Refs for individual and company sections
   const individualRef = useRef<HTMLDivElement>(null);
   const companyRef = useRef<HTMLDivElement>(null);
@@ -43,22 +56,18 @@ const TrainingList: React.FC = () => {
     }
   };
 
-  const logos: ImageItem[] = [
+  const logos: Logo[] = [
     {
       url: iima,
-      link: ""
     },
     {
       url: iimsbp,
-      link: ""
     },
     {
       url: zuddl,
-      link: ""
     },
     {
       url: iitm,
-      link: ""
     },
   ]
 

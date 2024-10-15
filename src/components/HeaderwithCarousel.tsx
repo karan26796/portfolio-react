@@ -4,7 +4,6 @@ import LogoCarousel from "./LogoCarousel";
 import Buttons from "./Buttons";
 import ResumePopup from "../pages/ResumePopup";
 import Tag, { VibrantColor } from "./Tag";
-import { ImageItem } from "../utils/communityFiles";
 
 const HeaderWithCarousel: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
@@ -28,13 +27,6 @@ const HeaderWithCarousel: React.FC = () => {
   const work: VibrantColor[] = [{ bg: "#fefefe", text: "#02bd69" }];
 
   const tagTexts = ["SPD@Keka HR", "XR Designer", "Figma Trainer"];
-
-  const tagProperties = useMemo(() => {
-    return tagTexts.map(() => ({
-      color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)],
-      rotation: Math.random() * 4 - 2,
-    }));
-  }, []);
 
   return (
     <div className="header-details">
