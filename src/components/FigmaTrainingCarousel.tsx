@@ -10,7 +10,7 @@ import figma8 from '../utils/figma-training/training8.webp';
 import figma9 from '../utils/figma-training/training9.webp';
 import figma10 from '../utils/figma-training/training10.webp';
 
-import '../styles/FigmaTraining.scss'
+import '../styles/FigmaTrainingCarousel.scss'
 import { MapPin } from '@phosphor-icons/react';
 
 interface CarouselItem {

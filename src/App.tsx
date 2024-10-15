@@ -13,7 +13,7 @@ import ProjectCard from "./components/ProjectCard";
 import { projectSummaries } from "./utils/ProjectSummaries";
 import About from "./pages/About";
 import Gallery from "./pages/Gallery";
-import TrainingList from "./pages/TrainingList";
+import TrainingList from "./pages/FigmaTraining";
 import "./styles/AboutRedirect.scss";
 
 import Footer from "./components/Footer";

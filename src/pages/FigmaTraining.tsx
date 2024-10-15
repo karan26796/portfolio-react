@@ -1,5 +1,5 @@
 import React, { useMemo, useRef } from "react";
-import '../styles/TrainingList.scss';
+import '../styles/FigmaTraining.scss';
 import Button from '../components/Buttons';
 import Testimonials from '../components/Testimonials';
 import Tag, { VibrantColor } from "../components/Tag";
@@ -129,15 +129,8 @@ interface TrainingSectionProps {
 const IndividualTrainingSection = React.forwardRef<HTMLDivElement, TrainingSectionProps>(
   ({ tagProperties }, ref) => (
     <div id="individual" className='training' ref={ref}>
-      <h1>Book 1:1 session</h1>
-      <Tag
-        text={"Inaugural Offer: ₹1000 flat for one session"}
-        color={tagProperties[0].color}
-        rotation={0}
-        dot={true}
-        pulsatingDot={true}
-      />
-      <h6>You'll receive an email post blocking a time slot to pay</h6>
+      <h1>Book 1:1 session </h1><h4 style={{margin:"0"}}>Inaugural Offer: ₹1000 for one session</h4>
+      <p>You'll receive an email post blocking a time slot to pay</p>
       {/* Keep the TagsSection intact */}
       <TagsSection tagProperties={tagProperties} tagTexts={tagTextIndividual} />
       <CalendlyWidget />
