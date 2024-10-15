@@ -131,7 +131,7 @@ const IndividualTrainingSection = React.forwardRef<HTMLDivElement, TrainingSecti
     <div id="individual" className='training' ref={ref}>
       <h1>Book 1:1 session</h1>
       <Tag
-        text={"Inaugural Offer: ₹1000 flat for one hour"}
+        text={"Inaugural Offer: ₹1000 flat for one session"}
         color={tagProperties[0].color}
         rotation={0}
         dot={true}
