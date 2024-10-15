@@ -7,7 +7,7 @@
   margin: 0 auto;
   padding: 4em 0;
 
-  @media (max-width: 800px){
+  @media (max-width: 800px) {
     width: 100%;
   }
 
@@ -106,12 +106,15 @@
   0% {
     opacity: 0;
   }
+
   10% {
     opacity: 1;
   }
+
   90% {
     opacity: 1;
   }
+
   100% {
     opacity: 0;
   }

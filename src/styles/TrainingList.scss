@@ -108,6 +108,20 @@ form {
     padding: 0 1.5em;
   }
 
+  input,
+    textarea {
+      padding: 1.25em;
+      border-radius: .75em;
+      border: 2px solid var(--border-color);
+      box-sizing: border-box;
+      font-size: 1.2em;
+
+      &:focus-visible {
+        outline: transparent;
+        border: 2px solid var(--highlight-color);
+      }
+    }
+
   input {
     width: 100%;
     padding: 1.25em;

@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, useEffect } from 'react';
+import React, { useState, FormEvent, ChangeEvent } from 'react';
 import Button from './Buttons';
 
 type StatusType = {
@@ -6,30 +6,26 @@ type StatusType = {
   message: string;
 };
 
+type FormDataType = {
+  companyName: string;
+  contactPerson: string;
+  email: string;
+  teamSize: string;
+  message: string;
+};
+
 const CompanyForm: React.FC = () => {
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<FormDataType>({
     companyName: "",
     contactPerson: "",
     email: "",
     teamSize: "",
+    message: ""
   });
   const [status, setStatus] = useState<StatusType>({ type: "", message: "" });
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [redirectCountdown, setRedirectCountdown] = useState<number | null>(null);
 
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (redirectCountdown !== null && redirectCountdown > 0) {
-      timer = setTimeout(() => {
-        setRedirectCountdown(redirectCountdown - 1);
-      }, 1000);
-    } else if (redirectCountdown === 0) {
-      window.open("https://calendly.com/karankapoor/project-discussion", "_blank");
-    }
-    return () => clearTimeout(timer);
-  }, [redirectCountdown]);
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -57,15 +53,15 @@ const CompanyForm: React.FC = () => {
 
       setStatus({
         type: "success",
-        message: "Thank you for your message. You will be redirected to schedule a meeting in",
+        message: "Thank you for your message. We'll get back to you soon.",
       });
       setFormData({
         companyName: "",
         contactPerson: "",
         email: "",
         teamSize: "",
+        message: ""
       });
-      setRedirectCountdown(3);
     } catch (error) {
       setStatus({
         type: "error",
@@ -81,7 +77,6 @@ const CompanyForm: React.FC = () => {
       {status.type && (
         <div className={`status-message ${status.type}`}>
           {status.message}
-          {redirectCountdown !== null && ` ${redirectCountdown} seconds.`}
         </div>
       )}
       <form id="companyForm" onSubmit={handleSubmit}>
@@ -114,6 +109,14 @@ const CompanyForm: React.FC = () => {
           name="teamSize"
           placeholder="Team Size"
           value={formData.teamSize}
+          onChange={handleChange}
+          required
+        />
+        <textarea
+        className="textarea-full"
+          name="message"
+          placeholder="How can we collaborate?"
+          value={formData.message}
           onChange={handleChange}
           required
         />
