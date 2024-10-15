@@ -1,103 +1,157 @@
-// Variables with TypeScript-like type annotations
-$border-radius-standard: 0.75em;
-$border-radius-large: 1em;
-$gap-small: 0.5em;
-$gap-medium: 1em;
-$gap-large: 2em;
-$profile-image-size: 50px;
+$gap: .5em;
+$border-radius: 0.75em;
 
-// Mixins for common patterns
-@mixin flex-container($direction: row, $gap: $gap-medium) {
+@mixin flex($direction: column, $gap: $gap) {
   display: flex;
   flex-direction: $direction;
   gap: $gap;
 }
 
-// Testimonial Styles
-.testimonial-cards {
-  @include flex-container(row, $gap-medium);
-}
-
-.card-parent {
-  @include flex-container(column, $gap-small);
-  padding: 1.5em;
-  border: 1px solid var(--border-color);
-  border-radius: $border-radius-standard;
-
-  .person {
-    @include flex-container(row, $gap-small);
-    align-items: center;
-
-    .profile-img {
-      background: #000;
-      height: $profile-image-size;
-      width: $profile-image-size;
-      border-radius: 5em;
-    }
-
-    .name {
-      @include flex-container(column);
-    }
-  }
-}
-
-// Training Styles
 .training-parent {
-  @include flex-container(row, $gap-medium);
+  @include flex(column);
+  align-items: center;
+  justify-content: center;
+  max-width: var(--max-width-container);
+  margin: 0 auto; // Center the container
 
-  .training {
-    border: 1px solid var(--border-color);
-    border-radius: $border-radius-large;
-    padding: $gap-large;   
-  }
-}
-
-// Button Styles
-.primary {
-  background: var(--grey-600);
-  color: var(--grey-100);
-  border: transparent;
-}
-
-// Media Queries
-@media (max-width: 768px) {
-  .testimonial-cards,
-  .training-parent {
+  @media (max-width: 768px) {
     flex-direction: column;
   }
 }
 
-form {
+.intro {
+  display: flex;
+  flex-direction: column;
+  gap: $gap;
+  align-items: center;
+  justify-content: center;
+  padding: $gap*4;
+
+  .data {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1em;
+    margin-bottom: 2em;
+
+    @media(max-width:800px) {
+      display: flex;
+      flex-wrap: wrap;
+      flex-grow: 1;
+    }
+
+    .data-points {
+      width: -webkit-fill-available;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: start;
+      padding: 1em;
+      background-color: white;
+      border: 1px solid var(--border-color);
+      border-radius: .75em;
+      gap: 1em;
+
+      h2,
+      p {
+        text-align: left;
+        margin: 0;
+      }
+    }
+  }
+
+  .button-group {
+    display: flex;
+    gap: $gap;
+
+    @media (max-width: 800px) {
+      flex-direction: column-reverse;
+    }
+  }
+
+  h3 {
+    text-align: center;
+    max-width: 35ch;
+  }
+
+  p,
+  h6 {
+    text-align: center;
+    max-width: 30ch;
+  }
+
+  h1,
+  h3,
+  p {
+    margin-top: 0em;
+  }
+}
+
+.topics {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.tags-topics {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1em;
+  align-items: center;
+  justify-content: center;
+  margin: 1em 0em;
+}
+
+.book {
+  @include flex(row);
+  align-items: center;
+  justify-content: center;
   width: 100%;
+  max-width: var(--max-width-container);
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
+}
+
+.training {
+  width: -webkit-fill-available;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+  margin-top: 4em;
+}
+
+.calendly {
+  min-width: 320px;
+  width: -webkit-fill-available;
+  height: 700px;
+  border: 1px solid var(--border-color);
+  border-radius: 1em;
+  overflow: hidden;
+  background-color: white;
+}
+
+.primary {
+  background: var(--grey-600);
+  color: var(--grey-100);
+  border: none;
+}
+
+.company-form-container {
+  width: -webkit-fill-available;
+}
+
+form {
+  width: -webkit-fill-available;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1em;
+  gap: $gap;
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
-    width: -webkit-fill-available;
     padding: 0 1.5em;
-  }
-
-  input {
-    width: 100%;
-  }
-
-  textarea {
-    max-width: 100%;
-    grid-column: 1 / -1;
-  }
-
-  @media (min-width: 901px) {
-    .input-3 {
-      grid-row: 3/3;
-      grid-column: 1/2;
-    }
-
-    .textarea-full {
-      grid-column: 2/2;
-      grid-row: 1/4;
-    }
   }
 
   input,
@@ -114,11 +168,29 @@ form {
     }
   }
 
-  .submit-button {
-    grid-column: 1/-1;
+  textarea {
+    grid-column: 1/3;
+
+    @media (max-width: 800px) {
+      grid-column: 1/1;
+    }
   }
 
-  .contact-form-submit:hover {
-    background-color: var(--highlight-color-high);
+  input {
+    width: 100%;
+    padding: 1.25em;
+    border-radius: $border-radius;
+    border: 2px solid var(--border-color);
+    box-sizing: border-box;
+    font-size: 1.2em;
+
+    &:focus-visible {
+      outline: none;
+      border-color: var(--highlight-color);
+    }
+  }
+
+  .submit-button {
+    grid-column: 1 / -1;
   }
 }

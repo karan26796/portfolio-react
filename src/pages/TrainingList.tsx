@@ -38,7 +38,8 @@ const TrainingList: React.FC = () => {
 
   return (
     <div className='training-parent'>
-      <IntroSection
+
+      <IntroSection 
         onIndividualClick={() => scrollToSection(individualRef)}
         onCompanyClick={() => scrollToSection(companyRef)}
       />
