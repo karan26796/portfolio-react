@@ -71,14 +71,14 @@
         /* Medium screens (tablet) */
         @media screen and (max-width: 1023px) and (min-width: 768px) {
             // padding: 3em 1.5em 1.5em 1.5em;
-            width: 90%;
+            max-width: 90%;
         }
 
         /* Small screens (mobile) */
         @media screen and (max-width: 767px) {
             // padding: 2em;
             gap: 0.6em;
-            width: 95%;
+            max-width: 95%;
 
             .length-xxs {
                 max-width: 85%;

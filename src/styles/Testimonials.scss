@@ -37,12 +37,12 @@
         gap: 2em;
         transition: transform 0.3s ease, rotate 0.3s ease;
         
-        // Add random rotation
-        @for $i from 1 through 4 {
-            &:nth-child(#{$i}) {
-                rotate: #{random(4) - 2}deg;
-            }
-        }
+        // // Add random rotation
+        // @for $i from 1 through 4 {
+        //     &:nth-child(#{$i}) {
+        //         rotate: #{random(4) - 2}deg;
+        //     }
+        // }
 
         &:hover {
             rotate: 0deg;

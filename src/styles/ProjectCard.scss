@@ -81,7 +81,7 @@
                 }
 
                 h3 {
-                    width: 30ch;
+                    max-width: 30ch;
                     // font-size: 2em;
 
                     @media screen and (max-width: 767px) {
