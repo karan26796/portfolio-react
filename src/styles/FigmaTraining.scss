@@ -12,7 +12,7 @@
   
     .carousel-item {
       display: inline-block;
-      width: -webkit-fill-available;
+      width: auto;
       height: auto;
       flex-shrink: 0;
       transition: transform 0.3s ease;
@@ -20,6 +20,10 @@
       background-color: white;
       border-radius: .75em;
       box-shadow: 1px 1px 1px 1px #00000014;
+
+      @media(max-width:800px){
+        width: -webkit-fill-available;
+      }
   
       &:hover {
         transform: scale(1.01);
