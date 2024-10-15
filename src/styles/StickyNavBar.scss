@@ -32,16 +32,11 @@
       min-width: auto;
       box-shadow: 0px 4px 10px rgba(0, 72, 42, 0.2);
 
-      @media (max-width: 1024px) {
-        // width: 20vw !important;
-      }
-
-      @media (max-width: 768px) {
-        // width: 35vw !important;
-      }
-
-      @media (max-width: 480px) {
-        // width: 50vw !important;
+      @media (max-width: 800px) {
+        width: -webkit-fill-available;
+        border-radius: 0;
+        margin: 0;
+        // padding: 1em;
       }
     }
 
@@ -76,10 +71,20 @@
     border-radius: 4em;
     transition: all linear .2s;
 
+    @media (max-width: 800px) {
+      flex-direction: column;
+      border-radius: .75em;
+      flex-grow: 1;
+    }
+
     &:hover {
       color: var(--grey-250);
-      border-radius: 4em; 
+      border-radius: 4em;
       background-color: var(--grey-400);
+
+      @media (max-width: 800px) {
+        border-radius: .75em;
+      }
     }
 
     // New styles for active tab
@@ -87,6 +92,10 @@
       color: var(--grey-600); // You can replace with your accent color
       background-color: #ffffff;
       border-radius: 4em;
+
+      @media (max-width: 800px) {
+        border-radius: .75em;
+      }
     }
 
     &.back-btn {
