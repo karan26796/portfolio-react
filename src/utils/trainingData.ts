@@ -51,11 +51,21 @@ export const vibrantColors: VibrantColor[] = [
   { bg: "#fefefe", text: "#9933FF" },
 ];
 
-export const tagTexts = [
-  "App/Website redesign",
-  "MVP Design",
-  "XR Design",
-  "0-1 Product Design",
-  "Corporate Figma Training",
-  "1:1 Figma Session",
+export const tagTextIndividual = [
+  "Auto layout expertise",
+  "Rapid prototyping",
+  "Componentless scalable design",
+  "Bulk actions in Figma",
+  "Design system",
+  "Plugins and shortcuts",
+  "Intro to variants",
+  "Customized topics"
 ];
+
+export const tagTextCompany = [
+    "Design system setup",
+    "Rapid prototyping",
+    "Variants",
+    "Figma for Product Managers",
+    "Customised topics",
+  ];

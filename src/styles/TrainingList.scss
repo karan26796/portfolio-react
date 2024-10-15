@@ -76,10 +76,6 @@ $border-radius: 0.75em;
   width: -webkit-fill-available;
   display: flex;
   flex-direction: column;
-  border: 1px solid var(--border-color);
-  border-radius: $border-radius;
-  padding: $gap * 2;
-  background-color: white;
   flex-grow: 1;
   align-items: center;
   justify-content: center;
@@ -92,6 +88,7 @@ $border-radius: 0.75em;
   border: 1px solid var(--border-color);
   border-radius: 1em;
   overflow: hidden;
+  background-color: white;
 }
 
 .primary {

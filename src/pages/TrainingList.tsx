@@ -7,11 +7,18 @@ import LogoCarousel from "../components/LogoCarousel";
 import FigmaTrainingCarousel from "../components/FigmaTrainingCarousel";
 import CompanyForm from '../components/CompanyForm';
 import CalendlyWidget from '../components/CalendlyWidget';
-import { trainingTestimonialsData, tagTexts, vibrantColors } from '../utils/trainingData';
+import { trainingTestimonialsData, tagTextIndividual, tagTextCompany, vibrantColors } from '../utils/trainingData';
 
 const TrainingList: React.FC = () => {
-  const tagProperties = useMemo(() => {
-    return tagTexts.map(() => ({
+  const individualTagProperties = useMemo(() => {
+    return tagTextIndividual.map(() => ({
+      color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)],
+      rotation: Math.random() * 4 - 2,
+    }));
+  }, []);
+
+  const companyTagProperties = useMemo(() => {
+    return tagTextCompany.map(() => ({
       color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)],
       rotation: Math.random() * 4 - 2,
     }));
@@ -23,8 +30,8 @@ const TrainingList: React.FC = () => {
       <LogoCarousel />
       <FigmaTrainingCarousel />
       <TestimonialsSection />
-      <IndividualTrainingSection tagProperties={tagProperties} />
-      <CompanyTrainingSection tagProperties={tagProperties} />
+      <IndividualTrainingSection tagProperties={individualTagProperties} />
+      <CompanyTrainingSection tagProperties={companyTagProperties} />
     </div>
   );
 };
@@ -44,6 +51,12 @@ const IntroSection: React.FC = () => (
         variant="secondary"
         weight="regular"
         type="submit"
+        onClick={() => {
+          const individual = document.getElementById("individual");
+          if (individual) {
+            individual.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
       />
       <Button
         text="Book Corporate/Institute Training"
@@ -55,6 +68,12 @@ const IntroSection: React.FC = () => (
         variant="primary"
         weight="regular"
         type="submit"
+        onClick={() => {
+          const company = document.getElementById("company");
+          if (company) {
+            company.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
       />
     </div>
   </div>
@@ -72,23 +91,27 @@ interface TrainingSectionProps {
 }
 
 const IndividualTrainingSection: React.FC<TrainingSectionProps> = ({ tagProperties }) => (
-  <div className='training'>
+  <div id="individual" className='training'>
     <h2>For Individuals</h2>
-    <p>Inaugural Offer: ₹1000 flat for one hour</p>
-    <TagsSection tagProperties={tagProperties} />
+    <h3>Inaugural Offer: ₹1000 flat for one hour</h3>
+    <TagsSection tagProperties={tagProperties} tagTexts={tagTextIndividual} />
     <CalendlyWidget />
   </div>
 );
 
 const CompanyTrainingSection: React.FC<TrainingSectionProps> = ({ tagProperties }) => (
-  <div className='training'>
+  <div id="company" className='training'>
     <h2>For Companies</h2>
-    <TagsSection tagProperties={tagProperties} />
+    <TagsSection tagProperties={tagProperties} tagTexts={tagTextCompany} />
     <CompanyForm />
   </div>
 );
 
-const TagsSection: React.FC<TrainingSectionProps> = ({ tagProperties }) => (
+interface TagsSectionProps extends TrainingSectionProps {
+  tagTexts: string[];
+}
+
+const TagsSection: React.FC<TagsSectionProps> = ({ tagProperties, tagTexts }) => (
   <div className='tags-topics'>
     {tagTexts.map((text, index) => (
       <Tag
