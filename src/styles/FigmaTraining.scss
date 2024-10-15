@@ -56,6 +56,12 @@ $border-radius: 0.75em;
         text-align: left;
         margin: 0;
       }
+
+      h2{
+        display: flex;
+        align-items: center;
+        gap: .2em;
+      }
     }
   }
 

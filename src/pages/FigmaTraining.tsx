@@ -9,6 +9,13 @@ import CompanyForm from '../components/CompanyForm';
 import CalendlyWidget from '../components/CalendlyWidget';
 import { trainingTestimonialsData, tagTextIndividual, tagTextCompany, vibrantColors } from '../utils/trainingData';
 
+import iima from "../utils/logos/iima.webp";
+import iimsbp from "../utils/logos/iim-sbp.webp";
+import iitm from "../utils/logos/IIT-M.webp";
+import zuddl from "../utils/logos/zuddl.webp";
+import { ImageItem } from "../utils/communityFiles";
+import { BuildingOffice, ChalkboardTeacher, Student } from "@phosphor-icons/react";
+
 const TrainingList: React.FC = () => {
   // Refs for individual and company sections
   const individualRef = useRef<HTMLDivElement>(null);
@@ -36,6 +43,25 @@ const TrainingList: React.FC = () => {
     }
   };
 
+  const logos: ImageItem[] = [
+    {
+      url: iima,
+      link: ""
+    },
+    {
+      url: iimsbp,
+      link: ""
+    },
+    {
+      url: zuddl,
+      link: ""
+    },
+    {
+      url: iitm,
+      link: ""
+    },
+  ]
+
   return (
     <div className='training-parent'>
 
@@ -43,7 +69,7 @@ const TrainingList: React.FC = () => {
         onIndividualClick={() => scrollToSection(individualRef)}
         onCompanyClick={() => scrollToSection(companyRef)}
       />
-      <LogoCarousel />
+      <LogoCarousel logos={logos} />
       <FigmaTrainingCarousel />
       <TestimonialsSection />
       {/* Pass refs to the Individual and Company training sections */}
@@ -67,15 +93,15 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
 
     <div className="data">
       <div className="data-points">
-        <h2>100+</h2>
+        <h2><ChalkboardTeacher size={32} weight="duotone" />100+</h2>
         <p>Online + Offline Workshops</p>
       </div>
       <div className="data-points">
-        <h2>10+</h2>
+        <h2><BuildingOffice size={32} weight="duotone" />10+</h2>
         <p>Corporate training</p>
       </div>
       <div className="data-points">
-        <h2>5+</h2>
+        <h2><Student size={32} weight="duotone" />5+</h2>
         <p>Educational workshops</p>
       </div>
     </div>
@@ -113,12 +139,10 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
 );
 
 const TestimonialsSection: React.FC = () => (
-  <div style={{ marginTop: "4em" }}>
-    <Testimonials
-      data={trainingTestimonialsData}
-      title="What people have said about the training"
-    />
-  </div>
+  <Testimonials
+    data={trainingTestimonialsData}
+    title="What people have said about the training"
+  />
 );
 
 interface TrainingSectionProps {
@@ -129,7 +153,7 @@ interface TrainingSectionProps {
 const IndividualTrainingSection = React.forwardRef<HTMLDivElement, TrainingSectionProps>(
   ({ tagProperties }, ref) => (
     <div id="individual" className='training' ref={ref}>
-      <h1>Book 1:1 session </h1><h4 style={{margin:"0"}}>Inaugural Offer: ₹1000 for one session</h4>
+      <h1>Book 1:1 session </h1><h4 style={{ margin: "0" }}>Inaugural Offer: ₹1000 for one session</h4>
       <p>You'll receive an email post blocking a time slot to pay</p>
       {/* Keep the TagsSection intact */}
       <TagsSection tagProperties={tagProperties} tagTexts={tagTextIndividual} />

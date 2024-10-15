@@ -4,6 +4,7 @@ import LogoCarousel from "./LogoCarousel";
 import Buttons from "./Buttons";
 import ResumePopup from "../pages/ResumePopup";
 import Tag, { VibrantColor } from "./Tag";
+import { ImageItem } from "../utils/communityFiles";
 
 const HeaderWithCarousel: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
@@ -40,17 +41,7 @@ const HeaderWithCarousel: React.FC = () => {
       <div className="profile" />
       <h1 className="semibold">Karan Kapoor</h1>
       <p style={{margin:'0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
-      {/* <div className="tags-header">
-        {tagTexts.map((text, index) => (
-          <Tag
-            key={index}
-            text={text}
-            color={tagProperties[index].color}
-            rotation={tagProperties[index].rotation}
-            dot={false}
-          />
-        ))}
-      </div> */}
+
       <h3 className="length-xxs" style={{ textAlign: "center", margin:'0' }}>
         In my ~6 years as a designer, I have helped startups of different sizes
         build 0-to-1 products, achieve product-market fit, and conducted design
@@ -96,7 +87,7 @@ const HeaderWithCarousel: React.FC = () => {
         /> */}
       </div>
       
-      <LogoCarousel />
+      <LogoCarousel/>
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>
   );

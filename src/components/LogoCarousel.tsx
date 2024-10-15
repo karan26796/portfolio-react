@@ -1,12 +1,19 @@
 import React from "react";
 import "../styles/LogoCarousel.scss";
-import logos from "../utils/logos";
+import defaultLogos from "../utils/logos";
+import { ImageItem } from "../utils/communityFiles";
 
-const LogoCarousel: React.FC = () => {
+interface LogoCarouselProps {
+  logos?: ImageItem[];
+}
+
+const LogoCarousel: React.FC<LogoCarouselProps> = ({ logos = defaultLogos }) => {
   return (
     <div className="carousel-container-logo">
       {logos.map((image, index) => (
-        <img src={image.url} alt="" />
+        <a key={index} href={image.link} target="_blank" rel="noopener noreferrer">
+          <img src={image.url} alt={`Logo ${index + 1}`} />
+        </a>
       ))}
     </div>
   );

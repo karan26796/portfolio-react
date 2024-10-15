@@ -12,6 +12,10 @@
         width: 100%;
     }
 
+    h1 {
+        text-align: center;
+    }
+
     .testimonials-grid {
         display: grid;
         gap: 1em;
@@ -36,7 +40,7 @@
         justify-content: space-between;
         gap: 2em;
         transition: transform 0.3s ease, rotate 0.3s ease;
-        
+
         // // Add random rotation
         // @for $i from 1 through 4 {
         //     &:nth-child(#{$i}) {
@@ -69,12 +73,14 @@
         align-items: start;
         gap: .5em;
 
-        img{
+        img {
             background-color: white;
         }
 
         .testimonial-meta {
-            h4, h5 {
+
+            h4,
+            h5 {
                 font-size: 1.2em;
                 margin: 0;
             }
