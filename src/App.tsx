@@ -67,7 +67,7 @@ const HomePage: React.FC = () => {
       "id": 1,
       "name": "Kritika Oberoi",
       "role": "Co-Founder",
-      "company": "Looppanel",
+      "company": "Worked together at Looppanel",
       "avatarUrl": kritika,
       "testimonial": "Karan was a dedicated employee who gave his work his all. He excelled in design iteration and effectively conducted user research.",
       "highlightedWords": ["excelled in design iteration", "effectively conducted user research"] // Words to highlight
@@ -76,7 +76,7 @@ const HomePage: React.FC = () => {
       "id": 2,
       "name": "Megha Agarwal",
       "role": "Designer",
-      "company": "Looppanel",
+      "company": "Worked together at Looppanel",
       "avatarUrl": megha,
       "testimonial": "Karan is an exceptional designer who brings clarity to highly ambiguous problems. He established a comprehensive design system that maintained consistency in our fast-moving startup.",
       "highlightedWords": ["brings clarity to highly ambiguous problems", "established a comprehensive design system"] // Words to highlight
@@ -85,7 +85,7 @@ const HomePage: React.FC = () => {
       "id": 3,
       "name": "Malavika Susan",
       "role": "Designer",
-      "company": "Aphelia Innovations",
+      "company": "Worked together at Aphelia Innovations",
       "avatarUrl": malavika,
       "testimonial": "Karan is exceptional at combining technology with art through meticulous planning. His emphasis on design standardization created a strong foundation for all our projects.",
       "highlightedWords": ["meticulous planning", "design standardization"]
@@ -94,7 +94,7 @@ const HomePage: React.FC = () => {
       "id": 4,
       "name": "Nitin Prakash",
       "role": "Android Developer",
-      "company": "Guesthouser",
+      "company": "Worked together at Guesthouser",
       "avatarUrl": nitin,
       "testimonial": "Karan is an outstanding product designer with valuable development skills. He can solve complex problems easily and has superb UI/UX capabilities.",
       "highlightedWords": ["valuable development skills", "solve complex problems easily"] // Words to highlight

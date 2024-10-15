@@ -6,7 +6,7 @@ export interface Testimonial {
   name: string;
   role: string;
   company: string;
-  avatarUrl: string;
+  avatarUrl?: string; // avatarUrl is optional now
   testimonial: string;
   highlightedWords?: string[];
 }
@@ -39,14 +39,19 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title }) => {
           <div key={testimonial.id} className="testimonial-card">
             <p>{highlightText(testimonial.testimonial, testimonial.highlightedWords)}</p>
             <div className="testimonial-header">
-              <img
-                src={testimonial.avatarUrl}
-                alt={`${testimonial.name}'s avatar`}
-                className="testimonial-avatar"
-              />
+              {/* Conditionally render the image or a white placeholder */}
+              {testimonial.avatarUrl ? (
+                <img
+                  src={testimonial.avatarUrl}
+                  alt={`${testimonial.name}'s avatar`}
+                  className="testimonial-avatar"
+                />
+              ) : (
+                <div className="testimonial-avatar placeholder" />
+              )}
               <div className="testimonial-meta">
                 <h4>{testimonial.name} · {testimonial.role}</h4>
-                <h5>Worked together at {testimonial.company}</h5>
+                <h5>{testimonial.company}</h5>
               </div>
             </div>
           </div>
