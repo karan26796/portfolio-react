@@ -12,7 +12,7 @@
   
     .carousel-item {
       display: inline-block;
-      width: auto;
+      width: -webkit-fill-available;
       height: auto;
       flex-shrink: 0;
       transition: transform 0.3s ease;

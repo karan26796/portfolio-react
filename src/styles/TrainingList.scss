@@ -65,6 +65,7 @@ $border-radius: 0.75em;
 
     @media (max-width: 800px) {
       flex-direction: column-reverse;
+      align-items: center;
     }
   }
 
