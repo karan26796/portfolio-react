@@ -107,7 +107,7 @@ const HomePage: React.FC = () => {
       <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
       <Testimonials
         data={testimonialsData}
-        title="What participants say about the training" />
+        title="What people say about me" />
       <ContactForm />
     </>
   );
