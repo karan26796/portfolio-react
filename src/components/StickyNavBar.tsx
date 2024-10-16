@@ -71,10 +71,10 @@ const StickyNavBar: React.FC = () => {
           <House size={18} weight="duotone" />Home
         </Link>
         <Link 
-          className={`a-header ${location.pathname === '/gallery' ? 'active' : ''}`} 
-          to="/gallery"
+          className={`a-header ${location.pathname === '/figma-training' ? 'active' : ''}`} 
+          to="/figma-training"
         >
-          <Image size={18} weight="duotone" />Gallery
+          <FigmaLogo size={18} weight="duotone" />Training
         </Link>
         <Link 
           className={`a-header ${location.pathname === '/archive' ? 'active' : ''}`} 
@@ -83,11 +83,11 @@ const StickyNavBar: React.FC = () => {
           <Archive size={18} weight="duotone" />Archive
         </Link>
         <Link 
-          className={`a-header ${location.pathname === '/figma-training' ? 'active' : ''}`} 
-          to="/figma-training"
+          className={`a-header ${location.pathname === '/gallery' ? 'active' : ''}`} 
+          to="/gallery"
         >
-          <FigmaLogo size={18} weight="duotone" />Training
-        </Link>
+          <Image size={18} weight="duotone" />Gallery
+        </Link>        
       </nav>
     </div>
   );

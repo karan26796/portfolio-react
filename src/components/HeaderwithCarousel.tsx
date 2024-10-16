@@ -34,11 +34,11 @@ const HeaderWithCarousel: React.FC = () => {
       <h1 className="semibold">Karan Kapoor</h1>
       <p style={{margin:'0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
 
-      <h3 className="length-xxs" style={{ textAlign: "center", margin:'0' }}>
+      <p className="length-xxs" style={{ textAlign: "center", margin:'0' }}>
         In my ~6 years as a designer, I have helped startups of different sizes
         build 0-to-1 products, achieve product-market fit, and conducted design
         workshops at leading organizations in India and the US.
-      </h3>
+      </p>
       
       <div className="button-group">
       <Tag
