@@ -95,9 +95,9 @@ interface IntroSectionProps {
 // Intro Section with buttons to scroll to the relevant sections
 const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompanyClick }) => (
   <div className='intro'>
-    <h1>Figma Training</h1>
-    <h3>In the past 5 years, I've trained and taught Figma to more than 10k people across organizations and institutions in India and the US.
-    </h3>
+    <h1>Figma Training for Designers, Students, and Product Managers</h1>
+    <p>In the last 5 years, I've taught Figma to over 10,000 people - from beginners to pros. My workshops have helped startups and educational institutes boost the design skills of their employees and students efficiently.
+      </p>
 
     <div className="data">
       <div className="data-points">
