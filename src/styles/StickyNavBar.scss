@@ -6,7 +6,7 @@
   align-items: center;
 
   .navbar {
-    background-color: var(--grey-600);
+    background-color: white;
     position: fixed;
     bottom: 0;
     padding: .5em;
@@ -52,7 +52,7 @@
         // color: var(--tertiary-color);
 
         &:hover {
-          color: var(--grey-250);
+          color: var(--grey-400);
         }
 
         &.next-project-btn {
@@ -68,7 +68,7 @@
     align-items: center;
     gap: 0.5em;
     padding: .5em 1em;
-    color: var(--grey-200);
+    color: var(--grey-400);
     transition: all 0.3s ease;
     border-radius: .75em;
     transition: all linear .2s;
@@ -80,9 +80,9 @@
     }
 
     &:hover {
-      color: var(--grey-250);
+      color: var(--grey-400);
       border-radius: .75em;
-      background-color: var(--grey-400);
+      background-color: var(--grey-200);
 
       @media (max-width: 800px) {
         border-radius: .75em;
@@ -92,7 +92,7 @@
     // New styles for active tab
     &.active {
       color: var(--grey-600); // You can replace with your accent color
-      background-color: #ffffff;
+      background-color: var(--grey-200);
       border-radius: .75em;
 
       @media (max-width: 800px) {

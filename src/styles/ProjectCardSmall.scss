@@ -10,7 +10,7 @@
         height: auto;
         border-radius: .75em;
         gap: 1em;
-        padding: 2em;
+        padding: 1em;
         border: 1px solid var(--border-color);
         transition: all linear .2s;
         background-color: white;
@@ -27,7 +27,15 @@
             display: block;
             object-fit: cover;
             border-radius: .75em;
-            transform-origin: center;
+
+            @media screen and (max-width: 767px) {
+                aspect-ratio: 16/9;
+            }
+
+            @media screen and (max-width: 608px) {
+                aspect-ratio: 1/1;
+                object-position: left;
+            }
         }
 
         .project-card {

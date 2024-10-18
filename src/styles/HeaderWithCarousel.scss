@@ -3,12 +3,11 @@
         flex-direction: column;
         height: fit-content;
         align-items: center;
-        padding-top: 4em;
-        width: var(--width-container);
+        width: -webkit-fill-available;
         max-width: var(--max-width-container);
         margin: 0 auto;
         margin-top: 0;
-        padding: 2em;
+        padding: 4em 1em;
         gap: .6em;
 
         .profile {
@@ -72,11 +71,13 @@
         @media screen and (max-width: 1023px) and (min-width: 768px) {
         }
 
-        /* Small screens (mobile) */
         @media screen and (max-width: 767px) {
             gap: 0.6em;
 
             .length-xxs {
+                max-width: 90%;
             }
         }
+        /* Small screens (mobile) */
+       
     }

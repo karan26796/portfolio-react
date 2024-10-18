@@ -2,8 +2,6 @@
 import React from "react";
 import { ProjectCardData } from "../utils/interfaces";
 import "../styles/ProjectCard.scss";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowRight } from "@fortawesome/free-solid-svg-icons";
 import Buttons from "./Buttons";
 
 const ProjectCard: React.FC<{ data: ProjectCardData }> = ({ data }) => {

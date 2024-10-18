@@ -169,7 +169,7 @@ const IndividualTrainingSection = React.forwardRef<HTMLDivElement, TrainingSecti
   ({ tagProperties }, ref) => (
     <div id="individual" className='training' ref={ref}>
       <h1>Book 1:1 session </h1><h4 style={{ margin: "0" }}>Inaugural Offer: ₹1000 for one session</h4>
-      <p>You'll receive an email post blocking a time slot to pay</p>
+      {/* <p>You'll receive an email post blocking a time slot to pay</p> */}
       {/* Keep the TagsSection intact */}
       <TagsSection tagProperties={tagProperties} tagTexts={tagTextIndividual} />
       <CalendlyWidget />
