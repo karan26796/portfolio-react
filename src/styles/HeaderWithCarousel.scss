@@ -2,12 +2,13 @@
         display: flex;
         flex-direction: column;
         height: fit-content;
-        align-items: center;
+        align-items: start;
         width: -webkit-fill-available;
         max-width: var(--max-width-container);
         margin: 0 auto;
         margin-top: 0;
-        padding: 4em 1em;
+        padding: 4em 1.5em;
+        padding-bottom: 2em;
         gap: .6em;
 
         .profile {
@@ -26,15 +27,6 @@
             /* Prevents the image from repeating */
         }
 
-        .tags-header{
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: center;
-            gap: 1em;
-        }
-
         h1,
         h5,
         h2,
@@ -49,7 +41,7 @@
 
         p {
             color: var(--tertiary-text);
-            text-align: center;
+            // text-align: center;
         }
 
         .length-xxs {
@@ -57,11 +49,17 @@
             max-width: 50%;
         }
 
+        .button-header{
+            margin-top: 1.5em;
+        }
+
         .button-group{
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
             gap: 1em;
-            margin: 1em 0 2em 0;
+            margin-top: 1em 0 0em 0;
         }
 
         @media screen and (min-width: 1024px) {

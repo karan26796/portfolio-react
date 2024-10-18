@@ -10,7 +10,7 @@ $border-radius: 0.75em;
 .training-parent {
   @include flex(column);
   align-items: center;
-  justify-content: center;
+  justify-content: start;
   max-width: var(--max-width-container);
   margin: 0 auto; // Center the container
   margin-top: 4em;
@@ -24,12 +24,12 @@ $border-radius: 0.75em;
   display: flex;
   flex-direction: column;
   gap: $gap;
-  align-items: center;
+  align-items: start;
   justify-content: center;
-  padding: $gap*4;
+  padding: $gap*4 1em;
 
   h1{
-    text-align: center;
+    max-width: 30ch;
   }
 
   .data {
@@ -76,18 +76,16 @@ $border-radius: 0.75em;
 
     @media (max-width: 800px) {
       flex-direction: column-reverse;
-      align-items: center;
+      align-items: start;
     }
   }
 
   h3 {
-    text-align: center;
     max-width: 35ch;
   }
 
   p,
   h6 {
-    text-align: center;
     max-width: 40ch;
   }
 

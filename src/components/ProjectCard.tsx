@@ -18,11 +18,11 @@ const ProjectCard: React.FC<{ data: ProjectCardData }> = ({ data }) => {
         <Buttons
           className="read-more-button"
           text="Read more"
-          // iconName="ArrowRight"
+          iconName="ArrowRight"
           withIcon={true}
           iconDirection="right"
           withText={true}
-          size="m"
+          size="s"
           variant="primary"
           // weight="regular"
         />

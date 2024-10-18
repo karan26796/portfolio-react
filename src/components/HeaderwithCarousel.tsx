@@ -32,7 +32,20 @@ const HeaderWithCarousel: React.FC = () => {
     <div className="header-details">
 
       <img className="profile" />
-      <h1 className="semibold">Karan Kapoor</h1>
+
+      <div className="button-group">
+        <h1 className="semibold">Karan Kapoor</h1>
+
+        <Tag
+          text={"open for freelance and part-time work"}
+          color={work[0]}
+          rotation={0}
+          dot={true}
+          pulsatingDot={true}
+          variant='small'
+        />
+      </div>
+
       <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
 
       <p className="length-xxs" style={{ margin: '0' }}>
@@ -43,15 +56,8 @@ const HeaderWithCarousel: React.FC = () => {
 
       <LogoCarousel />
 
-      <Tag
-        text={"open for freelance and part-time work"}
-        color={work[0]}
-        rotation={0}
-        dot={true}
-        pulsatingDot={true}
-        variant='small'
-      />
       <Buttons
+        className="button-header"
         text="Let's  work together"
         iconName="ArrowDown"
         withIcon={true}
@@ -67,18 +73,6 @@ const HeaderWithCarousel: React.FC = () => {
           }
         }}
       />
-
-      {/* <Buttons
-          text="Resume"
-          iconName="ReadCvLogo"
-          withIcon={true}
-          iconDirection="left"
-          withText={true}
-          size="m"
-          variant="secondary"
-          weight="duotone"
-          onClick={toggleResume}
-        /> */}
 
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>

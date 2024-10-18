@@ -96,7 +96,7 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
 
   return (
     <div className='intro'>
-      <h1 style={{maxWidth:"30ch"}}>Figma Training for Design Students, Professionals, and Product Managers</h1>
+      <h1>Figma Training for Design Students, Professionals, and Product Managers</h1>
       <p>In the last 5 years, I've taught Figma to over 10,000 people - from beginners to pros. My workshops have helped startups and educational institutes boost the design skills of their employees and students efficiently.
       </p>
 
