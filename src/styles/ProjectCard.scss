@@ -1,7 +1,7 @@
     .project-container {
         display: flex;
         height: 89svh;
-        background-color: #fff;
+        // background-color: #fff;
         flex-direction: column;
         overflow: hidden;
         align-items: center;
@@ -9,14 +9,15 @@
         transition: box-shadow 0.15s ease-in-out;
         height: auto;
         border-radius: .75em;
-        padding: 1em;
-        border: 2px solid var(--border-color);
+        padding: 2em;
+        border: 1px solid var(--border-color);
         transition: all linear .2s;
+        background-color: white;
 
         &:hover{
             cursor: pointer;
-            // background-color: var(--grey-100);
-            scale: .99;
+            background-color: var(--grey-100);
+            scale: 0.99;
         }
 
         img {

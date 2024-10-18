@@ -30,17 +30,19 @@ const HeaderWithCarousel: React.FC = () => {
 
   return (
     <div className="header-details">
-      <div className="profile" />
-      <h1 className="semibold">Karan Kapoor</h1>
-      <p style={{margin:'0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
 
-      <p className="length-xxs" style={{ textAlign: "center", margin:'0' }}>
+      <img className="profile" />
+      <h1 className="semibold">Karan Kapoor</h1>
+      <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
+
+      <p className="length-xxs" style={{ margin: '0' }}>
         In my ~6 years as a designer, I have helped startups of different sizes
         build 0-to-1 products, achieve product-market fit, and conducted design
         workshops at leading organizations in India and the US.
       </p>
-      
-      <div className="button-group">
+
+      <LogoCarousel />
+
       <Tag
         text={"open for freelance and part-time work"}
         color={work[0]}
@@ -49,24 +51,24 @@ const HeaderWithCarousel: React.FC = () => {
         pulsatingDot={true}
         variant='small'
       />
-        <Buttons
-          text="Let's  work together"
-          iconName="ArrowRight"
-          withIcon={true}
-          iconDirection="right"
-          withText={true}
-          size="m"
-          variant="primary"
-          weight="regular"
-          onClick={() => {
-            const contactSection = document.getElementById("contact");
-            if (contactSection) {
-              contactSection.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
-        />
+      <Buttons
+        text="Let's  work together"
+        iconName="ArrowDown"
+        withIcon={true}
+        iconDirection="right"
+        withText={true}
+        size="m"
+        variant="primary"
+        weight="regular"
+        onClick={() => {
+          const contactSection = document.getElementById("contact");
+          if (contactSection) {
+            contactSection.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
+      />
 
-        {/* <Buttons
+      {/* <Buttons
           text="Resume"
           iconName="ReadCvLogo"
           withIcon={true}
@@ -77,9 +79,7 @@ const HeaderWithCarousel: React.FC = () => {
           weight="duotone"
           onClick={toggleResume}
         /> */}
-      </div>
-      
-      <LogoCarousel/>
+
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>
   );

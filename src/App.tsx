@@ -26,6 +26,7 @@ import kritika from './utils/testimonials/pfp-02.jpg'
 import malavika from './utils/testimonials/pfp-03.jpg'
 import nitin from './utils/testimonials/pfp-04.jpg'
 import megha from './utils/testimonials/megha-pfp.jpeg'
+import LogoCarousel from "./components/LogoCarousel";
 
 const App: React.FC = () => {
   return (
