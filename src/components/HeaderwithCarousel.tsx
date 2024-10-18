@@ -30,51 +30,45 @@ const HeaderWithCarousel: React.FC = () => {
 
   return (
     <div className="header-details">
-      <div style={{ position: "relative", display: "flex", flexDirection: "column" }}>
 
-        <div style={{ position: "relative", display: "flex", flexDirection: "row" }}>
-          <div className="profile" />
-          <div style={{ position: "relative", display: "flex", flexDirection: "column" }}>
-            <h1 className="semibold">Karan Kapoor</h1>
-            <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
-          </div>
-        </div>
+      <img className="profile" />
+      <h1 className="semibold">Karan Kapoor</h1>
+      <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
 
-        <p className="length-xxs" style={{ textAlign: "left", margin: '0' }}>
-          In my ~6 years as a designer, I have helped startups of different sizes
-          build 0-to-1 products, achieve product-market fit, and conducted design
-          workshops at leading organizations in India and the US.
-        </p>
-      </div>
+      <p className="length-xxs" style={{ margin: '0' }}>
+        In my ~6 years as a designer, I have helped startups of different sizes
+        build 0-to-1 products, achieve product-market fit, and conducted design
+        workshops at leading organizations in India and the US.
+      </p>
 
+      <LogoCarousel />
 
-      <div className="button-group">
-        <Tag
-          text={"open for freelance and part-time work"}
-          color={work[0]}
-          rotation={0}
-          dot={true}
-          pulsatingDot={true}
-          variant='small'
-        />
-        <Buttons
-          text="Let's  work together"
-          iconName="ArrowRight"
-          withIcon={true}
-          iconDirection="right"
-          withText={true}
-          size="m"
-          variant="primary"
-          weight="regular"
-          onClick={() => {
-            const contactSection = document.getElementById("contact");
-            if (contactSection) {
-              contactSection.scrollIntoView({ behavior: "smooth" });
-            }
-          }}
-        />
+      <Tag
+        text={"open for freelance and part-time work"}
+        color={work[0]}
+        rotation={0}
+        dot={true}
+        pulsatingDot={true}
+        variant='small'
+      />
+      <Buttons
+        text="Let's  work together"
+        iconName="ArrowDown"
+        withIcon={true}
+        iconDirection="right"
+        withText={true}
+        size="m"
+        variant="primary"
+        weight="regular"
+        onClick={() => {
+          const contactSection = document.getElementById("contact");
+          if (contactSection) {
+            contactSection.scrollIntoView({ behavior: "smooth" });
+          }
+        }}
+      />
 
-        {/* <Buttons
+      {/* <Buttons
           text="Resume"
           iconName="ReadCvLogo"
           withIcon={true}
@@ -85,9 +79,7 @@ const HeaderWithCarousel: React.FC = () => {
           weight="duotone"
           onClick={toggleResume}
         /> */}
-      </div>
 
-      <LogoCarousel />
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>
   );

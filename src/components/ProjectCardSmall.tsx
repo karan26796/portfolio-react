@@ -36,7 +36,7 @@ const ProjectCardSmall: React.FC = () => {
         iconDirection="right"
         withText={false}
         size="m"
-        variant="tertiary"
+        variant="secondary"
         onClick={handleButtonClick}
         // weight="regular"
       />

@@ -26,6 +26,7 @@ import kritika from './utils/testimonials/pfp-02.jpg'
 import malavika from './utils/testimonials/pfp-03.jpg'
 import nitin from './utils/testimonials/pfp-04.jpg'
 import megha from './utils/testimonials/megha-pfp.jpeg'
+import LogoCarousel from "./components/LogoCarousel";
 
 const App: React.FC = () => {
   return (
@@ -104,16 +105,14 @@ const HomePage: React.FC = () => {
   ]
 
   return (
-    <div style={{position:"relative",display:"flex", flexDirection:"row"}}>
+    <>
       <HeaderWithCarousel />
-      <div style={{display:"flex", flexDirection:"column"}}>
-        <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
-        <Testimonials
-          data={testimonialsData}
-          title="What people say about me" />
-        <ContactForm />
-      </div>
-    </div>
+      <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
+      <Testimonials
+        data={testimonialsData}
+        title="What people say about me" />
+      <ContactForm />
+    </>
   );
 };
 

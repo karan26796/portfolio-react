@@ -13,6 +13,7 @@ $border-radius: 0.75em;
   justify-content: center;
   max-width: var(--max-width-container);
   margin: 0 auto; // Center the container
+  margin-top: 4em;
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -35,7 +36,7 @@ $border-radius: 0.75em;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 1em;
-    margin-bottom: 2em;
+    margin: 2em 0;
 
     @media(max-width:800px) {
       display: flex;

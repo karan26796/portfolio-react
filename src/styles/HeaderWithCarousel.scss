@@ -1,26 +1,21 @@
     .header-details {
         display: flex;
         flex-direction: column;
-        height: auto;
-        align-items: start;
+        height: fit-content;
+        align-items: center;
         padding-top: 4em;
         width: var(--width-container);
         max-width: var(--max-width-container);
         margin: 0 auto;
+        margin-top: 0;
         padding: 2em;
-        margin: 2em;
-        background-color: white;
-        border: 2px solid var(--border-color);
-        border-radius: .75em;
         gap: .6em;
-        position: sticky;
-        top: 2em;
 
         .profile {
             width: 5em;
-            height: 5em;
+            aspect-ratio: 1/1;
             padding: .3em;
-            border: 4px solid white;
+            border: 2px solid white;
             border-radius: 5em;
             background-image: url('../utils/gallery/profile.webp');
             background-size: cover;
@@ -50,20 +45,17 @@
         }
 
         h1 {
-            font-size: 2em;
-
-            @media screen and (max-width: 767px) {
-            }
+            text-align: center;
         }
 
         p {
             color: var(--tertiary-text);
-            font-size: 1.4em;
+            text-align: center;
         }
 
         .length-xxs {
-            max-width: 30ch;
             color: var(--secondary-text);
+            max-width: 50%;
         }
 
         .button-group{
@@ -74,23 +66,17 @@
         }
 
         @media screen and (min-width: 1024px) {
-            // padding: 4em 2em 2em 2em;
         }
 
         /* Medium screens (tablet) */
         @media screen and (max-width: 1023px) and (min-width: 768px) {
-            // padding: 3em 1.5em 1.5em 1.5em;
-            max-width: 90%;
         }
 
         /* Small screens (mobile) */
         @media screen and (max-width: 767px) {
-            // padding: 2em;
             gap: 0.6em;
-            max-width: 95%;
 
             .length-xxs {
-                max-width: 85%;
             }
         }
     }

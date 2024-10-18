@@ -28,9 +28,9 @@ const logos: Logo[] = [
   {
     url: indiana,
   },
-  {
-    url: shaadi,
-  },
+  // {
+  //   url: shaadi,
+  // },
   {
     url: frontrow,
   },

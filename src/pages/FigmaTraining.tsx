@@ -28,7 +28,7 @@ const TrainingList: React.FC = () => {
       }
     }
   };
-  
+
   // Refs for individual and company sections
   const individualRef = useRef<HTMLDivElement>(null);
   const companyRef = useRef<HTMLDivElement>(null);
@@ -55,6 +55,30 @@ const TrainingList: React.FC = () => {
     }
   };
 
+  return (
+    <div className='training-parent'>
+
+      <IntroSection
+        onIndividualClick={() => scrollToSection(individualRef)}
+        onCompanyClick={() => scrollToSection(companyRef)}
+      />
+      <FigmaTrainingCarousel />
+      <TestimonialsSection />
+      {/* Pass refs to the Individual and Company training sections */}
+      <IndividualTrainingSection ref={individualRef} tagProperties={individualTagProperties} />
+      <CompanyTrainingSection ref={companyRef} tagProperties={companyTagProperties} />
+    </div>
+  );
+};
+
+interface IntroSectionProps {
+  onIndividualClick: () => void;
+  onCompanyClick: () => void;
+}
+
+// Intro Section with buttons to scroll to the relevant sections
+const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompanyClick }) => {
+
   const logos: Logo[] = [
     {
       url: iima,
@@ -71,80 +95,63 @@ const TrainingList: React.FC = () => {
   ]
 
   return (
-    <div className='training-parent'>
+    <div className='intro'>
+      <h1 style={{maxWidth:"30ch"}}>Figma Training for Design Students, Professionals, and Product Managers</h1>
+      <p>In the last 5 years, I've taught Figma to over 10,000 people - from beginners to pros. My workshops have helped startups and educational institutes boost the design skills of their employees and students efficiently.
+      </p>
 
-      <IntroSection
-        onIndividualClick={() => scrollToSection(individualRef)}
-        onCompanyClick={() => scrollToSection(companyRef)}
-      />
       <LogoCarousel logos={logos} />
-      <FigmaTrainingCarousel />
-      <TestimonialsSection />
-      {/* Pass refs to the Individual and Company training sections */}
-      <IndividualTrainingSection ref={individualRef} tagProperties={individualTagProperties} />
-      <CompanyTrainingSection ref={companyRef} tagProperties={companyTagProperties} />
+
+
+      <div className="data">
+        <div className="data-points">
+          <h2><ChalkboardTeacher size={32} weight="duotone" />100+</h2>
+          <p>Online + Offline Workshops</p>
+        </div>
+        <div className="data-points">
+          <h2><BuildingOffice size={32} weight="duotone" />10+</h2>
+          <p>Corporate training</p>
+        </div>
+        <div className="data-points">
+          <h2><Student size={32} weight="duotone" />5+</h2>
+          <p>Educational workshops</p>
+        </div>
+      </div>
+
+
+      <div className="button-group">
+
+        <a href="#individual">
+          <Button
+            text="Book 1:1 Session"
+            withIcon={true}
+            iconName="User"
+            iconDirection="left"
+            withText={true}
+            size="m"
+            variant="secondary"
+            weight="regular"
+            type="button"
+          />
+        </a>
+
+        <a href="#company">
+          <Button
+            text="Book Corporate/Institute Training"
+            withIcon={true}
+            iconName="UsersThree"
+            iconDirection="left"
+            withText={true}
+            size="m"
+            variant="primary"
+            weight="regular"
+            type="button"
+          />
+        </a>
+      </div>
     </div>
   );
 };
-
-interface IntroSectionProps {
-  onIndividualClick: () => void;
-  onCompanyClick: () => void;
-}
-
-// Intro Section with buttons to scroll to the relevant sections
-const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompanyClick }) => (
-  <div className='intro'>
-    <h1>Figma Training for Designers, Students, and Product Managers</h1>
-    <p>In the last 5 years, I've taught Figma to over 10,000 people - from beginners to pros. My workshops have helped startups and educational institutes boost the design skills of their employees and students efficiently.
-      </p>
-
-    <div className="data">
-      <div className="data-points">
-        <h2><ChalkboardTeacher size={32} weight="duotone" />100+</h2>
-        <p>Online + Offline Workshops</p>
-      </div>
-      <div className="data-points">
-        <h2><BuildingOffice size={32} weight="duotone" />10+</h2>
-        <p>Corporate training</p>
-      </div>
-      <div className="data-points">
-        <h2><Student size={32} weight="duotone" />5+</h2>
-        <p>Educational workshops</p>
-      </div>
-    </div>
-    <div className="button-group">
-
-      <a href="#individual">
-        <Button
-          text="Book 1:1 Session"
-          withIcon={true}
-          iconName="User"
-          iconDirection="left"
-          withText={true}
-          size="m"
-          variant="secondary"
-          weight="regular"
-          type="button"
-        />
-      </a>
-
-      <a href="#company">
-        <Button
-          text="Book Corporate/Institute Training"
-          withIcon={true}
-          iconName="UsersThree"
-          iconDirection="left"
-          withText={true}
-          size="m"
-          variant="primary"
-          weight="regular"
-          type="button"
-        />
-      </a>
-    </div>
-  </div>
-);
 
 const TestimonialsSection: React.FC = () => (
   <Testimonials

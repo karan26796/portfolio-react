@@ -1,9 +1,7 @@
     .project-container-small {
         max-width: var(--max-width-container);
-        margin: 2em auto 0 auto;
         display: flex;
         height: auto;
-        background-color: #fff;
         flex-direction: row;
         overflow: hidden;
         align-items: center;
@@ -12,14 +10,15 @@
         height: auto;
         border-radius: .75em;
         gap: 1em;
-        padding: 1em;
-        border: 2px solid var(--border-color);
+        padding: 2em;
+        border: 1px solid var(--border-color);
         transition: all linear .2s;
+        background-color: white;
 
         &:hover{
             cursor: pointer;
-            // background-color: var(--grey-100);
-            scale: .99;
+            background-color: var(--grey-100);
+            scale: 0.99;
         }
 
         img {
@@ -70,10 +69,10 @@
                 }
 
                 h5 {
-                    font-family: "Architects Daughter", Helvetica, sans-serif;
+                    // font-family: "Architects Daughter", Helvetica, sans-serif;
                     // color: white;
                     text-transform: capitalize;
-                    padding: 0 .2em;
+                    // padding: 0 .2em;
                     font-size: 1.2em;
                     // background: var(--highlight-color);
                 }
