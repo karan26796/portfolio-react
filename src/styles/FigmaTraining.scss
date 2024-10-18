@@ -178,13 +178,13 @@ form {
   textarea {
     padding: 1.25em;
     border-radius: .75em;
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color);
     box-sizing: border-box;
     font-size: 1.2em;
 
     &:focus-visible {
       outline: transparent;
-      border: 2px solid var(--highlight-color);
+      border: 1px solid var(--highlight-color);
     }
   }
 
@@ -200,13 +200,13 @@ form {
     width: 100%;
     padding: 1.25em;
     border-radius: $border-radius;
-    border: 2px solid var(--border-color);
+    border: 1px solid var(--border-color);
     box-sizing: border-box;
-    font-size: 1.2em;
+    // font-size: 1.2em;
 
     &:focus-visible {
       outline: none;
-      border-color: var(--highlight-color);
+      border-color: 1px solid var(--highlight-color);
     }
   }
 
