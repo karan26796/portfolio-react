@@ -56,8 +56,9 @@
         .button-group{
             display: flex;
             flex-direction: row;
-            justify-content: center;
+            justify-content: start;
             align-items: center;
+            flex-wrap: wrap;
             gap: 1em;
             margin-top: 1em 0 0em 0;
         }
