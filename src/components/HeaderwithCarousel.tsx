@@ -30,25 +30,33 @@ const HeaderWithCarousel: React.FC = () => {
 
   return (
     <div className="header-details">
-      <div className="profile" />
-      <h1 className="semibold">Karan Kapoor</h1>
-      <p style={{margin:'0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
+      <div style={{ position: "relative", display: "flex", flexDirection: "column" }}>
 
-      <p className="length-xxs" style={{ textAlign: "center", margin:'0' }}>
-        In my ~6 years as a designer, I have helped startups of different sizes
-        build 0-to-1 products, achieve product-market fit, and conducted design
-        workshops at leading organizations in India and the US.
-      </p>
-      
+        <div style={{ position: "relative", display: "flex", flexDirection: "row" }}>
+          <div className="profile" />
+          <div style={{ position: "relative", display: "flex", flexDirection: "column" }}>
+            <h1 className="semibold">Karan Kapoor</h1>
+            <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
+          </div>
+        </div>
+
+        <p className="length-xxs" style={{ textAlign: "left", margin: '0' }}>
+          In my ~6 years as a designer, I have helped startups of different sizes
+          build 0-to-1 products, achieve product-market fit, and conducted design
+          workshops at leading organizations in India and the US.
+        </p>
+      </div>
+
+
       <div className="button-group">
-      <Tag
-        text={"open for freelance and part-time work"}
-        color={work[0]}
-        rotation={0}
-        dot={true}
-        pulsatingDot={true}
-        variant='small'
-      />
+        <Tag
+          text={"open for freelance and part-time work"}
+          color={work[0]}
+          rotation={0}
+          dot={true}
+          pulsatingDot={true}
+          variant='small'
+        />
         <Buttons
           text="Let's  work together"
           iconName="ArrowRight"
@@ -78,8 +86,8 @@ const HeaderWithCarousel: React.FC = () => {
           onClick={toggleResume}
         /> */}
       </div>
-      
-      <LogoCarousel/>
+
+      <LogoCarousel />
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>
   );

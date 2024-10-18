@@ -104,14 +104,16 @@ const HomePage: React.FC = () => {
   ]
 
   return (
-    <>
+    <div style={{position:"relative",display:"flex", flexDirection:"row"}}>
       <HeaderWithCarousel />
-      <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
-      <Testimonials
-        data={testimonialsData}
-        title="What people say about me" />
-      <ContactForm />
-    </>
+      <div style={{display:"flex", flexDirection:"column"}}>
+        <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
+        <Testimonials
+          data={testimonialsData}
+          title="What people say about me" />
+        <ContactForm />
+      </div>
+    </div>
   );
 };
 
