@@ -29,8 +29,7 @@ const ProjectCardSmall: React.FC = () => {
         </div>
       </div>
       <Buttons
-        className="read-more-button"
-        text="Read more"
+        className="link"
         iconName="ArrowSquareOut"
         withIcon={true}
         iconDirection="right"
@@ -38,7 +37,6 @@ const ProjectCardSmall: React.FC = () => {
         size="m"
         variant="secondary"
         onClick={handleButtonClick}
-        // weight="regular"
       />
     </a>
   );
