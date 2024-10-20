@@ -30,9 +30,7 @@ const HeaderWithCarousel: React.FC = () => {
 
   return (
     <div className="header-details">
-
       <img className="profile" />
-
       <div className="button-group">
         <h1 className="semibold">Karan Kapoor</h1>
 
@@ -48,11 +46,15 @@ const HeaderWithCarousel: React.FC = () => {
 
       <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
 
-      <p className="length-xxs" style={{ margin: '0' }}>
-        In my ~6 years as a designer, I have helped startups of different sizes
+      <h1>In my ~6 years as a designer, I have helped startups of different sizes
         build 0-to-1 products, achieve product-market fit, and conducted design
-        workshops at leading organizations in India and the US.
-      </p>
+        workshops at leading organizations in India and the US.</h1>
+
+      {/* <p className="length-xxs" style={{ margin: '0' }}>
+          In my ~6 years as a designer, I have helped startups of different sizes
+          build 0-to-1 products, achieve product-market fit, and conducted design
+          workshops at leading organizations in India and the US.
+        </p> */}
 
       <LogoCarousel />
 
