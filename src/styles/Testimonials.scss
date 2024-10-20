@@ -42,16 +42,8 @@
         gap: 2em;
         transition: transform 0.3s ease, rotate 0.3s ease;
 
-        // // Add random rotation
-        // @for $i from 1 through 4 {
-        //     &:nth-child(#{$i}) {
-        //         rotate: #{random(4) - 2}deg;
-        //     }
-        // }
-
         &:hover {
             rotate: 0deg;
-            // transform: scale(1.02);
         }
 
         p {
@@ -82,7 +74,6 @@
 
             h4,
             h5 {
-                font-size: 1.2em;
                 margin: 0;
             }
         }

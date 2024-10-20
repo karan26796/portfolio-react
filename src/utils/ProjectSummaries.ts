@@ -22,7 +22,7 @@ export const projectSummaries: ProjectCardData[] = [
   // },
   {
     id: "1",
-    description: "Zoom note-taking sidekick for user interviews",
+    description: "Designed a bot to record & transcribe Zoom interviews for researchers to create a one stop shop for user interviews ",
     title: "Looppanel note-taking sidekick for Zoom",
     img: loopnote,
     tags: ["Product design", "Usability testing"],
@@ -33,7 +33,7 @@ export const projectSummaries: ProjectCardData[] = [
 
   {
     id: "2",
-    description: "Designing ways to zoom in and out of research data",
+    description: "Created data grouping and insight creation tools for User Researchers to share with their team and get research buy in",
     title: "Designing ways to zoom in and out of research data",
     img: loopinfo,
     tags: ["Product design", "UX research"],
@@ -43,7 +43,7 @@ export const projectSummaries: ProjectCardData[] = [
   },
   {
     id: "3",
-    description: "Redesigned Nepal's Superapp by creating a design system",
+    description: "Converted wireframes into hi-fi designs by creating a scalable component library for the app",
     title: "Component library for Nimbuzz Kurakaani — Nepal's superapp",
     img: kurakaani,
     tags: ["Design system", "Component library"],
@@ -54,7 +54,7 @@ export const projectSummaries: ProjectCardData[] = [
   {
     id: "4",
     description:
-      "A mindful device for overcoming binge behavior when you're bored",
+      "Boredom is the biggest cause of bingeing. I created a device that can help tackle boredom and give you back the control one's life",
     title: "A mindful device for overcoming binge behavior",
     img: awaconimg,
     tags: ["Design", "Research", "Psychology"],

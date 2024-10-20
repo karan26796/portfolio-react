@@ -50,7 +50,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title }) => {
                 <div className="testimonial-avatar placeholder" />
               )}
               <div className="testimonial-meta">
-                <h4>{testimonial.name} · {testimonial.role}</h4>
+                <p>{testimonial.name} · {testimonial.role}</p>
                 <h5>{testimonial.company}</h5>
               </div>
             </div>

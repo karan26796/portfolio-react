@@ -127,7 +127,7 @@ const Project2: React.FC = () => {
       </figure>
 
       <section>
-        <h4>New Additions</h4>
+        <h2>New Additions</h2>
         <ol>
           <li>
             Added questions from question script at top to reflect new flow of
@@ -157,10 +157,10 @@ const Project2: React.FC = () => {
           <img src={summary} alt="Summary view" />
           <figcaption>Summary view</figcaption>
         </figure>
-
+{/* 
       <section>
         <h2>Changes across other parts of the product</h2>
-      </section>
+      </section> */}
     </div>
   );
 };

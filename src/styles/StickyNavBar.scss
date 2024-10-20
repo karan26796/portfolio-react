@@ -1,4 +1,8 @@
 // SCSS styles
+*{
+  --bg-select: #f0f9ff;
+}
+
 .container-nav {
   display: flex;
   flex-direction: column;
@@ -17,6 +21,7 @@
     z-index: 10;
     transition: all 0.3s ease;
     gap: .5em;
+    border: 1px solid var(--border-color);
 
     &.active {
       transform: translateY(0);
@@ -68,7 +73,7 @@
     align-items: center;
     gap: 0.5em;
     padding: .5em 1em;
-    color: var(--grey-400);
+    color: var(--grey-300);
     transition: all 0.3s ease;
     border-radius: .75em;
     transition: all linear .2s;
@@ -80,9 +85,9 @@
     }
 
     &:hover {
-      color: var(--grey-400);
+      color: var(--highlight-color);
       border-radius: .75em;
-      background-color: var(--grey-200);
+      background-color: var(--bg-select);
 
       @media (max-width: 800px) {
         border-radius: .75em;
@@ -92,7 +97,7 @@
     // New styles for active tab
     &.active {
       color: var(--highlight-color); // You can replace with your accent color
-      background-color: var(--grey-200);
+      background-color: var(--bg-select);
       border-radius: .75em;
 
       @media (max-width: 800px) {
@@ -101,9 +106,14 @@
     }
 
     &.back-btn {
+      color: var(--highlight-color);
       flex-direction: row !important;
       svg {
         transition: transform 0.3s ease;
+      }
+
+      &:hover{
+        color: var(--highlight-color);
       }
 
       &:hover svg {
@@ -112,9 +122,14 @@
     }
 
     &.next-project-btn {
+      color: var(--highlight-color);
       flex-direction: row !important;
       svg {
         transition: transform 0.3s ease;
+      }
+
+      &:hover{
+        color: var(--highlight-color);
       }
 
       &:hover svg {

@@ -1,7 +1,7 @@
 @import url('./styles/general-sans.css');
 
 * {
-  font-family: "Manrope", Helvetica, sans-serif;
+  font-family: "Plus Jakarta Sans", Helvetica, sans-serif;
   font-weight: 500;
 
   body {
@@ -31,7 +31,7 @@
     --grey-200: #eaeaea;
     --grey-250: #d4d4d4;
     --grey-300: #6d6d6d;
-    --grey-400: #363636;
+    --grey-400: #424242;
     --grey-600: #010101;
 
     --accent-color: #68D1FC;
@@ -69,61 +69,71 @@
     }
 
     h1 {
-      font-weight: 500;
+      font-size: 2.2em;
+      font-weight: 600;
+
       margin: .4em 0;
       color: var(--primary-text);
-      letter-spacing: -.5px;
+      
       line-height: 140%;
-      font-size: 2.2em;
       letter-spacing: -1px;
     }
 
     h2 {
-      color: var(--highlight-color);
-      line-height: 110%;
-      font-weight: 700;
-      letter-spacing: -.8px;
-      margin-bottom: .5em;
-      font-weight: 700;
       font-size: 1.8em;
+      font-weight: 600;
+
+      color: var(--highlight-color);
+      margin-bottom: .5em;
+
+      line-height: 110%;
+      letter-spacing: -.8px;
     }
 
     h3 {
-      font-weight: 600;
+      font-size: 1.6em;
+      font-weight: 500;
+
       margin: .4em 0;
       color: var(--grey-600);
-      letter-spacing: -.5px;
+      
       line-height: 140%;
-      font-size: 1.6em;
       letter-spacing: -.5px;
     }
 
     h4 {
-      font-weight: 500;
-      font-size: 1.4em;
+      font-size: 1.8em;
+      font-weight: 600;
+
       letter-spacing: -.2px;
       margin-bottom: .4em;
+      margin-top: .6em;
     }
 
     h5,
     h6 {
-      font-weight: 500;
-      margin: .2em 0;
-      color: var(--tertiary-text);
-      line-height: 150%;
       font-size: 1.25em;
+      font-weight: 500;
+      
+      text-transform: capitalize;
+
+      color: var(--tertiary-text);
+
+      line-height: 150%;
     }
 
     h5 {
       font-family: "Architects Daughter", Helvetica, sans-serif;
-      font-size: 1.4em;
+      font-size: 1.25em;
+      margin: 0;
     }
-
+    
     p,
     li {
       font-size: 1.25em;
       color: var(--secondary-text);
       line-height: 130%;
+      letter-spacing: -.5px;
     }
 
     li {

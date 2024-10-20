@@ -10,9 +10,10 @@ const ProjectCard: React.FC<{ data: ProjectCardData }> = ({ data }) => {
       <img className="project-image" src={data.img} alt={data.title} />
       <div className="project-card">
         <div className="project-card-data">
-          <h5>{data.tags.join(", ")}</h5>
+        <h5>{data.tags.join(", ")}</h5>
           <h3 className="slab">{data.title}</h3>
-          {/* <p>{data.description}</p> */}
+          <p>{data.description}</p>
+
         </div>
 
         <Buttons
@@ -22,7 +23,7 @@ const ProjectCard: React.FC<{ data: ProjectCardData }> = ({ data }) => {
           withIcon={true}
           iconDirection="right"
           withText={true}
-          size="s"
+          size="m"
           variant="primary"
           // weight="regular"
         />
