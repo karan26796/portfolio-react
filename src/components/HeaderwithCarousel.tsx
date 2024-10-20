@@ -46,7 +46,7 @@ const HeaderWithCarousel: React.FC = () => {
 
       <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
 
-      <h1 className="medium" style={{maxWidth:"30ch"}}>In my ~6 years as a designer, I have helped startups of different sizes
+      <h1 className="medium" style={{maxWidth:"30ch", fontSize:"1.8em"}}>In my ~6 years as a designer, I have helped startups of different sizes
         build 0-to-1 products, achieve product-market fit, and conducted design
         workshops at leading organizations in India and the US.</h1>
 
