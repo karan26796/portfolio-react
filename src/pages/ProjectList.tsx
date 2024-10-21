@@ -1,23 +1,56 @@
 import React from 'react';
+import { FC } from 'react';
 import { projectSummaries } from '../utils/ProjectSummaries';
-import Masonry, { ResponsiveMasonry } from "react-responsive-masonry";
 import '../styles/ProjectList.scss';
-import { Link } from 'react-router-dom';
-import ProjectCardSmall from '../components/ProjectCardSmall';
+import { Link, useNavigate } from 'react-router-dom';
+import ProjectCard from '../components/ProjectCard';
+import indieImg from '../utils/project-imgs/thumb-indie.png'
+import { ProjectCardData } from '../utils/interfaces';
 
 interface ProjectListProps {
-  projectData: typeof projectSummaries; // Assuming projectSummaries is the type you want
-  cardComponent: React.ComponentType<{ data: any }>; // Generic card component type
+  projectData: ProjectCardData[];
+  cardComponent: FC<{ data: ProjectCardData; variant: 'small' | 'large'; onClick?: () => void }>;
 }
 
-const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: CardComponent }) => {
+const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: ProjectCard }) => {
+
+  const navigate = useNavigate();
+
+  const handleCardClick = (projectId: string) => {
+    navigate(`/project/${projectId}`);
+  };
+
   return (
     <div className='project-parent'>
-      <ProjectCardSmall/>
+      {/* Small variant for IndieFinds */}
+      <ProjectCard
+        data={{
+          id: "indiefinds",
+          img: indieImg,
+          title: "IndieFinds.in",
+          description: "Discover premium and affordable Indian brands across sneakers, apparel, watches etc.",
+          tags: ["Personal project"],
+          type: "personal",
+          url: "https://indiefinds.in"
+        }}
+        variant="small"
+        onClick={() => {
+          const baseUrl = "https://indiefinds.in";
+          const utmParams = new URLSearchParams({
+            utm_source: "kadankapoor.com",
+            utm_medium: "personal_website",
+            utm_campaign: "project_showcase"
+          });
+          const fullUrl = `${baseUrl}?${utmParams.toString()}`;
+          window.open(fullUrl, "_blank", "noopener,noreferrer");
+        }}
+      />
+
+      {/* Large variant for other projects */}
       {projectData.map((project) => (
-        <Link key={project.id} to={`/project/${project.id}`} style={{ textDecoration: 'none' }}>
-          <CardComponent data={project} />
-        </Link>
+        <div key={project.id} onClick={() => handleCardClick(project.id)}>
+          <ProjectCard data={project} variant="large" />
+        </div>
       ))}
     </div>
   );

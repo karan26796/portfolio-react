@@ -4,13 +4,20 @@ export interface ProjectCardData {
   description: string,
   img: string;
   tags: string[];
-  link: string;
-  bgcolor:string;
-  textcolor:string;
 }
 
 export type BodyElement = HeaderElement | BulletElement | ParagraphElement;
 export type ProjectElement = HeaderElement | BulletElement | FigureElement | CustomElement | ParagraphElement | ImageText | IntroElement;
+
+export interface ProjectCardData {
+  id: string;
+  img: string;
+  title: string;
+  description: string;
+  tags: string[];
+  type: "personal" | "client" | "other";
+  url?: string;
+}
 
 export interface IntroElement{
   type: 'intro';

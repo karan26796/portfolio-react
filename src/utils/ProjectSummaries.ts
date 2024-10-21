@@ -15,10 +15,8 @@ export const projectSummaries: ProjectCardData[] = [
   //   title:
   //     "IndieFinds",
   //   img: indieImg,
-  //   tags: ["WEB DEVELOPMENT", "INTERACTION DESIGN"],
-  //   link:"https://indiefinds.vercel.app",
-  //   bgcolor:"#e0fff2",
-  //   textcolor:"#00482b"
+  //   tags: ["Web development", "Interaction design"],
+  //   type: "personal",
   // },
   {
     id: "1",
@@ -26,9 +24,7 @@ export const projectSummaries: ProjectCardData[] = [
     title: "Looppanel note-taking sidekick for Zoom",
     img: loopnote,
     tags: ["Product design", "Usability testing"],
-    link: "",
-    bgcolor: "#ddecff",
-    textcolor: "#1b73e8",
+    type: "client",
   },
 
   {
@@ -37,9 +33,7 @@ export const projectSummaries: ProjectCardData[] = [
     title: "Designing ways to zoom in and out of research data",
     img: loopinfo,
     tags: ["Product design", "UX research"],
-    link: "",
-    bgcolor: "#ddebff",
-    textcolor: "#1a445a",
+    type: "client",
   },
   {
     id: "3",
@@ -47,9 +41,7 @@ export const projectSummaries: ProjectCardData[] = [
     title: "Component library for Nimbuzz Kurakaani — Nepal's superapp",
     img: kurakaani,
     tags: ["Design system", "Component library"],
-    link: "",
-    bgcolor: "#ffeee2",
-    textcolor: "#e05d00",
+    type: "client",
   },
   {
     id: "4",
@@ -58,9 +50,7 @@ export const projectSummaries: ProjectCardData[] = [
     title: "A mindful device for overcoming binge behavior",
     img: awaconimg,
     tags: ["Design", "Research", "Psychology"],
-    link: "",
-    bgcolor: "#efefef",
-    textcolor: "#000000",
+    type: "client",
   },
   // {
   //   id: "5",

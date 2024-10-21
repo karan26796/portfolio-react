@@ -13,16 +13,11 @@
 
         .profile {
             width: 7.5em;
-            aspect-ratio: 1/1;
-            padding: .3em;
-            border: 2px solid white;
+            height: 7.5em;
+            // padding: .3em;
+            border: 3px solid white;
             border-radius: 5em;
-            background-image: url('../utils/gallery/profile.webp');
-            background-size: cover;
-            /* Ensures the image covers the entire div */
-            background-position: center;
-            /* Centers the image */
-            background-repeat: no-repeat;
+            object-fit: cover;
             box-shadow: 1px 1px 13px 1px #00000012;
             /* Prevents the image from repeating */
         }

@@ -4,6 +4,7 @@ import LogoCarousel from "./LogoCarousel";
 import Buttons from "./Buttons";
 import ResumePopup from "../pages/ResumePopup";
 import Tag, { VibrantColor } from "./Tag";
+import profile from "../utils/gallery/profile.webp"
 
 const HeaderWithCarousel: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
@@ -16,21 +17,11 @@ const HeaderWithCarousel: React.FC = () => {
     setIsResumeOpen(false);
   };
 
-  const vibrantColors: VibrantColor[] = [
-    { bg: "#fefefe", text: "#FF4D4D" },
-    { bg: "#fefefe", text: "#00CC66" },
-    { bg: "#fefefe", text: "#3399FF" },
-    { bg: "#fefefe", text: "#FF9933" },
-    { bg: "#fefefe", text: "#9933FF" },
-  ];
-
   const work: VibrantColor[] = [{ bg: "#fefefe", text: "#02bd69" }];
-
-  const tagTexts = ["SPD@Keka HR", "XR Designer", "Figma Trainer"];
 
   return (
     <div className="header-details">
-      <img className="profile" />
+      <img className="profile" src={profile}/>
       <div className="button-group">
         <h1>Karan Kapoor</h1>
 
@@ -46,15 +37,9 @@ const HeaderWithCarousel: React.FC = () => {
 
       <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
 
-      <h1 className="medium" style={{maxWidth:"30ch", fontSize:"1.8em"}}>In my ~6 years as a designer, I have helped startups of different sizes
+      <h1 className="medium" style={{ maxWidth: "30ch", fontSize: "1.8em" }}>In my ~6 years as a designer, I have helped startups of different sizes
         build 0-to-1 products, achieve product-market fit, and conducted design
         workshops at leading organizations in India and the US.</h1>
-
-      {/* <p className="length-xxs" style={{ margin: '0' }}>
-          In my ~6 years as a designer, I have helped startups of different sizes
-          build 0-to-1 products, achieve product-market fit, and conducted design
-          workshops at leading organizations in India and the US.
-        </p> */}
 
       <LogoCarousel />
 

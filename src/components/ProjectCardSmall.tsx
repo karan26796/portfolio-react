@@ -2,6 +2,7 @@ import React from "react";
 import "../styles/ProjectCardSmall.scss";
 import indieImg from "../utils/project-imgs/thumb-indie.png";
 import Buttons from "./Buttons";
+import Tag from "./Tag";
 
 const ProjectCardSmall: React.FC = () => {
   const handleButtonClick = () => {
@@ -20,7 +21,14 @@ const ProjectCardSmall: React.FC = () => {
       <img className="project-image" src={indieImg} alt="IndieFinds Thumbnail" />
       <div className="project-card">
         <div className="project-card-data">
-          <h5>Personal project</h5>
+
+          <Tag
+            text={"Personal project"}
+            color={{ bg: "#fefefe", text: "#3399FF" }}
+            rotation={0}
+            variant="small"
+          />
+
           <h3 className="slab">IndieFinds.in</h3>
           <p>
             Discover premium and affordable Indian brands across sneakers,
