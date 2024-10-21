@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/ProjectCard.scss";
 import Buttons from "./Buttons";
 import Tag, { VibrantColor } from "./Tag";
@@ -18,6 +18,19 @@ interface ProjectCardProps {
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ data, variant, onClick }) => {
+  const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+  useEffect(() => {
+    const checkScreenSize = () => {
+      setIsSmallScreen(window.innerWidth < 900);
+    };
+
+    checkScreenSize();
+    window.addEventListener('resize', checkScreenSize);
+
+    return () => window.removeEventListener('resize', checkScreenSize);
+  }, []);
+
   const vibrantColors: VibrantColor[] = [
     { bg: "#fefefe", text: "#FF4D4D" },
     { bg: "#fefefe", text: "#00CC66" },
@@ -35,61 +48,73 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data, variant, onClick }) => 
     }
   };
 
+  const renderButton = () => {
+    const commonProps = {
+      className: "read-more-button",
+      withIcon: true,
+      iconDirection: "right" as const,
+      size: isSmallScreen ? "s" : (variant === "large" ? "m" : "s") as "s" | "m",
+    };
+
+    if (variant === "large") {
+      return (
+        <Buttons
+          {...commonProps}
+          text={isSmallScreen ? "" : "Read more"}
+          iconName="ArrowRight"
+          withText={!isSmallScreen}
+          variant="primary"
+        />
+      );
+    } else {
+      return (
+        <Buttons
+          {...commonProps}
+          text={isSmallScreen ? "" : "Visit site"}
+          iconName="ArrowSquareOut"
+          withText={!isSmallScreen}
+          variant="primary"
+        />
+      );
+    }
+  };
+
   return (
-    <div 
-      className={`project-container ${variant === "small" ? "project-container-small" : ""}`} 
+    <div
+      className={`project-container ${variant === "small" ? "project-container-small" : ""}`}
       onClick={handleClick}
     >
       <img className="project-image" src={data.img} alt={data.title} />
       <div className="project-card">
         <div className="project-card-data">
-          <div className="tag-container">
-            {variant === "small" ? (
-              <Tag
-                text={data.type === "personal" ? "Personal project" : data.type}
-                color={vibrantColors[2]}
-                rotation={0}
-                variant="small"
-              />
-            ) : (
-              data.tags.map((tag, index) => (
+          <div className="title">
+            <h3>{data.title}</h3>
+            <div className="tag-container">
+              {variant === "small" ? (
                 <Tag
-                  key={index}
-                  text={tag}
-                  color={vibrantColors[index % vibrantColors.length]}
+                  text={data.type === "personal" ? "Personal project" : data.type}
+                  color={vibrantColors[2]}
                   rotation={0}
                   variant="small"
                 />
-              ))
-            )}
+              ) : (
+                data.tags.map((tag, index) => (
+                  <Tag
+                    key={index}
+                    text={tag}
+                    color={vibrantColors[index % vibrantColors.length]}
+                    rotation={0}
+                    variant="small"
+                  />
+                ))
+              )}
+            </div>
           </div>
-
-          <h3 className="slab">{data.title}</h3>
-          <p>{data.description}</p>
+          <div className="link">
+            <p>{data.description}</p>
+            {renderButton()}
+          </div>
         </div>
-
-        {variant === "large" ? (
-          <Buttons
-            className="read-more-button"
-            text="Read more"
-            iconName="ArrowRight"
-            withIcon={true}
-            iconDirection="right"
-            withText={true}
-            size="m"
-            variant="primary"
-          />
-        ) : (
-          <Buttons
-            className="link"
-            iconName="ArrowSquareOut"
-            withIcon={true}
-            iconDirection="right"
-            withText={false}
-            size="m"
-            variant="secondary"
-          />
-        )}
       </div>
     </div>
   );

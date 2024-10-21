@@ -39,7 +39,7 @@ const Button: React.FC<ButtonProps> = ({
   const sizeConfig = {
     s: { iconSize: '1.2em', fontSize: '1em' },
     m: { iconSize: '1.3em', fontSize: '1.2em' },
-    l: { iconSize: '1.5em', fontSize: '1.4em' },
+    l: { iconSize: '1.3em', fontSize: '1.4em' },
   };
 
   const { iconSize, fontSize } = sizeConfig[size];
