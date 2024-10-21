@@ -110,6 +110,10 @@
         flex-direction: row;
         max-width: var(--max-width-container);
         gap: 1em;
+        padding: 1em;
+        border: 1px solid var(--border-color);
+        border-radius: .75em;
+        background-color: white;
 
         img {
             width: 30%;
