@@ -1,4 +1,3 @@
-// SCSS styles
 *{
   --bg-select: #f0f9ff;
 }
@@ -27,10 +26,6 @@
       transform: translateY(0);
     }
 
-    &:not(.active) {
-      transform: translateY(100%);
-    }
-
     // Styles for main navigation
     &.main-nav {
       min-width: auto;
@@ -42,7 +37,6 @@
         width: -webkit-fill-available;
         border-radius: .75em;
         margin: 1em;
-        // padding: 1em;
       }
     }
 
@@ -54,8 +48,6 @@
       border-radius: .75em;
 
       .a-header {
-        // color: var(--tertiary-color);
-
         &:hover {
           color: var(--grey-400);
         }
@@ -79,9 +71,15 @@
     transition: all linear .2s;
 
     @media (max-width: 800px) {
-      flex-direction: column;
       border-radius: .75em;
       flex-grow: 1;
+    }
+
+    // New styles for hiding text on mobile
+    .hide-on-mobile {
+      @media (max-width: 487px) {
+        display: none;
+      }
     }
 
     &:hover {
@@ -94,9 +92,8 @@
       }
     }
 
-    // New styles for active tab
     &.active {
-      color: var(--highlight-color); // You can replace with your accent color
+      color: var(--highlight-color);
       background-color: var(--bg-select);
       border-radius: .75em;
 
