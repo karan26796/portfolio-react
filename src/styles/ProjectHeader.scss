@@ -21,6 +21,12 @@
         // gap: .5em;
         // margin-bottom: 4em;
 
+        .tag-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-top: 1rem;
+          }
 
         h1 {
             // text-align: center;
