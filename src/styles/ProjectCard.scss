@@ -49,6 +49,7 @@
             .title{
                 width: 100%;
                 display: flex;
+                flex-direction: column-reverse;
                 justify-content: space-between;
 
                 @media screen and (max-width: 900px) {
@@ -87,15 +88,15 @@
             }
 
             h3 {
-                max-width: 30ch;
+                max-width: 35ch;
 
                 @media screen and (max-width: 767px) {
-                    max-width: 25ch;
+                    // max-width: 25ch;
                 }
             }
 
             p {
-                max-width: 35ch;
+                max-width: 45ch;
                 opacity: 90%;
 
                 @media screen and (max-width: 767px) {
@@ -114,10 +115,12 @@
         border: 1px solid var(--border-color);
         border-radius: .75em;
         background-color: white;
+        height: fit-content;
 
         img {
             width: 30%;
-            height: 100%;
+            aspect-ratio: 1/1;
+            // height: 100%;
 
             @media screen and (max-width: 767px) {
                 aspect-ratio: 16/9;

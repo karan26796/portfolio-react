@@ -89,7 +89,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data, variant, onClick }) => 
         <div className="project-card-data">
           <div className="title">
             <h3>{data.title}</h3>
-            <div className="tag-container">
+            <h5>
+              {variant === "small"
+                ? data.type === "personal"
+                  ? "Personal project"
+                  : data.type
+                : data.tags.join(", ")}
+            </h5>
+            {/* <div className="tag-container">
               {variant === "small" ? (
                 <Tag
                   text={data.type === "personal" ? "Personal project" : data.type}
@@ -108,7 +115,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data, variant, onClick }) => 
                   />
                 ))
               )}
-            </div>
+            </div> */}
           </div>
           <div className="link">
             <p>{data.description}</p>
