@@ -119,8 +119,8 @@
 
         img {
             width: 30%;
-            aspect-ratio: 1/1;
-            // height: 100%;
+            // aspect-ratio: 1/1;
+            height: 100%;
 
             @media screen and (max-width: 767px) {
                 aspect-ratio: 16/9;
