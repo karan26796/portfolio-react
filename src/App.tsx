@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -16,6 +16,8 @@ import Gallery from "./pages/Gallery";
 import TrainingList from "./pages/FigmaTraining";
 import "./styles/AboutRedirect.scss";
 
+import Stories from 'react-insta-stories';
+
 import Footer from "./components/Footer";
 import ContactForm from "./components/ContactForm";
 import Archive from "./pages/Archive"
@@ -26,9 +28,33 @@ import kritika from './utils/testimonials/pfp-02.jpg'
 import malavika from './utils/testimonials/pfp-03.jpg'
 import nitin from './utils/testimonials/pfp-04.jpg'
 import megha from './utils/testimonials/megha-pfp.jpeg'
-import LogoCarousel from "./components/LogoCarousel";
+import { Story } from "react-insta-stories/dist/interfaces";
 
 const App: React.FC = () => {
+
+  const myStories: Story[] = [
+    {url: megha},
+    { url: kritika },
+    { url: nitin }
+  ]
+
+  useEffect(() => {
+    // Prevent default scroll behavior on hash change
+    const handleHashChange = (e: HashChangeEvent) => {
+      e.preventDefault();
+      window.scrollTo(0, 0);
+    };
+
+    window.addEventListener('hashchange', handleHashChange);
+
+    // Prevent initial scroll on page load
+    if (window.location.hash) {
+      window.scrollTo(0, 0);
+    }
+
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
+
   return (
     <Router>
       <Analytics />
@@ -38,6 +64,13 @@ const App: React.FC = () => {
           element={
             <>
               <StickyNavBar />
+              {/* <Stories
+                stories={myStories}
+                defaultInterval={5000}
+                width={"var(--max-width-container)"}
+                height={"50vh"}
+                loop={true}
+              /> */}
               <Routes>
                 <Route path="/" element={<Navigate replace to="/home" />} />
                 <Route path="/home" element={<HomePage />} />

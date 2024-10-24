@@ -7,10 +7,24 @@ import topBottom1 from "../utils/project-imgs/looppanel-insights/top-bottom-1.we
 import topBottom2 from "../utils/project-imgs/looppanel-insights/top-bottom-2.webp";
 import newInsights from "../utils/project-imgs/looppanel-insights/new-insights.gif";
 import summary from "../utils/project-imgs/looppanel-insights/summary.gif";
+import other1 from "../utils/project-imgs/looppanel-insights/5.webp";
+import other2 from "../utils/project-imgs/looppanel-insights/6.webp";
+import other3 from "../utils/project-imgs/looppanel-insights/7.webp";
+import other4 from "../utils/project-imgs/looppanel-insights/8.webp";
 
 import "../styles/ProjectDetails.scss";
+import { Story } from "react-insta-stories/dist/interfaces";
+import Stories from 'react-insta-stories';
 
 const Project2: React.FC = () => {
+
+  const myStories: Story[] = [
+    { url: other1 },
+    { url: other2 },
+    { url: other3 },
+    { url: other4 },
+  ]
+
   return (
     <div className="project-details">
       <section>
@@ -153,14 +167,23 @@ const Project2: React.FC = () => {
         </p>
       </section>
 
-        <figure>
-          <img src={summary} alt="Summary view" />
-          <figcaption>Summary view</figcaption>
-        </figure>
-{/* 
+      <figure>
+        <img src={summary} alt="Summary view" />
+        <figcaption>Summary view</figcaption>
+      </figure>
+
       <section>
-        <h2>Changes across other parts of the product</h2>
-      </section> */}
+        <h1>Changes across other parts of the product</h1>
+        <div className="stories">
+          <Stories
+            stories={myStories}
+            defaultInterval={3000}
+            width={"var(--max-width-container)"}
+            height={"auto"}
+            loop={true}
+          />
+        </div>
+      </section>
     </div>
   );
 };

@@ -19,6 +19,12 @@
             max-width: 70%;
         }
 
+        .stories{
+            width: fit-content;
+            border-radius: .75em;
+            overflow: hidden;
+        }
+
         h3 {
             padding: .75em;
             border-radius: .5em;

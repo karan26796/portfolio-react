@@ -20,6 +20,7 @@
     "phosphor-react": "^1.4.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
+    "react-insta-stories": "^2.7.0",
     "react-multi-carousel": "^2.8.4",
     "react-p5-wrapper": "^4.1.2",
     "react-responsive-masonry": "^2.2.0",
