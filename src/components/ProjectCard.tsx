@@ -64,6 +64,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data, variant, onClick }) => 
           iconName="ArrowRight"
           withText={!isSmallScreen}
           variant="primary"
+          size="s"
         />
       );
     } else {
@@ -74,6 +75,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data, variant, onClick }) => 
           iconName="ArrowSquareOut"
           withText={!isSmallScreen}
           variant="primary"
+          size="s"
         />
       );
     }
