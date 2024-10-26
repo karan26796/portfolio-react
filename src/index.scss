@@ -23,12 +23,12 @@
 
     position: relative;
 
-    --bg-color: #f8f9fd;
+    --bg-color: #fdfdf8;
     background-color: var(--bg-color);
 
     --bg-color-high: #f7f7f7;
 
-    --grey-100: #f6f6f6;
+    --grey-100: #fcf9f3;
     --grey-200: #eaeaea;
     --grey-250: #d4d4d4;
     --grey-300: #6a696e;
@@ -43,9 +43,9 @@
 
     --border-color: var(--grey-200);
     --visited-link: #ffffff;
-    --highlight-color: #0049af;
-    --highlight-color-light: #0052c5;
-    --highlight-color-high: #002a64;
+    --highlight-color: #af6f00;
+    --highlight-color-light: #bf7900;
+    --highlight-color-high: #9e6400;
 
     --max-width-container: 840px;
     --width-container: 70vw;

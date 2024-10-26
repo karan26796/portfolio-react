@@ -6,6 +6,10 @@
     justify-content: space-between;
     height: auto;
     transition: all linear 0.2s;
+    padding: 1em;
+        border: 1px solid var(--border-color);
+        border-radius: .75em;
+        background-color: var(--grey-100);
 
     &:hover {
         cursor: pointer;
@@ -119,7 +123,7 @@
         padding: 1em;
         border: 1px solid var(--border-color);
         border-radius: .75em;
-        background-color: white;
+        background-color: var(--grey-100);
         height: fit-content;
 
         img {

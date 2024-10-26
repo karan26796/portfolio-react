@@ -47,8 +47,9 @@
         overflow: hidden;
         border-radius: 0.5em;
         padding: .5em;
-        background-color: white;
-        box-shadow: 1px 1px 1px 1px #00000014;
+        background-color: var(--grey-100);
+        border: 1px solid var(--border-color);
+        // box-shadow: 1px 1px 1px 1px #00000014;
 
         &:hover {
             transform: rotate(0deg) !important;

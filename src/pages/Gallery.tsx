@@ -21,15 +21,15 @@ const Gallery = () => {
     5: "Dhanushkodi, Rameswaram",
     6: "Parashar lake trek, Himachal",
     7: "Munnar, Kerala",
-    8: "My balcony, Delhi",
+    // 8: "My balcony, Delhi",
     9: "Kaza, Spiti Valley",
     10: "Humayun's Tomb, Delhi",
-    11: "Langza, Spiti Valley",
+    // 11: "Langza, Spiti Valley",
     12: "Tabo, Himachal",
     13: "Kashmir",
     14: "Bir, Himachal",
     15: "Doodhpathri, Kashmir",
-    16: "Srinagar, Kashmir",
+    // 16: "Srinagar, Kashmir",
     17: "Shanti stupa, Leh",
     18: "Indian Astronomical Observatory, Hanle, Ladakh",
     19: "Bir, Himachal",
@@ -44,9 +44,9 @@ const Gallery = () => {
     28: "Hanle, Ladakh",
     29: "Tso Moriri, Ladakh",
     30: "en route Umling La, Ladakh",
-    31: "Kashmir",
-    32: "Doodhpathri, Kashmir",
-    33: "Doodhpathri, Kashmir",
+    31: "Doodhpathri, Kashmir",
+    32: "Kashmir",
+    // 33: "Doodhpathri, Kashmir",
   };
 
   const images: (string | null)[] = imageNumbers.map((num) => {
@@ -149,10 +149,10 @@ const Gallery = () => {
         </p>
         <Buttons
           className="button-header"
-          text="Follow on Instagram"
+          text="Follow for more"
           iconName="InstagramLogo"
           withIcon={true}
-          iconDirection="right"
+          iconDirection="left"
           withText={true}
           size="m"
           variant="secondary"
