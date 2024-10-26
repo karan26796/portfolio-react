@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/Gallery.scss";
-import { MapPin } from "@phosphor-icons/react";
+import { InstagramLogo, MapPin } from "@phosphor-icons/react";
+import Buttons from '../components/Buttons'
 
 // Define an interface for the locations object
 interface LocationsType {
@@ -88,6 +89,10 @@ const Gallery = () => {
     }
   };
 
+  const handleInstagramClick = () => {
+    window.open('https://instagram.com/kadankapoor', '_blank');
+  };
+
   const getColumns = () => {
     let cols = [];
     for (let i = 0; i < columns; i++) {
@@ -137,11 +142,19 @@ const Gallery = () => {
           I have been fortunate to visit some of the most stunning places
           in India. Here are some of my favorite pictures. I hope you like
           them! 😌
-          <br />
-          <br />
-          Follow on <a href="https://instagram.com/kadankapoor">Instagram</a> for
-          more such photos.
         </p>
+        <Buttons
+          className="button-header"
+          text="Follow on Instagram"
+          iconName="InstagramLogo"
+          withIcon={true}
+          iconDirection="right"
+          withText={true}
+          size="m"
+          variant="secondary"
+          weight="regular"
+          onClick={handleInstagramClick}
+        />
       </div>
       <div
         className="gallery-grid"

@@ -1,0 +1,64 @@
+/**
+* @license
+*
+* Font Family: General Sans
+* Designed by: Frode Helland
+* URL: https://www.fontshare.com/fonts/general-sans
+* © 2024 Indian Type Foundry
+*
+* General Sans Extralight 
+* General Sans ExtralightItalic 
+* General Sans Light 
+* General Sans LightItalic 
+* General Sans Regular 
+* General Sans Italic 
+* General Sans Medium 
+* General Sans MediumItalic 
+* General Sans Semibold 
+* General Sans SemiboldItalic 
+* General Sans Bold 
+* General Sans BoldItalic 
+* General Sans Variable (Variable font)
+* General Sans VariableItalic (Variable font)
+
+*
+*/
+@font-face {
+    font-family: 'Circular-Light';
+    src: url('../fonts/circular/CircularStd-Light.otf') format('opentype');
+    font-weight: 300;
+    font-display: swap;
+    font-style: normal;
+  }
+  
+  @font-face {
+     font-family: 'Circular-Book';
+     src: url('../fonts/circular/CircularStd-Book.otf') format('opentype');
+     font-weight: 400;
+     font-display: swap;
+     font-style: normal;
+   }
+
+   @font-face {
+     font-family: 'Circular-Medium';
+     src: url('../fonts/circular/CircularStd-Medium.otf') format('opentype');
+     font-weight: 500;
+     font-display: swap;
+     font-style: normal;
+   }
+
+   @font-face {
+     font-family: 'Circular-Bold';
+     src: url('../fonts/circular/CircularStd-Bold.otf') format('opentype');
+     font-weight: 700;
+     font-display: swap;
+     font-style: normal;
+   }
+
+   @font-face {
+     font-family: 'Circular-Black';
+     src: url('../fonts/circular/CircularStd-Black.otf') format('opentype');
+     font-weight: 800;
+     font-display: swap;
+     font-style: normal;
+   }

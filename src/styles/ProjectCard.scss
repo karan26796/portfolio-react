@@ -52,6 +52,11 @@
                 flex-direction: column-reverse;
                 justify-content: space-between;
 
+                h5{
+                    font-family: 'Circular-Medium', 'Arial Narrow', Arial, sans-serif;
+                    text-transform: uppercase;
+                }
+
                 @media screen and (max-width: 900px) {
                     flex-direction: column-reverse;
                     justify-content: start;
