@@ -24,7 +24,7 @@ const HeaderWithCarousel: React.FC = () => {
       <img className="profile" src={profile}/>
       <div className="button-group">
         <h1>Karan Kapoor</h1>
-
+{/* 
         <Tag
           text={"open for freelance and part-time work"}
           color={work[0]}
@@ -32,7 +32,7 @@ const HeaderWithCarousel: React.FC = () => {
           dot={true}
           pulsatingDot={true}
           variant='small'
-        />
+        /> */}
       </div>
 
       <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer - AI powered react dev</p>
@@ -43,7 +43,7 @@ const HeaderWithCarousel: React.FC = () => {
 
       <LogoCarousel />
 
-      {/* <Buttons
+      <Buttons
         className="button-header"
         text="Let's  work together"
         iconName="ArrowDown"
@@ -59,7 +59,7 @@ const HeaderWithCarousel: React.FC = () => {
             contactSection.scrollIntoView({ behavior: "smooth" });
           }
         }}
-      /> */}
+      />
 
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>
