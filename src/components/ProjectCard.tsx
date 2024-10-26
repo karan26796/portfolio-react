@@ -60,7 +60,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data, variant, onClick }) => 
       return (
         <Buttons
           {...commonProps}
-          text={isSmallScreen ? "" : "Read more"}
+          text={isSmallScreen ? "" : "Read"}
           iconName="ArrowRight"
           withText={!isSmallScreen}
           variant="primary"
