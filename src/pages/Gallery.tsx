@@ -3,7 +3,6 @@ import "../styles/Gallery.scss";
 import { InstagramLogo, MapPin } from "@phosphor-icons/react";
 import Buttons from '../components/Buttons'
 
-// Define an interface for the locations object
 interface LocationsType {
   [key: number]: string;
 }
@@ -14,7 +13,6 @@ const Gallery = () => {
 
   const imageNumbers = Array.from({ length: 33 }, (_, i) => 33 - i);
 
-  // Now TypeScript knows this object can have any number as a key
   const locations: LocationsType = {
     1: "Tabo, Himachal",
     2: "Chandratal lake, Himachal",
@@ -51,7 +49,6 @@ const Gallery = () => {
     33: "Doodhpathri, Kashmir",
   };
 
-  // Type the images array
   const images: (string | null)[] = imageNumbers.map((num) => {
     try {
       return require(`../utils/gallery/${num}.webp`);
@@ -60,6 +57,11 @@ const Gallery = () => {
       return null;
     }
   });
+
+  // Add useEffect for scroll reset
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const updateLayout = () => {
@@ -110,8 +112,10 @@ const Gallery = () => {
                 <div 
                   key={num} 
                   className="image-container"
-                  style={{ transform: `rotate(${rotation}deg)`,
-                  transition: 'transform 0.3s ease'}}
+                  style={{ 
+                    transform: `rotate(${rotation}deg)`,
+                    transition: 'transform 0.3s ease'
+                  }}
                 >
                   <img
                     src={imagePath}

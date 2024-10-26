@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useEffect } from "react";
 import '../styles/FigmaTraining.scss';
 import Button from '../components/Buttons';
 import Testimonials from '../components/Testimonials';
@@ -19,6 +19,10 @@ import { BuildingOffice, ChalkboardTeacher, Student } from "@phosphor-icons/reac
 import { Logo } from "../utils/logos";
 
 const TrainingList: React.FC = () => {
+  // Add useEffect to reset scroll position when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
@@ -59,7 +63,6 @@ const TrainingList: React.FC = () => {
 
   return (
     <div className='training-parent'>
-
       <IntroSection
         onIndividualClick={() => scrollToSection(individualRef)}
         onCompanyClick={() => scrollToSection(companyRef)}
