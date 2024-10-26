@@ -13,6 +13,8 @@ import iima from "../utils/logos/iima.webp";
 import iimsbp from "../utils/logos/iim-sbp.webp";
 import iitm from "../utils/logos/IIT-M.webp";
 import zuddl from "../utils/logos/zuddl.webp";
+import indiana from "../utils/logos/indiana.webp";
+import flame from "../utils/logos/flame.webp";
 import { BuildingOffice, ChalkboardTeacher, Student } from "@phosphor-icons/react";
 import { Logo } from "../utils/logos";
 
@@ -92,6 +94,12 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
     {
       url: iitm,
     },
+    {
+      url: indiana,
+    },
+    {
+      url:flame,
+    }
   ]
 
   return (
