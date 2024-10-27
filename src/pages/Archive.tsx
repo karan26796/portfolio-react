@@ -7,6 +7,11 @@ const Archive: React.FC = () => {
   const [columns, setColumns] = useState(3);
   const [isMobile, setIsMobile] = useState(false);
 
+  // Add useEffect for scroll reset
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   useEffect(() => {
     const updateLayout = () => {
       const width = window.innerWidth;

@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import "../styles/Gallery.scss";
-import { MapPin } from "@phosphor-icons/react";
+import { InstagramLogo, MapPin } from "@phosphor-icons/react";
+import Buttons from '../components/Buttons'
 
-// Define an interface for the locations object
 interface LocationsType {
   [key: number]: string;
 }
@@ -13,7 +13,6 @@ const Gallery = () => {
 
   const imageNumbers = Array.from({ length: 33 }, (_, i) => 33 - i);
 
-  // Now TypeScript knows this object can have any number as a key
   const locations: LocationsType = {
     1: "Tabo, Himachal",
     2: "Chandratal lake, Himachal",
@@ -22,15 +21,15 @@ const Gallery = () => {
     5: "Dhanushkodi, Rameswaram",
     6: "Parashar lake trek, Himachal",
     7: "Munnar, Kerala",
-    8: "My balcony, Delhi",
+    // 8: "My balcony, Delhi",
     9: "Kaza, Spiti Valley",
     10: "Humayun's Tomb, Delhi",
-    11: "Langza, Spiti Valley",
+    // 11: "Langza, Spiti Valley",
     12: "Tabo, Himachal",
     13: "Kashmir",
     14: "Bir, Himachal",
     15: "Doodhpathri, Kashmir",
-    16: "Srinagar, Kashmir",
+    // 16: "Srinagar, Kashmir",
     17: "Shanti stupa, Leh",
     18: "Indian Astronomical Observatory, Hanle, Ladakh",
     19: "Bir, Himachal",
@@ -45,12 +44,11 @@ const Gallery = () => {
     28: "Hanle, Ladakh",
     29: "Tso Moriri, Ladakh",
     30: "en route Umling La, Ladakh",
-    31: "Kashmir",
-    32: "Doodhpathri, Kashmir",
-    33: "Doodhpathri, Kashmir",
+    31: "Doodhpathri, Kashmir",
+    32: "Kashmir",
+    // 33: "Doodhpathri, Kashmir",
   };
 
-  // Type the images array
   const images: (string | null)[] = imageNumbers.map((num) => {
     try {
       return require(`../utils/gallery/${num}.webp`);
@@ -59,6 +57,11 @@ const Gallery = () => {
       return null;
     }
   });
+
+  // Add useEffect for scroll reset
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   useEffect(() => {
     const updateLayout = () => {
@@ -88,6 +91,10 @@ const Gallery = () => {
     }
   };
 
+  const handleInstagramClick = () => {
+    window.open('https://instagram.com/kadankapoor', '_blank');
+  };
+
   const getColumns = () => {
     let cols = [];
     for (let i = 0; i < columns; i++) {
@@ -105,8 +112,10 @@ const Gallery = () => {
                 <div 
                   key={num} 
                   className="image-container"
-                  style={{ transform: `rotate(${rotation}deg)`,
-                  transition: 'transform 0.3s ease'}}
+                  style={{ 
+                    transform: `rotate(${rotation}deg)`,
+                    transition: 'transform 0.3s ease'
+                  }}
                 >
                   <img
                     src={imagePath}
@@ -137,11 +146,19 @@ const Gallery = () => {
           I have been fortunate to visit some of the most stunning places
           in India. Here are some of my favorite pictures. I hope you like
           them! 😌
-          <br />
-          <br />
-          Follow on <a href="https://instagram.com/kadankapoor">Instagram</a> for
-          more such photos.
         </p>
+        <Buttons
+          className="button-header"
+          text="Follow for more"
+          iconName="InstagramLogo"
+          withIcon={true}
+          iconDirection="left"
+          withText={true}
+          size="m"
+          variant="secondary"
+          weight="regular"
+          onClick={handleInstagramClick}
+        />
       </div>
       <div
         className="gallery-grid"

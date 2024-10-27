@@ -1,9 +1,7 @@
 import React from 'react';
 import { FC } from 'react';
-import { projectSummaries } from '../utils/ProjectSummaries';
 import '../styles/ProjectList.scss';
 import { Link, useNavigate } from 'react-router-dom';
-import ProjectCard from '../components/ProjectCard';
 import indieImg from '../utils/project-imgs/thumb-indie.png'
 import { ProjectCardData } from '../utils/interfaces';
 

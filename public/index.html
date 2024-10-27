@@ -1,69 +1,106 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="utf-8" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <meta name="theme-color" content="#000000" />
 
-  <!-- <link rel="icon" href="%PUBLIC_URL%/favicon.svg" /> -->
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="theme-color" content="#000000" />
-  <meta name="description" content="Collection of work from Karan Kapoor" />
-  <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-  <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
+    <!-- Conditional Title based on URL -->
+    <title>Karan Kapoor - Your friendly neighbourhood product designer, Figma trainer, AI powered react dev & XR designer</title>
+    <title data-page="figma-training">Learn Figma with Karan Kapoor - Professional Figma Training & Workshops</title>
 
-  <link rel="icon" type="image/x-icon" href="%PUBLIC_URL%/favicon.png" />
+    <!-- Primary Meta Tags - Default -->
+    <meta name="title" content="Karan Kapoor - Product Designer, Figma Trainer, React Dev, XR Designer" />
+    <meta name="description" content="Your friendly Product and XR designer, figma trainer, and AI powered react dev" />
+    <meta name="robots" content="index, follow">
 
-  <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- Default Open Graph / Facebook -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Karan Kapoor" />
+    <meta property="og:url" content="https://kadankapoor.com/" />
+    <meta property="og:title" content="Karan Kapoor - Product Designer, Figma Trainer, React Dev, XR Designer" />
+    <meta property="og:description" content="Your friendly Product and XR designer, figma trainer, and AI powered react dev" />
+    <meta property="og:image" content="https://kadankapoor.com/thumbnail.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:locale" content="en_IN" />
 
-  <link rel="preconnect" href="https://stijndv.com">
+    <!-- Figma Training Page - Open Graph -->
+    <meta property="og:url" content="https://kadankapoor.com/figma-training" data-page="figma-training" />
+    <meta property="og:title" content="Learn Figma with Karan Kapoor - Professional Figma Training & Workshops for designers, students and Product Managers" data-page="figma-training" />
+    <meta property="og:description" content="Master Figma with hands-on training workshops. Learn from an expert trainer with years of industry experience in product design and development." data-page="figma-training" />
+    <meta property="og:image" content="https://kadankapoor.com/figmatraining-thumbnail.png" data-page="figma-training" />
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Montagu+Slab:opsz,wght@16..144,100..700&display=swap"
-    rel="stylesheet">
+    <!-- Default Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="@kadankapoor" />
+    <meta name="twitter:url" content="https://kadankapoor.com/" />
+    <meta name="twitter:creator" content="@kadankapoor" />
+    <meta name="twitter:title" content="Karan Kapoor - Product Designer, Figma Trainer, React Dev, XR Designer" />
+    <meta name="twitter:description" content="Your friendly Product and XR designer, figma trainer, and AI powered react dev" />
+    <meta name="twitter:image" content="https://kadankapoor.com/thumbnail.png" />
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap"
-    rel="stylesheet">
+    <!-- Figma Training Page - Twitter Card -->
+    <meta name="twitter:url" content="https://kadankapoor.com/figma-training" data-page="figma-training" />
+    <meta name="twitter:title" content="Figma with Karan Kapoor - Professional Figma Training & Workshops for designers, students and Product Managers" data-page="figma-training" />
+    <meta name="twitter:description" content="Master Figma with hands-on training workshops. Learn from an expert trainer with years of industry experience in product design and development." data-page="figma-training" />
+    <meta name="twitter:image" content="https://kadankapoor.com/figmatraining-thumbnail.png" data-page="figma-training" />
 
-  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab:wght@100..900&display=swap" rel="stylesheet">
+    <!-- Alternate Links -->
+    <link rel="canonical" href="https://kadankapoor.com/" />
+    <link rel="alternate" href="https://kadankapoor.com/figma-training" />
 
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/favicon.png" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.png" />
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/addons/p5.sound.min.js"></script>
-  <link rel="stylesheet" type="text/css" href="style.css">
-  <!-- <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Kode+Mono:wght@400..700&family=Rubik:ital,wght@0,300..900;1,300..900&display=swap" rel="stylesheet"> -->
-  <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
+    <!-- Manifest -->
+    <link rel="manifest" href="/manifest.json" />
 
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-  <title>Karan's Portfolio</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Architects+Daughter&family=Montagu+Slab:opsz,wght@16..144,100..700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,100..900;1,100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
-  <style>
-    body {
-      min-height: 100vh;
-      /* background-color: white; */
-      /* background-image: radial-gradient(#0000001e 1px, transparent 1px); */
-      background-size: 20px 20px;
-    }
-  </style>
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/p5.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.1/addons/p5.sound.min.js"></script>
+
+    <style>
+        body {
+            min-height: 100vh;
+            background-size: 20px 20px;
+        }
+    </style>
+
+    <!-- Script to handle meta tags based on URL -->
+    <script>
+        // This script will run on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if we're on the Figma training page
+            if (window.location.pathname.includes('figma-training')) {
+                // Update title
+                document.title = "Learn Figma with Karan Kapoor - Professional Figma Training & Workshops";
+                
+                // Update meta tags for this page
+                const figmaMetaTags = document.querySelectorAll('[data-page="figma-training"]');
+                figmaMetaTags.forEach(tag => {
+                    const baseTag = document.querySelector(`meta[property="${tag.getAttribute('property')}"]`);
+                    if (baseTag) {
+                        baseTag.content = tag.content;
+                    }
+                });
+            }
+        });
+    </script>
 </head>
 
 <body>
-  <noscript>You need to enable JavaScript to run this app.</noscript>
-  <div id="root"></div>
+    <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div id="root"></div>
 </body>
-
 </html>

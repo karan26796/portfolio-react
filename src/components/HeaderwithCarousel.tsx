@@ -1,4 +1,4 @@
-import React, { useState, useMemo } from "react";
+import React, { useState } from "react";
 import "../styles/HeaderWithCarousel.scss";
 import LogoCarousel from "./LogoCarousel";
 import Buttons from "./Buttons";
@@ -24,7 +24,7 @@ const HeaderWithCarousel: React.FC = () => {
       <img className="profile" src={profile}/>
       <div className="button-group">
         <h1>Karan Kapoor</h1>
-
+{/* 
         <Tag
           text={"open for freelance and part-time work"}
           color={work[0]}
@@ -32,10 +32,10 @@ const HeaderWithCarousel: React.FC = () => {
           dot={true}
           pulsatingDot={true}
           variant='small'
-        />
+        /> */}
       </div>
 
-      <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer</p>
+      <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer - AI powered react dev</p>
 
       <p style={{ maxWidth: "30ch", fontSize:"1.6em", color:"var(--primary-color)" }}>In my ~6 years as a designer, I have helped startups of different sizes
         build 0-to-1 products, achieve product-market fit, and conducted design

@@ -38,7 +38,7 @@
         padding: 1.5em;
         border: 1px solid var(--border-color);
         justify-content: space-between;
-        background-color: white;
+        background-color: var(--grey-100);
         gap: 2em;
         transition: transform 0.3s ease, rotate 0.3s ease;
 
@@ -55,7 +55,7 @@
                 box-decoration-break: clone;
                 -webkit-box-decoration-break: clone;
                 padding: 0 0.1em;
-                background: #0052FF20;
+                background: #af6f0018;
                 border-radius: 0.2em;
             }
         }

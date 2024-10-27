@@ -51,7 +51,7 @@ const ContactForm: React.FC = () => {
         setRedirectCountdown(redirectCountdown - 1);
       }, 1000);
     } else if (redirectCountdown === 0) {
-      window.open("https://calendly.com/karankapoor/project-discussion", "_blank");
+      window.open("https://calendly.com/notkarankapoor/30min", "_blank");
     }
     return () => clearTimeout(timer);
   }, [redirectCountdown]);

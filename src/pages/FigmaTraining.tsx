@@ -1,4 +1,4 @@
-import React, { useMemo, useRef } from "react";
+import React, { useMemo, useRef, useEffect } from "react";
 import '../styles/FigmaTraining.scss';
 import Button from '../components/Buttons';
 import Testimonials from '../components/Testimonials';
@@ -13,10 +13,16 @@ import iima from "../utils/logos/iima.webp";
 import iimsbp from "../utils/logos/iim-sbp.webp";
 import iitm from "../utils/logos/IIT-M.webp";
 import zuddl from "../utils/logos/zuddl.webp";
+import indiana from "../utils/logos/indiana.webp";
+import flame from "../utils/logos/flame.webp";
 import { BuildingOffice, ChalkboardTeacher, Student } from "@phosphor-icons/react";
 import { Logo } from "../utils/logos";
 
 const TrainingList: React.FC = () => {
+  // Add useEffect to reset scroll position when component mounts
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault();
@@ -57,7 +63,6 @@ const TrainingList: React.FC = () => {
 
   return (
     <div className='training-parent'>
-
       <IntroSection
         onIndividualClick={() => scrollToSection(individualRef)}
         onCompanyClick={() => scrollToSection(companyRef)}
@@ -92,6 +97,12 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
     {
       url: iitm,
     },
+    {
+      url: indiana,
+    },
+    {
+      url:flame,
+    }
   ]
 
   return (

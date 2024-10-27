@@ -6,6 +6,10 @@
     justify-content: space-between;
     height: auto;
     transition: all linear 0.2s;
+    padding: 1em;
+        border: 1px solid var(--border-color);
+        border-radius: .75em;
+        background-color: var(--grey-100);
 
     &:hover {
         cursor: pointer;
@@ -44,13 +48,19 @@
             align-items: start;
             justify-content: space-between;
             text-decoration: none;
-            gap: .5em;
+            gap: .2em;
 
             .title{
                 width: 100%;
                 display: flex;
                 flex-direction: column-reverse;
                 justify-content: space-between;
+
+                h5{
+                    font-family: 'Circular-Book', 'Arial Narrow', Arial, sans-serif;
+                    text-transform: uppercase;
+                    font-size: 1em;
+                }
 
                 @media screen and (max-width: 900px) {
                     flex-direction: column-reverse;
@@ -88,7 +98,10 @@
             }
 
             h3 {
+                font-size: 1.6em;
+                font-family: "Circular-Book", Helvetica, sans-serif;
                 max-width: 35ch;
+                margin-bottom: 0;
 
                 @media screen and (max-width: 767px) {
                     // max-width: 25ch;
@@ -96,8 +109,10 @@
             }
 
             p {
-                max-width: 35ch;
+                max-width: 32ch;
                 opacity: 90%;
+                font-size: 1.2em;
+                margin-top: 0;
 
                 @media screen and (max-width: 767px) {
                     max-width: 90%;
@@ -114,7 +129,7 @@
         padding: 1em;
         border: 1px solid var(--border-color);
         border-radius: .75em;
-        background-color: white;
+        background-color: var(--grey-100);
         height: fit-content;
 
         img {

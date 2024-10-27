@@ -60,10 +60,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data, variant, onClick }) => 
       return (
         <Buttons
           {...commonProps}
-          text={isSmallScreen ? "" : "Read more"}
+          text={isSmallScreen ? "" : "Read"}
           iconName="ArrowRight"
           withText={!isSmallScreen}
           variant="primary"
+          size="s"
         />
       );
     } else {
@@ -74,6 +75,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ data, variant, onClick }) => 
           iconName="ArrowSquareOut"
           withText={!isSmallScreen}
           variant="primary"
+          size="s"
         />
       );
     }
