@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import communityFiles from "../utils/communityFiles";
 import '../styles/Archive.scss'
 import Experiments from '../components/Experiments'
+import HorizontalCarouselWall from "../components/HorizontalCarouselWall";
 
 const Archive: React.FC = () => {
   const [columns, setColumns] = useState(3);
@@ -55,6 +56,7 @@ const Archive: React.FC = () => {
 
   return (
     <div className="archive-container">
+      <HorizontalCarouselWall/>
       <Experiments/>
       <h1>Figma community resources</h1>
       <div 
