@@ -17,9 +17,9 @@
       flex-shrink: 0;
       transition: transform 0.3s ease;
       padding: .5em;
-      background-color: white;
+      background-color: var(--grey-100);
+            border: 1px solid var(--border-color) ;
       border-radius: .75em;
-      box-shadow: 1px 1px 1px 1px #00000014;
 
       @media(max-width:800px){
         width: -webkit-fill-available;
@@ -37,7 +37,7 @@
       }
   
       .carousel-text {
-        padding: .5em 1em;
+        padding: .5em 0;
         white-space: normal;
 
         h4,h5{

@@ -9,6 +9,8 @@ import figma7 from '../utils/figma-training/training7.webp';
 import figma8 from '../utils/figma-training/training8.webp';
 import figma9 from '../utils/figma-training/training9.webp';
 import figma10 from '../utils/figma-training/training10.webp';
+import youtube from '../utils/resources/figma-shortcuts.webp';
+import community from '../utils/resources/evolve.webp';
 
 import '../styles/FigmaTrainingCarousel.scss'
 import { MapPin } from '@phosphor-icons/react';
@@ -21,9 +23,11 @@ interface CarouselItem {
 
 const carouselItems: CarouselItem[] = [
   { image: figma1, title: "Figma for PMs", location: "IIM Ahmedabad" },
+  { image: youtube, title: "Figma tutorial", location: "YouTube" },
   { image: figma2, title: "Figma for UI Design", location: "Indiana University, US" },
   { image: figma3, title: "Design Masterclass", location: "Online" },
   { image: figma4, title: "Figma Masterclass", location: "Online" },
+  { image: community, title: "Design library", location: "Figma community" },
   { image: figma5, title: "Figma Masterclass", location: "Online" },
   { image: figma6, title: "Figma Masterclass", location: "Online" },
   { image: figma7, title: "Figma Masterclass", location: "Online" },

@@ -42,7 +42,7 @@ const Archive: React.FC = () => {
               <a key={index} className="community-file-card" href={file.link} target="_blank" rel="noopener noreferrer">
                 <img src={file.url} alt={`Community file ${index + 1}`} />
                 <div className="community-content">
-                  <h4>{file.name}</h4>
+                  <h6 style={{color:"var(--primary-text)", margin:"0"}}>{file.name}</h6>
                   <h5>{file.downloads}</h5>
                 </div>
               </a>
