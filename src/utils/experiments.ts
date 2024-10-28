@@ -44,10 +44,10 @@ const experiments: Experiment[] = [
   //   urlImg: img3,
   //   urlGif: gif3,
   // },
-  {
-    urlImg: img4,
-    urlGif: gif4,
-  },
+  // {
+  //   urlImg: img4,
+  //   urlGif: gif4,
+  // },
   
 ];
 
