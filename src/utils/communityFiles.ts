@@ -29,12 +29,12 @@ const communityFiles: FigmaFile[] = [
     name: 'Evolve component library',
     downloads:'3k downloads'
   },
-  // {
-  //   url: figmashort,
-  //   link: "https://www.youtube.com/watch?v=Rf-cg42id78&pp=ygUPa2FyYW4ga2Fwb29yIHV4",
-  //   name: 'My favorite Figma shorcuts',
-  //   downloads:'YouTube live'
-  // },
+  {
+    url: figmashort,
+    link: "https://www.youtube.com/watch?v=Rf-cg42id78&pp=ygUPa2FyYW4ga2Fwb29yIHV4",
+    name: 'My favorite Figma shorcuts',
+    downloads:'YouTube live'
+  },
   {
     url: proto,
     link: "https://www.figma.com/community/file/905774038894769917/animation-prototype-playground",

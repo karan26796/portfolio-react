@@ -3,6 +3,8 @@
     width: 100vw;
     height: auto;
     overflow: hidden;
+    background-color: var(--grey-100);
+    padding: 1em;
     
     &-rows {
         display: flex;
@@ -19,7 +21,7 @@
 
 .row-content {
     display: flex;
-    gap: .5em;
+    gap: 1em;
     height: 100%;
     will-change: transform;
     transition: transform 0.016s linear;
@@ -30,13 +32,12 @@
     
     img {
         width: auto;
-        height: 20em;
+        height: 25em;
         object-fit: cover;
         transition: all 0.3s ease;
         border: 1px solid var(--border-color);
-        background-color: var(--grey-100);
         border-radius: .75em;
-        padding: .25em;
+        // padding: .25em;
         overflow: hidden;
 
         @media (max-width:900px) {
@@ -53,17 +54,17 @@
     position: absolute;
     top: 0;
     bottom: 0;
-    width: 200px;
+    width: 10em;
     pointer-events: none;
     transition: opacity 0.3s ease;
 
     &--left {
         left: 0;
-        background: linear-gradient(to right, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+        background: linear-gradient(to right, #fcf9f3, #fcf9f300);
     }
 
     &--right {
         right: 0;
-        background: linear-gradient(to left, rgba(255, 255, 255, 1), rgba(255, 255, 255, 0));
+        background: linear-gradient(to left, #fcf9f3, #fcf9f300);
     }
 }

@@ -8,7 +8,7 @@ import Banner06 from './assorted/Banner-06.webp';
 import Banner07 from './assorted/Banner-07.webp';
 // import Banner08 from './assorted/Banner-08.webp';
 // import Banner09 from './assorted/Banner-09.webp';
-// import Banner10 from './assorted/Banner-10.webp';
+import Banner10 from './assorted/Banner-10.webp';
 // import Banner11 from './assorted/Banner-11.webp';
 // import Banner12 from './assorted/Banner-12.webp';
 
@@ -32,14 +32,14 @@ import Pause02 from './assorted/pause-02.webp';
 import Pause03 from './assorted/pause-03.webp';
 
 // Qohoo images
-import Qohoo01 from './assorted/qohoo-01.webp';
-import Qohoo02 from './assorted/qohoo-02.webp';
-import Qohoo03 from './assorted/qohoo-03.webp';
+// import Qohoo01 from './assorted/qohoo-01.webp';
+// import Qohoo02 from './assorted/qohoo-02.webp';
+// import Qohoo03 from './assorted/qohoo-03.webp';
 import Qohoo04 from './assorted/qohoo-04.webp';
 import Qohoo05 from './assorted/qohoo-05.webp';
 import Qohoo06 from './assorted/qohoo-06.webp';
-// import Qohoo07 from './assorted/qohoo-07.webp';
-// import Qohoo08 from './assorted/qohoo-08.webp';
+import Qohoo07 from './assorted/qohoo-07.webp';
+import Qohoo08 from './assorted/qohoo-08.webp';
 // import Qohoo09 from './assorted/qohoo-09.webp';
 // import Qohoo10 from './assorted/qohoo-10.webp';
 // import Qohoo11 from './assorted/qohoo-11.webp';
@@ -59,10 +59,10 @@ import VdoAi01 from './assorted/vdo.ai-01.webp';
 import VdoAi02 from './assorted/vdo.ai-02.webp';
 import VdoAi03 from './assorted/vdo.ai-03.webp';
 import VdoAi04 from './assorted/vdo.ai-04.webp';
-import VdoAi05 from './assorted/vdo.ai-05.webp';
-import VdoAi06 from './assorted/vdo.ai-06.webp';
-// import VdoAi07 from './assorted/vdo.ai-07.webp';
-// import VdoAi08 from './assorted/vdo.ai-08.webp';
+// import VdoAi05 from './assorted/vdo.ai-05.webp';
+// import VdoAi06 from './assorted/vdo.ai-06.webp';
+import VdoAi07 from './assorted/vdo.ai-07.webp';
+import VdoAi08 from './assorted/vdo.ai-08.webp';
 
 // Vector images
 import Vector01 from './assorted/vector-01.webp';
@@ -72,7 +72,7 @@ import Vector04 from './assorted/vector-04.webp';
 import Vector05 from './assorted/vector-05.webp';
 import Vector06 from './assorted/vector-06.webp';
 // import Vector07 from './assorted/vector-07.webp';
-// import Vector08 from './assorted/vector-08.webp';
+import Vector08 from './assorted/vector-08.webp';
 // import Vector09 from './assorted/vector-09.webp';
 // import Vector10 from './assorted/vector-10.webp';
 // import Vector11 from './assorted/vector-11.webp';
@@ -80,8 +80,7 @@ import Vector06 from './assorted/vector-06.webp';
 
 // Export by categories
 export const bannerImages = {
-  Banner01, Banner02, Banner03, Banner04, Banner05, Banner06,
-  Banner07
+  Banner01, Banner04,Banner10
 };
 
 export const aiguireImages = {
@@ -97,7 +96,7 @@ export const pauseImages = {
 };
 
 export const qohooImages = {
-  Qohoo01, Qohoo02, Qohoo03, Qohoo04, Qohoo05, Qohoo06
+   Qohoo04, Qohoo05, Qohoo06, Qohoo07, Qohoo08
 };
 
 export const skylarkImages = {
@@ -105,11 +104,11 @@ export const skylarkImages = {
 };
 
 export const vdoAiImages = {
-  VdoAi01, VdoAi02, VdoAi03, VdoAi04, VdoAi05, VdoAi06
+  VdoAi01, VdoAi02, VdoAi03, VdoAi04, VdoAi07, VdoAi08
 };
 
 export const vectorImages = {
-  Vector01, Vector02, Vector03, Vector04, Vector05, Vector06
+  Vector01, Vector02, Vector03, Vector04, Vector05, Vector08
 };
 
 // Export all images in a single object
