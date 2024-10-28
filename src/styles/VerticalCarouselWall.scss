@@ -11,6 +11,10 @@
         flex-direction: column;
         height: 100%;
         gap: .5em;
+
+        @media (max-width:900px) {
+            gap: .2em;
+        }
     }
 
     &-row {
@@ -25,6 +29,10 @@
     height: 100%;
     will-change: transform;
     transition: transform 0.016s linear;
+
+    @media (max-width:900px) {
+        gap: .2em;
+    }
 }
 
 .image-wrapper {
@@ -41,7 +49,7 @@
         overflow: hidden;
 
         @media (max-width:900px) {
-            height: 15em;
+            height: 20em;
         }
         
         &:hover {

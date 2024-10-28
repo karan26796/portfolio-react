@@ -1,0 +1,82 @@
+.community-file-card {
+    display: block;
+    margin-bottom: 2em;
+    text-decoration: none;
+
+    .image-stack-container {
+        position: relative;
+        padding-top: 8px;
+        padding-bottom: 8px;
+        margin-bottom: 1px; // Connect with content section
+        transition: transform 0.3s ease-out;
+
+        &:hover {
+            transform: rotate(0deg) !important;
+
+            .stacked-bg-card {
+                transform: rotate(0deg) !important;
+            }
+        }
+
+        // Background stacked cards
+        .stacked-bg-card {
+            position: absolute;
+            top: -.5em;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 0.75em;
+            background-color: #f2e0cb;
+            // opacity: 40%;
+            // border: 1px solid var(--border-color);
+            transform: rotate(-2deg);
+            transition: transform 0.3s ease-out;
+            z-index: 1;
+
+            &.secondary {
+                // opacity: 40%;
+                background-color: #f9eed4;
+                top: -.25em;
+                transform: rotate(1deg);
+                z-index: 2;
+            }
+        }
+
+        // Main image container
+        .main-image-container {
+            position: relative;
+            z-index: 3;
+            background-color: white;
+            border-radius: 0.75em;
+            overflow: hidden;
+            // border: 1px solid var(--border-color);
+
+            img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 0.75em;
+            }
+        }
+    }
+
+    // Content section
+    .community-content {
+        display: none;
+        width: -webkit-fill-available;
+        background-color: var(--grey-100);
+        padding: 1.5em;
+        border: 1px solid var(--border-color);
+        border-radius: 0 0 0.75em 0.75em;
+        z-index: 100;
+
+        h6 {
+            color: var(--primary-text);
+            margin: 0;
+        }
+
+        h5 {
+            margin: 0;
+        }
+    }
+}

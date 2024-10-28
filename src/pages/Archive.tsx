@@ -3,6 +3,7 @@ import communityFiles from "../utils/communityFiles";
 import "../styles/Archive.scss";
 import Experiments from "../components/Experiments";
 import HorizontalCarouselWall from "../components/HorizontalCarouselWall";
+import StackedCard from "../components/StackedCards";
 
 const Archive: React.FC = () => {
   const [columns, setColumns] = useState(3);
@@ -31,12 +32,6 @@ const Archive: React.FC = () => {
     return () => window.removeEventListener("resize", updateLayout);
   }, []);
 
-  const getTransform = (index: number): string => {
-    const yOffset = index % 2 === 0 ? -10 : 10;
-    const rotation = index % 2 === 0 ? -2 : 2;
-    return `translateY(${yOffset}px) rotate(${rotation}deg)`;
-  };
-
   const getColumns = () => {
     let cols = [];
     for (let i = 0; i < columns; i++) {
@@ -45,25 +40,7 @@ const Archive: React.FC = () => {
           {communityFiles
             .filter((_, index) => index % columns === i)
             .map((file, index) => (
-              <a
-                key={index}
-                className="community-file-card"
-                href={file.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                style={{
-                  // transform: getTransform(index),
-                  // transition: 'transform 0.3s ease-out'
-                }}
-              >
-                <img src={file.url} alt={`Community file ${index + 1}`} />
-                <div className="community-content">
-                  <h6 style={{ color: "var(--primary-text)", margin: "0" }}>
-                    {file.name}
-                  </h6>
-                  <h5>{file.downloads}</h5>
-                </div>
-              </a>
+              <StackedCard key={index} file={file} index={index} />
             ))}
         </div>
       );

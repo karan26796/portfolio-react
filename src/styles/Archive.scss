@@ -16,38 +16,5 @@
         text-align: center;
     }
 
-    .community-files-grid {
-
-        .community-file-card {
-            height: auto;
-            display: flex;
-            flex-direction: column;
-            height: auto;
-            border-radius: 0.75em;
-            transition: all linear .1s;
-            margin-bottom: 1.25em;
-
-            &:hover {
-                transform: translateY(0) rotate(0deg) !important;
-                scale: .99;
-            }
-
-            img {
-                width: 100%;
-                height: auto;
-                display: block;
-                border-radius: .5em;
-                border: 1px solid var(--border-color);
-            }
-
-            .community-content {
-                padding: .5em 0;
-
-                h4,
-                h5 {
-                    margin: 0;
-                }
-            }
-        }
-    }
+    .community-files-grid {}
 }
