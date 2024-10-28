@@ -73,6 +73,7 @@ const StackedCard: React.FC<StackedCardProps> = ({ file, index }) => {
           iconName={buttonConfig.iconName}
           variant="secondary"
           type="submit"
+          weight='duotone'
           size='s'
         />
       </div>
