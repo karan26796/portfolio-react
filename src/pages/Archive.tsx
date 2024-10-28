@@ -18,7 +18,7 @@ const Archive: React.FC = () => {
       const width = window.innerWidth;
       setIsMobile(width < 750);
       if (width < 750) {
-        setColumns(1);
+        setColumns(2);
       } else if (width < 900) {
         setColumns(2);
       } else {
