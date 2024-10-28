@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import '../styles/StackedCard.scss';
 import Button from './Buttons';
+import { User } from '@phosphor-icons/react';
 
 interface StackedCardProps {
   file: {
@@ -63,7 +64,10 @@ const StackedCard: React.FC<StackedCardProps> = ({ file, index }) => {
       
       <div className="community-content">
         <h6>{file.name}</h6>
-        <h5>{file.downloads}</h5>
+        <h5>
+          {!isYouTubeVideo && <User size={22} weight='duotone' />}
+          {file.downloads}
+        </h5>
 
         <Button
           className="submit-button"

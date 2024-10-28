@@ -13,12 +13,17 @@
         margin-bottom: 1px; // Connect with content section
         transition: transform 0.3s ease-out;
         z-index: -10;
+        transform: rotate(var(--random-rotation)); // Will be set by inline style in React
 
         &:hover {
             transform: rotate(0deg) !important;
 
             .stacked-bg-card {
                 transform: rotate(0deg) !important;
+                
+                &.secondary {
+                    transform: rotate(0deg) !important;
+                }
             }
         }
 
@@ -31,15 +36,14 @@
             bottom: 0;
             border-radius: 0.75em;
             background-color: #f2e0cb;
-            transform: rotate(-2deg);
+            transform: rotate(-1deg); // Adjusted to be subtle
             transition: transform 0.3s ease-out;
             z-index: 1;
 
             &.secondary {
-                // opacity: 40%;
                 background-color: #f9eed4;
                 top: -.25em;
-                transform: rotate(1deg);
+                transform: rotate(1deg); // Adjusted to be subtle
                 z-index: 2;
             }
         }
@@ -51,7 +55,6 @@
             background-color: white;
             border-radius: 0.75em;
             overflow: hidden;
-            // border: 1px solid var(--border-color);
 
             img {
                 width: 100%;
@@ -84,6 +87,10 @@
         }
 
         h5 {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: .2em;
             margin: 0;
         }
     }
