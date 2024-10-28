@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import '../styles/StackedCard.scss';
 import Button from './Buttons';
 import { User } from '@phosphor-icons/react';
@@ -25,18 +25,34 @@ interface ButtonConfig {
 
 const StackedCard: React.FC<StackedCardProps> = ({ file, index }) => {
   const [rotation] = useState(() => -1 + Math.random() * 2);
-  
+  const [buttonText, setButtonText] = useState('Download Figma file');
+
   const bgColors = [
     '#603D01', // Pale yellow
     '#9E6400', // Pale green
     '#E2950E', // Pale pink
     '#FFC868', // Pale blue
   ];
-  
+
   const isYouTubeVideo = file.downloads.toLowerCase() === 'youtube live';
-  
+
+  useEffect(() => {
+    const updateButtonText = () => {
+      if (window.innerWidth < 800 && !isYouTubeVideo) {
+        setButtonText('Download');
+      } else {
+        setButtonText(isYouTubeVideo ? 'Open video' : 'Download Figma file');
+      }
+    };
+
+    updateButtonText();
+
+    window.addEventListener('resize', updateButtonText);
+    return () => window.removeEventListener('resize', updateButtonText);
+  }, [isYouTubeVideo]);
+
   const buttonConfig: ButtonConfig = {
-    text: isYouTubeVideo ? 'Open video' : 'Download Figma file',
+    text: buttonText,
     iconName: isYouTubeVideo ? "YoutubeLogo" : "FigmaLogo"
   };
 
