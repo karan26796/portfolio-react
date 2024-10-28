@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import '../styles/StackedCard.scss';
+import Button from './Buttons';
 
 interface StackedCardProps {
   file: {
@@ -9,6 +10,16 @@ interface StackedCardProps {
     downloads: string;
   };
   index: number;
+}
+
+// Define a type for the allowed icon names based on the error message
+type IconName = "YoutubeLogo" | "FigmaLogo" | "IconContext" | "IconBase" | 
+  "SSR" | "Acorn" | "AddressBook" | "AddressBookTabs" | 
+  "AirTrafficControl" | "Airplane" | "AirplaneInFlight" | "AirplaneLanding";
+
+interface ButtonConfig {
+  text: string;
+  iconName: IconName;
 }
 
 const StackedCard: React.FC<StackedCardProps> = ({ file, index }) => {
@@ -21,10 +32,12 @@ const StackedCard: React.FC<StackedCardProps> = ({ file, index }) => {
     '#FFC868', // Pale blue
   ];
   
-//   const [stackColors] = useState(() => [
-//     bgColors[Math.floor(Math.random() * bgColors.length)],
-//     bgColors[Math.floor(Math.random() * bgColors.length)]
-//   ]);
+  const isYouTubeVideo = file.downloads.toLowerCase() === 'youtube live';
+  
+  const buttonConfig: ButtonConfig = {
+    text: isYouTubeVideo ? 'Open video' : 'Download Figma file',
+    iconName: isYouTubeVideo ? "YoutubeLogo" : "FigmaLogo"
+  };
 
   return (
     <a
@@ -36,22 +49,12 @@ const StackedCard: React.FC<StackedCardProps> = ({ file, index }) => {
       <div 
         className="image-stack-container"
         style={{
-          transform: `rotate(${rotation}deg)`,
+          transform: `rotate(${rotation}deg) translateY(20px)`,
         }}
       >
         {/* Background stacked cards */}
-        <div
-          className="stacked-bg-card"
-          style={{
-            // backgroundColor: stackColors[0],
-          }}
-        />
-        <div
-          className="stacked-bg-card secondary"
-          style={{
-            // backgroundColor: stackColors[1],
-          }}
-        />
+        <div className="stacked-bg-card" />
+        <div className="stacked-bg-card secondary" />
         {/* Main image container */}
         <div className="main-image-container">
           <img src={file.url} alt={`Community file ${index + 1}`} />
@@ -61,6 +64,17 @@ const StackedCard: React.FC<StackedCardProps> = ({ file, index }) => {
       <div className="community-content">
         <h6>{file.name}</h6>
         <h5>{file.downloads}</h5>
+
+        <Button
+          className="submit-button"
+          text={buttonConfig.text}
+          withIcon={true}
+          iconDirection='left'
+          iconName={buttonConfig.iconName}
+          variant="secondary"
+          type="submit"
+          size='s'
+        />
       </div>
     </a>
   );

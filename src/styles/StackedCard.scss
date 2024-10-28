@@ -1,14 +1,18 @@
 .community-file-card {
-    display: block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     margin-bottom: 2em;
     text-decoration: none;
 
     .image-stack-container {
+        width: 96%;
         position: relative;
-        padding-top: 8px;
-        padding-bottom: 8px;
+        padding-top: .5em;
+        padding-bottom: .5em;
         margin-bottom: 1px; // Connect with content section
         transition: transform 0.3s ease-out;
+        z-index: -10;
 
         &:hover {
             transform: rotate(0deg) !important;
@@ -27,8 +31,6 @@
             bottom: 0;
             border-radius: 0.75em;
             background-color: #f2e0cb;
-            // opacity: 40%;
-            // border: 1px solid var(--border-color);
             transform: rotate(-2deg);
             transition: transform 0.3s ease-out;
             z-index: 1;
@@ -62,17 +64,23 @@
 
     // Content section
     .community-content {
-        display: none;
+        display: flex;
+        flex-direction: column-reverse;
+        gap: .5em;
+        align-items: center;
         width: -webkit-fill-available;
-        background-color: var(--grey-100);
+        background-color: white;
         padding: 1.5em;
         border: 1px solid var(--border-color);
-        border-radius: 0 0 0.75em 0.75em;
+        box-shadow: 0px 1px 6px 1px #00000014;
+        border-radius: .25em .25em 0.75em 0.75em;
         z-index: 100;
 
         h6 {
             color: var(--primary-text);
             margin: 0;
+            text-align: center;
+            display: none;
         }
 
         h5 {
