@@ -50,6 +50,10 @@ const Archive: React.FC = () => {
 
   return (
     <div className="archive-container">
+      <div className="intro">
+        <h1>Design Archive</h1>
+        <p>Collection of work I've been a part of which has contributed to my craft significantly but couldn't make it to the case studies. </p>
+      </div>
       <HorizontalCarouselWall
         projects={['frontrow', 'vector', 'pause']}
         direction="left"
@@ -68,7 +72,7 @@ const Archive: React.FC = () => {
         {getColumns()}
       </div>
       <HorizontalCarouselWall
-        projects={['aiguire','banner','qohoo', 'vdoAi']}
+        projects={['aiguire', 'banner', 'qohoo', 'vdoAi']}
         direction="right"
         speed={0.1}
       />

@@ -12,8 +12,13 @@
         gap: 1em;
     }
 
-    h1 {
-        text-align: center;
+    .intro {
+
+        h1,
+        p {
+            text-align: center;
+            margin: 0;
+        }
     }
 
     .community-files-grid {}
