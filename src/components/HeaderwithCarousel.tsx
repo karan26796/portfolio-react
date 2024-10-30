@@ -21,10 +21,13 @@ const HeaderWithCarousel: React.FC = () => {
 
   return (
     <div className="header-details">
-      <img className="profile" src={profile}/>
+      <img className="profile" src={profile} />
+      <p style={{ margin: '0' }}>SPD@Keka HR — AI powered react dev — XR Designer</p>
+
+      <h1 style={{ maxWidth: "45ch"}}>Karan Kapoor — <span>0-1 Product designer</span> and <span>Figma trainer</span> with 6 years of experience crafting
+        digital products for startups and conducting Figma workshops at top companies. </h1>
+      
       <div className="button-group">
-        <h1>Karan Kapoor</h1>
-{/* 
         <Tag
           text={"open for freelance and part-time work"}
           color={work[0]}
@@ -32,34 +35,27 @@ const HeaderWithCarousel: React.FC = () => {
           dot={true}
           pulsatingDot={true}
           variant='small'
-        /> */}
+        />
+
+        <Buttons
+          text="Let's  work together"
+          iconName="ArrowDown"
+          withIcon={true}
+          iconDirection="right"
+          withText={true}
+          size="m"
+          variant="primary"
+          weight="regular"
+          onClick={() => {
+            const contactSection = document.getElementById("contact");
+            if (contactSection) {
+              contactSection.scrollIntoView({ behavior: "smooth" });
+            }
+          }}
+        />
       </div>
 
-      <p style={{ margin: '0' }}>SPD@Keka HR — Figma Trainer — XR Designer - AI powered react dev</p>
-
-      <p style={{ maxWidth: "30ch", fontSize:"1.6em", color:"var(--primary-color)" }}>In my ~6 years as a designer, I have helped startups of different sizes
-        build 0-to-1 products, achieve product-market fit, and conducted design
-        workshops at leading organizations in India and the US.</p>
-
       <LogoCarousel />
-
-      <Buttons
-        className="button-header"
-        text="Let's  work together"
-        iconName="ArrowDown"
-        withIcon={true}
-        iconDirection="right"
-        withText={true}
-        size="m"
-        variant="primary"
-        weight="regular"
-        onClick={() => {
-          const contactSection = document.getElementById("contact");
-          if (contactSection) {
-            contactSection.scrollIntoView({ behavior: "smooth" });
-          }
-        }}
-      />
 
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>

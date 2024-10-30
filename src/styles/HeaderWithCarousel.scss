@@ -33,6 +33,14 @@
             text-align: center;
         }
 
+        h1 {
+            font-family: "Circular-Book", Helvetica, sans-serif;
+            span {
+                
+                // font-family: "Circular-Medium", Helvetica, sans-serif;
+            }
+        }
+
         p {
             color: var(--tertiary-text);
             // text-align: center;
@@ -43,10 +51,6 @@
             max-width: 50%;
         }
 
-        .button-header {
-            margin-top: 1.5em;
-        }
-
         .button-group {
             display: flex;
             flex-direction: column;
@@ -54,7 +58,7 @@
             align-items: center;
             flex-wrap: wrap;
             gap: .5em;
-            margin-top: 1em 0 0em 0;
+            margin: 1em 0;
 
             @media screen and (max-width: 767px) {
                 gap: 0.5em;
