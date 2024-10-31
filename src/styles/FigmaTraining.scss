@@ -60,6 +60,10 @@ $border-radius: 0.75em;
       border-radius: .75em;
       gap: 1em;
 
+      @media (max-width:800px) {
+        align-items: center;
+      }
+
       h2,
       p {
         text-align: left;
