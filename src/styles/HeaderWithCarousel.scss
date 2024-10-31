@@ -35,9 +35,11 @@
 
         h1 {
             font-family: "Circular-Book", Helvetica, sans-serif;
-            span {
-                
+            span {    
                 // font-family: "Circular-Medium", Helvetica, sans-serif;
+            }
+            @media (max-width:900px) {
+                font-size: 1.75em;
             }
         }
 
