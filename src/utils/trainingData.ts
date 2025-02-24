@@ -80,9 +80,10 @@ export const tagTextIndividual = [
 
 export const tagTextCompany = [
   "Figma Basics to Advanced",
+  "Design consulting",
   "Design system setup",
   "Rapid prototyping",
   "Variants",
   "Figma for Product Managers",
-  "Customised topics",
+  "Customised topics"
 ];
