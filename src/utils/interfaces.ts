@@ -17,6 +17,7 @@ export interface ProjectCardData {
   tags: string[];
   type: "personal" | "client" | "other";
   url?: string;
+  specialStatus?: string; // Add this line to resolve the error
 }
 
 export interface IntroElement{
