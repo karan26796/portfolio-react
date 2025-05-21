@@ -23,10 +23,11 @@ const HeaderWithCarousel: React.FC = () => {
     <div className="header-details">
       <img className="profile" src={profile} />
       <h1>Karan Kapoor</h1>
-      <p style={{ margin: '0' }}>SPD@Keka HR — AI powered react dev — XR Designer</p>
+      <p style={{ margin: '0' }}>Senior Designer@Keka HR — AI powered react dev — XR Designer</p>
 
-      <p style={{ maxWidth: "40ch", color:"var(--primary-text)", fontSize:"1.5em"}}>Product designer and Figma trainer with 6 years of experience crafting
-        digital products for startups and conducting Figma training at top companies. </p>
+      <p style={{ maxWidth: "40ch", color: "var(--primary-text)", fontSize: "1.5em" }}>
+    Product Designer with ~7 years of experience, currently leading Employee Experience at Keka HR. I partner with startups to craft digital products and conduct Figma workshops for top teams and institutions.
+      </p>
       
       <div className="button-group">
         <Tag

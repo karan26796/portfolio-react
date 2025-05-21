@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/Gallery.scss";
 import { InstagramLogo, MapPin } from "@phosphor-icons/react";
-import Buttons from '../components/Buttons'
+// import Buttons from '../components/Buttons'
 
 interface LocationsType {
   [key: number]: string;
@@ -11,7 +11,7 @@ const Gallery = () => {
   const [columns, setColumns] = useState(3);
   const [isMobile, setIsMobile] = useState(false);
 
-  const imageNumbers = Array.from({ length: 33 }, (_, i) => 33 - i);
+  const imageNumbers = Array.from({ length: 41 }, (_, i) => i + 1);
 
   const locations: LocationsType = {
     1: "Tabo, Himachal",
@@ -21,15 +21,13 @@ const Gallery = () => {
     5: "Dhanushkodi, Rameswaram",
     6: "Parashar lake trek, Himachal",
     7: "Munnar, Kerala",
-    // 8: "My balcony, Delhi",
     9: "Kaza, Spiti Valley",
     10: "Humayun's Tomb, Delhi",
-    // 11: "Langza, Spiti Valley",
     12: "Tabo, Himachal",
     13: "Kashmir",
     14: "Bir, Himachal",
     15: "Doodhpathri, Kashmir",
-    // 16: "Srinagar, Kashmir",
+    16: "Srinagar, Kashmir",
     17: "Shanti stupa, Leh",
     18: "Indian Astronomical Observatory, Hanle, Ladakh",
     19: "Bir, Himachal",
@@ -46,7 +44,15 @@ const Gallery = () => {
     30: "en route Umling La, Ladakh",
     31: "Doodhpathri, Kashmir",
     32: "Kashmir",
-    // 33: "Doodhpathri, Kashmir",
+    33: "Switzerland",
+    34: "Zurich, Switzerland",
+    35: "Rhine Falls, Switzerland",
+    36: "Mount Titlis, Switzerland",
+    37: "Interlaken, Switzerland",
+    38: "Eiffel Tower",
+    39: "Opera House, Paris",
+    40: "Paris",
+    41: "Zurich, Switzerland",
   };
 
   const images: (string | null)[] = imageNumbers.map((num) => {
@@ -103,7 +109,8 @@ const Gallery = () => {
           {imageNumbers
             .filter((_, index) => index % columns === i)
             .map((num, index) => {
-              const imagePath = images[33 - num];
+              const actualImageNum = 41 - num; // Calculate the actual image number being displayed
+              const imagePath = images[actualImageNum];
               if (!imagePath) return null;
 
               const rotation = getRotation(index);
@@ -119,7 +126,7 @@ const Gallery = () => {
                 >
                   <img
                     src={imagePath}
-                    alt={`Gallery image ${num}`}
+                    alt={`Gallery image ${actualImageNum + 1}`}
                     className="gallery-image"
                   />
                   <div
@@ -127,7 +134,7 @@ const Gallery = () => {
                       isMobile ? "always-visible" : ""
                     }`}
                   >
-                    <MapPin size={18} /> {locations[num] || `Location ${num}`}
+                    <MapPin size={18} /> {locations[actualImageNum + 1] || `Location ${actualImageNum + 1}`}
                   </div>
                 </div>
               );
@@ -147,7 +154,7 @@ const Gallery = () => {
           in India. Here are some of my favorite pictures. I hope you like
           them! 😌
         </p>
-        <Buttons
+        {/* <Buttons
           className="button-header"
           text="Follow for more"
           iconName="InstagramLogo"
@@ -158,7 +165,7 @@ const Gallery = () => {
           variant="secondary"
           weight="regular"
           onClick={handleInstagramClick}
-        />
+        /> */}
       </div>
       <div
         className="gallery-grid"
