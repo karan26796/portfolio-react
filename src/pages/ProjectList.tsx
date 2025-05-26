@@ -60,13 +60,10 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
               {/* Render the first project */}
               <div key={project.id}>
                 <ProjectCard 
-                  data={project.id === "6" ? 
-                    {...project, specialStatus: "🔒 Under NDA"} : 
-                    project
-                  }
+                  data={project}
                   variant="large"
-                  buttonType={project.id === "6" ? "static" : "button"}
-                  onClick={project.id === "6" ? undefined : () => handleCardClick(project.id)}
+                  buttonType="button"
+                  onClick={() => handleCardClick(project.id)}
                 />
               </div>
               
@@ -80,13 +77,10 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
         return (
           <div key={project.id}>
             <ProjectCard 
-              data={project.id === "6" ? 
-                {...project, specialStatus: "🔒 Under NDA"} : 
-                project
-              }
+              data={project}
               variant="large"
-              buttonType={project.id === "6" ? "static" : "button"}
-              onClick={project.id === "6" ? undefined : () => handleCardClick(project.id)}
+              buttonType="button"
+              onClick={() => handleCardClick(project.id)}
             />
           </div>
         );

@@ -21,7 +21,7 @@ const HeaderWithCarousel: React.FC = () => {
 
   return (
     <div className="header-details">
-      <img className="profile" src={profile} />
+      <img className="profile" src={profile} alt="Karan Kapoor's profile picture" />
       <h1>Karan Kapoor</h1>
       <p style={{ margin: '0' }}>Senior Designer@Keka HR — AI powered react dev — XR Designer</p>
 
