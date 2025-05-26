@@ -9,6 +9,7 @@ import milestonesdashboard from "../utils/project-imgs/continuous rewards/Milest
 import p2pdashboard from "../utils/project-imgs/continuous rewards/P2P dashboard.webp";
 import milestonesintegration from "../utils/project-imgs/continuous rewards/Integration with praise feature.webp";
 import p2pintegration from "../utils/project-imgs/continuous rewards/Integration with wish feature.webp";
+import featureintro from "../utils/project-imgs/continuous rewards/Integration with wish feature.webp";
 
 const KekaProject: React.FC = () => {
   return (
@@ -103,13 +104,13 @@ const KekaProject: React.FC = () => {
         </section>
 
         <figure>
-          <img src={milestonessetup} alt="Updated menu" />
-          <figcaption>Milestone rewards setup</figcaption>
+          <img src={milestonessetup} alt="Milestone rewards setup screen" />
+          <figcaption>Configure milestone-based rewards for employees</figcaption>
         </figure>
 
         <figure>
-          <img src={milestonesdashboard} alt="Updated menu" />
-          <figcaption>Milestone rewards setup</figcaption>
+          <img src={milestonesdashboard} alt="Milestone rewards dashboard" />
+          <figcaption>Dashboard view: Track milestone rewards and participation</figcaption>
         </figure>
 
         <section>
@@ -117,13 +118,13 @@ const KekaProject: React.FC = () => {
         </section>
 
         <figure>
-          <img src={peertopeer} alt="Updated menu" />
-          <figcaption>Peer to peer rewards setup</figcaption>
+          <img src={peertopeer} alt="Peer to peer rewards setup" />
+          <figcaption>Set up peer-to-peer recognition and reward options</figcaption>
         </figure>
 
         <figure>
-          <img src={p2pdashboard} alt="Updated menu" />
-          <figcaption>Peer to peer rewards setup</figcaption>
+          <img src={p2pdashboard} alt="Peer to peer rewards dashboard" />
+          <figcaption>Dashboard view: Monitor peer-to-peer rewards activity</figcaption>
         </figure>
 
         <section>
@@ -136,12 +137,17 @@ const KekaProject: React.FC = () => {
 
         <figure>
           <img src={integrations} alt="Updated menu" />
-          <figcaption>Praises and special days widget on Keka wall</figcaption>
+          <figcaption>Integration of points with praises and special days on the Keka wall</figcaption>
+        </figure>
+
+        <figure>
+          <img src={featureintro} alt="Updated menu" />
+          <figcaption>Feature introduction banners highlighting the new points system</figcaption>
         </figure>
 
         <figure>
           <img src={milestonesintegration} alt="Updated menu" />
-          <figcaption>Praises and special days widget on Keka wall</figcaption>
+          <figcaption>Milestone achievements now display earned points for employees</figcaption>
         </figure>
 
         <figure>
