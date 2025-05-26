@@ -5,15 +5,15 @@ import pauseimg from "./project-imgs/pause-holiday/pause-thumb.webp";
 import awaconimg from "./project-imgs/binge-eating/binge.gif"
 import kurakaani from "./project-imgs/kurakaani/thumb.gif"
 import loopnote from "./project-imgs/loop-note/loop-note.gif"
-import keka from "./project-imgs/Keka projects/Keka Projects Image.webp"
+import keka from "./project-imgs/continuous rewards/Thumb.webp"
 import loopinfo from "./project-imgs/looppanel-insights/insight-thumb.gif"
 
 export const projectSummaries: ProjectCardData[] = [
   {
     id: "6",
-    description:'Designing for employee award and reward programs, Pulse survey check-ins, helpdesk, social feed etc.',
+    description:'The reward systems was introduced to enable employee recognition on a day-to-day basis on the tool.',
     title:
-      "Engagement tools for employees at Keka HR ",
+      "Introducing a points system in Keka for Employee recognition",
     img: keka,
     tags: ["Product design", "Design strategy"],
     type: "client",

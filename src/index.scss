@@ -44,7 +44,7 @@
   --h1-size: 2.2em;
   --h2-size: 2em;
   --h3-size: 1.8em;
-  --h4-size: 1.8em;
+  --h4-size: 1.5em;
   --h5-size: 1.25em;
   --h6-size: 1.4em;
   
@@ -104,6 +104,7 @@ h2 {
   font-size: var(--h2-size);
   color: var(--highlight-color);
   margin-bottom: var(--heading-margin);
+  margin-top: .75em;
   line-height: 110%;
   letter-spacing: -0.8px;
 }
@@ -115,7 +116,7 @@ h3 {
 
 h4 {
   font-size: var(--h4-size);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: -0.2px;
   margin: 0.6em 0 var(--heading-margin);
 }
