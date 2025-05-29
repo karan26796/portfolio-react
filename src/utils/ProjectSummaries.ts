@@ -7,8 +7,18 @@ import kurakaani from "./project-imgs/kurakaani/thumb.gif"
 import loopnote from "./project-imgs/loop-note/loop-note.gif"
 import keka from "./project-imgs/continuous rewards/Thumb.webp"
 import loopinfo from "./project-imgs/looppanel-insights/insight-thumb.gif"
+import wish from "./project-imgs/kekawish/thumb.png"
 
 export const projectSummaries: ProjectCardData[] = [
+  {
+    id: "7",
+    description:'The reward systems was introduced to enable employee recognition on a day-to-day basis on the tool.',
+    title:
+      "Designing meaningful workplace celebrations on Keka wall",
+    img: wish,
+    tags: ["Product design", "Design strategy"],
+    type: "client",
+  },
   {
     id: "6",
     description:'The reward systems was introduced to enable employee recognition on a day-to-day basis on the tool.',

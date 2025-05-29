@@ -51,13 +51,26 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
 
   return (
     <div className='project-parent'>
-      {/* Render projects with IndieFinds after the first project */}
+      {/* Render projects with IndieFinds after the second project */}
       {projectData.map((project, index) => {
-        // Render the first project
-        if (index === 0) {
+        // Render the first and second projects
+        if (index === 0 || index === 1) {
+          return (
+            <div key={project.id}>
+              <ProjectCard 
+                data={project}
+                variant="large"
+                buttonType="button"
+                onClick={() => handleCardClick(project.id)}
+              />
+            </div>
+          );
+        }
+        // Render IndieFinds after the second project
+        if (index === 2) {
           return (
             <React.Fragment key={`group-${index}`}>
-              {/* Render the first project */}
+              {/* Render the third project */}
               <div key={project.id}>
                 <ProjectCard 
                   data={project}
@@ -66,13 +79,11 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                   onClick={() => handleCardClick(project.id)}
                 />
               </div>
-              
-              {/* Render IndieFinds project after the first project */}
+              {/* Render IndieFinds project after the second project */}
               {renderIndieFindsCard()}
             </React.Fragment>
           );
         }
-        
         // Render the rest of the projects normally
         return (
           <div key={project.id}>
