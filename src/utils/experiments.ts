@@ -13,6 +13,8 @@ import colorWheelImg from "../utils/experiments/color-wheel.webp";
 import colorWheelGif from "../utils/experiments/color-wheel.gif";
 import vedicSquareImg from "../utils/experiments/vedic-square.webp";
 import vedicSquareGif from "../utils/experiments/vedic-square.gif";
+import colorPickerGif from "../utils/experiments/ColorPicker.gif";
+import colorPickerImg from "../utils/experiments/ColorPicker.jpg";
 
 export interface Experiment {
   urlImg: string;
@@ -25,8 +27,8 @@ const experiments: Experiment[] = [
     urlGif: colretechGif,
   },
   {
-    urlImg: vedicSquareImg,
-    urlGif: vedicSquareGif,
+    urlImg: colorPickerImg,
+    urlGif: colorPickerGif,
   },
   {
     urlImg: colorWheelImg,
