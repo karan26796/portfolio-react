@@ -21,7 +21,7 @@ const communityFiles: FigmaFile[] = [
     url: bggradients,
     link: "https://www.figma.com/community/file/1076867776880340874/animated-gradient-backgrounds-for-presentations",
     name: 'Background gradients for interactive presentations',
-    downloads:'9k downloads'
+    downloads:'13k downloads'
   },
   {
     url: evolve,
