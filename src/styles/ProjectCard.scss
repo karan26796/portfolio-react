@@ -13,7 +13,7 @@
 
     &:hover {
         cursor: pointer;
-        background-color: var(--grey-100);
+        background-color: var(--bg-color-high);
         scale: .995;
     }
 
@@ -130,8 +130,14 @@
         padding: 1em;
         border: 1px solid var(--border-color);
         border-radius: .75em;
-        background-color: var(--grey-100);
+        background-color: var(--bg-color);
         height: fit-content;
+
+        &:hover {
+            cursor: pointer;
+            background-color: var(--bg-color-high);
+            scale: .995;
+        }
 
         img {
             width: 30%;

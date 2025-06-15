@@ -4,13 +4,19 @@ import {
   House,
   FigmaLogo,
   FolderOpen,
-  Camera
+  Camera,
+  Sun,
+  Moon
 } from "@phosphor-icons/react";
 import "../styles/StickyNavBar.scss";
 
 const StickyNavBar: React.FC = () => {
   const location = useLocation();
   const [indicatorStyle, setIndicatorStyle] = useState({});
+  const [isDarkMode, setIsDarkMode] = useState(() => {
+    const savedTheme = localStorage.getItem('theme');
+    return savedTheme === 'dark';
+  });
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -20,6 +26,15 @@ const StickyNavBar: React.FC = () => {
     }
   }, [location.pathname]);
 
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
+
+  const toggleTheme = () => {
+    setIsDarkMode(!isDarkMode);
+  };
+
   const moveIndicator = (el: HTMLElement) => {
     const { offsetLeft, offsetWidth } = el;
     setIndicatorStyle({
@@ -28,7 +43,7 @@ const StickyNavBar: React.FC = () => {
     });
   };
 
-  const handleMouseEnter = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
+  const handleMouseEnter = (e: React.MouseEvent<HTMLElement, MouseEvent>) => {
     moveIndicator(e.currentTarget);
   };
 
@@ -83,6 +98,15 @@ const StickyNavBar: React.FC = () => {
           <Camera size={18} weight="duotone" />
           <span className="hide-on-mobile">Gallery</span>
         </Link>
+
+        <button 
+          className="theme-toggle a-header"
+          onClick={toggleTheme}
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+        >
+          {isDarkMode ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
+        </button>
       </nav>
     </div>
   );

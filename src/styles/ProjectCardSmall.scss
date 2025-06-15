@@ -13,11 +13,11 @@
         padding: 1em;
         border: 1px solid var(--border-color);
         transition: all linear .2s;
-        background-color: white;
+        background-color: var(--bg-color);
 
         &:hover {
             cursor: pointer;
-            background-color: var(--grey-100);
+            background-color: var(--bg-color-high);
             scale: 0.99;
         }
 

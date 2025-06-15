@@ -1,0 +1,33 @@
+/* Light mode (default) */
+:root {
+  --bg-color: var(--grey-100);
+  --bg-color-high: var(--grey-200);
+  --border-color: var(--grey-300);
+  
+  --primary-text: var(--grey-800);
+  --secondary-text: var(--grey-600);
+  --tertiary-text: var(--grey-500);
+  
+  --highlight-color: #af6f00;
+  --highlight-color-light: #bf7900;
+  --highlight-color-high: #9e6400;
+
+  --logo-filter: invert(1);
+}
+
+/* Dark mode */
+[data-theme="dark"] {
+  --bg-color: var(--grey-900);
+  --bg-color-high: var(--grey-800);
+  --border-color: var(--grey-700);
+  
+  --primary-text: var(--grey-100);
+  --secondary-text: var(--grey-300);
+  --tertiary-text: var(--grey-500);
+  
+  --highlight-color: #a3c50e;
+  --highlight-color-light: #a6ce26;
+  --highlight-color-high: #93b011;
+
+  --logo-filter: none;
+} 
