@@ -1,0 +1,31 @@
+:root {
+  /* Layout */
+  --max-width-container: 840px;
+  --width-container: 70vw;
+  --border-radius: 1em;
+  --body-margin-bottom: 5em;
+  --figure-gap: 0.5em;
+  --figure-margin: 1em;
+  --caption-margin: 1em;
+  --list-margin-bottom: 0.5em;
+
+  /* Typography */
+  --base-font-size: 15px;
+  --base-font-size-tablet: 13px;
+  --base-font-size-mobile: 12px;
+  
+  --h1-size: 2.2em;
+  --h2-size: 2em;
+  --h3-size: 1.8em;
+  --h4-size: 1.5em;
+  --h5-size: 1.25em;
+  --h6-size: 1.4em;
+  --text-size: 1.4em;
+  
+  --heading-line-height: 140%;
+  --heading-letter-spacing: -1px;
+  --heading-margin: 0.4em;
+  --text-letter-spacing: -0.5px;
+  --paragraph-line-height: 130%;
+  --list-line-height: 140%;
+} 

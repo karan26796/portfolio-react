@@ -55,8 +55,8 @@ $border-radius: 0.75em;
       align-items: start;
       justify-content: start;
       padding: 1em;
-      background-color: var(--grey-100);
-      border: 1px solid var(--border-color);
+      background-color: var(--bg-color-high);
+      // border: 1px solid var(--border-color);
       border-radius: .75em;
       gap: 1em;
 
@@ -158,12 +158,12 @@ $border-radius: 0.75em;
   border: 1px solid var(--border-color);
   border-radius: 1em;
   overflow: hidden;
-  background-color: var(--grey-100);
+  background-color: var(--bg-color-high);
 }
 
 .primary {
-  background: var(--grey-600);
-  color: var(--grey-100);
+  background: var(--bg-color);
+  color: var(--primary-text);
   border: none;
 }
 
@@ -176,6 +176,7 @@ form {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: $gap;
+  background-color: var(--bg-color);
 
   @media (max-width: 900px) {
     grid-template-columns: 1fr;
@@ -187,12 +188,18 @@ form {
     padding: 1.25em;
     border-radius: .75em;
     border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--primary-text);
     box-sizing: border-box;
     font-size: 1.2em;
 
     &:focus-visible {
       outline: transparent;
       border: 1px solid var(--highlight-color);
+    }
+
+    &::placeholder {
+      color: var(--tertiary-text);
     }
   }
 
@@ -209,12 +216,17 @@ form {
     padding: 1.25em;
     border-radius: $border-radius;
     border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    color: var(--primary-text);
     box-sizing: border-box;
-    // font-size: 1.2em;
 
     &:focus-visible {
       outline: none;
-      border-color: 1px solid var(--highlight-color);
+      border-color: var(--highlight-color);
+    }
+
+    &::placeholder {
+      color: var(--tertiary-text);
     }
   }
 

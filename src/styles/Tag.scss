@@ -22,6 +22,7 @@
   padding: .25em .75em;
   border-radius: 5em;
   border: .5px solid var(--border-color);
+  background-color: var(--bg-color-high);
 
   &.nobg {
     background-color: transparent !important;

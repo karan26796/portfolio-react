@@ -2,7 +2,7 @@ import React from "react";
 import "../styles/Tag.scss";
 
 export interface VibrantColor {
-  bg: string;
+  bg?: string;
   text: string;
 }
 
@@ -27,7 +27,7 @@ const Tag: React.FC<TagProps> = ({
     <div
       className={`tag-parent ${variant}`}
       style={{
-        backgroundColor: variant !== 'nobg' ? color.bg : 'transparent',
+        backgroundColor: variant !== 'nobg' ? 'var(--bg-color-high)' : 'transparent',
         transform: `rotate(${rotation}deg)`,
       }}
     >

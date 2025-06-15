@@ -38,7 +38,7 @@
         padding: 1.5em;
         border: 1px solid var(--border-color);
         justify-content: space-between;
-        background-color: var(--grey-100);
+        background-color: var(--bg-color-high);
         gap: 2em;
         transition: transform 0.3s ease, rotate 0.3s ease;
 
@@ -67,7 +67,7 @@
         gap: .5em;
 
         img {
-            background-color: white;
+            // background-color: white;
         }
 
         .testimonial-meta {
@@ -84,7 +84,7 @@
         height: 3em;
         border-radius: 50%;
         object-fit: cover;
-        background-color: wheat;
+        // background-color: wheat;
     }
 }
 
