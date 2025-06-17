@@ -76,3 +76,33 @@
     }
   }
 }
+
+.project-nav {
+  justify-content: center;
+  gap: 2rem;
+
+  .a-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    background: none;
+    color: var(--text-color);
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-size: 0.9rem;
+
+    &:hover {
+      color: var(--accent-color);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      &:hover {
+        color: var(--text-color);
+      }
+    }
+  }
+}
