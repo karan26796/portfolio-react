@@ -17,8 +17,6 @@ const KekaWishes: React.FC = () => {
         <h2>Project Overview</h2>
         <p><strong>Challenge:</strong> How might we make birthday, work anniversaries, and first day celebrations more personal and engaging within Keka's employee platform, creating meaningful connections between team members on special days?</p>
         
-        <p><strong>Solution:</strong> A redesigned wishes widget that transforms how employees celebrate each other's special days, making it easier to participate in celebrations and more meaningful for the birthday person.</p>
-        
         <p><strong>My Role:</strong> Product Design, Design Strategy <br/></p>
         {/* <strong>Timeline:</strong> [Add your timeline]<br/> */}
         {/* <strong>Team:</strong> [Add team members if applicable]</p> */}
