@@ -21,15 +21,11 @@ const HeaderWithCarousel: React.FC = () => {
 
   return (
     <div className="header-details">
-      <img className="profile" src={profile} alt="Karan Kapoor's profile picture" />
-      <h1>Karan Kapoor</h1>
-      <p style={{ margin: '0' }}>Senior Designer@Keka HR — AI powered react dev — XR Designer</p>
-
-      <p style={{ maxWidth: "40ch", color: "var(--primary-text)", fontSize: "1.5em" }}>
-    Product Designer with ~7 years of experience, currently leading Employee Experience at Keka HR. I partner with startups to craft digital products and conduct Figma workshops for top teams and institutions.
-      </p>
-      
-      <div className="button-group">
+      <div className="header-row">
+        <img className="profile" src={profile} alt="Karan Kapoor's profile picture" />
+      </div>
+      <div className="name-tag-group">
+        <h1>Karan Kapoor</h1>
         <Tag
           text={"open for freelance and part-time work"}
           color={work[0]}
@@ -38,7 +34,12 @@ const HeaderWithCarousel: React.FC = () => {
           pulsatingDot={true}
           variant='small'
         />
-
+      </div>
+      <p style={{ margin: '0' }}>Senior Designer@Keka HR — AI powered react dev — XR Designer</p>
+      <p style={{ maxWidth: "40ch", color: "var(--primary-text)", fontSize: "1.5em" }}>
+    Product Designer with ~7 years of experience, currently leading Employee Experience at Keka HR. I partner with startups to craft digital products and conduct Figma workshops for top teams and institutions.
+      </p>
+      <div className="button-group">
         <Buttons
           text="Let's  work together"
           iconName="ArrowDown"
@@ -56,9 +57,7 @@ const HeaderWithCarousel: React.FC = () => {
           }}
         />
       </div>
-
-      <LogoCarousel />
-
+      <LogoCarousel align="flex-start" />
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>
   );

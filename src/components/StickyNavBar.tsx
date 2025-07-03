@@ -8,7 +8,8 @@ import {
   Sun,
   Moon,
   ArrowLeft,
-  ArrowRight
+  ArrowRight,
+  PencilRuler
 } from "@phosphor-icons/react";
 import "../styles/StickyNavBar.scss";
 import { projectSummaries } from "../utils/ProjectSummaries";
@@ -141,8 +142,8 @@ const StickyNavBar: React.FC = () => {
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
-          <FolderOpen size={18} weight="duotone" />
-          <span className="hide-on-mobile">Archive</span>
+          <PencilRuler size={18} weight="duotone" />
+          <span className="hide-on-mobile">Craft</span>
         </Link>
 
         <Link
