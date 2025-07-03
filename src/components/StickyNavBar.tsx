@@ -86,7 +86,8 @@ const StickyNavBar: React.FC = () => {
         <nav className="navbar main-nav active project-nav" ref={containerRef}>
           <div className="hover-indicator" style={indicatorStyle}></div>
           
-          <button
+          <Link
+            to="/home"
             className="a-header"
             onClick={handleBack}
             onMouseEnter={handleMouseEnter}
@@ -94,18 +95,27 @@ const StickyNavBar: React.FC = () => {
           >
             <ArrowLeft size={18} weight="duotone" />
             <span>Back</span>
-          </button>
+          </Link>
 
-          <button
+          <Link
+            to={getNextProjectId() ? `/project/${getNextProjectId()}` : '#'}
             className="a-header"
-            onClick={handleNext}
+            onClick={e => {
+              if (!getNextProjectId()) {
+                e.preventDefault();
+                return;
+              }
+              handleNext();
+            }}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
-            disabled={!getNextProjectId()}
+            aria-disabled={!getNextProjectId()}
+            tabIndex={getNextProjectId() ? 0 : -1}
+            style={!getNextProjectId() ? { pointerEvents: 'none', opacity: 0.5 } : {}}
           >
             <ArrowRight size={18} weight="duotone" />
             <span>Next</span>
-          </button>
+          </Link>
         </nav>
       </div>
     );
@@ -156,14 +166,15 @@ const StickyNavBar: React.FC = () => {
           <span className="hide-on-mobile">Gallery</span>
         </Link>
 
-        <button 
+        <Link 
+          to="#"
           className="theme-toggle a-header"
-          onClick={toggleTheme}
+          onClick={e => { e.preventDefault(); toggleTheme(); }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           {isDarkMode ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
-        </button>
+        </Link>
       </nav>
     </div>
   );
