@@ -1,7 +1,7 @@
 /* Light mode (default) */
 :root {
-  --bg-color: var(--grey-100);
-  --bg-color-high: var(--grey-200);
+  --bg-color:  #fdfcf9;
+  --bg-color-high: #f7f3eb;
   --border-color: var(--grey-300);
   
   --primary-text: var(--grey-800);
@@ -17,17 +17,17 @@
 
 /* Dark mode */
 [data-theme="dark"] {
-  --bg-color: var(--grey-900);
-  --bg-color-high: var(--grey-800);
+  --bg-color: #1c1c1b;
+  --bg-color-high: #262523;
   --border-color: var(--grey-700);
   
   --primary-text: var(--grey-100);
   --secondary-text: var(--grey-300);
   --tertiary-text: var(--grey-500);
   
-  --highlight-color: #a3c50e;
-  --highlight-color-light: #a6ce26;
-  --highlight-color-high: #93b011;
+  --highlight-color: #d97706;         /* Deeper gold, high contrast for white text */
+  --highlight-color-light: #f59e0b;   /* Orange, still dark enough for white text */
+  --highlight-color-high: #b45309;    /* Even deeper gold/brown for strong emphasis */
 
   --logo-filter: none;
 } 

@@ -51,7 +51,7 @@ const Archive: React.FC = () => {
   return (
     <div className="archive-container">
       <div className="intro">
-        <h1>Design Archive</h1>
+        <h1>Craft & Experiments</h1>
         <p>Collection of work I've been a part of which has contributed to my craft significantly but couldn't make it to the case studies. </p>
       </div>
       <HorizontalCarouselWall
