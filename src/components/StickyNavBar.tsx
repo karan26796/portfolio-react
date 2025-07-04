@@ -22,7 +22,16 @@ const StickyNavBar: React.FC = () => {
     const savedTheme = localStorage.getItem('theme');
     return savedTheme === 'dark';
   });
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 800);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 800);
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const isProjectDetailPage = location.pathname.startsWith('/project/');
   const currentProjectId = isProjectDetailPage ? location.pathname.split('/').pop() : null;
@@ -153,7 +162,7 @@ const StickyNavBar: React.FC = () => {
           onMouseLeave={handleMouseLeave}
         >
           <PencilRuler size={18} weight="duotone" />
-          <span className="hide-on-mobile">Craft</span>
+          {!isMobile && <span className="hide-on-mobile">Craft</span>}
         </Link>
 
         <Link
@@ -163,7 +172,7 @@ const StickyNavBar: React.FC = () => {
           onMouseLeave={handleMouseLeave}
         >
           <Camera size={18} weight="duotone" />
-          <span className="hide-on-mobile">Gallery</span>
+          {!isMobile && <span className="hide-on-mobile">Gallery</span>}
         </Link>
 
         <Link 
