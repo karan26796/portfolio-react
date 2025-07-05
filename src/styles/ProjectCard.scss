@@ -6,10 +6,10 @@
     justify-content: space-between;
     height: auto;
     transition: all linear 0.2s;
-    // padding: 1em;
-        // border: 1px solid var(--border-color);
-        // border-radius: .75em;
-        // background-color: var(--grey-100);
+    padding: 1em;
+        border: 1px solid var(--border-color);
+        border-radius: .75em;
+        background-color: var(--bg-color);
 
     &:hover {
         cursor: pointer;
@@ -100,7 +100,6 @@
 
             h3 {
                 // font-size: 1.6em;
-                font-family: "Circular-Book", Helvetica, sans-serif;
                 max-width: 35ch;
                 margin-bottom: 0;
 
