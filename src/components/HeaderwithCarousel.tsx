@@ -39,6 +39,8 @@ const HeaderWithCarousel: React.FC = () => {
       <p style={{ maxWidth: "40ch", color: "var(--primary-text)", fontSize: "1.5em" }}>
     Product Designer with ~7 years of experience, currently leading Employee Experience at Keka HR. I partner with startups to craft digital products and conduct Figma workshops for top teams and institutions.
       </p>
+      <LogoCarousel align="flex-start" />
+
       <div className="button-group">
         <Buttons
           text="Let's  work together"
@@ -57,7 +59,6 @@ const HeaderWithCarousel: React.FC = () => {
           }}
         />
       </div>
-      <LogoCarousel align="flex-start" />
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>
   );

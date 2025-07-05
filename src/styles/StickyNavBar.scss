@@ -62,6 +62,11 @@
         }
       }
 
+      @media (max-width: 487px) {
+        justify-content: center;
+        gap: 0;
+      }
+
       &:hover {
         color: var(--highlight-color);
       }

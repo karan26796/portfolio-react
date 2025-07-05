@@ -60,7 +60,7 @@
                 h5{
                     font-family: 'Circular-Book', 'Arial Narrow', Arial, sans-serif;
                     text-transform: uppercase;
-                    font-size: 1em;
+                    // font-size: 1em;
                 }
 
                 @media screen and (max-width: 900px) {
@@ -99,7 +99,7 @@
             }
 
             h3 {
-                font-size: 1.6em;
+                // font-size: 1.6em;
                 font-family: "Circular-Book", Helvetica, sans-serif;
                 max-width: 35ch;
                 margin-bottom: 0;
@@ -112,7 +112,7 @@
             p {
                 max-width: 32ch;
                 opacity: 90%;
-                font-size: 1.2em;
+                // font-size: 1.2em;
                 margin-top: 0;
 
                 @media screen and (max-width: 767px) {
@@ -164,7 +164,7 @@
 
                 h5 {
                     text-transform: capitalize;
-                    font-size: 1.2em;
+                    // font-size: 1.2em;
                 }
             }
         }
@@ -175,7 +175,7 @@
     display: flex;
     align-items: center;
     gap: 6px;
-    font-size: 2em;
+    // font-size: 2em;
     color: #888;
     padding: 8px 0;
   }
@@ -186,9 +186,9 @@
   }
   
   .static-text {
-    font-size: 14px;
+    // font-size: 14px;
     color: #666;
-    font-size: 1.2em;
+    // font-size: 1.2em;
     padding: 8px 0;
   }
   

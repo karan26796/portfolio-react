@@ -23,11 +23,13 @@ const StickyNavBar: React.FC = () => {
     return savedTheme === 'dark';
   });
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 800);
+  const [isBelow776, setIsBelow776] = useState(() => window.innerWidth < 776);
   const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 800);
+      setIsBelow776(window.innerWidth < 776);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -130,6 +132,11 @@ const StickyNavBar: React.FC = () => {
     );
   }
 
+  // Helper to apply centering class on mobile
+  const getNavItemClass = (base: string) => {
+    return isMobile ? `${base} nav-item-center` : base;
+  };
+
   return (
     <div className="container-nav">
       <nav className="navbar main-nav active" ref={containerRef}>
@@ -137,47 +144,67 @@ const StickyNavBar: React.FC = () => {
 
         <Link
           to="/home"
-          className={`a-header ${location.pathname === "/home" ? "active" : ""}`}
+          className={getNavItemClass(`a-header${location.pathname === "/home" ? " active" : ""}`)}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <House size={18} weight="duotone" />
-          <span>Home</span>
+          {/* Always show text for Home on all breakpoints */}
+          <span
+            style={
+              isBelow776
+                ? { display: "inline" }
+                : undefined
+            }
+          >
+            Home
+          </span>
         </Link>
 
         <Link
           to="/figma-training"
-          className={`a-header ${location.pathname === "/figma-training" ? "active" : ""}`}
+          className={getNavItemClass(`a-header${location.pathname === "/figma-training" ? " active" : ""}`)}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <FigmaLogo size={18} weight="duotone" />
-          <span>Training</span>
+          {/* Always show text for Training on all breakpoints */}
+          <span
+            style={
+              isBelow776
+                ? { display: "inline" }
+                : undefined
+            }
+          >
+            Training
+          </span>
         </Link>
 
         <Link
           to="/archive"
-          className={`a-header ${location.pathname === "/archive" ? "active" : ""}`}
+          className={getNavItemClass(`a-header${location.pathname === "/archive" ? " active" : ""}`)}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <PencilRuler size={18} weight="duotone" />
-          {!isMobile && <span className="hide-on-mobile">Craft</span>}
+          {/* Only show text on desktop */}
+          {!isMobile && <span>Craft</span>}
         </Link>
 
         <Link
           to="/gallery"
-          className={`a-header ${location.pathname === "/gallery" ? "active" : ""}`}
+          className={getNavItemClass(`a-header${location.pathname === "/gallery" ? " active" : ""}`)}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
         >
           <Camera size={18} weight="duotone" />
-          {!isMobile && <span className="hide-on-mobile">Gallery</span>}
+          {/* Only show text on desktop */}
+          {!isMobile && <span>Gallery</span>}
         </Link>
 
         <Link 
           to="#"
-          className="theme-toggle a-header"
+          className={getNavItemClass("theme-toggle a-header")}
           onClick={e => { e.preventDefault(); toggleTheme(); }}
           onMouseEnter={handleMouseEnter}
           onMouseLeave={handleMouseLeave}
