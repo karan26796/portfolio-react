@@ -5,7 +5,7 @@
   align-items: center;
   justify-content: center;
   border: none;
-  border-radius: 4px;
+  border-radius: 5em;
   cursor: pointer;
   transition: background-color 0.3s ease;
   gap: .5em;
@@ -31,17 +31,17 @@
   // Size variants
   &.custom-button-s {
     padding: 0.5em .75em;
-    border-radius: .5em;
+    border-radius: 5em;
   }
 
   &.custom-button-m {
     padding: .75em 1.25em; // Default medium size
-    border-radius: .75em;
+    border-radius: 5em;
   }
 
   &.custom-button-l {
     padding: 1em 1.5em;
-    border-radius: 1em;
+    border-radius: 5em;
   }
 
   // Variant styles

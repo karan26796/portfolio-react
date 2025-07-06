@@ -15,6 +15,9 @@ interface ProjectListProps {
   }>;
 }
 
+// IDs to hide (corresponding to Project3, Project4, Project5)
+const HIDDEN_PROJECT_IDS = ['project3', 'project4', 'project5'];
+
 const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: ProjectCard }) => {
   const navigate = useNavigate();
 
@@ -49,10 +52,15 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
     />
   );
 
+  // Filter out hidden projects
+  const visibleProjects = projectData.filter(
+    (project) => !HIDDEN_PROJECT_IDS.includes(project.id.toLowerCase())
+  );
+
   return (
     <div className='project-parent'>
       {/* Render projects with IndieFinds after the second project */}
-      {projectData.map((project, index) => {
+      {visibleProjects.map((project, index) => {
         // Render the first and second projects
         if (index === 0 || index === 1) {
           return (
