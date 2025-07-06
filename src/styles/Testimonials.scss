@@ -1,9 +1,11 @@
 .testimonials-section {
-    max-width: var(--max-width-container);
+    width: 100vw;
+    max-width: 2000px;
+    // margin-left: auto;
+    // margin-right: auto;
     display: flex;
     flex-direction: column;
     gap: 1em;
-    margin: auto;
     overflow: hidden;
     align-items: center;
     margin-top: 2em;
@@ -16,24 +18,34 @@
         text-align: center;
     }
 
-    .testimonials-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        grid-template-rows: auto auto;
-        gap:1em;
-
-        @media (max-width: 677px) {
-            grid-template-columns: repeat(1, 1fr);
-            grid-template-rows: auto auto;
+    .testimonials-carousel {
+        width: 100%;
+        overflow-x: auto;
+        overflow-y: visible;
+        position: relative;
+        scroll-behavior: smooth;
+        /* Hide scrollbar for all browsers */
+        -ms-overflow-style: none;  /* IE and Edge */
+        scrollbar-width: none;  /* Firefox */
+        &::-webkit-scrollbar {
+            display: none;
         }
     }
-
+    .carousel-track {
+        display: flex;
+        flex-direction: row;
+        gap: 1em;
+        width: max-content;
+        align-items: stretch;
+    }
     .testimonial-card {
+        min-width: 22em;
+        max-width: 26em;
+        flex: 0 0 auto;
         min-height: 10em;
         display: flex;
         flex-direction: column;
         background-color: var(--bg-color);
-        flex: 0 0 30em;
         border-radius: .75em;
         padding: 1.5em;
         border: 1px solid var(--border-color);
@@ -91,5 +103,9 @@
 @media (max-width: 768px) {
     .testimonials-section {
         padding: 0rem 1rem;
+        .testimonial-card {
+            min-width: 90vw;
+            max-width: 95vw;
+        }
     }
 }

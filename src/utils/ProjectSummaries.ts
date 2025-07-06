@@ -45,23 +45,23 @@ export const projectSummaries: ProjectCardData[] = [
     tags: ["Product design", "UX research"],
     type: "client",
   },
-  {
-    id: "3",
-    description: "Converted wireframes into hi-fi designs by creating a scalable component library for the app",
-    title: "Component library for Nimbuzz Kurakaani — Nepal's superapp",
-    img: kurakaani,
-    tags: ["Design system", "Component library"],
-    type: "client",
-  },
-  {
-    id: "4",
-    description:
-      "Boredom is the biggest cause of bingeing. I created a device that can help tackle boredom and give you back the control one's life",
-    title: "A mindful device for overcoming binge behavior",
-    img: awaconimg,
-    tags: ["Design", "Research", "Psychology"],
-    type: "client",
-  },
+  // {
+  //   id: "3",
+  //   description: "Converted wireframes into hi-fi designs by creating a scalable component library for the app",
+  //   title: "Component library for Nimbuzz Kurakaani — Nepal's superapp",
+  //   img: kurakaani,
+  //   tags: ["Design system", "Component library"],
+  //   type: "client",
+  // },
+  // {
+  //   id: "4",
+  //   description:
+  //     "Boredom is the biggest cause of bingeing. I created a device that can help tackle boredom and give you back the control one's life",
+  //   title: "A mindful device for overcoming binge behavior",
+  //   img: awaconimg,
+  //   tags: ["Design", "Research", "Psychology"],
+  //   type: "client",
+  // },
   // {
   //   id: "5",
   //   description:
