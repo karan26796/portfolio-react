@@ -123,38 +123,26 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       <div className="project-card">
         <div className="project-card-data">
           <div className="title">
-            <h3>{data.title}</h3>
-            <h5>
-              {variant === "small"
-                ? data.type === "personal"
-                  ? "Personal project"
-                  : data.type
-                : data.tags.join(", ")}
-            </h5>
-            {/* <div className="tag-container">
-              {variant === "small" ? (
-                <Tag
-                  text={data.type === "personal" ? "Personal project" : data.type}
-                  color={vibrantColors[2]}
-                  rotation={0}
-                  variant="small"
-                />
-              ) : (
-                data.tags.map((tag, index) => (
-                  <Tag
-                    key={index}
-                    text={tag}
-                    color={vibrantColors[index % vibrantColors.length]}
-                    rotation={0}
-                    variant="small"
-                  />
-                ))
-              )}
-            </div> */}
+            <div className="title-tag-group">
+              <h5>
+                {variant === "small"
+                  ? data.type === "personal"
+                    ? "Personal project"
+                    : data.type
+                  : data.tags.join(", ")}
+              </h5>
+              <h3>{data.title}</h3>
+            </div>
+            <div className="button-container">
+              {renderButton()}
+            </div>
           </div>
           <div className="link">
-            <p>{data.description}</p>
-            {renderButton()}
+            <div className="description">
+              {data.description && data.description.trim() !== "" && (
+                <p>{data.description}</p>
+              )}
+            </div>
           </div>
         </div>
       </div>

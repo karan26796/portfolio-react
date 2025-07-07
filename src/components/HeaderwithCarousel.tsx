@@ -37,7 +37,7 @@ const HeaderWithCarousel: React.FC = () => {
       </div>
       <p style={{ margin: '0' }}>Senior Designer@Keka HR — AI powered react dev — Figma Trainer</p>
       <p style={{ maxWidth: "40ch", color: "var(--primary-text)", fontSize: "1.5em" }}>
-    Product Designer with ~7 years of experience, currently leading Employee Experience at Keka HR. I partner with startups to craft digital products and conduct Figma workshops for top teams and institutions.
+    Product Designer with ~7 years of experience, currently leading Employee Experience at Keka HR. <br/><br/>I also conduct Figma training for designers & PMs with top  startups and institutions.
       </p>
       <LogoCarousel align="flex-start" />
 

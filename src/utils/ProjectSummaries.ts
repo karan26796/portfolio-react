@@ -12,16 +12,16 @@ import wish from "./project-imgs/kekawish/thumb.png"
 export const projectSummaries: ProjectCardData[] = [
   {
     id: "7",
-    description:'The reward systems was introduced to enable employee recognition on a day-to-day basis on the tool.',
+    description:'',
     title:
-      "Designing meaningful workplace celebrations on Keka wall",
+      "Designing meaniningful day to day workplace celebrations on Keka wall",
     img: wish,
     tags: ["Product design", "Design strategy"],
     type: "client",
   },
   {
     id: "6",
-    description:'The reward systems was introduced to enable employee recognition on a day-to-day basis on the tool.',
+    description:'',
     title:
       "Introducing a points system in Keka for Employee recognition",
     img: keka,
@@ -30,7 +30,7 @@ export const projectSummaries: ProjectCardData[] = [
   },
   {
     id: "1",
-    description: "Designed a bot to record & transcribe Zoom interviews for researchers to create a one stop shop for user interviews ",
+    description: "",
     title: "Looppanel note-taking sidekick for Zoom",
     img: loopnote,
     tags: ["Product design", "Usability testing"],
@@ -39,7 +39,7 @@ export const projectSummaries: ProjectCardData[] = [
 
   {
     id: "2",
-    description: "Created data grouping and insight creation tools for User Researchers to share with their team and get research buy in",
+    description: "",
     title: "Designing ways to zoom in and out of research data",
     img: loopinfo,
     tags: ["Product design", "UX research"],
