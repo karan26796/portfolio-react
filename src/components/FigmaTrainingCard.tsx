@@ -11,7 +11,7 @@ const FigmaTrainingCard: React.FC = () => {
           <h5>For Designers, Students, and PMs</h5>
           <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.4em' }}>
             Book a Figma training session today
-            <ArrowRight size={24} weight="regular" />
+            <ArrowRight size={24} weight="regular" className="arrow-icon" />
           </h3>
           <p>I've conducted more than 100+ Figma training at top companies and institutes. Book a 1:1 session or a corporate workshop.</p>
         </div>
