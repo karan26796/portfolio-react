@@ -5,6 +5,7 @@ import Buttons from "./Buttons";
 import ResumePopup from "../pages/ResumePopup";
 import Tag, { VibrantColor } from "./Tag";
 import profile from "../utils/gallery/profile.webp"
+import { Link } from "react-router-dom";
 
 const HeaderWithCarousel: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
@@ -35,10 +36,11 @@ const HeaderWithCarousel: React.FC = () => {
           variant='small'
         />
       </div>
-      <p style={{ margin: '0' }}>Senior Designer@Keka HR — AI powered react dev — Figma Trainer</p>
+      <p style={{ margin: '0' }}>Senior Designer@Keka HR — Vibe coder — Figma Trainer</p>
       <p style={{ maxWidth: "40ch", color: "var(--primary-text)", fontSize: "1.5em" }}>
-    Product Designer with ~7 years of experience, currently leading Employee Experience at Keka HR. <br/><br/>I also conduct Figma training for designers & PMs with top  startups and institutions.
+    Product Designer with ~7 years of experience across design, user research, design systems, & 0-1 product building. Currently leading Employee Experience at Keka HR.
       </p>
+      {/* <br/><br/>I also conduct Figma training for designers & PMs at top  startups and institutions. */}
       <LogoCarousel align="flex-start" />
 
       <div className="button-group">

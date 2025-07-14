@@ -1,0 +1,180 @@
+.figma-training-card {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 1em;
+  padding: 1.5em;
+  border-radius: 0.75em;
+  background: var(--bg-color-high);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  transition: box-shadow 0.2s;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    inset: 0;
+    padding: 2px; /* Border thickness */
+    border-radius: 0.75em;
+    background: linear-gradient(120deg, #3b82f6, #ef4444 40%, #ec4899 100%);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    mask:
+      linear-gradient(#fff 0 0) content-box,
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+  }
+
+  &:hover {
+    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+    background: var(--bg-color);
+  }
+
+  .figma-training-image {
+    width: 180px;
+    height: 180px;
+    object-fit: cover;
+    border-radius: 0.75em;
+    border: 1px solid var(--border-color);
+    background: #fff;
+    flex-shrink: 0;
+  }
+
+  .figma-training-content {
+    display: flex;
+    flex-direction: row;
+    gap: 2em;
+    flex: 1;
+    align-items: center;
+    justify-content: space-between;
+
+    .figma-training-text {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+
+      h5 {
+        color: var(--highlight-color);
+      }
+      h3 {
+        margin: 0;
+      }
+      p {
+        margin: 0.5em 0 0 0;
+        max-width: 40ch;
+      }
+    }
+  }
+
+  .figma-training-image-stack {
+    position: relative;
+    width: clamp(110px, 22vw, 150px);
+    min-width: clamp(110px, 22vw, 150px);
+    height: clamp(110px, 22vw, 150px);
+    margin-left: 2em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .stacked-img {
+      position: absolute;
+      width: clamp(95px, 20vw, 140px);
+      height: clamp(95px, 20vw, 140px);
+      object-fit: cover;
+      border-radius: 0.4em;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      border: 2px solid var(--border-color);
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+    .stacked-img-bottom {
+      z-index: 1;
+      left: 10px;
+      top: 18px;
+      transform: rotate(-13deg) scale(0.95);
+      opacity: 0.85;
+    }
+    .stacked-img-middle {
+      z-index: 2;
+      left: 20px;
+      top: 8px;
+      transform: rotate(8deg) scale(0.98);
+      opacity: 0.92;
+    }
+    .stacked-img-top {
+      z-index: 3;
+      left: 0;
+      top: 0;
+      transform: rotate(0deg) scale(1.05);
+      opacity: 1;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+    }
+  }
+
+  @media (max-width: 800px) {
+    flex-direction: row;
+    align-items: stretch;
+    gap: 1em;
+
+    .figma-training-image-stack {
+      order: 0;
+      margin-left: 0;
+      margin-right: 1.2em;
+      margin-top: 0;
+      width: clamp(90px, 36vw, 130px);
+      min-width: clamp(90px, 36vw, 130px);
+      height: clamp(90px, 36vw, 130px);
+
+      .stacked-img {
+        width: clamp(75px, 32vw, 120px);
+        height: clamp(75px, 32vw, 120px);
+        border-radius: 0.4em;
+      }
+    }
+
+    .figma-training-content {
+      order: 1;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 1em;
+      justify-content: center;
+      .figma-training-actions {
+        align-items: stretch;
+        width: 100%;
+      }
+    }
+  }
+
+  @media (max-width: 600px) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 0.7em;
+    padding: 1em;
+
+    .figma-training-image-stack {
+      margin-right: 0.7em;
+      width: clamp(70px, 40vw, 110px);
+      min-width: clamp(70px, 40vw, 110px);
+      height: clamp(70px, 40vw, 110px);
+
+      .stacked-img {
+        width: clamp(55px, 36vw, 95px);
+        height: clamp(55px, 36vw, 95px);
+        border-radius: 0.4em;
+      }
+    }
+    .figma-training-content {
+      gap: 0.7em;
+      h3 {
+        font-size: 1.1em;
+      }
+      p {
+        font-size: 0.98em;
+      }
+    }
+  }
+} 

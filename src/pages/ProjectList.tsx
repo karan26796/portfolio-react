@@ -4,6 +4,7 @@ import '../styles/ProjectList.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import indieImg from '../utils/project-imgs/thumb-indie.png'
 import { ProjectCardData } from '../utils/interfaces';
+import FigmaTrainingCard from '../components/FigmaTrainingCard';
 
 interface ProjectListProps {
   projectData: ProjectCardData[];
@@ -25,32 +26,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
     navigate(`/project/${projectId}`);
   };
 
-  // Create IndieFinds project card component
-  const renderIndieFindsCard = () => (
-    <ProjectCard
-      data={{
-        id: "indiefinds",
-        img: indieImg,
-        title: "IndieFinds.in",
-        description: "Discover premium and affordable Indian brands across sneakers, apparel, watches etc.",
-        tags: ["Personal project"],
-        type: "personal",
-        url: "https://indiefinds.in"
-      }}
-      variant="small"
-      buttonType="button"
-      onClick={() => {
-        const baseUrl = "https://indiefinds.in";
-        const utmParams = new URLSearchParams({
-          utm_source: "kadankapoor.com",
-          utm_medium: "personal_website",
-          utm_campaign: "project_showcase"
-        });
-        const fullUrl = `${baseUrl}?${utmParams.toString()}`;
-        window.open(fullUrl, "_blank", "noopener,noreferrer");
-      }}
-    />
-  );
+  // Remove IndieFinds card logic
 
   // Filter out hidden projects
   const visibleProjects = projectData.filter(
@@ -59,7 +35,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
 
   return (
     <div className='project-parent'>
-      {/* Render projects with IndieFinds after the second project */}
+      {/* Render projects with FigmaTrainingCard after the second project */}
       {visibleProjects.map((project, index) => {
         // Render the first and second projects
         if (index === 0 || index === 1) {
@@ -74,7 +50,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
             </div>
           );
         }
-        // Render IndieFinds after the second project
+        // Render FigmaTrainingCard after the second project
         if (index === 2) {
           return (
             <React.Fragment key={`group-${index}`}>
@@ -87,8 +63,8 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                   onClick={() => handleCardClick(project.id)}
                 />
               </div>
-              {/* Render IndieFinds project after the second project */}
-              {renderIndieFindsCard()}
+              {/* Render FigmaTrainingCard after the second project */}
+              <FigmaTrainingCard />
             </React.Fragment>
           );
         }
