@@ -43,7 +43,7 @@ const HeaderWithCarousel: React.FC = () => {
       {/* <br/><br/>I also conduct Figma training for designers & PMs at top  startups and institutions. */}
       <LogoCarousel align="flex-start" />
 
-      <div className="button-group">
+      {/* <div className="button-group">
         <Buttons
           text="Let's  work together"
           iconName="ArrowDown"
@@ -60,7 +60,7 @@ const HeaderWithCarousel: React.FC = () => {
             }
           }}
         />
-      </div>
+      </div> */}
       <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
     </div>
   );
