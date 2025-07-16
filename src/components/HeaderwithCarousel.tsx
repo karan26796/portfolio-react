@@ -27,14 +27,14 @@ const HeaderWithCarousel: React.FC = () => {
       </div>
       <div className="name-tag-group">
         <h1>Karan Kapoor</h1>
-        <Tag
+        {/* <Tag
           text={"open for freelance and part-time work"}
           color={work[0]}
           rotation={0}
           dot={true}
           pulsatingDot={true}
           variant='small'
-        />
+        /> */}
       </div>
       <p style={{ margin: '0' }}>Senior Designer@Keka HR — Vibe coder — Figma Trainer</p>
       <p style={{ maxWidth: "40ch", color: "var(--primary-text)", fontSize: "1.5em" }}>
