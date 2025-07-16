@@ -7,9 +7,10 @@
   gap: 1.5em;
   padding: 1.5em;
   border-radius: 0.75em;
-  background: var(--bg-color-high);
+  background: var(--bg-color);
   box-shadow: 0 2px 8px rgba(0,0,0,0.03);
   transition: box-shadow 0.2s;
+  transition: all linear 0.2s;
 
   &::before {
     content: '';
@@ -28,11 +29,14 @@
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
+    
   }
 
   &:hover {
     box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    background: var(--bg-color);
+    background: var(--bg-color-high);
+    scale: 0.995;
+    
   }
 
   .figma-training-image {

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/ProjectCard.scss";
 import Buttons from "./Buttons";
-import Tag, { VibrantColor } from "./Tag";
 
 interface ProjectCardProps {
   data: {
@@ -12,18 +11,18 @@ interface ProjectCardProps {
     tags: string[];
     type: "personal" | "client" | "other";
     url?: string;
-    specialStatus?: string; // For NDA or other special statuses
+    specialStatus?: string;
   };
   variant: "small" | "large";
   onClick?: () => void;
-  buttonType?: "button" | "static" | "none"; // Control what type of action element to show
+  buttonType?: "button" | "static" | "none";
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ 
   data, 
   variant, 
   onClick,
-  buttonType = "button" // Default to showing a button
+  buttonType = "button"
 }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
@@ -31,20 +30,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     const checkScreenSize = () => {
       setIsSmallScreen(window.innerWidth < 900);
     };
-
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
-
     return () => window.removeEventListener('resize', checkScreenSize);
   }, []);
-
-  const vibrantColors: VibrantColor[] = [
-    { bg: "#fefefe", text: "#FF4D4D" },
-    { bg: "#fefefe", text: "#00CC66" },
-    { bg: "#fefefe", text: "#3399FF" },
-    { bg: "#fefefe", text: "#FF9933" },
-    { bg: "#fefefe", text: "#9933FF" },
-  ];
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -56,10 +45,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   const renderButton = () => {
-    // If buttonType is "none", don't render anything
     if (buttonType === "none") return null;
-    
-    // If there's a special status like "Under NDA", render it instead of a button
     if (data.specialStatus && buttonType !== "static") {
       return (
         <div className="special-status">
@@ -71,8 +57,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
       );
     }
-
-    // If buttonType is "static", render static text
     if (buttonType === "static") {
       return (
         <div className="static-text">
@@ -80,43 +64,27 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
       );
     }
-
-    // Otherwise render interactive button
     const commonProps = {
       className: "read-more-button",
       withIcon: true,
       iconDirection: "right" as const,
       size: isSmallScreen ? "s" : (variant === "large" ? "m" : "s") as "s" | "m",
     };
-
-    if (variant === "large") {
-      return (
-        <Buttons
-          {...commonProps}
-          text={isSmallScreen ? "" : "Read"}
-          iconName="ArrowRight"
-          withText={!isSmallScreen}
-          variant="primary"
-          size="s"
-        />
-      );
-    } else {
-      return (
-        <Buttons
-          {...commonProps}
-          text={isSmallScreen ? "" : "Visit site"}
-          iconName="ArrowSquareOut"
-          withText={!isSmallScreen}
-          variant="primary"
-          size="s"
-        />
-      );
-    }
+    return (
+      <Buttons
+        {...commonProps}
+        text={isSmallScreen ? "" : variant === "large" ? "Read" : "Visit site"}
+        iconName={variant === "large" ? "ArrowRight" : "ArrowSquareOut"}
+        withText={!isSmallScreen}
+        variant="primary"
+        size="s"
+      />
+    );
   };
 
   return (
     <div
-      className={`project-container ${variant === "small" ? "project-container-small" : ""} ${data.specialStatus ? "has-special-status" : ""}`}
+      className={`project-container${variant === "small" ? " project-container-small" : ""}${data.specialStatus ? " has-special-status" : ""}`}
       onClick={data.specialStatus ? undefined : handleClick}
     >
       <img className="project-image" src={data.img} alt={data.title} />
@@ -137,13 +105,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               {renderButton()}
             </div>
           </div>
-          <div className="link">
-            <div className="description">
-              {data.description && data.description.trim() !== "" && (
-                <p>{data.description}</p>
-              )}
-            </div>
-          </div>
+          {data.description && data.description.trim() !== "" && (
+            <p className="description">{data.description}</p>
+          )}
         </div>
       </div>
     </div>
