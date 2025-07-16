@@ -100,14 +100,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   : data.tags.join(", ")}
               </h5>
               <h3>{data.title}</h3>
+              {data.description && (
+                <p className="description">{data.description}</p>
+              )}
             </div>
             <div className="button-container">
               {renderButton()}
             </div>
           </div>
-          {data.description && data.description.trim() !== "" && (
-            <p className="description">{data.description}</p>
-          )}
         </div>
       </div>
     </div>

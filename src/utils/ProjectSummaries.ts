@@ -12,34 +12,33 @@ import wish from "./project-imgs/kekawish/thumb.png"
 export const projectSummaries: ProjectCardData[] = [
   {
     id: "7",
-    description:'',
+    description: 'Boosted feature engagement from 15k users a week to 100k users a week',
     title:
-      "Designing meaniningful day to day workplace celebrations on Keka wall",
+      "Enhancing engagement for day to day workplace celebrations on Keka wall",
     img: wish,
     tags: ["Product design", "Design strategy"],
     type: "client",
   },
   {
     id: "6",
-    description:'',
+    description: 'Developed a points-based employee recognition system to boost motivation and engagement within Keka.',
     title:
-      "Introducing a points system in Keka for Employee recognition",
+      "Introducing a points based recognition system in Keka for employees",
     img: keka,
     tags: ["Product design", "Design strategy"],
     type: "client",
   },
   {
     id: "1",
-    description: "",
+    description: "Created a note-taking assistant for Zoom to streamline research and usability testing workflows.",
     title: "Looppanel note-taking sidekick for Zoom",
     img: loopnote,
     tags: ["Product design", "Usability testing"],
     type: "client",
   },
-
   {
     id: "2",
-    description: "",
+    description: "Designed tools for researchers to zoom in and out of qualitative data, improving insight discovery.",
     title: "Designing ways to zoom in and out of research data",
     img: loopinfo,
     tags: ["Product design", "UX research"],
