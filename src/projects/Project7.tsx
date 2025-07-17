@@ -1,10 +1,10 @@
 import React from "react";
-import wish01 from "../utils/project-imgs/kekawish/Wish -_ 05.png"
+import wish01 from "../utils/project-imgs/kekawish/Wish -_ 01.webp"
 import wish02 from "../utils/project-imgs/kekawish/Wish -_ 04.png"
-import wish03 from "../utils/project-imgs/kekawish/Wish -_ 03.png"
+import wish03 from "../utils/project-imgs/kekawish/Wish -_ 3.webp"
 import wish04 from "../utils/project-imgs/kekawish/Wish -_ 02.png"
-import wish05 from "../utils/project-imgs/kekawish/Wish -_ 01.png"
-import wishcard from "../utils/project-imgs/kekawish/Wish cards.png"
+import wish05 from "../utils/project-imgs/kekawish/Wish -_ 01.webp"
+import wishcard from "../utils/project-imgs/kekawish/Wish cards.webp"
 import widget from "../utils/project-imgs/kekawish/Widget.png"
 import gif from "../utils/project-imgs/kekawish/Wish-Interaction-Old.gif"
 import finaldesign from "../utils/project-imgs/kekawish/FinaldesignGIF.gif"
@@ -130,7 +130,7 @@ const KekaWishes: React.FC = () => {
         <h3>Measurable Outcomes</h3>
         <ul>
           <li>Increased the average number of wishes from 2 to 10</li>
-          <li>Click rate increase by 30% week on week since launch</li>
+          <li>Usage increased from 5k users to 31k users wishing 116k users</li>
         </ul>
       </section>
 
