@@ -52,15 +52,15 @@ export const projectSummaries: ProjectCardData[] = [
   //   tags: ["Design system", "Component library"],
   //   type: "client",
   // },
-  // {
-  //   id: "4",
-  //   description:
-  //     "Boredom is the biggest cause of bingeing. I created a device that can help tackle boredom and give you back the control one's life",
-  //   title: "A mindful device for overcoming binge behavior",
-  //   img: awaconimg,
-  //   tags: ["Design", "Research", "Psychology"],
-  //   type: "client",
-  // },
+  {
+    id: "4",
+    description:
+      "Boredom is the biggest cause of bingeing. I created a device that can help tackle boredom and give you back the control one's life",
+    title: "A mindful device for overcoming binge behavior",
+    img: awaconimg,
+    tags: ["Design", "Research", "Psychology"],
+    type: "client",
+  },
   // {
   //   id: "5",
   //   description:
