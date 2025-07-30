@@ -1,6 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import "../styles/ProjectCard.scss";
 import Buttons from "./Buttons";
+import Tag, { VibrantColor } from "./Tag";
+// Vibrant colors as used in ContactForm and HeaderwithCarousel
+const vibrantColors: VibrantColor[] = [
+  { bg: "#fefefe", text: "#FF4D4D" },
+  { bg: "#fefefe", text: "#00CC66" },
+  { bg: "#fefefe", text: "#3399FF" },
+  { bg: "#fefefe", text: "#FF9933" },
+  { bg: "#fefefe", text: "#9933FF" },
+];
 
 interface ProjectCardProps {
   data: {
@@ -97,13 +106,28 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="project-card-data">
           <div className="title">
             <div className="title-tag-group">
-              <h5>
-                {variant === "small"
-                  ? data.type === "personal"
-                    ? "Personal project"
-                    : data.type
-                  : data.tags.join(", ")}
-              </h5>
+              {variant === "small" ? (
+                <h5>
+                  {data.type === "personal" ? "Personal project" : data.type}
+                </h5>
+              ) : (
+                <div style={{ display: 'flex', gap: '0.5em', flexWrap: 'wrap', marginBottom: '0.5em' }}>
+                  {data.tags.map((tag, idx) => {
+                    // Pick a random color for each tag
+                    const color = vibrantColors[Math.floor(Math.random() * vibrantColors.length)];
+                    return (
+                      <Tag
+                        key={idx}
+                        text={tag}
+                        color={color}
+                        rotation={Math.random() * 4 - 2}
+                        dot={false}
+                        variant="small"
+                      />
+                    );
+                  })}
+                </div>
+              )}
               <h3>{data.title}</h3>
               {data.description && (
                 <p className="description">{data.description}</p>
