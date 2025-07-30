@@ -36,12 +36,31 @@ const HeaderWithCarousel: React.FC = () => {
           variant='small'
         /> */}
       </div>
-      <p style={{ margin: '0' }}>Senior Designer@Keka HR — Vibe coder — Figma Trainer</p>
+      {/* Replace single line with three tags with random vibrant colors */}
+      <div style={{ display: 'flex', gap: '0.5em', margin: '0.5em 0' }}>
+        {['Senior Designer @Keka HR', 'Vibe coder', 'Figma Trainer'].map((text, idx) => {
+          const vibrantColors = [
+            { bg: "#fefefe", text: "#00CC66" },
+            { bg: "#fefefe", text: "#3399FF" },
+            { bg: "#fefefe", text: "#FF9933" },
+          ];
+            const color = vibrantColors[idx];
+          return (
+            <Tag
+              key={idx}
+              text={text}
+              color={color}
+              rotation={Math.random() * 4 - 2}
+              dot={false}
+            />
+          );
+        })}
+      </div>
       <p style={{ maxWidth: "40ch", color: "var(--primary-text)", fontSize: "1.5em" }}>
     Product Designer with ~7 years of experience across design, user research, design systems, & 0-1 product building. Currently leading Employee Experience at Keka HR.
       </p>
       {/* <br/><br/>I also conduct Figma training for designers & PMs at top  startups and institutions. */}
-      <LogoCarousel align="flex-start" />
+      <LogoCarousel align="center" />
 
       {/* <div className="button-group">
         <Buttons

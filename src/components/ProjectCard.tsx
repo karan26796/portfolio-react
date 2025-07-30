@@ -16,13 +16,15 @@ interface ProjectCardProps {
   variant: "small" | "large";
   onClick?: () => void;
   buttonType?: "button" | "static" | "none";
+  showDivider?: boolean;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ 
   data, 
   variant, 
   onClick,
-  buttonType = "button"
+  buttonType = "button",
+  showDivider = true
 }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
 
@@ -82,9 +84,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     );
   };
 
+  // Add 'no-divider' class if showDivider is false
+  const containerClass = `project-container${variant === "small" ? " project-container-small" : ""}${data.specialStatus ? " has-special-status" : ""}${showDivider === false ? " no-divider" : ""}`;
+
   return (
     <div
-      className={`project-container${variant === "small" ? " project-container-small" : ""}${data.specialStatus ? " has-special-status" : ""}`}
+      className={containerClass}
       onClick={data.specialStatus ? undefined : handleClick}
     >
       <img className="project-image" src={data.img} alt={data.title} />
@@ -110,6 +115,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
         </div>
       </div>
+      {showDivider && <div className="project-divider"></div>}
     </div>
   );
 };

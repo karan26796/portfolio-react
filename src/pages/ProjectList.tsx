@@ -13,6 +13,7 @@ interface ProjectListProps {
     variant: 'small' | 'large'; 
     onClick?: () => void;
     buttonType?: 'button' | 'static' | 'none';
+    showDivider?: boolean;
   }>;
 }
 
@@ -46,6 +47,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                 variant="large"
                 buttonType="button"
                 onClick={() => handleCardClick(project.id)}
+                showDivider={true}
               />
             </div>
           );
@@ -54,13 +56,14 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
         if (index === 2) {
           return (
             <React.Fragment key={`group-${index}`}>
-              {/* Render the third project */}
+              {/* Render the third project WITHOUT bottom border */}
               <div key={project.id}>
                 <ProjectCard 
                   data={project}
                   variant="large"
                   buttonType="button"
                   onClick={() => handleCardClick(project.id)}
+                  showDivider={false}
                 />
               </div>
               {/* Render FigmaTrainingCard after the second project */}
@@ -76,6 +79,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
               variant="large"
               buttonType="button"
               onClick={() => handleCardClick(project.id)}
+              showDivider={true}
             />
           </div>
         );
