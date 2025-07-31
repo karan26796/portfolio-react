@@ -7,7 +7,7 @@ import kurakaani from "./project-imgs/kurakaani/thumb.gif"
 import loopnote from "./project-imgs/loop-note/loop-note.gif"
 import keka from "./project-imgs/continuous rewards/Thumb.webp"
 import loopinfo from "./project-imgs/looppanel-insights/insight-thumb.gif"
-import wish from "./project-imgs/kekawish/thumb.png"
+import wish from "./project-imgs/kekawish/thumb.webp"
 
 export const projectSummaries: ProjectCardData[] = [
   {
@@ -55,7 +55,7 @@ export const projectSummaries: ProjectCardData[] = [
   {
     id: "4",
     description:
-      "Boredom is the biggest cause of bingeing. I created a device that can help tackle boredom and give you back the control one's life",
+      "Boredom is the biggest cause of bingeing. I created a device that can help tackle boredom and give one back control of their life",
     title: "A mindful device for overcoming binge behavior",
     img: awaconimg,
     tags: ["Design", "Research", "Psychology"],

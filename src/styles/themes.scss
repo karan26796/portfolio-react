@@ -8,9 +8,9 @@
   --secondary-text: var(--grey-600);
   --tertiary-text: var(--grey-500);
   
-  --highlight-color: #af6f00;
-  --highlight-color-light: #bf7900;
-  --highlight-color-high: #9e6400;
+  --highlight-color: #d97706;         /* Deeper gold, high contrast for white text */
+  --highlight-color-light: #f59e0b;   /* Orange, still dark enough for white text */
+  --highlight-color-high: #b45309; 
 
   --logo-filter: invert(1);
 }
@@ -25,9 +25,7 @@
   --secondary-text: var(--grey-300);
   --tertiary-text: var(--grey-500);
   
-  --highlight-color: #d97706;         /* Deeper gold, high contrast for white text */
-  --highlight-color-light: #f59e0b;   /* Orange, still dark enough for white text */
-  --highlight-color-high: #b45309;    /* Even deeper gold/brown for strong emphasis */
+   /* Even deeper gold/brown for strong emphasis */
 
   --logo-filter: none;
 } 
