@@ -1,4 +1,5 @@
 import { ProjectCardData } from "./interfaces";
+
 import indieImg from "./project-imgs/thumb-indie.png";
 import stagingthumb from "./project-imgs/staging-project/staging.gif";
 import pauseimg from "./project-imgs/pause-holiday/pause-thumb.webp";
@@ -9,32 +10,55 @@ import keka from "./project-imgs/continuous rewards/Thumb.webp"
 import loopinfo from "./project-imgs/looppanel-insights/insight-thumb.gif"
 import wish from "./project-imgs/kekawish/thumb.webp"
 
-export const projectSummaries: ProjectCardData[] = [
+export interface ProjectMeta {
+  duration: string;
+  role: string;
+  scope: string;
+  impact: string;
+}
+
+export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = [
   {
     id: "7",
     description: 'Boosted feature engagement from 15k users a week to 100k users a week',
-    title:
-      "Enhancing engagement for day to day workplace celebrations on Keka wall",
+    title: "Enhancing engagement for day to day workplace celebrations on Keka wall",
     img: wish,
     tags: ["Product design", "Design strategy"],
     type: "client",
+    meta: {
+      duration: "Nov 2024 – Jan 2025",
+      role: "Product Designer, Design Strategist",
+      scope: "Feature engagement for workplace celebrations",
+      impact: "Increased weekly engagement from 15k to 100k users"
+    }
   },
   {
     id: "6",
     description: 'Developed a points-based employee recognition system to boost motivation and engagement within Keka.',
-    title:
-      "Introducing a points based recognition system in Keka for employees",
+    title: "Introducing a points based recognition system in Keka for employees",
     img: keka,
     tags: ["Product design", "Design strategy"],
     type: "client",
+    meta: {
+      duration: "Jun 2024 – Nov 2024",
+      role: "Designer, Researcher, Stakeholder Manager",
+      scope: "Integrating a points-based recognition system within Keka",
+      impact: "Secured 10 clients for mid and small sized businesses in India"
+    }
   },
   {
     id: "1",
     description: "Created a note-taking assistant for Zoom to streamline research and usability testing workflows.",
-    title: "Looppanel note-taking sidekick for Zoom",
+    title: "Looppanel note-taking bot for Zoom",
     img: loopnote,
     tags: ["Product design", "Usability testing"],
     type: "client",
+    meta: {
+      duration: "Jan 2022 – Mar 2022",
+      role: "Product Designer",
+      scope: "Note-taking assistant for Zoom",
+      impact: "Streamlined research workflows for user researchers and usability testers"
+    }
   },
   {
     id: "2",
@@ -43,55 +67,25 @@ export const projectSummaries: ProjectCardData[] = [
     img: loopinfo,
     tags: ["Product design", "UX research"],
     type: "client",
+    meta: {
+      duration: "Apr 2022 – Jun 2022",
+      role: "UX Researcher, Product Designer",
+      scope: "Qualitative data analysis tools",
+      impact: "Improved insight discovery for research teams"
+    }
   },
-  // {
-  //   id: "3",
-  //   description: "Converted wireframes into hi-fi designs by creating a scalable component library for the app",
-  //   title: "Component library for Nimbuzz Kurakaani — Nepal's superapp",
-  //   img: kurakaani,
-  //   tags: ["Design system", "Component library"],
-  //   type: "client",
-  // },
   {
     id: "4",
-    description:
-      "Boredom is the biggest cause of bingeing. I created a device that can help tackle boredom and give one back control of their life",
+    description: "Boredom is the biggest cause of bingeing. I created a device that can help tackle boredom and give one back control of their life",
     title: "A mindful device for overcoming binge behavior",
     img: awaconimg,
     tags: ["Design", "Research", "Psychology"],
     type: "client",
+    meta: {
+      duration: "Aug 2022 – Oct 2022",
+      role: "Researcher, Product Designer",
+      scope: "Device to tackle boredom and binge behavior",
+      impact: "Helped users regain control over their habits"
+    }
   },
-  // {
-  //   id: "5",
-  //   description:
-  //     "Found ways to better discoverabilty of features & data organization.",
-  //   title: "Product redesign for features discovery & data re-organization.",
-  //   img: loopdata,
-  //   tags: ["Product", "Design research"],
-  //   link: "",
-  //   bgcolor: "#f1e8ff",
-  //   textcolor: "#7b3dd5",
-  // },
-  // {
-  //   id: "6",
-  //   description:
-  //     "Pause — Leave tracking tool",
-  //   title: "Pause — Leave tracking tool",
-  //   img: pauseimg,
-  //   tags: ["Product design", "SAAS" ,"Enterprise software"],
-  //   link: "",
-  //   bgcolor: "#efefef",
-  //   textcolor: "#000000",
-  // },
-  // {
-  //   id: "7",
-  //   description:
-  //     "Commentary on social media surveillance",
-  //   title: "Commentary on social media surveillance",
-  //   img: stagingthumb,
-  //   tags: ["Experiential design", "Installations"],
-  //   link: "",
-  //   bgcolor: "#efefef",
-  //   textcolor: "#000000",
-  // },
 ];

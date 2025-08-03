@@ -14,21 +14,16 @@ import featureintro from "../utils/project-imgs/continuous rewards/Integration w
 const KekaProject: React.FC = () => {
   return (
     <div className="project-details">
-      <section>
-        <h2>About the project</h2>
-        <p><strong>Project tenure:</strong> 4 months (May 2024 - Oct 2024)</p>
-        <p><strong>Figma file link:</strong> <a href="https://www.figma.com/design/Yp4W7WCTjVvOAi6mAT3v9w/Continuous-Rewards?node-id=23-32695&t=dzDMJHRT3Q2g47Xb-1" target="_blank" rel="noopener noreferrer">View Design</a></p>
-      </section>
 
       <section>
-        <h2>What are continuous rewards?</h2>
-        <p>A year ago, we introduced award programs in Keka HR as a means to run award campaigns in companies to recognize their employees every few months for their contributions and achievements.</p>
+        <h3>What are continuous rewards?</h3>
+        <h4>A year ago, we introduced award programs in Keka HR as a means to run award campaigns in companies to recognize their employees every few months for their contributions and achievements.</h4>
         
         <p>While award programs are great for longer timelines, there was no way for the company & other employees to recognize their peers on a day-to-day basis.</p>
         
-        <h2>Program Structure</h2>
-        <p>The program involved introducing a points system within the company to foster a culture of recognition. The current methods of recognition, albeit popular, didn't have any value attached to them. The program was divided into two parts:</p>
-        
+        <h3>Program Structure</h3>
+        <h4>The program involved introducing a points system within the company to foster a culture of recognition. The current methods of recognition, albeit popular, didn't have any value attached to them. The program was divided into two parts:</h4>
+
         <ol>
           <li>
             <strong>Milestone rewards</strong><br/>
@@ -128,11 +123,11 @@ const KekaProject: React.FC = () => {
         </figure>
 
         <section>
-        <h3>2. The Employees</h3>
+        <h3>2. The Employee's flow</h3>
         <p>Since the point system was to be introduced for employees, it was critical to make the touch points familiar. Hence, we integrated them with employee wishes, praises etc.</p>
 
-        <h2>Touchpoints</h2>
-        <h3>The Keka platform already has a lot of touch points for employee recognition, therefore we decided to integrate the points system first with those touchpoints.</h3>
+        <h3>Other ouchpoints</h3>
+        <h4>The Keka platform already has a lot of touch points for employee recognition, therefore we decided to integrate the points system first with those touchpoints.</h4>
         </section>
 
         <figure>

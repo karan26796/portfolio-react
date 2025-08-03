@@ -1,16 +1,20 @@
 /* Light mode (default) */
 :root {
-  --bg-color:  #fdfcf9;
-  --bg-color-high: #f7f3eb;
+  --bg-color:  #FDFCF9;
+  --bg-color-high: #F7F3EB;
   --border-color: var(--grey-300);
+  --project-card-border: #ff0000;
   
   --primary-text: var(--grey-800);
-  --secondary-text: var(--grey-600);
+  --secondary-text: var(--grey-700);
   --tertiary-text: var(--grey-500);
   
   --highlight-color: #d97706;         /* Deeper gold, high contrast for white text */
   --highlight-color-light: #f59e0b;   /* Orange, still dark enough for white text */
-  --highlight-color-high: #b45309; 
+  --highlight-color-high: #b45309;
+
+  --button-color: var(--highlight-color); /* Vibrant orange for buttons */
+  --button-color-hover: var(--highlight-color-high); /* Darker vibrant orange for buttons on hover */
 
   --logo-filter: invert(1);
 }
@@ -20,12 +24,21 @@
   --bg-color: #1c1c1b;
   --bg-color-high: #262523;
   --border-color: var(--grey-700);
+  --project-card-border: #373737;
   
-  --primary-text: var(--grey-100);
-  --secondary-text: var(--grey-300);
+  --primary-text: var(--grey-300);
+  --secondary-text: var(--grey-400);
   --tertiary-text: var(--grey-500);
   
    /* Even deeper gold/brown for strong emphasis */
+  --highlight-color: #f59e42;         /* Vibrant orange, high contrast for dark background */
+  --highlight-color-light: #ffb347;   /* Lighter vibrant orange for accents */
+  --highlight-color-high: ;
+  
+  --button-color: #e67300; /* Vibrant orange for buttons */
+  --button-color-hover: #d97706; /* Darker vibrant orange for buttons on hover */
+
+  /* Deep vibrant orange for strong emphasis */
 
   --logo-filter: none;
 } 

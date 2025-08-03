@@ -46,11 +46,11 @@
 
   // Variant styles
   &.custom-button-primary {
-    background-color: var(--highlight-color);
+    background-color: var(--button-color);
     color: white;
 
     &:hover {
-      background-color: var(--highlight-color-light);
+      background-color: var(--button-color-hover);
     }
   }
 

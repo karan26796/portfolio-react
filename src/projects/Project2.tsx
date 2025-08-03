@@ -28,7 +28,7 @@ const Project2: React.FC = () => {
   return (
     <div className="project-details">
       <section>
-        <h2>Let's start with the problem</h2>
+        <h3>Let's start with the problem</h3>
         <p>
           During research, we realized people zoom-in and out of the research
           data available to them. They go back and forth between call notes, the
@@ -38,20 +38,21 @@ const Project2: React.FC = () => {
       </section>
 
       <section>
-        <h2>Old highlights page design</h2>
-        <h4>
+        <h3>Old highlights page design</h3>
+        <p>
           The original highlights view in Looppanel required an overhaul after
           the introduction of projects and question script in the product.
-        </h4>
+        </p>
+        </section>
+        
         <figure>
           <img src={oldHighlights} alt="Old Design" />
           <figcaption>Old Design</figcaption>
         </figure>
-      </section>
 
       <section>
         <h2>First release</h2>
-        <h4>New additions</h4>
+        <h3>New additions</h3>
         <ol>
           <li>
             Ability to add a call to a project directly from the highlights
@@ -69,12 +70,12 @@ const Project2: React.FC = () => {
 
       <section>
         <h2>Integrating project structure</h2>
-        <h4>Design direction I: questions in side panel</h4>
-        <p>
+        <h3>Design direction I: questions in side panel</h3>
+        <h4>
           I tried a variation where the question script of the project was in a
           side panel, and notes inside it on the right, segregated based on
           calls.
-        </p>
+        </h4>
       </section>
 
       <figure>
@@ -98,7 +99,7 @@ const Project2: React.FC = () => {
       </section>
 
       <section>
-        <h2>Design direction II: questions at the top</h2>
+        <h3>Design direction II: questions at the top</h3>
         <h4>
           To reflect the mental model of projects — calls — notes/video
           snippets, I designed the following two screens to represent that.
@@ -117,7 +118,7 @@ const Project2: React.FC = () => {
       </figure>
 
       <section>
-        <h4 className="red">What Didn't work</h4>
+        <h4 className="red">What didn't work</h4>
         <ol>
           <li>
             It was hard to visualize the entire question script or focus on a
@@ -128,7 +129,7 @@ const Project2: React.FC = () => {
       </section>
 
       <section>
-        <h2>Final design based on testing</h2>
+        <h3>Final design based on testing</h3>
         <h4>
           This version worked to a large extent since it reflected people's
           existing ways of zooming in and out of their work.
@@ -141,7 +142,7 @@ const Project2: React.FC = () => {
       </figure>
 
       <section>
-        <h2>New Additions</h2>
+        <h3>New Additions</h3>
         <ol>
           <li>
             Added questions from question script at top to reflect new flow of
@@ -156,7 +157,7 @@ const Project2: React.FC = () => {
       </section>
 
       <section>
-        <h2>Summary view</h2>
+        <h3>Summary view</h3>
         <h4>
           To wrap up the entire experience, we made a summary view that could be
           shared with the team.
@@ -173,7 +174,7 @@ const Project2: React.FC = () => {
       </figure>
 
       <section>
-        <h1>Changes across other parts of the product</h1>
+        <h3>Changes across other parts of the product</h3>
         <div className="stories">
           <Stories
             stories={myStories}

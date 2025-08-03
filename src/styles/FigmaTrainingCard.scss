@@ -17,8 +17,8 @@
     position: absolute;
     z-index: -1;
     inset: 0;
-    padding: 2px 0 2px 0; /* Border thickness */
-    // border-radius: 0.75em;
+    padding: 2px;
+    border-radius: 0.75em;
     background: linear-gradient(120deg, #3b82f6, #ef4444 40%, #ec4899 100%);
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,

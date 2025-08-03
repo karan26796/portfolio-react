@@ -124,8 +124,8 @@ const StickyNavBar: React.FC = () => {
             tabIndex={getNextProjectId() ? 0 : -1}
             style={!getNextProjectId() ? { pointerEvents: 'none', opacity: 0.5 } : {}}
           >
-            <ArrowRight size={18} weight="duotone" />
             <span>Next</span>
+            <ArrowRight size={18} weight="duotone" />
           </Link>
         </nav>
       </div>
@@ -199,7 +199,7 @@ const StickyNavBar: React.FC = () => {
         >
           <Camera size={18} weight="duotone" />
           {/* Only show text on desktop */}
-          {!isMobile && <span>Gallery</span>}
+          {!isMobile && <span>Travel</span>}
         </Link>
 
         <Link 

@@ -2,68 +2,68 @@
     max-width: var(--max-width-container);
     display: flex;
     flex-direction: column;
-    // align-items: center;
     margin: auto;
 
     .project-details {
         width: var(--max-width-container);
 
         .red {
-            font-size: 1.5em;
             background-color: #d50019;
             color: white;
             width: fit-content;
-            padding: .25em;
+            padding: 0.25em;
         }
 
         section {
             max-width: 70%;
         }
 
-        .stories{
+        .stories {
             width: fit-content;
-            border-radius: .75em;
+            border-radius: 0.75em;
             overflow: hidden;
         }
 
-        h3 {
-            padding: .75em 0 0 0;
-            border-radius: .5em;
-            // background: #ffffff09;
+        h2 {
+            font-size: 2.2em;
+            font-weight: 500;
+            color: var(--primary-text);
         }
 
-        h5,
-        h6,
-        li,
-        p {
+        h3 {
+            padding-top: 0.5em;
+            color: var(--highlight-color);
+        }
+
+        h4 {
+            font-size: 1.8em;
             font-weight: 500;
         }
 
         p {
-            margin-bottom: .5em;
+            margin-bottom: 0.5em;
         }
 
         blockquote {
             font-size: 1.8em;
             font-weight: 500;
             color: var(--highlight-color);
-            padding: .5em;
+            padding: 0.5em;
             margin-left: 0;
-            border-radius: 0 .5em .5em 0;
+            border-radius: 0 0.5em 0.5em 0;
             border-left: 4px solid var(--highlight-color);
             background-color: var(--bg-color-high);
 
             @media (max-width: 767px) {
                 width: 100%;
-                margin-left: 0;
                 font-size: 1.5em;
-              }
+            }
         }
 
         .intro {
             max-width: 640px;
             display: flex;
-            align-items: start;
+            align-items: flex-start;
             flex-direction: column;
         }
 
@@ -78,24 +78,19 @@
 /* Breakpoints */
 @media (max-width: 1024px) {
     .project-details {
-        max-width: -webkit-fill-available;
+        max-width: 100vw;
 
-        section {
-            max-width: 70% !important;
-            padding: 0 1em;
-        }
-
+        section,
         figure {
-            max-width: -webkit-fill-available !important;
+            max-width: 70% !important;
             padding: 0 1em;
         }
     }
 }
 
 @media (max-width: 768px) {
-
     .project-details {
-        max-width: -webkit-fill-available;
+        max-width: 100vw;
 
         section {
             width: 85vw;
@@ -105,8 +100,8 @@
         }
 
         figure {
-            max-width: -webkit-fill-available !important;
-            padding: 0em 1em;
+            max-width: 100vw !important;
+            padding: 0 1em;
         }
     }
 }
@@ -117,10 +112,7 @@
     }
 
     .project-details {
-        section {
-            max-width: 100%;
-        }
-
+        section,
         .intro {
             max-width: 100%;
         }

@@ -37,11 +37,7 @@
         background-color: var(--bg-color);
         gap: 2em;
         transition: transform 0.3s ease, rotate 0.3s ease;
-
-        &:hover {
-            rotate: 0deg;
-        }
-
+    
         p {
             margin: 0;
             line-height: 145%;

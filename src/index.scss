@@ -33,37 +33,42 @@ main canvas {
 }
 
 /* Typography */
-h1, h2, h3 {
-  font-weight: 500;
+h1, h2, h3, h4, h5, h6 {
+  margin: var(--heading-margin) 0;
   line-height: var(--heading-line-height);
   letter-spacing: var(--heading-letter-spacing);
-  margin: var(--heading-margin) 0;
+}
+
+h1, h3 {
+  color: var(--primary-text);
 }
 
 h1 {
+  font-family: 'Fraunces','Times New Roman', Times, serif;
   font-size: var(--h1-size);
-  color: var(--primary-text);
+  font-weight: 500;
 }
 
 h2 {
+  font-family: 'Fraunces','Times New Roman', Times, serif;
   font-size: var(--h2-size);
   color: var(--highlight-color);
-  margin-bottom: var(--heading-margin);
-  margin-top: .75em;
   line-height: 110%;
   letter-spacing: -0.8px;
+  font-weight: 700;
+  margin-top: 1em;
 }
 
 h3 {
+  font-family: 'Fraunces','Times New Roman', Times, serif;
   font-size: var(--h3-size);
-  color: var(--primary-text);
+  font-weight: 500;
 }
 
 h4 {
   font-size: var(--h4-size);
-  font-weight: 600;
-  letter-spacing: -0.2px;
-  margin: 0.6em 0 var(--heading-margin);
+  font-weight: 400;
+  letter-spacing: -0.6px;
   color: var(--primary-text);
 }
 
@@ -72,23 +77,19 @@ h5, h6 {
   font-weight: 500;
   text-transform: capitalize;
   line-height: 125%;
-  margin: 0;
+  color: var(--secondary-text);
 }
 
 h5 {
   font-family: "Architects Daughter", Helvetica, sans-serif;
   font-size: var(--h5-size);
-  color: var(--secondary-text);
-}
-
-h6 {
-  color: var(--primary-text);
 }
 
 p, li {
   font-size: var(--text-size);
   color: var(--secondary-text);
   letter-spacing: var(--text-letter-spacing);
+  margin: var(--paragraph-margin) 0;
 }
 
 p {
@@ -122,9 +123,9 @@ figure img {
 
 figure figcaption,
 figure caption {
-  color: var(--tertiary-text);
+  color: var(--secondary-text);
   font-weight: 500;
-  font-size: 1em;
+  font-size: 1.2em;
   margin-bottom: var(--caption-margin);
 }
 
@@ -141,7 +142,6 @@ canvas { display: block; }
   :root {
     --width-container: 100%;
   }
-  
   body {
     font-size: var(--base-font-size-tablet);
   }

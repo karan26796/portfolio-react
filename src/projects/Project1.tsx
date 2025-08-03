@@ -18,12 +18,12 @@ const Project1: React.FC = () => {
   return (
     <div className="project-details">
       <section>
-        <h2>Part I : Let's start with the problem</h2>
-        <p>
-          Based on our research, it takes 5-6 rewatches of a user interview to
+        <h3>Part I : Let's start with the problem</h3>
+        <h4>
+          Based on research, it takes 5-6 rewatches of a user interview to
           get actionable insights out of it. Therefore, a 1 hour interview takes
           5-6 hours to tag, summarize, and share with one's team.
-        </p>
+        </h4>
         <p>
           To make it easier for teams to get the most out of research calls and
           projects, we designed a note-taker that lets researchers take notes
@@ -32,11 +32,11 @@ const Project1: React.FC = () => {
       </section>
 
       <section>
-        <h2>First cut for Usability Testing</h2>
-        <p>
+        <h3>First cut for Usability Testing</h3>
+        <h4>
           I created a prototype in Protopie to mock how people will take notes
           in Looppanel.
-        </p>
+        </h4>
       </section>
 
       <figure>
@@ -59,11 +59,11 @@ const Project1: React.FC = () => {
       </section>
 
       <section>
-        <h2>Second iteration for Usability Testing</h2>
-        <p>
+        <h3>Second iteration for Usability Testing</h3>
+        <h4>
           I removed the shortcuts and added some instructions for people to
           understand the note taking screen
-        </p>
+        </h4>
       </section>
 
       <figure>
@@ -80,11 +80,11 @@ const Project1: React.FC = () => {
       </section>
 
       <section>
-        <h2>Third iteration for Usability Testing</h2>
-        <p>
+        <h3>Third iteration for Usability Testing</h3>
+        <h4>
           Since a lot of people during our research used Notion and Google Docs,
           I tried making the interface as close to those tools as possible.
-        </p>
+        </h4>
       </section>
 
       <figure>
@@ -100,11 +100,11 @@ const Project1: React.FC = () => {
       </section>
 
       <section>
-        <h2>Fourth iteration for Usability Testing</h2>
-        <p>
+        <h3>Fourth iteration for Usability Testing</h3>
+        <h4>
           To highlight who's taken the note, I added the names of note takers in
           different colors
-        </p>
+        </h4>
       </section>
 
       <figure>
@@ -127,12 +127,12 @@ const Project1: React.FC = () => {
       </section>
 
       <section>
-        <h2>Final Design based on testing</h2>
-        <p>
+        <h3>Final Design based on testing</h3>
+        <h4>
           People didn't expect the note-taking space to look like a chat, so we
           changed it into a more open space that makes the experience similar to
           a document.
-        </p>
+        </h4>
 
         <ol>
           <li>
@@ -161,11 +161,11 @@ const Project1: React.FC = () => {
 
       <section>
         <h2>Part II: Structured note-taking</h2>
-        <p>
+        <h4>
           We observed researchers were using a template to take notes during
           research calls. The templates either contained theme-based
           questionnaire or task-based questionnaire.
-        </p>
+        </h4>
         <p>Below are some examples of the templates they use.</p>
       </section>
 
@@ -180,11 +180,11 @@ const Project1: React.FC = () => {
       </figure>
 
       <section>
-        <h2>Iterating and testing a question script</h2>
-        <p>
+        <h3>Iterating and testing a question script</h3>
+        <h4>
           We iterated on top of previous designs and added sections to the
           note-taking view and tested with the users.
-        </p>
+        </h4>
       </section>
 
       <figure>
@@ -207,7 +207,7 @@ const Project1: React.FC = () => {
       </section>
 
       <section>
-        <h2>Question script as a side menu</h2>
+        <h3>Question script as a side menu</h3>
       </section>
 
       <figure>
@@ -223,12 +223,12 @@ const Project1: React.FC = () => {
       </section>
 
       <section>
-        <h2>Final Design</h2>
-        <p>
+        <h3>Final Design</h3>
+        <h4>
           Based on usability testing, we decided to remove the navigation from
           the question script as users didn't face issues with traversing the
           script.
-        </p>
+        </h4>
         <p>
           There was no need for a persistent list since they moved progressively
           between questions.
@@ -245,7 +245,7 @@ const Project1: React.FC = () => {
       </figure>
 
       <section>
-        <h2>What I learned</h2>
+        <h3>What I learned</h3>
         <ol>
           <li>
             Users liked the idea of unstructured notes since it gave a way to

@@ -27,8 +27,6 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
     navigate(`/project/${projectId}`);
   };
 
-  // Remove IndieFinds card logic
-
   // Filter out hidden projects
   const visibleProjects = projectData.filter(
     (project) => !HIDDEN_PROJECT_IDS.includes(project.id.toLowerCase())
@@ -56,14 +54,14 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
         if (index === 2) {
           return (
             <React.Fragment key={`group-${index}`}>
-              {/* Render the third project WITHOUT bottom border */}
+              {/* Render the third project */}
               <div key={project.id}>
                 <ProjectCard 
                   data={project}
                   variant="large"
                   buttonType="button"
                   onClick={() => handleCardClick(project.id)}
-                  showDivider={false}
+                  showDivider={true}
                 />
               </div>
               {/* Render FigmaTrainingCard after the second project */}

@@ -37,14 +37,14 @@ const Tag: React.FC<TagProps> = ({
           style={{ backgroundColor: color.text }}
         ></div>
       )}
-      <h3
+      <p
         className="tag"
         style={{
           color: color.text,
         }}
       >
         {text}
-      </h3>
+      </p>
     </div>
   );
 };

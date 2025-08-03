@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import "../styles/ProjectDetails.scss";
 import ProjectDetailHeader from "../components/ProjectHeader";
 import { projectSummaries } from "../utils/ProjectSummaries";
+import ProjectMetaGrid from "../components/ProjectMetaGrid";
 
 const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -49,6 +50,7 @@ const ProjectDetails: React.FC = () => {
   return (
     <div className="container-project">
       <ProjectDetailHeader data={projectSummary} />
+      {projectSummary?.meta && <ProjectMetaGrid meta={projectSummary.meta} />}
       {ProjectComponent ? <ProjectComponent /> : <div>Project content not available</div>}
     </div>
   );

@@ -3,17 +3,29 @@ import '../styles/FigmaTrainingCard.scss';
 import { ArrowRight } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 
+import Button from './Buttons';
+
 const FigmaTrainingCard: React.FC = () => {
   return (
     <Link to="/figma-training" className="figma-training-card" style={{ textDecoration: 'none', color: 'inherit' }}>
       <div className="figma-training-content">
         <div className="figma-training-text">
-          <h5>For Designers, Students, and PMs</h5>
-          <h3 style={{ display: 'flex', alignItems: 'center', gap: '0.4em' }}>
-            Book a Figma training session today
-            <ArrowRight size={24} weight="regular" className="arrow-icon" />
+          <h3>
+            Figma training for designers, students, and PMs
           </h3>
-          <p>I've conducted more than 100+ Figma training at top companies and institutes. Book a 1:1 session or a corporate workshop.</p>
+          <p>I've conducted more than 100+ Figma training at IIMs, IITs, Indiana University, Shaadi.com and more.</p>
+          <div style={{marginTop:'1em'}}>
+          <Button
+            text="Set up a session"
+            iconName="ArrowRight"
+            withIcon={true}
+            iconDirection="right"
+            size="s"
+            variant="primary"
+            weight="regular"
+            withText={true}
+          />
+          </div>
         </div>
       </div>
       <div className="figma-training-image-stack">

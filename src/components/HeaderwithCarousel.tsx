@@ -58,7 +58,7 @@ const HeaderWithCarousel: React.FC = () => {
         })}
       </div>
       <p style={{ maxWidth: "40ch", color: "var(--primary-text)", fontSize: "1.5em" }}>
-    Product Designer with ~7 years of experience across design, user research, design systems, & 0-1 product building.
+    Product Designer with ~7 years of experience across design, user research, design systems, & 0-1 product building. Currently shaping employee experience for 1.2 million users at Keka HR.
       </p>
       {/* <br/><br/>I also conduct Figma training for designers & PMs at top  startups and institutions. */}
       <LogoCarousel align="center" />

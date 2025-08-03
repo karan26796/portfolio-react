@@ -14,23 +14,19 @@ const KekaWishes: React.FC = () => {
   return (
     <div className="project-details">
       <section>
-        <h2>Project Overview</h2>
-        <p><strong>Challenge:</strong> How might we make birthday, work anniversaries, and first day celebrations more personal and engaging within Keka's employee platform, creating meaningful connections between team members on special days?</p>
-        
-        <p><strong>My Role:</strong> Product Design, Design Strategy <br/></p>
-        {/* <strong>Timeline:</strong> [Add your timeline]<br/> */}
-        {/* <strong>Team:</strong> [Add team members if applicable]</p> */}
+        <h3>Project Overview</h3>
+        <h4>How might we make birthday, work anniversaries, and first day celebrations more personal and engaging within Keka's employee platform, creating meaningful connections between team members on special days?</h4>
       </section>
 
       <section>
-        <h2>The Problem</h2>
+        <h3>The Problem</h3>
         <p>Keka's existing birthday feature lacked engagement and personalization. Employees found it difficult to:</p>
         <ul>
           <li>Understand how to wish someone</li>
           <li>Experience a sense of celebration on their own special day</li>
         </ul>
         
-        <p>The current wishing experience felt transactional rather than celebratory, which impacted the number of wishes someone received on their special day.</p>
+        <h4>The current wishing experience felt transactional rather than celebratory, which impacted the number of wishes someone received on their special day.</h4>
       </section>
 
       <figure>
@@ -46,9 +42,18 @@ const KekaWishes: React.FC = () => {
       <section>
         <h3>User goals</h3>
         <ul>
-          <li><strong>For well-wishers:</strong> Easy, meaningful way to celebrate colleagues</li>
-          <li><strong>For birthday person:</strong> Feel appreciated and celebrated by their team</li>
-          <li><strong>For the organization:</strong> Boost engagement on the social wall, especially on the special days widget</li>
+            <li>
+              <strong>For well-wishers</strong><br />
+              Easy, meaningful way to celebrate colleagues
+            </li>
+            <li>
+              <strong>For birthday person</strong><br />
+              Feel appreciated and celebrated by their team
+            </li>
+            <li>
+              <strong>For the organization</strong><br />
+              Boost engagement on the social wall, especially on the special days widget
+            </li>
         </ul>
       </section>
 
@@ -56,7 +61,7 @@ const KekaWishes: React.FC = () => {
         <h2>Design Iterations</h2>
         <h3>I: Prominent special day cards on wall</h3>
 
-        <p><strong>Although this design approach shows a person's special day more prominently, it had a few problems</strong></p>
+        <h4>Although this design approach shows a person's special day more prominently, it had a few problems</h4>
           <ol>
             <li>It takes a large space on the home page.</li>
             <li>Lowers the visibility of other people's special days</li>
@@ -72,7 +77,7 @@ const KekaWishes: React.FC = () => {
       <section>
         <h3>II: Dedicated wall of wishes for each person</h3>
 
-        <p><strong>The idea of a dedicated wall felt more special but had some problems</strong></p>
+        <h4>The idea of a dedicated wall felt more special but had some problems</h4>
           <ol>
             <li>Separates the wish interaction from the widget on wall, thereby creating a disconnect</li>
             <li>Since everyone doesn't receive a lot of wishes, the wall might look empty for some</li>
@@ -87,7 +92,7 @@ const KekaWishes: React.FC = () => {
       <section>
         <h2>Final Solution</h2>
         
-        <p><strong>Prominent Birthday Cards</strong></p>
+        <h3>Prominent Birthday Cards</h3>
         <ul>
           <li>Personalized cards appear on individual walls when it's someone's special day</li>
           <li>Integrated seamlessly with existing profile layouts</li>
@@ -100,7 +105,7 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <p><strong>Clear Wish CTA</strong></p>
+        <h3>Clear Wish CTA</h3>
         <ul>
           <li>Obvious "Wish" button removes friction from the interaction</li>
           <li>Prominent placement ensures users don't miss the opportunity to participate</li>
@@ -113,7 +118,7 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <p><strong>Easy and delightful wish experience</strong></p>
+        <h3>Easy and delightful wish experience</h3>
         <ul>
         <li>Simple, one-click interaction with the introduction of wish prompts encourages engagement</li>
           <li>Confetti post wishing to make the experience feel more celebratory</li>
@@ -141,7 +146,7 @@ const KekaWishes: React.FC = () => {
 
 
       <section>
-        <h2>Key Learnings</h2>
+        <h3>Key Learnings</h3>
         
         <ol>
           <li>
