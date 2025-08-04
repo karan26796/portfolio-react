@@ -4,7 +4,6 @@ import '../styles/ProjectList.scss';
 import { Link, useNavigate } from 'react-router-dom';
 import indieImg from '../utils/project-imgs/thumb-indie.png'
 import { ProjectCardData } from '../utils/interfaces';
-import FigmaTrainingCard from '../components/FigmaTrainingCard';
 
 interface ProjectListProps {
   projectData: ProjectCardData[];
@@ -34,54 +33,17 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
 
   return (
     <div className='project-parent'>
-      {/* Render projects with FigmaTrainingCard after the second project */}
-      {visibleProjects.map((project, index) => {
-        // Render the first and second projects
-        if (index === 0 || index === 1) {
-          return (
-            <div key={project.id}>
-              <ProjectCard 
-                data={project}
-                variant="large"
-                buttonType="button"
-                onClick={() => handleCardClick(project.id)}
-                showDivider={true}
-              />
-            </div>
-          );
-        }
-        // Render FigmaTrainingCard after the second project
-        if (index === 2) {
-          return (
-            <React.Fragment key={`group-${index}`}>
-              {/* Render the third project */}
-              <div key={project.id}>
-                <ProjectCard 
-                  data={project}
-                  variant="large"
-                  buttonType="button"
-                  onClick={() => handleCardClick(project.id)}
-                  showDivider={true}
-                />
-              </div>
-              {/* Render FigmaTrainingCard after the second project */}
-              <FigmaTrainingCard />
-            </React.Fragment>
-          );
-        }
-        // Render the rest of the projects normally
-        return (
-          <div key={project.id}>
-            <ProjectCard 
-              data={project}
-              variant="large"
-              buttonType="button"
-              onClick={() => handleCardClick(project.id)}
-              showDivider={true}
-            />
-          </div>
-        );
-      })}
+      {visibleProjects.map((project, index) => (
+        <div key={project.id}>
+          <ProjectCard 
+            data={project}
+            variant="large"
+            buttonType="button"
+            onClick={() => handleCardClick(project.id)}
+            showDivider={true}
+          />
+        </div>
+      ))}
     </div>
   );
 };

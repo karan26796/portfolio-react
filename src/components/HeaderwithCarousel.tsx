@@ -24,21 +24,12 @@ const HeaderWithCarousel: React.FC = () => {
     <div className="header-details">
       <div className="header-row">
         <img className="profile" src={profile} alt="Karan Kapoor's profile picture" />
+        <h1 > Karan Kapoor </h1>
       </div>
-      <div className="name-tag-group">
-        <h1>Karan Kapoor</h1>
-        {/* <Tag
-          text={"open for freelance and part-time work"}
-          color={work[0]}
-          rotation={0}
-          dot={true}
-          pulsatingDot={true}
-          variant='small'
-        /> */}
-      </div>
+      
       {/* Replace single line with three tags with random vibrant colors */}
       <div className="tags">
-        {['Design Lead @Keka HR', 'Vibe coder', '2x Founding Designer','Figma Trainer'].map((text, idx) => {
+        {['Design @Keka HR', 'Vibe coder', '2x Founding Designer','Figma Trainer'].map((text, idx) => {
           const vibrantColors = [
             { bg: "#fefefe", text: "#00CC66" },
             { bg: "#fefefe", text: "#3399FF" },
@@ -57,9 +48,19 @@ const HeaderWithCarousel: React.FC = () => {
           );
         })}
       </div>
-      <p style={{ maxWidth: "40ch", color: "var(--primary-text)", fontSize: "1.5em" }}>
-    Product Designer with ~7 years of experience across design, user research, design systems, & 0-1 product building. Currently shaping employee experience for 1.2 million users at Keka HR.
-      </p>
+      <div className="name-tag-group">
+        <h1>I specialize in designing interfaces and flows backed by deep user insights and behaviour. </h1>
+          <p style={{maxWidth:'40ch'}}>Currently shaping employee experience for 1.2 million users and integrating AI in my workflow</p>
+        {/* <Tag
+          text={"open for freelance and part-time work"}
+          color={work[0]}
+          rotation={0}
+          dot={true}
+          pulsatingDot={true}
+          variant='small'
+        /> */}
+      </div>
+      
       {/* <br/><br/>I also conduct Figma training for designers & PMs at top  startups and institutions. */}
       <LogoCarousel align="center" />
 

@@ -144,7 +144,7 @@ const HomePage: React.FC = () => {
       <Testimonials
         data={testimonialsData}
         title="What people have said about me" />
-      <ContactForm />
+      {/* <ContactForm /> */}
     </>
   );
 };

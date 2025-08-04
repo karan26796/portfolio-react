@@ -6,7 +6,7 @@
 
 /* Base styles */
 * {
-  font-family: 'Circular-Book', 'Arial Narrow', Arial, sans-serif;
+  font-family: 'Inter', 'Arial Narrow', Arial, sans-serif;
 }
 
 body {
@@ -44,23 +44,23 @@ h1, h3 {
 }
 
 h1 {
-  font-family: 'Fraunces','Times New Roman', Times, serif;
+  // font-family: 'Fraunces','Times New Roman', Times, serif;
   font-size: var(--h1-size);
   font-weight: 500;
 }
 
 h2 {
-  font-family: 'Fraunces','Times New Roman', Times, serif;
+  // font-family: 'Fraunces','Times New Roman', Times, serif;
   font-size: var(--h2-size);
-  color: var(--highlight-color);
+  color: var(--primary-text);
   line-height: 110%;
   letter-spacing: -0.8px;
-  font-weight: 700;
+  font-weight: 500;
   margin-top: 1em;
 }
 
 h3 {
-  font-family: 'Fraunces','Times New Roman', Times, serif;
+  // font-family: 'Fraunces','Times New Roman', Times, serif;
   font-size: var(--h3-size);
   font-weight: 500;
 }
