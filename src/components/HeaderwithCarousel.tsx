@@ -47,18 +47,15 @@ const HeaderWithCarousel: React.FC = () => {
 
         <div className="name-tag-group">
           <h1>I specialize in designing interfaces and flows backed by deep user insights and behaviour. </h1>
+          <p style={{ maxWidth: '45ch' }}>
+          Currently shaping employee experience for 1.2 million users and integrating AI in my workflow
+        </p>
         </div>
 
         <LogoCarousel align="flex-start" />
 
         <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
       </div>
-
-      {/* <div className="header-column-two">
-        <p style={{ maxWidth: '40ch' }}>
-          Currently shaping employee experience for 1.2 million users and integrating AI in my workflow
-        </p>
-      </div> */}
 
     </div>
   );
