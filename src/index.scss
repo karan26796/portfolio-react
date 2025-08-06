@@ -53,7 +53,6 @@ h2 {
   // font-family: 'Fraunces','Times New Roman', Times, serif;
   font-size: var(--h2-size);
   color: var(--primary-text);
-  line-height: 110%;
   letter-spacing: -0.8px;
   font-weight: 500;
   margin-top: 1em;
@@ -117,7 +116,7 @@ figure img {
   width: 100%;
   height: auto;
   border: 1px solid var(--border-color);
-  border-radius: var(--border-radius);
+  // border-radius: var(--border-radius);
   object-fit: cover;
 }
 
