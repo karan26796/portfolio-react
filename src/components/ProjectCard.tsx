@@ -106,32 +106,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="project-card-data">
           <div className="title">
             <div className="title-tag-group">
-              {variant === "small" ? (
-                <h5>
-                  {data.type === "personal" ? "Personal project" : data.type}
-                </h5>
-              ) : (
-                <div style={{ display: 'flex', gap: '0.5em', flexWrap: 'wrap', marginBottom: '0.5em' }}>
-                  {data.tags.map((tag, idx) => {
-                    // Pick a random color for each tag
-                    const color = vibrantColors[Math.floor(Math.random() * vibrantColors.length)];
-                    return (
-                      <Tag
-                        key={idx}
-                        text={tag}
-                        color={color}
-                        rotation={Math.random() * 4 - 2}
-                        dot={false}
-                        variant="small"
-                      />
-                    );
-                  })}
+                <div className="tags-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
+                  {data.tags.map((tag, index) => (
+                    <Tag
+                      key={index}
+                      text={tag}
+                      color={vibrantColors[index % vibrantColors.length]}
+                      rotation={0}
+                      dot={false}
+                      variant="small"
+                    />
+                  ))}
                 </div>
-              )}
-              <h3>{data.title}</h3>
-              {data.description && (
+              <h2>{data.title}</h2>
+              {/* {data.description && (
                 <p className="description">{data.description}</p>
-              )}
+              )} */}
             </div>
             <div className="button-container">
               {renderButton()}

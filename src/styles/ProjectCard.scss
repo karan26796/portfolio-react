@@ -6,12 +6,8 @@
   align-items: center;
   justify-content: space-between;
   height: auto;
-  transition: all linear 0.2s;
-  border-radius: 0.75em;
+  transition: all linear .2s;
   overflow: hidden;
-
-  /* Remove default border, add gradient border using ::before pseudo-element */
-  border: 1px solid var(--border-color);
   position: relative;
   z-index: 1;
   
@@ -22,9 +18,8 @@
 
   &:hover {
     cursor: pointer;
-    background-color: var(--bg-color-high);
+    // background-color: var(--bg-color-high);
     scale: 0.995;
-    border-radius: 0.75em;
   }
 
   img {
@@ -38,10 +33,13 @@
   .project-card {
     width: -webkit-fill-available;
     display: flex;
+  gap: 1em;
+    
     position: relative;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    padding: 1.5em 0 1.5em 0;
 
     @media screen and (max-width: 767px) {
       flex-direction: column;
@@ -57,7 +55,7 @@
       justify-content: space-between;
       text-decoration: none;
       gap: 0.2em;
-      padding: 1.5em;
+      // padding: 1.5em;
 
       .title {
         width: 100%;
@@ -130,7 +128,7 @@
         margin: 0;
       }
 
-      h3 {
+      h2 {
         max-width: 35ch;
         margin-bottom: 0;
       }

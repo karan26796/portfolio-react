@@ -143,7 +143,7 @@ const HomePage: React.FC = () => {
       <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
       <Testimonials
         data={testimonialsData}
-        title="What people have said about me" />
+        title="Hear from my colleagues" />
       {/* <ContactForm /> */}
     </>
   );

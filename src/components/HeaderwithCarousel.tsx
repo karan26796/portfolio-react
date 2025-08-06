@@ -21,37 +21,59 @@ const HeaderWithCarousel: React.FC = () => {
   const work: VibrantColor[] = [{ bg: "#fefefe", text: "#02bd69" }];
 
   return (
-    <div className="header-details">
-      <div className="header-row">
+    <div className="header-container">
+      <div className="header-column-one">
+
+        <div className="tags">
+          {['Design @Keka HR', 'Vibe coder', '2x Founding Designer', 'Figma Trainer'].map((text, idx) => {
+            const vibrantColors = [
+              { bg: "#fefefe", text: "#00CC66" },
+              { bg: "#fefefe", text: "#3399FF" },
+              { bg: "#fefefe", text: "#FF9933" },
+              { bg: "#fefefe", text: "#ee33ffff" },
+            ];
+            const color = vibrantColors[idx];
+            return (
+              <Tag
+                key={idx}
+                text={text}
+                color={color}
+                rotation={Math.random() * 4 - 2}
+                dot={false}
+              />
+            );
+          })}
+        </div>
+
+        <div className="name-tag-group">
+          <h1>I specialize in designing interfaces and flows backed by deep user insights and behaviour. </h1>
+        </div>
+
+        <LogoCarousel align="flex-start" />
+
+        <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
+      </div>
+
+      {/* <div className="header-column-two">
+        <p style={{ maxWidth: '40ch' }}>
+          Currently shaping employee experience for 1.2 million users and integrating AI in my workflow
+        </p>
+      </div> */}
+
+    </div>
+  );
+};
+
+export default HeaderWithCarousel;
+
+
+{/* <div className="header-row">
         <img className="profile" src={profile} alt="Karan Kapoor's profile picture" />
         <h1 > Karan Kapoor </h1>
-      </div>
-      
-      {/* Replace single line with three tags with random vibrant colors */}
-      <div className="tags">
-        {['Design @Keka HR', 'Vibe coder', '2x Founding Designer','Figma Trainer'].map((text, idx) => {
-          const vibrantColors = [
-            { bg: "#fefefe", text: "#00CC66" },
-            { bg: "#fefefe", text: "#3399FF" },
-            { bg: "#fefefe", text: "#FF9933" },
-            { bg: "#fefefe", text: "#ee33ffff" },
-          ];
-            const color = vibrantColors[idx];
-          return (
-            <Tag
-              key={idx}
-              text={text}
-              color={color}
-              rotation={Math.random() * 4 - 2}
-              dot={false}
-            />
-          );
-        })}
-      </div>
-      <div className="name-tag-group">
-        <h1>I specialize in designing interfaces and flows backed by deep user insights and behaviour. </h1>
-          <p style={{maxWidth:'40ch'}}>Currently shaping employee experience for 1.2 million users and integrating AI in my workflow</p>
-        {/* <Tag
+      </div> */}
+
+{/* <p style={{maxWidth:'40ch'}}>Currently shaping employee experience for 1.2 million users and integrating AI in my workflow</p> */ }
+{/* <Tag
           text={"open for freelance and part-time work"}
           color={work[0]}
           rotation={0}
@@ -59,12 +81,10 @@ const HeaderWithCarousel: React.FC = () => {
           pulsatingDot={true}
           variant='small'
         /> */}
-      </div>
-      
-      {/* <br/><br/>I also conduct Figma training for designers & PMs at top  startups and institutions. */}
-      <LogoCarousel align="center" />
 
-      {/* <div className="button-group">
+{/* <br/><br/>I also conduct Figma training for designers & PMs at top  startups and institutions. */ }
+
+{/* <div className="button-group">
         <Buttons
           text="Let's  work together"
           iconName="ArrowDown"
@@ -82,9 +102,3 @@ const HeaderWithCarousel: React.FC = () => {
           }}
         />
       </div> */}
-      <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
-    </div>
-  );
-};
-
-export default HeaderWithCarousel;

@@ -70,7 +70,7 @@ const TrainingList: React.FC = () => {
       <FigmaTrainingCarousel />
       <TestimonialsSection />
       {/* Pass refs to the Individual and Company training sections */}
-      <IndividualTrainingSection ref={individualRef} tagProperties={individualTagProperties} />
+      {/* <IndividualTrainingSection ref={individualRef} tagProperties={individualTagProperties} /> */}
       <CompanyTrainingSection ref={companyRef} tagProperties={companyTagProperties} />
     </div>
   );
@@ -132,7 +132,7 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
 
       <div className="button-group">
 
-        <a href="#individual">
+        {/* <a href="#individual">
           <Button
             text="Book 1:1 Session"
             withIcon={true}
@@ -144,11 +144,11 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
             weight="regular"
             type="button"
           />
-        </a>
+        </a> */}
 
         <a href="#company">
           <Button
-            text="Book Corporate/Institute Training"
+            text="Book a session today"
             withIcon={true}
             iconName="UsersThree"
             iconDirection="left"
@@ -175,19 +175,19 @@ interface TrainingSectionProps {
   tagProperties: { color: VibrantColor; rotation: number; }[];
 }
 
-// Individual training section
-const IndividualTrainingSection = React.forwardRef<HTMLDivElement, TrainingSectionProps>(
-  ({ tagProperties }, ref) => (
-    <div id="individual" className='training' ref={ref}>
-      <h1>Book 1:1 session </h1>
-      <p style={{ margin: "0", textAlign:"center" }}>Inaugural Offer: ₹1000 for one session</p>
-      {/* <p>You'll receive an email post blocking a time slot to pay</p> */}
-      {/* Keep the TagsSection intact */}
-      <TagsSection tagProperties={tagProperties} tagTexts={tagTextIndividual} />
-      <CalendlyWidget />
-    </div>
-  )
-);
+// // Individual training section
+// const IndividualTrainingSection = React.forwardRef<HTMLDivElement, TrainingSectionProps>(
+//   ({ tagProperties }, ref) => (
+//     <div id="individual" className='training' ref={ref}>
+//       <h1>Book 1:1 session </h1>
+//       <p style={{ margin: "0", textAlign:"center" }}>Inaugural Offer: ₹1000 for one session</p>
+//       {/* <p>You'll receive an email post blocking a time slot to pay</p> */}
+//       {/* Keep the TagsSection intact */}
+//       <TagsSection tagProperties={tagProperties} tagTexts={tagTextIndividual} />
+//       <CalendlyWidget />
+//     </div>
+//   )
+// );
 
 // Company training section
 const CompanyTrainingSection = React.forwardRef<HTMLDivElement, TrainingSectionProps>(
