@@ -18,8 +18,8 @@ const ProjectHeader: React.FC<{ data: ProjectCardData }> = ({ data }) => {
     <div className="project-header">
       <div className="project-header-data">
         <h1>{data.title}</h1>
-        <h5>{data.tags.join(", ")}</h5>
-        {/* <div className="tag-container">
+        {/* <h5>{data.tags.join(", ")}</h5> */}
+        <div className="tag-container">
           {data.tags.map((tag, index) => (
             <Tag
               key={index}
@@ -29,7 +29,7 @@ const ProjectHeader: React.FC<{ data: ProjectCardData }> = ({ data }) => {
               variant="small"
             />
           ))}
-        </div> */}
+        </div>
       </div>
       <img className="project-header-image" src={data.img} alt={data.title} />
     </div>

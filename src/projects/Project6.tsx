@@ -17,9 +17,8 @@ const KekaProject: React.FC = () => {
 
       <section>
         <h3>What are continuous rewards?</h3>
-        <h4>A year ago, we introduced award programs in Keka HR as a means to run award campaigns in companies to recognize their employees every few months for their contributions and achievements.</h4>
-        
-        <p>While award programs are great for longer timelines, there was no way for the company & other employees to recognize their peers on a day-to-day basis.</p>
+        <h4>We introduced award programs in Keka HR to help companies recognize employees for their achievements every few months. 
+          <br/> <br/>However, there was no way to acknowledge peers on a daily basis. Continuous rewards address this gap by enabling day-to-day recognition.</h4>
         
         <h3>Program Structure</h3>
         <h4>The program involved introducing a points system within the company to foster a culture of recognition. The current methods of recognition, albeit popular, didn't have any value attached to them. The program was divided into two parts:</h4>
@@ -126,7 +125,7 @@ const KekaProject: React.FC = () => {
         <h3>2. The Employee's flow</h3>
         <p>Since the point system was to be introduced for employees, it was critical to make the touch points familiar. Hence, we integrated them with employee wishes, praises etc.</p>
 
-        <h3>Other ouchpoints</h3>
+        <h3>Other touchpoints</h3>
         <h4>The Keka platform already has a lot of touch points for employee recognition, therefore we decided to integrate the points system first with those touchpoints.</h4>
         </section>
 
@@ -145,10 +144,10 @@ const KekaProject: React.FC = () => {
           <figcaption>Milestone achievements now display earned points for employees</figcaption>
         </figure>
 
-        <figure>
+        {/* <figure>
           <img src={p2pintegration} alt="Updated menu" />
           <figcaption>Praises and special days widget on Keka wall</figcaption>
-        </figure>
+        </figure> */}
 {/* 
 
 

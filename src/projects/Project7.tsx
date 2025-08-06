@@ -1,5 +1,5 @@
 import React from "react";
-import wish01 from "../utils/project-imgs/kekawish/Wish -_ 01.webp"
+import wish01 from "../utils/project-imgs/kekawish/Wish -_ 05.png"
 import wish02 from "../utils/project-imgs/kekawish/Wish -_ 04.png"
 import wish03 from "../utils/project-imgs/kekawish/Wish -_ 3.webp"
 import wish04 from "../utils/project-imgs/kekawish/Wish -_ 02.png"
@@ -14,19 +14,16 @@ const KekaWishes: React.FC = () => {
   return (
     <div className="project-details">
       <section>
-        <h3>Project Overview</h3>
-        <h4>How might we make birthday, work anniversaries, and first day celebrations more personal and engaging within Keka's employee platform, creating meaningful connections between team members on special days?</h4>
-      </section>
-
-      <section>
-        <h3>The Problem</h3>
-        <p>Keka's existing birthday feature lacked engagement and personalization. Employees found it difficult to:</p>
+        <h3>Project Overview & Problem</h3>
+        <h4>
+          How might we make birthdays, work anniversaries, and first day celebrations more personal and engaging within Keka's employee platform?
+        </h4>
         <ul>
-          <li>Understand how to wish someone</li>
-          <li>Experience a sense of celebration on their own special day</li>
+          <li>The existing feature lacked engagement and personalization</li>
+          <li>Employees found it unclear how to wish someone</li>
+          <li>Celebrations felt transactional rather than meaningful</li>
+          <li>This led to fewer wishes and less connection on special days</li>
         </ul>
-        
-        <h4>The current wishing experience felt transactional rather than celebratory, which impacted the number of wishes someone received on their special day.</h4>
       </section>
 
       <figure>
