@@ -3,6 +3,11 @@
     display: flex;
     flex-direction: column;
     margin: auto;
+    position: relative;
+
+    .project-content-wrapper {
+        position: relative;
+    }
 
     .project-details {
         width: var(--max-width-container);
