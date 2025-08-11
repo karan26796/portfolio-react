@@ -83,11 +83,9 @@
 /* Breakpoints */
 @media (max-width: 1024px) {
     .project-details {
-        max-width: 100vw;
 
         section,
         figure {
-            max-width: 70% !important;
             padding: 0 1em;
         }
     }
