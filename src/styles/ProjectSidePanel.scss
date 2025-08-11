@@ -1,0 +1,38 @@
+.project-sidepanel {
+  min-width: 220px;
+  margin: 2em;
+  position: sticky;
+  top: 2em;
+  height: fit-content;
+
+  button {
+    display: block;
+    width: 100%;
+    text-align: left;
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-bottom: .25em;
+    padding: .5em;
+    color: var(--secondary-text);
+    border-radius: .75em;
+    transition: all 0.2s ease;
+    
+    &:hover {
+      background-color: var(--bg-color-high);
+      color: var(--primary-text);
+    }
+
+    &.active {
+      background-color: var(--bg-color-high);
+      color: var(--highlight-color);
+    }
+  }
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .project-sidepanel {
+    display: none;
+  }
+}

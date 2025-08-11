@@ -25,7 +25,7 @@ const HeaderWithCarousel: React.FC = () => {
       <div className="header-column-one">
 
         <div className="tags">
-          {['Design @Keka HR', 'Vibe coder', '2x Founding Designer', 'Figma Trainer'].map((text, idx) => {
+          {['Vibe coder', '2x Founding Designer', 'Figma Trainer', 'NID alum'].map((text, idx) => {
             const vibrantColors = [
               { bg: "#fefefe", text: "#00CC66" },
               { bg: "#fefefe", text: "#3399FF" },
@@ -46,9 +46,9 @@ const HeaderWithCarousel: React.FC = () => {
         </div>
 
         <div className="name-tag-group">
-          <h1>I specialize in designing interfaces and flows backed by deep user insights and behaviour. </h1>
+          <h1>It's me, Karan <br />I specialize in designing interfaces and flows backed by deep user insights and behaviour. </h1>
           <p style={{ maxWidth: '45ch' }}>
-          Currently shaping employee experience for 1.2 million users and integrating AI in my workflow
+          Currently shaping employee experience for <strong>1.2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
         </p>
         </div>
 
