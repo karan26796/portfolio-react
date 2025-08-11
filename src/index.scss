@@ -147,7 +147,7 @@ strong {
 
 /* Images and Figures */
 figure {
-  width: 100%;
+  width: --webkit-fill-available;
   height: auto;
   display: flex;
   flex-direction: column;

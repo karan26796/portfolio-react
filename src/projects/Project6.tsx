@@ -89,11 +89,8 @@ const KekaProject: React.FC = () => {
         </ul>
       </section>
 
-      {/* -------------------- Target Users -------------------- */}
       <section>
-        <h3>Flows for target users</h3>
-        <h4>1. Admins & HR</h4>
-        <p>Set up, manage, and track rewards with built-in budget estimation and utilization dashboards.</p>
+        <h3>Entry point for admins</h3>
       </section>
 
       <figure>
@@ -106,7 +103,13 @@ const KekaProject: React.FC = () => {
         <figcaption>General settings: currency, point value, expiry, hierarchy rules</figcaption>
       </figure>
 
-
+      {/* -------------------- Target Users -------------------- */}
+      <section>
+        <h2>Flows for target users</h2>
+        <h3>1. Admins & HR</h3>
+        <h4>Milestone rewards</h4>
+        <p>To set up rewards for employees' special days with built-in budget estimation and utilization dashboards.</p>
+      </section>
 
       <figure>
         <img src={milestonessetup} alt="Milestone rewards setup" />
@@ -117,6 +120,11 @@ const KekaProject: React.FC = () => {
         <img src={milestonesdashboard} alt="Milestone dashboard" />
         <figcaption>Milestone rewards dashboard for admins</figcaption>
       </figure>
+
+      <section>
+        <h4>Peer to Peer rewards</h4>
+        <p>To set up recurring rewards for employees' to gift each other for day to day interactions like praises and wishes.</p>
+      </section>
 
       <figure>
         <img src={peertopeer} alt="Peer-to-peer rewards setup" />
@@ -129,8 +137,10 @@ const KekaProject: React.FC = () => {
       </figure>
 
       <section>
-        <h4>Employees</h4>
-        <p>Earn and gift points via familiar touchpoints like wishes & praises.</p>
+        <h3>Flows for employees</h3>
+        <h4>
+          Employees earn and gift points through wishes and praises, using points they receive in their giftable wallet.
+        </h4>
       </section>
 
       <figure>
@@ -161,7 +171,7 @@ const KekaProject: React.FC = () => {
       <section>
         <h3>What I learned</h3>
         <ul>
-          <li>Aligning the vision of all stakeholders is of prime importance with any big project. If it's not done at the start, can lead to lot of delays.</li>
+          <li>Aligning the vision of all stakeholders is of prime importance to any big project. If it's not done at the start, can lead to lot of delays.</li>
           <li>Customers care deeply about the reward programs in their companies and they're open to trying solutions that fit their unique needs.</li>
           <li>Unexpected blockers might throw the project off some times, in this case the XOXO days integration was that piece.</li>
         </ul>
