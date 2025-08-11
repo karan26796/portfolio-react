@@ -5,6 +5,17 @@
     margin: auto;
     position: relative;
 
+    .project-layout {
+        display: flex;
+        gap: 2rem;
+        align-items: flex-start;
+    }
+
+    .project-main-content {
+        flex: 1;
+        min-width: 0; // Prevents flex item from overflowing
+    }
+
     .project-content-wrapper {
         position: relative;
     }
