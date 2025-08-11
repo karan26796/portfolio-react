@@ -24,7 +24,7 @@
 
     @media (max-width: 800px) {
       width: -webkit-fill-available;
-      // border-radius: 0.75em;
+      border-radius: 0.75em;
     }
 
     .hover-indicator {
@@ -64,6 +64,7 @@
 
       @media (max-width: 487px) {
         justify-content: center;
+        gap: 0;
       }
 
       &:hover {
