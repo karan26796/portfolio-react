@@ -71,11 +71,11 @@ const ProjectDetails: React.FC = () => {
   }
 
   return (
-    <div className="container-project" style={{ display: "flex" }}>
+    <div className="container-project">
       {/* Sidepanel */}
-      <ProjectSidePanel 
-        headers={headers} 
-        onHeaderClick={handleHeaderClick} 
+      <ProjectSidePanel
+        headers={headers}
+        onHeaderClick={handleHeaderClick}
       />
       {/* Main Content */}
       <div style={{ flex: 1 }}>

@@ -71,7 +71,7 @@ const KekaProject: React.FC = () => {
               <summary>Some called it donuts, and delivered donuts to the most rewarded employee</summary>
               <p>Companies were using various tools like Slack bots and Teams plugins to manage their internal rewards.</p>
             </details>
-          <li>Budgets are set annually and monitored closely. Internal hierarchies have an impacts points allocation.</li>
+          <li>Budgets are set annually and monitored closely. Internal hierarchies have an impact on rewards allocation.</li>
           <li>Approval chains exist for large rewards.</li>
           <li>Integrations must be customizable with currency, point values, expiry rules.</li>
         </ol>

@@ -2,7 +2,6 @@
     max-width: var(--max-width-container);
     display: flex;
     flex-direction: row;
-    margin: auto;
     position: relative;
 
     .project-content-wrapper {
@@ -29,24 +28,8 @@
             overflow: hidden;
         }
 
-        h2 {
-            font-size: 2.2em;
-            font-weight: 500;
-            color: var(--primary-text);
-        }
-
         h3 {
-            padding-top: 0.5em;
             color: var(--highlight-color);
-        }
-
-        h4 {
-            font-size: 1.8em;
-            font-weight: 500;
-        }
-
-        p {
-            margin-bottom: 0.5em;
         }
 
         blockquote {
@@ -55,7 +38,6 @@
             color: var(--highlight-color);
             padding: 0.5em;
             margin-left: 0;
-            border-radius: 0 0.5em 0.5em 0;
             border-left: 4px solid var(--highlight-color);
             background-color: var(--bg-color-high);
 
