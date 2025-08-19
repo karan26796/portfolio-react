@@ -3,7 +3,7 @@
     width: var(--width-container);
     max-width: var(--max-width-container);
     margin: auto;
-    background-color: #fff;
+    background-color: var(--bg-color);
     flex-direction: column;
     gap: 1em;
     border-radius: .75em;
