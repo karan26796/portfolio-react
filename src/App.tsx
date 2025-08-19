@@ -15,6 +15,8 @@ import About from "./pages/About";
 import Gallery from "./pages/Gallery";
 import TrainingList from "./pages/FigmaTraining";
 import "./styles/AboutRedirect.scss";
+import Resume from "./components/Resume";
+import ResumePopup from "./pages/ResumePopup";
 
 import Stories from 'react-insta-stories';
 
@@ -86,6 +88,9 @@ const App: React.FC = () => {
                 <Route path="/gallery" element={<Gallery />} />
                 <Route path="/archive" element={<Archive />} />
                 <Route path="/figma-training" element={<TrainingList />} />
+                <Route path="/resume" element={<Resume />} />
+                <Route path="/resume-popup" element={<StandaloneResumePopup />} />
+                <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
               </Routes>
               <Footer />
             </>
@@ -158,3 +163,25 @@ const AboutLink: React.FC = () => {
 };
 
 export default App;
+
+const StandaloneResumePopup: React.FC = () => {
+  const [isOpen, setIsOpen] = React.useState(true);
+  return (
+    <div>
+      <ResumePopup isOpen={isOpen} onClose={() => setIsOpen(false)} />
+    </div>
+  );
+};
+
+const ResumeDownloadRedirect: React.FC = () => {
+  React.useEffect(() => {
+    const link = document.createElement('a');
+    link.href = '/resume-july-2025.pdf';
+    link.download = 'Karan_Kapoor_Resume_July_2025.pdf';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    window.location.replace('/resume');
+  }, []);
+  return null;
+};

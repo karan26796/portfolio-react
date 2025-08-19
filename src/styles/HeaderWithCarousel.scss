@@ -53,6 +53,10 @@
                 text-align: left;
             }
 
+            .intro-text {
+                max-width: 45ch;
+            }
+
             h1 {
                 max-width: 35ch;
             }
@@ -74,7 +78,7 @@
                 align-items: center;
                 flex-wrap: wrap;
                 gap: .5em;
-                margin: 1em 0;
+                margin-top: 1em;
 
                 @media screen and (max-width: 767px) {
                     gap: 0.5em;

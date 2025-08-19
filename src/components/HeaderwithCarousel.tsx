@@ -47,12 +47,27 @@ const HeaderWithCarousel: React.FC = () => {
 
         <div className="name-tag-group">
           <h1>It's me, Karan <br />I specialize in designing interfaces and flows backed by deep user insights and behaviour. </h1>
-          <p style={{ maxWidth: '45ch' }}>
-          Currently shaping employee experience for <strong>1.2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
-        </p>
+          <p className="intro-text">
+            Currently shaping employee experience for <strong>1.2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
+          </p>
+        
         </div>
 
         <LogoCarousel align="flex-start" />
+
+        <div className="button-group">
+          <Buttons
+            text="View Resume"
+            iconName="FileText"
+            withIcon={true}
+            iconDirection="left"
+            withText={true}
+            size="m"
+            variant="primary"
+            weight="regular"
+            onClick={toggleResume}
+          />
+        </div>
 
         <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
       </div>

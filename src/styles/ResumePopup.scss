@@ -6,8 +6,8 @@
     bottom: 0;
     background-color: rgba(0, 0, 0, 0.5);
     display: flex;
-    justify-content: center;
-    align-items: flex-end;
+    justify-content: flex-end;
+    align-items: stretch;
     z-index: 10;
     opacity: 0;
     transition: opacity 0.3s ease-in-out;
@@ -23,57 +23,43 @@
 
 .resume-popup-content {
     background-color: white;
-    padding: 2em;
-    padding-bottom: 5em;
-    border-radius: 1em 1em 0 0;
-    width: auto;
-    max-height: 80vh;
+    padding: 1em;
+    // border-radius: 1em 0 0 1em;
+    width: min(90vw, 50%);
+    height: 100vh;
     overflow-y: auto;
     position: relative;
-    transform: translateY(100%);
+    transform: translateX(100%);
     transition: transform 0.3s ease-out;
 }
 
-.resume-popup-content.slide-up {
-    transform: translateY(0);
-    // scale: 1;
+.resume-popup-content.slide-in {
+    transform: translateX(0);
 }
 
-.resume-popup-content.slide-down {
-    transform: translateY(100%);
-    // scale: 1.23;
+.resume-popup-content.slide-out {
+    transform: translateX(100%);
 }
 
-.close-button {
-    position: fixed;
-    bottom: 2em;
-    // top: 1em;
-    left: 50%;
-    transform: translateX(-50%);
-    box-shadow: 0px 0px 5px 1px rgba(0, 0, 0, 0.1);
-    z-index: 11;
+.resume-popup-actions {
+    display: flex;
+    flex-direction: row;
+    gap: 0.75em;
+    align-items: center;
+    justify-content: space-between;
 }
 
-@media (max-width: 768px) {
-    .resume-popup-content {
-        padding: 1.5em;
-        padding-bottom: 4em;
-    }
-
-    .close-button {
-        width: 40px;
-        height: 40px;
-        bottom: 1.5em;
-    }
+.resume-popup-pdf-viewer {
+    margin-top: 1.5rem;
+    margin-left: -1em;
+    margin-right: -1em;
+    margin-bottom: -1em;
 }
 
-@media (max-width: 480px) {
-    .resume-popup-content {
-        padding: 1em;
-        padding-bottom: 3.5em;
-    }
-
-    .close-button {
-        bottom: 1em;
-    }
+.resume-popup-pdf-viewer embed {
+    width: 100%;
+    height: 100vh;
+    border: none;
+    outline: none;
+    background: white;
 }

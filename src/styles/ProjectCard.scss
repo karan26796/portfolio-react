@@ -10,16 +10,16 @@
   overflow: hidden;
   position: relative;
   z-index: 1;
-  
-
-  &.no-divider {
-    border-bottom: none;
-  }
 
   &:hover {
     cursor: pointer;
     // background-color: var(--bg-color-high);
     scale: 0.995;
+
+    img {
+      border-radius: .5em;
+      transition: border-radius 0.2s ease;
+    }
   }
 
   img {
