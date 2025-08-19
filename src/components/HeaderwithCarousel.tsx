@@ -48,7 +48,7 @@ const HeaderWithCarousel: React.FC = () => {
         <div className="name-tag-group">
           <h1>It's me, Karan <br />I specialize in designing interfaces and flows backed by deep user insights and behaviour. </h1>
           <p className="intro-text">
-            Currently shaping employee experience for <strong>1.2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
+            Currently shaping employee experience for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
           </p>
         
         </div>
