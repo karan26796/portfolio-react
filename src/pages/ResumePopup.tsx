@@ -10,10 +10,12 @@ interface ResumePopupProps {
 const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [contentClass, setContentClass] = useState("");
+  const [isPdfLoaded, setIsPdfLoaded] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
+      setIsPdfLoaded(false);
       setTimeout(() => setContentClass("slide-in"), 10);
     } else {
       setContentClass("slide-out");
@@ -64,10 +66,17 @@ const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
           />
         </div>
         <div className="resume-popup-pdf-viewer">
-        <embed
-  src="/resume-july-2025.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-  type="application/pdf"
-/>
+          {!isPdfLoaded && (
+            <div className="resume-popup-loader" role="status" aria-live="polite">
+              <div className="spinner" />
+              <span className="sr-only">Loading resume…</span>
+            </div>
+          )}
+          <iframe
+            title="Resume PDF"
+            src="/resume-july-2025.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
+            onLoad={() => setIsPdfLoaded(true)}
+          />
         </div>
       </div>
     </div>
