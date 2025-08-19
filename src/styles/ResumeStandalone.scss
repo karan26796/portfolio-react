@@ -1,0 +1,18 @@
+.resume-standalone {
+    position: relative;
+    background: var(--bg-color);
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.resume-standalone iframe {
+    width: 50vw;
+    height: 100vh;
+    border: none;
+    background: var(--bg-color);
+}
+
+

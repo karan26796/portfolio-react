@@ -17,6 +17,7 @@ import TrainingList from "./pages/FigmaTraining";
 import "./styles/AboutRedirect.scss";
 import Resume from "./components/Resume";
 import ResumePopup from "./pages/ResumePopup";
+import ResumeStandalone from "./pages/ResumeStandalone";
 
 import Stories from 'react-insta-stories';
 
@@ -89,6 +90,7 @@ const App: React.FC = () => {
                 <Route path="/archive" element={<Archive />} />
                 <Route path="/figma-training" element={<TrainingList />} />
                 <Route path="/resume" element={<Resume />} />
+                <Route path="/resume-view" element={<ResumeStandalone />} />
                 <Route path="/resume-popup" element={<StandaloneResumePopup />} />
                 <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
               </Routes>
