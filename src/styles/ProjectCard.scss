@@ -10,8 +10,10 @@
   overflow: hidden;
   position: relative;
   z-index: 1;
+  gap: 1em;
   padding: 1em;
-  border-radius: 1.5em;
+  border-radius: 2.5em;
+  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 
   &:hover {
     cursor: pointer;
@@ -39,12 +41,10 @@
     width: -webkit-fill-available;
     display: flex;
     gap: 1em;
-
     position: relative;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 1.5em 0 1.5em 0;
 
     @media screen and (max-width: 767px) {
       flex-direction: column;

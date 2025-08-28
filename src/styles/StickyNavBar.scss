@@ -19,12 +19,12 @@
     z-index: 10;
     gap: 0.5em;
     border: 1px solid var(--border-color);
-    transition: all 0.3s ease;  
+    transition: all 0.3s ease;
     overflow: hidden;
 
     @media (max-width: 800px) {
       width: -webkit-fill-available;
-      border-radius: 0.75em;
+      // border-radius: 0.75em;
     }
 
     .hover-indicator {
@@ -64,7 +64,7 @@
 
       @media (max-width: 487px) {
         justify-content: center;
-        gap: 0;
+        gap: .5em;
       }
 
       &:hover {
@@ -107,6 +107,7 @@
     &:disabled {
       opacity: 0.5;
       cursor: not-allowed;
+
       &:hover {
         color: var(--text-color);
       }
