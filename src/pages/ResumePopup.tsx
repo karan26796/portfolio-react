@@ -46,8 +46,8 @@ const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
             weight="regular"
             onClick={() => {
               const link = document.createElement('a');
-              link.href = '/resume-july-2025.pdf';
-              link.download = "Karan_Kapoor_Resume_July_2025.pdf";
+              link.href = '/resume-karan.pdf';
+              link.download = "Karan_Kapoor_Resume.pdf";
               document.body.appendChild(link);
               link.click();
               document.body.removeChild(link);

@@ -48,6 +48,7 @@
   &.custom-button-primary {
     background-color: var(--button-color);
     color: white;
+    border-radius: 1em;
 
     &:hover {
       background-color: var(--button-color-hover);
@@ -58,6 +59,7 @@
     background-color: var(--bg-color);
     color: var(--highlight-color);
     border: 1px solid var(--border-color);
+    border-radius: 1em;
 
     &:hover {
       background-color: var(--bg-color-high);
@@ -68,6 +70,7 @@
     background-color: transparent;
     color: var(--highlight-color);
     padding: .5em !important;
+    border-radius: 1em;
 
     &:hover {
       background-color: var(--bg-color-high);
@@ -77,6 +80,7 @@
   &.custom-button-link {
     background-color: #28a745;
     color: #ffffff;
+    border-radius: 1em;
 
     &:hover {
       background-color: #218838;

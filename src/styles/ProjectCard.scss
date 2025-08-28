@@ -10,14 +10,18 @@
   overflow: hidden;
   position: relative;
   z-index: 1;
+  padding: 1em;
+  border-radius: 1.5em;
 
   &:hover {
     cursor: pointer;
     // background-color: var(--bg-color-high);
     scale: 0.995;
+    background-color: var(--bg-color-high);
+
 
     img {
-      border-radius: .5em;
+      // border-radius: .5em;
       transition: border-radius 0.2s ease;
     }
   }
@@ -28,13 +32,14 @@
     display: block;
     object-fit: cover;
     transform-origin: center;
+    border-radius: 1.5em;
   }
 
   .project-card {
     width: -webkit-fill-available;
     display: flex;
-  gap: 1em;
-    
+    gap: 1em;
+
     position: relative;
     flex-direction: row;
     justify-content: space-between;

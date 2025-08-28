@@ -9,7 +9,6 @@
         display: grid;
         gap: 0.5em;
         padding: 1.5em;
-
     }
 
     .gallery-content {
@@ -45,7 +44,7 @@
     .image-container {
         position: relative;
         overflow: hidden;
-        border-radius: 0.5em;
+        border-radius: 1.5em;
         padding: .5em;
         background-color: var(--bg-color-high);
         border: 1px solid var(--border-color);
@@ -62,6 +61,7 @@
 
     .gallery-image {
         width: 100%;
+        border-radius: 1em;
         height: auto;
         display: block;
     }

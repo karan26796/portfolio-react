@@ -3,16 +3,30 @@
     background: var(--bg-color);
     margin: auto;
     display: flex;
+    flex-direction: column;
+    gap: 1em;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: auto;
+    padding: 1em;
+
+    @media screen and (max-width: 768px) {
+            width: -webkit-fill-available;
+            height: auto;
+    }
 }
 
-.resume-standalone iframe {
-    width: 50vw;
+.resume-image {
+    width: auto;
     height: 100vh;
     border: none;
     background: var(--bg-color);
+    border: 1px solid var(--border-color);
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+            height: auto;
+    }
 }
 
 

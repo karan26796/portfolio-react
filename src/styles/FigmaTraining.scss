@@ -28,11 +28,12 @@ $border-radius: 0.75em;
   justify-content: center;
   padding: $gap*4 1em;
 
-  h1{
+  h1 {
     max-width: 30ch;
   }
 
-  h1,p{
+  h1,
+  p {
     text-align: center;
   }
 
@@ -57,7 +58,8 @@ $border-radius: 0.75em;
       padding: 1em;
       background-color: var(--bg-color-high);
       // border: 1px solid var(--border-color);
-      // border-radius: .75em;
+      border-radius: 1.5em;
+
       gap: 1em;
 
       @media (max-width:800px) {
@@ -70,7 +72,7 @@ $border-radius: 0.75em;
         margin: 0;
       }
 
-      h2{
+      h2 {
         display: flex;
         align-items: center;
         gap: .2em;
@@ -142,11 +144,13 @@ $border-radius: 0.75em;
   justify-content: center;
   margin-top: 4em;
 
-  h6{
+  h6 {
     text-align: center;
   }
 
-  h1,p,h6{
+  h1,
+  p,
+  h6 {
     text-align: center;
   }
 }
