@@ -4,6 +4,7 @@
         align-items: center;
         justify-content: center;
         column-count: 2;
+        background-color: var(--bg-color);
 
         .header-column-one {
             display: flex;
@@ -96,7 +97,7 @@
             @media screen and (max-width: 1023px) and (min-width: 768px) {}
 
             @media screen and (max-width: 767px) {
-                height: 75vh;
+                height: 70vh;
                 justify-content: center;
                 gap: 0.6em;
 
