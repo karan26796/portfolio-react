@@ -147,16 +147,24 @@ const HomePage: React.FC = () => {
 
   const faqData = [
     {
-      question: "What services do you offer?",
-      answer: "I specialize in designing user interfaces, user flows, and conducting user research to create intuitive and effective designs."
+      question: "My design philosophy",
+      answer: "I try to create designs that fit right into the user's daily context. Otherwise, we're just creating a solution for a problem that doesn't exist"
     },
     {
-      question: "Are you open for freelance work?",
-      answer: "Yes, I am open to freelance and part-time opportunities. Feel free to reach out via the contact form."
+      question: "My design process",
+      answer: (
+        <>
+          Since no two projects are the same, my design process is also similar. For smaller projects, I try to get everyone onboard, get a few iterations in quickly, get a stakeholder buy in and move ahead.<br />
+          <br />
+          With bigger projects, I like to talk to the users, understand what they want and then start designing.
+        </>
+      )
     },
     {
-      question: "What tools do you use?",
-      answer: "I primarily use Figma for design, along with other tools like Adobe Creative Suite and Miro for collaboration."
+      question: "Parts of the design process I enjoy the most?",
+      answer: (
+        <>I enjoy talking to customers, uncovering their needs and unmet expectations. 9/10 when I'm on a user research call I am able to uncover something the user isn't saying. <br/><br/>I love diving deep into interaction patterns, information architecture, and usability testing.</>
+      )
     }
   ];
 
