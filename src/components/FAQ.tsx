@@ -25,11 +25,13 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
         <div key={index} className="faq-item">
           <div className="faq-question" onClick={() => toggleFAQ(index)}>
             <h3>{item.question}</h3>
-            <span className="faq-icon">
+            <span className="faq-icon" style={{ transform: openIndex === index ? 'rotate(180deg)' : 'rotate(0deg)' }}>
               {openIndex === index ? <Minus size={24} /> : <Plus size={24} />}
             </span>
           </div>
-          {openIndex === index && <div className="faq-answer"><h4>{item.answer}</h4></div>}
+          <div className={`faq-answer ${openIndex === index ? 'open' : 'closed'}`}>
+            <h4>{item.answer}</h4>
+          </div>
         </div>
       ))}
     </div>

@@ -25,11 +25,17 @@
     background-color: var(--bg-color-high);
     cursor: pointer;
     font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.faq-question:hover {
+    background-color: var(--bg-color-hover, var(--bg-color-high));
 }
 
 .faq-icon {
     font-size: 1.5em;
     color: var(--secondary-text);
+    transition: transform 0.3s ease;
 }
 
 .faq-answer {
@@ -37,4 +43,18 @@
     background-color: var(--bg-color);
     border-top: 1px solid var(--border-color);
     color: var(--secondary-text);
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+}
+
+.faq-answer.open {
+    max-height: 500px; /* Adjust based on your content */
+    opacity: 1;
+}
+
+.faq-answer.closed {
+    padding-top: 0;
+    padding-bottom: 0;
 }
