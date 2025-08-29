@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../styles/ResumePopup.scss";
 import Button from "../components/Buttons";
+import resumeImage from "../utils/Resume Karan.jpg";
 
 interface ResumePopupProps {
   isOpen: boolean;
@@ -10,12 +11,10 @@ interface ResumePopupProps {
 const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
   const [isVisible, setIsVisible] = useState(false);
   const [contentClass, setContentClass] = useState("");
-  const [isPdfLoaded, setIsPdfLoaded] = useState(false);
 
   useEffect(() => {
     if (isOpen) {
       setIsVisible(true);
-      setIsPdfLoaded(false);
       setTimeout(() => setContentClass("slide-in"), 10);
     } else {
       setContentClass("slide-out");
@@ -45,8 +44,8 @@ const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
             variant="primary"
             weight="regular"
             onClick={() => {
-              const link = document.createElement('a');
-              link.href = '/resume-karan.pdf';
+              const link = document.createElement("a");
+              link.href = "/resume-karan.pdf";
               link.download = "Karan_Kapoor_Resume.pdf";
               document.body.appendChild(link);
               link.click();
@@ -65,18 +64,8 @@ const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
             onClick={onClose}
           />
         </div>
-        <div className="resume-popup-pdf-viewer">
-          {!isPdfLoaded && (
-            <div className="resume-popup-loader" role="status" aria-live="polite">
-              <div className="spinner" />
-              <span className="sr-only">Loading resume…</span>
-            </div>
-          )}
-          <iframe
-            title="Resume PDF"
-            src="/resume-july-2025.pdf#toolbar=0&navpanes=0&scrollbar=0&view=FitH"
-            onLoad={() => setIsPdfLoaded(true)}
-          />
+        <div className="resume-popup-image-viewer">
+          <img className="resume-image" src={resumeImage} alt="Resume of Karan" />
         </div>
       </div>
     </div>
