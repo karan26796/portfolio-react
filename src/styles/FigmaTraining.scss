@@ -4,7 +4,7 @@ $border-radius: 0.75em;
 @mixin flex($direction: column, $gap: $gap) {
   display: flex;
   flex-direction: $direction;
-  gap: $gap;
+  gap: 0;
 }
 
 .training-parent {
@@ -27,6 +27,7 @@ $border-radius: 0.75em;
   align-items: center;
   justify-content: center;
   padding: $gap*4 1em;
+  background-color: var(--bg-color);
 
   h1 {
     max-width: 30ch;
@@ -173,6 +174,7 @@ $border-radius: 0.75em;
 
 .company-form-container {
   width: -webkit-fill-available;
+  background-color: var(--bg-color);
 }
 
 form {
