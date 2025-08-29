@@ -148,7 +148,7 @@ const HomePage: React.FC = () => {
   const faqData = [
     {
       question: "My design philosophy",
-      answer: "I try to create designs that fit right into the user's daily context. Otherwise, we're just creating a solution for a problem that doesn't exist"
+      answer: "I try to create designs that fit right into the user's daily context. Otherwise, we're just creating a solution for a problem that doesn't exist."
     },
     {
       question: "My design process",

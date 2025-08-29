@@ -20,7 +20,7 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
 
   return (
     <div className="faq-container">
-        <h2>Good to know</h2>
+        <h1 style={{ textAlign: "center" }}>Hear from me</h1>
       {data.map((item, index) => (
         <div key={index} className="faq-item">
           <div className="faq-question" onClick={() => toggleFAQ(index)}>
