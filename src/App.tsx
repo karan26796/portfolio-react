@@ -32,6 +32,7 @@ import malavika from './utils/testimonials/pfp-03.jpg'
 import nitin from './utils/testimonials/pfp-04.jpg'
 import megha from './utils/testimonials/megha-pfp.jpeg'
 import { Story } from "react-insta-stories/dist/interfaces";
+import FAQ from "./components/FAQ";
 
 const App: React.FC = () => {
 
@@ -144,13 +145,30 @@ const HomePage: React.FC = () => {
     }
   ]
 
+  const faqData = [
+    {
+      question: "What services do you offer?",
+      answer: "I specialize in designing user interfaces, user flows, and conducting user research to create intuitive and effective designs."
+    },
+    {
+      question: "Are you open for freelance work?",
+      answer: "Yes, I am open to freelance and part-time opportunities. Feel free to reach out via the contact form."
+    },
+    {
+      question: "What tools do you use?",
+      answer: "I primarily use Figma for design, along with other tools like Adobe Creative Suite and Miro for collaboration."
+    }
+  ];
+
   return (
     <>
       <HeaderWithCarousel />
       <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
       <Testimonials
         data={testimonialsData}
-        title="Hear from my colleagues" />
+        title="Hear from my colleagues"
+      />
+      <FAQ data={faqData} />
       {/* <ContactForm /> */}
     </>
   );
