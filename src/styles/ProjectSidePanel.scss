@@ -1,31 +1,52 @@
 .project-sidepanel {
-  min-width: 220px;
+  max-width: 220px;
   margin: 2em;
   position: sticky;
   top: 2em;
   height: fit-content;
 
-  button {
+  a {
     display: block;
     width: 100%;
     text-align: left;
+    text-decoration: none;
     background: none;
     border: none;
     cursor: pointer;
     margin-bottom: .25em;
     padding: .5em;
-    color: var(--secondary-text);
+    color: var(--tertiary-text);
     border-radius: .75em;
     transition: all 0.2s ease;
-    
+
     &:hover {
-      background-color: var(--bg-color-high);
+      // background-color: var(--bg-color-high);
       color: var(--primary-text);
     }
 
     &.active {
-      background-color: var(--bg-color-high);
-      color: var(--highlight-color);
+      // background-color: var(--bg-color-high);
+      color: var(--primary-text);
+      position: relative;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: -1em;
+        top: 50%;
+        transform: translateY(-50%) scale(0);
+        width: 0.5em;
+        height: 0.5em;
+        background-color: var(--highlight-color);
+        border-radius: 50%;
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        opacity: 0;
+      }
+
+      &.active::before {
+        transform: translateY(-50%) scale(1);
+        opacity: 1;
+      }
     }
   }
 }
