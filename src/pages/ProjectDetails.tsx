@@ -78,7 +78,7 @@ const ProjectDetails: React.FC = () => {
         onHeaderClick={handleHeaderClick}
       />
       {/* Main Content */}
-      <div style={{ flex: 1 }}>
+      <div className="project-content-wrapper">
         <ProjectDetailHeader data={projectSummary} />
         {projectSummary?.meta && <ProjectMetaGrid meta={projectSummary.meta} />}
         <div ref={contentRef}>

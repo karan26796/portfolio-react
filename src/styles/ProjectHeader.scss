@@ -1,9 +1,7 @@
 .project-header {
-    max-width: var(--max-width-container);
-    // min-width: 840px;
+    width: -webkit-fill-available;
     display: flex;
     flex-direction: column;
-    // align-items: center;
     padding: 2em 0;
     gap: 2em;
 
