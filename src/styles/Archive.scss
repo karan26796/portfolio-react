@@ -6,7 +6,7 @@
     justify-content: center;
     margin: auto;
     gap: 1.25em;
-    margin-top: 4em;
+    margin-top: 6em;
 
     @media (max-width: 1024px) {
         padding: 0 1em;
@@ -14,6 +14,8 @@
     }
 
     .intro {
+        margin-bottom: 6em;
+
 
         h1,
         p {

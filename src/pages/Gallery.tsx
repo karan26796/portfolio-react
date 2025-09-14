@@ -151,7 +151,7 @@ const Gallery = () => {
         <h1>Photo gallery</h1>
         <p>
           I have been fortunate to visit some of the most stunning places
-          in India. Here are some of my favorite pictures. I hope you like
+          in India, and recently abroad. Here are some of my favorite pictures. I hope you like
           them! 😌
         </p>
         {/* <Buttons

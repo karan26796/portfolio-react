@@ -9,7 +9,9 @@ import {
   Moon,
   ArrowLeft,
   ArrowRight,
-  PencilRuler
+  PencilRuler,
+  List,
+  X
 } from "@phosphor-icons/react";
 import "../styles/StickyNavBar.scss";
 import { projectSummaries } from "../utils/ProjectSummaries";
@@ -25,16 +27,45 @@ const StickyNavBar: React.FC = () => {
   });
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 800);
   const [isBelow776, setIsBelow776] = useState(() => window.innerWidth < 776);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const handleResize = () => {
       setIsMobile(window.innerWidth <= 800);
       setIsBelow776(window.innerWidth < 776);
+
+      // Close menu on resize to larger screen
+      if (window.innerWidth > 800) {
+        setIsMenuOpen(false);
+      }
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
+
+  // Close menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
+  // Close menu when route changes
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
 
   const isProjectDetailPage = location.pathname.startsWith('/project/');
   const currentProjectId = isProjectDetailPage ? location.pathname.split('/').pop() : null;
@@ -55,6 +86,10 @@ const StickyNavBar: React.FC = () => {
     if (nextId) {
       navigate(`/project/${nextId}`);
     }
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   useEffect(() => {
@@ -133,23 +168,18 @@ const StickyNavBar: React.FC = () => {
     );
   }
 
-  // Helper to apply centering class on mobile
-  const getNavItemClass = (base: string) => {
-    return isMobile ? `${base} nav-item-center` : base;
-  };
-
   return (
     <div className="container-nav">
       <nav className="navbar main-nav active" ref={containerRef}>
         <div className="navbar-left">
-          <h6>KK</h6>
+          <h6></h6>
         </div>
         <div className="navbar-center">
           <div className="hover-indicator" style={indicatorStyle}></div>
 
           <Link
             to="/home"
-            className={getNavItemClass(`a-header${location.pathname === "/home" ? " active" : ""}`)}
+            className={`a-header${location.pathname === "/home" ? " active" : ""}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
@@ -164,55 +194,81 @@ const StickyNavBar: React.FC = () => {
               Home
             </span>
           </Link>
-
-          <Link
-            to="/figma-training"
-            className={getNavItemClass(`a-header${location.pathname === "/figma-training" ? " active" : ""}`)}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <FigmaLogo size={18} weight="duotone" />
-            <span
-              style={
-                isBelow776
-                  ? { display: "inline" }
-                  : undefined
-              }
-            >
-            Training
-            </span>
-          </Link>
-
+          
           <Link
             to="/archive"
-            className={getNavItemClass(`a-header${location.pathname === "/archive" ? " active" : ""}`)}
+            className={`a-header${location.pathname === "/archive" ? " active" : ""}`}
             onMouseEnter={handleMouseEnter}
             onMouseLeave={handleMouseLeave}
           >
             <PencilRuler size={18} weight="duotone" />
-            {!isMobile && <span>Experiments</span>}
+            <span>Experiments</span>
           </Link>
 
-          <Link
-            to="/gallery"
-            className={getNavItemClass(`a-header${location.pathname === "/gallery" ? " active" : ""}`)}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <Camera size={18} weight="duotone" />
-            {!isMobile && <span>Travel</span>}
-          </Link>
-        </div>
-        <div className="navbar-right">
-          <Link
-            to="#"
-            className={getNavItemClass("theme-toggle a-header")}
-            onClick={e => { e.preventDefault(); toggleTheme(); }}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            {isDarkMode ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
-          </Link>
+          {/* Mobile menu */}
+          {isMobile ? (
+            <div className="menu-dropdown" ref={menuRef}>
+              <button
+                className={`menu-toggle ${isMenuOpen ? 'open' : ''}`}
+                onClick={toggleMenu}
+                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                aria-expanded={isMenuOpen}
+              >
+                {isMenuOpen ? <X size={18} weight="duotone" /> : <List size={18} weight="duotone" />}
+              </button>
+
+              <div className={`menu-content ${isMenuOpen ? 'open' : ''}`}>
+                <Link
+                  to="/figma-training"
+                  className={`menu-item a-header${location.pathname === "/figma-training" ? " active" : ""}`}
+                >
+                  <FigmaLogo size={18} weight="duotone" />
+                  <span>Training</span>
+                </Link>
+                <Link
+                  to="/gallery"
+                  className={`menu-item a-header${location.pathname === "/gallery" ? " active" : ""}`}
+                >
+                  <Camera size={18} weight="duotone" />
+                  <span>Travel</span>
+                </Link>
+              </div>
+
+              {/* Backdrop overlay */}
+              {isMenuOpen && <div className="menu-backdrop" onClick={() => setIsMenuOpen(false)} />}
+            </div>
+          ) : (
+            // Desktop menu items
+            <>
+              <Link
+                to="/figma-training"
+                className={`a-header${location.pathname === "/figma-training" ? " active" : ""}`}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <FigmaLogo size={18} weight="duotone" />
+                <span
+                  style={
+                    isBelow776
+                      ? { display: "inline" }
+                      : undefined
+                  }
+                >
+                  Figma Training
+                </span>
+              </Link>
+
+              <Link
+                to="/gallery"
+                className={`a-header${location.pathname === "/gallery" ? " active" : ""}`}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
+              >
+                <Camera size={18} weight="duotone" />
+                <span>Travel</span>
+              </Link>
+            </>
+          )}
         </div>
       </nav>
     </div>

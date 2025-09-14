@@ -1,5 +1,6 @@
 import React from "react";
 import "../styles/About.scss";
+import Gallery from "./Gallery";
 
 const About: React.FC = () => {
   return (
