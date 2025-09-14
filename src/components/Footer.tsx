@@ -23,7 +23,7 @@ const Footer: React.FC = () => {
           onClick={() => handleSocialMediaClick("https://www.linkedin.com/in/karankapoorux")}
         />
 
-        <Button
+        {/* <Button
           text="Twitter"
           iconName="XLogo"
           withIcon={true}
@@ -33,9 +33,9 @@ const Footer: React.FC = () => {
           variant="tertiary"
           weight="regular"
           onClick={() => handleSocialMediaClick("https://twitter.con/kadankapoor")}
-        />
+        /> */}
 
-        <Button
+        {/* <Button
           text="Instagram"
           iconName="InstagramLogo"
           withIcon={true}
@@ -45,7 +45,7 @@ const Footer: React.FC = () => {
           variant="tertiary"
           weight="regular"
           onClick={() => handleSocialMediaClick("https://www.instagram.com/kadankapoor")}
-        />
+        /> */}
       </div>
       <h5>Made with ❤️ in react. Hosted on vercel</h5>
       {/* <p>Portfolio inspirations : Mehak Samaiya, Studio Sense</p> */}

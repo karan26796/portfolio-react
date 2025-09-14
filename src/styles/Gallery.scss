@@ -4,7 +4,9 @@
     margin: auto;
     display: flex;
     flex-direction: column;
-    
+    margin-top: 4em;
+
+
     .gallery-grid {
         display: grid;
         gap: 0.5em;
@@ -19,9 +21,9 @@
         padding: 1.5em;
         display: flex;
         flex-direction: column;
-        align-items: center;  
-        justify-content: center;  
-        gap:1em;
+        align-items: center;
+        justify-content: center;
+        gap: 1em;
 
         h1,
         p {

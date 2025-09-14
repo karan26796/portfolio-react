@@ -4,8 +4,6 @@ import LogoCarousel from "./LogoCarousel";
 import Buttons from "./Buttons";
 import ResumePopup from "../pages/ResumePopup";
 import Tag, { VibrantColor } from "./Tag";
-import profile from "../utils/gallery/profile.webp"
-import { Link } from "react-router-dom";
 
 const HeaderWithCarousel: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
@@ -18,13 +16,11 @@ const HeaderWithCarousel: React.FC = () => {
     setIsResumeOpen(false);
   };
 
-  const work: VibrantColor[] = [{ bg: "#fefefe", text: "#02bd69" }];
-
   return (
     <div className="header-container">
       <div className="header-column-one">
 
-        <div className="tags">
+        {/* <div className="tags">
           {['Vibe coder', '2x Founding Designer', 'Figma Trainer', 'NID alum'].map((text, idx) => {
             const vibrantColors = [
               { bg: "#fefefe", text: "#00CC66" },
@@ -43,19 +39,19 @@ const HeaderWithCarousel: React.FC = () => {
               />
             );
           })}
-        </div>
+        </div> */}
 
         <div className="name-tag-group">
-          <h1>It's me, Karan <br />I specialize in designing interfaces and flows backed by deep user insights and behaviour. </h1>
+          <h1>Hey, I'm Karan <br />I specialize in designing interfaces and flows backed by deep user insights and behaviour. </h1>
           <p className="intro-text">
             Currently shaping employee experience for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
           </p>
         
         </div>
 
-        <LogoCarousel align="flex-start" />
+        <LogoCarousel align="center" />
 
-        <div className="button-group">
+        {/* <div className="button-group">
           <Buttons
             text="View Resume"
             iconName="FileText"
@@ -67,7 +63,7 @@ const HeaderWithCarousel: React.FC = () => {
             weight="regular"
             onClick={toggleResume}
           />
-        </div>
+        </div> */}
 
         <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
       </div>

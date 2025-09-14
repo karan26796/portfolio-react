@@ -1,15 +1,6 @@
 import React, { useState, useEffect, useMemo } from "react";
 import "../styles/ProjectCard.scss";
 import Buttons from "./Buttons";
-import Tag, { VibrantColor } from "./Tag";
-// Vibrant colors as used in ContactForm and HeaderwithCarousel
-const vibrantColors: VibrantColor[] = [
-  { bg: "#fefefe", text: "#FF4D4D" },
-  { bg: "#fefefe", text: "#00CC66" },
-  { bg: "#fefefe", text: "#3399FF" },
-  { bg: "#fefefe", text: "#FF9933" },
-  { bg: "#fefefe", text: "#9933FF" },
-];
 
 interface ProjectCardProps {
   data: {
@@ -19,6 +10,7 @@ interface ProjectCardProps {
     description: string;
     tags: string[];
     type: "personal" | "client" | "other";
+    details?: string;
     url?: string;
     specialStatus?: string;
   };
@@ -28,9 +20,9 @@ interface ProjectCardProps {
   showDivider?: boolean;
 }
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ 
-  data, 
-  variant, 
+const ProjectCard: React.FC<ProjectCardProps> = ({
+  data,
+  variant,
   onClick,
   buttonType = "button",
   showDivider = true
@@ -102,34 +94,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       onClick={data.specialStatus ? undefined : handleClick}
     >
       <img className="project-image" src={data.img} alt={data.title} />
+
       <div className="project-card">
-        <div className="project-card-data">
-          <div className="title">
-            <div className="title-tag-group">
-                <div className="tags-container" style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                  {data.tags.map((tag, index) => (
-                    <Tag
-                      key={index}
-                      text={tag}
-                      color={vibrantColors[index % vibrantColors.length]}
-                      rotation={0}
-                      dot={false}
-                      variant="small"
-                    />
-                  ))}
-                </div>
-              <h2>{data.title}</h2>
-              {/* {data.description && (
-                <p className="description">{data.description}</p>
-              )} */}
-            </div>
-            <div className="button-container">
-              {renderButton()}
-            </div>
+
+        <div className="title-details-group">
+          <h3>{data.title}</h3>
+          <span className="project-meta-text">{data.details}</span>
+        </div>
+
+        <div className="desc-btn-group">
+          {data.description && (
+            <p className="description">{data.description}</p>
+          )}
+          <div className="button-container">
+            {renderButton()}
           </div>
         </div>
       </div>
-      {showDivider && <div className="project-divider"></div>}
     </div>
   );
 };

@@ -76,9 +76,10 @@
     // Content section
     .community-content {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: row;
         gap: .5em;
         align-items: center;
+        justify-content: space-between;
         width: -webkit-fill-available;
         background-color: var(--bg-color-high);
         padding: 1.5em;

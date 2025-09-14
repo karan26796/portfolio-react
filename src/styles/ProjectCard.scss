@@ -10,21 +10,15 @@
   overflow: hidden;
   position: relative;
   z-index: 1;
-  gap: 1em;
   padding: 1em;
   border-radius: 2.5em;
-  background-color: var(--bg-color-high);
-  box-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);
 
   &:hover {
     cursor: pointer;
-    // background-color: var(--bg-color-high);
-    scale: 0.995;
     background-color: var(--bg-color-high);
 
 
     img {
-      // border-radius: .5em;
       transition: border-radius 0.2s ease;
     }
   }
@@ -42,8 +36,9 @@
     width: -webkit-fill-available;
     display: flex;
     gap: 1em;
+    padding: 2em;
     position: relative;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: space-between;
     align-items: center;
 
@@ -53,146 +48,80 @@
       align-items: flex-start;
     }
 
-    .project-card-data {
-      width: -webkit-fill-available;
+    .title-details-group {
+      width: 100%;
       display: flex;
-      flex-direction: column;
+      flex-direction: row;
       align-items: flex-start;
       justify-content: space-between;
-      text-decoration: none;
       gap: 0.2em;
-      // padding: 1.5em;
+    }
 
-      .title {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-        align-items: flex-end;
-        gap: 1em;
+    h3,
+    h5 {
+      margin: 0;
+    }
 
-        .title-tag-group {
-          display: flex;
-          flex-direction: column;
-          align-items: flex-start;
-          gap: 0.2em;
-        }
+    h5 {
+      font-family: 'Circular-Book', 'Arial Narrow', Arial, sans-serif;
+      text-transform: uppercase;
+      font-size: 1.2em;
+    }
 
-        h3,
-        h5 {
-          margin: 0;
-        }
+    @media screen and (max-width: 900px) {
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 0.2em;
 
-        h5 {
-          font-family: 'Circular-Book', 'Arial Narrow', Arial, sans-serif;
-          text-transform: uppercase;
-          font-size: 1.2em;
-        }
-
-        @media screen and (max-width: 900px) {
-          flex-direction: row;
-          align-items: flex-end;
-          gap: 0.2em;
-
-          .title-tag-group {
-            align-items: flex-start;
-          }
-        }
-
-        .tag-container {
-          display: flex;
-          gap: 0.3em;
-        }
-
-        .button-container {
-          flex: 0 0 auto;
-          display: flex;
-          align-items: center;
-          justify-content: flex-end;
-        }
+      .title-tag-group {
+        align-items: flex-start;
       }
+    }
 
-      .link {
-        width: 100%;
-        display: flex;
-        flex-direction: row;
-        align-items: flex-end;
-        gap: 1em;
-
-        .description {
-          flex: 1 1 auto;
-          display: flex;
-          align-items: flex-end;
-        }
-      }
-
-      h2,
-      h3,
-      h5,
-      h6,
-      p {
-        margin: 0;
-      }
-
-      h2 {
-        max-width: 35ch;
-        margin-bottom: 0;
-      }
-
-      p {
-        max-width: 32ch;
-        opacity: 0.9;
-        margin-top: 0;
-
-        @media screen and (max-width: 767px) {
-          // max-width: 90%;
-        }
-      }
+    .tag-container {
+      display: flex;
+      gap: 0.3em;
     }
   }
 
-  &.project-container-small {
-    flex-direction: row;
-    max-width: var(--max-width-container);
-    gap: 1em;
-    padding: 1em;
-    border: 1px solid var(--border-color);
-    border-radius: 0.75em;
-    background-color: var(--bg-color);
-    height: fit-content;
+  h2,
+  h3,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
 
-    &:hover {
-      cursor: pointer;
-      background-color: var(--bg-color-high);
-      scale: 0.995;
-    }
+  h3 {
+    max-width: 35ch;
+    margin-bottom: 0;
+  }
 
-    img {
-      width: 30%;
-      height: 100%;
+  p {
+    max-width: 32ch;
+    opacity: 0.9;
+    margin-top: 0;
 
-      @media screen and (max-width: 767px) {
-        aspect-ratio: 16/9;
-      }
-
-      @media screen and (max-width: 608px) {
-        aspect-ratio: 1/1;
-        object-position: left;
-      }
-    }
-
-    .project-card {
-      padding-top: 0;
-
-      .project-card-data {
-        h3 {
-          max-width: 30ch;
-        }
-
-        h5 {
-          text-transform: capitalize;
-        }
-      }
+    @media screen and (max-width: 767px) {
+      // max-width: 90%;
     }
   }
+}
+
+.desc-btn-group {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1em;
+  width: 100%;
+}
+
+.description {
+  flex: 1 1 auto;
+  margin-right: 0.5em;
+}
+
+.button-container {
+  flex: 0 0 auto;
 }

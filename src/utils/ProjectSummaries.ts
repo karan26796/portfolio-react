@@ -25,6 +25,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     img: wish,
     tags: ["Product design", "Design strategy"],
     type: "client",
+    details: "Keka/2025",
     meta: {
       duration: "Nov 2024 – Jan 2025",
       role: "Product Designer, Design Strategist",
@@ -39,6 +40,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     img: keka,
     tags: ["Product design", "Design strategy"],
     type: "client",
+    details: "Keka/2024",
     meta: {
       duration: "Jun 2024 – Nov 2024",
       role: "Designer, Researcher, Stakeholder Manager",
@@ -53,6 +55,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     img: loopnote,
     tags: ["Product design", "Usability testing"],
     type: "client",
+    details: "Looppanel/2022",
     meta: {
       duration: "Jan 2022 – Mar 2022",
       role: "Product Designer",
@@ -67,6 +70,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     img: loopinfo,
     tags: ["Product design", "UX research"],
     type: "client",
+    details: "Looppanel/2022",
     meta: {
       duration: "Apr 2022 – Jun 2022",
       role: "UX Researcher, Product Designer",
@@ -81,6 +85,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     img: awaconimg,
     tags: ["Design", "Research", "Psychology"],
     type: "client",
+    details: "Master's project/2022",
     meta: {
       duration: "Aug 2022 – Oct 2022",
       role: "Researcher, Product Designer",

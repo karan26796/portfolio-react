@@ -13,6 +13,7 @@ import {
 } from "@phosphor-icons/react";
 import "../styles/StickyNavBar.scss";
 import { projectSummaries } from "../utils/ProjectSummaries";
+import logo from "../assets/logo.svg";
 
 const StickyNavBar: React.FC = () => {
   const location = useLocation();
@@ -37,7 +38,7 @@ const StickyNavBar: React.FC = () => {
 
   const isProjectDetailPage = location.pathname.startsWith('/project/');
   const currentProjectId = isProjectDetailPage ? location.pathname.split('/').pop() : null;
-  
+
   const getNextProjectId = () => {
     if (!currentProjectId) return null;
     const currentIndex = projectSummaries.findIndex(p => p.id === currentProjectId);
@@ -96,7 +97,7 @@ const StickyNavBar: React.FC = () => {
       <div className="container-nav">
         <nav className="navbar main-nav active project-nav" ref={containerRef}>
           <div className="hover-indicator" style={indicatorStyle}></div>
-          
+
           <Link
             to="/home"
             className="a-header"
@@ -140,77 +141,79 @@ const StickyNavBar: React.FC = () => {
   return (
     <div className="container-nav">
       <nav className="navbar main-nav active" ref={containerRef}>
-        <div className="hover-indicator" style={indicatorStyle}></div>
+        <div className="navbar-left">
+          <h6>KK</h6>
+        </div>
+        <div className="navbar-center">
+          <div className="hover-indicator" style={indicatorStyle}></div>
 
-        <Link
-          to="/home"
-          className={getNavItemClass(`a-header${location.pathname === "/home" ? " active" : ""}`)}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <House size={18} weight="duotone" />
-          {/* Always show text for Home on all breakpoints */}
-          <span
-            style={
-              isBelow776
-                ? { display: "inline" }
-                : undefined
-            }
+          <Link
+            to="/home"
+            className={getNavItemClass(`a-header${location.pathname === "/home" ? " active" : ""}`)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
-            Home
-          </span>
-        </Link>
+            <House size={18} weight="duotone" />
+            <span
+              style={
+                isBelow776
+                  ? { display: "inline" }
+                  : undefined
+              }
+            >
+              Home
+            </span>
+          </Link>
 
-        <Link
-          to="/figma-training"
-          className={getNavItemClass(`a-header${location.pathname === "/figma-training" ? " active" : ""}`)}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <FigmaLogo size={18} weight="duotone" />
-          {/* Always show text for Training on all breakpoints */}
-          <span
-            style={
-              isBelow776
-                ? { display: "inline" }
-                : undefined
-            }
+          <Link
+            to="/figma-training"
+            className={getNavItemClass(`a-header${location.pathname === "/figma-training" ? " active" : ""}`)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
           >
+            <FigmaLogo size={18} weight="duotone" />
+            <span
+              style={
+                isBelow776
+                  ? { display: "inline" }
+                  : undefined
+              }
+            >
             Training
-          </span>
-        </Link>
+            </span>
+          </Link>
 
-        <Link
-          to="/archive"
-          className={getNavItemClass(`a-header${location.pathname === "/archive" ? " active" : ""}`)}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <PencilRuler size={18} weight="duotone" />
-          {/* Only show text on desktop */}
-          {!isMobile && <span>Craft</span>}
-        </Link>
+          <Link
+            to="/archive"
+            className={getNavItemClass(`a-header${location.pathname === "/archive" ? " active" : ""}`)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <PencilRuler size={18} weight="duotone" />
+            {!isMobile && <span>Experiments</span>}
+          </Link>
 
-        <Link
-          to="/gallery"
-          className={getNavItemClass(`a-header${location.pathname === "/gallery" ? " active" : ""}`)}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          <Camera size={18} weight="duotone" />
-          {/* Only show text on desktop */}
-          {!isMobile && <span>Travel</span>}
-        </Link>
-
-        <Link 
-          to="#"
-          className={getNavItemClass("theme-toggle a-header")}
-          onClick={e => { e.preventDefault(); toggleTheme(); }}
-          onMouseEnter={handleMouseEnter}
-          onMouseLeave={handleMouseLeave}
-        >
-          {isDarkMode ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
-        </Link>
+          <Link
+            to="/gallery"
+            className={getNavItemClass(`a-header${location.pathname === "/gallery" ? " active" : ""}`)}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <Camera size={18} weight="duotone" />
+            {!isMobile && <span>Travel</span>}
+          </Link>
+        </div>
+        <div className="navbar-right">
+          <Link
+            to="#"
+            className={getNavItemClass("theme-toggle a-header")}
+            onClick={e => { e.preventDefault(); toggleTheme(); }}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {isDarkMode ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
+          </Link>
+        </div>
       </nav>
     </div>
   );

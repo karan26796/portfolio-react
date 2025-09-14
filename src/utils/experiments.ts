@@ -23,34 +23,21 @@ export interface Experiment {
 
 const experiments: Experiment[] = [
   {
-    urlImg: colretechImg,
-    urlGif: colretechGif,
-  },
-  {
-    urlImg: colorPickerImg,
-    urlGif: colorPickerGif,
-  },
-  {
-    urlImg: colorWheelImg,
-    urlGif: colorWheelGif,
-  },
-  {
     urlImg: img1,
     urlGif: gif1,
   },
-  // {
-  //   urlImg: img2,
-  //   urlGif: gif2,
-  // },
-  // {
-  //   urlImg: img3,
-  //   urlGif: gif3,
-  // },
-  // {
-  //   urlImg: img4,
-  //   urlGif: gif4,
-  // },
-  
+  {
+    urlImg: img2,
+    urlGif: gif2,
+  },
+  {
+    urlImg: img3,
+    urlGif: gif3,
+  },
+  {
+    urlImg: img4,
+    urlGif: gif4,
+  },
 ];
 
 export default experiments;

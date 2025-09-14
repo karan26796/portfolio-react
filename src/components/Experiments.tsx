@@ -11,7 +11,6 @@ const Experiments: React.FC = () => {
 
   return (
     <>
-      <h1>Design experiments</h1>
       <div className="experiments-grid">
         {experiments.map((experiment, index) => (
           <div 
