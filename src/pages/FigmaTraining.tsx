@@ -101,65 +101,31 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
       url: indiana,
     },
     {
-      url:flame,
+      url: flame,
     }
   ]
 
   return (
     <div className='intro'>
       <h1>Figma Training for designers, product managers, and students</h1>
-      {/* <p>In the last 5 years, I've taught Figma to over 10,000 people - from beginners to pros. My workshops have helped startups and educational institutes boost the design skills of their employees and students efficiently.
-      </p> */}
+      <p style={{marginBottom:"1.5em"}}>In the last 5 years, I've taught Figma to over 10,000 people - from beginners to pros orgs and institutions across <strong>India and the US</strong>. I have also <strong>led the Figma community in Delhi</strong> for 5 years and conducted 20+ sessions and events.
+      </p>
 
       <LogoCarousel logos={logos} />
 
-
-      <div className="data">
-        <div className="data-points">
-          <h2><ChalkboardTeacher size={32} weight="duotone" />100+</h2>
-          <p>Online + Offline Workshops</p>
-        </div>
-        <div className="data-points">
-          <h2><BuildingOffice size={32} weight="duotone" />10+</h2>
-          <p>Corporate training</p>
-        </div>
-        <div className="data-points">
-          <h2><Student size={32} weight="duotone" />5+</h2>
-          <p>Educational workshops</p>
-        </div>
-      </div>
-
-
-      <div className="button-group">
-
-        {/* <a href="#individual">
-          <Button
-            text="Book 1:1 Session"
-            withIcon={true}
-            iconName="User"
-            iconDirection="left"
-            withText={true}
-            size="m"
-            variant="secondary"
-            weight="regular"
-            type="button"
-          />
-        </a> */}
-
-        <a href="#company">
-          <Button
-            text="Book a session today"
-            withIcon={true}
-            iconName="UsersThree"
-            iconDirection="left"
-            withText={true}
-            size="m"
-            variant="primary"
-            weight="regular"
-            type="button"
-          />
-        </a>
-      </div>
+      <a style={{ scrollBehavior: "smooth", marginTop: "2em", marginBottom:"2em" }} href="#company">
+        <Button
+          text="Book a session today"
+          withIcon={true}
+          iconName="UsersThree"
+          iconDirection="left"
+          withText={true}
+          size="m"
+          variant="primary"
+          weight="regular"
+          type="button"
+        />
+      </a>
     </div>
   );
 };
