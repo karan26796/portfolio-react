@@ -163,7 +163,7 @@ const HomePage: React.FC = () => {
     {
       question: "Parts of the design process I enjoy the most",
       answer: (
-        <>I enjoy talking to customers, uncovering their needs and unmet expectations. 9/10 when I'm on a user research call I am able to uncover something the user isn't saying. <br/><br/>I love diving deep into interaction patterns, information architecture, and usability testing.</>
+        <>I enjoy talking to customers, uncovering their needs and unmet expectations. 9/10 times when I'm on a user research call I am able to uncover something the user isn't saying. <br/><br/>I love diving deep into interaction patterns, information architecture, and usability testing.</>
       )
     }
   ];
