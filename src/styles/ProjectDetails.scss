@@ -25,7 +25,8 @@
         }
 
         section {
-            max-width: 70%;
+            max-width: 60%;
+            padding: 3em 3em 1em 3em;
         }
 
         .stories {
@@ -35,7 +36,11 @@
         }
 
         h3 {
-            color: var(--highlight-color);
+            // color: var(--highlight-color);
+        }
+
+        h4{
+            max-width: 40ch;
         }
 
         blockquote {

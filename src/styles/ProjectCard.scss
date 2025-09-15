@@ -2,15 +2,12 @@
 .project-container {
   display: flex;
   flex-direction: column;
-  overflow: hidden;
   align-items: center;
   justify-content: space-between;
   height: auto;
   transition: all linear .2s;
-  overflow: hidden;
   position: relative;
   z-index: 1;
-  // padding: 1em;
   border-radius: 1em;;
 
   &:hover {
@@ -30,6 +27,7 @@
     object-fit: cover;
     transform-origin: center;
     border-radius: 1em;
+    border: 1px solid var(--border-color);
   }
 
   .project-card {
@@ -55,6 +53,16 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 0.2em;
+      
+      h6{
+        color: var(--tertiary-text);
+      }
+
+      @media screen and (max-width: 767px) {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+        gap: 0.5em;
+      }
     }
 
     h3,

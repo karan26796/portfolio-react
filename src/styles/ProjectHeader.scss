@@ -9,8 +9,8 @@
     .project-header-image {
         width: inherit;
         border-radius: 1em;
-        // max-width: 640px;
         width: 100%;
+        border: 1px solid var(--border-color);
     }
 
     .project-header-data {

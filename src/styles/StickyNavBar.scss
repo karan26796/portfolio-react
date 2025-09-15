@@ -52,7 +52,7 @@
       cursor: pointer;
 
       @media (max-width: 800px) {
-        flex-grow: 1;
+        // flex-grow: 1;
       }
 
       span {
@@ -95,9 +95,10 @@
       flex: 1;
       gap: 0.5em;
       position: relative;
-        @media (max-width: 800px) {
-          justify-content: flex-end;
-        }
+
+      @media (max-width: 800px) {
+        justify-content: flex-start;
+      }
     }
 
     .navbar-right {
@@ -115,13 +116,14 @@
       position: relative;
       display: flex;
       align-items: center;
-        @media (max-width: 800px) {
-          position: absolute;
-          right: 0;
-          top: 0;
-          height: 100%;
-          z-index: 30;
-        }
+
+      @media (max-width: 800px) {
+        position: absolute;
+        right: 0;
+        top: 0;
+        height: 100%;
+        z-index: 30;
+      }
 
       .menu-toggle {
         display: flex;
@@ -151,7 +153,7 @@
       .menu-content {
         position: absolute;
         top: calc(100% + 0.5em);
-    right: 0;
+        right: 0;
         background: var(--bg-color);
         border: 1px solid var(--border-color);
         border-radius: 0.75em;

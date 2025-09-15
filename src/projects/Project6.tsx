@@ -17,167 +17,125 @@ const KekaProject: React.FC = () => {
   return (
     <div className="project-details">
 
-      {/* -------------------- Title -------------------- */}
+      {/* -------------------- Intro -------------------- */}
       <section>
-        <h3>What are continuous rewards?</h3>
-        <h4>
-          Continuous rewards in Keka HR started off as bringing day-to-day recognition to life,
-          going beyond long-term award programs to keep appreciation frequent, meaningful, and
-          seamlessly integrated into the employee experience.
-        </h4>
-      </section>
-
-      {/* -------------------- Why This Project Started -------------------- */}
-      <section>
-        <h3>Why this project started</h3>
+        <h3>Continuous Rewards at Keka</h3>
+        <p>
+          The project was conceptualized to introduce a flexible, day-to-day recognition system within Keka to
+        </p>
         <ul>
-          <li>Existing award programs had long timelines; companies needed quick, short-term recognition.</li>
-          <li>Praise feature on Keka Wall was heavily used but lacked tangible value.</li>
-          <li>Opportunity to merge HRMS + rewards into one platform and save companies from paying for two tools.</li>
-          {/* <li>Revenue potential: ~₹25L MRR by converting 10% of 6,200 clients (₹30 per employee/month, avg. 132 employees).</li>
-          <li>Strategic advantage while expanding into the US market.</li> */}
+          <li>Boost employee engagement and satisfaction</li>
+          <li>Complement existing praise features with tangible rewards</li>
+          <li>Integrate seamlessly into daily workflows</li>
         </ul>
       </section>
 
-      {/* -------------------- Timeline -------------------- */}
+      {/* -------------------- General Settings -------------------- */}
       <section>
-        <h3>Project timeline</h3>
-      </section>
-
-      <figure>
-        <img src={timeline} alt="Milestone integration" />
-      </figure>
-
-      {/* -------------------- How It Started -------------------- */}
-      <section>
-        <h3>How it started</h3>
-        <h4>
-          We identified heavy users of award programs as our initial research base, knowing their
-          investment meant they could offer high-quality feedback and be early adopters.
-        </h4>
+        <h3>Part I: Flexible Configuration System</h3>
         <p>
-          We then spoke to HRs, admins, and managers about current workflows, pain points, and edge cases —
-          shaping the feature around their real-world needs.
+          HR admins can define currencies, point values, expiry rules, and hierarchy-based
+          permissions, ensuring the program adapts to their culture and operational needs.
         </p>
       </section>
 
-      {/* -------------------- Findings -------------------- */}
+        <figure>
+          <img src={generalsettings} alt="General settings for rewards" />
+          <figcaption>Customizable settings to align rewards with company policies.</figcaption>
+        </figure>
+
+      {/* -------------------- Milestones -------------------- */}
       <section>
-        <h3>Findings</h3>
-        <ol>
-          <li>
-            Companies were already running day-to-day rewards internally using Slack bots, Teams plugins etc.</li>
-            <details>
-              <summary>Some called it donuts, and delivered donuts to the most rewarded employee</summary>
-              <p>Companies were using various tools like Slack bots and Teams plugins to manage their internal rewards.</p>
-            </details>
-          <li>Budgets are set annually and monitored closely. Internal hierarchies have an impact on rewards allocation.</li>
-          <li>Approval chains exist for large rewards.</li>
-          <li>Integrations must be customizable with currency, point values, expiry rules.</li>
-        </ol>
+        <h3>Milestone Rewards Setup</h3>
+        <p>
+          Automated celebrations for birthdays, work anniversaries, and other special moments come
+          with built-in budget estimation, ensuring every important occasion is acknowledged.
+        </p>
+        </section>
+
+        <figure>
+          <img src={milestonessetup} alt="Milestone rewards setup" />
+          <figcaption>HR admins setting up automated milestone rewards.</figcaption>
+        </figure>
+
+      <section>
+        <h3>Milestone Analytics Dashboard</h3>
+        <p>
+          Real-time analytics on budget utilization, upcoming events, and engagement levels give
+          admins visibility into impact and opportunities for optimization.
+        </p>
       </section>
 
-      {/* -------------------- Program Types -------------------- */}
+
+        <figure>
+          <img src={milestonesdashboard} alt="Milestone dashboard" />
+          <figcaption>Dashboard showing utilization and employee participation in milestones.</figcaption>
+        </figure>
+
+      {/* -------------------- Peer to Peer -------------------- */}
       <section>
-        <h3>Program types</h3>
-        <p>Continuous rewards were designed as two interconnected programs:</p>
+        <h3>Peer-to-Peer Rewards</h3>
+        <p>
+          Employees can gift points for daily interactions—praises, wishes, and teamwork support.
+          This fosters a culture where recognition is woven into everyday work.
+        </p>
+      </section>
+
+        <figure>
+          <img src={peertopeer} alt="Peer-to-peer rewards setup" />
+          <figcaption>Configuration for peer-to-peer gifting of points.</figcaption>
+        </figure>
+
+      <section>
+        <h3>Recognition Flow Visualization</h3>
+        <p>
+          Visual dashboards highlight recognition activity across teams, surfacing culture champions
+          and showing the ripple effect of frequent appreciation.
+        </p>
+      </section>
+
+        <figure>
+          <img src={p2pdashboard} alt="Peer-to-peer dashboard" />
+          <figcaption>Insights into recognition trends across the organization.</figcaption>
+        </figure>
+
+      {/* -------------------- Onboarding -------------------- */}
+      <section>
+        <h3>Onboarding Experience</h3>
+        <p>
+          During rollout, welcome banners introduce employees to the rewards system, explaining
+          benefits and encouraging early adoption.
+        </p>
+      </section>
+
+        <figure>
+          <img src={featureintro} alt="Feature intro banner" />
+          <figcaption>Onboarding banners promoting rewards to employees.</figcaption>
+        </figure>
+
+      {/* -------------------- Wall Integration -------------------- */}
+      <section>
+        <h3>Keka Wall Integration</h3>
+        <p>
+          Earned points and achievements appear directly on the company wall, making recognition
+          visible to everyone and reinforcing appreciation in real time.
+        </p>
+      </section>
+
+        <figure>
+          <img src={milestonesintegration} alt="Milestone integration" />
+          <figcaption>Recognition highlights shared publicly on the company wall.</figcaption>
+        </figure>
+
+      {/* -------------------- Learnings -------------------- */}
+      <section>
+        <h3>Key Learnings</h3>
         <ul>
-          <li><strong>Milestones</strong> – Birthdays, work anniversaries, first day, marriage anniversaries.</li>
-          <li><strong>Peer-to-Peer</strong> – Giftable points for praising and wishing peers.</li>
-          {/* <li><strong>Campaigns</strong> – Rewards for desirable behaviors (e.g., completing LMS courses, timely ITR filing, health challenges).</li> */}
+          <li>Stakeholder alignment at the start prevents costly rework later.</li>
+          <li>Companies are willing to invest when rewards fit their culture.</li>
+          <li>Unexpected integration blockers require contingency planning.</li>
         </ul>
       </section>
-
-      <section>
-        <h3>Entry point for admins</h3>
-      </section>
-
-      <figure>
-        <img src={entrypoint} alt="Rewards setup entry point" />
-        <figcaption>Entry point for setting up continuous rewards</figcaption>
-      </figure>
-
-      <figure>
-        <img src={generalsettings} alt="General settings for rewards" />
-        <figcaption>General settings: currency, point value, expiry, hierarchy rules</figcaption>
-      </figure>
-
-      {/* -------------------- Target Users -------------------- */}
-      <section>
-        <h2>Flows for target users</h2>
-        <h3>1. Admins & HR</h3>
-        <h4>Milestone rewards</h4>
-        <p>To set up rewards for employees' special days with built-in budget estimation and utilization dashboards.</p>
-      </section>
-
-      <figure>
-        <img src={milestonessetup} alt="Milestone rewards setup" />
-        <figcaption>Admin milestone rewards setup</figcaption>
-      </figure>
-
-      <figure>
-        <img src={milestonesdashboard} alt="Milestone dashboard" />
-        <figcaption>Milestone rewards dashboard for admins</figcaption>
-      </figure>
-
-      <section>
-        <h4>Peer to Peer rewards</h4>
-        <p>To set up recurring rewards for employees' to gift each other for day to day interactions like praises and wishes.</p>
-      </section>
-
-      <figure>
-        <img src={peertopeer} alt="Peer-to-peer rewards setup" />
-        <figcaption>Admin peer-to-peer rewards setup</figcaption>
-      </figure>
-
-      <figure>
-        <img src={p2pdashboard} alt="Peer-to-peer dashboard" />
-        <figcaption>P2P rewards dashboard showing peer activity</figcaption>
-      </figure>
-
-      <section>
-        <h3>Flows for employees</h3>
-        <h4>
-          Employees earn and gift points through wishes and praises, using points they receive in their giftable wallet.
-        </h4>
-      </section>
-
-      <figure>
-        <img src={integrations} alt="Integration of points with praises" />
-        <figcaption>Integration of points with existing recognition touchpoints</figcaption>
-      </figure>
-
-      <figure>
-        <img src={featureintro} alt="Feature intro banner" />
-        <figcaption>Feature intro banners to onboard employees</figcaption>
-      </figure>
-      <figure>
-        <img src={milestonesintegration} alt="Milestone integration" />
-        <figcaption>Milestones showing earned points directly on the Keka wall</figcaption>
-      </figure>
-
-      {/* <section>
-        <details>
-          <summary>Read more on Finance Heads & Managers</summary>
-          <p>
-            Finance heads get budget clarity, region/department breakdowns, and downloadable reports.
-            Managers have extra giftable points and can view all paid rewards their team has received.
-          </p>
-        </details>
-      </section> */}
-
-      {/* -------------------- Integrations -------------------- */}
-      <section>
-        <h3>What I learned</h3>
-        <ul>
-          <li>Aligning the vision of all stakeholders is of prime importance to any big project. If it's not done at the start, can lead to lot of delays.</li>
-          <li>Customers care deeply about the reward programs in their companies and they're open to trying solutions that fit their unique needs.</li>
-          <li>Unexpected blockers might throw the project off some times, in this case the XOXO days integration was that piece.</li>
-        </ul>
-      </section>
-
-      {/* -------------------- Figures -------------------- */}
-      {/* <h3>Project Figures</h3> */}
 
     </div>
   );

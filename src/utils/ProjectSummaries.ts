@@ -8,7 +8,7 @@ import kurakaani from "./project-imgs/kurakaani/thumb.gif"
 import loopnote from "./project-imgs/loop-note/loop-note.gif"
 import keka from "./project-imgs/continuous rewards/Thumb.webp"
 import loopinfo from "./project-imgs/looppanel-insights/insight-thumb.gif"
-import wish from "./project-imgs/kekawish/kekawish-gif.webp"
+import wish from "./project-imgs/kekawish/thumb-cr.webp"
 
 export interface ProjectMeta {
   duration: string;
@@ -50,8 +50,8 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
   },
   {
     id: "1",
-    description: "Created a note-taking assistant for Zoom to streamline research and usability testing workflows.",
-    title: "Looppanel note-taking bot for Zoom",
+    description: "Created a note-taking assistant to insights pipeline for user interviews.",
+    title: "From Zoom bot to interview insights",
     img: loopnote,
     tags: ["Product design", "Usability testing"],
     type: "client",
@@ -65,8 +65,8 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
   },
   {
     id: "2",
-    description: "Designed tools for researchers to zoom in and out of qualitative data, improving insight discovery.",
-    title: "Designing ways to zoom in and out of research data",
+    description: "Designed tools for researchers to zoom in and out of qualitative data to get research buy in using project summaries.",
+    title: "Interviews to project summaries",
     img: loopinfo,
     tags: ["Product design", "UX research"],
     type: "client",
