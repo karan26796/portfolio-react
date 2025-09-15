@@ -2,13 +2,14 @@
     width: var(--width-container);
     max-width: var(--max-width-container);
     margin-left: auto;
+    background-color: var(--bg-color);
     margin-right: auto;
     display: flex;
     flex-direction: column;
     gap: 1em;
     overflow: hidden;
     align-items: center;
-    margin-top: 2em;
+    padding-top: 2em;
     // position: sticky;
     // bottom: 0;
     z-index: -1;
