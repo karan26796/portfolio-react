@@ -44,13 +44,14 @@
         }
 
         blockquote {
-            font-size: 1.8em;
-            font-weight: 500;
+            font-family: 'Google Sans Code', Courier, monospace;
+            font-size: 1.4em;
+            font-style: italic;
             color: var(--highlight-color);
             padding: 0.5em;
-            margin-left: 0;
+            margin-left: 1em;
             border-left: 4px solid var(--highlight-color);
-            background-color: var(--bg-color-high);
+            // background-color: var(--bg-color-high);
 
             @media (max-width: 767px) {
                 width: 100%;

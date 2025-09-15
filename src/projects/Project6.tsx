@@ -37,12 +37,14 @@ const KekaProject: React.FC = () => {
           HR admins can define currencies, point values, expiry rules, and hierarchy-based
           permissions, ensuring the program adapts to their culture and operational needs.
         </p>
+        <blockquote>During customer conversations, HRs raised a need for customizations, since they already had informal systems in place</blockquote>
+
       </section>
 
-        <figure>
-          <img src={generalsettings} alt="General settings for rewards" />
-          <figcaption>Customizable settings to align rewards with company policies.</figcaption>
-        </figure>
+      <figure>
+        <img src={generalsettings} alt="General settings for rewards" />
+        <figcaption>Customizable settings to align rewards with company policies.</figcaption>
+      </figure>
 
       {/* -------------------- Milestones -------------------- */}
       <section>
@@ -51,26 +53,26 @@ const KekaProject: React.FC = () => {
           Automated celebrations for birthdays, work anniversaries, and other special moments come
           with built-in budget estimation, ensuring every important occasion is acknowledged.
         </p>
-        </section>
+        <blockquote>Special work anniversary feature was added to create variable rewards for each successive year of service.</blockquote>
+      </section>
 
-        <figure>
-          <img src={milestonessetup} alt="Milestone rewards setup" />
-          <figcaption>HR admins setting up automated milestone rewards.</figcaption>
-        </figure>
+      <figure>
+        <img src={milestonessetup} alt="Milestone rewards setup" />
+        <figcaption>HR admins setting up automated milestone rewards.</figcaption>
+      </figure>
 
       <section>
         <h3>Milestone Analytics Dashboard</h3>
         <p>
-          Real-time analytics on budget utilization, upcoming events, and engagement levels give
+          Real-time analytics on budget utilization and engagement levels give
           admins visibility into impact and opportunities for optimization.
         </p>
       </section>
 
-
-        <figure>
-          <img src={milestonesdashboard} alt="Milestone dashboard" />
-          <figcaption>Dashboard showing utilization and employee participation in milestones.</figcaption>
-        </figure>
+      <figure>
+        <img src={milestonesdashboard} alt="Milestone dashboard" />
+        <figcaption>Dashboard showing utilization and employee participation in milestones.</figcaption>
+      </figure>
 
       {/* -------------------- Peer to Peer -------------------- */}
       <section>
@@ -79,53 +81,39 @@ const KekaProject: React.FC = () => {
           Employees can gift points for daily interactions—praises, wishes, and teamwork support.
           This fosters a culture where recognition is woven into everyday work.
         </p>
+        <blockquote>Customizations for points given were added using exceptions to account for unique team dynamics.</blockquote>
       </section>
 
-        <figure>
-          <img src={peertopeer} alt="Peer-to-peer rewards setup" />
-          <figcaption>Configuration for peer-to-peer gifting of points.</figcaption>
-        </figure>
+      <figure>
+        <img src={peertopeer} alt="Peer-to-peer rewards setup" />
+        <figcaption>Configuration for peer-to-peer gifting of points.</figcaption>
+      </figure>
 
       <section>
-        <h3>Recognition Flow Visualization</h3>
+        <h3>P2P Dashboard : Recognition made visible</h3>
         <p>
           Visual dashboards highlight recognition activity across teams, surfacing culture champions
           and showing the ripple effect of frequent appreciation.
         </p>
       </section>
 
-        <figure>
-          <img src={p2pdashboard} alt="Peer-to-peer dashboard" />
-          <figcaption>Insights into recognition trends across the organization.</figcaption>
-        </figure>
+      <figure>
+        <img src={p2pdashboard} alt="Peer-to-peer dashboard" />
+        <figcaption>Insights into recognition trends across the organization.</figcaption>
+      </figure>
 
       {/* -------------------- Onboarding -------------------- */}
       <section>
-        <h3>Onboarding Experience</h3>
+        <h3>Employee touch points : Integrating with praise and wish features</h3>
         <p>
-          During rollout, welcome banners introduce employees to the rewards system, explaining
-          benefits and encouraging early adoption.
+          The gifting widget was embedded within the praise & wish features to provide a seamless experience for employees to recognize and appreciate their peers.
         </p>
       </section>
 
-        <figure>
-          <img src={featureintro} alt="Feature intro banner" />
-          <figcaption>Onboarding banners promoting rewards to employees.</figcaption>
-        </figure>
-
-      {/* -------------------- Wall Integration -------------------- */}
-      <section>
-        <h3>Keka Wall Integration</h3>
-        <p>
-          Earned points and achievements appear directly on the company wall, making recognition
-          visible to everyone and reinforcing appreciation in real time.
-        </p>
-      </section>
-
-        <figure>
-          <img src={milestonesintegration} alt="Milestone integration" />
-          <figcaption>Recognition highlights shared publicly on the company wall.</figcaption>
-        </figure>
+      <figure>
+        <img src={featureintro} alt="Feature intro banner" />
+        <figcaption>Points gifting widget in wish and praise features</figcaption>
+      </figure>
 
       {/* -------------------- Learnings -------------------- */}
       <section>
