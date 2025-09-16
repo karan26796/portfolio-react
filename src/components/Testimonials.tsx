@@ -37,10 +37,12 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title }) => {
       <div className="testimonials-grid">
         {data.map((testimonial) => (
           <div key={testimonial.id} className="testimonial-card">
-            {testimonial.title && testimonial.title.trim() !== '' && (
-              <h3 className="testimonial-title">{testimonial.title}</h3>
-            )}
-            <p>{highlightText(testimonial.testimonial, testimonial.highlightedWords)}</p>
+            <div className="testimonial-content">
+              <p>{highlightText(testimonial.testimonial, testimonial.highlightedWords)}</p>
+              {testimonial.title && testimonial.title.trim() !== '' && (
+                <p className="testimonial-title">{testimonial.title}</p>
+              )}
+            </div>
             <div className="testimonial-header">
               {testimonial.avatarUrl ? (
                 <img
@@ -52,7 +54,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title }) => {
                 <div className="testimonial-avatar placeholder" />
               )}
               <div className="testimonial-meta">
-                <h4 className='name'>{testimonial.name} · {testimonial.role}</h4>
+                <p className='name'>{testimonial.name} · {testimonial.role}</p>
                 <h5>{testimonial.company}</h5>
               </div>
             </div>
