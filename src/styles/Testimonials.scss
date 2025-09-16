@@ -6,12 +6,10 @@
     margin-right: auto;
     display: flex;
     flex-direction: column;
-    gap: 1em;
+    gap: .5em;
     overflow: hidden;
     align-items: center;
     padding-top: 2em;
-    // position: sticky;
-    // bottom: 0;
     z-index: -1;
 
     h1 {
@@ -42,17 +40,22 @@
         gap: 2em;
         transition: transform 0.3s ease, rotate 0.3s ease;
 
+        h3{
+            font-weight: 500;
+        }
+
         p {
             margin: 0;
             line-height: 145%;
-            color: var(--secondary-text);
+            color: #666;
+            flex-grow: 1;
 
             .highlighted {
                 color: var(--highlight-color);
                 box-decoration-break: clone;
                 -webkit-box-decoration-break: clone;
                 padding: 0 0.1em;
-                background: #af6f0018;
+                background: var(--bg-color-high);
                 border-radius: 0.2em;
             }
         }
@@ -72,6 +75,11 @@
             h4,
             h5 {
                 margin: 0;
+                font-weight: 400;
+            }
+
+            h5{
+                opacity: .7;
             }
         }
     }

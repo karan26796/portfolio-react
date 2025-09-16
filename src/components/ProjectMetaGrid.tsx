@@ -9,7 +9,7 @@ interface Props {
 const metaFields = [
     { key: "duration", title: "Duration" },
     { key: "role", title: "Role" },
-    { key: "scope", title: "Scope" },
+    // { key: "scope", title: "Scope" },
     { key: "impact", title: "Impact" },
 ] as const;
 

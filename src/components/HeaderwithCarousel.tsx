@@ -45,7 +45,7 @@ const HeaderWithCarousel: React.FC = () => {
           <h1>Hey, I'm Karan</h1>
           <h3 style={{margin:"0"}}>Designer, Figma trainer & AI powered builder</h3>
           <p className="intro-text">
-            6+ years of experience in design, currently shaping employee engagement for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
+            With 6+ years of experience in design, I'm currently shaping employee engagement for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
           </p>
         </div>
         <LogoCarousel align="center" />

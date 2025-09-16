@@ -16,7 +16,7 @@
     .project-header-data {
         display: flex;
         flex-direction: column-reverse;
-        align-items: center;
+        // align-items: center;
         gap: .5em;
         // margin-bottom: 4em;
 
@@ -29,7 +29,7 @@
 
         h1 {
             font-size: 3em;
-            text-align: center;
+            // text-align: center;
             margin: 0;
             max-width: 20ch;
             line-height: 120%;
@@ -53,6 +53,12 @@
     .project-header {
         width: -webkit-fill-available;
         padding: 2em 1em;
+
+        .project-header-image {
+            border-radius: 0em;
+            aspect-ratio: 5/4;
+            object-fit: cover;
+        }
 
         .project-header-data {
             h1 {

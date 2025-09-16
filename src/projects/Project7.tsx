@@ -1,166 +1,173 @@
 import React from "react";
-import wish01 from "../utils/project-imgs/kekawish/Wish -_ 05.png"
-import wish02 from "../utils/project-imgs/kekawish/Wish -_ 04.png"
-import wish03 from "../utils/project-imgs/kekawish/Wish -_ 3.webp"
-import wish04 from "../utils/project-imgs/kekawish/Wish -_ 02.png"
-import wish05 from "../utils/project-imgs/kekawish/Wish -_ 01.webp"
-import wishcard from "../utils/project-imgs/kekawish/Wish cards.webp"
-import widget from "../utils/project-imgs/kekawish/Widget.png"
-import gif from "../utils/project-imgs/kekawish/Wish-Interaction-Old.gif"
-import finaldesign from "../utils/project-imgs/kekawish/FinaldesignGIF.gif"
-import dataTrack from "../utils/project-imgs/kekawish/dataTrack.png"
+import wish01 from "../utils/project-imgs/kekawish/currentFlow.webp";
+import wish02 from "../utils/project-imgs/kekawish/Wish -_ 04.png";
+import wish03 from "../utils/project-imgs/kekawish/cardIterations.webp";
+import wish04 from "../utils/project-imgs/kekawish/wallOfWishes.webp";
+import wish05 from "../utils/project-imgs/kekawish/Wish -_ 01.webp";
+import wishcard from "../utils/project-imgs/kekawish/Wish cards.webp";
+import widget from "../utils/project-imgs/kekawish/Widget.webp";
+import gif from "../utils/project-imgs/kekawish/Wish-Interaction-Old.gif";
+import finaldesign from "../utils/project-imgs/kekawish/FinaldesignGIF.gif";
+import dataTrack from "../utils/project-imgs/kekawish/dataTrack.png";
 
 const KekaWishes: React.FC = () => {
   return (
     <div className="project-details">
+
       <section>
-        <h3>Project Overview & Problem</h3>
-        <h4>
-          How might we make birthdays, work anniversaries, and first day celebrations more personal and engaging within Keka's employee platform?
-        </h4>
-        <ul>
-          <li>The existing feature lacked engagement and personalization</li>
-          <li>Employees found it unclear how to wish someone</li>
-          <li>Celebrations felt transactional rather than meaningful</li>
-          <li>This led to fewer wishes and less connection on special days</li>
-        </ul>
+
+        <h2>Falling Engagement on the Wall</h2>
+        <p>
+          Engagement on the wall was dropping—wishes, praise, and even posts were
+          being used less. Since wishes occupied a prominent space, we decided to
+          use them as the anchor to revive overall engagement.
+        </p>
       </section>
+
 
       <figure>
         <img src={wish01} alt="Current birthday experience" />
         <figcaption>Screenshot of the old birthday feature with low engagement</figcaption>
       </figure>
 
+      <section>
+        <h2>Unclear & Transactional Experience</h2>
+        <p>
+          The existing wish flow wasn’t intuitive. Employees weren’t sure how to
+          send a wish, and for receivers, the experience felt transactional
+          rather than personal.
+        </p>
+      </section>
+
       <figure>
-        <img src={gif} alt="Current birthday experience" />
-        <figcaption>Animated example showing unclear and unengaging wish interaction</figcaption>
+        <img src={gif} alt="Unengaging wish interaction" />
+        <figcaption>Animated example showing unclear and unengaging wish flow</figcaption>
       </figure>
 
       <section>
-        <h3>User goals</h3>
-        <ul>
-            <li>
-              <strong>For well-wishers</strong><br />
-              Easy, meaningful way to celebrate colleagues
-            </li>
-            <li>
-              <strong>For birthday person</strong><br />
-              Feel appreciated and celebrated by their team
-            </li>
-            <li>
-              <strong>For the organization</strong><br />
-              Boost engagement on the social wall, especially on the special days widget
-            </li>
-        </ul>
+        <h2>First Experiment: Bigger Cards, Prominent Faces</h2>
+        <p>
+          We tried highlighting employees by enlarging their card and photo. While
+          it improved discoverability, it caused two issues:
+        </p>
+        <ol>
+          <li>If one person’s card became bigger, others had to be hidden.</li>
+          <li>
+            Many employees didn’t have profile pictures, so the design often
+            looked empty.
+          </li>
+        </ol>
+        <blockquote>
+          “Bigger isn’t always better—visibility for one shouldn’t come at the
+          cost of others.”
+        </blockquote>
       </section>
 
-      <section>
-        <h2>Design Iterations</h2>
-        <h3>I: Prominent special day cards on wall</h3>
-
-        <h4>Although this design approach shows a person's special day more prominently, it had a few problems</h4>
-          <ol>
-            <li>It takes a large space on the home page.</li>
-            <li>Lowers the visibility of other people's special days</li>
-            <li>Limits the total number of people visible on the widget</li>
-            </ol>
-        </section>
-
-        <figure>
-        <img src={wish03} alt="Design experiments" />
+      <figure>
+        <img src={wish03} alt="Large special day card iteration" />
         <figcaption>Design iteration: Large special day card on the wall</figcaption>
       </figure>
 
       <section>
-        <h3>II: Dedicated wall of wishes for each person</h3>
+        <h2>Second Experiment: A Dedicated Wall of Wishes</h2>
+        <p>
+          We also explored giving each employee their own dedicated “wall of
+          wishes.” It looked special but disconnected the experience from the
+          main wall widget. 
+          <br/><br/>
+          The board could look empty if someone's birthday fell on a weekend.
+        </p>
+      </section>
 
-        <h4>The idea of a dedicated wall felt more special but had some problems</h4>
-          <ol>
-            <li>Separates the wish interaction from the widget on wall, thereby creating a disconnect</li>
-            <li>Since everyone doesn't receive a lot of wishes, the wall might look empty for some</li>
-            </ol>
-        </section>
-
-        <figure>
-        <img src={wish04} alt="Design experiments" />
-        <figcaption>Design iteration: Dedicated wish wall for each person</figcaption>
-      </figure>
-    
-      <section>
-        <h2>Final Solution</h2>
-        
-        <h3>Prominent Birthday Cards</h3>
-        <ul>
-          <li>Personalized cards appear on individual walls when it's someone's special day</li>
-          <li>Integrated seamlessly with existing profile layouts</li>
-        </ul>
-        </section>
-
-        <figure>
-        <img src={wishcard} alt="Design experiments" />
-        <figcaption>Final design: Personalized birthday card on the profile wall</figcaption>
+      <figure>
+        <img src={wish04} alt="Dedicated wall of wishes" />
+        <figcaption>Design iteration: Dedicated wall of wishes</figcaption>
       </figure>
 
       <section>
-        <h3>Clear Wish CTA</h3>
-        <ul>
-          <li>Obvious "Wish" button removes friction from the interaction</li>
-          <li>Prominent placement ensures users don't miss the opportunity to participate</li>
-        </ul>
-        </section>
+        <h2>The Breakthrough: A Clear Wish CTA</h2>
+        <p>
+          Instead of overcomplicating, we added a simple, clear <b>Wish CTA</b>{" "}
+          below every name. This created a frictionless entry point for sending
+          wishes, without hiding anyone else.
+        </p>
+        <blockquote>
+          “Sometimes the simplest solution drives the biggest impact.”
+        </blockquote>
+      </section>
 
-        <figure>
-        <img src={widget} alt="Design experiments" />
-        <figcaption>Final widget: Clear "Wish" CTA and improved interaction flow</figcaption>
+      <figure>
+        <img src={widget} alt="Final widget" />
+        <figcaption>Final widget: Clear Wish CTA and improved interaction flow</figcaption>
       </figure>
 
       <section>
-        <h3>Easy and delightful wish experience</h3>
+        <h2>Making the Day Feel Special</h2>
+        <p>
+          For employees on their special day, we added a <b>banner</b> that
+          aggregated all wishes into a single, visually appealing card. This:
+        </p>
         <ul>
-        <li>Simple, one-click interaction with the introduction of wish prompts encourages engagement</li>
-          <li>Confetti post wishing to make the experience feel more celebratory</li>
-        </ul>
-        </section>
-
-        <figure>
-        <img src={finaldesign} alt="Design experiments" />
-        <figcaption>Final interaction: Example of a wish sent to a colleague</figcaption>
-      </figure>
-
-      <section>
-        <h2>Impact & Results</h2>
-        <h3>Measurable Outcomes</h3>
-        <ul>
-          <li>Increased the average number of wishes from 2 to 10</li>
-          <li>Usage increased from 5k users to 31k users wishing 116k users</li>
+          <li>Allowed employees to revisit wishes even days later.</li>
+          <li>Made the experience feel more personal and celebratory.</li>
         </ul>
       </section>
 
       <figure>
-        <img src={dataTrack} alt="Design experiments" />
-        <figcaption>Data jump since launch</figcaption>
+        <img src={wishcard} alt="Final wish card design" />
+        <figcaption>Final design: Personalized birthday card on the profile wall</figcaption>
       </figure>
 
 
       <section>
-        <h3>Key Learnings</h3>
-        
+        <h2>Delight Through Micro-Interactions</h2>
+        <p>
+          To make wishes more fun, we added a simple confetti animation when
+          someone posted a wish. This small delight reinforced the feeling of
+          celebration.
+        </p>
+      </section>
+
+      <figure>
+        <img src={finaldesign} alt="Wish interaction with confetti" />
+        <figcaption>Final interaction: Example of a wish sent to a colleague</figcaption>
+      </figure>
+
+      <section>
+        <h2>Impact: 3x Adoption, 5x Engagement</h2>
+        <ul>
+          <li>Average wishes per employee jumped from <b>2 to 8</b>.</li>
+          <li>Adoption grew <b>3x</b> from 5k to 15k users a week.</li>
+          <li>
+            Engagement improved <b>5x</b>, with 31k employees sending wishes to
+            116k colleagues.
+          </li>
+        </ul>
+      </section>
+
+      <figure>
+        <img src={dataTrack} alt="Data results" />
+        <figcaption>Data jump since launch</figcaption>
+      </figure>
+
+      <section>
+        <h2>Key Learnings</h2>
         <ol>
           <li>
-            <strong>Simple is better</strong><br/>
-            Sometimes the simplest solutions have the biggest impact. Adding a clear "Wish" button dramatically improved user participation.
+            <strong>Simple is powerful</strong> — A clear CTA drove massive
+            improvement.
           </li>
           <li>
-            <strong>Personalization Creates Connection</strong><br/>
-            Individual birthday cards made celebrations feel personal rather than generic, significantly improving the emotional impact.
+            <strong>Personalization matters</strong> — Banners and cards made
+            employees feel truly celebrated.
           </li>
           <li>
-            <strong>Iterative Design Works</strong><br/>
-            Testing multiple approaches through experiments helped identify the most effective solutions without assumptions.
+            <strong>Iterative design wins</strong> — Each experiment taught us
+            what to drop and what to keep.
           </li>
           <li>
-            <strong>Context Matters</strong><br/>
-            Integrating wishes into personal walls/profiles made them more meaningful than standalone features.
+            <strong>Context is everything</strong> — Wishes worked best when tied
+            directly to employee profiles.
           </li>
         </ol>
       </section>

@@ -32,8 +32,8 @@
                 height: 7.5em;
                 // padding: .3em;
                 border: 3px solid var(--grey-100);
-                background: rgb(252, 249, 243);
-                background: linear-gradient(0deg, rgba(252, 249, 243, 1) 0%, rgba(245, 236, 219, 1) 30%, rgba(240, 229, 206, 1) 100%);
+                background: var(--bg-color-high);
+                background: linear-gradient(0deg, var(--bg-color-high) 0%, #dfefff 30%);
                 border-radius: 5em;
                 object-fit: cover;
                 box-shadow: 1px 1px 13px 1px #00000012;
@@ -143,8 +143,8 @@
                 height: 7.5em;
                 // padding: .3em;
                 border: 3px solid var(--grey-100);
-                background: rgb(252, 249, 243);
-                background: linear-gradient(0deg, rgba(252, 249, 243, 1) 0%, rgba(245, 236, 219, 1) 30%, rgba(240, 229, 206, 1) 100%);
+                background: var(--bg-color-high);
+                background: linear-gradient(0deg, var(--bg-color-high) 0%, #f5ecd7 30%, #f0e5ce 100%);
                 border-radius: 5em;
                 object-fit: cover;
                 box-shadow: 1px 1px 13px 1px #00000012;

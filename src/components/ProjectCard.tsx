@@ -99,7 +99,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
         <div className="title-details-group">
           <h3>{data.title}</h3>
-          <h6 className="project-meta-text">{data.details}</h6>
+          <p style={{opacity:".4",fontSize:"1em"}}>{data.details}</p>
         </div>
 
         <div className="desc-btn-group">

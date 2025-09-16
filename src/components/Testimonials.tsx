@@ -7,6 +7,7 @@ export interface Testimonial {
   role: string;
   company: string;
   avatarUrl?: string; // avatarUrl is optional now
+  title?: string; // short summary title
   testimonial: string;
   highlightedWords?: string[];
 }
@@ -36,6 +37,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title }) => {
       <div className="testimonials-grid">
         {data.map((testimonial) => (
           <div key={testimonial.id} className="testimonial-card">
+            <h3 className="testimonial-title">{testimonial.title}</h3>
             <p>{highlightText(testimonial.testimonial, testimonial.highlightedWords)}</p>
             <div className="testimonial-header">
               {testimonial.avatarUrl ? (

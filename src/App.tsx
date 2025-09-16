@@ -29,7 +29,7 @@ import { Analytics } from "@vercel/analytics/react";
 import Testimonials, { Testimonial } from "./components/Testimonials";
 import kritika from './utils/testimonials/pfp-02.jpg'
 import malavika from './utils/testimonials/pfp-03.jpg'
-import nitin from './utils/testimonials/pfp-04.jpg'
+import maryam from './utils/testimonials/maryam-img.jpeg'
 import megha from './utils/testimonials/megha-pfp.jpeg'
 import { Story } from "react-insta-stories/dist/interfaces";
 import FAQ from "./components/FAQ";
@@ -39,7 +39,7 @@ const App: React.FC = () => {
   const myStories: Story[] = [
     {url: megha},
     { url: kritika },
-    { url: nitin }
+    { url: maryam }
   ]
 
   useEffect(() => {
@@ -108,42 +108,46 @@ const HomePage: React.FC = () => {
 
   const testimonialsData: Testimonial[] = [
     {
-      "id": 1,
-      "name": "Kritika Oberoi",
-      "role": "Co-Founder",
-      "company": "Worked together at Looppanel",
-      "avatarUrl": kritika,
-      "testimonial": "Karan was a dedicated employee who gave his work his all. He excelled in design iteration and effectively conducted user research.",
-      "highlightedWords": ["excelled in design iteration", "effectively conducted user research"] // Words to highlight
+      id: 5,
+      name: "Maryam Jahanshahi",
+      role: "Co-Founder",
+      company: "Managed at Datapeople",
+      avatarUrl: maryam,
+      title: "Drives velocity, clarity, and team growth",
+      testimonial: `Karan brought incredible velocity and systems thinking to our redesigns at Datapeople. He played a critical role in developing our design system, reducing decision fatigue and improving user experience. Karan works fast, thinks clearly, and incorporates feedback in real time. Every team moves faster and with more confidence when Karan is involved.`,
+      highlightedWords: ["velocity", "systems thinking", "critical role", "reducing decision fatigue", "incorporates feedback", "moves faster"]
     },
     {
-      "id": 2,
-      "name": "Megha Agarwal",
-      "role": "Designer",
-      "company": "Worked together at Looppanel",
-      "avatarUrl": megha,
-      "testimonial": "Karan is an exceptional designer who brings clarity to highly ambiguous problems. He established a comprehensive design system that maintained consistency in our fast-moving startup.",
-      "highlightedWords": ["brings clarity to highly ambiguous problems", "established a comprehensive design system"] // Words to highlight
+      id: 1,
+      name: "Kritika Oberoi",
+      role: "Co-Founder",
+      company: "Worked together at Looppanel",
+      avatarUrl: kritika,
+      title: "Elevated design quality and team confidence",
+      testimonial: `Karan brought a high level of commitment and craft to our team. He worked fast and always incorporated feedback in real time. His clarity and confidence helped us move forward quickly. Karan's expertise in design systems and collaboration made a lasting impact on our work.`,
+      highlightedWords: ["commitment and craft", "incorporated feedback", "clarity and confidence", "lasting impact"]
     },
     {
-      "id": 3,
-      "name": "Malavika Susan",
-      "role": "Designer",
-      "company": "Worked together at Aphelia Innovations",
-      "avatarUrl": malavika,
-      "testimonial": "Karan is exceptional at combining technology with art through meticulous planning. His emphasis on design standardization created a strong foundation for all our projects.",
-      "highlightedWords": ["meticulous planning", "design standardization"]
+      id: 2,
+      name: "Megha Agarwal",
+      role: "Designer",
+      company: "Worked together at Looppanel",
+      avatarUrl: megha,
+      title: "Exceptional mentor and design system builder",
+      testimonial: `Karan mentored and collaborated with me, always bringing clarity to complex problems. He established a comprehensive design system that kept our startup consistent and fast-moving. His enthusiasm and leadership inspired the team every day. I am confident he would be an invaluable asset to any product team.`,
+      highlightedWords: ["clarity to complex problems", "comprehensive design system", "enthusiasm and leadership", "invaluable asset"]
     },
     {
-      "id": 4,
-      "name": "Nitin Prakash",
-      "role": "Android Developer",
-      "company": "Worked together at Guesthouser",
-      "avatarUrl": nitin,
-      "testimonial": "Karan is an outstanding product designer with valuable development skills. He can solve complex problems easily and has superb UI/UX capabilities.",
-      "highlightedWords": ["valuable development skills", "solve complex problems easily"] // Words to highlight
+      id: 3,
+      name: "Malavika Susan",
+      role: "Designer",
+      company: "Worked together at Aphelia Innovations",
+      avatarUrl: malavika,
+      title: "Blends technology, art, and process",
+      testimonial: `Karan's approach to design standardization and planning set a strong foundation for our projects. He consistently brought the latest trends and techniques to the team. Karan's ability to combine technology with art is exceptional. I highly recommend working with him for any design challenge.`,
+      highlightedWords: ["design standardization", "strong foundation", "latest trends and techniques", "combine technology with art"]
     }
-  ]
+  ];
 
   const faqData = [
     {

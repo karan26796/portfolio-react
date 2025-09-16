@@ -1,7 +1,7 @@
 /* Light mode (default) */
 :root {
-  --bg-color:  #FDFCF9;
-  --bg-color-high: #F7F3EB;
+  --bg-color: #ffffff;
+  --bg-color-high: #f5f7fa;
   --border-color: var(--grey-300);
   --project-card-border: #ff0000;
   
@@ -9,12 +9,12 @@
   --secondary-text: var(--grey-700);
   --tertiary-text: var(--grey-500);
   
-  --highlight-color: #d97706;         /* Deeper gold, high contrast for white text */
-  --highlight-color-light: #f59e0b;   /* Orange, still dark enough for white text */
-  --highlight-color-high: #b45309;
+  --highlight-color: #2563eb;         /* Blue-600 */
+  --highlight-color-light: #3b82f6;   /* Blue-500 */
+  --highlight-color-high: #1d4ed8;    /* Blue-700 */
 
-  --button-color: var(--highlight-color); /* Vibrant orange for buttons */
-  --button-color-hover: var(--highlight-color-high); /* Darker vibrant orange for buttons on hover */
+  --button-color: var(--highlight-color);
+  --button-color-hover: var(--highlight-color-high);
 
   --logo-filter: invert(1);
 }

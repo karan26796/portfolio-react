@@ -1,5 +1,5 @@
 .project-meta-grid {
-  display: grid;
+  display: none;
   grid-template-columns: 1fr 1fr;
   gap: 1em;
 
@@ -11,10 +11,15 @@
   }
 
   div {
-    background: var(--bg-color-high);
-    border: 1px solid var(--border-color);
-    padding: 1em;
-    border-radius: 1em;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5em;
+    justify-content: center;
+    // background: var(--bg-color-high);
+    // border: 1px solid var(--border-color);
+    // padding: 1em;
+    // border-radius: 1em;
 
     p {
       padding: 0;

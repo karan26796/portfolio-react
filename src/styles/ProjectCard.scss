@@ -8,7 +8,7 @@
   transition: all linear .2s;
   position: relative;
   z-index: 1;
-  border-radius: 1em;;
+  border-radius: 1em;
 
   &:hover {
     cursor: pointer;
@@ -28,12 +28,18 @@
     transform-origin: center;
     border-radius: 1em;
     border: 1px solid var(--border-color);
+
+    @media screen and (max-width: 767px) {
+      aspect-ratio: 5/4;
+      border: 1px solid transparent;
+      border-radius: 0em;
+    }
   }
 
   .project-card {
     width: -webkit-fill-available;
     display: flex;
-    gap: 1em;
+    gap: .5em;
     padding: 2em;
     position: relative;
     flex-direction: column;
@@ -107,7 +113,6 @@
 
   p {
     max-width: 32ch;
-    opacity: 0.9;
     margin-top: 0;
 
     @media screen and (max-width: 767px) {
@@ -132,4 +137,8 @@
 
 .button-container {
   flex: 0 0 auto;
+
+  @media screen and (max-width: 767px) {
+    display: none;
+  }
 }
