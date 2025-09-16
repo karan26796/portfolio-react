@@ -43,10 +43,9 @@ const HeaderWithCarousel: React.FC = () => {
         <img src={require("../utils/gallery/profile.webp")} alt="Karan" className="profile-pic" />
         <div className="name-tag-group">
           <h1>Hey, I'm Karan</h1>
-          <h3 style={{margin:"0"}}>Dessigner, Figma trainer & AI powered builder</h3>
+          <h3 style={{margin:"0"}}>Designer, Figma trainer & AI powered builder</h3>
           <p className="intro-text">
-            Product Designer with 6+ years of experience, currently shaping employee engagement for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
-            I love building communities, travelling, taking pictures, and playing tennis.
+            6+ years of experience in design, currently shaping employee engagement for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
           </p>
         </div>
         <LogoCarousel align="center" />
