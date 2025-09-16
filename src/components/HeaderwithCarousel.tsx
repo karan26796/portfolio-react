@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../styles/HeaderWithCarousel.scss";
+
 import LogoCarousel from "./LogoCarousel";
 import ResumePopup from "../pages/ResumePopup";
+import Tag from "./Tag";
 
 
 const HeaderWithCarousel: React.FC = () => {
@@ -43,9 +45,13 @@ const HeaderWithCarousel: React.FC = () => {
         <img src={require("../utils/gallery/profile.webp")} alt="Karan" className="profile-pic" />
         <div className="name-tag-group">
           <h1>Hey, I'm Karan</h1>
-          <h3 style={{margin:"0"}}>Designer, Figma trainer & AI powered builder</h3>
+          <div className="tags">
+            <Tag text="AI Powered Builder" color={{ text: '#ff9422ff' }} rotation={3} />
+            <Tag text="Figma Trainer" color={{ text: '#009765ff' }} rotation={-4} />
+            <Tag text="Community Builder" color={{ text: '#7508eaff' }} rotation={2} />
+          </div>
           <p className="intro-text">
-            With 6+ years of experience in design, I'm currently shaping employee engagement for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
+            Product Designer with 6+ years of experience in design, I'm currently shaping employee engagement for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
           </p>
         </div>
         <LogoCarousel align="center" />

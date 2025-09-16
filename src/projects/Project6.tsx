@@ -32,7 +32,8 @@ const KekaProject: React.FC = () => {
 
       {/* -------------------- General Settings -------------------- */}
       <section>
-        <h3>Part I: Flexible Configuration System</h3>
+        <h6>Part I</h6>
+        <h3>Flexible Configuration System</h3>
         <p>
           HR admins can define currencies, point values, expiry rules, and hierarchy-based
           permissions, ensuring the program adapts to their culture and operational needs.
@@ -48,7 +49,8 @@ const KekaProject: React.FC = () => {
 
       {/* -------------------- Milestones -------------------- */}
       <section>
-        <h3>Milestone Rewards Setup</h3>
+        <h6>Setup</h6>
+        <h3>Milestone Rewards</h3>
         <p>
           Automated celebrations for birthdays, work anniversaries, and other special moments come
           with built-in budget estimation, ensuring every important occasion is acknowledged.
@@ -62,7 +64,8 @@ const KekaProject: React.FC = () => {
       </figure>
 
       <section>
-        <h3>Milestone Analytics Dashboard</h3>
+        <h6>Dashboard</h6>
+        <h3>Milestone Analytics</h3>
         <p>
           Real-time analytics on budget utilization and engagement levels give
           admins visibility into impact and opportunities for optimization.
@@ -76,6 +79,7 @@ const KekaProject: React.FC = () => {
 
       {/* -------------------- Peer to Peer -------------------- */}
       <section>
+        <h6>Setup</h6>
         <h3>Peer-to-Peer Rewards</h3>
         <p>
           Employees can gift points for daily interactions—praises, wishes, and teamwork support.
@@ -90,7 +94,8 @@ const KekaProject: React.FC = () => {
       </figure>
 
       <section>
-        <h3>P2P Dashboard : Recognition made visible</h3>
+        <h6>P2P Dashboard</h6>
+        <h3>Recognition made visible</h3>
         <p>
           Visual dashboards highlight recognition activity across teams, surfacing culture champions
           and showing the ripple effect of frequent appreciation.
@@ -104,7 +109,8 @@ const KekaProject: React.FC = () => {
 
       {/* -------------------- Onboarding -------------------- */}
       <section>
-        <h3>Employee touch points : Integrating with praise and wish features</h3>
+        <h6>Employee touch points</h6>
+        <h3>Integrating with praise and wish features</h3>
         <p>
           The gifting widget was embedded within the praise & wish features to provide a seamless experience for employees to recognize and appreciate their peers.
         </p>

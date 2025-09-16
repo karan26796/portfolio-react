@@ -29,8 +29,13 @@
             padding: 3em 3em 1em 3em;
         }
 
+        video {
+            width: --webkit-fill-available;
+            height: auto;
+        }
+
         .stories {
-            width: fit-content;
+            width: -webkit-fill-available;
             border-radius: 0.75em;
             overflow: hidden;
         }
@@ -39,8 +44,15 @@
             // color: var(--highlight-color);
         }
 
-        h4{
+        h4 {
             max-width: 40ch;
+        }
+
+        video {
+            width: -webkit-fill-available;
+            height: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 1em;
         }
 
         blockquote {
@@ -109,6 +121,7 @@
     }
 
     .project-details {
+
         section,
         .intro {
             max-width: 100%;

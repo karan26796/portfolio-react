@@ -7,6 +7,7 @@
   z-index: 100;
   background: var(--bg-color);
   align-items: center;
+  border: 1px solid var(--border-color);
 
   .navbar {
     width: -webkit-fill-available;
@@ -27,6 +28,7 @@
     }
 
     .hover-indicator {
+      display: none;
       position: absolute;
       top: 0em;
       bottom: 0em;
@@ -67,7 +69,7 @@
       }
 
       &:hover {
-        // color: var(--highlight-color);
+        color: var(--primary-text);
       }
 
       &.active {

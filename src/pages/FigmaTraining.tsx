@@ -115,10 +115,10 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
 
       <a style={{ scrollBehavior: "smooth", marginTop: "2em", marginBottom:"2em" }} href="#company">
         <Button
-          text="Book a session today"
+          text="Book a training today"
           withIcon={true}
-          iconName="UsersThree"
-          iconDirection="left"
+          iconName="ArrowDown"
+          iconDirection="right"
           withText={true}
           size="m"
           variant="primary"
@@ -159,7 +159,7 @@ interface TrainingSectionProps {
 const CompanyTrainingSection = React.forwardRef<HTMLDivElement, TrainingSectionProps>(
   ({ tagProperties }, ref) => (
     <div id="company" className='training' ref={ref}>
-      <h1>For Companies & Institutes</h1>
+      <h1>Book a corporate or educational workshop</h1>
       {/* Keep the TagsSection intact */}
       <TagsSection tagProperties={tagProperties} tagTexts={tagTextCompany} />
       <CompanyForm />

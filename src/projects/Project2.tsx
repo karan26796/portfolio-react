@@ -173,18 +173,18 @@ const Project2: React.FC = () => {
         <figcaption>Summary view</figcaption>
       </figure>
 
-      <section>
+      {/* <figure>
         <h3>Changes across other parts of the product</h3>
         <div className="stories">
           <Stories
             stories={myStories}
             defaultInterval={3000}
-            width={"var(--max-width-container)"}
+            max-width={"var(--max-width-container)"}
             height={"auto"}
             loop={true}
           />
         </div>
-      </section>
+      </figure> */}
     </div>
   );
 };
