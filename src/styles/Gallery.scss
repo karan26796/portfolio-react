@@ -30,13 +30,13 @@
 
         h1,
         p {
-            width: 55%;
             text-align: center;
             margin: 0;
+        }
 
-            @media (max-width: 800px) {
-                width: 70%;
-            }
+        p {
+            font-size: 1.6em;
+            max-width: 40ch;
         }
     }
 

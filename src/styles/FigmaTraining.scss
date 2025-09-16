@@ -38,6 +38,11 @@ $border-radius: 0.75em;
     text-align: center;
   }
 
+  p {
+    font-size: 1.6em;
+    max-width: 40ch;
+  }
+
   .data {
     display: grid;
     grid-template-columns: repeat(3, 1fr);

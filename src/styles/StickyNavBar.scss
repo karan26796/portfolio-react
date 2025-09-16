@@ -9,6 +9,10 @@
   align-items: center;
   border: 1px solid var(--border-color);
 
+@media screen and (max-width: 768px) {
+  bottom: 0;
+}
+
   .navbar {
     width: -webkit-fill-available;
     position: relative;
@@ -154,7 +158,7 @@
 
       .menu-content {
         position: absolute;
-        top: calc(100% + 0.5em);
+        top: calc(-250%);
         right: 0;
         background: var(--bg-color);
         border: 1px solid var(--border-color);

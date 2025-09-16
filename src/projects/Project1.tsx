@@ -18,7 +18,8 @@ const Project1: React.FC = () => {
   return (
     <div className="project-details">
       <section>
-        <h3>Part I : Let's start with the problem</h3>
+        <h6>Part I</h6>
+        <h3>Let's start with the problem</h3>
         <h4>
           Based on research, it takes 5-6 rewatches of a user interview to
           get actionable insights out of it. Therefore, a 1 hour interview takes
@@ -32,7 +33,8 @@ const Project1: React.FC = () => {
       </section>
 
       <section>
-        <h3>First cut for Usability Testing</h3>
+        <h6>First cut</h6>
+        <h3>Usability Testing</h3>
         <h4>
           I created a prototype in Protopie to mock how people will take notes
           in Looppanel.
