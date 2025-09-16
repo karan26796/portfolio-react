@@ -51,7 +51,7 @@ const HeaderWithCarousel: React.FC = () => {
             <Tag text="Community Builder" color={{ text: '#7508eaff' }} rotation={2} />
           </div>
           <p className="intro-text">
-            Product Designer with 6+ years of experience in design, I'm currently shaping employee engagement for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
+            Product Designer with 6+ years of experience in design, currently shaping employee engagement for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
           </p>
         </div>
         <LogoCarousel align="center" />
