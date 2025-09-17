@@ -13,14 +13,14 @@
 }
 
 .faq-item {
-    border: 1px solid var(--border-color);
-    border-radius: 1em;
+    // border: 1px solid var(--border-color);
     overflow: hidden;
 }
 
 .faq-question {
     display: flex;
     justify-content: space-between;
+    border-radius: 1em;
     align-items: center;
     padding: 1em;
     background-color: var(--bg-color-high);
@@ -42,7 +42,7 @@
 .faq-answer {
     padding: 1em;
     background-color: var(--bg-color);
-    border-top: 1px solid var(--border-color);
+    // border-bottom: 1px solid var(--border-color);
     color: var(--secondary-text);
     max-height: 0;
     overflow: hidden;

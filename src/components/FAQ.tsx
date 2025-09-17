@@ -24,7 +24,7 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
       {data.map((item, index) => (
         <div key={index} className="faq-item">
           <div className="faq-question" onClick={() => toggleFAQ(index)}>
-            <h3>{item.question}</h3>
+            <h4>{item.question}</h4>
             <span className="faq-icon" style={{ transform: openIndex === index ? 'rotate(180deg)' : 'rotate(0deg)' }}>
               {openIndex === index ? <Minus size={24} /> : <Plus size={24} />}
             </span>
