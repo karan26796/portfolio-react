@@ -6,7 +6,8 @@ import wishcard from "../utils/project-imgs/kekawish/Wish cards.webp";
 import widget from "../utils/project-imgs/kekawish/Widget.webp";
 import finaldesign from "../utils/project-imgs/kekawish/FinaldesignGIF.gif";
 import dataTrack from "../utils/project-imgs/kekawish/dataTrack.png";
-const wishDemoVideo = process.env.PUBLIC_URL + "/currentInteraction.mp4";
+import currentFlow from "../utils/project-imgs/kekawish/wishesOnWall.webp";
+const wishDemoVideo = process.env.PUBLIC_URL + "/currentWish.mp4";
 
 const KekaWishes: React.FC = () => {
 
@@ -18,15 +19,29 @@ const KekaWishes: React.FC = () => {
         <h6>The Problem</h6>
         <h3> Falling Engagement on the Wall</h3>
         <p>
-          Engagement on the wall was dropping—wishes, praise, and even posts were
+          Engagement on Keka wall was dropping — wishes, praise, and even posts were
           being used less. Since wishes occupied a prominent space, we decided to
           use them as the anchor to revive overall engagement.
         </p>
+
+        <h4>
+         ❌ Issues with the current widget:
+        </h4>
+        <ul>
+          <li>Unclear entry point to post a wish</li>
+          <li>Same experience for the wisher and receiver</li>
+          <li>No way to follow up on wishes post the special day</li>
+        </ul>
       </section>
+
+      <figure>
+        <img src={currentFlow} alt="Wish widget on Keka wall" />
+        <figcaption>Screenshot of the old birthday feature with low engagement</figcaption>
+      </figure>
 
       <section>
         <h6>Interaction design</h6>
-        <h3>Unclear & Transactional Experience</h3>
+        <h3>🤔 Unclear & Transactional Experience</h3>
         <p>
           The existing wish flow wasn’t intuitive. Employees weren’t sure how to
           send a wish, and for receivers, the experience felt transactional
@@ -48,13 +63,13 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <figure>
-        <img src={wish01} alt="Current birthday experience" />
-        <figcaption>Screenshot of the old birthday feature with low engagement</figcaption>
+        <img src={wish01} alt="Current wish experience" />
+        <figcaption>Screenshot of the old wish feature with low engagement</figcaption>
       </figure>
 
       <section>
         <h6>First Experiment</h6>
-        <h3>Bigger Cards, Prominent Faces</h3>
+        <h3>🟡 Bigger Cards, Prominent Faces</h3>
         <p>
           We tried highlighting employees by enlarging their card and photo. While
           it improved discoverability, it caused two issues:
@@ -79,7 +94,7 @@ const KekaWishes: React.FC = () => {
 
       <section>
         <h6>Second Experiment</h6>
-        <h3>A Dedicated Wall of Wishes</h3>
+        <h3>🟡 A Dedicated Wall of Wishes</h3>
         <p>
           We also explored giving each employee their own dedicated “wall of
           wishes.” It looked special but disconnected the experience from the
@@ -96,14 +111,14 @@ const KekaWishes: React.FC = () => {
 
       <section>
         <h6>The Breakthrough</h6>
-        <h3>A Clear Wish CTA</h3>
+        <h3>💡 A Clear Wish CTA</h3>
         <p>
           Instead of overcomplicating, we added a simple, clear <b>Wish CTA</b>{" "}
           below every name. This created a frictionless entry point for sending
           wishes, without hiding anyone else.
         </p>
         <blockquote>
-          “Sometimes the simplest solution drives the biggest impact.”
+          “The CTA was a common thread in all the previous iterations.”
         </blockquote>
       </section>
 
@@ -113,7 +128,7 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <h2>Making the Day Feel Special</h2>
+        <h2>🥳 Making the Day Feel Special</h2>
         <p>
           For employees on their special day, we added a <b>banner</b> that
           aggregated all wishes into a single, visually appealing card. This:
@@ -131,7 +146,7 @@ const KekaWishes: React.FC = () => {
 
 
       <section>
-        <h2>Delight Through Micro-Interactions</h2>
+        <h2>🎉 Delight Through Micro-Interactions</h2>
         <p>
           To make wishes more fun, we added a simple confetti animation when
           someone posted a wish. This small delight reinforced the feeling of
@@ -145,13 +160,17 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <h2>Impact: 3x Adoption, 5x Engagement</h2>
+        <h2>📈 Impact: 3x Adoption, 5x Engagement</h2>
         <ul>
           <li>Average wishes per employee jumped from <b>2 to 8</b>.</li>
           <li>Adoption grew <b>3x</b> from 5k to 15k users a week.</li>
           <li>
             Engagement improved <b>5x</b>, with 31k employees sending wishes to
             116k colleagues.
+          </li>
+          <li>
+            Other features on the wall, like posts and praise, also saw a boost in
+            usage.
           </li>
         </ul>
       </section>
@@ -162,7 +181,7 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <h2>Key Learnings</h2>
+        <h2> 🗝️ Key Learnings</h2>
         <ol>
           <li>
             <strong>Simple is powerful</strong> — A clear CTA drove massive
@@ -175,10 +194,6 @@ const KekaWishes: React.FC = () => {
           <li>
             <strong>Iterative design wins</strong> — Each experiment taught us
             what to drop and what to keep.
-          </li>
-          <li>
-            <strong>Context is everything</strong> — Wishes worked best when tied
-            directly to employee profiles.
           </li>
         </ol>
       </section>
