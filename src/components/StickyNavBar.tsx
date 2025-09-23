@@ -11,11 +11,14 @@ import {
   ArrowRight,
   PencilRuler,
   List,
-  X
+  X,
+  FileText
 } from "@phosphor-icons/react";
 import "../styles/StickyNavBar.scss";
 import { projectSummaries } from "../utils/ProjectSummaries";
-import logo from "../assets/logo.svg";
+
+import Button from "./Buttons";
+import ResumePopup from "../pages/ResumePopup";
 
 const StickyNavBar: React.FC = () => {
   const location = useLocation();
@@ -30,6 +33,7 @@ const StickyNavBar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
@@ -214,7 +218,7 @@ const StickyNavBar: React.FC = () => {
                 aria-label={isMenuOpen ? "Close menu" : "Open menu"}
                 aria-expanded={isMenuOpen}
               >
-                {isMenuOpen ? <X size={18} weight="duotone" /> : <List size={18} weight="duotone" />}
+                {isMenuOpen ? <X size={18} weight="duotone" /> : <List size={18} />}
               </button>
 
               <div className={`menu-content ${isMenuOpen ? 'open' : ''}`}>
@@ -232,6 +236,14 @@ const StickyNavBar: React.FC = () => {
                   <Camera size={18} weight="duotone" />
                   <span>Travel</span>
                 </Link>
+
+                {/* <Link
+                  to="#resume"
+                  className={`menu-item a-header${location.pathname === "/resume" ? " active" : ""}`}
+                >
+                  <FileText size={18} weight="duotone" />
+                  <span>Resume</span>
+                </Link> */}
               </div>
 
               {/* Backdrop overlay */}
@@ -270,6 +282,22 @@ const StickyNavBar: React.FC = () => {
             </>
           )}
         </div>
+        {/* Resume button on right for desktop */}
+        {!isMobile && (
+          <>
+            <div className="navbar-right">
+              <Button
+                text="View Resume"
+                onClick={() => setIsResumeOpen(true)}
+                variant="secondary"
+                size="s"
+                withIcon={true}
+                iconName="FileText"
+              />
+            </div>
+            <ResumePopup isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
+          </>
+        )}
       </nav>
     </div>
   );
