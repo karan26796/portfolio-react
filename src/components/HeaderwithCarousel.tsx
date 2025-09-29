@@ -55,6 +55,7 @@ const HeaderWithCarousel: React.FC = () => {
           </p>
         </div>
         <LogoCarousel align="center" />
+        <Tag text="Open to new roles" color={{ text: '#3100f4ff' }} rotation={0} dot={true} pulsatingDot={true} />
         <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
       </div>
     </div>
