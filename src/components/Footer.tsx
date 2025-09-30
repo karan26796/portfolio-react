@@ -9,44 +9,6 @@ const Footer: React.FC = () => {
 
   return (
     <div className="footer-container">
-      <h5>Let's connect</h5>
-      <div className="links">
-        <Button
-          text="LinkedIn"
-          iconName="LinkedinLogo"
-          withIcon={true}
-          iconDirection="left"
-          withText={false}
-          size="m"
-          variant="tertiary"
-          weight="regular"
-          onClick={() => handleSocialMediaClick("https://www.linkedin.com/in/karankapoorux")}
-        />
-
-        {/* <Button
-          text="Twitter"
-          iconName="XLogo"
-          withIcon={true}
-          iconDirection="left"
-          withText={false}
-          size="m"
-          variant="tertiary"
-          weight="regular"
-          onClick={() => handleSocialMediaClick("https://twitter.con/kadankapoor")}
-        /> */}
-
-        {/* <Button
-          text="Instagram"
-          iconName="InstagramLogo"
-          withIcon={true}
-          iconDirection="left"
-          withText={false}
-          size="m"
-          variant="tertiary"
-          weight="regular"
-          onClick={() => handleSocialMediaClick("https://www.instagram.com/kadankapoor")}
-        /> */}
-      </div>
       <h5>Made with ❤️ in react. Hosted on vercel</h5>
       {/* <p>Portfolio inspirations : Mehak Samaiya, Studio Sense</p> */}
     </div>

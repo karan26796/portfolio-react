@@ -1,3 +1,17 @@
+/* ============================================================================
+   STICKY NAVIGATION BAR STYLES
+   ============================================================================ */
+
+/* ============================================================================
+   BREAKPOINTS
+   - Mobile/Tablet: <= 800px
+   - Small screens: < 776px
+   - Extra small: <= 487px
+   ============================================================================ */
+
+/* ============================================================================
+   CONTAINER
+   ============================================================================ */
 .container-nav {
   width: -webkit-fill-available;
   display: flex;
@@ -9,40 +23,48 @@
   align-items: center;
   border: 1px solid var(--border-color);
 
-@media screen and (max-width: 768px) {
-  bottom: 0;
-  top: auto;
-}
+  /* Mobile: Move navigation to bottom */
+  @media screen and (max-width: 768px) {
+    bottom: 0;
+    top: auto;
+  }
 
+  /* ========================================================================
+     NAVBAR BASE
+     ======================================================================== */
   .navbar {
     width: -webkit-fill-available;
     position: relative;
-    padding: 0.5em 1em .5em 1em;
+    padding: 0.5em 1em;
     display: flex;
     justify-content: space-between;
     align-items: center;
     gap: 0.5em;
     transition: all 0.3s ease;
     overflow: visible;
-    align-items: center;
-    justify-content: center;
-    position: relative;
 
+    /* Mobile: Full width */
     @media (max-width: 800px) {
       width: -webkit-fill-available;
     }
 
+    /* ======================================================================
+       HOVER INDICATOR (Desktop only)
+       ====================================================================== */
     .hover-indicator {
       display: none;
       position: absolute;
-      top: 0em;
-      bottom: 0em;
+      top: 0;
+      bottom: 0;
       background-color: var(--bg-color-hover, var(--bg-color-high));
       border-radius: 1em;
       transition: all 0.3s ease;
       z-index: 0;
     }
 
+    /* ======================================================================
+       NAVIGATION LINKS
+       ====================================================================== */
     .a-header {
       font-size: 1.2em;
       display: flex;
@@ -58,30 +80,35 @@
       border: none;
       cursor: pointer;
 
-      @media (max-width: 800px) {
-        // flex-grow: 1;
-      }
-
+      /* Extra small screens: Hide text labels */
       span {
         @media (max-width: 487px) {
-          // display: none;
+          // Optional: Hide labels on very small screens
         }
       }
 
+      /* Extra small screens: Center content with reduced gap */
       @media (max-width: 487px) {
         justify-content: center;
-        gap: .5em;
+        gap: 0.5em;
       }
 
+      /* Hover state */
       &:hover {
         color: var(--primary-text);
       }
 
+      /* Active/current page state */
       &.active {
         color: var(--highlight-color);
       }
     }
 
+    /* ======================================================================
+       NAVBAR LAYOUT SECTIONS
+       ====================================================================== */
+
+    /* Left section - Logo/branding area */
     .navbar-left {
       display: flex;
       align-items: center;
@@ -95,6 +122,7 @@
       flex-shrink: 0;
     }
 
+    /* Center section - Main navigation links */
     .navbar-center {
       display: flex;
       align-items: center;
@@ -103,11 +131,13 @@
       gap: 0.5em;
       position: relative;
 
+      /* Mobile: Align to start */
       @media (max-width: 800px) {
         justify-content: flex-start;
       }
     }
 
+    /* Right section - CTA buttons (Desktop only) */
     .navbar-right {
       position: fixed;
       display: flex;
@@ -121,12 +151,15 @@
       margin-left: 2em;
     }
 
-    // Mobile menu styles
+    /* ======================================================================
+       MOBILE MENU DROPDOWN
+       ====================================================================== */
     .menu-dropdown {
       position: relative;
       display: flex;
       align-items: center;
 
+      /* Mobile: Position at top-right corner */
       @media (max-width: 800px) {
         position: absolute;
         right: 0;
@@ -135,6 +168,7 @@
         z-index: 30;
       }
 
+      /* Menu toggle button */
       .menu-toggle {
         display: flex;
         align-items: center;
@@ -160,6 +194,7 @@
         }
       }
 
+      /* Dropdown menu content */
       .menu-content {
         position: absolute;
         top: calc(-250%);
@@ -176,12 +211,14 @@
         transition: all 0.2s ease;
         z-index: 20;
 
+        /* Open state */
         &.open {
           opacity: 1;
           visibility: visible;
           transform: translateY(0);
         }
 
+        /* Menu items */
         .menu-item {
           display: flex;
           align-items: center;
@@ -191,7 +228,6 @@
           text-decoration: none;
           transition: all 0.2s ease;
           font-size: 1em;
-          // border-bottom: 1px solid var(--border-color);
 
           &:last-child {
             border-bottom: none;
@@ -207,22 +243,14 @@
             background-color: var(--bg-color-hover, var(--bg-color-high));
           }
 
-          &:first-child {
-            // border-top-left-radius: 0.5em;
-            // border-top-right-radius: 0.5em;
-          }
-
-          &:last-child {
-            // border-bottom-left-radius: 0.5em;
-            // border-bottom-right-radius: 0.5em;
-          }
-
+          /* Ensure text is visible in mobile menu */
           span {
-            display: inline !important; // Override the mobile span hiding
+            display: inline !important;
           }
         }
       }
 
+      /* Backdrop overlay - closes menu when clicked */
       .menu-backdrop {
         position: fixed;
         top: 0;
@@ -236,6 +264,9 @@
   }
 }
 
+/* ============================================================================
+   PROJECT DETAIL PAGE NAVIGATION
+   ============================================================================ */
 .project-nav {
   justify-content: center;
   gap: 2rem;
@@ -258,6 +289,7 @@
       color: var(--accent-color);
     }
 
+    /* Disabled state for "Next" button when no next project */
     &:disabled {
       opacity: 0.5;
       cursor: not-allowed;
@@ -267,6 +299,7 @@
       }
     }
 
+    /* Mobile: Full width centered navigation */
     @media (max-width: 800px) {
       justify-content: center;
       align-items: center;
@@ -275,6 +308,7 @@
     }
   }
 
+  /* Mobile: Constrained width, centered */
   @media (max-width: 800px) {
     width: 60% !important;
     margin: 0 auto !important;

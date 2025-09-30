@@ -3,74 +3,52 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   House,
   FigmaLogo,
-  FolderOpen,
   Camera,
-  Sun,
-  Moon,
   ArrowLeft,
   ArrowRight,
   PencilRuler,
   List,
   X,
-  FileText
+  LinkedinLogo
 } from "@phosphor-icons/react";
 import "../styles/StickyNavBar.scss";
 import { projectSummaries } from "../utils/ProjectSummaries";
-
 import Button from "./Buttons";
 import ResumePopup from "../pages/ResumePopup";
 
+// ============================================================================
+// BREAKPOINTS
+// ============================================================================
+const BREAKPOINT_MOBILE = 800; // Mobile/tablet breakpoint
+const BREAKPOINT_SMALL = 776;  // Small screen breakpoint for text hiding
+
 const StickyNavBar: React.FC = () => {
+  // ============================================================================
+  // HOOKS & STATE
+  // ============================================================================
   const location = useLocation();
   const navigate = useNavigate();
-  const [indicatorStyle, setIndicatorStyle] = useState({});
+  const containerRef = useRef<HTMLDivElement>(null);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  // Theme state - persisted in localStorage
   const [isDarkMode, setIsDarkMode] = useState(() => {
     const savedTheme = localStorage.getItem('theme');
     return savedTheme === 'dark';
   });
-  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= 800);
-  const [isBelow776, setIsBelow776] = useState(() => window.innerWidth < 776);
+
+  // Responsive breakpoint states
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth <= BREAKPOINT_MOBILE);
+  const [isBelow776, setIsBelow776] = useState(() => window.innerWidth < BREAKPOINT_SMALL);
+  
+  // UI states
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const containerRef = useRef<HTMLDivElement>(null);
-  const menuRef = useRef<HTMLDivElement>(null);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
+  const [indicatorStyle, setIndicatorStyle] = useState({});
 
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 800);
-      setIsBelow776(window.innerWidth < 776);
-
-      // Close menu on resize to larger screen
-      if (window.innerWidth > 800) {
-        setIsMenuOpen(false);
-      }
-    };
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  // Close menu when clicking outside
-  useEffect(() => {
-    const handleClickOutside = (event: MouseEvent) => {
-      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
-        setIsMenuOpen(false);
-      }
-    };
-
-    if (isMenuOpen) {
-      document.addEventListener('mousedown', handleClickOutside);
-    }
-
-    return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-    };
-  }, [isMenuOpen]);
-
-  // Close menu when route changes
-  useEffect(() => {
-    setIsMenuOpen(false);
-  }, [location.pathname]);
-
+  // ============================================================================
+  // PROJECT NAVIGATION HELPERS
+  // ============================================================================
   const isProjectDetailPage = location.pathname.startsWith('/project/');
   const currentProjectId = isProjectDetailPage ? location.pathname.split('/').pop() : null;
 
@@ -81,6 +59,9 @@ const StickyNavBar: React.FC = () => {
     return projectSummaries[currentIndex + 1].id;
   };
 
+  // ============================================================================
+  // NAVIGATION HANDLERS
+  // ============================================================================
   const handleBack = () => {
     navigate('/home');
   };
@@ -96,22 +77,13 @@ const StickyNavBar: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  useEffect(() => {
-    const activeEl = containerRef.current?.querySelector(".a-header.active");
-    if (activeEl) {
-      moveIndicator(activeEl as HTMLElement);
-    }
-  }, [location.pathname]);
-
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-  }, [isDarkMode]);
-
   const toggleTheme = () => {
     setIsDarkMode(!isDarkMode);
   };
 
+  // ============================================================================
+  // HOVER INDICATOR ANIMATION
+  // ============================================================================
   const moveIndicator = (el: HTMLElement) => {
     const { offsetLeft, offsetWidth } = el;
     setIndicatorStyle({
@@ -131,12 +103,72 @@ const StickyNavBar: React.FC = () => {
     }
   };
 
+  // ============================================================================
+  // EFFECTS
+  // ============================================================================
+
+  // Handle window resize - update breakpoint states
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= BREAKPOINT_MOBILE);
+      setIsBelow776(window.innerWidth < BREAKPOINT_SMALL);
+
+      // Auto-close mobile menu when resizing to desktop
+      if (window.innerWidth > BREAKPOINT_MOBILE) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Close mobile menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    };
+
+    if (isMenuOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isMenuOpen]);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
+  // Update hover indicator position on route change
+  useEffect(() => {
+    const activeEl = containerRef.current?.querySelector(".a-header.active");
+    if (activeEl) {
+      moveIndicator(activeEl as HTMLElement);
+    }
+  }, [location.pathname]);
+
+  // Apply theme to document root
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
+    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
+  }, [isDarkMode]);
+
+  // ============================================================================
+  // RENDER: PROJECT DETAIL PAGE NAVIGATION
+  // ============================================================================
   if (isProjectDetailPage) {
     return (
       <div className="container-nav">
         <nav className="navbar main-nav active project-nav" ref={containerRef}>
           <div className="hover-indicator" style={indicatorStyle}></div>
 
+          {/* Back to Home */}
           <Link
             to="/home"
             className="a-header"
@@ -148,6 +180,7 @@ const StickyNavBar: React.FC = () => {
             <span>Back</span>
           </Link>
 
+          {/* Next Project */}
           <Link
             to={getNextProjectId() ? `/project/${getNextProjectId()}` : '#'}
             className="a-header"
@@ -172,15 +205,33 @@ const StickyNavBar: React.FC = () => {
     );
   }
 
+  // ============================================================================
+  // RENDER: MAIN NAVIGATION
+  // ============================================================================
   return (
     <div className="container-nav">
       <nav className="navbar main-nav active" ref={containerRef}>
+        {/* Left Section - LinkedIn icon for desktop */}
         <div className="navbar-left">
+          {!isMobile && (
+            <a
+              href="https://www.linkedin.com/in/karankapoorux/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="a-header linkedin-btn"
+              aria-label="LinkedIn Profile"
+            >
+              <LinkedinLogo size={22} weight="duotone" />
+            </a>
+          )}
           <h6></h6>
         </div>
+
+        {/* Center Section - Main Navigation */}
         <div className="navbar-center">
           <div className="hover-indicator" style={indicatorStyle}></div>
 
+          {/* Home Link */}
           <Link
             to="/home"
             className={`a-header${location.pathname === "/home" ? " active" : ""}`}
@@ -188,17 +239,12 @@ const StickyNavBar: React.FC = () => {
             onMouseLeave={handleMouseLeave}
           >
             <House size={18} weight="duotone" />
-            <span
-              style={
-                isBelow776
-                  ? { display: "inline" }
-                  : undefined
-              }
-            >
+            <span style={isBelow776 ? { display: "inline" } : undefined}>
               Home
             </span>
           </Link>
-          
+
+          {/* Experiments Link */}
           <Link
             to="/archive"
             className={`a-header${location.pathname === "/archive" ? " active" : ""}`}
@@ -209,18 +255,35 @@ const StickyNavBar: React.FC = () => {
             <span>Experiments</span>
           </Link>
 
-          {/* Mobile menu */}
+          {/* ================================================================== */}
+          {/* MOBILE NAVIGATION */}
+          {/* ================================================================== */}
           {isMobile ? (
             <div className="menu-dropdown" ref={menuRef}>
-              <button
-                className={`menu-toggle ${isMenuOpen ? 'open' : ''}`}
-                onClick={toggleMenu}
-                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                aria-expanded={isMenuOpen}
-              >
-                {isMenuOpen ? <X size={18} weight="duotone" /> : <List size={18} />}
-              </button>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                {/* LinkedIn - Mobile */}
+                <a
+                  href="https://www.linkedin.com/in/karankapoorux/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="LinkedIn Profile"
+                  className="a-header linkedin-btn"
+                >
+                  <LinkedinLogo size={18} weight="duotone" />
+                </a>
 
+                {/* Menu Toggle Button */}
+                <button
+                  className={`menu-toggle ${isMenuOpen ? 'open' : ''}`}
+                  onClick={toggleMenu}
+                  aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+                  aria-expanded={isMenuOpen}
+                >
+                  {isMenuOpen ? <X size={18} weight="duotone" /> : <List size={18} />}
+                </button>
+              </div>
+
+              {/* Dropdown Menu Content */}
               <div className={`menu-content ${isMenuOpen ? 'open' : ''}`}>
                 <Link
                   to="/figma-training"
@@ -229,6 +292,7 @@ const StickyNavBar: React.FC = () => {
                   <FigmaLogo size={18} weight="duotone" />
                   <span>Training</span>
                 </Link>
+
                 <Link
                   to="/gallery"
                   className={`menu-item a-header${location.pathname === "/gallery" ? " active" : ""}`}
@@ -236,22 +300,19 @@ const StickyNavBar: React.FC = () => {
                   <Camera size={18} weight="duotone" />
                   <span>Travel</span>
                 </Link>
-
-                {/* <Link
-                  to="#resume"
-                  className={`menu-item a-header${location.pathname === "/resume" ? " active" : ""}`}
-                >
-                  <FileText size={18} weight="duotone" />
-                  <span>Resume</span>
-                </Link> */}
               </div>
 
-              {/* Backdrop overlay */}
-              {isMenuOpen && <div className="menu-backdrop" onClick={() => setIsMenuOpen(false)} />}
+              {/* Backdrop Overlay */}
+              {isMenuOpen && (
+                <div className="menu-backdrop" onClick={() => setIsMenuOpen(false)} />
+              )}
             </div>
           ) : (
-            // Desktop menu items
+            /* ================================================================ */
+            /* DESKTOP NAVIGATION */
+            /* ================================================================ */
             <>
+              {/* Figma Training Link - Desktop */}
               <Link
                 to="/figma-training"
                 className={`a-header${location.pathname === "/figma-training" ? " active" : ""}`}
@@ -259,17 +320,12 @@ const StickyNavBar: React.FC = () => {
                 onMouseLeave={handleMouseLeave}
               >
                 <FigmaLogo size={18} weight="duotone" />
-                <span
-                  style={
-                    isBelow776
-                      ? { display: "inline" }
-                      : undefined
-                  }
-                >
+                <span style={isBelow776 ? { display: "inline" } : undefined}>
                   Figma Training
                 </span>
               </Link>
 
+              {/* Gallery Link - Desktop */}
               <Link
                 to="/gallery"
                 className={`a-header${location.pathname === "/gallery" ? " active" : ""}`}
@@ -282,7 +338,8 @@ const StickyNavBar: React.FC = () => {
             </>
           )}
         </div>
-        {/* Resume button on right for desktop */}
+
+        {/* Right Section - Resume Button (Desktop Only) */}
         {!isMobile && (
           <>
             <div className="navbar-right">
