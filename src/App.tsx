@@ -19,10 +19,7 @@ import Resume from "./components/Resume";
 import ResumePopup from "./pages/ResumePopup";
 import ResumeStandalone from "./pages/ResumeStandalone";
 
-import Stories from 'react-insta-stories';
 
-import Footer from "./components/Footer";
-import ContactForm from "./components/ContactForm";
 import Archive from "./pages/Archive"
 import { Analytics } from "@vercel/analytics/react";
 
@@ -33,6 +30,7 @@ import maryam from './utils/testimonials/maryam-img.jpeg'
 import megha from './utils/testimonials/megha-pfp.jpeg'
 import { Story } from "react-insta-stories/dist/interfaces";
 import FAQ from "./components/FAQ";
+import WorkTogether from "./components/WorkTogether";
 
 const App: React.FC = () => {
 
@@ -95,7 +93,7 @@ const App: React.FC = () => {
                 <Route path="/resume-popup" element={<StandaloneResumePopup />} />
                 <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
               </Routes>
-              <Footer />
+              {/* <Footer /> */}
             </>
           }
         />
@@ -181,7 +179,7 @@ const HomePage: React.FC = () => {
         title="Testimonials"
       />
       <FAQ data={faqData} />
-      {/* <ContactForm /> */}
+      <WorkTogether />
     </>
   );
 };

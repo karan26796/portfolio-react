@@ -33,8 +33,8 @@ const ContactForm: React.FC = () => {
     "MVP Design",
     "XR Design",
     "0-1 Product Design",
-    "Corporate Figma Training",
-    "1:1 Figma Session",
+    "Design systems",
+    "Startup consulting",
   ];
 
   const tagProperties = useMemo(() => {
@@ -124,7 +124,9 @@ const ContactForm: React.FC = () => {
 
   return (
     <div id="contact" className="contact-form-container">
-      <h1>Get in touch for</h1>
+      <h1>Let's work together</h1>
+      <h4>I work with early stage startups to create design processes, set up design systems, and launch MVPs</h4>
+      
       <div className="tag-container">
         {tagTexts.map((text, index) => (
           <Tag

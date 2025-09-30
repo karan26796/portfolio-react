@@ -6,27 +6,4 @@
     padding: 2em;
     gap: 1em;
     background: var(--bg-color);
-
-    .links {
-        display: flex;
-        flex-direction: row;
-        gap: 1em;
-
-        .a-footer {
-            font-size: 1.5em;
-            background-color: white;
-            color: var(--highlight-color);
-            display: flex;
-            border: 1px solid var(--border-color);
-            align-items: center;
-            border-radius: 4em;
-            padding: 1em 2em;
-            gap: 0.5em;
-            transition: all 0.3s ease;
-
-            &:hover {
-                background-color: var(--grey-100);
-            }
-        }
-    }
 }

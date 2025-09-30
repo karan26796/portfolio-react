@@ -1,0 +1,80 @@
+.contact-form-container {
+  max-width: var(--max-width-container);
+  margin: auto;
+  margin-bottom: 4em;
+  border-radius: .75em;
+  padding: 3em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1em;
+  border: 1px solid var(--border-color);
+  background: linear-gradient(180deg,#ffffff 0%, #f9f7ff 100%);
+  position: relative;
+  border: none;
+
+  &::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    padding: 2px;
+    border-radius: .75em;
+    background: linear-gradient(0deg,#ffffff 0%, #491cff12 100%);
+    -webkit-mask:
+      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  > * {
+    position: relative;
+    z-index: 1;
+  }
+
+
+  h1 {
+    margin-bottom: 0;
+  }
+
+  h4 {
+    text-align: center;
+    max-width: 40ch;
+    color: var(--secondary-text);
+  }
+
+  /* Button row */
+  .cta-row {
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+    justify-content: center;
+    // margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    flex-wrap: wrap;
+  }
+
+  .tags-row {
+    display: flex;
+    max-width: 80ch;
+    flex-direction: row;
+    gap: 0.5em;
+    justify-content: center;
+    margin-top: 1em;
+    flex-wrap: wrap;
+  }
+}
+
+/* Responsive adjustments */
+@media (max-width: 800px) {
+  .contact-form-container {
+    margin-left: 2em;
+    margin-right: 2em;
+  }
+  .cta-row {
+    gap: 1em;
+  }
+}

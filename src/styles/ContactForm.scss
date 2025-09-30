@@ -6,6 +6,7 @@
   max-width: var(--max-width-container);
   margin: 0 auto;
   padding: 4em 0;
+  background-color: var(--bg-color);
 
   @media (max-width: 800px) {
     width: 100%;
