@@ -13,10 +13,6 @@
   gap: .5em;
   transition: scale ease-in-out .2s;
 
-  &:hover {
-    scale: .99;
-  }
-
   svg {
     display: inline-block;
     vertical-align: middle;
@@ -34,24 +30,23 @@
   &.custom-button-s {
     padding: 0.5em .75em;
     gap: .25em;
-    // border-radius: .75em;
+    border-radius: .75em;
   }
 
   &.custom-button-m {
     padding: .75em 1.25em; // Default medium size
-    // border-radius: .75em;
+    border-radius: .75em;
   }
 
   &.custom-button-l {
     padding: 1em 1.5em;
-    // border-radius: .75em;
+    border-radius: 1em;
   }
 
   // Variant styles
   &.custom-button-primary {
     background-color: var(--button-color);
     color: white;
-    border-radius: 1em;
 
     &:hover {
       background-color: var(--button-color-hover);
@@ -59,13 +54,13 @@
   }
 
   &.custom-button-secondary {
-    background-color: var(--bg-color);
-    color: var(--highlight-color);
+    background-color: var(--bg-color-high);
+    color: var(--primary-text);
     border: 1px solid var(--border-color);
-    border-radius: 1em;
 
     &:hover {
-      background-color: var(--bg-color-high);
+      color: var(--highlight-color-high);
+      text-decoration: underline;
     }
   }
 
@@ -73,7 +68,6 @@
     background-color: transparent;
     color: var(--highlight-color);
     padding: .5em !important;
-    border-radius: 1em;
 
     &:hover {
       background-color: var(--bg-color-high);

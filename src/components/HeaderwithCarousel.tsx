@@ -4,6 +4,7 @@ import "../styles/HeaderWithCarousel.scss";
 import LogoCarousel from "./LogoCarousel";
 import ResumePopup from "../pages/ResumePopup";
 import Tag from "./Tag";
+import Button from "./Buttons";
 
 
 const HeaderWithCarousel: React.FC = () => {
@@ -56,6 +57,14 @@ const HeaderWithCarousel: React.FC = () => {
         </div>
         <LogoCarousel align="center" />
         <Tag text="Open to new roles" color={{ text: '#3100f4ff' }} rotation={0} dot={true} pulsatingDot={true} />
+        {/* <Button
+            text="Let's work together"
+            iconName="ArrowDown"
+            withIcon={true}
+            iconDirection="right"
+            variant="primary"
+            size="m"
+          /> */}
         <ResumePopup isOpen={isResumeOpen} onClose={closeResume} />
       </div>
     </div>

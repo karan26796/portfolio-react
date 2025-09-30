@@ -1,16 +1,17 @@
 .contact-form-container {
-  max-width: var(--max-width-container);
+  max-width: -webkit-fill-available;
   margin: auto;
-  margin-bottom: 4em;
-  border-radius: .75em;
-  padding: 3em;
+  // margin-bottom: 4em;
+  // border-radius: .75em;
+  padding: 5em 2em;
+  padding-bottom: 7em;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   gap: 1em;
   border: 1px solid var(--border-color);
-  background: linear-gradient(180deg,#ffffff 0%, #f9f7ff 100%);
+  background: linear-gradient(180deg,#f9f7ff 0%, #f4f1ff 100%);
   position: relative;
   border: none;
 
@@ -18,11 +19,10 @@
     content: "";
     position: absolute;
     inset: 0;
-    padding: 2px;
-    border-radius: .75em;
-    background: linear-gradient(0deg,#ffffff 0%, #491cff12 100%);
+    padding-top: 3px;
+    background: linear-gradient(90deg, var(--bg-color-high) 10%, #491cff7a 50%, var(--bg-color-high) 90%);
     -webkit-mask:
-      linear-gradient(#fff 0 0) content-box, 
+      linear-gradient(#ffcfcf 0 0) content-box, 
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -52,7 +52,7 @@
     flex-direction: row;
     gap: 1em;
     justify-content: center;
-    // margin-top: 1.5em;
+    margin-top: 1em;
     margin-bottom: 0.5em;
     flex-wrap: wrap;
   }
@@ -71,8 +71,8 @@
 /* Responsive adjustments */
 @media (max-width: 800px) {
   .contact-form-container {
-    margin-left: 2em;
-    margin-right: 2em;
+    padding: 5em 1em;
+    padding-bottom: 8em;
   }
   .cta-row {
     gap: 1em;

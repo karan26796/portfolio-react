@@ -70,7 +70,7 @@
       display: flex;
       align-items: center;
       gap: 0.5em;
-      padding: 0.5em 1em;
+      padding: 0.5em .75em;
       color: var(--tertiary-text);
       position: relative;
       z-index: 1;
@@ -113,6 +113,18 @@
       display: flex;
       align-items: center;
       flex: 0 0 auto;
+
+      .linkedin-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-text);
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: var(--highlight-color);
+        }
+      }
     }
 
     .navbar-logo {

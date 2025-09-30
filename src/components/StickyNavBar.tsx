@@ -40,7 +40,7 @@ const StickyNavBar: React.FC = () => {
   // Responsive breakpoint states
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= BREAKPOINT_MOBILE);
   const [isBelow776, setIsBelow776] = useState(() => window.innerWidth < BREAKPOINT_SMALL);
-  
+
   // UI states
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
@@ -214,17 +214,16 @@ const StickyNavBar: React.FC = () => {
         {/* Left Section - LinkedIn icon for desktop */}
         <div className="navbar-left">
           {!isMobile && (
-            <a
-              href="https://www.linkedin.com/in/karankapoorux/"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Button
+              variant="secondary"
+              withText={false}
+              onClick={() => window.open("https://www.linkedin.com/in/karankapoorux/", "_blank", "noopener,noreferrer")}
+              size="m"
+              withIcon={true}
+              iconName="LinkedinLogo"
               className="a-header linkedin-btn"
-              aria-label="LinkedIn Profile"
-            >
-              <LinkedinLogo size={22} weight="duotone" />
-            </a>
+            />
           )}
-          <h6></h6>
         </div>
 
         {/* Center Section - Main Navigation */}
@@ -343,14 +342,30 @@ const StickyNavBar: React.FC = () => {
         {!isMobile && (
           <>
             <div className="navbar-right">
-              <Button
-                text="View Resume"
-                onClick={() => setIsResumeOpen(true)}
-                variant="secondary"
-                size="s"
-                withIcon={true}
-                iconName="FileText"
-              />
+              {location.pathname === "/home" ? (
+                <Button
+                  text="Let's work together"
+                  onClick={() => {
+                    const section = document.getElementById("contact");
+                    if (section) {
+                      section.scrollIntoView({ behavior: "smooth" });
+                    }
+                  }}
+                  variant="primary"
+                  size="s"
+                  withIcon={false}
+                  iconName="FileText"
+                />
+              ) : (
+                <Button
+                  text="View Resume"
+                  onClick={() => setIsResumeOpen(true)}
+                  variant="tertiary"
+                  size="s"
+                  withIcon={true}
+                  iconName="FileText"
+                />
+              )}
             </div>
             <ResumePopup isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
           </>
