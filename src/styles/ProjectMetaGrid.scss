@@ -1,22 +1,21 @@
 .project-meta-grid {
-  display: none;
-  grid-template-columns: 1fr 1fr;
-  gap: 1em;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: .5em;
+  padding: 0em 3em 1em 3em;
+
+  border-bottom: 4px solid;
+  border-image: linear-gradient(to right, #ffffff, #491cff10,#ffffff) 1;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
-    gap: 1em;
-    padding: 1em;
-
   }
 
   div {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 0.5em;
-    justify-content: center;
-    // background: var(--bg-color-high);
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
     // border: 1px solid var(--border-color);
     // padding: 1em;
     // border-radius: 1em;
@@ -24,6 +23,7 @@
     p {
       padding: 0;
       margin: 0;
+      max-width: 30ch;
     }
   }
 }

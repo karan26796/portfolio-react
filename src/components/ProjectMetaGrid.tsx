@@ -8,7 +8,7 @@ interface Props {
 
 const metaFields = [
     { key: "duration", title: "Duration" },
-    { key: "role", title: "Role" },
+    { key: "role", title: "My role" },
     // { key: "scope", title: "Scope" },
     { key: "impact", title: "Impact" },
 ] as const;
@@ -18,7 +18,8 @@ const ProjectMetaGrid: React.FC<Props> = ({ meta }) => (
         {metaFields.map(({ key, title }) => (
             <div key={key}>
                 <p>{title}</p>
-                <h4>{meta[key]}</h4>
+                <h4>{title}</h4>
+                <p>{meta[key]}</p>
             </div>
         ))}
     </div>
