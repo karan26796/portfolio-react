@@ -17,7 +17,6 @@ const ProjectMetaGrid: React.FC<Props> = ({ meta }) => (
     <div className="project-meta-grid">
         {metaFields.map(({ key, title }) => (
             <div key={key}>
-                <p>{title}</p>
                 <h4>{title}</h4>
                 <p>{meta[key]}</p>
             </div>

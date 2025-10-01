@@ -28,7 +28,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     details: "Keka/2025",
     meta: {
       duration: "Nov 2024 – Jan 2025",
-      role: "Product Designer, Design Strategist",
+      role: "Design, Strategy",
       scope: "Feature engagement for workplace celebrations",
       impact: "Increased weekly engagement from 15k to 100k users"
     }
@@ -38,12 +38,12 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     description: 'Developed a points-based employee recognition system to boost motivation and engagement within Keka.',
     title: "Introducing a points based recognition system in Keka for employees",
     img: keka,
-    tags: ["Product design", "Design strategy"],
+    tags: ["Design", "Research", "Strategy"],
     type: "client",
     details: "Keka/2024",
     meta: {
       duration: "Jun 2024 – Nov 2024",
-      role: "Designer, Researcher, Stakeholder Manager",
+      role: "Design, Research, Stakeholder Alignment",
       scope: "Integrating a points-based recognition system within Keka",
       impact: "Secured 10 clients for mid and small sized businesses in India"
     }
@@ -53,12 +53,12 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     description: "Created a note-taking assistant to insights pipeline for user interviews.",
     title: "From Zoom bot to interview insights",
     img: loopnote,
-    tags: ["Product design", "Usability testing"],
+    tags: ["Design", "Research"],
     type: "client",
     details: "Looppanel/2022",
     meta: {
       duration: "Jan 2022 – Mar 2022",
-      role: "Product Designer",
+      role: "Design, Research, Testing",
       scope: "Note-taking assistant for Zoom",
       impact: "Streamlined research workflows for user researchers and usability testers"
     }
@@ -68,12 +68,12 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     description: "Designed tools for researchers to zoom in and out of qualitative data to get research buy in using project summaries.",
     title: "Interviews to project summaries",
     img: loopinfo,
-    tags: ["Product design", "UX research"],
+    tags: ["Design", "Research"],
     type: "client",
     details: "Looppanel/2022",
     meta: {
       duration: "Apr 2022 – Jun 2022",
-      role: "UX Researcher, Product Designer",
+      role: "Research, Design, Testing",
       scope: "Qualitative data analysis tools",
       impact: "Improved insight discovery for research teams"
     }
@@ -88,7 +88,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     details: "Master's project/2022",
     meta: {
       duration: "Aug 2022 – Oct 2022",
-      role: "Researcher, Product Designer",
+      role: "Research, Design, Prototyping",
       scope: "Device to tackle boredom and binge behavior",
       impact: "Helped users regain control over their habits"
     }

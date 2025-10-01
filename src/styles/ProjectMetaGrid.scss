@@ -1,7 +1,7 @@
 .project-meta-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: .5em;
+  gap: 1em;
   padding: 0em 3em 1em 3em;
 
   border-bottom: 4px solid;
@@ -16,10 +16,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    // border: 1px solid var(--border-color);
-    // padding: 1em;
-    // border-radius: 1em;
-
+    
     p {
       padding: 0;
       margin: 0;
