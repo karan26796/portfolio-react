@@ -6,7 +6,6 @@ import Tag, { VibrantColor } from "../components/Tag";
 import LogoCarousel from "../components/LogoCarousel";
 import FigmaTrainingCarousel from "../components/FigmaTrainingCarousel";
 import CompanyForm from '../components/CompanyForm';
-import CalendlyWidget from '../components/CalendlyWidget';
 import { trainingTestimonialsData, tagTextIndividual, tagTextCompany, vibrantColors } from '../utils/trainingData';
 
 import iima from "../utils/logos/iima.webp";
@@ -15,7 +14,6 @@ import iitm from "../utils/logos/IIT-M.webp";
 import zuddl from "../utils/logos/zuddl.webp";
 import indiana from "../utils/logos/indiana.webp";
 import flame from "../utils/logos/flame.webp";
-import { BuildingOffice, ChalkboardTeacher, Student } from "@phosphor-icons/react";
 import { Logo } from "../utils/logos";
 
 const TrainingList: React.FC = () => {
@@ -69,9 +67,8 @@ const TrainingList: React.FC = () => {
       />
       <FigmaTrainingCarousel />
       <TestimonialsSection />
-      {/* Pass refs to the Individual and Company training sections */}
-      {/* <IndividualTrainingSection ref={individualRef} tagProperties={individualTagProperties} /> */}
-      <CompanyTrainingSection ref={companyRef} tagProperties={companyTagProperties} />
+            <CompanyForm />
+
     </div>
   );
 };
@@ -140,50 +137,5 @@ const TestimonialsSection: React.FC = () => (
 interface TrainingSectionProps {
   tagProperties: { color: VibrantColor; rotation: number; }[];
 }
-
-// // Individual training section
-// const IndividualTrainingSection = React.forwardRef<HTMLDivElement, TrainingSectionProps>(
-//   ({ tagProperties }, ref) => (
-//     <div id="individual" className='training' ref={ref}>
-//       <h1>Book 1:1 session </h1>
-//       <p style={{ margin: "0", textAlign:"center" }}>Inaugural Offer: ₹1000 for one session</p>
-//       {/* <p>You'll receive an email post blocking a time slot to pay</p> */}
-//       {/* Keep the TagsSection intact */}
-//       <TagsSection tagProperties={tagProperties} tagTexts={tagTextIndividual} />
-//       <CalendlyWidget />
-//     </div>
-//   )
-// );
-
-// Company training section
-const CompanyTrainingSection = React.forwardRef<HTMLDivElement, TrainingSectionProps>(
-  ({ tagProperties }, ref) => (
-    <div id="company" className='training' ref={ref}>
-      <h1>Book a corporate or educational workshop</h1>
-      {/* Keep the TagsSection intact */}
-      <TagsSection tagProperties={tagProperties} tagTexts={tagTextCompany} />
-      <CompanyForm />
-    </div>
-  )
-);
-
-// Tags section used in both individual and company sections
-interface TagsSectionProps extends TrainingSectionProps {
-  tagTexts: string[];
-}
-
-const TagsSection: React.FC<TagsSectionProps> = ({ tagProperties, tagTexts }) => (
-  <div className='tags-topics'>
-    {tagTexts.map((text, index) => (
-      <Tag
-        key={index}
-        text={text}
-        color={tagProperties[index].color}
-        rotation={tagProperties[index].rotation}
-        dot={false}
-      />
-    ))}
-  </div>
-);
 
 export default TrainingList;

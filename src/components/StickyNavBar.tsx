@@ -289,7 +289,7 @@ const StickyNavBar: React.FC = () => {
                   className={`menu-item a-header${location.pathname === "/figma-training" ? " active" : ""}`}
                 >
                   <FigmaLogo size={18} weight="duotone" />
-                  <span>Training</span>
+                  <span>Design Training</span>
                 </Link>
 
                 <Link
@@ -320,7 +320,7 @@ const StickyNavBar: React.FC = () => {
               >
                 <FigmaLogo size={18} weight="duotone" />
                 <span style={isBelow776 ? { display: "inline" } : undefined}>
-                  Figma Training
+                  Design Training
                 </span>
               </Link>
 

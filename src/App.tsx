@@ -31,6 +31,7 @@ import megha from './utils/testimonials/megha-pfp.jpeg'
 import { Story } from "react-insta-stories/dist/interfaces";
 import FAQ from "./components/FAQ";
 import WorkTogether from "./components/WorkTogether";
+import Footer from "./components/Footer";
 
 const App: React.FC = () => {
 
@@ -93,7 +94,7 @@ const App: React.FC = () => {
                 <Route path="/resume-popup" element={<StandaloneResumePopup />} />
                 <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
               </Routes>
-              {/* <Footer /> */}
+              <Footer />
             </>
           }
         />
