@@ -1,17 +1,13 @@
 import React from "react";
 
 // Image imports
-import integrations from "../utils/project-imgs/continuous rewards/Integrations.webp";
-import entrypoint from "../utils/project-imgs/continuous rewards/Entry point.webp";
-import userflow from "../utils/project-imgs/continuous rewards/User flow.webp";
 import generalsettings from "../utils/project-imgs/continuous rewards/General settings.webp";
 import milestonessetup from "../utils/project-imgs/continuous rewards/Milestones settings.webp";
 import peertopeer from "../utils/project-imgs/continuous rewards/Peer to Peer settings.webp";
-import timeline from "../utils/project-imgs/continuous rewards/timeline-rewards.webp";
 import milestonesdashboard from "../utils/project-imgs/continuous rewards/Milestones dashboard.webp";
 import p2pdashboard from "../utils/project-imgs/continuous rewards/P2P dashboard.webp";
-import milestonesintegration from "../utils/project-imgs/continuous rewards/Integration with praise feature.webp";
 import featureintro from "../utils/project-imgs/continuous rewards/Integration with wish feature.webp";
+import continuousrewards from "../utils/project-imgs/continuous rewards/continuousRewardsProgram.webp";
 
 const KekaProject: React.FC = () => {
   return (
@@ -19,26 +15,44 @@ const KekaProject: React.FC = () => {
 
       {/* -------------------- Intro -------------------- */}
       <section>
-        <h3>Continuous Rewards at Keka</h3>
+        <h3>About the project</h3>
         <p>
-          The project was conceptualized to introduce a flexible, day-to-day recognition system within Keka to
+          The <strong>Continuous Rewards</strong> project was conceptualized to introduce a flexible, day-to-day recognition system within Keka to
         </p>
         <ul>
-          <li>Boost employee engagement and satisfaction</li>
+          <li>Bring companies' informal recognition practices into a structured system</li>
           <li>Complement existing praise features with tangible rewards</li>
-          <li>Integrate seamlessly into daily workflows</li>
+          <li>Initiate an employee recognition system from the company's end</li>
         </ul>
+        <h4>The existing award programs in Keka catered to long term reward strategies but short term recognition was lacking.</h4>
       </section>
+
+      <section>
+        <h6>Components</h6>
+        <h3>Setting up the program</h3>
+        <p>
+          The continuous rewards program consists of three main components: </p>
+        <ol>
+          <li><strong>General Settings</strong> : To set up the overall framework and guidelines for the rewards program.</li>
+          <li><strong>Milestone Rewards</strong> : To automate celebrations for significant employee milestones.</li>
+          <li><strong>Peer-to-Peer Rewards</strong> : To facilitate employee recognition through peer interactions.</li>
+        </ol>
+      </section>
+
+      <figure>
+        <img src={continuousrewards} alt="Milestone rewards setup" />
+        <figcaption>HR admins setting up automated milestone rewards.</figcaption>
+      </figure>
 
       {/* -------------------- General Settings -------------------- */}
       <section>
         <h6>Part I</h6>
         <h3>Flexible Configuration System</h3>
         <p>
-          HR admins can define currencies, point values, expiry rules, and hierarchy-based
-          permissions, ensuring the program adapts to their culture and operational needs.
+          Companies ran informal day-to-day reward programs already, using Slack bots, or WhatsApp. Some called the rewards <strong> donuts</strong>, some <strong>cookies</strong>. Hence we added a way for them to customize this in the system.<br /><br />
+          The configuration system also allows HR admins to account for currency coversion, integrate a marketplace etc.
         </p>
-        <blockquote>During customer conversations, HRs raised a need for customizations, since they already had informal systems in place</blockquote>
+        <blockquote>🍩 A company's policy was to send a donut box to the employees who received most number of donuts on Slack.</blockquote>
 
       </section>
 

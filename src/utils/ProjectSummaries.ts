@@ -36,7 +36,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
   {
     id: "6",
     description: 'Developed a points-based employee recognition system to boost motivation and engagement within Keka.',
-    title: "Introducing a points based recognition system in Keka for employees",
+    title: "Introducing a points based system through Continuous rewards in Keka for employees",
     img: keka,
     tags: ["Design", "Research", "Strategy"],
     type: "client",
