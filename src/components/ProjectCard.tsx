@@ -28,6 +28,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   showDivider = true
 }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
+  // Random tilt between -2 and 2 degrees, stable per mount
+  const [tilt, setTilt] = useState(0);
+  useEffect(() => {
+    setTilt(Math.random() * 4 - 2);
+  }, []);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -92,6 +97,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     <div
       className={containerClass}
       onClick={data.specialStatus ? undefined : handleClick}
+      style={{
+        transform: `rotate(${tilt}deg)`,
+        transition: 'transform 0.25s ease-in-out',
+      }}
+      onMouseEnter={e => {
+        (e.currentTarget as HTMLDivElement).style.transform = 'rotate(0deg)';
+      }}
+      onMouseLeave={e => {
+        (e.currentTarget as HTMLDivElement).style.transform = `rotate(${tilt}deg)`;
+      }}
     >
       <img className="project-image" src={data.img} alt={data.title} />
 
@@ -99,7 +114,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
         <div className="title-details-group">
           <h3>{data.title}</h3>
-          <p style={{opacity:".6",fontSize:"1.1em"}}>{data.details}</p>
+          <p style={{opacity:'.6',fontSize:'1.1em'}}>{data.details}</p>
         </div>
 
         <div className="desc-btn-group">

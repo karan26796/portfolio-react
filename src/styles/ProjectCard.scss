@@ -8,7 +8,10 @@
   transition: all linear .2s;
   position: relative;
   z-index: 1;
-  border-radius: 1em;
+  border-radius: 1.5em;
+  padding: .5em .5em 0em .5em; 
+  border: 1px solid var(--border-color);
+  background: var(--bg-color-high);
 
   &:hover {
     cursor: pointer;
@@ -27,7 +30,6 @@
     object-fit: cover;
     transform-origin: center;
     border-radius: 1em;
-    border: 1px solid var(--border-color);
 
     @media screen and (max-width: 767px) {
       aspect-ratio: 5/4;
