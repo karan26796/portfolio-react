@@ -12,6 +12,7 @@
 /* ============================================================================
    CONTAINER
    ============================================================================ */
+
 .container-nav {
   width: -webkit-fill-available;
   display: flex;
@@ -22,6 +23,11 @@
   background: var(--bg-color);
   align-items: center;
   border: 1px solid var(--border-color);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  /* Optional: add a subtle background overlay for extra softness */
+  background-color: var(--bg-color);
+  background-color: color-mix(in srgb, var(--bg-color) 80%, transparent);
 
   /* Mobile: Move navigation to bottom */
   @media screen and (max-width: 768px) {
