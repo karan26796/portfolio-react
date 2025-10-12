@@ -6,18 +6,21 @@
   justify-content: center;
   border: none;
   flex-direction: row;
-  // border-radius: .75em;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.3s ease;
   gap: .5em;
-  transition: scale ease-in-out .2s;
+  transition: transform 0.2s ease-in-out, background 0.3s ease, color 0.3s ease;
 
   svg {
     display: inline-block;
     vertical-align: middle;
   }
 
+  &:hover {
+    transform: scale(1.02);
+  }
+
+  // Icon position variants
   &.custom-button-left {
     flex-direction: row;
   }
@@ -28,14 +31,14 @@
 
   // Size variants
   &.custom-button-s {
-    padding: 0.5em .75em;
-    gap: .25em;
-    border-radius: .75em;
+    padding: 0.5em 0.75em;
+    gap: 0.25em;
+    border-radius: 0.75em;
   }
 
   &.custom-button-m {
-    padding: .75em 1.25em; // Default medium size
-    border-radius: .75em;
+    padding: 0.75em 1.25em;
+    border-radius: 0.75em;
   }
 
   &.custom-button-l {
@@ -45,32 +48,57 @@
 
   // Variant styles
   &.custom-button-primary {
-    background-color: var(--button-color);
+    background: linear-gradient(
+      180deg,
+      var(--button-color) 0%,
+      color-mix(in srgb, var(--button-color) 70%, #000 30%) 100%
+    );
     color: white;
 
     &:hover {
-      background-color: var(--button-color-hover);
+      background: linear-gradient(
+        180deg,
+        var(--button-color-hover) 0%,
+        color-mix(in srgb, var(--button-color-hover) 70%, #000 30%) 100%
+      );
     }
   }
 
   &.custom-button-secondary {
-    background-color: var(--bg-color-high);
+    background: linear-gradient(
+      180deg,
+      var(--bg-color-high) 0%,
+      color-mix(in srgb, var(--bg-color-high) 70%, #000 10%) 100%
+    );
     color: var(--primary-text);
     border: 1px solid var(--border-color);
 
     &:hover {
+      background: linear-gradient(
+        180deg,
+        var(--bg-color-high) 0%,
+        color-mix(in srgb, var(--bg-color-high) 50%, #000 5%) 100%
+      );
       color: var(--highlight-color-high);
       text-decoration: underline;
     }
   }
 
   &.custom-button-tertiary {
-    background-color: transparent;
+    background: linear-gradient(
+      180deg,
+      transparent 0%,
+      color-mix(in srgb, var(--bg-color-high) 60%, transparent 10%) 100%
+    );
     color: var(--highlight-color);
-    padding: .5em !important;
+    padding: 0.5em !important;
 
     &:hover {
-      background-color: var(--bg-color-high);
+      background: linear-gradient(
+        180deg,
+        var(--bg-color-high) 0%,
+        color-mix(in srgb, var(--bg-color-high) 60%, #000 5%) 100%
+      );
     }
   }
 
