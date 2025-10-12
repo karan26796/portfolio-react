@@ -92,8 +92,8 @@ const CompanyForm: React.FC = () => {
   }));
 
   return (
-    <div className="company-form-container">
-      <h2>Book a Figma Training for you or your Team</h2>
+    <div className="company-form-container" id='#company'>
+      <h2>Book a Figma/Design Training for Yourself or your Team</h2>
       <div className="tags-row">
         {tagTexts.map((text, index) => (
           <Tag
@@ -148,7 +148,7 @@ const CompanyForm: React.FC = () => {
           <textarea
             className="textarea-full"
             name="message"
-            placeholder="Type your message here..."
+            placeholder="Tell me what your team needs help with, and number of people.."
             value={formData.message}
             onChange={handleChange}
             required

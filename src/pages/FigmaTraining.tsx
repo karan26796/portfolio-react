@@ -22,64 +22,34 @@ const TrainingList: React.FC = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleSmoothScroll = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
-    e.preventDefault();
-    const href = e.currentTarget.getAttribute('href');
-    if (href) {
-      const targetElement = document.querySelector(href);
-      if (targetElement) {
-        targetElement.scrollIntoView({ behavior: 'smooth' });
-      }
-    }
-  };
+  // Ref for company form section
+  const companyFormRef = useRef<HTMLDivElement>(null);
 
-  // Refs for individual and company sections
-  const individualRef = useRef<HTMLDivElement>(null);
-  const companyRef = useRef<HTMLDivElement>(null);
-
-  // Generate random properties for the individual and company tags
-  const individualTagProperties = useMemo(() => {
-    return tagTextIndividual.map(() => ({
-      color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)],
-      rotation: Math.random() * 4 - 2,
-    }));
-  }, []);
-
-  const companyTagProperties = useMemo(() => {
-    return tagTextCompany.map(() => ({
-      color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)],
-      rotation: Math.random() * 4 - 2,
-    }));
-  }, []);
-
-  // Function to handle scrolling to the specific section
-  const scrollToSection = (ref: React.RefObject<HTMLDivElement>) => {
-    if (ref.current) {
-      ref.current.scrollIntoView({ behavior: "smooth" });
+  // Function to handle scrolling to the company form section
+  const scrollToCompanyForm = () => {
+    if (companyFormRef.current) {
+      companyFormRef.current.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
     <div className='training-parent'>
-      <IntroSection
-        onIndividualClick={() => scrollToSection(individualRef)}
-        onCompanyClick={() => scrollToSection(companyRef)}
-      />
+      <IntroSection onBookTrainingClick={scrollToCompanyForm} />
       <FigmaTrainingCarousel />
       <TestimonialsSection />
-            <CompanyForm />
-
+      <div ref={companyFormRef}>
+        <CompanyForm />
+      </div>
     </div>
   );
 };
 
 interface IntroSectionProps {
-  onIndividualClick: () => void;
-  onCompanyClick: () => void;
+  onBookTrainingClick: () => void;
 }
 
-// Intro Section with buttons to scroll to the relevant sections
-const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompanyClick }) => {
+// Intro Section with button to scroll to the company form section
+const IntroSection: React.FC<IntroSectionProps> = ({ onBookTrainingClick }) => {
 
   const logos: Logo[] = [
     {
@@ -110,7 +80,7 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
 
       <LogoCarousel logos={logos} />
 
-      <a style={{ scrollBehavior: "smooth", marginTop: "2em", marginBottom:"2em" }} href="#company">
+      <div style={{ marginTop: "2em", marginBottom: "2em" }}>
         <Button
           text="Book a training today"
           withIcon={true}
@@ -121,8 +91,9 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onIndividualClick, onCompan
           variant="primary"
           weight="regular"
           type="button"
+          onClick={onBookTrainingClick}
         />
-      </a>
+      </div>
     </div>
   );
 };

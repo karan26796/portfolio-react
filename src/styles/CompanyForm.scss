@@ -11,6 +11,10 @@
   background: linear-gradient(180deg,#f9f7ff 0%, #f4f1ff 100%);
   position: relative;
 
+  @media screen and (max-width: 768px) {
+    width: -webkit-fill-available;
+  }
+
   &::before {
     content: "";
     position: absolute;
