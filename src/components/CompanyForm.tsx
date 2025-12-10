@@ -11,11 +11,14 @@ type StatusType = {
 
 type FormDataType = {
   message: string;
+  email: string;
 };
+
 
 const CompanyForm: React.FC = () => {
   const [formData, setFormData] = useState<FormDataType>({
-    message: ''
+    message: '',
+    email: '',
   });
   const [status, setStatus] = useState<StatusType>({ type: '', message: '' });
   // Auto-dismiss status message after 3 seconds
@@ -30,7 +33,7 @@ const CompanyForm: React.FC = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showMessageField, setShowMessageField] = useState(false);
 
-  const handleChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData((prev) => ({
       ...prev,
@@ -60,7 +63,7 @@ const CompanyForm: React.FC = () => {
         type: 'success',
         message: "Thank you for your message. I'll get back within a day.",
       });
-      setFormData({ message: '' });
+      setFormData({ message: '', email: '' });
       setShowMessageField(false);
     } catch (error) {
       setStatus({
@@ -145,6 +148,16 @@ const CompanyForm: React.FC = () => {
       </div>
       {showMessageField && (
         <form id="companyForm" onSubmit={handleSubmit} autoComplete="off" style={{ width: '100%', maxWidth: 500, margin: '1em auto 0 auto' }}>
+          <input
+            className="textarea-full"
+            name="email"
+            type="email"
+            placeholder="Work Email"
+            value={formData.email}
+            onChange={handleChange}
+            required
+            style={{ width: '100%' }}
+          />
           <textarea
             className="textarea-full"
             name="message"
@@ -166,5 +179,6 @@ const CompanyForm: React.FC = () => {
     </div>
   );
 };
+
 
 export default CompanyForm;

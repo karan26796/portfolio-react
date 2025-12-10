@@ -81,7 +81,7 @@
     align-items: center;
     margin: 0 auto;
 
-    textarea {
+    textarea, input {
       width: 100%;
       padding: 1.25em;
       border-radius: .75em;
@@ -92,8 +92,6 @@
       font-size: 1.1em;
       font-family: inherit;
       transition: border 0.2s;
-      min-height: 100px;
-      resize: vertical;
 
       &:focus-visible {
         outline: none;
@@ -103,6 +101,11 @@
       &::placeholder {
         color: var(--tertiary-text);
       }
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
     }
 
     .submit-button {
