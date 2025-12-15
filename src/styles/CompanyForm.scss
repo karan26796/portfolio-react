@@ -8,7 +8,7 @@
   justify-content: center;
   gap: 0.5em;
   border: none;
-  background: linear-gradient(180deg,#f9f7ff 0%, #f4f1ff 100%);
+  background: linear-gradient(180deg, #f9f7ff 0%, #f4f1ff 100%);
   position: relative;
 
   @media screen and (max-width: 768px) {
@@ -22,10 +22,10 @@
     padding-top: 3px;
     background: linear-gradient(90deg, var(--bg-color-high) 10%, #491cff7a 50%, var(--bg-color-high) 90%);
     -webkit-mask:
-      linear-gradient(#ffcfcf 0 0) content-box, 
+      linear-gradient(#ffcfcf 0 0) content-box,
       linear-gradient(#fff 0 0);
     mask:
-      linear-gradient(#ffcfcf 0 0) content-box, 
+      linear-gradient(#ffcfcf 0 0) content-box,
       linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
@@ -33,7 +33,7 @@
     z-index: 0;
   }
 
-  > * {
+  >* {
     position: relative;
     z-index: 1;
   }
@@ -44,7 +44,7 @@
     flex-direction: row;
     gap: 0.5em;
     justify-content: center;
-    margin-top: 1em;
+    margin-top: 0.5em;
     flex-wrap: wrap;
   }
 
@@ -81,7 +81,8 @@
     align-items: center;
     margin: 0 auto;
 
-    textarea, input {
+    textarea,
+    input {
       width: 100%;
       padding: 1.25em;
       border-radius: .75em;

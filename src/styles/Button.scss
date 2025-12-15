@@ -48,57 +48,55 @@
 
   // Variant styles
   &.custom-button-primary {
-    background: linear-gradient(
-      180deg,
-      var(--button-color) 0%,
-      color-mix(in srgb, var(--button-color) 70%, #000 30%) 100%
-    );
+    border: 1px solid transparent;
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    background-image:
+      linear-gradient(180deg,
+        var(--button-color) 0%,
+        color-mix(in srgb, var(--button-color) 70%, #000 30%) 100%),
+      linear-gradient(180deg,
+        rgb(38 0 196) 0%, rgb(207 196 255) 100%);
     color: white;
+    transition: all 0.3s ease;
 
     &:hover {
-      background: linear-gradient(
-        180deg,
-        var(--button-color-hover) 0%,
-        color-mix(in srgb, var(--button-color-hover) 70%, #000 30%) 100%
-      );
+      background-image:
+        linear-gradient(180deg,
+          var(--button-color-hover) 0%,
+          color-mix(in srgb, var(--button-color-hover) 70%, #000 30%) 100%),
+        linear-gradient(180deg,
+          rgb(207 196 255) 0%, rgb(38 0 196) 100%);
     }
   }
 
   &.custom-button-secondary {
-    background: linear-gradient(
-      180deg,
-      var(--bg-color-high) 0%,
-      color-mix(in srgb, var(--bg-color-high) 70%, #000 10%) 100%
-    );
+    background: linear-gradient(180deg,
+        var(--bg-color-high) 0%,
+        color-mix(in srgb, var(--bg-color-high) 70%, #000 10%) 100%);
     color: var(--primary-text);
     border: 1px solid var(--border-color);
 
     &:hover {
-      background: linear-gradient(
-        180deg,
-        var(--bg-color-high) 0%,
-        color-mix(in srgb, var(--bg-color-high) 50%, #000 5%) 100%
-      );
+      background: linear-gradient(180deg,
+          var(--bg-color-high) 0%,
+          color-mix(in srgb, var(--bg-color-high) 50%, #000 5%) 100%);
       color: var(--highlight-color-high);
       text-decoration: underline;
     }
   }
 
   &.custom-button-tertiary {
-    background: linear-gradient(
-      180deg,
-      transparent 0%,
-      color-mix(in srgb, var(--bg-color-high) 60%, transparent 10%) 100%
-    );
+    background: linear-gradient(180deg,
+        transparent 0%,
+        color-mix(in srgb, var(--bg-color-high) 60%, transparent 10%) 100%);
     color: var(--highlight-color);
     padding: 0.5em !important;
 
     &:hover {
-      background: linear-gradient(
-        180deg,
-        var(--bg-color-high) 0%,
-        color-mix(in srgb, var(--bg-color-high) 60%, #000 5%) 100%
-      );
+      background: linear-gradient(180deg,
+          var(--bg-color-high) 0%,
+          color-mix(in srgb, var(--bg-color-high) 60%, #000 5%) 100%);
     }
   }
 

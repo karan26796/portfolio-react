@@ -49,7 +49,8 @@ const HeaderWithCarousel: React.FC = () => {
           <div className="tags">
             <Tag text="AI Powered Builder" color={{ text: '#ff9422ff' }} rotation={3} />
             <Tag text="Figma Trainer" color={{ text: '#009765ff' }} rotation={-4} />
-            <Tag text="2x Founding Designer" color={{ text: '#7508eaff' }} rotation={2} />
+            <Tag text="Design Advisor" color={{ text: '#224affff' }} rotation={3} />
+            {/* <Tag text="2x Founding Designer" color={{ text: '#7508eaff' }} rotation={2} /> */}
           </div>
           <p className="intro-text">
             Product Designer with 6+ years of experience in design, currently shaping employee engagement for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
