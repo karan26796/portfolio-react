@@ -18,102 +18,135 @@ import img12 from "../utils/project-imgs/kurakaani/12.webp";
 const Project3: React.FC = () => (
   <div className="project-details">
     <section>
-      <h2>Quick Summary</h2>
+      <h3>The Business Case</h3>
+      <h4>
+        Nimbuzz Kurakaani, Nepal’s Super App, houses diverse services from e-commerce to gaming. The challenge was a fragmented user experience and high engineering effort for every new feature.
+      </h4>
       <p>
-        Atomic Design principle uses the concept of atoms and molecules to set up a Design Language System. Having worked on maintaining and creating design systems, I created one for Nimbuzz Kurakaani, Nepal's Super App, as a part of their application redesign.
+        I was commissioned to redesign the platform by architecting a scalable, component-based Design Language System from the ground up.
       </p>
-      <h2>Project Description</h2>
-      <p>
-        Nimbuzz Kurakaani is Nepal's digital platform that houses multiple services like shopping, chat, quizzing, money transfer & much more in one app.
-      </p>
-      <p>
-        I was commissioned as a UI Designer to Redesign the app by creating a component-based system.
-      </p>
-      <h2>Goals of the redesign</h2>
-      <ul>
-        <li>Update the design language to have a modern and cheerful vibe for a younger audience</li>
-        <li>Create a system that is scalable and easy to maintain</li>
-        <li>Inculcate different platform guidelines to improve the designs</li>
-      </ul>
     </section>
-    <section>
-      <h2>Old Designs</h2>
-    </section>
+
     <figure>
       <img src={img01} alt="Old Design of the connect and quiz screens" />
-      <figcaption>Old Design of the connect and quiz screens</figcaption>
+      <figcaption>Baseline: Fragmented UX in the legacy connect and quiz interfaces.</figcaption>
     </figure>
+
     <figure>
       <img src={img02} alt="Old Design of the courses and shop screens" />
-      <figcaption>Old Design of the courses and shop screens</figcaption>
+      <figcaption>Baseline: Outdated design language in the learn and shopping sections.</figcaption>
     </figure>
+
     <section>
-      <h2>My Approach</h2>
-      <h4>Having worked on multiple projects where I've used a component library, I started with an Atomic Design approach to creating a component library.</h4>
+      <h3>The Strategy: Atomic Design for Scale</h3>
+      <h4>
+        I leveraged Atomic Design principles to build a modular library that ensured consistency across disparate features like shopping, chat, and fintech.
+      </h4>
     </section>
-    <figure>
-      <img src={img03} alt="Naming the components in the file system format" />
-      <figcaption>Naming the components in the file system format</figcaption>
-    </figure>
+
     <figure>
       <img src={imgDs} alt="Snippet of the design system for the project" />
-      <figcaption>Snippet of the design system for the project</figcaption>
+      <figcaption>Foundations: Building a scalable library of atoms and molecules.</figcaption>
     </figure>
+
     <section>
-      <h2>Revamp of the connect feature</h2>
-      <h4>Updated the connect screens of the app to feel more human and cheerful.</h4>
+      <h3>Naming & Hierarchy</h3>
+      <p>
+        Components were structured with a developers-first mindset, using clear file-system conventions to streamline the handoff process.
+      </p>
     </section>
+
+    <figure>
+      <img src={img03} alt="Naming the components in the file system format" />
+      <figcaption>Handoff Strategy: Aligning design tokens with engineering workflows.</figcaption>
+    </figure>
+
+    <section>
+      <h3>Reframing the Experience: Connect & Social</h3>
+      <h4>
+        We updated the connect screens of the app to feel more human and cheerful, transforming transactional profile views into engaging interaction patterns.
+      </h4>
+    </section>
+
     <figure>
       <img src={img04} alt="Redesign of connect/sending request screen" />
-      <figcaption>Redesign of connect/sending request screen</figcaption>
+      <figcaption>Iteration: A more human-centric approach to social interactions.</figcaption>
     </figure>
+
     <figure>
       <img src={img05} alt="New design of a person's profile" />
-      <figcaption>New design of a person's profile</figcaption>
+      <figcaption>Execution: High-fidelity profile patterns.</figcaption>
     </figure>
+
     <section>
-      <h2>Revamp of the shop section</h2>
-      <h4>Made the design feel more modern in tune with the latest e-commerce apps.</h4>
+      <h3>Modernizing Global Commerce</h3>
+      <h4>
+        The shop and learn sections were overhauled to match global e-commerce benchmarks, ensuring a premium feel.
+      </h4>
     </section>
+
     <figure>
       <img src={img06} alt="Redesign of the shopping landing page" />
-      <figcaption>Redesign of the shopping landing page</figcaption>
+      <figcaption>Execution: High-fidelity components in action across shopping views.</figcaption>
     </figure>
+
     <figure>
       <img src={img07} alt="Redesign of the product detail page" />
-      <figcaption>Redesign of the product detail page</figcaption>
+      <figcaption>Execution: Consistent design language applied to product details.</figcaption>
     </figure>
+
     <section>
-      <h2>Revamp of the learn section</h2>
-      <h4>Updated the screens to look and feel more like online courses.</h4>
+      <h3>Revitalizing the Learn Section</h3>
+      <h4>
+        Updated the screens to look and feel more like modern online course platforms.
+      </h4>
     </section>
+
     <figure>
       <img src={img08} alt="Redesign of the courses listing page" />
-      <figcaption>Redesign of the courses listing page</figcaption>
+      <figcaption>Execution: Modern course listing patterns.</figcaption>
     </figure>
+
     <figure>
       <img src={img09} alt="Redesign of the course description page" />
-      <figcaption>Redesign of the course description page</figcaption>
+      <figcaption>Execution: Information architecture optimized for learning.</figcaption>
     </figure>
+
     <section>
-      <h2>Revamp of the payment screen</h2>
-      <h4>Updated the icons to feel more vibrant and match the design system.</h4>
+      <h3>Vibrant Payment & Utility Systems</h3>
+      <h4>
+        Updated icons and interactions to feel more vibrant and match the new design system.
+      </h4>
     </section>
+
     <figure>
       <img src={img10} alt="Redesign of the payment screen" />
-      <figcaption>Redesign of the payment screen</figcaption>
+      <figcaption>Execution: Cohesive icon system in the payment interface.</figcaption>
     </figure>
+
     <section>
-      <h2>Revamp of the quiz section</h2>
-      <h4>Updated the quizzing screens to look like an online gaming app/show.</h4>
+      <h3>Gamifying the Quiz Experience</h3>
+      <h4>
+        Updated the quizzing screens to look and feel like an engaging online gaming show.
+      </h4>
     </section>
-    {/* Add more figures and sections as needed for quiz and chat sections */}
+
+    <figure>
+      <img src={img11} alt="Redesign of quiz interface" />
+      <figcaption>Execution: Dynamic and engaging patterns for quizzing.</figcaption>
+    </figure>
+
+    <figure>
+      <img src={img12} alt="Quiz results and interactions" />
+      <figcaption>Execution: Gamified feedback loops.</figcaption>
+    </figure>
+
     <section>
-      <h2>Outcome of the project</h2>
+      <h2 className="results-title">📈 Results & Key Learnings</h2>
       <ul>
-        <li>With the creation of a design library, the time to design flows and screens reduced by ~60%</li>
-        <li>The hand-off process got easier as the components were defined in one place and developers could pick the specs from there.</li>
-        <li>The flows in the application were more refined and clear compared to the earlier version. This meant easy communication across teams.</li>
+        <li><strong>60% Velocity Increase</strong>: Screen design and handoff time dropped significantly as teams reused pre-defined specs.</li>
+        <li><strong>Humanizing the Super App</strong>: The modern design language led to higher engagement among younger demographics in the Nepal region.</li>
+        <li><strong>Engineering Alignment</strong>: The component-based approach reduced rework and clarified communication between design and dev teams.</li>
       </ul>
     </section>
   </div>

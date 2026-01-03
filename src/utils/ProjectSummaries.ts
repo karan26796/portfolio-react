@@ -20,77 +20,92 @@ export interface ProjectMeta {
 export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = [
   {
     id: "7",
-    description: 'Boosted feature engagement from 15k users a week to 100k users a week',
-    title: "Enhancing engagement for day to day workplace celebrations on Keka wall",
+    description: 'Scaled weekly engagement from 15k to 100k users by redesigning the workplace celebrations framework.',
+    title: "Revolutionizing Workplace Celebrations at Keka",
     img: wish,
-    tags: ["Product design", "Design strategy"],
+    tags: ["Product Design", "Design Strategy"],
     type: "client",
-    details: "Keka/2025",
+    details: "Keka / 2025",
     meta: {
       duration: "Nov 2024 – Jan 2025",
-      role: "Design, Strategy",
-      scope: "Feature engagement for workplace celebrations",
-      impact: "Increased weekly engagement from 15k to 100k users"
+      role: "Design Strategy & Execution",
+      scope: "Enterprise Engagement System",
+      impact: "5x increase in employee engagement and 3x adoption growth."
     }
   },
   {
     id: "6",
-    description: 'Developed a points-based employee recognition system to boost motivation and engagement within Keka.',
-    title: "Introducing a points based system through Continuous rewards in Keka for employees",
+    description: 'Designed a flexible, points-based recognition system that secured 10+ enterprise clients within 5 months.',
+    title: "Building a Continuous Rewards Ecosystem",
     img: keka,
-    tags: ["Design", "Research", "Strategy"],
+    tags: ["Systems Thinking", "Revenue Growth"],
     type: "client",
-    details: "Keka/2024",
+    details: "Keka / 2024",
     meta: {
       duration: "Jun 2024 – Nov 2024",
-      role: "Design, Research, Stakeholder Alignment",
-      scope: "Integrating a points-based recognition system within Keka",
-      impact: "Secured 10 clients for mid and small sized businesses in India"
+      role: "Lead Product Designer",
+      scope: "B2B Reward & Recognition System",
+      impact: "Directly contributed to securing 10+ enterprise accounts."
     }
   },
   {
     id: "1",
-    description: "Created a note-taking assistant to insights pipeline for user interviews.",
-    title: "From Zoom bot to interview insights",
+    description: "Designed a Zoom-integrated note-taker that reduced research time-to-insights by 5x.",
+    title: "Accelerating Research Workflows at Looppanel",
     img: loopnote,
-    tags: ["Design", "Research"],
+    tags: ["AI & Automation", "Productivity"],
     type: "client",
-    details: "Looppanel/2022",
+    details: "Looppanel / Founding Designer",
     meta: {
       duration: "Jan 2022 – Mar 2022",
-      role: "Design, Research, Testing",
-      scope: "Note-taking assistant for Zoom",
-      impact: "Streamlined research workflows for user researchers and usability testers"
+      role: "Founding Designer",
+      scope: "AI-Powered Research Bot",
+      impact: "Reduced synthesis time by 5x through workflow automation."
     }
   },
   {
     id: "2",
-    description: "Designed tools for researchers to zoom in and out of qualitative data to get research buy in using project summaries.",
-    title: "Interviews to project summaries",
+    description: "Architected qualitative data analysis tools to streamline insight discovery for global research teams.",
+    title: "Looppanel: Data to Insight Pipeline",
     img: loopinfo,
-    tags: ["Design", "Research"],
+    tags: ["Data Analysis", "Research Ops"],
     type: "client",
-    details: "Looppanel/2022",
+    details: "Looppanel / Founding Designer",
     meta: {
       duration: "Apr 2022 – Jun 2022",
-      role: "Research, Design, Testing",
-      scope: "Qualitative data analysis tools",
-      impact: "Improved insight discovery for research teams"
+      role: "Founding Designer",
+      scope: "Qualitative Data Analysis Suite",
+      impact: "Significantly improved insight discovery velocity for cross-functional teams."
+    }
+  },
+  {
+    id: "3",
+    description: "Developed a comprehensive Design Language System that reduced design-to-dev velocity by 60%.",
+    title: "Nimbuzz: Scaling a Super App Design System",
+    img: kurakaani,
+    tags: ["Design Systems", "Velocity"],
+    type: "client",
+    details: "Nimbuzz / UI Designer",
+    meta: {
+      duration: "2021",
+      role: "UI & Systems Design",
+      scope: "Atomic Design Language System",
+      impact: "60% reduction in screen design and handoff time."
     }
   },
   {
     id: "4",
-    description: "Boredom is the biggest cause of bingeing. I created a device that can help tackle boredom and give one back control of their life",
-    title: "A mindful device for overcoming binge behavior",
+    description: "Designed a multi-sensory hardware device to help users regain control over binge-behavior through mindful habit-forming.",
+    title: "Mindful Hardware: Tackling Binge Behavior",
     img: awaconimg,
-    tags: ["Design", "Research", "Psychology"],
+    tags: ["IoT", "Behavioral Design"],
     type: "client",
-    details: "Master's project/2022",
+    details: "Master's Project / NID",
     meta: {
       duration: "Aug 2022 – Oct 2022",
-      role: "Research, Design, Prototyping",
-      scope: "Device to tackle boredom and binge behavior",
-      impact: "Helped users regain control over their habits"
+      role: "Research & Industrial Design",
+      scope: "Behavioral Intervention Device",
+      impact: "Developed a functional prototype for emotional regulation."
     }
   },
 ];

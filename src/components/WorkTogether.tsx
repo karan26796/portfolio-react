@@ -19,11 +19,6 @@ const tagTexts = [
   "Figma training",
 ];
 
-const tagProperties = tagTexts.map(() => ({
-  color: vibrantColors[Math.floor(Math.random() * vibrantColors.length)],
-  rotation: Math.random() * 4 - 2,
-}));
-
 const WorkTogether: React.FC = () => {
   return (
     <div id="contact" className="contact-form-container">
@@ -33,8 +28,7 @@ const WorkTogether: React.FC = () => {
           <Tag
             key={index}
             text={text}
-            color={tagProperties[index].color}
-            rotation={tagProperties[index].rotation}
+            color={vibrantColors[Math.floor(Math.random() * vibrantColors.length)]}
             dot={false}
           />
         ))}

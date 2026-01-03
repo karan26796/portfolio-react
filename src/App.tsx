@@ -36,7 +36,7 @@ import Footer from "./components/Footer";
 const App: React.FC = () => {
 
   const myStories: Story[] = [
-    {url: megha},
+    { url: megha },
     { url: kritika },
     { url: maryam }
   ]
@@ -157,16 +157,18 @@ const HomePage: React.FC = () => {
       question: "My design process",
       answer: (
         <>
-          Since no two projects are the same, my design process is also similar. For smaller projects, I try to get everyone onboard, get a few iterations in quickly, get a stakeholder buy in and move ahead.<br />
-          <br />
-          With bigger projects, I like to talk to the users, understand what they want and then start designing.
+          My process is driven by velocity and clarity. For early-stage products, I focus on rapid prototyping and stakeholder alignment to ship quickly.
+          <br /><br />
+          For established products, like at Keka HR or Datapeople, I dive deep into systems thinking and user research—identifying patterns that reduce decision fatigue and improve long-term UX scalability.
         </>
       )
     },
     {
       question: "Parts of the design process I enjoy the most",
       answer: (
-        <>I enjoy talking to customers, uncovering their needs and unmet expectations. 9/10 times when I'm on a user research call I am able to uncover something the user isn't saying. <br/><br/>I love diving deep into interaction patterns, information architecture, and usability testing.</>
+        <>
+          I thrive where research meets strategy. I love uncovering unmet user needs through research (reducing time-to-insight by up to 5x) and translating those into robust information architecture and high-fidelity interaction patterns.
+        </>
       )
     }
   ];

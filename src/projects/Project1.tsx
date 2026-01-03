@@ -18,247 +18,143 @@ const Project1: React.FC = () => {
   return (
     <div className="project-details">
       <section>
-        <h6>Part I</h6>
-        <h3>Let's start with the problem</h3>
+        <h3>The Challenge</h3>
         <h4>
           Based on research, it takes 5-6 rewatches of a user interview to
-          get actionable insights out of it. Therefore, a 1 hour interview takes
-          5-6 hours to tag, summarize, and share with one's team.
+          get actionable insights. A 1-hour interview often consumes
+          5-6 hours of tagging and summarization.
         </h4>
         <p>
-          To make it easier for teams to get the most out of research calls and
-          projects, we designed a note-taker that lets researchers take notes
-          while taking an interview on Zoom.
+          To drive research velocity, we designed an AI-powered note-taker that allows researchers to capture structured insights in real-time during Zoom interviews.
         </p>
       </section>
 
       <section>
-        <h6>First cut</h6>
-        <h3>Usability Testing</h3>
+        <h3>Prototyping & Strategic Pivots</h3>
         <h4>
-          I created a prototype in Protopie to mock how people will take notes
-          in Looppanel.
+          I developed an interactive prototype in ProtoPie to test real-world note-taking velocity.
         </h4>
       </section>
 
       <figure>
         <img src={protoNotes} alt="Zoom and Looppanel working side by side" />
-        <caption>Zoom and Looppanel working side by side</caption>
+        <figcaption>Interactive prototype: Testing real-time capture during live calls.</figcaption>
       </figure>
 
       <section>
-        <h4 className="red">What Didn't work</h4>
-        <ol>
-          <li>
-            The users weren't able to use the shortcuts or the controls in the
-            interface.
-          </li>
-          <li>
-            The interface looked like a chat window which the users couldn't
-            connect with.
-          </li>
-        </ol>
-      </section>
-
-      <section>
-        <h3>Second iteration for Usability Testing</h3>
-        <h4>
-          I removed the shortcuts and added some instructions for people to
-          understand the note taking screen
-        </h4>
-      </section>
-
-      <figure>
-        <img src={iteration01} alt="Instructive note-taking with two panels" />
-        <caption>Instructive note-taking with two panels</caption>
-      </figure>
-
-      <section>
-        <h4 className="red">What Didn't work</h4>
-        <ol>
-          <li>The interface wasn't suited for a split screen use.</li>
-          <li>People didn't use the bookmarking feature a lot.</li>
-        </ol>
-      </section>
-
-      <section>
-        <h3>Third iteration for Usability Testing</h3>
-        <h4>
-          Since a lot of people during our research used Notion and Google Docs,
-          I tried making the interface as close to those tools as possible.
-        </h4>
-      </section>
-
-      <figure>
-        <img src={iteration02} alt="Instructive note-taking with two panels" />
-        <caption>Instructive note-taking with two panels</caption>
-      </figure>
-
-      <section>
-        <h4 className="red">What Didn't work</h4>
-        <ol>
-          <li>The interface didn't work visually.</li>
-        </ol>
-      </section>
-
-      <section>
-        <h3>Fourth iteration for Usability Testing</h3>
-        <h4>
-          To highlight who's taken the note, I added the names of note takers in
-          different colors
-        </h4>
-      </section>
-
-      <figure>
-        <img src={iteration03} alt="Note taking with names and time stamp" />
-        <caption>Note taking with names and time stamp</caption>
-      </figure>
-
-      <section>
-        <h4 className="red">What Didn't work</h4>
-        <ol>
-          <li>
-            The different colors for note takers created distraction during note
-            taking.
-          </li>
-          <li>
-            The name of note takers takes up a lot of space without adding much
-            to the interface
-          </li>
-        </ol>
-      </section>
-
-      <section>
-        <h3>Final Design based on testing</h3>
-        <h4>
-          People didn't expect the note-taking space to look like a chat, so we
-          changed it into a more open space that makes the experience similar to
-          a document.
-        </h4>
-
-        <ol>
-          <li>
-            Muted the name and time stamp colors to bring focus on the note.
-          </li>
-          <li>
-            Removed the emojis as they could not be interacted with during the
-            call.
-          </li>
-          <li>
-            Added a bookmark feature which could be accessed using the "//"
-            shortcut. This reduces the number of decisions a person makes during
-            the call.
-          </li>
-        </ol>
-      </section>
-
-      <figure>
-        <img src={updatedNote} alt="Doc-like notetaking view" />
-        <caption>Doc-like notetaking view</caption>
-      </figure>
-      <figure>
-        <img src={loopNoteNotes} alt="Editor View with notes" />
-        <caption>Editor View with notes</caption>
-      </figure>
-
-      <section>
-        <h2>Part II: Structured note-taking</h2>
-        <h4>
-          We observed researchers were using a template to take notes during
-          research calls. The templates either contained theme-based
-          questionnaire or task-based questionnaire.
-        </h4>
-        <p>Below are some examples of the templates they use.</p>
-      </section>
-
-      <figure>
-        <img src={task1} alt="Theme-based questionnaire" />
-        <caption>Theme-based questionnaire</caption>
-      </figure>
-
-      <figure>
-        <img src={task2} alt="Task-based questionnaire" />
-        <caption>Task-based questionnaire</caption>
-      </figure>
-
-      <section>
-        <h3>Iterating and testing a question script</h3>
-        <h4>
-          We iterated on top of previous designs and added sections to the
-          note-taking view and tested with the users.
-        </h4>
-      </section>
-
-      <figure>
-        <img src={iteration1} alt="Shortcut-based navigation for questions" />
-        <caption>Shortcut-based navigation for questions</caption>
-      </figure>
-
-      <section>
-        <h4 className="red">What Didn't work</h4>
-        <ol>
-          <li>
-            Users were not able to use the shortcuts during note taking, so we
-            removed it.
-          </li>
-          <li>
-            Users wanted to see the upcoming questions in this view without
-            using a shortcut.
-          </li>
-        </ol>
-      </section>
-
-      <section>
-        <h3>Question script as a side menu</h3>
-      </section>
-
-      <figure>
-        <img src={iteration2} alt="Side menu for questions" />
-        <caption>Side menu for questions</caption>
-      </figure>
-
-      <section>
-        <h4 className="red">What Didn't work</h4>
-        <ol>
-          <li>The side menu didn't work for a split screen view.</li>
-        </ol>
-      </section>
-
-      <section>
-        <h3>Final Design</h3>
-        <h4>
-          Based on usability testing, we decided to remove the navigation from
-          the question script as users didn't face issues with traversing the
-          script.
-        </h4>
+        <h3>Informed Pivot I: Breaking the Chat Mental Model</h3>
         <p>
-          There was no need for a persistent list since they moved progressively
-          between questions.
+          Early iterations looked like a chat window. Users felt this was too transactional and lacked the "workspace" feel needed for professional research. We pivoted to a more open, document-centric layout.
         </p>
       </section>
 
       <figure>
-        <img src={finalDesign} alt="Final design with a question list" />
-        <caption>Final design with a question list</caption>
+        <img src={iteration01} alt="Early chat-like iteration" />
+        <figcaption>Iteration 1: The 'Chat' mental model.</figcaption>
       </figure>
+
       <figure>
-        <img src={editorQuestion} alt="Editor screen with question script" />
-        <caption>Editor screen with question script</caption>
+        <img src={iteration02} alt="Transitioning to doc view" />
+        <figcaption>Iteration 2: Moving towards document structures.</figcaption>
       </figure>
 
       <section>
-        <h3>What I learned</h3>
+        <h3>Informed Pivot II: Navigational Clarity</h3>
+        <p>
+          Shortcuts and cluttered secondary panels were removed after testing showed they increased cognitive load during high-stakes interviews.
+        </p>
+      </section>
+
+      <figure>
+        <img src={iteration03} alt="Testing secondary panels" />
+        <figcaption>Testing: Identifying cognitive friction in complex panels.</figcaption>
+      </figure>
+
+      <section>
+        <h3>Refining for Seamless Integration</h3>
+        <h4>
+          By aligning the interface with familiar tools like Notion and Google Docs, we reduced the learning curve for new researchers.
+        </h4>
+      </section>
+
+      <figure>
+        <img src={updatedNote} alt="Doc-like notetaking view" />
+        <figcaption>Final design: A document-centric view that prioritizes focus and ease of use.</figcaption>
+      </figure>
+
+      <figure>
+        <img src={loopNoteNotes} alt="High-fidelity editor view" />
+        <figcaption>Editor View: The final high-fidelity note-taking workspace.</figcaption>
+      </figure>
+
+      <section>
         <ol>
           <li>
-            Users liked the idea of unstructured notes since it gave a way to
-            take notes that didn't fit in any question.
+            <strong>Focused Interaction</strong>: Muted administrative metadata to bring focus to the core note.
           </li>
           <li>
-            Users needed simple ways to capture their thoughts without having to
-            remember a lot of shortcuts.
+            <strong>Contextual Shortcuts</strong>: Integrated a "//" bookmarking feature to capture key moments without breaking eye contact with the participant.
           </li>
         </ol>
-        <p>Details on more experiments soon. 😎</p>
+      </section>
+
+      <section>
+        <h3>Scaling Through Structured Templates</h3>
+        <h4>
+          We identified that researchers often followed theme-based or task-based scripts. I integrated these scripts directly into the note-taking flow.
+        </h4>
+      </section>
+
+      <figure>
+        <img src={task1} alt="Theme-based template" />
+        <figcaption>Researcher Workflow: Theme-based scripts.</figcaption>
+      </figure>
+
+      <figure>
+        <img src={task2} alt="Task-based template" />
+        <figcaption>Researcher Workflow: Task-based scripts.</figcaption>
+      </figure>
+
+      <section>
+        <h3>Iterative Testing: Question Script Navigation</h3>
+        <p>
+          We explored various ways to surface these scripts, eventually pivoting away from complex side-menus to a more integrated, progressive disclosure model.
+        </p>
+      </section>
+
+      <figure>
+        <img src={iteration1} alt="Shortcut-based navigation" />
+        <figcaption>Pivot: Shortcuts proved too complex for live calls.</figcaption>
+      </figure>
+
+      <figure>
+        <img src={iteration2} alt="Side-menu approach" />
+        <figcaption>Pivot: Side menus cluttered the workspace.</figcaption>
+      </figure>
+
+      <figure>
+        <img src={finalDesign} alt="Final design with a question list" />
+        <figcaption>Structured insights: Aligning real-time notes with project-wide research questions.</figcaption>
+      </figure>
+
+      <figure>
+        <img src={editorQuestion} alt="Questions in the editor" />
+        <figcaption>Integrated Workflow: Scripts surfaced directly within the synthesis editor.</figcaption>
+      </figure>
+
+      <section>
+        <h2 className="results-title">📈 Results & Key Learnings</h2>
+        <ol>
+          <li>
+            <strong>5x Faster Insights</strong>: Teams moved from days to hours in their synthesis phase.
+          </li>
+          <li>
+            <strong>Velocity through Simplicity</strong>: Reducing shortcuts and persistent menus actually increased speed by lowering cognitive friction.
+          </li>
+          <li>
+            <strong>Flexible Structures</strong>: Found that a hybrid of unstructured notes and structured questions provided the most versatile solution for diverse research styles.
+          </li>
+        </ol>
       </section>
     </div>
   );

@@ -28,163 +28,104 @@ const Project2: React.FC = () => {
   return (
     <div className="project-details">
       <section>
-        <h3>Let's start with the problem</h3>
+        <h3>The Challenge</h3>
+        <h4>
+          Researchers struggled with fragmented data—navigating between call notes, recordings, transcripts, and highlights. The challenge was to design a system that supported "zooming" across different layers of detail.
+        </h4>
         <p>
-          During research, we realized people zoom-in and out of the research
-          data available to them. They go back and forth between call notes, the
-          call recordings, the transcripts, and project highlights. But the
-          product's information hierarchy didn't reflect that.
+          The original information hierarchy didn't reflect the mental model of researchers, leading to friction in finding and sharing key insights.
         </p>
       </section>
 
-      <section>
-        <h3>Old highlights page design</h3>
-        <p>
-          The original highlights view in Looppanel required an overhaul after
-          the introduction of projects and question script in the product.
-        </p>
-        </section>
-        
-        <figure>
-          <img src={oldHighlights} alt="Old Design" />
-          <figcaption>Old Design</figcaption>
-        </figure>
+      <figure>
+        <img src={oldHighlights} alt="Old highlights page design" />
+        <figcaption>Baseline: The original highlights view required an overhaul to support new project structures.</figcaption>
+      </figure>
 
       <section>
-        <h2>First release</h2>
-        <h3>New additions</h3>
-        <ol>
-          <li>
-            Ability to add a call to a project directly from the highlights
-            screen.
-          </li>
-          <li>Search and filter by tag & calls.</li>
-          <li>Icons to signify a video snippet & a note.</li>
-        </ol>
+        <h3>Iterative Design & Information Architecture</h3>
+        <h4>
+          I led the transition from a flat list of highlights to a structured, project-centric data model.
+        </h4>
       </section>
 
       <figure>
         <img src={iterationMid} alt="Phase-I release" />
-        <figcaption>Phase-I release of the new highlights page</figcaption>
+        <figcaption>Laying the foundation: Direct project integration and improved filtering capability.</figcaption>
       </figure>
 
       <section>
-        <h2>Integrating project structure</h2>
-        <h3>Design direction I: questions in side panel</h3>
+        <h3>Strategic Pivot I: Contextual Hierarchy</h3>
+        <p>
+          Initial explorations placed question scripts in a side panel. Testing revealed that this disjointed the relationship between the question and its associated data. We pivoted to a top-down, collapsible hierarchy.
+        </p>
+      </section>
+
+      <figure>
+        <img src={sideQuestion01} alt="Questions in side panel exploration" />
+        <figcaption>Exploration: Testing side-panel navigation for research questions.</figcaption>
+      </figure>
+
+      <figure>
+        <img src={sideQuestion02} alt="Alternative side menu" />
+        <figcaption>Iteration: Refining the side-panel hierarchy.</figcaption>
+      </figure>
+
+      <section>
+        <h3>Strategic Pivot II: The "Mental Model" Alignment</h3>
+        <p>
+          We moved away from technical groupings toward a structure that matched how researchers actually synthesize findings—grouping notes by research question rather than simply by call source.
+        </p>
+      </section>
+
+      <figure>
+        <img src={topBottom1} alt="Top-down hierarchy exploration" />
+        <figcaption>Exploration: Aligning data with the researcher's mental model.</figcaption>
+      </figure>
+
+      <figure>
+        <img src={topBottom2} alt="Collapsible question structures" />
+        <figcaption>Iteration: Testing collapsible structures to reduce cognitive load.</figcaption>
+      </figure>
+
+      <section>
+        <h3>Final Solution: High-Velocity Analysis</h3>
         <h4>
-          I tried a variation where the question script of the project was in a
-          side panel, and notes inside it on the right, segregated based on
-          calls.
-        </h4>
-      </section>
-
-      <figure>
-        <img src={sideQuestion01} alt="Questions on the left" />
-        <figcaption>Questions on the left with notes on the right</figcaption>
-      </figure>
-      <figure>
-        <img src={sideQuestion02} alt="Side menu" />
-        <figcaption>Side menu for questions</figcaption>
-      </figure>
-
-      <section>
-        <h4 className="red">What Didn't work</h4>
-        <ol>
-          <li>
-            The mental model of projects — calls — notes/video snippets wasn't
-            reflected in the design.
-          </li>
-          <li>Hard to see a lot of notes within a given question.</li>
-        </ol>
-      </section>
-
-      <section>
-        <h3>Design direction II: questions at the top</h3>
-        <h4>
-          To reflect the mental model of projects — calls — notes/video
-          snippets, I designed the following two screens to represent that.
-        </h4>
-      </section>
-
-      <figure>
-        <img src={topBottom1} alt="Call name at top" />
-        <figcaption>Call name at top with question inside</figcaption>
-      </figure>
-      <figure>
-        <img src={topBottom2} alt="Questions on the left" />
-        <figcaption>
-          Questions on the left, with call name on top with note inside
-        </figcaption>
-      </figure>
-
-      <section>
-        <h4 className="red">What didn't work</h4>
-        <ol>
-          <li>
-            It was hard to visualize the entire question script or focus on a
-            particular question.
-          </li>
-          <li>The new hierarchy of product didn't come out very well.</li>
-        </ol>
-      </section>
-
-      <section>
-        <h3>Final design based on testing</h3>
-        <h4>
-          This version worked to a large extent since it reflected people's
-          existing ways of zooming in and out of their work.
+          The final design features a collapsible question script at the top, allowing researchers to dive deep into a single question without losing site of the broader project context.
         </h4>
       </section>
 
       <figure>
         <img src={newInsights} alt="New analysis screen" />
-        <figcaption>New analysis screen prototype</figcaption>
+        <figcaption>Analysis Interface: Collapsible questions and integrated transcript access.</figcaption>
       </figure>
 
       <section>
-        <h3>New Additions</h3>
-        <ol>
-          <li>
-            Added questions from question script at top to reflect new flow of
-            information in the product.
-          </li>
-          <li>
-            Created a collapsible view for questions to help researchers focus
-            on one question at a time.
-          </li>
-          <li>Ways to go into an individual call and view transcript text.</li>
-        </ol>
-      </section>
-
-      <section>
-        <h3>Summary view</h3>
+        <h3>Sharing the Story: Sharing the Impact</h3>
         <h4>
-          To wrap up the entire experience, we made a summary view that could be
-          shared with the team.
+          To wrap up the synthesis experience, I designed a summary view that translates raw data into shareable, high-level narratives for stakeholders.
         </h4>
-        <p>
-          The first step is to start grouping notes, then selecting what insight
-          to put it under. All of this can be shared using a link.
-        </p>
       </section>
 
       <figure>
         <img src={summary} alt="Summary view" />
-        <figcaption>Summary view</figcaption>
+        <figcaption>Sharable Insights: Bridging raw data with executive-ready summaries.</figcaption>
       </figure>
 
-      {/* <figure>
-        <h3>Changes across other parts of the product</h3>
-        <div className="stories">
-          <Stories
-            stories={myStories}
-            defaultInterval={3000}
-            max-width={"var(--max-width-container)"}
-            height={"auto"}
-            loop={true}
-          />
-        </div>
-      </figure> */}
+      <section>
+        <h2 className="results-title">📈 Results & Key Learnings</h2>
+        <ol>
+          <li>
+            <strong>Strategic Scaling</strong>: The system successfully supported the introduction of complex project structures without overwhelming existing users.
+          </li>
+          <li>
+            <strong>Velocity of Discovery</strong>: Collapsible views and script-based navigation significantly reduced the time required to group and categorize insights.
+          </li>
+          <li>
+            <strong>Stakeholder Buy-In</strong>: The summary view became a critical tool for researchers to demonstrate value to cross-functional teams.
+          </li>
+        </ol>
+      </section>
     </div>
   );
 };

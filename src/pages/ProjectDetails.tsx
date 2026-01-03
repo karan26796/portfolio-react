@@ -5,6 +5,7 @@ import ProjectDetailHeader from "../components/ProjectHeader";
 import { projectSummaries } from "../utils/ProjectSummaries";
 import ProjectMetaGrid from "../components/ProjectMetaGrid";
 import ProjectSidePanel from "../components/ProjectSidePanel";
+import Loader from "../components/Loader";
 
 const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -63,7 +64,7 @@ const ProjectDetails: React.FC = () => {
   };
 
   if (loading) {
-    return <div className="loading-container">Loading project details...</div>;
+    return <Loader />;
   }
 
   if (!projectSummary) {

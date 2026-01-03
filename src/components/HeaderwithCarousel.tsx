@@ -47,17 +47,17 @@ const HeaderWithCarousel: React.FC = () => {
         <div className="name-tag-group">
           <h1>Hey, I'm Karan</h1>
           <div className="tags">
-            <Tag text="AI Powered Builder" color={{ text: '#ff9422ff' }} rotation={3} />
-            <Tag text="Figma Trainer" color={{ text: '#009765ff' }} rotation={-4} />
-            <Tag text="Design Advisor" color={{ text: '#224affff' }} rotation={3} />
-            {/* <Tag text="2x Founding Designer" color={{ text: '#7508eaff' }} rotation={2} /> */}
+            <Tag text="AI Powered Builder" color={{ text: '#ff9422ff' }} />
+            <Tag text="Figma Trainer" color={{ text: '#009765ff' }} />
+            <Tag text="Design Advisor" color={{ text: '#224affff' }} />
+            <Tag text="2X Founding Designer" color={{ text: '#7508eaff' }} />
           </div>
           <p className="intro-text">
-            Product Designer with 6+ years of experience in design, currently shaping employee engagement for <strong>2 million users</strong> at <strong>Keka HR</strong> and integrating AI in my workflow.
+            Product Designer with 6+ years of experience, currently shaping employee engagement for <strong>2.2+ million users</strong> at <strong>Keka HR</strong> and driving AI adoption in product workflows.
           </p>
         </div>
         <LogoCarousel align="center" />
-        <Tag text="Open to new roles" color={{ text: '#3100f4ff' }} rotation={0} dot={true} pulsatingDot={true} />
+        <Tag text="Open to new roles" color={{ text: '#3100f4ff' }} dot={true} pulsatingDot={true} />
         {/* <Button
             text="Let's work together"
             iconName="ArrowDown"

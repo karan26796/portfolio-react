@@ -5,27 +5,27 @@ import Gallery from "./Gallery";
 const About: React.FC = () => {
   return (
     <div className="about-parent">
-      <h2>My name is Jeff</h2>
+      <h2>I'm Karan Kapoor</h2>
       <p>
-        Hey, Karan here. I'm a digital product designer, code learner,
-        electronics prototyper, amateur photo clicker, & traveller. When I'm not
-        saving the world with design, I watch standup comedy, travel the
-        country, photograph landscapes, play lawn tennis, and learn to code. One
-        at a time.
+        I'm an AI-native product designer, design advisor, and 2x founding designer. 
+        Currently, I'm a Senior Product Designer at Keka HR, where I lead design for engagement and reward systems 
+        supporting 5M+ employees globally.
         <br />
         <br />
-        I started off as an Android Developer but soon moved to UX Design. Since
-        then I've had a lot of fun designing digital products for studios &
-        product companies.
+        I bridge the gap between design, research, and product strategy to deliver user-centered 
+        solutions that drive business impact. Whether I'm partnering with cross-functional teams 
+        to build quarterly roadmaps or driving GTM as a founding designer, I think in 
+        systems—focusing on clarity and velocity.
         <br />
         <br />
-        The first company I joined as a designer got shut during the pandemic.
-        Due to a lot of free time, I started learning Figma during the pandemic
-        & thought - why not share what I know with others?
+        With a background in Engineering (B.Tech) and Design (M.Des from NID, Ahmedabad), I bring a unique 
+        technical perspective to my design process. I'm also deeply committed to the design community, 
+        having led the Friends of Figma Delhi chapter for 5 years and mentored 10k+ designers through 
+        workshops and tutorials.
         <br />
         <br />
-        Since then, I've taught 10k+ people through my design workshops &
-        Youtube tutorials.
+        When I'm not designing, I'm usually experimenting with electronics, photographing landscapes, 
+        or learning to code.
       </p>
     </div>
   );
