@@ -16,9 +16,9 @@ const KekaWishes: React.FC = () => {
 
       <section>
 
-        <h3>The Challenge: Revitalizing Platform Engagement</h3>
+        <h3>🎯 The Challenge: Revitalizing Platform Engagement</h3>
         <h4>
-          To reverse declining wall engagement, we leveraged "wishes" as a strategic anchor to revitalize the platform's social ecosystem.
+          To help bring people back to the platform, we used birthday "wishes" to breathe new life into our social feed.
         </h4>
 
         <h4>Operational Friction:</h4>
@@ -35,9 +35,9 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <h3>Strategic Analysis: Friction in the Social Feedback Loop</h3>
+        <h3>🔍 Solving the problem: Friction in the Social Feed</h3>
         <p>
-          We moved from a transactional interface that felt like a chore to a personal experience designed to sustain long-term social delight.
+          We wanted to move from a transactional interface that felt like a chore to a personal experience designed to sustain long-term social delight.
         </p>
       </section>
 
@@ -60,12 +60,12 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <h3>Informed Pivot I: Balancing Visibility and Scalability</h3>
+        <h3>🟡 Iteration I: Oversized cards</h3>
         <p>
-          We pivoted away from oversized cards that compromised wall scalability, ensuring visibility for one employee didn't come at the cost of excluding others.
+          We first experimented with oversized cards to drive adoption, but quickly realized they compromised wall scalability and excluded others.
         </p>
         <blockquote>
-          “Strategic visibility must scale—one person’s spotlight shouldn't obscure the collective workspace.”
+          “Visibility must be balanced—one person’s spotlight shouldn't hide everyone else.”
         </blockquote>
       </section>
 
@@ -75,9 +75,9 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <h3>Informed Pivot II: Centralized vs. Decentralized Engagement</h3>
+        <h3>🟡 Iteration II: Individual walls</h3>
         <p>
-          We found that dedicated "walls" for individuals created a disconnected experience from the main widget, fragmenting user attention and feedback loops.
+          Next, we explored dedicated individual "walls," but found they felt disconnected from the main widget and fragmented user attention.
         </p>
       </section>
 
@@ -87,12 +87,12 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <h3>Final Solution: Frictionless Social Anchors</h3>
+        <h3>💡 Final Solution: A Simple Wish Button</h3>
         <p>
-          A persistent, integrated CTA became the catalyst for multi-channel engagement, creating a frictionless path to recognition that scaled effortlessly.
+          The best solution was also the simplest. We added a "Wish" button directly below every name, making it incredibly easy for anyone to send a birthday greeting without any friction.
         </p>
         <blockquote>
-          “Clarity in the CTA became the catalyst for multi-channel engagement.”
+          “Making the action clear and visible was all we needed.”
         </blockquote>
       </section>
 
@@ -102,9 +102,9 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <h3>Celebrating Success: Aggregated Social Highlights</h3>
+        <h3>🥳 Celebrating the Day: Digital Birthday Cards</h3>
         <p>
-          Wishes were aggregated into a single, high-fidelity card, shifting the experience from disjointed messages to a cohesive, shareable narrative for the team.
+          We collected all the wishes into a single, beautiful card. Instead of just seeing separate messages, employees could see and feel all the appreciation from their team in one place.
         </p>
       </section>
 
@@ -115,9 +115,9 @@ const KekaWishes: React.FC = () => {
 
 
       <section>
-        <h3>Fostering Culture through Micro-Interactions</h3>
+        <h3>🎉 Adding a bit of fun: Confetti!</h3>
         <p>
-          Strategic delight was embedded through confetti triggers and micro-interactions, transforming a digital task into a moment of cultural appreciation.
+          To make the moment feel more special, we added a small confetti animation whenever a wish was sent. It was a simple way to bring a bit of joy to a digital interaction.
         </p>
       </section>
 
@@ -127,12 +127,12 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <h2 className="results-title">📈 Results: 3x Adoption, 5x Engagement</h2>
+        <h2 className="results-title">📈 Results: More connection, more engagement</h2>
         <ul>
-          <li><strong>Velocity Increase</strong>: Average wishes per employee jumped from 2 to 8.</li>
-          <li><strong>Scale Adoption</strong>: Weekly active users for the feature grew 3x (from 5k to 15k).</li>
-          <li><strong>Engagement Magnitude</strong>: A 5x boost in total interactions, with 31k active wishers connecting with 116k colleagues.</li>
-          <li><strong>Ecosystem Synergy</strong>: The "halo effect" increased the usage of secondary wall features like Praise and Social Posts.</li>
+          <li><strong>More wishes</strong>: The average number of wishes per employee jumped from 2 to 8.</li>
+          <li><strong>Usage growth</strong>: Weekly active users for the feature grew 3x (from 5k to 15k).</li>
+          <li><strong>Record interaction</strong>: Engagement shot up 5x, with 31k employees sending wishes to over 116k colleagues.</li>
+          <li><strong>Platform-wide boost</strong>: The extra activity also encouraged people to use other social features like Praise and Posts.</li>
         </ul>
       </section>
 
@@ -142,16 +142,16 @@ const KekaWishes: React.FC = () => {
       </figure>
 
       <section>
-        <h2 className="results-title"> Key Learnings</h2>
+        <h2 className="results-title">🗝️ Key Learnings</h2>
         <ol>
           <li>
-            <strong>Strategic Simplicity</strong>: Clear, low-friction CTAs outperform complex UI transformations in high-frequency social features.
+            <strong>Keep it simple</strong>: A clear button can do more for engagement than complex new features.
           </li>
           <li>
-            <strong>Identity-Driven Design</strong>: Aggregating recognition around an employee’s identity (Cards/Banners) significantly drives personal value and social proof.
+            <strong>Make it personal</strong>: Grouping messages into a personalized card made people feel genuinely celebrated.
           </li>
           <li>
-            <strong>Ecosystem Thinking</strong>: Solving for one specific touchpoint (Wishes) can serve as a behavioral anchor to lift engagement across the entire platform.
+            <strong>The Halo Effect</strong>: Improving one simple feature encouraged engagement across the entire social platform.
           </li>
         </ol>
       </section>
