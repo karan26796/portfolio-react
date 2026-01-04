@@ -7,9 +7,9 @@ import { ProjectCardData } from '../utils/interfaces';
 
 interface ProjectListProps {
   projectData: ProjectCardData[];
-  cardComponent: FC<{ 
-    data: ProjectCardData; 
-    variant: 'small' | 'large'; 
+  cardComponent: FC<{
+    data: ProjectCardData;
+    variant: 'small' | 'large';
     onClick?: () => void;
     buttonType?: 'button' | 'static' | 'none';
     showDivider?: boolean;
@@ -21,6 +21,17 @@ const HIDDEN_PROJECT_IDS = ['project3', 'project4', 'project5'];
 
 const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: ProjectCard }) => {
   const navigate = useNavigate();
+  const [hasScrolled, setHasScrolled] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 50) {
+        setHasScrolled(true);
+      }
+    };
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleCardClick = (projectId: string) => {
     navigate(`/project/${projectId}`);
@@ -32,10 +43,10 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
   );
 
   return (
-    <div className='project-parent'>
+    <div className={`project-parent ${!hasScrolled ? 'is-bouncing' : ''}`}>
       {visibleProjects.map((project, index) => (
         <div key={project.id}>
-          <ProjectCard 
+          <ProjectCard
             data={project}
             variant="large"
             buttonType="button"

@@ -11,6 +11,19 @@
     border-radius: 0 0 1.5em 1.5em;
     z-index: 2;
 
+    // Animation for discoverability
+    &.is-bouncing {
+        animation:
+            bounceUp 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) forwards,
+            gentleBounce 2s ease-in-out infinite 1.4s;
+    }
+
+    // Default state if not bouncing (e.g. after scroll)
+    &:not(.is-bouncing) {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
     @media (max-width: 996px) {
         padding: 0;
         gap: 2em;
@@ -21,5 +34,29 @@
         width: 100%;
         display: grid;
         grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@keyframes bounceUp {
+    0% {
+        transform: translateY(100px);
+        opacity: 0;
+    }
+
+    100% {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+@keyframes gentleBounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
     }
 }
