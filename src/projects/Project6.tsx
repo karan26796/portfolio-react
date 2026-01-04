@@ -13,12 +13,12 @@ const KekaProject: React.FC = () => {
   return (
     <div className="project-details">
       <section>
-        <h3>The Business Case</h3>
+        <h3>🎯 The Goal: Making appreciation happen every day</h3>
         <h4>
-          Keka’s existing award programs were optimized for long-term strategies, but lacked a system for high-velocity, day-to-day recognition. We needed to bridge this gap to foster a deeper culture of appreciation within enterprise teams.
+          While Keka had systems for formal awards, there wasn't an easy way for people to recognize each other in the moment. We wanted to make appreciation a natural, high-velocity part of daily work.
         </h4>
         <p>
-          I led the design for <strong>Continuous Rewards</strong>, a flexible framework allowing companies to automate milestones and facilitate peer-to-peer recognition.
+          I led the design for <strong>Continuous Rewards</strong>—a simple way for companies to automate celebrations and let employees recognize their peers with ease.
         </p>
       </section>
 
@@ -28,9 +28,9 @@ const KekaProject: React.FC = () => {
       </figure>
 
       <section>
-        <h3>Part I: Architecting for Flexibility</h3>
+        <h3>🛠️ Designing for different company cultures</h3>
         <h4>
-          Companies transition through various recognition cultures—some use "Donuts," others "Cookies." I designed a configuration engine that allows HR admins to customize rewards, currency, and marketplace integrations.
+          Every company has its own way of saying thanks—whether they use "Donuts," "Cookies," or points. I designed a simple settings engine that lets HR admins customize exactly how their rewards and marketplace work.
         </h4>
       </section>
 
@@ -40,9 +40,9 @@ const KekaProject: React.FC = () => {
       </figure>
 
       <section>
-        <h3>Part II: Automation & Employee Milestones</h3>
+        <h3>🤖 Celebrating milestones without the manual work</h3>
         <h4>
-          To reduce administrative overhead, we built an automated system for birthdays and work anniversaries with built-in budget estimation, ensuring every celebration is accounted for.
+          To save HR teams from endless spreadsheets, we built an automated system for birthdays and work anniversaries. It even estimates the budget for you, ensuring no one gets left out of the celebration.
         </h4>
       </section>
 
@@ -57,9 +57,9 @@ const KekaProject: React.FC = () => {
       </figure>
 
       <section>
-        <h3>Part III: Cultivating a Peer-to-Peer Culture</h3>
+        <h3>🤝 Encouraging a culture of peer recognition</h3>
         <h4>
-          Recognition works best when it’s decentralized. I integrated point-gifting widgets directly into daily touchpoints like the "Praise" and "Wish" features.
+          Recognition feels better when it comes from peers. I integrated "point-gifting" right into the spots where people already hang out—like the Praise and Wish features on the wall.
         </h4>
       </section>
 
@@ -79,16 +79,16 @@ const KekaProject: React.FC = () => {
       </figure>
 
       <section>
-        <h2 className="results-title">📈 Results & Key Learnings</h2>
+        <h2 className="results-title">📈 Success & Key Learnings</h2>
         <ol>
           <li>
-            <strong>Commercial Success</strong>: The feature was a primary driver in securing 10+ clients for mid-to-large sized businesses within its first quarter.
+            <strong>Big Client Wins</strong>: This feature was a key reason we signed 10+ new enterprise clients in the very first quarter.
           </li>
           <li>
-            <strong>Seamless Integration</strong>: Embedding recognition into existing features (Wishes/Praise) ensured that employees didn't have to learn a "new" tool to start recognizing peers.
+            <strong>Meeting people where they are</strong>: By putting the reward system inside existing features (like Wishes), we made it easy for everyone to use it without learning something new.
           </li>
           <li>
-            <strong>Strategic Alignment</strong>: Early stakeholder alignment on the flexibility of the point system prevented major technical debt during the integration phase.
+            <strong>Keeping it simple early on</strong>: Getting everyone on the same page about how points would work early in the project saved us a lot of technical headaches later.
           </li>
         </ol>
       </section>
