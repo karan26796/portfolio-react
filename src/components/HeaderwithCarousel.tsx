@@ -44,20 +44,22 @@ const HeaderWithCarousel: React.FC = () => {
     >
       <div className="header-column-one">
         <img src={require("../utils/gallery/profile.webp")} alt="Karan" className="profile-pic" />
-        <div className="name-tag-group">
-          <h1>Hey, I'm Karan</h1>
-          <div className="tags">
-            <Tag text="AI Powered Builder" color={{ text: '#ff9422ff' }} />
-            <Tag text="Figma Trainer" color={{ text: '#009765ff' }} />
-            <Tag text="Design Advisor" color={{ text: '#224affff' }} />
-            <Tag text="2X Founding Designer" color={{ text: '#7508eaff' }} />
+        <div className="header-text-content">
+          <div className="name-tag-group">
+            <h1>Hey, I'm Karan</h1>
+            <div className="tags">
+              <Tag text="AI Design Strategist" color={{ text: '#ff9422ff' }} />
+              <Tag text="Design Researcher" color={{ text: '#224affff' }} />
+              <Tag text="Figma Expert" color={{ text: '#009765ff' }} />
+              <Tag text="2X Founding Designer" color={{ text: '#7508eaff' }} />
+            </div>
           </div>
           <p className="intro-text">
-            Product Designer with 6+ years of experience, currently shaping employee engagement for <strong>2.2+ million users</strong> at <strong>Keka HR</strong> and driving AI adoption in product workflows.
+            Product Designer with management & technical chops. Currently owning the product strategy for Rewards, Recognition, and Employee Experience at Keka HR. I lead cross-functional initiatives for 2.2M+ users to drive retention, revenue, and growth.
           </p>
+          <LogoCarousel align="center" />
         </div>
-        <LogoCarousel align="center" />
-        <Tag text="Open to new roles" color={{ text: '#3100f4ff' }} dot={true} pulsatingDot={true} />
+        {/* <Tag text="Open to new roles" color={{ text: '#3100f4ff' }} dot={true} pulsatingDot={true} /> */}
         {/* <Button
             text="Let's work together"
             iconName="ArrowDown"
