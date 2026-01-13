@@ -57,11 +57,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     if (data.specialStatus && buttonType !== "static") {
       return (
         <div className="special-status">
-          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
-            <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
-          </svg>
-          <span>{data.specialStatus}</span>
+          <span style={{ color: "var(--primary-color)", fontSize: "1em", fontWeight: "bold" }}>{data.specialStatus}</span>
         </div>
       );
     }
@@ -114,7 +110,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
         <div className="title-details-group">
           <h3>{data.title}</h3>
-          <p style={{opacity:'.6',fontSize:'1.1em'}}>{data.details}</p>
+          <p style={{ opacity: '.6', fontSize: '1.1em' }}>{data.details}</p>
         </div>
 
         <div className="desc-btn-group">

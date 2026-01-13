@@ -9,6 +9,7 @@ import loopnote from "./project-imgs/loop-note/loop-note.gif"
 import keka from "./project-imgs/continuous rewards/Thumb.webp"
 import loopinfo from "./project-imgs/looppanel-insights/insight-thumb.gif"
 import wish from "./project-imgs/kekawish/thumb-cr.webp"
+import award from "./project-imgs/award program/Thumb-certi-spot.webp"
 
 export interface ProjectMeta {
   duration: string;
@@ -19,18 +20,19 @@ export interface ProjectMeta {
 
 export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = [
   {
-    id: "7",
-    description: 'Scaled weekly engagement from 15k to 100k users by redesigning the workplace celebrations framework.',
-    title: "Revolutionizing Workplace Celebrations at Keka",
-    img: wish,
+    id: "8",
+    description: 'Strengthened the core Rewards & Recognition offering by introducing Ad-hoc rewards and certificates to accomodate company branding.',
+    title: "Enabling companies to reward employees flexibly while maintaining brand identity",
+    img: award,
     tags: ["Product Design", "Design Strategy"],
     type: "client",
     details: "Keka / 2025",
+    specialStatus: "Publishing in 4 days",
     meta: {
       duration: "Nov 2024 – Jan 2025",
       role: "Design Strategy & Execution",
-      scope: "Enterprise Engagement System",
-      impact: "5x increase in employee engagement and 3x adoption growth."
+      scope: "Enterprise Recognition System",
+      impact: "Increased internal operational agility and empowered HR teams with full self-service autonomy."
     }
   },
   {
@@ -46,6 +48,21 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
       role: "Lead Product Designer",
       scope: "B2B Reward & Recognition System",
       impact: "Directly contributed to securing 10+ enterprise accounts."
+    }
+  },
+  {
+    id: "7",
+    description: 'Scaled weekly engagement from 15k to 100k users by redesigning the workplace celebrations framework.',
+    title: "Revolutionizing Workplace Celebrations at Keka",
+    img: wish,
+    tags: ["Product Design", "Design Strategy"],
+    type: "client",
+    details: "Keka / 2025",
+    meta: {
+      duration: "Nov 2024 – Jan 2025",
+      role: "Design Strategy & Execution",
+      scope: "Enterprise Engagement System",
+      impact: "5x increase in employee engagement and 3x adoption growth."
     }
   },
   {
