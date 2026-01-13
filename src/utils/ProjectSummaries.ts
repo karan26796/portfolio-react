@@ -51,6 +51,21 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     }
   },
   {
+    id: "2",
+    description: "Architected qualitative data analysis tools to streamline insight discovery for global research teams.",
+    title: "Looppanel: Data to Insight Pipeline",
+    img: loopinfo,
+    tags: ["Data Analysis", "Research Ops"],
+    type: "client",
+    details: "Looppanel / Founding Designer",
+    meta: {
+      duration: "Apr 2022 – Jun 2022",
+      role: "Founding Designer",
+      scope: "Qualitative Data Analysis Suite",
+      impact: "Significantly improved insight discovery velocity for cross-functional teams."
+    }
+  },
+  {
     id: "7",
     description: 'Scaled weekly engagement from 15k to 100k users by redesigning the workplace celebrations framework.',
     title: "Revolutionizing Workplace Celebrations at Keka",
@@ -80,36 +95,21 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
       impact: "Reduced synthesis time by 5x through workflow automation."
     }
   },
-  {
-    id: "2",
-    description: "Architected qualitative data analysis tools to streamline insight discovery for global research teams.",
-    title: "Looppanel: Data to Insight Pipeline",
-    img: loopinfo,
-    tags: ["Data Analysis", "Research Ops"],
-    type: "client",
-    details: "Looppanel / Founding Designer",
-    meta: {
-      duration: "Apr 2022 – Jun 2022",
-      role: "Founding Designer",
-      scope: "Qualitative Data Analysis Suite",
-      impact: "Significantly improved insight discovery velocity for cross-functional teams."
-    }
-  },
-  {
-    id: "3",
-    description: "Developed a comprehensive Design Language System that reduced design-to-dev velocity by 60%.",
-    title: "Nimbuzz: Scaling a Super App Design System",
-    img: kurakaani,
-    tags: ["Design Systems", "Velocity"],
-    type: "client",
-    details: "Nimbuzz / UI Designer",
-    meta: {
-      duration: "2021",
-      role: "UI & Systems Design",
-      scope: "Atomic Design Language System",
-      impact: "60% reduction in screen design and handoff time."
-    }
-  },
+  // {
+  //   id: "3",
+  //   description: "Developed a comprehensive Design Language System that reduced design-to-dev velocity by 60%.",
+  //   title: "Nimbuzz: Scaling a Super App Design System",
+  //   img: kurakaani,
+  //   tags: ["Design Systems", "Velocity"],
+  //   type: "client",
+  //   details: "Nimbuzz / UI Designer",
+  //   meta: {
+  //     duration: "2021",
+  //     role: "UI & Systems Design",
+  //     scope: "Atomic Design Language System",
+  //     impact: "60% reduction in screen design and handoff time."
+  //   }
+  // },
   {
     id: "4",
     description: "Designed a multi-sensory hardware device to help users regain control over binge-behavior through mindful habit-forming.",
