@@ -9,7 +9,7 @@
   position: relative;
   z-index: 1;
   border-radius: 1.5em;
-  padding: .5em .5em 0em .5em; 
+  padding: .5em .5em 0em .5em;
   border: 1px solid var(--border-color);
   background: var(--bg-color-high);
 
@@ -61,8 +61,8 @@
       align-items: flex-start;
       justify-content: space-between;
       gap: 0.2em;
-      
-      h6{
+
+      h6 {
         color: var(--tertiary-text);
       }
 
@@ -114,7 +114,7 @@
   }
 
   p {
-    max-width: 32ch;
+    max-width: 40ch;
     margin-top: 0;
 
     @media screen and (max-width: 767px) {
