@@ -154,12 +154,16 @@ const HomePage: React.FC = () => {
       answer: "I try to create designs that fit right into the user's daily context. Otherwise, we're just creating a solution for a problem that doesn't exist."
     },
     {
+      question: "What AI tools do I use in my design process?",
+      answer: "I use Figma make, Lovable, Claude or Google AI Studio to create initial prototypes. NotebookLM, Gemini, or ChatGPT for research; Antigravity or XCode for vibe coding, and Gamma for final presentations. "
+    },
+    {
       question: "My design process",
       answer: (
         <>
           My process is driven by velocity and clarity. For early-stage products, I focus on rapid prototyping and stakeholder alignment to ship quickly.
           <br /><br />
-          For established products, like at Keka HR or Datapeople, I dive deep into systems thinking and user research—identifying patterns that reduce decision fatigue and improve long-term UX scalability.
+          For established products, like at Keka HR, I dive deep into systems thinking and user research, identifying patterns that reduce decision fatigue and improve long-term UX scalability.
         </>
       )
     },
