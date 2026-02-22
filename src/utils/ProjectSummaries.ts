@@ -5,7 +5,7 @@ const loopnote = "/project-imgs/loop-note/loop-note.gif";
 const keka = "/project-imgs/continuous rewards/Thumb.webp";
 const loopinfo = "/project-imgs/looppanel-insights/insight-thumb.gif";
 const wish = "/project-imgs/kekawish/thumb-cr.webp";
-const award = "/project-imgs/award program/Thumb-certi-spot.webp";
+// const award = "/project-imgs/award program/Thumb-certi-spot.webp";
 const loopdata = "/project-imgs/loop-research/loop-research.gif";
 
 export interface ProjectMeta {
