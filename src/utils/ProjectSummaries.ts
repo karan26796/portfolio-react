@@ -10,6 +10,7 @@ import keka from "./project-imgs/continuous rewards/Thumb.webp"
 import loopinfo from "./project-imgs/looppanel-insights/insight-thumb.gif"
 import wish from "./project-imgs/kekawish/thumb-cr.webp"
 import award from "./project-imgs/award program/Thumb-certi-spot.webp"
+import loopdata from "./project-imgs/loop-research/loop-research.gif"
 
 export interface ProjectMeta {
   duration: string;
@@ -21,15 +22,15 @@ export interface ProjectMeta {
 export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = [
   {
     id: "8",
-    description: 'Strengthened the core Rewards & Recognition offering by introducing Ad-hoc rewards and certificates to accomodate company branding.',
-    title: "Enabling companies to reward employees flexibly while maintaining brand identity",
+    description: 'Removing barriers to help companies adopt Keka for their R&R needs.',
+    title: "Strengthening Keka's Reward & Recognition Suite",
     img: award,
     tags: ["Product Design", "Design Strategy"],
     type: "client",
-    details: "Keka / 2025",
-    specialStatus: "Publishing in 4 days",
+    details: "Keka / 2026",
+
     meta: {
-      duration: "Nov 2024 – Jan 2025",
+      duration: "Nov 2025 – Jan 2026",
       role: "Design Strategy & Execution",
       scope: "Enterprise Recognition System",
       impact: "Increased internal operational agility and empowered HR teams with full self-service autonomy."
@@ -110,6 +111,21 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
   //     impact: "60% reduction in screen design and handoff time."
   //   }
   // },
+  {
+    id: "5",
+    description: "Found ways to better discoverabilty of features & data organization.",
+    title: "Product redesign for features discovery & data re-organization.",
+    img: loopdata,
+    tags: ["Product", "Design research"],
+    type: "client",
+    details: "Looppanel / Founding Designer",
+    meta: {
+      duration: "Mid 2022",
+      role: "Product Designer",
+      scope: "Information Architecture revamp",
+      impact: "Increased discoverability of features and customer satisfaction."
+    }
+  },
   {
     id: "4",
     description: "Designed a multi-sensory hardware device to help users regain control over binge-behavior through mindful habit-forming.",
