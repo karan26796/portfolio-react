@@ -97,7 +97,7 @@ const ProjectDetails: React.FC = () => {
                 img: ({ node, ...props }) => {
                   return (
                     <figure>
-                      <img {...props} />
+                      <img alt={props.alt || ""} {...props} />
                       {props.alt && <figcaption>{props.alt}</figcaption>}
                     </figure>
                   );
