@@ -1,12 +1,12 @@
 import { ProjectCardData } from "./interfaces";
 
-import awaconimg from "./project-imgs/binge-eating/binge.gif"
-import loopnote from "./project-imgs/loop-note/loop-note.gif"
-import keka from "./project-imgs/continuous rewards/Thumb.webp"
-import loopinfo from "./project-imgs/looppanel-insights/insight-thumb.gif"
-import wish from "./project-imgs/kekawish/thumb-cr.webp"
-// import award from "./project-imgs/award program/Thumb-certi-spot.webp"
-import loopdata from "./project-imgs/loop-research/loop-research.gif"
+const awaconimg = "/project-imgs/binge-eating/binge.gif";
+const loopnote = "/project-imgs/loop-note/loop-note.gif";
+const keka = "/project-imgs/continuous rewards/Thumb.webp";
+const loopinfo = "/project-imgs/looppanel-insights/insight-thumb.gif";
+const wish = "/project-imgs/kekawish/thumb-cr.webp";
+const award = "/project-imgs/award program/Thumb-certi-spot.webp";
+const loopdata = "/project-imgs/loop-research/loop-research.gif";
 
 export interface ProjectMeta {
   duration: string;

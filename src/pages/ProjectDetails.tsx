@@ -1,4 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
+import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import { useParams } from "react-router-dom";
 import "../styles/ProjectDetails.scss";
 import ProjectDetailHeader from "../components/ProjectHeader";
@@ -9,7 +11,7 @@ import Loader from "../components/Loader";
 
 const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
-  const [ProjectComponent, setProjectComponent] = useState<React.FC | null>(null);
+  const [markdownContent, setMarkdownContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [headers, setHeaders] = useState<{ text: string; id: string }[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -19,25 +21,28 @@ const ProjectDetails: React.FC = () => {
   );
 
   useEffect(() => {
-    const loadProjectComponent = async () => {
+    const loadProjectContent = async () => {
       try {
         setLoading(true);
 
-        const { default: Component } = await import(
-          `../projects/Project${projectId}`
-        );
-        setProjectComponent(() => Component);
+        const response = await fetch(`/projects/Project${projectId}.md`);
+        if (!response.ok) {
+          throw new Error('Markdown file not found');
+        }
+
+        const text = await response.text();
+        setMarkdownContent(text);
 
         window.scrollTo(0, 0);
       } catch (error) {
-        console.error("Failed to load project component:", error);
+        console.error("Failed to load project content:", error);
       } finally {
         setLoading(false);
       }
     };
 
     if (projectId) {
-      loadProjectComponent();
+      loadProjectContent();
     }
   }, [projectId]);
 
@@ -54,7 +59,7 @@ const ProjectDetails: React.FC = () => {
       });
       setHeaders(headerList);
     }
-  }, [loading, ProjectComponent]);
+  }, [loading, markdownContent]);
 
   const handleHeaderClick = (id: string) => {
     const el = document.getElementById(id);
@@ -82,8 +87,24 @@ const ProjectDetails: React.FC = () => {
       <div className="project-content-wrapper">
         <ProjectDetailHeader data={projectSummary} />
         {projectSummary?.meta && <ProjectMetaGrid meta={projectSummary.meta} />}
-        <div ref={contentRef}>
-          {ProjectComponent ? <ProjectComponent /> : <div>Project content not available</div>}
+        <div ref={contentRef} className="project-details">
+          {markdownContent ? (
+            <ReactMarkdown
+              rehypePlugins={[rehypeRaw]}
+              components={{
+                img: ({ node, ...props }) => {
+                  return (
+                    <figure>
+                      <img {...props} />
+                      {props.alt && <figcaption>{props.alt}</figcaption>}
+                    </figure>
+                  );
+                }
+              }}
+            >
+              {markdownContent}
+            </ReactMarkdown>
+          ) : <div>Project content not available</div>}
         </div>
       </div>
     </div>
