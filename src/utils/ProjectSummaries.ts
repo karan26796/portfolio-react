@@ -5,7 +5,7 @@ import loopnote from "./project-imgs/loop-note/loop-note.gif"
 import keka from "./project-imgs/continuous rewards/Thumb.webp"
 import loopinfo from "./project-imgs/looppanel-insights/insight-thumb.gif"
 import wish from "./project-imgs/kekawish/thumb-cr.webp"
-import award from "./project-imgs/award program/Thumb-certi-spot.webp"
+// import award from "./project-imgs/award program/Thumb-certi-spot.webp"
 import loopdata from "./project-imgs/loop-research/loop-research.gif"
 
 export interface ProjectMeta {
