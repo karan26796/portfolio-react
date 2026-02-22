@@ -25,17 +25,19 @@ const ProjectDetails: React.FC = () => {
       try {
         setLoading(true);
 
-        const response = await fetch(`/projects/Project${projectId}.md`);
+        // Fetch from our new Serverless Function instead of the public folder
+        const response = await fetch(`/api/notion?slug=Project${projectId}`);
+
         if (!response.ok) {
-          throw new Error('Markdown file not found');
+          throw new Error('Failed to fetch from Notion');
         }
 
-        const text = await response.text();
-        setMarkdownContent(text);
+        const data = await response.json();
+        setMarkdownContent(data.content);
 
         window.scrollTo(0, 0);
       } catch (error) {
-        console.error("Failed to load project content:", error);
+        console.error("Failed to load project content from Notion:", error);
       } finally {
         setLoading(false);
       }
