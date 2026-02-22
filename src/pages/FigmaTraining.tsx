@@ -1,12 +1,12 @@
-import React, { useMemo, useRef, useEffect } from "react";
+import React, { useRef, useEffect } from "react";
 import '../styles/FigmaTraining.scss';
 import Button from '../components/Buttons';
 import Testimonials from '../components/Testimonials';
-import Tag, { VibrantColor } from "../components/Tag";
+
 import LogoCarousel from "../components/LogoCarousel";
 import FigmaTrainingCarousel from "../components/FigmaTrainingCarousel";
 import CompanyForm from '../components/CompanyForm';
-import { trainingTestimonialsData, tagTextIndividual, tagTextCompany, vibrantColors } from '../utils/trainingData';
+import { trainingTestimonialsData } from '../utils/trainingData';
 
 import iima from "../utils/logos/iima.webp";
 import iimsbp from "../utils/logos/iim-sbp.webp";
@@ -75,7 +75,7 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onBookTrainingClick }) => {
   return (
     <div className='intro'>
       <h1>Figma Training for designers, product managers, and students</h1>
-      <p style={{marginBottom:"1.5em"}}>In the last 5 years, I've taught Figma to over 10,000 people - from beginners to pros orgs and institutions across <strong>India and the US</strong>. I have also <strong>led the Figma community in Delhi</strong> for 5 years and conducted 20+ sessions and events.
+      <p style={{ marginBottom: "1.5em" }}>In the last 5 years, I've taught Figma to over 10,000 people - from beginners to pros orgs and institutions across <strong>India and the US</strong>. I have also <strong>led the Figma community in Delhi</strong> for 5 years and conducted 20+ sessions and events.
       </p>
 
       <LogoCarousel logos={logos} />
@@ -105,8 +105,6 @@ const TestimonialsSection: React.FC = () => (
   />
 );
 
-interface TrainingSectionProps {
-  tagProperties: { color: VibrantColor; rotation: number; }[];
-}
+
 
 export default TrainingList;

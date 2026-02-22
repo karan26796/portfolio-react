@@ -14,8 +14,8 @@ interface StackedCardProps {
 }
 
 // Define a type for the allowed icon names based on the error message
-type IconName = "YoutubeLogo" | "FigmaLogo" | "IconContext" | "IconBase" | 
-  "SSR" | "Acorn" | "AddressBook" | "AddressBookTabs" | 
+type IconName = "YoutubeLogo" | "FigmaLogo" | "IconContext" | "IconBase" |
+  "SSR" | "Acorn" | "AddressBook" | "AddressBookTabs" |
   "AirTrafficControl" | "Airplane" | "AirplaneInFlight" | "AirplaneLanding";
 
 interface ButtonConfig {
@@ -27,12 +27,6 @@ const StackedCard: React.FC<StackedCardProps> = ({ file, index }) => {
   const [rotation] = useState(() => -1 + Math.random() * 2);
   const [buttonText, setButtonText] = useState('Download Figma file');
 
-  const bgColors = [
-    '#603D01', // Pale yellow
-    '#9E6400', // Pale green
-    '#E2950E', // Pale pink
-    '#FFC868', // Pale blue
-  ];
 
   const isYouTubeVideo = file.downloads.toLowerCase() === 'youtube live';
 
@@ -63,7 +57,7 @@ const StackedCard: React.FC<StackedCardProps> = ({ file, index }) => {
       target="_blank"
       rel="noopener noreferrer"
     >
-      <div 
+      <div
         className="image-stack-container"
         style={{
           transform: `rotate(${rotation}deg) translateY(20px)`,
@@ -77,7 +71,7 @@ const StackedCard: React.FC<StackedCardProps> = ({ file, index }) => {
           <img src={file.url} alt={`Community file ${index + 1}`} />
         </div>
       </div>
-      
+
       <div className="community-content">
         <h6>{file.name}</h6>
         <h5>

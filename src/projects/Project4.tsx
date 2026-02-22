@@ -1,13 +1,11 @@
 import React from "react";
 
 // Images
-import bingGif from "../utils/project-imgs/binge-eating/binge.gif";
 import boreeImg from "../utils/project-imgs/binge-eating/boree.webp";
 import img01 from "../utils/project-imgs/binge-eating/1.webp";
 import img02 from "../utils/project-imgs/binge-eating/2.webp";
 import img03 from "../utils/project-imgs/binge-eating/3.webp";
 import img04 from "../utils/project-imgs/binge-eating/4.webp";
-import img05 from "../utils/project-imgs/binge-eating/5.webp";
 import img06 from "../utils/project-imgs/binge-eating/6.webp";
 import img07 from "../utils/project-imgs/binge-eating/7.webp";
 import img08 from "../utils/project-imgs/binge-eating/8.webp";

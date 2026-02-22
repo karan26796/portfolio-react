@@ -1,8 +1,7 @@
 import React from 'react';
 import { FC } from 'react';
 import '../styles/ProjectList.scss';
-import { Link, useNavigate } from 'react-router-dom';
-import indieImg from '../utils/project-imgs/thumb-indie.png'
+import { useNavigate } from 'react-router-dom';
 import { ProjectCardData } from '../utils/interfaces';
 
 interface ProjectListProps {

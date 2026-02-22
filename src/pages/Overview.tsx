@@ -34,7 +34,7 @@ const Overview: React.FC = () => {
                     The key insight: agents can find and fix code much faster when they know exactly which element you’re referring to. Agentation captures class names, selectors, and positions so the agent can locate the corresponding source files.
                 </p>
                 <p>
-                    It grew out of <a href="#" className="link-styled">a post by Benji Taylor</a> exploring how to give better feedback to AI coding agents.
+                    It grew out of <button className="link-styled" onClick={(e) => e.preventDefault()}>a post by Benji Taylor</button> exploring how to give better feedback to AI coding agents.
                 </p>
             </section>
 
@@ -111,7 +111,7 @@ const Overview: React.FC = () => {
                     Made by Benji Taylor, Dennis Jin, and Alex Vanderzon
                 </div>
                 <div>
-                    <a href="#">Colophon</a>
+                    <button className="link-styled" onClick={(e) => e.preventDefault()}>Colophon</button>
                 </div>
             </footer>
 

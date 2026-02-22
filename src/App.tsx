@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   BrowserRouter as Router,
   Route,
@@ -29,18 +29,13 @@ import kritika from './utils/testimonials/pfp-02.jpg'
 import malavika from './utils/testimonials/pfp-03.jpg'
 import maryam from './utils/testimonials/maryam-img.jpeg'
 import megha from './utils/testimonials/megha-pfp.jpeg'
-import { Story } from "react-insta-stories/dist/interfaces";
+
 import FAQ from "./components/FAQ";
 import WorkTogether from "./components/WorkTogether";
 import Footer from "./components/Footer";
 
 const App: React.FC = () => {
 
-  const myStories: Story[] = [
-    { url: megha },
-    { url: kritika },
-    { url: maryam }
-  ]
 
   useEffect(() => {
     // Prevent default scroll behavior on hash change
@@ -193,13 +188,6 @@ const HomePage: React.FC = () => {
   );
 };
 
-const AboutLink: React.FC = () => {
-  return (
-    <div className="about-redirect">
-      <div></div>
-    </div>
-  );
-};
 
 export default App;
 

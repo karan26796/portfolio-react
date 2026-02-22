@@ -1,6 +1,5 @@
 import React from 'react';
 import Tag, { VibrantColor } from "../components/Tag";
-import awards01 from "../utils/project-imgs/awards-revamp/dynamicCTAs.webp";
 
 const AwardRevamp: React.FC = () => {
     const greenColor: VibrantColor = { text: '#1e8e3e' };

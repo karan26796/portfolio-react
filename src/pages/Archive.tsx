@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import communityFiles from "../utils/communityFiles";
 import "../styles/Archive.scss";
 import Experiments from "../components/Experiments";
-import HorizontalCarouselWall from "../components/HorizontalCarouselWall";
 import StackedCard from "../components/StackedCards";
 
 const Archive: React.FC = () => {
   const [columns, setColumns] = useState(3);
-  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -16,7 +14,6 @@ const Archive: React.FC = () => {
   useEffect(() => {
     const updateLayout = () => {
       const width = window.innerWidth;
-      setIsMobile(width < 750);
       if (width < 750) {
         setColumns(1);
       } else if (width < 900) {
@@ -55,7 +52,7 @@ const Archive: React.FC = () => {
         <p>Collection of work I've been a part of which has contributed to my craft significantly but couldn't make it to the case studies. </p>
       </div>
       <Experiments />
-      <h1 style={{marginTop: "1em"}}>Figma community files</h1>
+      <h1 style={{ marginTop: "1em" }}>Figma community files</h1>
       <div
         className="community-files-grid"
         style={{

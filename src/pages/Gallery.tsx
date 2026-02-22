@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import "../styles/Gallery.scss";
-import { InstagramLogo, MapPin } from "@phosphor-icons/react";
+import { MapPin } from "@phosphor-icons/react";
 // import Buttons from '../components/Buttons'
 
 interface LocationsType {
@@ -97,9 +97,7 @@ const Gallery = () => {
     }
   };
 
-  const handleInstagramClick = () => {
-    window.open('https://instagram.com/kadankapoor', '_blank');
-  };
+
 
   const getColumns = () => {
     let cols = [];
@@ -116,23 +114,22 @@ const Gallery = () => {
               const rotation = getRotation(index);
 
               return (
-                <div 
-                  key={num} 
+                <div
+                  key={num}
                   className="image-container"
-                  style={{ 
+                  style={{
                     transform: `rotate(${rotation}deg)`,
                     transition: 'transform 0.3s ease'
                   }}
                 >
                   <img
                     src={imagePath}
-                    alt={`Gallery image ${actualImageNum + 1}`}
+                    alt={`Gallery ${actualImageNum + 1}`}
                     className="gallery-image"
                   />
                   <div
-                    className={`location-text ${
-                      isMobile ? "always-visible" : ""
-                    }`}
+                    className={`location-text ${isMobile ? "always-visible" : ""
+                      }`}
                   >
                     <MapPin size={18} /> {locations[actualImageNum + 1] || `Location ${actualImageNum + 1}`}
                   </div>

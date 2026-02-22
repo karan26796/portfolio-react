@@ -2,9 +2,6 @@ import React from "react";
 import "../styles/Footer.scss";
 
 const Footer: React.FC = () => {
-  const handleSocialMediaClick = (url: string) => {
-    window.open(url, "_blank"); // Opens the URL in a new tab
-  };
 
   return (
     <div className="footer-container">

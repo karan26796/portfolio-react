@@ -4,7 +4,6 @@ import "../styles/HeaderWithCarousel.scss";
 import LogoCarousel from "./LogoCarousel";
 import ResumePopup from "../pages/ResumePopup";
 import Tag from "./Tag";
-import Button from "./Buttons";
 
 
 const HeaderWithCarousel: React.FC = () => {
@@ -24,9 +23,6 @@ const HeaderWithCarousel: React.FC = () => {
   const scale = 1 - clampedScroll / 600; // Shrink to ~0.7
   const opacity = 1 - clampedScroll / 100 * 0.7; // Fade to 0.7
 
-  const toggleResume = (): void => {
-    setIsResumeOpen(!isResumeOpen);
-  };
 
   const closeResume = (): void => {
     setIsResumeOpen(false);
