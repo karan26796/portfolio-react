@@ -18,6 +18,7 @@ import "./styles/AboutRedirect.scss";
 import Resume from "./components/Resume";
 import ResumePopup from "./pages/ResumePopup";
 import ResumeStandalone from "./pages/ResumeStandalone";
+import Overview from "./pages/Overview";
 
 
 import Archive from "./pages/Archive"
@@ -93,6 +94,7 @@ const App: React.FC = () => {
                 <Route path="/resume-view" element={<ResumeStandalone />} />
                 <Route path="/resume-popup" element={<StandaloneResumePopup />} />
                 <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
+                <Route path="/overview" element={<Overview />} />
               </Routes>
               <Footer />
             </>

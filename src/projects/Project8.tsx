@@ -1,118 +1,109 @@
 import React from 'react';
+import Tag, { VibrantColor } from "../components/Tag";
 import awards01 from "../utils/project-imgs/awards-revamp/dynamicCTAs.webp";
-import wish01 from "../utils/project-imgs/awards-revamp/dynamicCTAs.webp";
 
 const AwardRevamp: React.FC = () => {
+    const greenColor: VibrantColor = { text: '#1e8e3e' };
+    const grayColor: VibrantColor = { text: '#5f6368' };
+
     return (
         <div className="project-details">
-            {/* Introduction Section */}
-            <section>
-                <h4>
-                    How we moved from a "process-first" system to a human-centric experience by removing 10+ systemic restrictions.
-                </h4>
+            {/* The Why (Business Case) */}
+            {/* The Why (Business Case) */}
+            <section className="business-case">
+                <h3>The Why</h3>
+                <p>
+                    The Rewards module was launched 2 years ago as an MVP and hadn't been updated since.
+                    This led to serious business issues:
+                </p>
+                <div className="card-grid">
+                    <div className="impact-card">
+                        <h4>Lost Deals</h4>
+                        <p>Keka was losing deals because the suite was missing basic features.</p>
+                    </div>
+                    <div className="impact-card">
+                        <h4>Customer Churn</h4>
+                        <p>Users were leaving because of feature promises that weren't delivered.</p>
+                    </div>
+                    <div className="impact-card">
+                        <h4>Low Adoption</h4>
+                        <p>The module wasn't prioritized, leading to a spike in customer complaints.</p>
+                    </div>
+                </div>
+            </section>
 
-                <h3>The Adoption Crisis:</h3>
+            {/* Research & Prioritization */}
+            <section className="prioritization">
+                <h3>Top Issues for Customers</h3>
+                <p>Based on 6 customer calls and 4 sales calls, we identified what to build:</p>
+
+                <div className="decision-container">
+                    <div className="decision-column">
+                        <h4>✅ Picked</h4>
+                        <div className="tag-group">
+                            <Tag text="Edit programs post-launch" color={greenColor} rotation={0} variant="small" />
+                            <Tag text="Branded certificates" color={greenColor} rotation={0} variant="small" />
+                            <Tag text="Ad-hoc rewards" color={greenColor} rotation={0} variant="small" />
+                            <Tag text="Icon customization" color={greenColor} rotation={0} variant="small" />
+                        </div>
+                    </div>
+                    <div className="decision-column not-picked">
+                        <h4>❌ Not Picked</h4>
+                        <div className="tag-group">
+                            <Tag text="Reporting dashboards" color={grayColor} rotation={0} variant="small" />
+                            <Tag text="Role-based visibility" color={grayColor} rotation={0} variant="small" />
+                            <Tag text="Team size restrictions" color={grayColor} rotation={0} variant="small" />
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* Part 1: Restriction Removal */}
+            <section>
+                <h3>Part I: Removing System Restrictions</h3>
+                <p>The old system was a "locked" linear path. If the admin went ahead, there was no way to undo or start over. They had to create a new program each time there was some impromptu change to be made.</p>
                 <ul>
-                    <li><strong>Systemic Rigidity</strong>: Core details like nomination dates were uneditable post-launch, forcing HRs to restart or duplicate programs from scratch for minor changes.</li>
-                    <li><strong>Identity Gap</strong>: A four-month delay in branding features meant companies were issuing generic, unbranded certificates.</li>
-                    <li><strong>Operational Debt</strong>: Admins were "trapped" in draft states, requiring engineering intervention for routine workflow adjustments.</li>
+                    <li><strong>Flexible Dates:</strong> Admins can now change dates anytime until winners are announced.</li>
+                    <li><strong>Manual Workflow:</strong> Replaced the rigid automated flow with manual triggers like "Close Nominations" and "Reopen".</li>
                 </ul>
             </section>
 
-            {/* Visual: The Problem Space */}
-            <figure>
-                <img src="/images/awards-old-flow.png" alt="Original rigid award flow" />
-                <figcaption>The original flow: A linear, "locked" path that didn't account for real-world HR changes.</figcaption>
-            </figure>
-
-            {/* The Evidence Section */}
+            {/* Part 2: Certificate Customization */}
             <section>
-                <h3>🗣️ The Voice of the Customer</h3>
-                <p>
-                    To gain buy-in for a complete architectural shift, I moved the conversation from "design preference" to "customer truth" using raw recorded verbatims.
-                </p>
-                <blockquote>
-                    "Everything—even admins—are not able to edit the date in the template... we are stuck."
-                </blockquote>
-                <blockquote>
-                    "They said logos could be modified in some time, but it’s been more than four months."
-                </blockquote>
-            </section>
-
-            {/* Strategy Section */}
-            <section>
-                <h3>🔍 The Strategy: Advocacy through Data</h3>
-                <p>
-                    I mapped out <strong>over 10 hard restrictions</strong> in the lifecycle. Every time we faced engineering pushback, I framed the design choices in terms of business loss—specifically, the deals we were failing to close and the trust we were losing.
-                </p>
-            </section>
-
-            {/* Solution 1: Adaptive CTAs */}
-            <section>
-                <h3>💡 Solution I: Context-Aware Navigation</h3>
-                <p>
-                    We replaced static, disabled "Launch" buttons with <strong>Adaptive CTAs</strong>. The system now understands the state of the program and guides the admin accordingly.
-                </p>
+                <h3>Part II: Certificate Branding</h3>
+                <p>Customers often abandoned the program because they couldn't add their own logos or signatures.</p>
                 <ul>
-                    <li><strong>Dynamic Buttons</strong>: "Add Award Category" → "Launch" → "Close Nominations."</li>
-                    <li><strong>Manual Overrides</strong>: Admins can now manually close nominations, mirroring how programs actually function in a physical office.</li>
+                    <li><strong>In-Program Editing:</strong> We moved away from a "centralized" asset library that caused more restrictions.</li>
+                    <li><strong>Live Preview:</strong> Admins can now customize certificates for each specific program to match their brand.</li>
                 </ul>
             </section>
 
-            <figure>
-                <img src={awards01} alt="Adaptive CTA UI" />
-                <figcaption>UI Iteration: CTAs that adapt based on program readiness and current state.</figcaption>
-            </figure>
-
-            {/* Solution 2: Branding & Ad-hoc */}
+            {/* Part 3: Spot Rewards */}
             <section>
-                <h3>🎨 Solution II: Personalization & Spot Rewards</h3>
-                <p>
-                    We finally closed the branding loop and introduced a way to reward "the moments in between."
-                </p>
+                <h3>Part III: Ad-hoc Points (Spot Rewards V1)</h3>
+                <p>Companies wanted to reward "the moments in between" like hackathons or sports days.</p>
                 <ul>
-                    <li><strong>Certificate Builder</strong>: A live preview engine for adding custom logos and authority signatures.</li>
-                    <li><strong>Spot Rewards</strong>: A new module for bulk, non-automated recognition (e.g., winning a company hackathon).</li>
+                    <li><strong>Non-Platform Events:</strong> Created a way to give on-the-spot recognition for wins that don't happen inside the software.</li>
+                    <li><strong>Bulk Allocation:</strong> Admins can now select specific employees by department or location to reward them instantly.</li>
                 </ul>
             </section>
 
-            <figure>
-                <img src="/images/cert-customization.png" alt="Certificate Customization Interface" />
-                <figcaption>New Feature: High-fidelity certificate customization with live branding previews.</figcaption>
-            </figure>
-
-            {/* Results Section */}
+            {/* Impact */}
             <section>
-                <h2 className="results-title">📈 Impact: Internal Agility & Customer Trust</h2>
-                <p>
-                    This overhaul didn't just help customers; it revolutionized our internal development and QA cycles.
-                </p>
-
-                <blockquote>
-                    <strong>From our QA Engineer:</strong><br />
-                    “It’s so easy to test the module now since there are no restrictions. Earlier, I had to ask the engineer to change the state from the backend just to test it completely.”
-                </blockquote>
-
+                <h2 className="results-title">Impact</h2>
                 <ul>
-                    <li><strong>Zero Backend Reliance</strong>: Admins (and internal QA) became 100% self-sufficient in managing program states.</li>
-                    <li><strong>Enterprise Ready</strong>: The flexibility allowed us to support complex, role-based ownership for large-scale organizations.</li>
-                    <li><strong>Feature Adoption</strong>: Resolved a 4-month-old branding backlog, directly impacting user retention.</li>
+                    <li><strong>10+ Restrictions Removed:</strong> Unblocking the core workflow for users.</li>
+                    <li><strong>20+ Customers Unblocked:</strong> Directly addressing the churn and deal-loss issues.</li>
+                    <li><strong>Internal Agility:</strong> Our QA Lead noted that testing is much faster now that backend intervention isn't required.</li>
                 </ul>
             </section>
 
-            {/* Key Learnings */}
             <section>
-                <h2 className="results-title">🗝️ Key Learnings</h2>
+                <h2 className="results-title">🗝️ What I learned</h2>
                 <ol>
-                    <li>
-                        <strong>Design for the "Messy" Reality</strong>: Systems are often built for rigid, linear flows, but humans work in iterations.
-                    </li>
-                    <li>
-                        <strong>Verbatims are Currency</strong>: Raw customer feedback is the fastest way to resolve a "difference of opinion" between design and engineering.
-                    </li>
-                    <li>
-                        <strong>Internal Impact is UX too</strong>: Improving the workflow for QA and support teams is a valid and vital metric for success.
-                    </li>
+                    <li><strong>Design for the "Messy" Reality:</strong> Systems are built for rigid flows, but humans work in iterations.</li>
+                    <li><strong>Verbatims are Currency:</strong> Raw customer feedback is the fastest way to resolve a "difference of opinion" between design and engineering.</li>
+                    <li><strong>Internal Impact is UX too:</strong> Improving the workflow for QA and support teams is a vital metric for success.</li>
                 </ol>
             </section>
         </div>

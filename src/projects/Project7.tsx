@@ -1,13 +1,9 @@
 import React from "react";
-import wish01 from "../utils/project-imgs/kekawish/currentFlow.webp";
 import wish03 from "../utils/project-imgs/kekawish/cardIterations.webp";
 import wish04 from "../utils/project-imgs/kekawish/wallOfWishes.webp";
-import wishcard from "../utils/project-imgs/kekawish/Wish cards.webp";
 import widget from "../utils/project-imgs/kekawish/Widget.webp";
-import finaldesign from "../utils/project-imgs/kekawish/FinaldesignGIF.gif";
 import dataTrack from "../utils/project-imgs/kekawish/dataTrack.png";
 import currentFlow from "../utils/project-imgs/kekawish/wishesOnWall.webp";
-const wishDemoVideo = process.env.PUBLIC_URL + "/currentWish.mp4";
 
 const KekaWishes: React.FC = () => {
 
@@ -15,144 +11,95 @@ const KekaWishes: React.FC = () => {
     <div className="project-details">
 
       <section>
-
-        <h3>🎯 The Challenge: Revitalizing Platform Engagement</h3>
+        <h3>🎯 Adding delight to Peer to Peer wishes on Keka wall</h3>
         <h4>
-          To help bring people back to the platform, we used birthday "wishes" to breathe new life into our social feed.
+          Personalized cards and confetti to help companies drive adoption and create delightful experiences.
         </h4>
 
-        <h4>Operational Friction:</h4>
+        <h4>The problems:</h4>
+        <p>Based on internal testing and customer feedback:</p>
         <ul>
-          <li><strong>Unclear Entry Points</strong>: High cognitive load to initiate a social interaction.</li>
-          <li><strong>Generic Experiences</strong>: Lack of differentiation between wisher and receiver mental models.</li>
-          <li><strong>Missed Opportunities</strong>: No mechanism for post-celebration engagement or social proof.</li>
+          <li><strong>Falling engagement</strong>: Usage for the Peer wish feature was falling drastically.</li>
+          <li><strong>Generic experience</strong>: It felt the same for both the wisher and the receiver.</li>
+          <li><strong>Unclear entry point</strong>: There was no way to see wishes after the special day.</li>
+          <li><strong>No visual celebration</strong>: The platform lacked special visuals to celebrate the person.</li>
         </ul>
       </section>
 
       <figure>
         <img src={currentFlow} alt="Wish widget on Keka wall" />
-        <figcaption>Screenshot of the old birthday feature with low engagement</figcaption>
+        <figcaption>The old system: Wish widget showing birthdays, anniversaries, and new joinees.</figcaption>
       </figure>
 
       <section>
-        <h3>🔍 Solving the problem: Friction in the Social Feed</h3>
+        <h3>🔍 DESIGN DIRECTION I: Large special day cards</h3>
         <p>
-          We wanted to move from a transactional interface that felt like a chore to a personal experience designed to sustain long-term social delight.
+          We first tried putting large cards directly on the wall.
         </p>
-      </section>
-
-      <figure>
-        <video
-          src={wishDemoVideo}
-          autoPlay
-          loop
-          muted
-          playsInline
-        >
-          Sorry, your browser doesn't support embedded videos.
-        </video>
-        <figcaption>Video demo showing the wish flow in action</figcaption>
-      </figure>
-
-      <figure>
-        <img src={wish01} alt="Current wish experience" />
-        <figcaption>Screenshot of the old wish feature with low engagement</figcaption>
-      </figure>
-
-      <section>
-        <h3>🟡 Iteration I: Oversized cards</h3>
-        <p>
-          We first experimented with oversized cards to drive adoption, but quickly realized they compromised wall scalability and excluded others.
-        </p>
-        <blockquote>
-          “Visibility must be balanced—one person’s spotlight shouldn't hide everyone else.”
-        </blockquote>
+        <ul>
+          <li><strong>What worked</strong>: More focus on each person and a clear CTA to wish them.</li>
+          <li><strong>What didn't work</strong>: It prioritized 3-4 employees over everyone else and didn't fit the brand.</li>
+        </ul>
       </section>
 
       <figure>
         <img src={wish03} alt="Large special day card iteration" />
-        <figcaption>Design iteration: Large special day card on the wall</figcaption>
+        <figcaption>Iteration: Large card design based on competitor research.</figcaption>
       </figure>
 
       <section>
-        <h3>🟡 Iteration II: Individual walls</h3>
+        <h3>🔍 DESIGN DIRECTION II: Dedicated wall of wishes</h3>
         <p>
-          Next, we explored dedicated individual "walls," but found they felt disconnected from the main widget and fragmented user attention.
+          Next, we explored a dedicated space for everyone to make them feel special.
         </p>
+        <ul>
+          <li><strong>What didn't work</strong>: It felt disconnected from the main widget and fragmented user attention.</li>
+        </ul>
       </section>
 
       <figure>
         <img src={wish04} alt="Dedicated wall of wishes" />
-        <figcaption>Design iteration: Dedicated wall of wishes</figcaption>
+        <figcaption>Iteration: A separate wall for anniversary and birthday messages.</figcaption>
       </figure>
 
       <section>
-        <h3>💡 Final Solution: A Simple Wish Button</h3>
+        <h3>💡 The New System: Personalized & Persistent</h3>
         <p>
-          The best solution was also the simplest. We added a "Wish" button directly below every name, making it incredibly easy for anyone to send a birthday greeting without any friction.
+          We moved to a system that balances visibility with delight.
         </p>
-        <blockquote>
-          “Making the action clear and visible was all we needed.”
-        </blockquote>
+        <ul>
+          <li><strong>Personalized wish cards</strong>: A card showing a list of everyone who has wished you.</li>
+          <li><strong>Templated responses</strong>: Solved the "empty slate" problem to make wishing easier.</li>
+          <li><strong>Delightful Confetti</strong>: Added confetti for the person opening Keka and for the wisher after posting.</li>
+        </ul>
       </section>
 
       <figure>
         <img src={widget} alt="Final widget" />
-        <figcaption>Final widget: Clear Wish CTA and improved interaction flow</figcaption>
+        <figcaption>New system: Simple "Wish" CTA added to the main widget.</figcaption>
       </figure>
 
       <section>
-        <h3>🥳 Celebrating the Day: Digital Birthday Cards</h3>
-        <p>
-          We collected all the wishes into a single, beautiful card. Instead of just seeing separate messages, employees could see and feel all the appreciation from their team in one place.
-        </p>
-      </section>
-
-      <figure>
-        <img src={wishcard} alt="Final wish card design" />
-        <figcaption>Final design: Personalized birthday card on the profile wall</figcaption>
-      </figure>
-
-
-      <section>
-        <h3>🎉 Adding a bit of fun: Confetti!</h3>
-        <p>
-          To make the moment feel more special, we added a small confetti animation whenever a wish was sent. It was a simple way to bring a bit of joy to a digital interaction.
-        </p>
-      </section>
-
-      <figure>
-        <img src={finaldesign} alt="Wish interaction with confetti" />
-        <figcaption>Final interaction: Example of a wish sent to a colleague</figcaption>
-      </figure>
-
-      <section>
-        <h2 className="results-title">📈 Results: More connection, more engagement</h2>
+        <h2 className="results-title">📈 Impact: 31K Users. 116K Wishes.</h2>
+        <p>What started as a small feature exploded across the platform:</p>
         <ul>
-          <li><strong>More wishes</strong>: The average number of wishes per employee jumped from 2 to 8.</li>
-          <li><strong>Usage growth</strong>: Weekly active users for the feature grew 3x (from 5k to 15k).</li>
-          <li><strong>Record interaction</strong>: Engagement shot up 5x, with 31k employees sending wishes to over 116k colleagues.</li>
-          <li><strong>Platform-wide boost</strong>: The extra activity also encouraged people to use other social features like Praise and Posts.</li>
+          <li><strong>6x User Growth</strong>: Jumped from 5k to 31k users.</li>
+          <li><strong>7x Engagement</strong>: Total wishes increased from 15k to 116k.</li>
+          <li><strong>3x Avg. Wishes</strong>: The average wish count per person grew from 2 to 6.</li>
         </ul>
       </section>
 
       <figure>
         <img src={dataTrack} alt="Data results" />
-        <figcaption>Measuring Impact: Analyzing the engagement lift post-launch.</figcaption>
+        <figcaption>Impact: Visualizing the growth in engagement.</figcaption>
       </figure>
 
       <section>
-        <h2 className="results-title">🗝️ Key Learnings</h2>
+        <h2 className="results-title">🗝️ What I learned</h2>
         <ol>
-          <li>
-            <strong>Keep it simple</strong>: A clear button can do more for engagement than complex new features.
-          </li>
-          <li>
-            <strong>Make it personal</strong>: Grouping messages into a personalized card made people feel genuinely celebrated.
-          </li>
-          <li>
-            <strong>The Halo Effect</strong>: Improving one simple feature encouraged engagement across the entire social platform.
-          </li>
+          <li><strong>Simple is better</strong>: Clear actions drive the most engagement.</li>
+          <li><strong>Personalized experiences work</strong>: People respond better when they feel special.</li>
+          <li><strong>The Ripple Effect</strong>: High engagement in one area boosts the whole platform.</li>
         </ol>
       </section>
     </div>

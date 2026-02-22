@@ -16,6 +16,18 @@
 
     .project-details {
 
+        .metadata {
+            display: flex;
+            gap: 2em;
+            margin-bottom: 2em;
+            font-size: 0.9em;
+            color: var(--highlight-color);
+
+            strong {
+                color: var(--text-color);
+            }
+        }
+
         .red {
             background-color: #d50019;
             color: white;
@@ -28,9 +40,73 @@
             padding: 1.5em 3em 1.5em 3em;
         }
 
+        // --- Visual Card Grid for "The Why" ---
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5em;
+            margin-top: 1.5em;
+
+            .impact-card {
+                background: var(--bg-color-high, #f9f9f9);
+                border: 1px solid var(--border-color, #eee);
+                padding: 1.5em;
+                border-radius: 0.75em;
+
+                strong {
+                    display: block;
+                    margin-bottom: 0.5em;
+                    color: var(--highlight-color);
+                }
+
+                p {
+                    margin: 0;
+                    line-height: 1.4;
+                }
+            }
+        }
+
+        // --- Decision Tags for Prioritization ---
+        .decision-container {
+            display: flex;
+            gap: 2em;
+            margin-top: 1.5em;
+
+            @media (max-width: 768px) {
+                flex-direction: column;
+            }
+
+            .decision-column {
+                flex: 1;
+
+                h4 {
+                    margin-bottom: 1em;
+                    text-transform: none;
+                }
+            }
+
+            .tag-group {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.75em;
+            }
+
+            .not-picked {
+                .tag-parent {
+                    opacity: 0.7;
+
+                    .tag {
+                        text-decoration: line-through;
+                    }
+                }
+            }
+        }
+
         video {
-            width: --webkit-fill-available;
+            width: -webkit-fill-available;
             height: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 1em;
         }
 
         .stories {
@@ -39,19 +115,8 @@
             overflow: hidden;
         }
 
-        h3 {
-            // color: var(--highlight-color);
-        }
-
         h4 {
             max-width: 40ch;
-        }
-
-        video {
-            width: -webkit-fill-available;
-            height: auto;
-            border: 1px solid var(--border-color);
-            border-radius: 1em;
         }
 
         blockquote {
@@ -62,11 +127,9 @@
             padding: 0.5em;
             margin-left: 1em;
             border-left: .15em solid var(--highlight-color);
-            // background-color: var(--bg-color-high);
 
             @media (max-width: 767px) {
                 width: 100%;
-                // font-size: 1.5em;
             }
         }
 
