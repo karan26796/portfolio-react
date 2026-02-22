@@ -22,10 +22,10 @@ const KekaProject: React.FC = () => {
         </p>
       </section>
 
-      <figure>
+      {/* <figure>
         <img src={continuousrewards} alt="Continuous Rewards overview" />
         <figcaption>High-Impact recognition: Bringing informal practices into a structured, rewarding system.</figcaption>
-      </figure>
+      </figure> */}
 
       <section>
         <h3>🛠️ Designing for different company cultures</h3>
