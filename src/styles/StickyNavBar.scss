@@ -166,7 +166,22 @@
     }
 
     .theme-toggle {
-      margin-left: 2em;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 0.5em;
+      cursor: pointer;
+      color: var(--tertiary-text);
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      margin-right: 1em;
+
+      &:hover {
+        color: var(--highlight-color);
+        background-color: var(--bg-color-hover, var(--bg-color-high));
+      }
     }
 
     /* ======================================================================
@@ -184,6 +199,30 @@
         top: 0;
         height: 100%;
         z-index: 30;
+      }
+
+      .mobile-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+
+        .theme-toggle-mobile {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: none;
+          border: none;
+          padding: 0.5em;
+          cursor: pointer;
+          color: var(--tertiary-text);
+          border-radius: 50%;
+          transition: all 0.2s ease;
+
+          &:hover {
+            color: var(--highlight-color);
+            background-color: var(--bg-color-hover, var(--bg-color-high));
+          }
+        }
       }
 
       /* Menu toggle button */

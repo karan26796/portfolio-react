@@ -9,7 +9,9 @@ import {
   PencilRuler,
   List,
   X,
-  LinkedinLogo
+  LinkedinLogo,
+  Sun,
+  Moon
 } from "@phosphor-icons/react";
 import "../styles/StickyNavBar.scss";
 import { projectSummaries } from "../utils/ProjectSummaries";
@@ -259,7 +261,7 @@ const StickyNavBar: React.FC = () => {
           {/* ================================================================== */}
           {isMobile ? (
             <div className="menu-dropdown" ref={menuRef}>
-              <div style={{ display: 'flex', alignItems: 'center' }}>
+              <div className="mobile-actions">
                 {/* LinkedIn - Mobile */}
                 <a
                   href="https://www.linkedin.com/in/karankapoorux/"
@@ -270,6 +272,15 @@ const StickyNavBar: React.FC = () => {
                 >
                   <LinkedinLogo size={18} weight="duotone" />
                 </a>
+
+                {/* Theme Toggle - Mobile */}
+                <button
+                  className="menu-toggle theme-toggle-mobile"
+                  onClick={toggleTheme}
+                  aria-label="Toggle theme"
+                >
+                  {isDarkMode ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
+                </button>
 
                 {/* Menu Toggle Button */}
                 <button
@@ -342,6 +353,15 @@ const StickyNavBar: React.FC = () => {
         {!isMobile && (
           <>
             <div className="navbar-right">
+              {/* Theme Toggle - Desktop */}
+              {/* <button
+                onClick={toggleTheme}
+                className="a-header theme-toggle"
+                aria-label="Toggle theme"
+              >
+                {isDarkMode ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
+              </button> */}
+
               {location.pathname === "/home" ? (
                 <Button
                   text="Let's work together"

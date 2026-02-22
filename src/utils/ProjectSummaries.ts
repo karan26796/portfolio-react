@@ -4,7 +4,6 @@ import indieImg from "./project-imgs/thumb-indie.png";
 import stagingthumb from "./project-imgs/staging-project/staging.gif";
 import pauseimg from "./project-imgs/pause-holiday/pause-thumb.webp";
 import awaconimg from "./project-imgs/binge-eating/binge.gif"
-import kurakaani from "./project-imgs/kurakaani/thumb.gif"
 import loopnote from "./project-imgs/loop-note/loop-note.gif"
 import keka from "./project-imgs/continuous rewards/Thumb.webp"
 import loopinfo from "./project-imgs/looppanel-insights/insight-thumb.gif"

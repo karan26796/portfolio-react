@@ -1,0 +1,109 @@
+
+> portfolio-react@0.1.0 build
+> react-scripts build
+
+Creating an optimized production build...
+Browserslist: browsers data (caniuse-lite) is 9 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+Browserslist: browsers data (caniuse-lite) is 9 months old. Please run:
+  npx update-browserslist-db@latest
+  Why you should do it regularly: https://github.com/browserslist/update-db#readme
+
+Treating warnings as errors because process.env.CI = true.
+Most CI servers set it automatically.
+
+Failed to compile.
+
+[eslint] 
+src/App.tsx
+  Line 1:28:   'useState' is defined but never used            @typescript-eslint/no-unused-vars
+  Line 39:9:   'myStories' is assigned a value but never used  @typescript-eslint/no-unused-vars
+  Line 196:7:  'AboutLink' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+src/components/DocumentationLayout.tsx
+  Line 10:11:  'navigate' is assigned a value but never used                                                                                                                                                                                                                                                                                                                      @typescript-eslint/no-unused-vars
+  Line 22:21:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 23:21:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 24:21:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 25:21:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 26:21:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 27:21:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 28:21:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+
+src/components/Footer.tsx
+  Line 5:9:  'handleSocialMediaClick' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+src/components/HeaderwithCarousel.tsx
+  Line 7:8:   'Button' is defined but never used                 @typescript-eslint/no-unused-vars
+  Line 27:9:  'toggleResume' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+src/components/ProjectCard.tsx
+  Line 1:38:  'useMemo' is defined but never used  @typescript-eslint/no-unused-vars
+
+src/components/StackedCards.tsx
+  Line 30:9:  'bgColors' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+src/pages/About.tsx
+  Line 3:8:  'Gallery' is defined but never used  @typescript-eslint/no-unused-vars
+
+src/pages/Archive.tsx
+  Line 5:8:    'HorizontalCarouselWall' is defined but never used  @typescript-eslint/no-unused-vars
+  Line 10:10:  'isMobile' is assigned a value but never used       @typescript-eslint/no-unused-vars
+
+src/pages/FigmaTraining.tsx
+  Line 1:17:    'useMemo' is defined but never used               @typescript-eslint/no-unused-vars
+  Line 5:8:     'Tag' is defined but never used                   @typescript-eslint/no-unused-vars
+  Line 9:36:    'tagTextIndividual' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 9:55:    'tagTextCompany' is defined but never used        @typescript-eslint/no-unused-vars
+  Line 9:71:    'vibrantColors' is defined but never used         @typescript-eslint/no-unused-vars
+  Line 108:11:  'TrainingSectionProps' is defined but never used  @typescript-eslint/no-unused-vars
+
+src/pages/Gallery.tsx
+  Line 3:10:    'InstagramLogo' is defined but never used                                                                                                                                                        @typescript-eslint/no-unused-vars
+  Line 100:9:   'handleInstagramClick' is assigned a value but never used                                                                                                                                        @typescript-eslint/no-unused-vars
+  Line 127:19:  Redundant alt attribute. Screen-readers already announce `img` tags as an image. You don’t need to use the words `image`, `photo,` or `picture` (or any specified custom words) in the alt prop  jsx-a11y/img-redundant-alt
+
+src/pages/Overview.tsx
+  Line 37:36:   The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+  Line 114:21:  The href attribute requires a valid value to be accessible. Provide a valid, navigable address as the href value. If you cannot provide a valid href, but still need the element to resemble a link, use a button and change it with appropriate styles. Learn more: https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md  jsx-a11y/anchor-is-valid
+
+src/pages/ProjectList.tsx
+  Line 4:10:  'Link' is defined but never used      @typescript-eslint/no-unused-vars
+  Line 5:8:   'indieImg' is defined but never used  @typescript-eslint/no-unused-vars
+
+src/projects/Project2.tsx
+  Line 17:8:  'Stories' is defined but never used             @typescript-eslint/no-unused-vars
+  Line 21:9:  'myStories' is assigned a value but never used  @typescript-eslint/no-unused-vars
+
+src/projects/Project4.tsx
+  Line 4:8:   'bingGif' is defined but never used  @typescript-eslint/no-unused-vars
+  Line 10:8:  'img05' is defined but never used    @typescript-eslint/no-unused-vars
+
+src/projects/Project8.tsx
+  Line 3:8:  'awards01' is defined but never used  @typescript-eslint/no-unused-vars
+
+src/utils/ProjectSummaries.ts
+  Line 3:8:  'indieImg' is defined but never used      @typescript-eslint/no-unused-vars
+  Line 4:8:  'stagingthumb' is defined but never used  @typescript-eslint/no-unused-vars
+  Line 5:8:  'pauseimg' is defined but never used      @typescript-eslint/no-unused-vars
+  Line 7:8:  'kurakaani' is defined but never used     @typescript-eslint/no-unused-vars
+
+src/utils/experiments.ts
+  Line 2:8:   'colretechImg' is defined but never used    @typescript-eslint/no-unused-vars
+  Line 3:8:   'colretechGif' is defined but never used    @typescript-eslint/no-unused-vars
+  Line 12:8:  'colorWheelImg' is defined but never used   @typescript-eslint/no-unused-vars
+  Line 13:8:  'colorWheelGif' is defined but never used   @typescript-eslint/no-unused-vars
+  Line 14:8:  'vedicSquareImg' is defined but never used  @typescript-eslint/no-unused-vars
+  Line 15:8:  'vedicSquareGif' is defined but never used  @typescript-eslint/no-unused-vars
+  Line 16:8:  'colorPickerGif' is defined but never used  @typescript-eslint/no-unused-vars
+  Line 17:8:  'colorPickerImg' is defined but never used  @typescript-eslint/no-unused-vars
+
+src/utils/logos.ts
+  Line 1:10:  'log' is defined but never used        @typescript-eslint/no-unused-vars
+  Line 2:10:  'ImageItem' is defined but never used  @typescript-eslint/no-unused-vars
+  Line 9:8:   'qoohoo' is defined but never used     @typescript-eslint/no-unused-vars
+  Line 10:8:  'medianet' is defined but never used   @typescript-eslint/no-unused-vars
+  Line 11:8:  'pyxis' is defined but never used      @typescript-eslint/no-unused-vars
+
+
