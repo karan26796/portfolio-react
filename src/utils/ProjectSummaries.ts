@@ -16,22 +16,22 @@ export interface ProjectMeta {
 }
 
 export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = [
-  {
-    id: "8",
-    description: 'Removing barriers to help companies adopt Keka for their R&R needs.',
-    title: "Strengthening Keka's Reward & Recognition Suite",
-    img: award,
-    tags: ["Product Design", "Design Strategy"],
-    type: "client",
-    details: "Keka / 2026",
+  // {
+  //   id: "8",
+  //   description: 'Removing barriers to help companies adopt Keka for their R&R needs.',
+  //   title: "Strengthening Keka's Reward & Recognition Suite",
+  //   img: award,
+  //   tags: ["Product Design", "Design Strategy"],
+  //   type: "client",
+  //   details: "Keka / 2026",
 
-    meta: {
-      duration: "Nov 2025 – Jan 2026",
-      role: "Design Strategy & Execution",
-      scope: "Enterprise Recognition System",
-      impact: "Increased internal operational agility and empowered HR teams with full self-service autonomy."
-    }
-  },
+  //   meta: {
+  //     duration: "Nov 2025 – Jan 2026",
+  //     role: "Design Strategy & Execution",
+  //     scope: "Enterprise Recognition System",
+  //     impact: "Increased internal operational agility and empowered HR teams with full self-service autonomy."
+  //   }
+  // },
   {
     id: "6",
     description: 'Designed a flexible, points-based recognition system that secured 10+ enterprise clients within 5 months.',
