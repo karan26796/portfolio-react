@@ -4,7 +4,7 @@ import rehypeRaw from 'rehype-raw';
 import { useParams } from "react-router-dom";
 import "../styles/ProjectDetails.scss";
 import ProjectDetailHeader from "../components/ProjectHeader";
-import { projectSummaries } from "../utils/ProjectSummaries";
+import { useProjects } from "../utils/useProjects";
 import ProjectMetaGrid from "../components/ProjectMetaGrid";
 import ProjectSidePanel from "../components/ProjectSidePanel";
 import Loader from "../components/Loader";
@@ -15,6 +15,9 @@ const ProjectDetails: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [headers, setHeaders] = useState<{ text: string; id: string }[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
+
+  // Fetch the list of all projects dynamically
+  const { projects: projectSummaries, loading: projectsLoading } = useProjects();
 
   const projectSummary = projectSummaries.find(
     (summary) => summary.id === projectId
@@ -70,12 +73,12 @@ const ProjectDetails: React.FC = () => {
     }
   };
 
-  if (loading) {
+  if (loading || projectsLoading) {
     return <Loader />;
   }
 
   if (!projectSummary) {
-    return <div className="error-container">Project not found</div>;
+    return <div className="error-message">Project not found</div>;
   }
 
   return (

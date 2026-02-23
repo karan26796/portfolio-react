@@ -10,7 +10,7 @@ import ProjectDetails from "./pages/ProjectDetails";
 import StickyNavBar from "./components/StickyNavBar";
 import HeaderWithCarousel from "./components/HeaderwithCarousel";
 import ProjectCard from "./components/ProjectCard";
-import { projectSummaries } from "./utils/ProjectSummaries";
+import { useProjects } from "./utils/useProjects";
 import About from "./pages/About";
 import Gallery from "./pages/Gallery";
 import TrainingList from "./pages/FigmaTraining";
@@ -101,6 +101,7 @@ const App: React.FC = () => {
 };
 
 const HomePage: React.FC = () => {
+  const { projects: projectSummaries, loading } = useProjects();
 
   const testimonialsData: Testimonial[] = [
     {
@@ -177,7 +178,11 @@ const HomePage: React.FC = () => {
   return (
     <>
       <HeaderWithCarousel />
-      <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
+      {loading ? (
+        <div style={{ textAlign: 'center', padding: '100px 0' }}>Loading projects from Notion...</div>
+      ) : (
+        <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
+      )}
       <Testimonials
         data={testimonialsData}
         title="Testimonials"

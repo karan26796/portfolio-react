@@ -14,7 +14,7 @@ import {
   Moon
 } from "@phosphor-icons/react";
 import "../styles/StickyNavBar.scss";
-import { projectSummaries } from "../utils/ProjectSummaries";
+import { useProjects } from "../utils/useProjects";
 import Button from "./Buttons";
 import ResumePopup from "../pages/ResumePopup";
 
@@ -51,6 +51,7 @@ const StickyNavBar: React.FC = () => {
   // ============================================================================
   // PROJECT NAVIGATION HELPERS
   // ============================================================================
+  const { projects: projectSummaries } = useProjects();
   const isProjectDetailPage = location.pathname.startsWith('/project/');
   const currentProjectId = isProjectDetailPage ? location.pathname.split('/').pop() : null;
 
