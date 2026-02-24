@@ -7,7 +7,7 @@ import ProjectDetailHeader from "../components/ProjectHeader";
 import { useProjects } from "../utils/useProjects";
 import ProjectMetaGrid from "../components/ProjectMetaGrid";
 import ProjectSidePanel from "../components/ProjectSidePanel";
-import Loader from "../components/Loader";
+import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
 
 const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -28,20 +28,24 @@ const ProjectDetails: React.FC = () => {
       try {
         setLoading(true);
 
-        // Fetch from our new Serverless Function instead of the public folder
-        const response = await fetch(`/api/notion?slug=Project${projectId}`);
+        // Fetch markdown statically from public folder
+        const response = await fetch(`/projects/Project${projectId}.md`);
 
         if (!response.ok) {
-          throw new Error('Failed to fetch from Notion');
+          throw new Error('Failed to fetch from local path');
         }
 
-        const data = await response.json();
-        setMarkdownContent(data.content);
+        const text = await response.text();
+
+        // Simulate a tiny network delay to test skeleton locally
+        setTimeout(() => {
+          setMarkdownContent(text);
+          setLoading(false);
+        }, 400);
 
         window.scrollTo(0, 0);
       } catch (error) {
-        console.error("Failed to load project content from Notion:", error);
-      } finally {
+        console.error("Failed to load project content:", error);
         setLoading(false);
       }
     };
@@ -74,7 +78,7 @@ const ProjectDetails: React.FC = () => {
   };
 
   if (loading || projectsLoading) {
-    return <Loader />;
+    return <ProjectDetailsSkeleton />;
   }
 
   if (!projectSummary) {

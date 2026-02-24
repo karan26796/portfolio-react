@@ -19,6 +19,7 @@ import Resume from "./components/Resume";
 import ResumePopup from "./pages/ResumePopup";
 import ResumeStandalone from "./pages/ResumeStandalone";
 import Overview from "./pages/Overview";
+import ProjectListSkeleton from "./components/ProjectListSkeleton";
 
 
 import Archive from "./pages/Archive"
@@ -179,7 +180,7 @@ const HomePage: React.FC = () => {
     <>
       <HeaderWithCarousel />
       {loading ? (
-        <div style={{ textAlign: 'center', padding: '100px 0' }}>Loading projects from Notion...</div>
+        <ProjectListSkeleton />
       ) : (
         <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
       )}

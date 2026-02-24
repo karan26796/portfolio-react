@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { ProjectCardData } from './interfaces';
+import { projectSummaries } from './ProjectSummaries';
 
 export interface ProjectMeta {
     duration: string;
@@ -10,43 +11,19 @@ export interface ProjectMeta {
 
 export type FullProjectCardData = ProjectCardData & { meta: ProjectMeta };
 
-let cachedProjects: FullProjectCardData[] | null = null;
-let fetchPromise: Promise<FullProjectCardData[]> | null = null;
-
 export const useProjects = () => {
-    const [projects, setProjects] = useState<FullProjectCardData[]>(cachedProjects || []);
-    const [loading, setLoading] = useState<boolean>(!cachedProjects);
+    const [projects, setProjects] = useState<FullProjectCardData[]>([]);
+    const [loading, setLoading] = useState<boolean>(true);
     const [error, setError] = useState<string | null>(null);
 
     useEffect(() => {
-        if (cachedProjects) {
-            setProjects(cachedProjects);
+        // Simulate a tiny delay so skeleton flashes and data loads realistically fast
+        const load = setTimeout(() => {
+            setProjects(projectSummaries);
             setLoading(false);
-            return;
-        }
+        }, 300); // 300ms realistic fast load
 
-        if (!fetchPromise) {
-            fetchPromise = fetch('/api/projects')
-                .then(res => {
-                    if (!res.ok) throw new Error('Failed to fetch projects');
-                    return res.json();
-                })
-                .then(data => {
-                    cachedProjects = data;
-                    return data;
-                });
-        }
-
-        fetchPromise
-            .then(data => {
-                setProjects(data);
-                setLoading(false);
-            })
-            .catch(err => {
-                console.error(err);
-                setError(err.message);
-                setLoading(false);
-            });
+        return () => clearTimeout(load);
     }, []);
 
     return { projects, loading, error };

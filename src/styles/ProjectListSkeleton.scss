@@ -1,0 +1,71 @@
+.skeleton-container {
+  opacity: 0.7;
+  animation: pulse 1.5s infinite ease-in-out;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 0.8; }
+  100% { opacity: 0.6; }
+}
+
+.skeleton-image {
+  width: 100%;
+  aspect-ratio: 16/9;
+  background-color: var(--background-color, #e0e0e0);
+  border-radius: var(--border-radius, 8px);
+  margin-bottom: 24px;
+}
+
+.skeleton-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.skeleton-line {
+  height: 20px;
+  background-color: var(--background-color, #e0e0e0);
+  border-radius: 4px;
+  width: 100%;
+}
+
+.skeleton-title {
+  height: 28px;
+  width: 70%;
+  margin-bottom: 8px;
+}
+
+.skeleton-meta {
+  width: 40%;
+  height: 16px;
+}
+
+.skeleton-desc {
+  width: 90%;
+}
+
+.skeleton-desc.short {
+  width: 60%;
+}
+
+.skeleton-button {
+  width: 120px;
+  height: 48px;
+  background-color: var(--background-color, #e0e0e0);
+  border-radius: 24px;
+  margin-top: 16px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .skeleton-image, .skeleton-line, .skeleton-button {
+    background-color: var(--background-color, #2a2a2a);
+  }
+}
+
+body.dark-theme .skeleton-image, 
+body.dark-theme .skeleton-line, 
+body.dark-theme .skeleton-button {
+  background-color: var(--background-color, #2a2a2a);
+}
