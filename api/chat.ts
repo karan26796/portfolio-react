@@ -58,22 +58,42 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
             console.warn("Could not load interview-questions.md for context mapping");
         }
 
+        // Dynamically load all project documentation files for global context
+        let globalPortfolioContext = "";
+        try {
+            const projectsDir = path.resolve(process.cwd(), 'public/projects');
+            const files = fs.readdirSync(projectsDir).filter(f => f.endsWith('.md'));
+            for (const file of files) {
+                const content = fs.readFileSync(path.join(projectsDir, file), 'utf-8');
+                // Truncate massively long files if necessary, or just append
+                globalPortfolioContext += `\n\n--- Start of Project Context: ${file} ---\n${content}\n--- End of Project Context: ${file} ---\n`;
+            }
+        } catch (e) {
+            console.warn("Could not load public/projects directory for global context");
+        }
+
         const FINAL_SYSTEM_PROMPT = `${SYSTEM_PROMPT}
 
 CRITICAL COMMUNICATION RULES:
 If the user asks an unrelated question, hits a dead end, or asks for Karan's contact details / resume, politely offer them to contact Karan on LinkedIn at: https://www.linkedin.com/in/karankapoorux
 
+GLOBAL PORTFOLIO CONTEXT:
+Here is the raw text for ALL of Karan's projects. You can use this to answer questions about any of his past work, process, or metrics:
+<global_projects>
+${globalPortfolioContext}
+</global_projects>
+
 FOLLOW-UP PROMPT GENERATION (MANDATORY):
-At the very end of EVERY single response you generate, you MUST append a pipe character "|" followed by exactly 2 or 3 suggested follow-up questions for the user. Format these questions STRICTLY as a raw JSON array of strings. Do not use markdown code blocks around the JSON.
+At the very end of EVERY single response you generate, you MUST append a pipe character "|" followed EXACTLY by a raw JSON array of 2 or 3 strings. Do not use markdown backticks around it. Do not add any conversational text after the JSON.
 CRITICAL: To keep the conversation moving, one of these 2-3 suggested follow-up questions MUST be a short, intriguing question derived directly from the "Interview Questions & Answers" document below (if provided). Frame it so the user can click it to ask you.
 
 <interview_qa>
 ${interviewQaText}
 </interview_qa>
 
-Example format:
+Example exact format (no extra text after the array!):
 Your helpful answer text goes here.
-|["What was your specific role?", "Can you walk me through your design process?"]
+|["What was his specific role?", "Can you walk me through his design process?"]
 `;
 
         const genAI = new GoogleGenerativeAI(apiKey);
@@ -83,7 +103,15 @@ Your helpful answer text goes here.
             return res.status(400).json({ error: 'Invalid messages array' });
         }
 
-        const model = genAI.getGenerativeModel({ model: "gemini-2.5-flash" });
+        // Add generation configuration to prevent gibberish and looping
+        const model = genAI.getGenerativeModel({
+            model: "gemini-2.5-flash",
+            generationConfig: {
+                temperature: 0.7,
+                topK: 40,
+                topP: 0.95,
+            }
+        });
 
         const history = messages.slice(0, -1).map((msg: any) => ({
             role: msg.role === 'user' ? 'user' : 'model',

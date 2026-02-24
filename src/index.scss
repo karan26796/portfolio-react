@@ -106,6 +106,10 @@ li {
   font-weight: 450;
   margin-bottom: var(--list-margin-bottom);
   line-height: var(--list-line-height);
+
+  li {
+    font-size: 1em;
+  }
 }
 
 details {

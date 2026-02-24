@@ -124,9 +124,9 @@ const ProjectDetails: React.FC = () => {
         </div>
       </div>
 
-      {projectSummary?.aiSummary && (
+      {markdownContent && (
         <AISummarizer
-          text={projectSummary.aiSummary}
+          text={markdownContent}
           buttonLabel="Ask AI anything"
           initialPrompts={[
             "Can you summarize this project?",
