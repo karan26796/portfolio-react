@@ -45,7 +45,8 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
       role: "Lead Product Designer",
       scope: "B2B Reward & Recognition System",
       impact: "Directly contributed to securing 10+ enterprise accounts."
-    }
+    },
+    aiSummary: "The Continuous Rewards Platform natively bridged fragmented HR and disparate reward systems into a deeply unified ecosystem.\n\nHere are the top highlights:\n• Allowed admins to assign Geo-specific conversion rates, upload custom icons, and apply brand languages like 'donuts'.\n• Automated milestone rewards for birthdays and work anniversaries based on internal Keka payroll data.\n• Introduced highly flexible tracking for cross-border spends and complex point limitations.\n\nUltimately, this massive capability upgrade drove a brand new direct revenue stream and secured over 10 enterprise accounts within just 5 months of launch."
   },
   {
     id: "2",

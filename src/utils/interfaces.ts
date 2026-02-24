@@ -19,12 +19,13 @@ export interface ProjectCardData {
   url?: string;
   specialStatus?: string; // Add this line to resolve the error
   details?: string; // Add this line to resolve the error
+  aiSummary?: string;
 }
 
-export interface IntroElement{
+export interface IntroElement {
   type: 'intro';
-  text:HeaderElement;
-  desc:ParagraphElement;
+  text: HeaderElement;
+  desc: ParagraphElement;
 }
 
 export interface HeaderElement {

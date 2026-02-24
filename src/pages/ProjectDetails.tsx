@@ -9,6 +9,7 @@ import ProjectMetaGrid from "../components/ProjectMetaGrid";
 import ProjectSidePanel from "../components/ProjectSidePanel";
 import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
 import CustomVideo from "../components/CustomVideo";
+import AISummarizer from "../components/AISummarizer";
 // Force fast refresh
 
 const ProjectDetails: React.FC = () => {
@@ -122,6 +123,18 @@ const ProjectDetails: React.FC = () => {
           ) : <div>Project content not available</div>}
         </div>
       </div>
+
+      {projectSummary?.aiSummary && (
+        <AISummarizer
+          text={projectSummary.aiSummary}
+          buttonLabel="Ask AI anything"
+          initialPrompts={[
+            "Can you summarize this project?",
+            "What was his role here?",
+            "What was the biggest challenge?"
+          ]}
+        />
+      )}
     </div>
   );
 };
