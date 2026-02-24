@@ -130,7 +130,7 @@ const ProjectDetails: React.FC = () => {
           buttonLabel="Ask AI anything"
           initialPrompts={[
             "Can you summarize this project?",
-            "What was his role here?",
+            "What was my role here?",
             "What was the biggest challenge?"
           ]}
         />

@@ -195,9 +195,9 @@ const HomePage: React.FC = () => {
         text="Hi, I'm Karan! 👋&#10;&#10;I'm a Product Designer who blends technology with art to create intuitive and highly scalable user experiences. &#10;&#10;My design philosophy is rooted in velocity and clarity. By thoroughly understanding user needs, I reduce time-to-insight by up to 5x. Whether building rapid prototypes for early-stage startups or deep systems architecture (like at Keka HR), my goal is always to reduce decision fatigue and ship fast.&#10;&#10;Feel free to explore my case studies to see my process in action!"
         buttonLabel="Ask AI anything"
         initialPrompts={[
-          "What's his design process?",
-          "What's his work experience?",
-          "What roles is he looking for?"
+          "What's my design process?",
+          "What's my work experience?",
+          "What roles am I looking for?"
         ]}
       />
     </>
