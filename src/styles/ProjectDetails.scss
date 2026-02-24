@@ -41,6 +41,11 @@
         }
 
         // --- Visual Card Grid for "The Why" ---
+        h3 {
+            margin-top: 2em;
+            /* Increased spacing above sections */
+        }
+
         .card-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -143,6 +148,116 @@
         .img-container {
             h4 {
                 text-transform: uppercase;
+            }
+        }
+
+        .tldr-container {
+            /* Distinct gradient background to make it pop */
+            background: linear-gradient(145deg, var(--bg-color-high) 0%, rgba(73, 28, 255, 0.04) 100%);
+            /* Using a gradient for the border */
+            position: relative;
+            border: 1.5px solid var(--border-color);
+            border-radius: 1em;
+            padding: 1.5em;
+            margin: 2em 0;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+
+            summary {
+                cursor: pointer;
+                list-style: none;
+                /* Hide default triangle in many browsers */
+                margin-bottom: 0;
+                display: flex;
+                flex-direction: column;
+
+                &::-webkit-details-marker {
+                    display: none;
+                }
+
+                h3 {
+                    font-family: 'Google Sans Code', Courier, monospace;
+                    font-weight: 600;
+                    font-size: 1.4em;
+                    margin-top: 0;
+                    margin-bottom: 0.5em;
+                    display: flex;
+                    align-items: center;
+                    text-transform: none;
+                    background: linear-gradient(90deg, var(--highlight-color), #ff1cf0);
+                    -webkit-background-clip: text;
+                    -webkit-text-fill-color: transparent;
+                    background-clip: text;
+                    color: transparent;
+                    /* Fallback */
+
+                    &::before {
+                        margin-right: 12px;
+                        -webkit-text-fill-color: initial;
+                        /* Prevent Emoji from being clipped */
+                    }
+                }
+
+                ul,
+                p {
+                    color: var(--secondary-text);
+                    margin-bottom: 1em;
+                    line-height: var(--paragraph-line-height);
+                    font-size: .9rem;
+                    font-weight: normal;
+
+                    /* In case it's a ul, give it padding */
+                    padding-left: 1.5em;
+
+                    li {
+                        margin-bottom: 0.5em;
+                        font-size: var(--text-size);
+                    }
+                }
+
+                .read-more-btn {
+                    color: var(--highlight-color);
+                    font-weight: 500;
+                    display: flex;
+                    align-items: center;
+
+                    &::after {
+                        content: "↓";
+                        margin-left: 8px;
+                        transition: transform 0.2s ease;
+                    }
+                }
+            }
+
+            &[open] summary {
+                margin-bottom: 1.5em;
+                border-bottom: 1px solid var(--border-color);
+                padding-bottom: 1.5em;
+
+                .read-more-btn {
+                    &::after {
+                        content: "↑";
+                    }
+                }
+            }
+
+            .tldr-content {
+                p {
+                    margin-bottom: 1em;
+                }
+
+                ul {
+                    margin-top: 0.5em;
+                    padding-left: 1.5em;
+
+                    li {
+                        margin-bottom: 0.5em;
+                    }
+                }
+
+                p:last-of-type,
+                ul:last-of-type {
+                    margin-bottom: 0;
+                }
             }
         }
     }

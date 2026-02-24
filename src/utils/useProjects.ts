@@ -14,7 +14,7 @@ export type FullProjectCardData = ProjectCardData & { meta: ProjectMeta };
 export const useProjects = () => {
     const [projects, setProjects] = useState<FullProjectCardData[]>([]);
     const [loading, setLoading] = useState<boolean>(true);
-    const [error, setError] = useState<string | null>(null);
+    const error = null; // No longer fetching from API, so no error state needed
 
     useEffect(() => {
         // Simulate a tiny delay so skeleton flashes and data loads realistically fast

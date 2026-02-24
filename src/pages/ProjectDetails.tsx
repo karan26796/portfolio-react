@@ -8,6 +8,8 @@ import { useProjects } from "../utils/useProjects";
 import ProjectMetaGrid from "../components/ProjectMetaGrid";
 import ProjectSidePanel from "../components/ProjectSidePanel";
 import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
+import CustomVideo from "../components/CustomVideo";
+// Force fast refresh
 
 const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
@@ -108,6 +110,10 @@ const ProjectDetails: React.FC = () => {
                       {props.alt && <figcaption>{props.alt}</figcaption>}
                     </figure>
                   );
+                },
+                video: ({ node, ...props }) => {
+                  const customProps = props as any;
+                  return <CustomVideo src={props.src} caption={customProps.caption} />
                 }
               }}
             >
