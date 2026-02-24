@@ -61,7 +61,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         // Dynamically load all project documentation files for global context
         let globalPortfolioContext = "";
         try {
-            const projectsDir = path.resolve(process.cwd(), 'public/projects');
+            const projectsDir = path.join(process.cwd(), 'public', 'projects');
             const files = fs.readdirSync(projectsDir).filter(f => f.endsWith('.md'));
             for (const file of files) {
                 const content = fs.readFileSync(path.join(projectsDir, file), 'utf-8');
@@ -105,7 +105,7 @@ Your helpful answer text goes here.
 
         // Add generation configuration to prevent gibberish and looping
         const model = genAI.getGenerativeModel({
-            model: "gemini-2.5-flash",
+            model: "gemini-1.5-flash",
             generationConfig: {
                 temperature: 0.7,
                 topK: 40,
@@ -113,10 +113,13 @@ Your helpful answer text goes here.
             }
         });
 
-        const history = messages.slice(0, -1).map((msg: any) => ({
-            role: msg.role === 'user' ? 'user' : 'model',
-            parts: [{ text: msg.content }]
-        }));
+        const history = messages
+            .slice(0, -1)
+            .filter((msg: any, idx: number) => !(idx === 0 && msg.role === 'bot')) // Drop initial greeting to ensure perfectly alternating user/model roles
+            .map((msg: any) => ({
+                role: msg.role === 'user' ? 'user' : 'model',
+                parts: [{ text: msg.content }]
+            }));
 
         const chat = model.startChat({
             history: [
