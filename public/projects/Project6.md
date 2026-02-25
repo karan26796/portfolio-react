@@ -1,7 +1,7 @@
 <section>
 
 ### 🤔 What are continuous rewards?
-#### Companies usually have separate budgets for recognizing their employees. These are spent in two ways:
+#### Companies usually recognize their employees in two ways:
 
 1. **Formal award programs** - Participants are nominated, winners are chosen across different award categories, like Craftsmanship award, Employee of the month, etc. These are usually done over a period of a month, quarter, or a year in most organizations.
 2. **Day-to-day rewards** - These are either employer-led or peer-led. Orgs recognize their employees on their special days, like birthdays, work anniversaries, or joining date, child birth etc. The list here is endless.
@@ -17,7 +17,7 @@
 
 <details class="tldr-container">
 <summary>
-  <h3>TL;DR: Strategy & Discovery</h3>
+  <h3>TL;DR: Research & Findings</h3>
   <ul>
     <li>Keka aimed to <strong>consolidate HR and Rewards platforms</strong> into a complete suite for the US market, unlocking a <strong>direct new revenue stream</strong>.</li>
     <li>To bridge fragmented systems, Keka's native point distribution was unified with a <strong>dedicated external partner redemption platform</strong> (XOXO Days).</li>
@@ -98,9 +98,6 @@ Option to add exception to give more points to employees in certain teams.
 
 <section>
 
-### 4️⃣ Integration with our traditional award program
-Allowing admins to add points while creating an award.
-
 **Integration with touchpoints on the Keka Wall:**
 The Keka social wall already had high usage for praises and wishes. To ensure the usage of the peer-to-peer feature, we integrated the points system directly on those touch points.
 
@@ -116,9 +113,16 @@ We divided the employee wallet in two parts:
 1. **Redeemable points** - These can only be used on the partner platform like XOXO days etc.
 2. **Giftable points** - These can only be given to others before they lapse at the end of the month.
 
+### Retrospect
+1. **Designing for **: 
+Allowing admins to add points while creating an award.
+2. **Integration with Keka Wall**: 
+Allowing admins to add points while creating an award.
+
 </section>
 
 <img src="/project-imgs/continuous rewards/transaction-summary.webp" caption="Celebrating milestones without the manual work"></img>
 
-<faq data='[{"question":"Why did we not design any guardrails?", "answer":"Because the companies we were catering to were not too big. Plus we didn’t want to overbuild."}, {"question":"What could I have done better?", "answer":"Create a central budgeting system for all kind of reward programs."}, {"question":"What was the most challenging part of the project?", "answer":"1. To get stakeholder buy-in and internal validation.<br/><br/> 2. Integrating with the partner platform had a lot of complications due to which customers left the deal mid-way."}]'></faq>
+<section>
+<faq data='[{"question":"Did we design any guardrails for points usage?", "answer":"No, since we were catering to mid sized companies with 100-300 employees initially & to avoid overbuilding."}, {"question":"What could I have done better?", "answer":"Create a central budgeting system for all kind of reward programs for admins to manage in one place"}, {"question":"What was the most challenging part of the project?", "answer":"<ul><li>To get stakeholder buy-in and internal validation.</li><li>Integrating with the partner platform had a lot of complications due to which customers left the deal mid-way.</li></ul>"}]'></faq>
 </section>

@@ -46,14 +46,23 @@
     background-color: var(--bg-color);
     // border-bottom: 1px solid var(--border-color);
     color: var(--secondary-text);
+    font-size: var(--text-size); // match p/li size for plain text nodes
+
+    li {
+        font-size: 1em; // prevent double-scaling (index.scss already sets li to --text-size)
+    }
+
     max-height: 0;
     overflow: hidden;
     opacity: 0;
-    transition: max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease;
+    transition: max-height 0.3s ease,
+    opacity 0.3s ease,
+    padding 0.3s ease;
 }
 
 .faq-answer.open {
-    max-height: 500px; /* Adjust based on your content */
+    max-height: 500px;
+    /* Adjust based on your content */
     opacity: 1;
 }
 

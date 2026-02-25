@@ -1,22 +1,23 @@
 <section>
 
-### 🎯 Adding delight to Peer to Peer wishes on Keka wall
-#### Personalized cards and confetti to help companies drive adoption and create delightful experiences.
-
-#### The problems:
+### Let's start with the problems:
 Based on internal testing and customer feedback:
 - **Falling engagement**: Usage for the Peer wish feature was falling drastically.
-- **Generic experience**: It felt the same for both the wisher and the receiver.
+- **Generic experience**: The experience felt same for both the wisher and the receiver.
 - **Unclear entry point**: There was no way to see wishes after the special day.
-- **No visual celebration**: The platform lacked special visuals to celebrate the person.
+- **No visual celebration**: The platform lacked special visuals to celebrate the person's special day.
 
 </section>
 
 ![The old system: Wish widget showing birthdays, anniversaries, and new joinees.](/project-imgs/kekawish/wishesOnWall.webp)
 
+<video src="/project-imgs/kekawish/wish interaction old.mp4" caption="Old wish interaction on the Keka wall"></video>
+
 <section>
 
-### 🔍 DESIGN DIRECTION I: Large special day cards
+## Based on competitor analysis, we tried a few design directions that might make the experience more special.
+
+### 🔍 Design Direction I: Large special day cards
 We first tried putting large cards directly on the wall.
 
 - **What worked**: More focus on each person and a clear CTA to wish them.
@@ -24,18 +25,18 @@ We first tried putting large cards directly on the wall.
 
 </section>
 
-![Iteration: Large card design based on competitor research.](/project-imgs/kekawish/cardIterations.webp)
+![Iteration: Large wish cards on Keka wall](/project-imgs/kekawish/cardIterations.webp)
 
 <section>
 
-### 🔍 DESIGN DIRECTION II: Dedicated wall of wishes
+### 🔍 Design Direction II: Dedicated wall of wishes
 Next, we explored a dedicated space for everyone to make them feel special.
 
 - **What didn't work**: It felt disconnected from the main widget and fragmented user attention.
 
 </section>
 
-![Iteration: A separate wall for anniversary and birthday messages.](/project-imgs/kekawish/wallOfWishes.webp)
+![Iteration: A dedicated wall of wishes for the person](/project-imgs/kekawish/wallOfWishes.webp)
 
 <section>
 
@@ -48,7 +49,7 @@ We moved to a system that balances visibility with delight.
 
 </section>
 
-![New system: Simple "Wish" CTA added to the main widget.](/project-imgs/kekawish/Widget.webp)
+<video src="/project-imgs/kekawish/newwish.mp4" caption="New wish interaction on the Keka wall"></video>
 
 <section>
 

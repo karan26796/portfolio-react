@@ -10,6 +10,7 @@ import ProjectSidePanel from "../components/ProjectSidePanel";
 import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
 import CustomVideo from "../components/CustomVideo";
 import AISummarizer from "../components/AISummarizer";
+import FAQ from "../components/FAQ";
 // Force fast refresh
 
 const ProjectDetails: React.FC = () => {
@@ -104,7 +105,7 @@ const ProjectDetails: React.FC = () => {
             <ReactMarkdown
               rehypePlugins={[rehypeRaw]}
               components={{
-                img: ({ node, ...props }) => {
+                img: ({ node, ...props }: any) => {
                   return (
                     <figure>
                       <img alt={props.alt || ""} {...props} />
@@ -112,11 +113,20 @@ const ProjectDetails: React.FC = () => {
                     </figure>
                   );
                 },
-                video: ({ node, ...props }) => {
+                video: ({ node, ...props }: any) => {
                   const customProps = props as any;
                   return <CustomVideo src={props.src} caption={customProps.caption} />
+                },
+                faq: ({ node, ...props }: any) => {
+                  try {
+                    const parsedData = JSON.parse(props.data);
+                    return <FAQ data={parsedData} hideTitle={true} />;
+                  } catch (error) {
+                    console.error("Failed to parse FAQ JSON data in markdown:", error);
+                    return null;
+                  }
                 }
-              }}
+              } as any}
             >
               {markdownContent}
             </ReactMarkdown>

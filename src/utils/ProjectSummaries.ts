@@ -66,14 +66,14 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
   {
     id: "7",
     description: 'Scaled weekly engagement from 15k to 100k users by redesigning the workplace celebrations framework.',
-    title: "Revolutionizing Workplace Celebrations at Keka",
+    title: "Adding delight to peer to peer wishes on Keka wall",
     img: wish,
     tags: ["Product Design", "Design Strategy"],
     type: "client",
     details: "Keka / 2025",
     meta: {
       duration: "Nov 2024 – Jan 2025",
-      role: "Design Strategy & Execution",
+      role: "Design & Execution",
       scope: "Enterprise Engagement System",
       impact: "5x increase in employee engagement and 3x adoption growth."
     }

@@ -9,9 +9,10 @@ interface FAQItem {
 
 interface FAQProps {
   data: FAQItem[];
+  hideTitle?: boolean;
 }
 
-const FAQ: React.FC<FAQProps> = ({ data }) => {
+const FAQ: React.FC<FAQProps> = ({ data, hideTitle = false }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {
@@ -20,7 +21,7 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
 
   return (
     <div className="faq-container">
-        <h1 style={{ textAlign: "center" }}>About my process</h1>
+      {!hideTitle && <h1 style={{ textAlign: "center" }}>About my process</h1>}
       {data.map((item, index) => (
         <div key={index} className="faq-item">
           <div className="faq-question" onClick={() => toggleFAQ(index)}>
@@ -30,7 +31,7 @@ const FAQ: React.FC<FAQProps> = ({ data }) => {
             </span>
           </div>
           <div className={`faq-answer ${openIndex === index ? 'open' : 'closed'}`}>
-            <h4>{item.answer}</h4>
+            <div dangerouslySetInnerHTML={{ __html: item.answer as string }} />
           </div>
         </div>
       ))}
