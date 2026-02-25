@@ -171,11 +171,12 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
             {isOpen && (
                 <div className="ai-chat-window" onClick={(e) => e.stopPropagation()}>
                     <div className="ai-chat-header">
-                        <div className="bot-info">
-                            <span className="bot-avatar"><Sparkle weight="fill" size={20} /></span>
-                            <div className="bot-text-details">
-                                <h3>Ask Karan</h3>
-                                <span className="status">Online</span>
+                        <div className="ai-chat-header-title">
+                            <div className="ai-chat-icon"><Sparkle weight="fill" size={20} /></div>
+                            <div className="ai-chat-title-text">
+                                <h3>Agent Vinod</h3>
+                                <span className="online-status">
+                                    <span className="online-dot"></span> Online</span>
                             </div>
                         </div>
                         <button className="close-btn" onClick={() => setIsOpen(false)} aria-label="Close chat">

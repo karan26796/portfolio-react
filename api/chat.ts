@@ -76,7 +76,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
         const FINAL_SYSTEM_PROMPT = `${SYSTEM_PROMPT}
 
 CRITICAL COMMUNICATION RULES:
-If the user asks an unrelated question, hits a dead end, or asks for Karan's contact details / resume, politely offer them to contact Karan on LinkedIn at: https://www.linkedin.com/in/karankapoorux
+If the user asks an unrelated question, hits a dead end, or asks for Karan's contact details / resume, politely offer them to contact Karan on LinkedIn at: [LinkedIn](https://www.linkedin.com/in/karankapoorux)
 
 GLOBAL PORTFOLIO CONTEXT:
 Here is the raw text for ALL of Karan's projects. You can use this to answer questions about any of his past work, process, or metrics:
@@ -144,6 +144,29 @@ Your helpful answer text goes here.
             contextPrefix = `[CONTEXT: The user is currently reading this content: "${pageContext}"]\n\n`;
         }
 
+        const cleanMessage = latestUserMessage.toLowerCase().trim().replace(/[^a-z0-9 ]/g, '');
+        const qaFallback: Record<string, string> = {
+            "whats my design process": "My design process evolves as per the project. If it's a big project, I usually research thoroughly, understand competitors, talk to customers, and then start designing. Otherwise, a quick AI prototype to align stakeholders is good enough.",
+            "can you walk me through your endtoend design process": "My design process evolves as per the project. If it's a big project, I usually research thoroughly, understand competitors, talk to customers, and then start designing. Otherwise, a quick AI prototype to align stakeholders is good enough.",
+            "whats my work experience": "I have 7 years of design and tech experience across B2B and B2C products, backed by a Master's in Design and Bachelor's in Engineering from NID.",
+            "what roles am i looking for": "I am looking for Product Design roles where I can leverage my experience in user-centric design, rapid prototyping, and complex systems architecture.",
+            "how do you balance user needs with hard business goals": "I work closely with business stakeholders throughout the process & spend enough time to refine the designs so they tightly follow both user needs and core design principles.",
+            "how do you handle disagreements with product managers or engineers": "I usually back conversations with data and customer feedback, which elegantly reframes the problem from a debate to the customer's actual perspective.",
+            "which of your portfolio projects was the most challenging and why": "The most challenging project was creating Looppanel's Highlight view for bulk tagging and summary of research notes. It had heavy tech constraints and required first-principles thinking.",
+            "how do you measure the success of a design after it launches": "Success criteria is usually set before the project starts. I look at customer tickets, sync with the sales team, and analyze core usage metrics.",
+            "what design tools figma framer etc and prototyping workflows are you most proficient in": "I am a Figma trainer, and actively use Claude, Figma Make, & Google AI Studio for structural prototyping.",
+            "can you give an example of a time you used data to inform a design decision": "I observed usage trends on Keka wall falling; leveraging intuition and competitor analysis, I proposed a simple Wish CTA that boosted engagement by 5x."
+        };
+
+        if (qaFallback[cleanMessage] && !pageContext) {
+            // Bypass Gemini to save API token quota, returning the pre-mapped answer instantly.
+            const answer = qaFallback[cleanMessage];
+            const nextQs = `\n|["How do you balance user needs with hard business goals?", "Which of your portfolio projects was the most challenging and why?", "What's my work experience?"]`;
+            res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+            res.status(200).send(answer + nextQs);
+            return;
+        }
+
         const prompt = contextPrefix + latestUserMessage;
 
         const result = await chat.sendMessageStream(prompt);
@@ -160,6 +183,12 @@ Your helpful answer text goes here.
 
     } catch (error: any) {
         console.error('Gemini API Error:', error);
+        const errMsg = error?.message?.toLowerCase() || "";
+        if (errMsg.includes('429') || errMsg.includes('quota') || error?.status === 429 || error?.status === 403) {
+            const fallbackText = "I'm receiving too many questions right now and need a quick breather! 😅 Please ask me again in about 30 seconds, or connect with me directly on [LinkedIn](https://www.linkedin.com/in/karankapoorux). \n|[\"What's my design process?\", \"What's my work experience?\"]";
+            res.setHeader('Content-Type', 'text/plain; charset=utf-8');
+            return res.status(200).send(fallbackText);
+        }
         res.status(500).json({ error: 'Failed to generate response', details: error.message });
     }
 }
