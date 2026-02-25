@@ -44,7 +44,7 @@ const HeaderWithCarousel: React.FC = () => {
           <div className="name-tag-group">
             <h1>Hey, I'm Karan</h1>
             <div className="tags">
-              <Tag text="AI Design Strategist" color={{ text: '#ff9422ff' }} />
+              <Tag text="Designer for AI" color={{ text: '#ff9422ff' }} />
               <Tag text="Design Researcher" color={{ text: '#224affff' }} />
               <Tag text="Figma Expert" color={{ text: '#009765ff' }} />
               <Tag text="2X Founding Designer" color={{ text: '#7508eaff' }} />

@@ -9,9 +9,7 @@ import {
   PencilRuler,
   List,
   X,
-  LinkedinLogo,
-  Sun,
-  Moon
+  LinkedinLogo
 } from "@phosphor-icons/react";
 import "../styles/StickyNavBar.scss";
 import { useProjects } from "../utils/useProjects";
@@ -33,11 +31,7 @@ const StickyNavBar: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const menuRef = useRef<HTMLDivElement>(null);
 
-  // Theme state - persisted in localStorage
-  const [isDarkMode, setIsDarkMode] = useState(() => {
-    const savedTheme = localStorage.getItem('theme');
-    return savedTheme === 'dark';
-  });
+
 
   // Responsive breakpoint states
   const [isMobile, setIsMobile] = useState(() => window.innerWidth <= BREAKPOINT_MOBILE);
@@ -80,9 +74,7 @@ const StickyNavBar: React.FC = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const toggleTheme = () => {
-    setIsDarkMode(!isDarkMode);
-  };
+
 
   // ============================================================================
   // HOVER INDICATOR ANIMATION
@@ -156,11 +148,7 @@ const StickyNavBar: React.FC = () => {
     }
   }, [location.pathname]);
 
-  // Apply theme to document root
-  useEffect(() => {
-    document.documentElement.setAttribute('data-theme', isDarkMode ? 'dark' : 'light');
-    localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-  }, [isDarkMode]);
+
 
   // ============================================================================
   // RENDER: PROJECT DETAIL PAGE NAVIGATION
@@ -274,21 +262,12 @@ const StickyNavBar: React.FC = () => {
                   <LinkedinLogo size={18} weight="duotone" />
                 </a>
 
-                {/* Theme Toggle - Mobile */}
-                <button
-                  className="menu-toggle theme-toggle-mobile"
-                  onClick={toggleTheme}
-                  aria-label="Toggle theme"
-                >
-                  {isDarkMode ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
-                </button>
-
                 {/* Menu Toggle Button */}
                 <button
                   className={`menu-toggle ${isMenuOpen ? 'open' : ''}`}
                   onClick={toggleMenu}
                   aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                  aria-expanded={isMenuOpen}
+                  aria-expanded={isMenuOpen ? "true" : "false"}
                 >
                   {isMenuOpen ? <X size={18} weight="duotone" /> : <List size={18} />}
                 </button>
@@ -354,15 +333,6 @@ const StickyNavBar: React.FC = () => {
         {!isMobile && (
           <>
             <div className="navbar-right">
-              {/* Theme Toggle - Desktop */}
-              {/* <button
-                onClick={toggleTheme}
-                className="a-header theme-toggle"
-                aria-label="Toggle theme"
-              >
-                {isDarkMode ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
-              </button> */}
-
               {location.pathname === "/home" ? (
                 <Button
                   text="Let's work together"
