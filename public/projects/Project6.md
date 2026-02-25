@@ -113,12 +113,6 @@ We divided the employee wallet in two parts:
 1. **Redeemable points** - These can only be used on the partner platform like XOXO days etc.
 2. **Giftable points** - These can only be given to others before they lapse at the end of the month.
 
-### Retrospect
-1. **Designing for **: 
-Allowing admins to add points while creating an award.
-2. **Integration with Keka Wall**: 
-Allowing admins to add points while creating an award.
-
 </section>
 
 <img src="/project-imgs/continuous rewards/transaction-summary.webp" caption="Celebrating milestones without the manual work"></img>
