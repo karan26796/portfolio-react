@@ -3,17 +3,13 @@
 ### 🤔 What are continuous rewards?
 #### Companies usually recognize their employees in two ways:
 
-1. **Formal award programs** - Participants are nominated, winners are chosen across different award categories, like Craftsmanship award, Employee of the month, etc. These are usually done over a period of a month, quarter, or a year in most organizations.
-2. **Day-to-day rewards** - These are either employer-led or peer-led. Orgs recognize their employees on their special days, like birthdays, work anniversaries, or joining date, child birth etc. The list here is endless.
-
-<!--
-![Image Description](/project-imgs/folder/image.webp)
--->
+1. **Formal award programs** - Low frequency, high impact awards like employee of the month, craftsmanship awards etc.
+2. **Day-to-day rewards** - Employer and peer led rewards, usually given on special days like birthdays, work anniversaries, joining date, child birth etc.
 
 ### 🔍 The market gap
 #### Based on market research we realized that companies were using separate HRMS and Recognition platforms, like Empuls, Vantage Circle, Survey Sparrow etc.
 
-#### This led to them maintaining two systems that don’t talk to each other. A lot of context that the HR system can provide them was lost due to this, on top of the additional cost.
+#### This led to them maintaining two systems that don't talk to each other. A lot of context that the HR system can provide them was lost due to this, on top of the additional cost.
 
 <details class="tldr-container">
 <summary>
@@ -46,7 +42,7 @@ We showed our initial explorations to customers. On talking to customers we foun
 
 1. **Orgs had different set ups for rewards.** Some called them donuts, some cookies.
    <blockquote>"We use a slack bot to give people 5 donuts everyday to appreciate their peers, which lapse at the end of the day. Whoever has the most number of donuts at the end of the month receives a box of donuts from the company."</blockquote>
-2. **The same person usually runs HR ops and rewards** in the company, sometimes there’s a financial head involved.
+2. **The same person usually runs HR ops and rewards** in the company, sometimes there's a financial head involved.
 3. **Rewards are usually distributed hierarchically.** Managers, different teams receive rewards basis their unique needs.
    <blockquote>"What if a manager has 3 people reporting to them, and the other has 5? We want to give more points to the manager who has 5 reportees."</blockquote>
 4. **A lot of the companies had workforce in more than 1 country.** To accommodate them, global conversions had to be designed.
@@ -56,16 +52,12 @@ We showed our initial explorations to customers. On talking to customers we foun
 </div>
 </details>
 
-<!--
-![Image Description](/project-imgs/folder/image.webp)
--->
-
 ## 🛠️ Designing the Platform
 #### We took these findings and started designing. The program was split into two parts: Employee milestone rewards and Peer-to-peer rewards.
 
 ### 1️⃣ Platform integration and reward customization
 1. **Instant Integration**: Redirect link to partner platform (XOXO days) for a seamless admin setup.
-2. **Custom Branding & Global Rates**: Rename rewards, upload custom icons, and define **geo-specific conversion rates**, naturally powered by Keka’s internal payroll connection.
+2. **Custom Branding & Global Rates**: Rename rewards, upload custom icons, and define **geo-specific conversion rates**, naturally powered by Keka's internal payroll connection.
 3. **Budget Governance**: Ability to limit points employees can carry forward.
 
 </section>
@@ -90,15 +82,13 @@ Option to add exception to give more points to employees in certain teams.
 2. **Additional points for managers:**
    Option to add an exception for managers of certain teams to get more points.
 
-<br/>
-
 </section>
 
 <video src="/project-imgs/continuous rewards/p2p.mp4" caption="Celebrating milestones without the manual work"></video>
 
 <section>
 
-**Integration with touchpoints on the Keka Wall:**
+### 4️⃣ Integration with touchpoints on the Keka Wall
 The Keka social wall already had high usage for praises and wishes. To ensure the usage of the peer-to-peer feature, we integrated the points system directly on those touch points.
 
 </section>

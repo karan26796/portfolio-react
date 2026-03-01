@@ -42,7 +42,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     details: "Keka / 2024",
     meta: {
       duration: "Jun 2024 – Nov 2024",
-      role: "Lead Product Designer",
+      role: "Design, Research, Execution",
       scope: "B2B Reward & Recognition System",
       impact: "Directly contributed to securing 10+ enterprise accounts."
     },
