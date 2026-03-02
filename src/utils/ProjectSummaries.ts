@@ -50,8 +50,8 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
   },
   {
     id: "2",
-    description: "Architected qualitative data analysis tools to streamline insight discovery for global research teams.",
-    title: "Looppanel: Data to Insight Pipeline",
+    description: "Redesigned the highlights view so researchers could synthesize notes by research question and share evidence-backed findings to get stakeholder buy-in.",
+    title: "Helping researchers get a buy-in for their research findings",
     img: loopinfo,
     tags: ["Data Analysis", "Research Ops"],
     type: "client",

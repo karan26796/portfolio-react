@@ -1,11 +1,8 @@
 .project-meta-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  display: flex;
+  flex-direction: column;
   gap: 1em;
-  padding: 0em 3em 1em 3em;
-
-  border-bottom: 4px solid;
-  border-image: linear-gradient(to right, #ffffff, #491cff10,#ffffff) 1;
+  padding: 0em;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
@@ -16,7 +13,7 @@
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    
+
     p {
       padding: 0;
       margin: 0;

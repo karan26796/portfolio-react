@@ -1,10 +1,13 @@
 .project-sidepanel {
-  max-width: 220px;
-  margin: 2em;
-  position: sticky;
-  top: 2em;
-  height: fit-content;
   display: none;
+  max-width: 220px;
+  margin: 6em 2em 2em;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 4.5em;
+  height: fit-content;
+  // display: flex;
+  flex-direction: column;
 
   a {
     display: block;
@@ -16,19 +19,23 @@
     cursor: pointer;
     margin-bottom: .25em;
     padding: .5em;
+    letter-spacing: -0.5px;
     color: var(--tertiary-text);
     border-radius: .75em;
     transition: all 0.2s ease;
+    font-weight: 500;
 
     &:hover {
       // background-color: var(--bg-color-high);
       color: var(--primary-text);
+      font-weight: 600;
     }
 
     &.active {
       // background-color: var(--bg-color-high);
       color: var(--primary-text);
       position: relative;
+      font-weight: 600;
 
       &::before {
         content: "";

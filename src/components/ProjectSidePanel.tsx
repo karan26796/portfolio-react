@@ -52,7 +52,7 @@ const ProjectSidePanel: React.FC<ProjectSidePanelProps> = ({
 
   return (
     <nav className="project-sidepanel">
-      <Button
+      {/* <Button
         text="Back"
         iconName="ArrowLeft"
         withIcon={true}
@@ -62,7 +62,7 @@ const ProjectSidePanel: React.FC<ProjectSidePanelProps> = ({
         variant="tertiary"
         weight="regular"
         onClick={() => navigate("/home")}
-      />
+      /> */}
       {/* <p style={{ marginBottom: ".5em", fontWeight: 500 }}>Sections</p> */}
       {headers.map((header) => (
         <a

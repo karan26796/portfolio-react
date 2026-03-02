@@ -5,7 +5,6 @@ import { useParams } from "react-router-dom";
 import "../styles/ProjectDetails.scss";
 import ProjectDetailHeader from "../components/ProjectHeader";
 import { useProjects } from "../utils/useProjects";
-import ProjectMetaGrid from "../components/ProjectMetaGrid";
 import ProjectSidePanel from "../components/ProjectSidePanel";
 import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
 import CustomVideo from "../components/CustomVideo";
@@ -99,7 +98,6 @@ const ProjectDetails: React.FC = () => {
       {/* Main Content */}
       <div className="project-content-wrapper">
         <ProjectDetailHeader data={projectSummary} />
-        {projectSummary?.meta && <ProjectMetaGrid meta={projectSummary.meta} />}
         <div ref={contentRef} className="project-details">
           {markdownContent ? (
             <ReactMarkdown

@@ -2,6 +2,8 @@ import React from "react";
 import { ProjectCardData } from "../utils/interfaces";
 import "../styles/ProjectHeader.scss";
 import Tag, { VibrantColor } from "./Tag";
+import ProjectMetaGrid from "./ProjectMetaGrid";
+import { ProjectMeta } from "../utils/ProjectSummaries";
 
 // Define vibrant colors array
 const vibrantColors: VibrantColor[] = [
@@ -13,25 +15,24 @@ const vibrantColors: VibrantColor[] = [
   { bg: '#fefefe', text: '#00C7BE' }  // Teal
 ];
 
-const ProjectHeader: React.FC<{ data: ProjectCardData }> = ({ data }) => {
+const ProjectHeader: React.FC<{ data: ProjectCardData & { meta?: ProjectMeta } }> = ({ data }) => {
   return (
     <div className="project-header">
       <div className="project-header-data">
         <h1>{data.title}</h1>
-        {/* <h5>{data.tags.join(", ")}</h5> */}
-        <div className="tag-container">
-          {data.tags.map((tag, index) => (
-            <Tag
-              key={index}
-              text={tag}
-              color={vibrantColors[index % vibrantColors.length]}
-              rotation={0}
-              variant="small"
-            />
-          ))}
-        </div>
+        {data.meta && <ProjectMetaGrid meta={data.meta} />}
       </div>
-      <img className="project-header-image" src={data.img} alt={data.title} />
+      <div className="tag-container">
+        {data.tags.map((tag, index) => (
+          <Tag
+            key={index}
+            text={tag}
+            color={vibrantColors[index % vibrantColors.length]}
+            rotation={0}
+            variant="small"
+          />
+        ))}
+      </div>
     </div>
   );
 };

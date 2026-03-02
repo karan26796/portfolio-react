@@ -1,61 +1,89 @@
 <section>
 
-### The Challenge
-#### Researchers struggled with fragmented data—navigating between call notes, recordings, transcripts, and highlights. The challenge was to design a system that supported "zooming" across different layers of detail.
-The original information hierarchy didn't reflect the mental model of researchers, leading to friction in finding and sharing key insights.
+### 🤔 The problem
+#### The Old highlights view become outdated with the introduction of the project structure & question scripts in Looppanel.
+
+Although this gave visibility across calls, it was hard to make sense of the data.
 
 </section>
 
-![Baseline: The original highlights view required an overhaul to support new project structures.](/project-imgs/looppanel-insights/old-highlights.webp)
+![The old highlights view — a flat list with no way to group or make sense of the data.](/project-imgs/looppanel-insights/iteration-mid.gif)
 
 <section>
 
-### Iterative Design & Information Architecture
-#### I led the transition from a flat list of highlights to a structured, project-centric data model.
+### 🔍 Research & Insights
+
+We looked at the existing tools researchers used — Figjam, Excel, Dovetail etc. — and realized researchers zoomed in and out of their data regularly to make sense of the data.
+
+#### Key Findings
+1. Researchers tagged notes during each call, then zoomed out to see patterns across all calls, then zoomed back in to dig into specifics.
+2. Sharing findings was easy because stakeholders used the same tools — no friction.
+3. Getting a stakeholder buy-in was easier when insights were backed by evidence — a stakeholder could see the exact notes that led to a conclusion.
 
 </section>
 
-![Laying the foundation: Direct project integration and improved filtering capability.](/project-imgs/looppanel-insights/iteration-mid.gif)
+
+![Figjam, Excel, and Dovetail all let researchers move between detail levels — a pattern we used as our north star.](/project-imgs/looppanel-insights/competitors.webp)
 
 <section>
 
-### Strategic Pivot I: Contextual Hierarchy
-Initial explorations placed question scripts in a side panel. Testing revealed that this disjointed the relationship between the question and its associated data. We pivoted to a top-down, collapsible hierarchy.
+### 🧩 Competitor Analysis
+
+1. Excel gave users a tabular view where they could tag, see data in a cellular format & customize it highly.
+2. Figjam gave users a way to color, tag, and use move sticky notes on an infinite canvas.
+3. Dovetail gave users a way to switch between different views — table view, canvas view, where they could add tags & further group data.
 
 </section>
-
-![Exploration: Testing side-panel navigation for research questions.](/project-imgs/looppanel-insights/side-question-01.webp)
-
-![Iteration: Refining the side-panel hierarchy.](/project-imgs/looppanel-insights/side-question-02.webp)
 
 <section>
 
-### Strategic Pivot II: The "Mental Model" Alignment
-We moved away from technical groupings toward a structure that matched how researchers actually synthesize findings—grouping notes by research question rather than simply by call source.
+### 💡 The solution
+
+Since we were working with a small team, it was hard to build a sticky-note canvas due to tech constraints and risk. So I explored a bunch of options where we could show data across calls for a project, and also allow researchers to zoom in and out of their data.
+
+### 1️⃣ Grouping by participant
+Showing data by participant name at the top, with highlights for each participant below.
 
 </section>
 
-![Exploration: Aligning data with the researcher's mental model.](/project-imgs/looppanel-insights/top-bottom-1.webp)
+![Iteration 1: Grouping notes by participant — easy to scan per person, but hard to see patterns across calls.](/project-imgs/looppanel-insights/side-question-01.webp)
 
-![Iteration: Testing collapsible structures to reduce cognitive load.](/project-imgs/looppanel-insights/top-bottom-2.webp)
+### 2️⃣ Grouping by question script
+Showing data by question script at the top, with highlights for each question script below.
+</section>
+
+![Iteration 2: Grouping by question script — this made cross-call patterns visible, but felt rigid.](/project-imgs/looppanel-insights/side-question-02.webp)
 
 <section>
 
-### Final Solution: High-Velocity Analysis
-#### The final design features a collapsible question script at the top, allowing researchers to dive deep into a single question without losing site of the broader project context.
+### 3️⃣ Side-by-side view
+A side-by-side view of the question script and the highlights for each question.
 
 </section>
 
-![Analysis Interface: Collapsible questions and integrated transcript access.](/project-imgs/looppanel-insights/new-insights.gif)
+![Iteration 3: Side-by-side view — the question script on one side, highlights on the other.](/project-imgs/looppanel-insights/top-bottom-1.webp)
+
+![Refining the side-by-side layout — but the disconnect between question and data was hard to fix.](/project-imgs/looppanel-insights/top-bottom-2.webp)
 
 <section>
 
-### Sharing the Story: Sharing the Impact
-#### To wrap up the synthesis experience, I designed a summary view that translates raw data into shareable, high-level narratives for stakeholders.
+### ✅ Final Solution: Creating the zoom in and out structure
+
+Finally we landed on creating collapsible sections for each question in the script with the highlights for each question below — allowing researchers to dive deep into a single question without losing sight of the broader project context.
 
 </section>
 
-![Sharable Insights: Bridging raw data with executive-ready summaries.](/project-imgs/looppanel-insights/summary.gif)
+![Final design: Collapsible sections per question, with all tagged highlights nested below each one.](/project-imgs/looppanel-insights/new-insights.gif)
+
+<section>
+
+### 📄 Summary document
+
+We also added a summary view that allowed researchers to share their findings with stakeholders.
+
+</section>
+
+![Summary view: Researchers select notes, tag them to an insight, and share a clean document with stakeholders.](/project-imgs/looppanel-insights/summary.gif)
 
 <section>
 

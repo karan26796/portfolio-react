@@ -1,6 +1,6 @@
 <section>
 
-### Let's start with the problems:
+### The problems
 Based on internal testing and customer feedback:
 - **Falling engagement**: Usage for the Peer wish feature was falling drastically.
 - **Generic experience**: The experience felt same for both the wisher and the receiver.
@@ -15,7 +15,7 @@ Based on internal testing and customer feedback:
 
 <section>
 
-## Based on competitor analysis, we tried a few design directions that might make the experience more special.
+<!-- #### Based on competitor analysis, we tried a few design directions that might make the experience more special. -->
 
 ### 🔍 Design Direction I: Large special day cards
 We first tried putting large cards directly on the wall.

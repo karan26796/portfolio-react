@@ -6,14 +6,9 @@
 1. **Formal award programs** - Low frequency, high impact awards like employee of the month, craftsmanship awards etc.
 2. **Day-to-day rewards** - Employer and peer led rewards, usually given on special days like birthdays, work anniversaries, joining date, child birth etc.
 
-### 🔍 The market gap
-#### Based on market research we realized that companies were using separate HRMS and Recognition platforms, like Empuls, Vantage Circle, Survey Sparrow etc.
-
-#### This led to them maintaining two systems that don't talk to each other. A lot of context that the HR system can provide them was lost due to this, on top of the additional cost.
-
 <details class="tldr-container">
 <summary>
-  <h3>TL;DR: Research & Findings</h3>
+  <h3>Research & Findings, TL;DR:</h3>
   <ul>
     <li>Keka aimed to <strong>consolidate HR and Rewards platforms</strong> into a complete suite for the US market, unlocking a <strong>direct new revenue stream</strong>.</li>
     <li>To bridge fragmented systems, Keka's native point distribution was unified with a <strong>dedicated external partner redemption platform</strong> (XOXO Days).</li>
@@ -23,6 +18,11 @@
   <span class="read-more-btn">Read full research context</span>
 </summary>
 <div class="tldr-content">
+
+### 🔍 The market gap
+#### Based on market research we realized that companies were using separate HRMS and Recognition platforms, like Empuls, Vantage Circle, Survey Sparrow etc.
+
+#### This led to them maintaining two systems that don't talk to each other. A lot of context that the HR system can provide them was lost due to this, on top of the additional cost.
 
 To solve this fragmentation, we envisioned a unified platform where continuous rewards could be issued natively within the Keka ecosystem and seamlessly redeemed on a dedicated partner platform (XOXO days). 
 
