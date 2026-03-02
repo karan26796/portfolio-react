@@ -1,13 +1,13 @@
 .container-project {
     display: flex;
-    flex-direction: row-reverse;
+    flex-direction: row;
     position: relative;
     margin: auto;
-    justify-content: center;
+    justify-content: start;
     gap: 2em;
 
     .project-content-wrapper {
-        width: 840px;
+        width: var(--max-width-container);
         position: relative;
     }
 

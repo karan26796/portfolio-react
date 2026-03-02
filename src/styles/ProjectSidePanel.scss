@@ -1,16 +1,16 @@
 .project-sidepanel {
-  display: none;
+  display: flex;
+  flex-direction: column;
   max-width: 220px;
   margin: 6em 2em 2em;
   position: -webkit-sticky;
   position: sticky;
   top: 4.5em;
   height: fit-content;
-  // display: flex;
-  flex-direction: column;
 
   a {
     display: block;
+    font-size: 1.2em;
     width: 100%;
     text-align: left;
     text-decoration: none;
@@ -26,13 +26,13 @@
     font-weight: 500;
 
     &:hover {
-      // background-color: var(--bg-color-high);
       color: var(--primary-text);
-      font-weight: 600;
+      background-color: var(--bg-color-high);
+      font-weight: 500;
     }
 
     &.active {
-      // background-color: var(--bg-color-high);
+      background-color: var(--bg-color-high);
       color: var(--primary-text);
       position: relative;
       font-weight: 600;
@@ -42,24 +42,17 @@
         position: absolute;
         left: -1em;
         top: 50%;
-        transform: translateY(-50%) scale(0);
+        transform: translateY(-50%) scale(1);
         width: 0.5em;
         height: 0.5em;
         background-color: var(--highlight-color);
         border-radius: 50%;
         transition: transform 0.3s ease, opacity 0.3s ease;
-        opacity: 0;
-      }
-
-      &.active::before {
-        transform: translateY(-50%) scale(1);
-        opacity: 1;
       }
     }
   }
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
   .project-sidepanel {
     display: none;

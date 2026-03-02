@@ -1,6 +1,6 @@
 <section>
 
-### 🤔 What are continuous rewards?
+<!-- ### 🤔 What are continuous rewards?
 #### Companies usually recognize their employees in two ways:
 
 1. **Formal award programs** - Low frequency, high impact awards like employee of the month, craftsmanship awards etc.
@@ -53,12 +53,10 @@ We showed our initial explorations to customers. On talking to customers we foun
 </details>
 
 ## 🛠️ Designing the Platform
-#### We took these findings and started designing. The program was split into two parts: Employee milestone rewards and Peer-to-peer rewards.
+#### We took these findings and started designing. The program was split into two parts: Employee milestone rewards and Peer-to-peer rewards. -->
 
-### 1️⃣ Platform integration and reward customization
-1. **Instant Integration**: Redirect link to partner platform (XOXO days) for a seamless admin setup.
-2. **Custom Branding & Global Rates**: Rename rewards, upload custom icons, and define **geo-specific conversion rates**, naturally powered by Keka's internal payroll connection.
-3. **Budget Governance**: Ability to limit points employees can carry forward.
+### 1️⃣ Platform integration
+Admins connect to the **partner platform (XOXO Days)** via a redirect link, can **rename and brand** their rewards, set **geo-specific conversion rates**, and limit how many **points employees can carry forward**.
 
 </section>
 
@@ -66,9 +64,8 @@ We showed our initial explorations to customers. On talking to customers we foun
 
 <section>
 
-### 2️⃣ Employee milestone rewards
-1. **Automated Event Allocations**: Give points automatically on **birthdays, joining days, and work anniversaries**, including special tenure bonuses.
-2. **Spend Forecasting**: Predict budgets using active headcount and expected new hires, equipped with **geo-location filtering**.
+### 2️⃣ Employee milestones
+Points are given out automatically on **birthdays, work anniversaries, and joining dates** — with **extra bonuses for long tenure**. Admins can **forecast budget** based on headcount and location.
 
 </section>
 
@@ -76,11 +73,8 @@ We showed our initial explorations to customers. On talking to customers we foun
 
 <section>
 
-### 3️⃣ Peer to peer rewards
-1. **Standard allocation to all employees across the organization.**: 
-Option to add exception to give more points to employees in certain teams.
-2. **Additional points for managers:**
-   Option to add an exception for managers of certain teams to get more points.
+### 3️⃣ P2P rewards
+Every employee gets a **standard points allocation**. Managers and specific teams can get more — admins can **set exceptions per team or role**.
 
 </section>
 
@@ -88,8 +82,8 @@ Option to add exception to give more points to employees in certain teams.
 
 <section>
 
-### 4️⃣ Integration with touchpoints on the Keka Wall
-The Keka social wall already had high usage for praises and wishes. To ensure the usage of the peer-to-peer feature, we integrated the points system directly on those touch points.
+### 4️⃣ Integration with Keka wall
+The **Keka social wall** already had high usage for praises and wishes. To drive adoption of the **peer-to-peer feature**, we integrated the points system directly into those touch points.
 
 </section>
 
@@ -97,16 +91,14 @@ The Keka social wall already had high usage for praises and wishes. To ensure th
 
 <section>
 
-### 5️⃣ Transaction summary page for employees
+### 5️⃣ Transaction summary
 
-We divided the employee wallet in two parts:
-1. **Redeemable points** - These can only be used on the partner platform like XOXO days etc.
-2. **Giftable points** - These can only be given to others before they lapse at the end of the month.
+The employee wallet is split into two: **Redeemable points**, which can only be spent on the partner platform (like XOXO Days), and **Giftable points**, which can only be given to peers before they lapse at the end of the month.
 
 </section>
 
 <img src="/project-imgs/continuous rewards/transaction-summary.webp" caption="Celebrating milestones without the manual work"></img>
 
-<section>
+<section style="max-width: 100%;">
 <faq data='[{"question":"Did we design any guardrails for points usage?", "answer":"No, since we were catering to mid sized companies with 100-300 employees initially & to avoid overbuilding."}, {"question":"What could I have done better?", "answer":"Create a central budgeting system for all kind of reward programs for admins to manage in one place"}, {"question":"What was the most challenging part of the project?", "answer":"<ul><li>To get stakeholder buy-in and internal validation.</li><li>Integrating with the partner platform had a lot of complications due to which customers left the deal mid-way.</li></ul>"}]'></faq>
 </section>

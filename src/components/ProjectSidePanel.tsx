@@ -1,21 +1,14 @@
 import React, { useState, useEffect } from "react";
 import "../styles/ProjectSidePanel.scss";
-import Button from "./Buttons";
-import { useNavigate } from "react-router-dom";
 
 interface ProjectSidePanelProps {
   headers: { text: string; id: string }[];
   onHeaderClick: (id: string) => void;
 }
 
-const ProjectSidePanel: React.FC<ProjectSidePanelProps> = ({
-  headers,
-  onHeaderClick,
-}) => {
+const ProjectSidePanel: React.FC<ProjectSidePanelProps> = ({ headers, onHeaderClick }) => {
   const [activeSection, setActiveSection] = useState<string>("");
-  const navigate = useNavigate();
 
-  // Track which section is currently in view
   useEffect(() => {
     if (headers.length === 0) return;
 
@@ -24,21 +17,14 @@ const ProjectSidePanel: React.FC<ProjectSidePanelProps> = ({
 
       for (let i = headers.length - 1; i >= 0; i--) {
         const element = document.getElementById(headers[i].id);
-        if (element) {
-          const elementTop = element.offsetTop;
-          if (scrollPosition >= elementTop) {
-            setActiveSection(headers[i].id);
-            break;
-          }
+        if (element && scrollPosition >= element.offsetTop) {
+          setActiveSection(headers[i].id);
+          break;
         }
       }
     };
 
-    // Set initial section
-    if (headers.length > 0) {
-      setActiveSection(headers[0].id);
-    }
-
+    setActiveSection(headers[0].id);
     window.addEventListener("scroll", handleScroll);
     handleScroll();
 
@@ -52,18 +38,6 @@ const ProjectSidePanel: React.FC<ProjectSidePanelProps> = ({
 
   return (
     <nav className="project-sidepanel">
-      {/* <Button
-        text="Back"
-        iconName="ArrowLeft"
-        withIcon={true}
-        iconDirection="left"
-        withText={true}
-        size="s"
-        variant="tertiary"
-        weight="regular"
-        onClick={() => navigate("/home")}
-      /> */}
-      {/* <p style={{ marginBottom: ".5em", fontWeight: 500 }}>Sections</p> */}
       {headers.map((header) => (
         <a
           key={header.id}

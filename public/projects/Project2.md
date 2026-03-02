@@ -67,7 +67,7 @@ A side-by-side view of the question script and the highlights for each question.
 
 <section>
 
-### ✅ Final Solution: Creating the zoom in and out structure
+### ✅ Final Solution
 
 Finally we landed on creating collapsible sections for each question in the script with the highlights for each question below — allowing researchers to dive deep into a single question without losing sight of the broader project context.
 
