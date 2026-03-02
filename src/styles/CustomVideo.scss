@@ -61,8 +61,13 @@
         margin-top: 12px;
         font-size: 0.9em;
         color: var(--text-color-light);
-        /* Or adjust to your variable */
         text-align: center;
         opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+        .video-container {
+            border-radius: 0 !important;
+        }
     }
 }

@@ -256,31 +256,24 @@
     }
 }
 
-/* Breakpoints */
-@media (max-width: 1024px) {
-    .project-details {
-
-        section,
-        figure {
-            padding: 0 1em;
-        }
-    }
-}
-
 @media (max-width: 768px) {
     .project-details {
         max-width: 100vw;
 
         section {
-            width: 85vw;
             min-width: 80vw;
-            max-width: 95vw !important;
+            max-width: 85vw !important;
             padding: 0 1em;
         }
 
         figure {
-            max-width: 100vw !important;
-            padding: 0 1em;
+            border-radius: 0;
+            max-width: --webkit-fill-available;
+            padding-bottom: 2em;
+        }
+
+        video {
+            border-radius: 0;
         }
     }
 }
