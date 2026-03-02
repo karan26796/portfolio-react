@@ -105,6 +105,10 @@
             height: auto;
             border: 1px solid var(--border-color);
             border-radius: 1em;
+
+            @media (max-width: 768px) {
+                border-radius: 0;
+            }
         }
 
         .stories {
