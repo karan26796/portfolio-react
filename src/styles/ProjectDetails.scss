@@ -119,8 +119,9 @@
 
         blockquote {
             font-family: 'Google Sans Code', Courier, monospace;
-            font-size: 1.25em;
-            font-style: italic;
+            font-size: var(--block-quote-size);
+            font-weight: 500;
+            line-height: 1.2;
             color: var(--highlight-color);
             padding: 0.5em;
             margin-left: 1em;

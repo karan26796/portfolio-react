@@ -67,7 +67,7 @@ h2 {
   font-size: var(--h2-size);
   color: var(--primary-text);
   letter-spacing: -0.8px;
-  font-weight: 550;
+  font-weight: 500;
   margin-top: 1em;
 }
 
@@ -79,7 +79,7 @@ h3 {
 
 h4 {
   font-size: var(--h4-size);
-  font-weight: 600;
+  font-weight: 550;
   letter-spacing: -0.6px;
   color: var(--primary-text);
 }
@@ -154,7 +154,7 @@ details {
 }
 
 strong {
-  font-weight: 600;
+  font-weight: 550;
   color: var(--primary-text);
 }
 
@@ -201,6 +201,10 @@ a {
   text-decoration: none;
 }
 
+blockquote {
+  font-size: var(--block-quote-size);
+}
+
 canvas {
   display: block;
 }
@@ -217,6 +221,17 @@ canvas {
 }
 
 @media (max-width: 768px) {
+  :root {
+    --h1-size: var(--h1-size-mobile);
+    --h2-size: var(--h2-size-mobile);
+    --h3-size: var(--h3-size-mobile);
+    --h4-size: var(--h4-size-mobile);
+    --h5-size: var(--h5-size-mobile);
+    --h6-size: var(--h6-size-mobile);
+    --text-size: var(--text-size-mobile);
+    --block-quote-size: var(--block-quote-size-mobile);
+  }
+
   body {
     font-size: var(--base-font-size-mobile);
   }

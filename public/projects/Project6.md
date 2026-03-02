@@ -1,10 +1,11 @@
 <section>
 
 <!-- ### 🤔 What are continuous rewards?
-#### Companies usually recognize their employees in two ways:
+#### Companies use rewards to retain & engage employees. Usually they recognize their employees in two ways:
 
 1. **Formal award programs** - Low frequency, high impact awards like employee of the month, craftsmanship awards etc.
 2. **Day-to-day rewards** - Employer and peer led rewards, usually given on special days like birthdays, work anniversaries, joining date, child birth etc.
+
 
 <details class="tldr-container">
 <summary>
@@ -58,6 +59,8 @@ We showed our initial explorations to customers. On talking to customers we foun
 ### 1️⃣ Platform integration
 Admins connect to the **partner platform (XOXO Days)** via a redirect link, can **rename and brand** their rewards, set **geo-specific conversion rates**, and limit how many **points employees can carry forward**.
 
+<blockquote>"Employees give out donuts to each other on slack and whoever has the most donuts at the end of the month gets a donut box"</blockquote>
+
 </section>
 
 <video src="/project-imgs/continuous rewards/marketplace.mp4" caption="High-Impact recognition: Bringing informal practices into a structured, rewarding system"></video>
@@ -67,6 +70,8 @@ Admins connect to the **partner platform (XOXO Days)** via a redirect link, can 
 ### 2️⃣ Employee milestones
 Points are given out automatically on **birthdays, work anniversaries, and joining dates** — with **extra bonuses for long tenure**. Admins can **forecast budget** based on headcount and location.
 
+<blockquote>"We give extra reward points to people who have been with the company for more than 5 years"</blockquote>
+
 </section>
 
 <video src="/project-imgs/continuous rewards/milestone.mp4" caption="Celebrating milestones without the manual work"></video>
@@ -75,6 +80,8 @@ Points are given out automatically on **birthdays, work anniversaries, and joini
 
 ### 3️⃣ P2P rewards
 Every employee gets a **standard points allocation**. Managers and specific teams can get more — admins can **set exceptions per team or role**.
+
+<blockquote>"We want to give extra reward points to managers who have more people reporting to them and teams that have performance based incentives"</blockquote>
 
 </section>
 
