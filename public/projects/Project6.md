@@ -1,13 +1,18 @@
 <section>
 
-<!-- ### 🤔 What are continuous rewards?
-#### Companies use rewards to retain & engage employees. Usually they recognize their employees in two ways:
+### 🏆 Context & problem
+Companies use rewards to retain & engage employees — 
+1. **formal award programs** : low-frequency, high-impact, e.g. employee of the month
+2. **day-to-day rewards** : peer or   employer-led, tied to birthdays, anniversaries, etc.
 
-1. **Formal award programs** - Low frequency, high impact awards like employee of the month, craftsmanship awards etc.
-2. **Day-to-day rewards** - Employer and peer led rewards, usually given on special days like birthdays, work anniversaries, joining date, child birth etc.
+#### But companies usually use two platorms, one HRMS and one for rewards, leading to fragmentation and added cost.
+
+</section>
+
+<section>
 
 
-<details class="tldr-container">
+<!-- <details class="tldr-container">
 <summary>
   <h3>Research & Findings, TL;DR:</h3>
   <ul>
@@ -51,10 +56,7 @@ We showed our initial explorations to customers. On talking to customers we foun
 6. **Companies usually give out additional benefits to tenured people** on work anniversaries.
 
 </div>
-</details>
-
-## 🛠️ Designing the Platform
-#### We took these findings and started designing. The program was split into two parts: Employee milestone rewards and Peer-to-peer rewards. -->
+</details> -->
 
 ### 1️⃣ Platform integration
 Admins connect to the **partner platform (XOXO Days)** via a redirect link, can **rename and brand** their rewards, set **geo-specific conversion rates**, and limit how many **points employees can carry forward**.
