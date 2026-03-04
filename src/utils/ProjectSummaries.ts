@@ -81,7 +81,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
   {
     id: "1",
     description: "Designed a Zoom-integrated note-taker that reduced research time-to-insights by 5x.",
-    title: "Accelerating Research Workflows at Looppanel with a Zoom notetaker",
+    title: "Accelerating Research Workflows at Looppanel with a Zoom bot",
     img: loopnote,
     tags: ["AI & Automation", "Productivity"],
     type: "client",

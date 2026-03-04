@@ -41,12 +41,12 @@ Due to multiple views of the same transcript text, the screen looked inconsisten
 
 <section>
 
-### 📝 AI-powered Notetaker
-#### A 1-hour interview was consuming 5–6 hours of tagging and summarization.
-To drive **research velocity**, we designed an AI-powered note-taker that lets researchers capture **structured insights in real-time** during Zoom calls — linked directly to the transcript.
+### 📝 Notetaker screen redesign
+#### The new project structure introduced a question script for each project which had to be reflected.
 
-Early iterations looked like a chat window, which felt too transactional. We pivoted to a **document-centric layout** — familiar, like Notion or Google Docs — and integrated **question scripts** directly into the note-taking flow so researchers could stay focused without losing structure.
-
+1. I added a question script section to the notetaker screen.
+2. Also a section to take unstructured notes
+3. Added an option to remove the loop bot from the call
 </section>
 
 <video src="/project-imgs/loop-research/notetaker.mp4" caption="Note-taker screen redesign"></video>
