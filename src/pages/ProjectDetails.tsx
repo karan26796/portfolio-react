@@ -10,7 +10,6 @@ import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
 import CustomVideo from "../components/CustomVideo";
 import AISummarizer from "../components/AISummarizer";
 import FAQ from "../components/FAQ";
-import Footer from "../components/Footer";
 import WorkTogether from "../components/WorkTogether";
 // Force fast refresh
 
