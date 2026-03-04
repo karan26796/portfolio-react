@@ -74,7 +74,7 @@ h2 {
 h3 {
   // font-family: 'Fraunces','Times New Roman', Times, serif;
   font-size: var(--h3-size);
-  font-weight: 600;
+  font-weight: 550;
 }
 
 h4 {
@@ -118,6 +118,11 @@ li {
 
   li {
     font-size: 1em;
+  }
+
+  p {
+    font-size: 1em;
+    margin: 0;
   }
 }
 

@@ -2,18 +2,16 @@
 
 ### 🚩 Let's start with the problem
 #### While we launched new features for Looppanel, the adoption for them was quite poor.
-To improve the discoverability of features like **inviting Loop bot to a Zoom call**, **adding calls to projects**, and **selecting and saving transcript text**, we made changes to the **information architecture** of the product.
 
 </section>
 
 <section>
 
 ### 🏠 Home page redesign
-#### Restructuring navigation and making it easier to invite bot
-I restructured the **navigation bar** to resemble the new structure of the product.
-
-#### project — call — notes
-At the call level, we made it easier to go into a call or **move a call to a project** if it was unassigned.
+1. **Invite loop bot** — Added an easy and quick way to invite the loop bot to the call.
+2. **Assign calls to projects** — Added an option to move a call to a project if it was unassigned.
+3. **Contextual action strip** — Added a strip to highlight contextual actions relevant to the current view.
+4. **Quick access** — Easy way to access projects and upload call recordings.
 
 </section>
 
@@ -30,10 +28,13 @@ At the call level, we made it easier to go into a call or **move a call to a pro
 - A **moment** bookmarked during note-taking.
 - A **note** taken during note-taking.
 
-Due to multiple views of the same transcript text, the screen looked inconsistent. Users were also confused with the purpose of each. The addition of a **question script** would've added more complexity.
+#### Changes made
 
-#### 💅 Updates to the Call/Editor screen
-**Overall uniform view** — Cleaner view to add tags, see the timestamp, etc.
+1. **Unified note view** — Consolidated all 3 types into a single view where a simple text note is the default, which can be converted into a snippet or tagged.
+2. **Explicit play button** — Added a play button to make it clear that the video could be played from that point in the transcript.
+3. **Consolidated tags dropdown** — Added a shared tags dropdown across projects to avoid duplication of tags.
+
+<blockquote>"There's a video snippet feature too in Loppanel, I wasn't aware."</blockquote>
 
 </section>
 
@@ -50,3 +51,9 @@ Due to multiple views of the same transcript text, the screen looked inconsisten
 </section>
 
 <video src="/project-imgs/loop-research/notetaker.mp4" caption="Note-taker screen redesign"></video>
+
+<section style="max-width: 100%;">
+<faq data='[{"question":"What was the impact of the redesign?", 
+"answer":"More people created video snippets out of notes, and invited the loop bot to calls more frequently."}, {"question":"What was the most challenging part of the project?", 
+"answer":"To create a cohesive experience across the platform where everything felt connected."}]'></faq>
+</section>
