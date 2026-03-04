@@ -1,16 +1,16 @@
 <section>
 
-### The Challenge
-#### Based on research, it takes 5-6 rewatches of a user interview to get actionable insights. A 1-hour interview often consumes 5-6 hours of tagging and summarization.
+### 🧩 The problem
+#### A 1-hour interview was taking 5–6 hours to process.
 
-To drive research velocity, we designed an AI-powered note-taker that allows researchers to capture structured insights in real-time during Zoom interviews.
+Researchers had to rewatch calls multiple times to tag and summarize insights. We designed an **AI-powered note-taker** to let researchers capture structured notes in real-time during Zoom calls.
 
 </section>
 
 <section>
 
-### Prototyping & Strategic Pivots
-#### I developed an interactive prototype in ProtoPie to test real-world note-taking velocity.
+### 🛠️ Prototyping
+#### I built an interactive prototype in ProtoPie to test how fast researchers could take notes during a live call.
 
 </section>
 
@@ -18,8 +18,8 @@ To drive research velocity, we designed an AI-powered note-taker that allows res
 
 <section>
 
-### Informed Pivot I: Breaking the Chat Mental Model
-Early iterations looked like a chat window. Users felt this was too transactional and lacked the "workspace" feel needed for professional research. We pivoted to a more open, document-centric layout.
+### 🔄 Pivot I: From chat to document
+Early versions looked like a chat window. Researchers found it too transactional — it didn't feel like a workspace. We switched to a more open, **document-style layout**.
 
 </section>
 
@@ -29,8 +29,8 @@ Early iterations looked like a chat window. Users felt this was too transactiona
 
 <section>
 
-### Informed Pivot II: Navigational Clarity
-Shortcuts and cluttered secondary panels were removed after testing showed they increased cognitive load during high-stakes interviews.
+### 🔄 Pivot II: Simplifying navigation
+Shortcuts and side panels were adding too much cognitive load during interviews. We removed them and **kept the focus on the note itself**.
 
 </section>
 
@@ -38,8 +38,8 @@ Shortcuts and cluttered secondary panels were removed after testing showed they 
 
 <section>
 
-### Refining for Seamless Integration
-#### By aligning the interface with familiar tools like Notion and Google Docs, we reduced the learning curve for new researchers.
+### ✨ Final design
+#### We aligned the interface with familiar tools like Notion and Google Docs to reduce the learning curve.
 
 </section>
 
@@ -49,15 +49,15 @@ Shortcuts and cluttered secondary panels were removed after testing showed they 
 
 <section>
 
-1. **Focused Interaction**: Muted administrative metadata to bring focus to the core note.
-2. **Contextual Shortcuts**: Integrated a "//" bookmarking feature to capture key moments without breaking eye contact with the participant.
+1. **Focused notes** — Muted metadata and timestamps so the note content stays front and centre.
+2. **`//` bookmarking** — A quick shortcut to mark key moments without breaking eye contact with the participant.
 
 </section>
 
 <section>
 
-### Scaling Through Structured Templates
-#### We identified that researchers often followed theme-based or task-based scripts. I integrated these scripts directly into the note-taking flow.
+### 📋 Question scripts
+#### Researchers often followed a set of questions during calls. I added these scripts directly into the note-taking screen.
 
 </section>
 
@@ -67,8 +67,8 @@ Shortcuts and cluttered secondary panels were removed after testing showed they 
 
 <section>
 
-### Iterative Testing: Question Script Navigation
-We explored various ways to surface these scripts, eventually pivoting away from complex side-menus to a more integrated, progressive disclosure model.
+### 🔄 Pivot III: Surfacing the script
+We tried shortcuts and side menus to show the question script, but they cluttered the screen. We moved to a **simpler, inline model** that didn't get in the way.
 
 </section>
 
@@ -84,8 +84,8 @@ We explored various ways to surface these scripts, eventually pivoting away from
 
 <h2 class="results-title">📈 Results & Key Learnings</h2>
 
-1. **5x Faster Insights**: Teams moved from days to hours in their synthesis phase.
-2. **Velocity through Simplicity**: Reducing shortcuts and persistent menus actually increased speed by lowering cognitive friction.
-3. **Flexible Structures**: Found that a hybrid of unstructured notes and structured questions provided the most versatile solution for diverse research styles.
+1. **5x faster insights** — Teams went from days to hours in their synthesis phase.
+2. **Less is more** — Removing shortcuts and panels actually made researchers faster by reducing friction.
+3. **Flexible structure** — A mix of unstructured notes and structured questions worked best for different research styles.
 
 </section>

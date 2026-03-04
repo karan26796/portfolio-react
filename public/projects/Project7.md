@@ -1,7 +1,6 @@
 <section>
 
-### The problems
-Based on internal testing and customer feedback:
+### 🚩 The problems
 - **Falling engagement**: Usage for the Peer wish feature was falling drastically.
 - **Generic experience**: The experience felt same for both the wisher and the receiver.
 - **Unclear entry point**: There was no way to see wishes after the special day.
