@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
+import ReactDOM from "react-dom";
 import "../styles/ResumePopup.scss";
 import Button from "../components/Buttons";
-import resumeImage from "../utils/Resume Karan.jpg";
+import resumeImage from "../utils/Resume Karan.webp";
 
 interface ResumePopupProps {
   isOpen: boolean;
@@ -24,7 +25,7 @@ const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
 
   if (!isVisible) return null;
 
-  return (
+  return ReactDOM.createPortal(
     <div
       className={`resume-popup-overlay ${isOpen ? "fade-in" : "fade-out"}`}
       onClick={onClose}
@@ -43,13 +44,17 @@ const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
             size="m"
             variant="primary"
             weight="regular"
-            onClick={() => {
+            onClick={async () => {
+              const res = await fetch("/resume-karan.pdf");
+              const blob = await res.blob();
+              const url = URL.createObjectURL(blob);
               const link = document.createElement("a");
-              link.href = "/resume-karan.pdf";
+              link.href = url;
               link.download = "Karan_Kapoor_Resume.pdf";
               document.body.appendChild(link);
               link.click();
               document.body.removeChild(link);
+              setTimeout(() => URL.revokeObjectURL(url), 1000);
             }}
           />
           <Button
@@ -68,7 +73,8 @@ const ResumePopup: React.FC<ResumePopupProps> = ({ isOpen, onClose }) => {
           <img className="resume-image" src={resumeImage} alt="Resume of Karan" />
         </div>
       </div>
-    </div>
+    </div>,
+    document.body
   );
 };
 

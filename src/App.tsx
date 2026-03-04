@@ -159,21 +159,11 @@ const HomePage: React.FC = () => {
     },
     {
       question: "My design process",
-      answer: (
-        <>
-          My process is driven by velocity and clarity. For early-stage products, I focus on rapid prototyping and stakeholder alignment to ship quickly.
-          <br /><br />
-          For established products, like at Keka HR, I dive deep into systems thinking and user research, identifying patterns that reduce decision fatigue and improve long-term UX scalability.
-        </>
-      )
+      answer: "The process evolves with each project, for bigger projects I like to be sure we're building the right thing by talking to customers, for smaller projects I like to jump into prototyping and iterate quickly."
     },
     {
       question: "Parts of the design process I enjoy the most",
-      answer: (
-        <>
-          I thrive where research meets strategy. I love uncovering unmet user needs through research (reducing time-to-insight by up to 5x) and translating those into robust information architecture and high-fidelity interaction patterns.
-        </>
-      )
+      answer: "I love talking to customers, creating design centric roadmaps, and having a say in what gets built and how."
     }
   ];
 

@@ -1,6 +1,6 @@
 import React from "react";
 import "../styles/ResumeStandalone.scss";
-import resumeImage from "../utils/Resume Karan.jpg";
+import resumeImage from "../utils/Resume Karan.webp";
 import Button from "../components/Buttons";
 
 const ResumeStandalone: React.FC = () => {
@@ -16,13 +16,17 @@ const ResumeStandalone: React.FC = () => {
         size="m"
         variant="primary"
         weight="regular"
-        onClick={() => {
+        onClick={async () => {
+          const res = await fetch("/resume-karan.pdf");
+          const blob = await res.blob();
+          const url = URL.createObjectURL(blob);
           const link = document.createElement("a");
-          link.href = "/resume-karan.pdf";
+          link.href = url;
           link.download = "Karan_Kapoor_Resume.pdf";
           document.body.appendChild(link);
           link.click();
           document.body.removeChild(link);
+          setTimeout(() => URL.revokeObjectURL(url), 1000);
         }}
       />
     </div>
@@ -30,5 +34,3 @@ const ResumeStandalone: React.FC = () => {
 };
 
 export default ResumeStandalone;
-
-

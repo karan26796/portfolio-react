@@ -10,6 +10,8 @@ import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
 import CustomVideo from "../components/CustomVideo";
 import AISummarizer from "../components/AISummarizer";
 import FAQ from "../components/FAQ";
+import Footer from "../components/Footer";
+import WorkTogether from "../components/WorkTogether";
 // Force fast refresh
 
 const ProjectDetails: React.FC = () => {
@@ -89,61 +91,65 @@ const ProjectDetails: React.FC = () => {
   }
 
   return (
-    <div className="container-project">
-      {/* Sidepanel */}
-      <ProjectSidePanel
-        headers={headers}
-        onHeaderClick={handleHeaderClick}
-      />
-      {/* Main Content */}
-      <div className="project-content-wrapper">
-        <ProjectDetailHeader data={projectSummary} />
-        <div ref={contentRef} className="project-details">
-          {markdownContent ? (
-            <ReactMarkdown
-              rehypePlugins={[rehypeRaw]}
-              components={{
-                img: ({ node, ...props }: any) => {
-                  return (
-                    <figure>
-                      <img alt={props.alt || ""} {...props} />
-                      {props.alt && <figcaption>{props.alt}</figcaption>}
-                    </figure>
-                  );
-                },
-                video: ({ node, ...props }: any) => {
-                  const customProps = props as any;
-                  return <CustomVideo src={props.src} caption={customProps.caption} />
-                },
-                faq: ({ node, ...props }: any) => {
-                  try {
-                    const parsedData = JSON.parse(props.data);
-                    return <FAQ data={parsedData} hideTitle={true} />;
-                  } catch (error) {
-                    console.error("Failed to parse FAQ JSON data in markdown:", error);
-                    return null;
-                  }
-                }
-              } as any}
-            >
-              {markdownContent}
-            </ReactMarkdown>
-          ) : <div>Project content not available</div>}
-        </div>
-      </div>
-
-      {markdownContent && (
-        <AISummarizer
-          text={markdownContent}
-          buttonLabel="Ask Agent Vinod"
-          initialPrompts={[
-            "Can you summarize this project?",
-            "What was my role here?",
-            "What was the biggest challenge?"
-          ]}
+    <>
+      <div className="container-project">
+        {/* Sidepanel */}
+        <ProjectSidePanel
+          headers={headers}
+          onHeaderClick={handleHeaderClick}
         />
-      )}
-    </div>
+        {/* Main Content */}
+        <div className="project-content-wrapper">
+          <ProjectDetailHeader data={projectSummary} />
+          <div ref={contentRef} className="project-details">
+            {markdownContent ? (
+              <ReactMarkdown
+                rehypePlugins={[rehypeRaw]}
+                components={{
+                  img: ({ node, ...props }: any) => {
+                    return (
+                      <figure>
+                        <img alt={props.alt || ""} {...props} />
+                        {props.alt && <figcaption>{props.alt}</figcaption>}
+                      </figure>
+                    );
+                  },
+                  video: ({ node, ...props }: any) => {
+                    const customProps = props as any;
+                    return <CustomVideo src={props.src} caption={customProps.caption} />;
+                  },
+                  faq: ({ node, ...props }: any) => {
+                    try {
+                      const parsedData = JSON.parse(props.data);
+                      return <FAQ data={parsedData} hideTitle={true} />;
+                    } catch (error) {
+                      console.error("Failed to parse FAQ JSON data in markdown:", error);
+                      return null;
+                    }
+                  }
+                } as any}
+              >
+                {markdownContent}
+              </ReactMarkdown>
+            ) : <div>Project content not available</div>}
+          </div>
+        </div>
+
+        {markdownContent && (
+          <AISummarizer
+            text={markdownContent}
+            buttonLabel="Ask Agent Vinod"
+            initialPrompts={[
+              "Can you summarize this project?",
+              "What was my role here?",
+              "What was the biggest challenge?"
+            ]}
+          />
+        )}
+      </div>
+      <WorkTogether />
+      {/* <Footer /> */}
+    </>
   );
 };
 

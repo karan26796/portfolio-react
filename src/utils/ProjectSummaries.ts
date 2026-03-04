@@ -41,7 +41,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     type: "client",
     details: "Keka / 2024",
     meta: {
-      duration: "Jun 2024 – Nov 2024",
+      duration: "Jun'24 – Nov'24",
       role: "Design, Research, Execution",
       scope: "B2B Reward & Recognition System",
       impact: "Directly contributed to securing 10+ enterprise accounts."
@@ -57,7 +57,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     type: "client",
     details: "Looppanel / Founding Designer",
     meta: {
-      duration: "Apr 2022 – Jun 2022",
+      duration: "Apr'22 – Jun'22",
       role: "Founding Designer",
       scope: "Qualitative Data Analysis Suite",
       impact: "Significantly improved insight discovery velocity for cross-functional teams."
@@ -72,7 +72,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     type: "client",
     details: "Keka / 2025",
     meta: {
-      duration: "Nov 2024 – Jan 2025",
+      duration: "Nov'24 – Jan'25",
       role: "Design & Execution",
       scope: "Enterprise Engagement System",
       impact: "5x increase in employee engagement and 3x adoption growth."
@@ -87,7 +87,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     type: "client",
     details: "Looppanel / Founding Designer",
     meta: {
-      duration: "Jan 2022 – Mar 2022",
+      duration: "Jan'22 – Mar'22",
       role: "Founding Designer",
       scope: "AI-Powered Research Bot",
       impact: "Reduced synthesis time by 5x through workflow automation."
@@ -117,7 +117,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     type: "client",
     details: "Looppanel / Founding Designer",
     meta: {
-      duration: "Mid 2022",
+      duration: "Jun'22 – Jul'22",
       role: "Product Designer",
       scope: "Information Architecture revamp",
       impact: "Increased discoverability of features and customer satisfaction."
@@ -132,7 +132,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
     type: "client",
     details: "Master's Project / NID",
     meta: {
-      duration: "Aug 2022 – Oct 2022",
+      duration: "Aug'22 – Oct'22",
       role: "Research & Industrial Design",
       scope: "Behavioral Intervention Device",
       impact: "Developed a functional prototype for emotional regulation."
