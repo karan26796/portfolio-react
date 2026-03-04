@@ -1,16 +1,20 @@
 <section>
 
 ### 🧩 The problem
-#### A 1-hour interview was taking 5–6 hours to process.
-
-Researchers had to rewatch calls multiple times to tag and summarize insights. We designed an **AI-powered note-taker** to let researchers capture structured notes in real-time during Zoom calls.
+#### A 1-hour interview usually took 5–6 hours to tag, summarize and share insights.
 
 </section>
 
 <section>
 
-### 🛠️ Prototyping
+### 📝 Part I: The notetaking canvas
 #### I built an interactive prototype in ProtoPie to test how fast researchers could take notes during a live call.
+
+I studied a few competitors to add some controls that could make sense. </br></br>
+
+#### 🔴 What didn't work
+- **Looked like a chat** — The interface felt like a messaging app, not a notetaking workspace.
+- **Controls went unused** — The extra controls I added weren't used at all.
 
 </section>
 
@@ -18,19 +22,24 @@ Researchers had to rewatch calls multiple times to tag and summarize insights. W
 
 <section>
 
-### 🔄 Pivot I: From chat to document
-Early versions looked like a chat window. Researchers found it too transactional — it didn't feel like a workspace. We switched to a more open, **document-style layout**.
+### 🔄 From chat to document
+I looked at the existing tools researchers used like Google Docs, Notion and made the interface more open and document like.
 
 </section>
 
-![Iteration 1: The 'Chat' mental model.](/project-imgs/loop-note/iteration-01.webp)
+![Iteration 1: Side by side view for notetaker and tutorial.](/project-imgs/loop-note/iteration-01.webp)
 
-![Iteration 2: Moving towards document structures.](/project-imgs/loop-note/iteration-02.webp)
+![Iteration 2: Removing all noise and clutter.](/project-imgs/loop-note/iteration-02.webp)
 
 <section>
 
-### 🔄 Pivot II: Simplifying navigation
-Shortcuts and side panels were adding too much cognitive load during interviews. We removed them and **kept the focus on the note itself**.
+### 🔄 Clearer notetaker demarcation
+I iterated the design to show who was taking the note.
+
+</br>
+
+#### 🔴 What didn't work
+- **No real value** — The demarcation didn't add any value to the design.
 
 </section>
 
@@ -39,7 +48,9 @@ Shortcuts and side panels were adding too much cognitive load during interviews.
 <section>
 
 ### ✨ Final design
-#### We aligned the interface with familiar tools like Notion and Google Docs to reduce the learning curve.
+#### We removed all the distractions from the interace and made the note the centre of attention.
+
+All the other details, shortcuts took a back seat.
 
 </section>
 
@@ -49,16 +60,12 @@ Shortcuts and side panels were adding too much cognitive load during interviews.
 
 <section>
 
-1. **Focused notes** — Muted metadata and timestamps so the note content stays front and centre.
-2. **`//` bookmarking** — A quick shortcut to mark key moments without breaking eye contact with the participant.
+### 📋 Part 2: Integrating a question script
+#### The next challenge was to integrate a question script into the note taking interface.
 
-</section>
-
-<section>
-
-### 📋 Question scripts
-#### Researchers often followed a set of questions during calls. I added these scripts directly into the note-taking screen.
-
+There were broadly two ways in which researchers conducted an interview:
+1. **Theme based** — structured around research themes
+2. **Task based** — structured around tasks the participant performs
 </section>
 
 ![Researcher Workflow: Theme-based scripts.](/project-imgs/loop-note/task-1.png)
@@ -67,14 +74,39 @@ Shortcuts and side panels were adding too much cognitive load during interviews.
 
 <section>
 
-### 🔄 Pivot III: Surfacing the script
-We tried shortcuts and side menus to show the question script, but they cluttered the screen. We moved to a **simpler, inline model** that didn't get in the way.
+### 🔄 Making the script visible
+I tried a variation where the current question could be shown with the previous and next questions. 
+
+<br/>
+
+#### 🔴 What didn't work
+**Didn't match the workflow** — The design didn't reflect how researchers actually move between questions.
 
 </section>
 
 ![Pivot: Shortcuts proved too complex for live calls.](/project-imgs/loop-note/iteration-1.webp)
 
+<section>
+
+### 🔄 Side nav for script.
+I tried a variation the user could see all the questions on the left and the upcoming questions in the notetaking space.
+<br/><br/>
+
+#### 🔴 What didn't work
+**Too much screen real estate** — The notetaker could only take half the screen, so the nav couldn't always be shown.
+
+</section>
+
 ![Pivot: Side menus cluttered the workspace.](/project-imgs/loop-note/iteration-2.webp)
+
+<section>
+
+### 💚 Final design
+We did a quick round of testing on Notion with a mock script to see if users could move between questions using toggle elements. The experiment worked.
+
+1. **Toggle per question** — A simple toggle to show the current question and upcoming ones.
+2. **Unstructured notes space** — A separate section for notes in case the participant goes on a tangent.
+</section>
 
 ![Structured insights: Aligning real-time notes with project-wide research questions.](/project-imgs/loop-note/final-design.webp)
 
