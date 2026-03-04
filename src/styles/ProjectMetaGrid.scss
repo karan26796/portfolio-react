@@ -1,11 +1,11 @@
 .project-meta-grid {
   display: flex;
-  flex-direction: column;
-  gap: 1em;
+  flex-direction: row;
+  gap: 2em;
   padding: 0em;
 
   @media (max-width: 768px) {
-    grid-template-columns: 1fr;
+    flex-direction: row;
   }
 
   div {

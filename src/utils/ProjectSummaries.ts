@@ -81,7 +81,7 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
   {
     id: "1",
     description: "Designed a Zoom-integrated note-taker that reduced research time-to-insights by 5x.",
-    title: "Accelerating Research Workflows at Looppanel",
+    title: "Accelerating Research Workflows at Looppanel with a Zoom notetaker",
     img: loopnote,
     tags: ["AI & Automation", "Productivity"],
     type: "client",
@@ -110,8 +110,8 @@ export const projectSummaries: Array<ProjectCardData & { meta: ProjectMeta }> = 
   // },
   {
     id: "5",
-    description: "Found ways to better discoverabilty of features & data organization.",
-    title: "Product redesign for features discovery & data re-organization.",
+    description: "Redesigned the information architecture of Looppanel to improve feature discovery and data organization.",
+    title: "Information architecture revamp for feature discovery",
     img: loopdata,
     tags: ["Product", "Design research"],
     type: "client",

@@ -18,21 +18,21 @@ const vibrantColors: VibrantColor[] = [
 const ProjectHeader: React.FC<{ data: ProjectCardData & { meta?: ProjectMeta } }> = ({ data }) => {
   return (
     <div className="project-header">
-      <div className="project-header-data">
-        <h1>{data.title}</h1>
-        {data.meta && <ProjectMetaGrid meta={data.meta} />}
+      <div className="data">
+        <h2>{data.title}</h2>
+        <div className="tag-container">
+          {data.tags.map((tag, index) => (
+            <Tag
+              key={index}
+              text={tag}
+              color={vibrantColors[index % vibrantColors.length]}
+              rotation={0}
+              variant="small"
+            />
+          ))}
+        </div>
       </div>
-      <div className="tag-container">
-        {data.tags.map((tag, index) => (
-          <Tag
-            key={index}
-            text={tag}
-            color={vibrantColors[index % vibrantColors.length]}
-            rotation={0}
-            variant="small"
-          />
-        ))}
-      </div>
+      {data.meta && <ProjectMetaGrid meta={data.meta} />}
     </div>
   );
 };
