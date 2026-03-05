@@ -242,7 +242,7 @@ const StickyNavBar: React.FC = () => {
             onMouseLeave={handleMouseLeave}
           >
             <PencilRuler size={18} weight="duotone" />
-            <span>Experiments</span>
+            <span>Craft</span>
           </Link>
 
           {/* ================================================================== */}
