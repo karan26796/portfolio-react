@@ -311,7 +311,7 @@ const StickyNavBar: React.FC = () => {
               >
                 <FigmaLogo size={18} weight="duotone" />
                 <span style={isBelow776 ? { display: "inline" } : undefined}>
-                  Design Training
+                  Figma Training
                 </span>
               </Link>
 

@@ -1,35 +1,25 @@
-// src/data/images.ts
-import img1 from "../utils/experiments/img-1.webp";
 import gif1 from "../utils/experiments/1.gif";
-import img2 from "../utils/experiments/img-2.webp";
 import gif2 from "../utils/experiments/2.gif";
-import img3 from "../utils/experiments/img-3.webp";
 import gif3 from "../utils/experiments/3.gif";
-import img4 from "../utils/experiments/img-4.webp";
 import gif4 from "../utils/experiments/4.gif";
+import gif5 from "../utils/experiments/ColorPicker.gif";
+import gif6 from "../utils/experiments/branding-colretech.gif";
+import gif7 from "../utils/experiments/vedic-square.gif";
+import gif8 from "../utils/experiments/color-wheel.gif";
 
 export interface Experiment {
-  urlImg: string;
   urlGif: string;
 }
 
 const experiments: Experiment[] = [
-  {
-    urlImg: img1,
-    urlGif: gif1,
-  },
-  {
-    urlImg: img2,
-    urlGif: gif2,
-  },
-  {
-    urlImg: img3,
-    urlGif: gif3,
-  },
-  {
-    urlImg: img4,
-    urlGif: gif4,
-  },
+  { urlGif: gif1 },
+  { urlGif: gif2 },
+  { urlGif: gif5 },
+  { urlGif: gif6 },
+  { urlGif: gif3 },
+  // { urlGif: gif7 },
+  { urlGif: gif4 },
+  // { urlGif: gif8 },
 ];
 
 export default experiments;

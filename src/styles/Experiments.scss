@@ -39,32 +39,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
-    border-radius: 1em;
-
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    .static-image {
-      position: absolute;
-      top: 0;
-      left: 0;
-    }
-
-    .hover-gif {
-      position: absolute;
-      top: 0;
-      left: 0;
-      opacity: 0;
-    }
-
-    &:hover {
-      .static-image {
-        opacity: 0;
-      }
-
-      .hover-gif {
-        opacity: 1;
-      }
+      border-radius: 1em;
     }
   }
 }

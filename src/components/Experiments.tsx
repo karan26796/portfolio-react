@@ -21,8 +21,7 @@ const Experiments: React.FC = () => {
             }}
           >
             <div className="experiment-image-container">
-              <img src={experiment.urlImg} className="static-image" alt={`Experiment ${index + 1}`} />
-              <img src={experiment.urlGif} className="hover-gif" alt={`Experiment ${index + 1} animation`} />
+              <img src={experiment.urlGif} alt={`Experiment ${index + 1}`} />
             </div>
           </div>
         ))}
