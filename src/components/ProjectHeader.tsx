@@ -19,8 +19,7 @@ const ProjectHeader: React.FC<{ data: ProjectCardData & { meta?: ProjectMeta } }
   return (
     <div className="project-header">
       <div className="data">
-        <h2>{data.title}</h2>
-        <div className="tag-container">
+      <div className="tag-container">
           {data.tags.map((tag, index) => (
             <Tag
               key={index}
@@ -31,6 +30,7 @@ const ProjectHeader: React.FC<{ data: ProjectCardData & { meta?: ProjectMeta } }
             />
           ))}
         </div>
+        <h2>{data.title}</h2>
       </div>
       {data.meta && <ProjectMetaGrid meta={data.meta} />}
     </div>

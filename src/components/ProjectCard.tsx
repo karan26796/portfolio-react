@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/ProjectCard.scss";
+import "../styles/ProjectCardSmall.scss";
 import Buttons from "./Buttons";
 
 interface ProjectCardProps {
@@ -18,6 +19,7 @@ interface ProjectCardProps {
   onClick?: () => void;
   buttonType?: "button" | "static" | "none";
   showDivider?: boolean;
+  enableTilt?: boolean;
 }
 
 const ProjectCard: React.FC<ProjectCardProps> = ({
@@ -25,14 +27,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   variant,
   onClick,
   buttonType = "button",
-  showDivider = true
+  showDivider = true,
+  enableTilt = true,
 }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
-  // Random tilt between -2 and 2 degrees, stable per mount
   const [tilt, setTilt] = useState(0);
   useEffect(() => {
-    setTilt(Math.random() * 4 - 2);
-  }, []);
+    if (enableTilt) {
+      setTilt(Math.random() * 4 - 2);
+    }
+  }, [enableTilt]);
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -93,16 +97,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     <div
       className={containerClass}
       onClick={data.specialStatus ? undefined : handleClick}
-      style={{
+      style={enableTilt ? {
         transform: `rotate(${tilt}deg)`,
         transition: 'transform 0.25s ease-in-out',
-      }}
-      onMouseEnter={e => {
+      } : undefined}
+      onMouseEnter={enableTilt ? (e => {
         (e.currentTarget as HTMLDivElement).style.transform = 'rotate(0deg)';
-      }}
-      onMouseLeave={e => {
+      }) : undefined}
+      onMouseLeave={enableTilt ? (e => {
         (e.currentTarget as HTMLDivElement).style.transform = `rotate(${tilt}deg)`;
-      }}
+      }) : undefined}
     >
       <img className="project-image" src={data.img} alt={data.title} />
 

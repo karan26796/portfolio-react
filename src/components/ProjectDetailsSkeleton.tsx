@@ -15,18 +15,6 @@ const ProjectDetailsSkeleton: React.FC = () => {
 
     return (
         <div className="container-project details-skeleton">
-            {/* Sidepanel skeleton */}
-            <div className="project-side-panel">
-                <div className="side-panel-content">
-                    <div className="skeleton-sidebar-title"></div>
-                    <div className="skeleton-sidebar-line"></div>
-                    <div className="skeleton-sidebar-line"></div>
-                    <div className="skeleton-sidebar-line short"></div>
-                    <div className="skeleton-sidebar-line"></div>
-                </div>
-            </div>
-
-            {/* Main Content skeleton */}
             <div className="project-content-wrapper">
                 {/* Header Skeleton */}
                 <div className="project-detail-header-skeleton">
@@ -61,6 +49,16 @@ const ProjectDetailsSkeleton: React.FC = () => {
                     <div className="skeleton-paragraph">
                         {generateLines(6)}
                     </div>
+                </div>
+            </div>
+
+            <div className="project-side-panel">
+                <div className="side-panel-content">
+                    <div className="skeleton-sidebar-title"></div>
+                    <div className="skeleton-sidebar-line"></div>
+                    <div className="skeleton-sidebar-line"></div>
+                    <div className="skeleton-sidebar-line short"></div>
+                    <div className="skeleton-sidebar-line"></div>
                 </div>
             </div>
         </div>

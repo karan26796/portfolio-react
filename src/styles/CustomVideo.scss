@@ -6,7 +6,9 @@
     .video-container {
         position: relative;
         overflow: hidden;
-        border-radius: var(--border-radius, 8px);
+        border-radius: 0.5em;
+        border: 1px solid var(--border-color);
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
 
         .custom-video-element {
             width: 100%;
@@ -60,8 +62,8 @@
     figcaption {
         margin-top: 12px;
         font-size: 0.9em;
-        color: var(--text-color-light);
-        text-align: center;
+        color: var(--tertiary-text);
+        text-align: left;
         opacity: 0.8;
     }
 

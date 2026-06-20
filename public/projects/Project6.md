@@ -1,11 +1,9 @@
 <section>
 
-### 🏆 Context & problem
-Companies use rewards to retain & engage employees — 
-1. **formal award programs** : low-frequency, high-impact, e.g. employee of the month
-2. **day-to-day rewards** : peer or   employer-led, tied to birthdays, anniversaries, etc.
+### Companies usually use two platorms, one for HRMS and one for rewards, leading to fragmentation and added cost. 
 
-#### But companies usually use two platorms, one HRMS and one for rewards, leading to fragmentation and added cost.
+
+#### To help organizations avoid additional expenses on separate rewards platforms, Keka chose to integrate a recognition system directly into its suite.
 
 </section>
 
@@ -58,36 +56,44 @@ We showed our initial explorations to customers. On talking to customers we foun
 </div>
 </details> -->
 
-### 1️⃣ Platform integration
+### 1️⃣ Marketplace integration & exchange dynamics
 Admins connect to the **partner platform (XOXO Days)** via a redirect link, can **rename and brand** their rewards, set **geo-specific conversion rates**, and limit how many **points employees can carry forward**.
 
 <blockquote>"Employees give out donuts to each other on slack and whoever has the most donuts at the end of the month gets a donut box"</blockquote>
 
 </section>
 
-<video src="/project-imgs/continuous rewards/marketplace.mp4" caption="High-Impact recognition: Bringing informal practices into a structured, rewarding system"></video>
+<img src="/project-imgs/continuous rewards/marketplace-settings.webp" caption="Connection with rewards redemption platform"></img>
+
+<img src="/project-imgs/continuous rewards/rewards-settings.webp" caption="Personalizing reward name and geo specific conversion rate"></img>
+
+<!-- <video src="/project-imgs/continuous rewards/marketplace.mp4" caption="High-Impact recognition: Bringing informal practices into a structured, rewarding system"></video> -->
 
 <section>
 
-### 2️⃣ Employee milestones
+### 2️⃣ Setting reward values for employees' special days
 Points are given out automatically on **birthdays, work anniversaries, and joining dates** — with **extra bonuses for long tenure**. Admins can **forecast budget** based on headcount and location.
 
 <blockquote>"We give extra reward points to people who have been with the company for more than 5 years"</blockquote>
 
 </section>
 
-<video src="/project-imgs/continuous rewards/milestone.mp4" caption="Celebrating milestones without the manual work"></video>
+<img src="/project-imgs/continuous rewards/employee milestone settings.webp" caption="Defining reward values to recognize employees"></img>
+
+<img src="/project-imgs/continuous rewards/employee milestone data.webp" caption="Surfacing data to the admin post launch"></img>
 
 <section>
 
-### 3️⃣ P2P rewards
+### 3️⃣ Quota to wish and praise peers
 Every employee gets a **standard points allocation**. Managers and specific teams can get more — admins can **set exceptions per team or role**.
 
 <blockquote>"We want to give extra reward points to managers who have more people reporting to them and teams that have performance based incentives"</blockquote>
 
 </section>
 
-<video src="/project-imgs/continuous rewards/p2p.mp4" caption="Celebrating milestones without the manual work"></video>
+<img src="/project-imgs/continuous rewards/p2p settings.webp" caption="Rules for how peers recognize each other"></img>
+
+<img src="/project-imgs/continuous rewards/p2p data.webp" caption="Data visibility for admins"></img>
 
 <section>
 
@@ -96,7 +102,9 @@ The **Keka social wall** already had high usage for praises and wishes. To drive
 
 </section>
 
-<img src="/project-imgs/continuous rewards/praisenwish.webp" caption="Celebrating milestones without the manual work"></img>
+<img src="/project-imgs/continuous rewards/integrations.webp" caption="Surfaces available for peer to peer recognition"></img>
+
+<img src="/project-imgs/continuous rewards/praisenwish.webp" caption="Points widget addition in familiar touchpoints"></img>
 
 <section>
 
@@ -106,7 +114,7 @@ The employee wallet is split into two: **Redeemable points**, which can only be 
 
 </section>
 
-<img src="/project-imgs/continuous rewards/transaction-summary.webp" caption="Celebrating milestones without the manual work"></img>
+<img src="/project-imgs/continuous rewards/employee-transaction.webp" caption="Visibility for employees"></img>
 
 <section style="max-width: 100%;">
 <faq data='[{"question":"Did we design any guardrails for points usage?", "answer":"No, since we were catering to mid sized companies with 100-300 employees initially & to avoid overbuilding."}, {"question":"What could I have done better?", "answer":"Create a central budgeting system for all kind of reward programs for admins to manage in one place"}, {"question":"What was the most challenging part of the project?", "answer":"<ul><li>To get stakeholder buy-in and internal validation.</li><li>Integrating with the partner platform had a lot of complications due to which customers left the deal mid-way.</li></ul>"}]'></faq>

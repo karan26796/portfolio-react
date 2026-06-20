@@ -7,10 +7,12 @@ import ProjectDetailHeader from "../components/ProjectHeader";
 import { useProjects } from "../utils/useProjects";
 import ProjectSidePanel from "../components/ProjectSidePanel";
 import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
+import ProjectNextProjects from "../components/ProjectNextProjects";
 import CustomVideo from "../components/CustomVideo";
 import AISummarizer from "../components/AISummarizer";
 import FAQ from "../components/FAQ";
 import WorkTogether from "../components/WorkTogether";
+import { formatSectionTitle } from "../utils/formatSectionTitle";
 // Force fast refresh
 
 const ProjectDetails: React.FC = () => {
@@ -19,6 +21,7 @@ const ProjectDetails: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [headers, setHeaders] = useState<{ text: string; id: string }[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
+  const sectionIndexRef = useRef(0);
 
   // Fetch the list of all projects dynamically
   const { projects: projectSummaries, loading: projectsLoading } = useProjects();
@@ -59,12 +62,15 @@ const ProjectDetails: React.FC = () => {
     }
   }, [projectId]);
 
-  // Extract h3 headers after component is rendered
+  // Extract h3 headers after markdown renders
+  useEffect(() => {
+    sectionIndexRef.current = 0;
+  }, [markdownContent]);
+
   useEffect(() => {
     if (!loading && contentRef.current) {
       const h3s = Array.from(contentRef.current.querySelectorAll("h3"));
       const headerList = h3s.map((h3, idx) => {
-        // Ensure each h3 has an id for scrolling
         if (!h3.id) {
           h3.id = `section-h3-${idx}`;
         }
@@ -77,7 +83,9 @@ const ProjectDetails: React.FC = () => {
   const handleHeaderClick = (id: string) => {
     const el = document.getElementById(id);
     if (el) {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
+      const navOffset = 88;
+      const top = el.getBoundingClientRect().top + window.scrollY - navOffset;
+      window.scrollTo({ top, behavior: "smooth" });
     }
   };
 
@@ -92,12 +100,6 @@ const ProjectDetails: React.FC = () => {
   return (
     <>
       <div className="container-project">
-        {/* Sidepanel */}
-        <ProjectSidePanel
-          headers={headers}
-          onHeaderClick={handleHeaderClick}
-        />
-        {/* Main Content */}
         <div className="project-content-wrapper">
           <ProjectDetailHeader data={projectSummary} />
           <div ref={contentRef} className="project-details">
@@ -105,11 +107,20 @@ const ProjectDetails: React.FC = () => {
               <ReactMarkdown
                 rehypePlugins={[rehypeRaw]}
                 components={{
-                  img: ({ node, ...props }: any) => {
+                  h3: ({ children, ...props }: any) => {
+                    const id = props.id || `section-h3-${sectionIndexRef.current++}`;
+                    return (
+                      <h3 id={id} {...props}>
+                        {formatSectionTitle(String(children))}
+                      </h3>
+                    );
+                  },
+                  img: ({ node, caption, alt, ...props }: any) => {
+                    const captionText = caption || alt || "";
                     return (
                       <figure>
-                        <img alt={props.alt || ""} {...props} />
-                        {props.alt && <figcaption>{props.alt}</figcaption>}
+                        <img alt={captionText} {...props} />
+                        {captionText && <figcaption>{captionText}</figcaption>}
                       </figure>
                     );
                   },
@@ -132,22 +143,29 @@ const ProjectDetails: React.FC = () => {
               </ReactMarkdown>
             ) : <div>Project content not available</div>}
           </div>
+
+          <ProjectNextProjects currentProjectId={projectId!} />
+
+          {markdownContent && (
+            <AISummarizer
+              text={markdownContent}
+              buttonLabel="Ask Agent Vinod"
+              initialPrompts={[
+                "Can you summarize this project?",
+                "What was my role here?",
+                "What was the biggest challenge?"
+              ]}
+            />
+          )}
         </div>
 
-        {markdownContent && (
-          <AISummarizer
-            text={markdownContent}
-            buttonLabel="Ask Agent Vinod"
-            initialPrompts={[
-              "Can you summarize this project?",
-              "What was my role here?",
-              "What was the biggest challenge?"
-            ]}
-          />
-        )}
+        <ProjectSidePanel
+          headers={headers}
+          onHeaderClick={handleHeaderClick}
+          scrollRootRef={contentRef}
+        />
       </div>
       <WorkTogether />
-      {/* <Footer /> */}
     </>
   );
 };
