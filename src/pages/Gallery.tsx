@@ -55,14 +55,7 @@ const Gallery = () => {
     41: "Zurich, Switzerland",
   };
 
-  const images: (string | null)[] = imageNumbers.map((num) => {
-    try {
-      return require(`../utils/gallery/${num}.webp`);
-    } catch (e) {
-      console.error(`Failed to load image ${num}`, e);
-      return null;
-    }
-  });
+  const getGalleryImageUrl = (num: number) => `/gallery/${num}.webp`;
 
   // Add useEffect for scroll reset
   useEffect(() => {
@@ -108,8 +101,7 @@ const Gallery = () => {
             .filter((_, index) => index % columns === i)
             .map((num, index) => {
               const actualImageNum = 41 - num; // Calculate the actual image number being displayed
-              const imagePath = images[actualImageNum];
-              if (!imagePath) return null;
+              const imagePath = getGalleryImageUrl(actualImageNum + 1);
 
               const rotation = getRotation(index);
 

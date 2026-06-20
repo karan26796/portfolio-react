@@ -1,15 +1,6 @@
 import React from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { MapPin } from '@phosphor-icons/react';
-import flame from '../utils/figma-training/Flame.mp4';
-import training2 from '../utils/figma-training/training2.webp';
-import training8 from '../utils/figma-training/training8.webp';
-import training9 from '../utils/figma-training/training9.webp';
-import training10 from '../utils/figma-training/training10.webp';
-import training11 from '../utils/figma-training/training11.webp';
-import iimSbp from '../utils/figma-training/IIM SBP.mp4';
-import training12 from '../utils/figma-training/training12.webp';
-import training13 from '../utils/figma-training/training13.webp';
 import '../styles/FigmaTrainingCarousel.scss';
 
 interface TrainingItem {
@@ -21,15 +12,15 @@ interface TrainingItem {
 }
 
 const trainingItems: TrainingItem[] = [
-  { id: 'flame', image: flame, title: 'Training', location: 'FLAME University', isVideo: true },
-  { id: 'training-2', image: training2, title: 'Figma training', location: 'Indiana University, US' },
-  { id: 'training-8', image: training8, title: 'Figma for PMs', location: 'IIM Sambalpur' },
-  { id: 'training-9', image: training9, title: "Figma Config '24", location: 'IIT Delhi' },
-  { id: 'training-10', image: training10, title: 'Design to code', location: 'T-Hub, Hyderabad' },
-  { id: 'training-11', image: training11, title: "Figma Config '25", location: 'Microsoft, Noida' },
-  { id: 'iim-sbp', image: iimSbp, title: 'Workshop', location: 'IIM Sambalpur', isVideo: true },
-  { id: 'training-12', image: training12, title: 'Workshop', location: 'Keka' },
-  { id: 'training-13', image: training13, title: 'Workshop for PMs', location: 'IIM Shillong' },
+  { id: 'flame', image: '/figma-training/Flame.mp4', title: 'Training', location: 'FLAME University', isVideo: true },
+  { id: 'training-2', image: '/figma-training/training2.webp', title: 'Figma training', location: 'Indiana University, US' },
+  { id: 'training-8', image: '/figma-training/training8.webp', title: 'Figma for PMs', location: 'IIM Sambalpur' },
+  { id: 'training-9', image: '/figma-training/training9.webp', title: "Figma Config '24", location: 'IIT Delhi' },
+  { id: 'training-10', image: '/figma-training/training10.webp', title: 'Design to code', location: 'T-Hub, Hyderabad' },
+  { id: 'training-11', image: '/figma-training/training11.webp', title: "Figma Config '25", location: 'Microsoft, Noida' },
+  { id: 'iim-sbp', image: '/figma-training/IIM%20SBP.mp4', title: 'Workshop', location: 'IIM Sambalpur', isVideo: true },
+  { id: 'training-12', image: '/figma-training/training12.webp', title: 'Workshop', location: 'Keka' },
+  { id: 'training-13', image: '/figma-training/training13.webp', title: 'Workshop for PMs', location: 'IIM Shillong' },
 ];
 
 const FigmaTrainingMasonry: React.FC = () => (

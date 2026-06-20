@@ -5,42 +5,37 @@ import {
   Routes,
   Navigate,
 } from "react-router-dom";
-import ProjectList from "./pages/ProjectList";
-import ProjectDetails from "./pages/ProjectDetails";
 import StickyNavBar from "./components/StickyNavBar";
 import HeaderWithCarousel from "./components/HeaderwithCarousel";
+import ProjectList from "./pages/ProjectList";
 import ProjectCard from "./components/ProjectCard";
-import { useProjects } from "./utils/useProjects";
-import About from "./pages/About";
-import Gallery from "./pages/Gallery";
-import TrainingList from "./pages/FigmaTraining";
-import "./styles/AboutRedirect.scss";
-import Resume from "./components/Resume";
-import ResumePopup from "./pages/ResumePopup";
-import ResumeStandalone from "./pages/ResumeStandalone";
-import Overview from "./pages/Overview";
 import ProjectListSkeleton from "./components/ProjectListSkeleton";
-
-
-import Archive from "./pages/Archive"
-import { Analytics } from "@vercel/analytics/react";
-
+import { useProjects } from "./utils/useProjects";
 import Testimonials, { Testimonial } from "./components/Testimonials";
-import kritika from './utils/testimonials/pfp-02.jpg'
-import malavika from './utils/testimonials/pfp-03.jpg'
-import maryam from './utils/testimonials/maryam-img.jpeg'
-import megha from './utils/testimonials/megha-pfp.jpeg'
-
 import FAQ from "./components/FAQ";
 import WorkTogether from "./components/WorkTogether";
-import Footer from "./components/Footer";
 import AISummarizer from "./components/AISummarizer";
+import Footer from "./components/Footer";
+import ResumePopup from "./pages/ResumePopup";
+import "./styles/AboutRedirect.scss";
+
+import kritika from './utils/testimonials/pfp-02.jpg';
+import malavika from './utils/testimonials/pfp-03.jpg';
+import maryam from './utils/testimonials/maryam-img.jpeg';
+import megha from './utils/testimonials/megha-pfp.jpeg';
+import { Analytics } from "@vercel/analytics/react";
+
+const ProjectDetails = React.lazy(() => import("./pages/ProjectDetails"));
+const About = React.lazy(() => import("./pages/About"));
+const Gallery = React.lazy(() => import("./pages/Gallery"));
+const TrainingList = React.lazy(() => import("./pages/FigmaTraining"));
+const Archive = React.lazy(() => import("./pages/Archive"));
+const Resume = React.lazy(() => import("./components/Resume"));
+const ResumeStandalone = React.lazy(() => import("./pages/ResumeStandalone"));
+const Overview = React.lazy(() => import("./pages/Overview"));
 
 const App: React.FC = () => {
-
-
   useEffect(() => {
-    // Prevent default scroll behavior on hash change
     const handleHashChange = (e: HashChangeEvent) => {
       e.preventDefault();
       window.scrollTo(0, 0);
@@ -48,7 +43,6 @@ const App: React.FC = () => {
 
     window.addEventListener('hashchange', handleHashChange);
 
-    // Prevent initial scroll on page load
     if (window.location.hash) {
       window.scrollTo(0, 0);
     }
@@ -65,34 +59,22 @@ const App: React.FC = () => {
           element={
             <>
               <StickyNavBar />
-              {/* <Stories
-                stories={myStories}
-                defaultInterval={5000}
-                width={"var(--max-width-container)"}
-                height={"50vh"}
-                loop={true}
-              /> */}
-              <Routes>
-                <Route path="/" element={<Navigate replace to="/home" />} />
-                <Route path="/home" element={<HomePage />} />
-                <Route
-                  path="/project/:projectId"
-                  element={
-                    <React.Suspense fallback={<div>Loading...</div>}>
-                      <ProjectDetails />
-                    </React.Suspense>
-                  }
-                />
-                <Route path="/about" element={<About />} />
-                <Route path="/gallery" element={<Gallery />} />
-                <Route path="/archive" element={<Archive />} />
-                <Route path="/figma-training" element={<TrainingList />} />
-                <Route path="/resume" element={<Resume />} />
-                <Route path="/resume-view" element={<ResumeStandalone />} />
-                <Route path="/resume-popup" element={<StandaloneResumePopup />} />
-                <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
-                <Route path="/overview" element={<Overview />} />
-              </Routes>
+              <React.Suspense fallback={<div>Loading...</div>}>
+                <Routes>
+                  <Route path="/" element={<Navigate replace to="/home" />} />
+                  <Route path="/home" element={<HomePage />} />
+                  <Route path="/project/:projectId" element={<ProjectDetails />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/gallery" element={<Gallery />} />
+                  <Route path="/archive" element={<Archive />} />
+                  <Route path="/figma-training" element={<TrainingList />} />
+                  <Route path="/resume" element={<Resume />} />
+                  <Route path="/resume-view" element={<ResumeStandalone />} />
+                  <Route path="/resume-popup" element={<StandaloneResumePopup />} />
+                  <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
+                  <Route path="/overview" element={<Overview />} />
+                </Routes>
+              </React.Suspense>
               <Footer />
             </>
           }
@@ -193,7 +175,6 @@ const HomePage: React.FC = () => {
     </>
   );
 };
-
 
 export default App;
 

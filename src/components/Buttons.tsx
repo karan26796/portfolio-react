@@ -1,14 +1,59 @@
 import React from 'react';
-import * as PhosphorIcons from '@phosphor-icons/react';
-import { Icon as PhosphorIcon } from '@phosphor-icons/react';
+import {
+  ArrowDown,
+  ArrowRight,
+  ArrowSquareOut,
+  BuildingOffice,
+  Calendar,
+  DownloadSimple,
+  FigmaLogo,
+  FileText,
+  Icon as PhosphorIcon,
+  InstagramLogo,
+  LinkedinLogo,
+  X,
+  XLogo,
+  YoutubeLogo,
+} from '@phosphor-icons/react';
 import '../styles/Button.scss';
 
 type IconWeight = 'thin' | 'light' | 'regular' | 'bold' | 'duotone' | 'fill';
 
+export type ButtonIconName =
+  | 'ArrowDown'
+  | 'ArrowRight'
+  | 'ArrowSquareOut'
+  | 'BuildingOffice'
+  | 'Calendar'
+  | 'DownloadSimple'
+  | 'FigmaLogo'
+  | 'FileText'
+  | 'InstagramLogo'
+  | 'LinkedinLogo'
+  | 'X'
+  | 'XLogo'
+  | 'YoutubeLogo';
+
+const iconMap: Record<ButtonIconName, PhosphorIcon> = {
+  ArrowDown,
+  ArrowRight,
+  ArrowSquareOut,
+  BuildingOffice,
+  Calendar,
+  DownloadSimple,
+  FigmaLogo,
+  FileText,
+  InstagramLogo,
+  LinkedinLogo,
+  X,
+  XLogo,
+  YoutubeLogo,
+};
+
 type ButtonProps = {
   className?: string;
   text?: string;
-  iconName?: keyof typeof PhosphorIcons;
+  iconName?: ButtonIconName;
   withIcon?: boolean;
   iconDirection?: 'left' | 'right';
   withText?: boolean;
@@ -17,7 +62,7 @@ type ButtonProps = {
   weight?: IconWeight;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
-  disabled?: boolean; // Added disabled prop
+  disabled?: boolean;
 };
 
 const Button: React.FC<ButtonProps> = ({
@@ -32,9 +77,9 @@ const Button: React.FC<ButtonProps> = ({
   weight = 'regular',
   type = 'button',
   onClick,
-  disabled = false, // Default to false
+  disabled = false,
 }) => {
-  const IconComponent = iconName ? (PhosphorIcons[iconName] as PhosphorIcon) : null;
+  const IconComponent = iconName ? iconMap[iconName] : null;
 
   const sizeConfig = {
     s: { iconSize: '1.2em', fontSize: '1em' },
@@ -45,7 +90,7 @@ const Button: React.FC<ButtonProps> = ({
   const { iconSize, fontSize } = sizeConfig[size];
 
   return (
-    <button 
+    <button
       className={`${className} custom-button custom-button-${size} custom-button-${variant} custom-button-${iconDirection}`}
       onClick={onClick}
       style={{ fontSize }}

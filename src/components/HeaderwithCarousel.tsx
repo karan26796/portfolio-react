@@ -39,7 +39,7 @@ const HeaderWithCarousel: React.FC = () => {
       }}
     >
       <div className="header-column-one">
-        <img src={require("../utils/gallery/profile.webp")} alt="Karan" className="profile-pic" />
+        <img src="/gallery/profile.webp" alt="Karan" className="profile-pic" />
         <div className="header-text-content">
           <div className="name-tag-group">
             <h1>Hey, I'm Karan</h1>

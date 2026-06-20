@@ -1,6 +1,5 @@
 import React from 'react';
 import '../styles/FigmaTrainingCard.scss';
-import { ArrowRight } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 
 import Button from './Buttons';
@@ -29,9 +28,9 @@ const FigmaTrainingCard: React.FC = () => {
         </div>
       </div>
       <div className="figma-training-image-stack">
-        <img src={require('../utils/figma-training/training9.webp')} alt="Stacked 1" className="stacked-img stacked-img-bottom" />
-        <img src={require('../utils/figma-training/training10.webp')} alt="Stacked 2" className="stacked-img stacked-img-middle" />
-        <img src={require('../utils/figma-training/training8.webp')} alt="Stacked 3" className="stacked-img stacked-img-top" />
+        <img src="/figma-training/training9.webp" alt="Stacked 1" className="stacked-img stacked-img-bottom" />
+        <img src="/figma-training/training10.webp" alt="Stacked 2" className="stacked-img stacked-img-middle" />
+        <img src="/figma-training/training8.webp" alt="Stacked 3" className="stacked-img stacked-img-top" />
       </div>
     </Link>
   );

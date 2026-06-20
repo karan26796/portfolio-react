@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../styles/StackedCard.scss';
-import Button from './Buttons';
+import Button, { ButtonIconName } from './Buttons';
 import { User } from '@phosphor-icons/react';
 
 interface StackedCardProps {
@@ -14,9 +14,7 @@ interface StackedCardProps {
 }
 
 // Define a type for the allowed icon names based on the error message
-type IconName = "YoutubeLogo" | "FigmaLogo" | "IconContext" | "IconBase" |
-  "SSR" | "Acorn" | "AddressBook" | "AddressBookTabs" |
-  "AirTrafficControl" | "Airplane" | "AirplaneInFlight" | "AirplaneLanding";
+type IconName = ButtonIconName;
 
 interface ButtonConfig {
   text: string;

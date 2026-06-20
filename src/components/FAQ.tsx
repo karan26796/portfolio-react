@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Plus, Minus } from "phosphor-react";
+import { Plus, Minus } from "@phosphor-icons/react";
 import "../styles/FAQ.scss";
 
 interface FAQItem {
