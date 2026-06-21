@@ -6,4 +6,11 @@
     padding: 2em;
     gap: 1em;
     background: var(--bg-color);
+    text-align: center;
+    width: 100%;
+
+    h5 {
+        margin: 0;
+        text-align: center;
+    }
 }
