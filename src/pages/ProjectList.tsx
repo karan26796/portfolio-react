@@ -1,5 +1,6 @@
 import React from 'react';
 import { FC } from 'react';
+import CircleArrowIcon from '../components/CircleArrowIcon';
 import '../styles/ProjectList.scss';
 import { useNavigate } from 'react-router-dom';
 import { ProjectCardData } from '../utils/interfaces';
@@ -39,6 +40,10 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
   const featuredProjects = projectData.slice(0, FEATURED_PROJECT_COUNT);
   const overflowProjects = projectData.slice(FEATURED_PROJECT_COUNT);
 
+  const handleIndiefindsClick = () => {
+    window.open('https://indiefinds.vercel.app', '_blank', 'noopener,noreferrer');
+  };
+
   return (
     <div className={`project-parent ${!hasScrolled ? 'is-bouncing' : ''}`}>
       <div className="project-featured">
@@ -53,6 +58,42 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
             />
           </div>
         ))}
+      </div>
+
+      <div
+        className="indiefinds-banner"
+        onClick={handleIndiefindsClick}
+        role="link"
+        tabIndex={0}
+        onKeyDown={(e) => e.key === 'Enter' && handleIndiefindsClick()}
+      >
+        <div className="indiefinds-banner__content">
+          <div className="indiefinds-banner__text">
+            <p className="indiefinds-banner__eyebrow">#Side project</p>
+            <h3 className="indiefinds-banner__title">Discover affordable homegrown brands</h3>
+            <p className="indiefinds-banner__desc">
+              A curated directory of affordable Indian brands that give international ones a run for their money
+            </p>
+            <CircleArrowIcon className="indiefinds-banner__cta" size={44} variant="primary" />
+          </div>
+        </div>
+        <div className="indiefinds-banner__visual" aria-hidden="true">
+          <img
+            className="indiefinds-banner__img indiefinds-banner__img--left"
+            src="/project-imgs/indie-finds/Container-2.png"
+            alt=""
+          />
+          <img
+            className="indiefinds-banner__img indiefinds-banner__img--center"
+            src="/project-imgs/indie-finds/Container.png"
+            alt=""
+          />
+          <img
+            className="indiefinds-banner__img indiefinds-banner__img--right"
+            src="/project-imgs/indie-finds/Container-1.png"
+            alt=""
+          />
+        </div>
       </div>
 
       {overflowProjects.length > 0 && (

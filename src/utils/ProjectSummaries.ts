@@ -36,7 +36,7 @@ export const PROJECT_DISPLAY_ORDER: string[] = [
 ];
 
 /** Number of featured projects shown as large cards on the home page. */
-export const FEATURED_PROJECT_COUNT = 4;
+export const FEATURED_PROJECT_COUNT = 3;
 
 const projectsById: Record<string, ProjectSummary> = {
   "8": {

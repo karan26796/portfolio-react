@@ -1,0 +1,33 @@
+.circle-arrow-icon {
+  --circle-arrow-bg: var(--grey-900);
+  --circle-arrow-fg: #fff;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: var(--circle-arrow-bg);
+  color: var(--circle-arrow-fg);
+  transition: transform 0.2s ease;
+
+  svg {
+    width: 42%;
+    height: 42%;
+    display: block;
+  }
+
+  &--primary {
+    background: linear-gradient(
+      180deg,
+      var(--button-color) 0%,
+      color-mix(in srgb, var(--button-color) 70%, #000 30%) 100%
+    );
+    color: #fff;
+  }
+}
+
+[data-theme='dark'] .circle-arrow-icon:not(.circle-arrow-icon--primary) {
+  --circle-arrow-bg: #fff;
+  --circle-arrow-fg: var(--grey-900);
+}
