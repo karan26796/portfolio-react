@@ -1,6 +1,7 @@
 import React from 'react';
 import { FC } from 'react';
 import CircleArrowIcon from '../components/CircleArrowIcon';
+import ScrollReveal, { scrollRevealStagger } from '../components/ScrollReveal';
 import '../styles/ProjectList.scss';
 import { useNavigate } from 'react-router-dom';
 import { ProjectCardData } from '../utils/interfaces';
@@ -21,17 +22,6 @@ interface ProjectListProps {
 
 const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: ProjectCard }) => {
   const navigate = useNavigate();
-  const [hasScrolled, setHasScrolled] = React.useState(false);
-
-  React.useEffect(() => {
-    const handleScroll = () => {
-      if (window.scrollY > 50) {
-        setHasScrolled(true);
-      }
-    };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   const handleCardClick = (projectId: string) => {
     navigate(`/project/${projectId}`);
@@ -45,10 +35,10 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
   };
 
   return (
-    <div className={`project-parent ${!hasScrolled ? 'is-bouncing' : ''}`}>
+    <div className="project-parent">
       <div className="project-featured">
-        {featuredProjects.map((project) => (
-          <div key={project.id}>
+        {featuredProjects.map((project, index) => (
+          <ScrollReveal key={project.id} delay={scrollRevealStagger(index)}>
             <ProjectCard
               data={project}
               variant="large"
@@ -56,52 +46,60 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
               onClick={() => handleCardClick(project.id)}
               showDivider={true}
             />
-          </div>
+          </ScrollReveal>
         ))}
       </div>
 
-      <div
-        className="indiefinds-banner"
-        onClick={handleIndiefindsClick}
-        role="link"
-        tabIndex={0}
-        onKeyDown={(e) => e.key === 'Enter' && handleIndiefindsClick()}
-      >
-        <div className="indiefinds-banner__content">
-          <div className="indiefinds-banner__text">
-            <p className="indiefinds-banner__eyebrow">#Side project</p>
-            <h3 className="indiefinds-banner__title">Discover affordable homegrown brands</h3>
-            <p className="indiefinds-banner__desc">
-              A curated directory of affordable Indian brands that give international ones a run for their money
-            </p>
-            <CircleArrowIcon className="indiefinds-banner__cta" size={44} variant="primary" />
+      <ScrollReveal delay={scrollRevealStagger(featuredProjects.length)}>
+        <div
+          className="indiefinds-banner"
+          onClick={handleIndiefindsClick}
+          role="link"
+          tabIndex={0}
+          onKeyDown={(e) => e.key === 'Enter' && handleIndiefindsClick()}
+        >
+          <div className="indiefinds-banner__content">
+            <div className="indiefinds-banner__text">
+              <p className="indiefinds-banner__eyebrow">#Side project</p>
+              <h3 className="indiefinds-banner__title">Discover affordable homegrown brands</h3>
+              <p className="indiefinds-banner__desc">
+                A curated directory of affordable Indian brands that give international ones a run for their money
+              </p>
+              <CircleArrowIcon className="indiefinds-banner__cta" size={44} variant="primary" />
+            </div>
+          </div>
+          <div className="indiefinds-banner__visual" aria-hidden="true">
+            <img
+              className="indiefinds-banner__img indiefinds-banner__img--left"
+              src="/project-imgs/indie-finds/Container-2.png"
+              alt=""
+            />
+            <img
+              className="indiefinds-banner__img indiefinds-banner__img--center"
+              src="/project-imgs/indie-finds/Container.png"
+              alt=""
+            />
+            <img
+              className="indiefinds-banner__img indiefinds-banner__img--right"
+              src="/project-imgs/indie-finds/Container-1.png"
+              alt=""
+            />
           </div>
         </div>
-        <div className="indiefinds-banner__visual" aria-hidden="true">
-          <img
-            className="indiefinds-banner__img indiefinds-banner__img--left"
-            src="/project-imgs/indie-finds/Container-2.png"
-            alt=""
-          />
-          <img
-            className="indiefinds-banner__img indiefinds-banner__img--center"
-            src="/project-imgs/indie-finds/Container.png"
-            alt=""
-          />
-          <img
-            className="indiefinds-banner__img indiefinds-banner__img--right"
-            src="/project-imgs/indie-finds/Container-1.png"
-            alt=""
-          />
-        </div>
-      </div>
+      </ScrollReveal>
 
       {overflowProjects.length > 0 && (
         <div className="project-scroll-section">
-          <h4 className="project-scroll-label">More projects</h4>
+          <ScrollReveal delay={scrollRevealStagger(featuredProjects.length + 1)}>
+            <h4 className="project-scroll-label">More projects</h4>
+          </ScrollReveal>
           <div className="project-scroll-row">
-            {overflowProjects.map((project) => (
-              <div key={project.id} className="project-scroll-item">
+            {overflowProjects.map((project, index) => (
+              <ScrollReveal
+                key={project.id}
+                className="project-scroll-item"
+                delay={scrollRevealStagger(index, 60)}
+              >
                 <ProjectCard
                   data={project}
                   variant="small"
@@ -110,7 +108,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                   showDivider={false}
                   enableTilt={false}
                 />
-              </div>
+              </ScrollReveal>
             ))}
           </div>
         </div>

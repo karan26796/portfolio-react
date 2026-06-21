@@ -1,6 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { mainProjectSummaries } from '../utils/ProjectSummaries';
+import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
 import '../styles/ProjectNextProjects.scss';
 
 interface ProjectNextProjectsProps {
@@ -16,25 +17,26 @@ const ProjectNextProjects: React.FC<ProjectNextProjectsProps> = ({ currentProjec
   if (otherProjects.length === 0) return null;
 
   return (
-    <section className="project-next-projects">
+    <ScrollReveal className="project-next-projects">
       <h3>More projects</h3>
       <div className="project-next-scroll">
-        {otherProjects.map((project) => (
-          <button
-            key={project.id}
-            type="button"
-            className="project-next-card"
-            onClick={() => navigate(`/project/${project.id}`)}
-          >
-            <img src={project.img} alt={project.title} loading="lazy" />
-            <div className="project-next-card-text">
-              <h4>{project.title}</h4>
-              {project.details && <p>{project.details}</p>}
-            </div>
-          </button>
+        {otherProjects.map((project, index) => (
+          <ScrollReveal key={project.id} delay={scrollRevealStagger(index, 60)}>
+            <button
+              type="button"
+              className="project-next-card"
+              onClick={() => navigate(`/project/${project.id}`)}
+            >
+              <img src={project.img} alt={project.title} loading="lazy" />
+              <div className="project-next-card-text">
+                <h4>{project.title}</h4>
+                {project.details && <p>{project.details}</p>}
+              </div>
+            </button>
+          </ScrollReveal>
         ))}
       </div>
-    </section>
+    </ScrollReveal>
   );
 };
 

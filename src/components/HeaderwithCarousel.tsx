@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/HeaderWithCarousel.scss";
+import ScrollReveal from "./ScrollReveal";
 
 import LogoCarousel from "./LogoCarousel";
 import ResumePopup from "../pages/ResumePopup";
@@ -39,21 +40,29 @@ const HeaderWithCarousel: React.FC = () => {
       }}
     >
       <div className="header-column-one">
-        <img src="/gallery/profile.webp" alt="Karan" className="profile-pic" />
+        <ScrollReveal variant="scale" delay={0}>
+          <img src="/gallery/profile.webp" alt="Karan" className="profile-pic" />
+        </ScrollReveal>
         <div className="header-text-content">
-          <div className="name-tag-group">
-            <h1>Hey, I'm Karan</h1>
-            <div className="tags">
-              <Tag text="Product all rounder" color={{ text: '#ff9422ff' }} />
-              <Tag text="Design Researcher" color={{ text: '#224affff' }} />
-              <Tag text="Figma Trainer" color={{ text: '#009765ff' }} />
-              <Tag text="2X Founding Designer" color={{ text: '#7508eaff' }} />
+          <ScrollReveal delay={80}>
+            <div className="name-tag-group">
+              <h1>Hey, I'm Karan</h1>
+              <div className="tags">
+                <Tag text="Product all rounder" color={{ text: '#ff9422ff' }} />
+                <Tag text="Design Researcher" color={{ text: '#224affff' }} />
+                <Tag text="Figma Trainer" color={{ text: '#009765ff' }} />
+                <Tag text="2X Founding Designer" color={{ text: '#7508eaff' }} />
+              </div>
             </div>
-          </div>
-          <p className="intro-text">
-            Product Designer with management & technical chops. Currently owning the product strategy for Rewards, Recognition, and Employee Experience at Keka HR. I lead cross-functional initiatives for 2.2M+ users to drive retention, revenue, and growth.
-          </p>
-          <LogoCarousel align="center" />
+          </ScrollReveal>
+          <ScrollReveal delay={160}>
+            <p className="intro-text">
+              Product Designer with management & technical chops. Currently owning the product strategy for Rewards, Recognition, and Employee Experience at Keka HR. I lead cross-functional initiatives for 2.2M+ users to drive retention, revenue, and growth.
+            </p>
+          </ScrollReveal>
+          <ScrollReveal delay={240}>
+            <LogoCarousel align="center" />
+          </ScrollReveal>
         </div>
         {/* <Tag text="Open to new roles" color={{ text: '#3100f4ff' }} dot={true} pulsatingDot={true} /> */}
         {/* <Button

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import "../styles/Gallery.scss";
 import { MapPin } from "@phosphor-icons/react";
+import ScrollReveal, { scrollRevealStagger } from "../components/ScrollReveal";
 // import Buttons from '../components/Buttons'
 
 interface LocationsType {
@@ -106,14 +107,17 @@ const Gallery = () => {
               const rotation = getRotation(index);
 
               return (
-                <div
+                <ScrollReveal
                   key={num}
                   className="image-container"
-                  style={{
-                    transform: `rotate(${rotation}deg)`,
-                    transition: 'transform 0.3s ease'
-                  }}
+                  delay={scrollRevealStagger(actualImageNum, 40)}
                 >
+                  <div
+                    style={{
+                      transform: `rotate(${rotation}deg)`,
+                      transition: 'transform 0.3s ease'
+                    }}
+                  >
                   <img
                     src={imagePath}
                     alt={`Gallery ${actualImageNum + 1}`}
@@ -125,7 +129,8 @@ const Gallery = () => {
                   >
                     <MapPin size={18} /> {locations[actualImageNum + 1] || `Location ${actualImageNum + 1}`}
                   </div>
-                </div>
+                  </div>
+                </ScrollReveal>
               );
             })}
         </div>
@@ -136,26 +141,14 @@ const Gallery = () => {
 
   return (
     <div className="gallery-parent">
-      <div className="gallery-content">
+      <ScrollReveal className="gallery-content">
         <h1>Photo gallery</h1>
         <p>
           I have been fortunate to visit some of the most stunning places
           in India, and recently abroad. Here are some of my favorite pictures. I hope you like
           them! 😌
         </p>
-        {/* <Buttons
-          className="button-header"
-          text="Follow for more"
-          iconName="InstagramLogo"
-          withIcon={true}
-          iconDirection="left"
-          withText={true}
-          size="m"
-          variant="secondary"
-          weight="regular"
-          onClick={handleInstagramClick}
-        /> */}
-      </div>
+      </ScrollReveal>
       <div
         className="gallery-grid"
         style={{

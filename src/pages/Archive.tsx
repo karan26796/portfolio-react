@@ -3,6 +3,7 @@ import communityFiles from "../utils/communityFiles";
 import "../styles/Archive.scss";
 import Experiments from "../components/Experiments";
 import StackedCard from "../components/StackedCards";
+import ScrollReveal, { scrollRevealStagger } from "../components/ScrollReveal";
 
 const Archive: React.FC = () => {
   const [columns, setColumns] = useState(3);
@@ -30,14 +31,17 @@ const Archive: React.FC = () => {
   }, []);
 
   const getColumns = () => {
-    let cols = [];
+    const cols = [];
     for (let i = 0; i < columns; i++) {
       cols.push(
         <div key={i} className="column">
           {communityFiles
-            .filter((_, index) => index % columns === i)
-            .map((file, index) => (
-              <StackedCard key={index} file={file} index={index} />
+            .map((file, fileIndex) => ({ file, fileIndex }))
+            .filter(({ fileIndex }) => fileIndex % columns === i)
+            .map(({ file, fileIndex }) => (
+              <ScrollReveal key={fileIndex} delay={scrollRevealStagger(fileIndex, 70)}>
+                <StackedCard file={file} index={fileIndex} />
+              </ScrollReveal>
             ))}
         </div>
       );
@@ -47,12 +51,14 @@ const Archive: React.FC = () => {
 
   return (
     <div className="archive-container">
-      <div className="intro">
+      <ScrollReveal className="intro">
         <h1>Design experiments</h1>
-        <p>Concepts and visual designs that have helped me level up as a designer.</p>
-      </div>
+        <p>Concepts and visual designs that have helped me level upma as a designer.</p>
+      </ScrollReveal>
       <Experiments />
-      <h1 style={{ marginTop: "1em" }}>Figma community files</h1>
+      <ScrollReveal>
+        <h1 style={{ marginTop: "1em" }}>Figma community files</h1>
+      </ScrollReveal>
       <div
         className="community-files-grid"
         style={{
@@ -63,16 +69,6 @@ const Archive: React.FC = () => {
       >
         {getColumns()}
       </div>
-      {/* <HorizontalCarouselWall
-        projects={['aiguire', 'banner', 'qohoo', 'vdoAi']}
-        direction="right"
-        speed={0.1}
-      />
-      <HorizontalCarouselWall
-        projects={['frontrow', 'vector', 'pause']}
-        direction="left"
-        speed={0.1}
-      /> */}
     </div>
   );
 };

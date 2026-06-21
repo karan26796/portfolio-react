@@ -1,6 +1,7 @@
 import React from 'react';
 import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { MapPin } from '@phosphor-icons/react';
+import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
 import '../styles/FigmaTrainingCarousel.scss';
 
 interface TrainingItem {
@@ -27,8 +28,9 @@ const FigmaTrainingMasonry: React.FC = () => (
   <section className="figma-training-masonry">
     <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 640: 2, 1024: 2 }}>
       <Masonry gutter="1em">
-        {trainingItems.map((item) => (
-          <article key={item.id} className="masonry-item">
+        {trainingItems.map((item, index) => (
+          <ScrollReveal key={item.id} delay={scrollRevealStagger(index, 70)}>
+            <article className="masonry-item">
             {item.isVideo ? (
               <video src={item.image} autoPlay loop muted playsInline />
             ) : (
@@ -41,7 +43,8 @@ const FigmaTrainingMasonry: React.FC = () => (
                 {item.location}
               </h5>
             </div>
-          </article>
+            </article>
+          </ScrollReveal>
         ))}
       </Masonry>
     </ResponsiveMasonry>

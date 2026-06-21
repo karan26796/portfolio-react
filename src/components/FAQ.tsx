@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Plus, Minus } from "@phosphor-icons/react";
+import ScrollReveal, { scrollRevealStagger } from "./ScrollReveal";
 import "../styles/FAQ.scss";
 
 interface FAQItem {
@@ -21,9 +22,14 @@ const FAQ: React.FC<FAQProps> = ({ data, hideTitle = false }) => {
 
   return (
     <div className="faq-container">
-      {!hideTitle && <h1 style={{ textAlign: "center" }}>About my process</h1>}
+      {!hideTitle && (
+        <ScrollReveal>
+          <h1 style={{ textAlign: "center" }}>About my process</h1>
+        </ScrollReveal>
+      )}
       {data.map((item, index) => (
-        <div key={index} className="faq-item">
+        <ScrollReveal key={index} delay={scrollRevealStagger(index, 70)}>
+          <div className="faq-item">
           <div className="faq-question" onClick={() => toggleFAQ(index)}>
             <h4>{item.question}</h4>
             <span className="faq-icon" style={{ transform: openIndex === index ? 'rotate(180deg)' : 'rotate(0deg)' }}>
@@ -33,7 +39,8 @@ const FAQ: React.FC<FAQProps> = ({ data, hideTitle = false }) => {
           <div className={`faq-answer ${openIndex === index ? 'open' : 'closed'}`}>
             <div dangerouslySetInnerHTML={{ __html: item.answer as string }} />
           </div>
-        </div>
+          </div>
+        </ScrollReveal>
       ))}
     </div>
   );

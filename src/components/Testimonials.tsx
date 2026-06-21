@@ -1,4 +1,5 @@
 import React from 'react';
+import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
 import '../styles/Testimonials.scss';
 
 export interface Testimonial {
@@ -6,8 +7,8 @@ export interface Testimonial {
   name: string;
   role: string;
   company: string;
-  avatarUrl?: string; // avatarUrl is optional now
-  title?: string; // short summary title
+  avatarUrl?: string;
+  title?: string;
   testimonial: string;
   highlightedWords?: string[];
 }
@@ -33,32 +34,36 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title }) => {
 
   return (
     <div className="testimonials-section">
-      <h1>{title}</h1>
+      <ScrollReveal>
+        <h1>{title}</h1>
+      </ScrollReveal>
       <div className="testimonials-grid">
-        {data.map((testimonial) => (
-          <div key={testimonial.id} className="testimonial-card">
-            <div className="testimonial-content">
-              <p>{highlightText(testimonial.testimonial, testimonial.highlightedWords)}</p>
-              {testimonial.title && testimonial.title.trim() !== '' && (
-                <p className="testimonial-title">{testimonial.title}</p>
-              )}
-            </div>
-            <div className="testimonial-header">
-              {testimonial.avatarUrl ? (
-                <img
-                  src={testimonial.avatarUrl}
-                  alt={`${testimonial.name}'s avatar`}
-                  className="testimonial-avatar"
-                />
-              ) : (
-                <div className="testimonial-avatar placeholder" />
-              )}
-              <div className="testimonial-meta">
-                <p className='name'>{testimonial.name} · {testimonial.role}</p>
-                <h5>{testimonial.company}</h5>
+        {data.map((testimonial, index) => (
+          <ScrollReveal key={testimonial.id} delay={scrollRevealStagger(index, 70)}>
+            <div className="testimonial-card">
+              <div className="testimonial-content">
+                <p>{highlightText(testimonial.testimonial, testimonial.highlightedWords)}</p>
+                {testimonial.title && testimonial.title.trim() !== '' && (
+                  <p className="testimonial-title">{testimonial.title}</p>
+                )}
+              </div>
+              <div className="testimonial-header">
+                {testimonial.avatarUrl ? (
+                  <img
+                    src={testimonial.avatarUrl}
+                    alt={`${testimonial.name}'s avatar`}
+                    className="testimonial-avatar"
+                  />
+                ) : (
+                  <div className="testimonial-avatar placeholder" />
+                )}
+                <div className="testimonial-meta">
+                  <p className='name'>{testimonial.name} · {testimonial.role}</p>
+                  <h5>{testimonial.company}</h5>
+                </div>
               </div>
             </div>
-          </div>
+          </ScrollReveal>
         ))}
       </div>
     </div>
