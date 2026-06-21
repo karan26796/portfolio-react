@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { Sparkle, X, ArrowUp } from "@phosphor-icons/react";
+import Button from "./Buttons";
 import '../styles/AISummarizer.scss';
 
 interface AISummarizerProps {
@@ -87,9 +88,22 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
             });
 
             if (!response.ok) {
-                const errorData = await response.json();
-                console.error("API error response:", errorData);
-                throw new Error(errorData.details || 'Failed to fetch from chat API');
+                let errorMessage = 'Failed to fetch from chat API';
+                try {
+                    const errorData = await response.json();
+                    errorMessage = errorData.details || errorData.error || errorMessage;
+                } catch {
+                    errorMessage = response.status === 404
+                        ? 'Chat API is unavailable. Restart the dev server with npm start.'
+                        : `Chat API error (${response.status})`;
+                }
+                console.error("API error response:", errorMessage);
+                throw new Error(errorMessage);
+            }
+
+            const contentType = response.headers.get('content-type') || '';
+            if (contentType.includes('text/html')) {
+                throw new Error('Chat API returned an invalid response. Redeploy or restart the dev server.');
             }
 
             if (!response.body) throw new Error('ReadableStream not supported');
@@ -145,7 +159,16 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                 const newMessages = [...prevMessages];
                 const lastMessage = newMessages[newMessages.length - 1];
                 if (lastMessage.role === 'bot') {
-                    lastMessage.content = "Sorry, I am having trouble connecting right now. Please try again later.";
+                    lastMessage.content = error instanceof Error
+                        ? `Sorry, I am having trouble connecting right now. ${error.message}`
+                        : "Sorry, I am having trouble connecting right now. Please try again later.";
+                } else {
+                    newMessages.push({
+                        role: 'bot',
+                        content: error instanceof Error
+                            ? `Sorry, I am having trouble connecting right now. ${error.message}`
+                            : "Sorry, I am having trouble connecting right now. Please try again later.",
+                    });
                 }
                 return newMessages;
             });
@@ -164,9 +187,18 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
 
     return (
         <>
-            <button className={`ai-fab-button ${isOpen ? 'hidden' : ''}`} onClick={() => setIsOpen(true)}>
-                <Sparkle weight="fill" className="sparkle" /> {buttonLabel || "Summarize Page"}
-            </button>
+            <Button
+                className={`ai-fab-button ${isOpen ? 'hidden' : ''}`}
+                text={buttonLabel || "Summarize Page"}
+                iconName="Sparkle"
+                withIcon
+                withText
+                iconDirection="left"
+                variant="primary"
+                size="m"
+                weight="fill"
+                onClick={() => setIsOpen(true)}
+            />
 
             {isOpen && (
                 <div className="ai-chat-window" onClick={(e) => e.stopPropagation()}>
@@ -229,8 +261,7 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                         <div ref={messagesEndRef} />
                     </div>
 
-                    {messages.length > 1 && (
-                        <div className="ai-chat-input">
+                    <div className="ai-chat-input">
                             <input
                                 type="text"
                                 placeholder={isGenerating ? "AI is typing..." : "Ask me anything..."}
@@ -247,8 +278,7 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                                 <ArrowUp weight="bold" size={18} />
                             </button>
                         </div>
-                    )}
-                </div>
+                    </div>
             )}
         </>
     );

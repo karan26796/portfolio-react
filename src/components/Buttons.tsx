@@ -11,6 +11,7 @@ import {
   Icon as PhosphorIcon,
   InstagramLogo,
   LinkedinLogo,
+  Sparkle,
   X,
   XLogo,
   YoutubeLogo,
@@ -30,6 +31,7 @@ export type ButtonIconName =
   | 'FileText'
   | 'InstagramLogo'
   | 'LinkedinLogo'
+  | 'Sparkle'
   | 'X'
   | 'XLogo'
   | 'YoutubeLogo';
@@ -45,6 +47,7 @@ const iconMap: Record<ButtonIconName, PhosphorIcon> = {
   FileText,
   InstagramLogo,
   LinkedinLogo,
+  Sparkle,
   X,
   XLogo,
   YoutubeLogo,
