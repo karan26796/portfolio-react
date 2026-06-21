@@ -13,17 +13,37 @@ const Experiments: React.FC = () => {
     <>
       <div className="experiments-grid">
         {experiments.map((experiment, index) => (
-          <div 
-            key={index} 
-            className="experiment-card"
-            style={{
-              transform: getTransform(index)
-            }}
-          >
-            <div className="experiment-image-container">
-              <img src={experiment.urlGif} alt={`Experiment ${index + 1}`} />
+          <figure key={index} className="experiment-item">
+            <div
+              className="experiment-card"
+              style={{
+                transform: getTransform(index),
+              }}
+            >
+              <div className="experiment-image-container">
+                {experiment.type === "video" ? (
+                  <video
+                    src={experiment.src}
+                    autoPlay
+                    loop
+                    muted
+                    playsInline
+                    aria-label={experiment.caption ?? `Experiment ${index + 1}`}
+                  />
+                ) : (
+                  <img
+                    src={experiment.src}
+                    alt={experiment.caption ?? `Experiment ${index + 1}`}
+                  />
+                )}
+              </div>
             </div>
-          </div>
+            {experiment.caption && (
+              <figcaption className="experiment-caption">
+                {experiment.caption}
+              </figcaption>
+            )}
+          </figure>
         ))}
       </div>
     </>

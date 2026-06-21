@@ -49,7 +49,7 @@ const Archive: React.FC = () => {
     <div className="archive-container">
       <div className="intro">
         <h1>Design experiments</h1>
-        <p>Collection of work I've been a part of which has contributed to my craft significantly. </p>
+        <p>Concepts and visual designs that have helped me level up as a designer.</p>
       </div>
       <Experiments />
       <h1 style={{ marginTop: "1em" }}>Figma community files</h1>

@@ -12,15 +12,15 @@ interface TrainingItem {
 }
 
 const trainingItems: TrainingItem[] = [
-  { id: 'iim-sbp', image: '/figma-training/IIM%20SBP.mp4', title: 'Workshop', location: 'IIM Sambalpur', isVideo: true },
-  { id: 'training-8', image: '/figma-training/training8.webp', title: 'Figma for PMs', location: 'IIM Sambalpur' },
-  { id: 'flame', image: '/figma-training/Flame.mp4', title: 'Training', location: 'FLAME University', isVideo: true },
-  { id: 'training-10', image: '/figma-training/training10.webp', title: 'Design to code', location: 'T-Hub, Hyderabad' },
-  { id: 'training-9', image: '/figma-training/training9.webp', title: "Figma Config '24", location: 'IIT Delhi' },
-  { id: 'training-11', image: '/figma-training/training11.webp', title: "Figma Config '25", location: 'Microsoft, Noida' },
-  { id: 'training-2', image: '/figma-training/training2.webp', title: 'Figma training', location: 'Indiana University, US' },
+  { id: 'iim-sbp', image: '/figma-training/IIM%20SBP.mp4', title: 'Figma Workshop for PMs', location: 'IIM Sambalpur', isVideo: true },
+  { id: 'training-8', image: '/figma-training/training8.webp', title: '300+ students in attendance', location: 'IIM Sambalpur' },
+  { id: 'flame', image: '/figma-training/Flame.mp4', title: 'Figma for students', location: 'FLAME University', isVideo: true },
+  { id: 'training-10', image: '/figma-training/training10.webp', title: 'Design to development with AI', location: 'T-Hub, Hyderabad' },
+  { id: 'training-9', image: '/figma-training/training9.webp', title: "Hosting the Figma Config '24 event", location: 'IIT Delhi' },
+  { id: 'training-11', image: '/figma-training/training11.webp', title: "Hosting the Figma Config '25 event", location: 'Microsoft, Noida' },
+  { id: 'training-2', image: '/figma-training/training2.webp', title: 'Figma training for students', location: 'Indiana University, US' },
   { id: 'training-12', image: '/figma-training/training12.webp', title: 'Boosting design workflows', location: 'Keka' },
-  { id: 'training-13', image: '/figma-training/training13.webp', title: 'Figma for PMs', location: 'IIM Shillong' },
+  { id: 'training-13', image: '/figma-training/training13.webp', title: 'Figma training for PMs', location: 'IIM Shillong' },
 ];
 
 const FigmaTrainingMasonry: React.FC = () => (
