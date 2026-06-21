@@ -1,4 +1,5 @@
 .contact-form-container {
+  width: 100%;
   max-width: -webkit-fill-available;
   margin: auto;
   // margin-bottom: 4em;
@@ -35,14 +36,31 @@
     z-index: 1;
   }
 
+  #contact {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #contact > .scroll-reveal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
 
   h1 {
     margin-bottom: 0;
+    text-align: center;
+    width: 100%;
   }
 
   h4 {
     text-align: center;
     max-width: 40ch;
+    width: 100%;
     color: var(--secondary-text);
   }
 
@@ -60,11 +78,16 @@
   .tags-row {
     display: flex;
     max-width: 80ch;
+    width: 100%;
     flex-direction: row;
     gap: 0.5em;
     justify-content: center;
     margin-top: 1em;
     flex-wrap: wrap;
+
+    > .scroll-reveal {
+      display: flex;
+    }
   }
 }
 

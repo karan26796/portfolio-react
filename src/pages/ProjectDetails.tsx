@@ -9,6 +9,7 @@ import ProjectSidePanel from "../components/ProjectSidePanel";
 import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
 import ProjectNextProjects from "../components/ProjectNextProjects";
 import CustomVideo from "../components/CustomVideo";
+import ScrollReveal from "../components/ScrollReveal";
 import AISummarizer from "../components/AISummarizer";
 import FAQ from "../components/FAQ";
 import WorkTogether from "../components/WorkTogether";
@@ -110,28 +111,40 @@ const ProjectDetails: React.FC = () => {
                   h3: ({ children, ...props }: any) => {
                     const id = props.id || `section-h3-${sectionIndexRef.current++}`;
                     return (
-                      <h3 id={id} {...props}>
-                        {formatSectionTitle(String(children))}
-                      </h3>
+                      <ScrollReveal>
+                        <h3 id={id} {...props}>
+                          {formatSectionTitle(String(children))}
+                        </h3>
+                      </ScrollReveal>
                     );
                   },
                   img: ({ node, caption, alt, ...props }: any) => {
                     const captionText = caption || alt || "";
                     return (
-                      <figure>
-                        <img alt={captionText} {...props} />
-                        {captionText && <figcaption>{captionText}</figcaption>}
-                      </figure>
+                      <ScrollReveal variant="fade">
+                        <figure>
+                          <img alt={captionText} {...props} />
+                          {captionText && <figcaption>{captionText}</figcaption>}
+                        </figure>
+                      </ScrollReveal>
                     );
                   },
                   video: ({ node, ...props }: any) => {
                     const customProps = props as any;
-                    return <CustomVideo src={props.src} caption={customProps.caption} />;
+                    return (
+                      <ScrollReveal variant="fade">
+                        <CustomVideo src={props.src} caption={customProps.caption} />
+                      </ScrollReveal>
+                    );
                   },
                   faq: ({ node, ...props }: any) => {
                     try {
                       const parsedData = JSON.parse(props.data);
-                      return <FAQ data={parsedData} hideTitle={true} />;
+                      return (
+                        <ScrollReveal>
+                          <FAQ data={parsedData} hideTitle={true} />
+                        </ScrollReveal>
+                      );
                     } catch (error) {
                       console.error("Failed to parse FAQ JSON data in markdown:", error);
                       return null;

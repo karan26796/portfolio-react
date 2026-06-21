@@ -15,6 +15,7 @@ import Testimonials, { Testimonial } from "./components/Testimonials";
 import FAQ from "./components/FAQ";
 import WorkTogether from "./components/WorkTogether";
 import AISummarizer from "./components/AISummarizer";
+import { ScrollRevealDefaultsProvider } from "./components/ScrollRevealContext";
 import Footer from "./components/Footer";
 import ResumePopup from "./pages/ResumePopup";
 import "./styles/AboutRedirect.scss";
@@ -150,7 +151,7 @@ const HomePage: React.FC = () => {
   ];
 
   return (
-    <>
+    <ScrollRevealDefaultsProvider once={false}>
       <HeaderWithCarousel />
       {loading ? (
         <ProjectListSkeleton />
@@ -172,7 +173,7 @@ const HomePage: React.FC = () => {
           "What roles am I looking for?"
         ]}
       />
-    </>
+    </ScrollRevealDefaultsProvider>
   );
 };
 

@@ -2,6 +2,7 @@ import React, { useRef, useEffect } from "react";
 import '../styles/FigmaTraining.scss';
 import Button from '../components/Buttons';
 import Testimonials from '../components/Testimonials';
+import ScrollReveal from '../components/ScrollReveal';
 
 import LogoCarousel from "../components/LogoCarousel";
 import FigmaTrainingCarousel from "../components/FigmaTrainingCarousel";
@@ -73,28 +74,34 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onBookTrainingClick }) => {
   ]
 
   return (
-    <div className='intro'>
+    <ScrollReveal className='intro'>
       <h1>Figma Training for designers, product managers, and students</h1>
-      <p style={{ marginBottom: "1.5em" }}>In the last 5 years, I've taught Figma to over 10,000 people - from beginners to pros orgs and institutions across <strong>India and the US</strong>. I have also <strong>led the Figma community in Delhi</strong> for 5 years and conducted 20+ sessions and events.
-      </p>
+      <ScrollReveal delay={80}>
+        <p style={{ marginBottom: "1.5em" }}>In the last 5 years, I've taught Figma to over 10,000 people - from beginners to pros orgs and institutions across <strong>India and the US</strong>. I have also <strong>led the Figma community in Delhi</strong> for 5 years and conducted 20+ sessions and events.
+        </p>
+      </ScrollReveal>
 
-      <LogoCarousel logos={logos} />
+      <ScrollReveal delay={160}>
+        <LogoCarousel logos={logos} />
+      </ScrollReveal>
 
-      <div style={{ marginTop: "2em", marginBottom: "2em" }}>
-        <Button
-          text="Book a training today"
-          withIcon={true}
-          iconName="ArrowDown"
-          iconDirection="right"
-          withText={true}
-          size="m"
-          variant="primary"
-          weight="regular"
-          type="button"
-          onClick={onBookTrainingClick}
-        />
-      </div>
-    </div>
+      <ScrollReveal delay={240}>
+        <div style={{ marginTop: "2em", marginBottom: "2em" }}>
+          <Button
+            text="Book a training today"
+            withIcon={true}
+            iconName="ArrowDown"
+            iconDirection="right"
+            withText={true}
+            size="m"
+            variant="primary"
+            weight="regular"
+            type="button"
+            onClick={onBookTrainingClick}
+          />
+        </div>
+      </ScrollReveal>
+    </ScrollReveal>
   );
 };
 

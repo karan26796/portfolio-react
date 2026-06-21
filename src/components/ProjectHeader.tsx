@@ -1,5 +1,6 @@
 import React from "react";
 import { ProjectCardData } from "../utils/interfaces";
+import ScrollReveal, { scrollRevealStagger } from "./ScrollReveal";
 import "../styles/ProjectHeader.scss";
 import Tag, { VibrantColor } from "./Tag";
 import ProjectMetaGrid from "./ProjectMetaGrid";
@@ -17,7 +18,8 @@ const vibrantColors: VibrantColor[] = [
 
 const ProjectHeader: React.FC<{ data: ProjectCardData & { meta?: ProjectMeta } }> = ({ data }) => {
   return (
-    <div className="project-header">
+    <ScrollReveal className="project-header">
+      <ScrollReveal delay={80}>
       <div className="data">
       <div className="tag-container">
           {data.tags.map((tag, index) => (
@@ -32,8 +34,13 @@ const ProjectHeader: React.FC<{ data: ProjectCardData & { meta?: ProjectMeta } }
         </div>
         <h2>{data.title}</h2>
       </div>
-      {data.meta && <ProjectMetaGrid meta={data.meta} />}
-    </div>
+      </ScrollReveal>
+      {data.meta && (
+        <ScrollReveal delay={160}>
+          <ProjectMetaGrid meta={data.meta} />
+        </ScrollReveal>
+      )}
+    </ScrollReveal>
   );
 };
 

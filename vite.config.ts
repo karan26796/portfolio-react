@@ -107,6 +107,8 @@ export default defineConfig({
   server: {
     port: 3000,
     open: true,
+    host: true,
+    allowedHosts: ['.loca.lt', '.ngrok.io', '.ngrok-free.app', '.ngrok-free.dev', '.trycloudflare.com'],
   },
   preview: {
     port: 3000,

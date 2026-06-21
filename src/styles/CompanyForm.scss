@@ -38,19 +38,40 @@
     z-index: 1;
   }
 
+  #company {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  #company > .scroll-reveal {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
   .tags-row {
     display: flex;
     max-width: 80ch;
+    width: 100%;
     flex-direction: row;
     gap: 0.5em;
     justify-content: center;
     margin-top: 0.5em;
     flex-wrap: wrap;
+
+    > .scroll-reveal {
+      display: flex;
+    }
   }
 
   h4 {
     text-align: center;
     max-width: 40ch;
+    width: 100%;
     color: var(--secondary-text);
     margin: 0.5em 0 0.5em 0;
   }
@@ -58,6 +79,7 @@
   h2 {
     margin-bottom: 0.5em;
     text-align: center;
+    width: 100%;
   }
 
   .status-message {

@@ -1,5 +1,6 @@
-import React from "react";
+import React from 'react';
 import experiments from "../utils/experiments";
+import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
 import '../styles/Experiments.scss'
 
 const Experiments: React.FC = () => {
@@ -10,10 +11,10 @@ const Experiments: React.FC = () => {
   };
 
   return (
-    <>
-      <div className="experiments-grid">
-        {experiments.map((experiment, index) => (
-          <figure key={index} className="experiment-item">
+    <div className="experiments-grid">
+      {experiments.map((experiment, index) => (
+        <ScrollReveal key={index} className="experiment-item" delay={scrollRevealStagger(index, 70)}>
+          <figure className="experiment-figure">
             <div
               className="experiment-card"
               style={{
@@ -44,9 +45,9 @@ const Experiments: React.FC = () => {
               </figcaption>
             )}
           </figure>
-        ))}
-      </div>
-    </>
+        </ScrollReveal>
+      ))}
+    </div>
   );
 };
 

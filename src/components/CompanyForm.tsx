@@ -1,6 +1,7 @@
 import React, { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import Button from './Buttons';
 import Tag, { VibrantColor } from './Tag';
+import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
 import '../styles/CompanyForm.scss';
 
 
@@ -95,20 +96,24 @@ const CompanyForm: React.FC = () => {
   }));
 
   return (
-    <div className="company-form-container" id='#company'>
+    <ScrollReveal className="company-form-container">
+      <div id="company">
       <h2>Book a Figma/Design Training for Yourself or your Team</h2>
       <div className="tags-row">
         {tagTexts.map((text, index) => (
-          <Tag
-            key={index}
-            text={text}
-            color={tagProperties[index].color}
-            rotation={tagProperties[index].rotation}
-            dot={false}
-          />
+          <ScrollReveal key={text} delay={scrollRevealStagger(index, 50)} variant="fade">
+            <Tag
+              text={text}
+              color={tagProperties[index].color}
+              rotation={tagProperties[index].rotation}
+              dot={false}
+            />
+          </ScrollReveal>
         ))}
       </div>
+      <ScrollReveal delay={200}>
       <h4>I run hands-on Figma workshops and design sprints for teams, startups, and individuals. Book a session or send a message to discuss your needs.</h4>
+      </ScrollReveal>
       {status.type && (
         <div
           className={`status-message ${status.type}`}
@@ -121,6 +126,7 @@ const CompanyForm: React.FC = () => {
           {status.message}
         </div>
       )}
+      <ScrollReveal delay={280}>
       <div className="cta-row">
         <Button
           text="Book a corporate training"
@@ -146,6 +152,7 @@ const CompanyForm: React.FC = () => {
           />
         </a>
       </div>
+      </ScrollReveal>
       {showMessageField && (
         <form id="companyForm" onSubmit={handleSubmit} autoComplete="off" style={{ width: '100%', maxWidth: 500, margin: '1em auto 0 auto' }}>
           <input
@@ -176,7 +183,8 @@ const CompanyForm: React.FC = () => {
           />
         </form>
       )}
-    </div>
+      </div>
+    </ScrollReveal>
   );
 };
 
