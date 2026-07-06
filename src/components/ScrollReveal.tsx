@@ -22,8 +22,8 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   delay = 0,
   variant = 'fade-up',
   once: onceProp,
-  threshold = 0.12,
-  rootMargin = '0px 0px -6% 0px',
+  threshold = 0.05,
+  rootMargin = '100px 0px -2% 0px',
 }) => {
   const { once: defaultOnce } = useScrollRevealDefaults();
   const once = onceProp ?? defaultOnce;

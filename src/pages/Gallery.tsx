@@ -91,8 +91,6 @@ const Gallery = () => {
     }
   };
 
-
-
   const getColumns = () => {
     let cols = [];
     for (let i = 0; i < columns; i++) {
@@ -100,17 +98,18 @@ const Gallery = () => {
         <div key={i} className="column">
           {imageNumbers
             .filter((_, index) => index % columns === i)
-            .map((num, index) => {
-              const actualImageNum = 41 - num; // Calculate the actual image number being displayed
+            .map((num, colIndex) => {
+              const actualImageNum = 41 - num;
               const imagePath = getGalleryImageUrl(actualImageNum + 1);
-
-              const rotation = getRotation(index);
+              const rotation = getRotation(colIndex);
+              // First 2 rows per column appear immediately; rest stagger modestly
+              const delay = colIndex < 2 ? 0 : scrollRevealStagger(colIndex - 2, 60);
 
               return (
                 <ScrollReveal
                   key={num}
                   className="image-container"
-                  delay={scrollRevealStagger(actualImageNum, 40)}
+                  delay={delay}
                 >
                   <div
                     style={{

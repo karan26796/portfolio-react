@@ -17,6 +17,10 @@
   // font-feature-settings: "dlig" 1, "calt" 1, "ordn" 1, "salt" 1, "ss01" 1, "ss02" 1, "ss03" 1, "ss04" 1, "cv13" 1, "tnum" 1;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   margin: 0;
   // margin-bottom: var(--body-margin-bottom);
@@ -25,6 +29,7 @@ body {
   background-color: var(--bg-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
 main {

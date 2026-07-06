@@ -28,7 +28,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
   };
 
   const featuredProjects = projectData.slice(0, FEATURED_PROJECT_COUNT);
-  const overflowProjects = projectData.slice(FEATURED_PROJECT_COUNT);
+  const overflowProjects = projectData.slice(FEATURED_PROJECT_COUNT, FEATURED_PROJECT_COUNT + 3);
 
   const handleIndiefindsClick = () => {
     window.open('https://indiefinds.vercel.app', '_blank', 'noopener,noreferrer');
