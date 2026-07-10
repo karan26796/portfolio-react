@@ -16,13 +16,22 @@ import WorkTogether from "../components/WorkTogether";
 import { formatSectionTitle } from "../utils/formatSectionTitle";
 // Force fast refresh
 
+// Deterministic slug from a heading's text — same input always yields the same
+// id, so the ids stay stable across re-renders and the TOC's getElementById
+// lookups never drift out of sync.
+const slugify = (text: string) =>
+  text
+    .toLowerCase()
+    .trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/(^-|-$)/g, "") || "section";
+
 const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const [markdownContent, setMarkdownContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [headers, setHeaders] = useState<{ text: string; id: string }[]>([]);
   const contentRef = useRef<HTMLDivElement>(null);
-  const sectionIndexRef = useRef(0);
 
   // Fetch the list of all projects dynamically
   const { projects: projectSummaries, loading: projectsLoading } = useProjects();
@@ -65,17 +74,17 @@ const ProjectDetails: React.FC = () => {
 
   // Extract h3 headers after markdown renders
   useEffect(() => {
-    sectionIndexRef.current = 0;
-  }, [markdownContent]);
-
-  useEffect(() => {
     if (!loading && contentRef.current) {
+      const seen = new Map<string, number>();
       const h3s = Array.from(contentRef.current.querySelectorAll("h3"));
-      const headerList = h3s.map((h3, idx) => {
-        if (!h3.id) {
-          h3.id = `section-h3-${idx}`;
-        }
-        return { text: h3.textContent || "", id: h3.id };
+      const headerList = h3s.map((h3) => {
+        // Ensure a stable, unique id even if two headings slugify to the same value.
+        let id = h3.id || slugify(h3.textContent || "");
+        const count = seen.get(id) ?? 0;
+        seen.set(id, count + 1);
+        if (count > 0) id = `${id}-${count}`;
+        h3.id = id;
+        return { text: h3.textContent || "", id };
       });
       setHeaders(headerList);
     }
@@ -109,10 +118,10 @@ const ProjectDetails: React.FC = () => {
                 rehypePlugins={[rehypeRaw]}
                 components={{
                   h3: ({ children, ...props }: any) => {
-                    const id = props.id || `section-h3-${sectionIndexRef.current++}`;
+                    const id = props.id || slugify(String(children));
                     return (
                       <ScrollReveal>
-                        <h3 id={id} {...props}>
+                        <h3 {...props} id={id}>
                           {formatSectionTitle(String(children))}
                         </h3>
                       </ScrollReveal>

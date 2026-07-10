@@ -20,48 +20,31 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([{
         role: 'bot',
-        content: "Hi! What would you like to know?"
+        content: "Hey 👋 I'm Agent Vinod, Karan's AI assistant. Ask me anything about his work, process, or background — or pick a question below to get started."
     }]);
     const [inputText, setInputText] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
-
     const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>(initialPrompts || []);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
 
-    // Sync if props change or component remounts without losing state
+    // Sync prompts when props change (first message only)
     useEffect(() => {
         if (messages.length === 1) {
             setSuggestedPrompts(initialPrompts || []);
         }
     }, [initialPrompts, messages.length]);
 
-    const messagesEndRef = useRef<HTMLDivElement>(null);
-    const inputRef = useRef<HTMLInputElement>(null);
-
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
     };
 
-    // Scroll to bottom whenever messages or suggested prompts change
     useEffect(() => {
-        if (isOpen) {
-            scrollToBottom();
-        }
+        if (isOpen) scrollToBottom();
     }, [messages, isOpen, isGenerating, suggestedPrompts]);
 
-    // Autofocus the input as soon as the chat window opens, so visitors can start typing immediately
-    useEffect(() => {
-        if (isOpen) {
-            const focusTimer = setTimeout(() => inputRef.current?.focus(), 320);
-            return () => clearTimeout(focusTimer);
-        }
-    }, [isOpen]);
-
-    // Handle escape key to close
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.key === 'Escape' && isOpen) {
-                setIsOpen(false);
-            }
+            if (e.key === 'Escape' && isOpen) setIsOpen(false);
         };
         window.addEventListener('keydown', handleKeyDown);
         return () => window.removeEventListener('keydown', handleKeyDown);
@@ -69,31 +52,22 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
 
     const handleSendMessage = async (customText?: string) => {
         const userInput = customText || inputText.trim();
-
         if (!userInput) return;
 
-        // Add user message to state
         const newUserMessage: ChatMessage = { role: 'user', content: userInput };
         const updatedHistory = [...messages, newUserMessage];
         setMessages(updatedHistory);
         setInputText('');
-        setSuggestedPrompts([]); // Clear prompts
+        setSuggestedPrompts([]);
         setIsGenerating(true);
 
         try {
-            // Add a temporary empty bot message to stream into.
-            // The empty state triggers the "Searching..." loader.
             setMessages((prev) => [...prev, { role: 'bot', content: '' }]);
 
             const response = await fetch('/api/chat', {
                 method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({
-                    messages: updatedHistory,
-                    pageContext: text // The raw markdown/summary context passed via props
-                }),
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ messages: updatedHistory, pageContext: text }),
             });
 
             if (!response.ok) {
@@ -106,13 +80,7 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                         ? 'Chat API is unavailable. Restart the dev server with npm start.'
                         : `Chat API error (${response.status})`;
                 }
-                console.error("API error response:", errorMessage);
                 throw new Error(errorMessage);
-            }
-
-            const contentType = response.headers.get('content-type') || '';
-            if (contentType.includes('text/html')) {
-                throw new Error('Chat API returned an invalid response. Redeploy or restart the dev server.');
             }
 
             if (!response.body) throw new Error('ReadableStream not supported');
@@ -123,35 +91,27 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
             while (true) {
                 const { done, value } = await reader.read();
                 if (done) break;
-
                 const chunk = decoder.decode(value, { stream: true });
                 setMessages((prevMessages) => {
                     const newMessages = [...prevMessages];
                     const lastMessage = newMessages[newMessages.length - 1];
-                    if (lastMessage.role === 'bot') {
-                        lastMessage.content += chunk;
-                    }
+                    if (lastMessage.role === 'bot') lastMessage.content += chunk;
                     return newMessages;
                 });
             }
 
-            // Post-process to extract JSON prompts securely after the stream finishes
+            // Extract suggested prompts from the | separator
             setMessages((prevMessages) => {
                 const newMessages = [...prevMessages];
                 const lastMessage = newMessages[newMessages.length - 1];
-
                 if (lastMessage.role === 'bot' && lastMessage.content.includes('|')) {
                     const parts = lastMessage.content.split('|');
                     lastMessage.content = parts[0].trim();
-
                     try {
-                        // Extract JSON array string
                         const match = parts[1].match(/\[[\s\S]*\]/);
                         if (match) {
                             const parsed = JSON.parse(match[0]);
-                            if (Array.isArray(parsed)) {
-                                setSuggestedPrompts(parsed);
-                            }
+                            if (Array.isArray(parsed)) setSuggestedPrompts(parsed);
                         }
                     } catch (e) {
                         console.error("Failed to parse suggested prompts", e);
@@ -169,124 +129,132 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                 const lastMessage = newMessages[newMessages.length - 1];
                 if (lastMessage.role === 'bot') {
                     lastMessage.content = error instanceof Error
-                        ? `Sorry, I am having trouble connecting right now. ${error.message}`
-                        : "Sorry, I am having trouble connecting right now. Please try again later.";
-                } else {
-                    newMessages.push({
-                        role: 'bot',
-                        content: error instanceof Error
-                            ? `Sorry, I am having trouble connecting right now. ${error.message}`
-                            : "Sorry, I am having trouble connecting right now. Please try again later.",
-                    });
+                        ? `Sorry, I'm having trouble connecting. ${error.message}`
+                        : "Sorry, I'm having trouble connecting. Please try again.";
                 }
                 return newMessages;
             });
             setIsGenerating(false);
-            setSuggestedPrompts(initialPrompts || []); // Reset to default prompts if error
+            setSuggestedPrompts(initialPrompts || []);
         }
     };
 
     const handleKeyDownInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && !isGenerating) {
-            handleSendMessage();
-        }
-    }
+        if (e.key === 'Enter' && !isGenerating) handleSendMessage();
+    };
 
     if (!text) return null;
 
     return (
         <>
+            {/* ── FAB GROUP: pills + button ── */}
             <div className={`ai-fab-group ${isOpen ? 'hidden' : ''}`}>
-            {/* Prompt pills — visible on desktop when chat is closed */}
-            {initialPrompts && initialPrompts.length > 0 && (
-                <div className="ai-fab-pills">
-                    {initialPrompts.map((prompt, i) => (
-                        <button
-                            key={i}
-                            className="ai-fab-pill"
-                            onClick={() => {
-                                setIsOpen(true);
-                                // slight delay so the chat window mounts before sending
-                                setTimeout(() => handleSendMessage(prompt), 50);
-                            }}
-                        >
-                            {prompt}
-                        </button>
-                    ))}
-                </div>
-            )}
+                {initialPrompts && initialPrompts.length > 0 && (
+                    <div className="ai-fab-pills">
+                        {initialPrompts.map((prompt, i) => (
+                            <button
+                                key={i}
+                                className="ai-fab-pill"
+                                onClick={() => {
+                                    setIsOpen(true);
+                                    setTimeout(() => handleSendMessage(prompt), 60);
+                                }}
+                            >
+                                {prompt}
+                            </button>
+                        ))}
+                    </div>
+                )}
+                <Button
+                    className="ai-fab-button"
+                    text={buttonLabel || "Ask AI"}
+                    iconName="Sparkle"
+                    withIcon
+                    withText
+                    iconDirection="left"
+                    variant="ai"
+                    size="m"
+                    weight="fill"
+                    onClick={() => setIsOpen(true)}
+                />
+            </div>
 
-            <Button
-                className="ai-fab-button"
-                text={buttonLabel || "Summarize Page"}
-                iconName="Sparkle"
-                withIcon
-                withText
-                iconDirection="left"
-                variant="ai"
-                size="m"
-                weight="fill"
-                onClick={() => setIsOpen(true)}
-            />
-        </div>
-
+            {/* ── CHAT WINDOW ── */}
             {isOpen && (
                 <div className="ai-chat-window" onClick={(e) => e.stopPropagation()}>
-                    <div className="ai-chat-header">
-                        <div className="ai-chat-header-title">
-                            <div className="ai-chat-icon"><Sparkle weight="fill" size={20} /></div>
-                            <div className="ai-chat-title-text">
-                                <h3>Agent Vinod</h3>
-                                <span className="chat-subtitle">
-                                    <span className="online-dot"></span>
-                                    Ask me about Karan's experience
-                                </span>
+
+                    {/* Top bar */}
+                    <div className="ai-chat-topbar">
+                        <div className="ai-topbar-brand">
+                            <div className="ai-topbar-avatar">
+                                <Sparkle weight="fill" size={16} />
+                            </div>
+                            <div>
+                                <p className="ai-topbar-name">Agent Vinod</p>
+                                <p className="ai-topbar-sub">AI Agent</p>
                             </div>
                         </div>
-                        <button className="close-btn" onClick={() => setIsOpen(false)} aria-label="Close chat">
-                            <X weight="bold" size={16} />
+                        <button
+                            className="ai-close-btn"
+                            onClick={() => setIsOpen(false)}
+                            aria-label="Close chat"
+                        >
+                            <X weight="bold" size={15} />
                         </button>
                     </div>
 
+                    {/* Messages */}
                     <div className="ai-chat-messages">
                         {messages.map((msg, index) => {
-                            const isBotLastAndEmpty = isGenerating && index === messages.length - 1 && msg.role === 'bot' && msg.content === '';
-                            // Hide the JSON | section from the user instantly while it's actively streaming
+                            const isBotTyping = isGenerating
+                                && index === messages.length - 1
+                                && msg.role === 'bot'
+                                && msg.content === '';
+                            const isLastBotStreaming = isGenerating
+                                && index === messages.length - 1
+                                && msg.role === 'bot'
+                                && msg.content !== '';
                             const displayContent = msg.content.split('|')[0];
 
                             return (
-                                <div key={index} className={`message ${msg.role === 'user' ? 'user-message' : 'bot-message'}`}>
-                                    {msg.role === 'user' ? (
-                                        <p>{displayContent}</p>
-                                    ) : (
-                                        <div className="bot-message-row">
-                                            <div className="bot-avatar-sm"><Sparkle weight="fill" size={13} /></div>
-                                            <div className="bot-message-body">
-                                                {isBotLastAndEmpty ? (
-                                                    <div className="typing-indicator" aria-label="Agent Vinod is typing">
-                                                        <span></span><span></span><span></span>
-                                                    </div>
-                                                ) : (
-                                                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                                                        {displayContent}
-                                                    </ReactMarkdown>
-                                                )}
-                                                {isGenerating && !isBotLastAndEmpty && index === messages.length - 1 && msg.role === 'bot' && (
-                                                    <span className="typing-cursor" aria-hidden="true" />
-                                                )}
+                                <div key={index} className={`ai-msg-row ${msg.role}`}>
+                                    {msg.role === 'bot' && (
+                                        <div className="ai-agent-label-row">
+                                            <div className="ai-avatar">
+                                                <Sparkle weight="fill" size={11} />
                                             </div>
+                                            <span className="ai-agent-name">Agent Vinod · AI</span>
                                         </div>
                                     )}
+                                    <div className={`ai-bubble ${msg.role}`}>
+                                        {msg.role === 'user' ? (
+                                            <p>{displayContent}</p>
+                                        ) : isBotTyping ? (
+                                            <div className="ai-typing-indicator">
+                                                <span /><span /><span />
+                                            </div>
+                                        ) : (
+                                            <>
+                                                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                                                    {displayContent}
+                                                </ReactMarkdown>
+                                                {isLastBotStreaming && (
+                                                    <span className="ai-typing-cursor" aria-hidden="true" />
+                                                )}
+                                            </>
+                                        )}
+                                    </div>
                                 </div>
                             );
                         })}
 
+                        {/* Story-driven follow-up chips */}
                         {!isGenerating && suggestedPrompts.length > 0 && (
-                            <div className="suggested-prompts">
+                            <div className="ai-chips">
                                 {suggestedPrompts.map((prompt, i) => (
                                     <button
                                         key={i}
-                                        className="prompt-chip"
+                                        className="ai-chip"
                                         onClick={() => handleSendMessage(prompt)}
                                     >
                                         {prompt}
@@ -298,25 +266,27 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                         <div ref={messagesEndRef} />
                     </div>
 
-                    <div className="ai-chat-input">
-                            <input
-                                ref={inputRef}
-                                type="text"
-                                placeholder={isGenerating ? "AI is typing..." : "Ask me anything..."}
-                                disabled={isGenerating}
-                                value={inputText}
-                                onChange={(e) => setInputText(e.target.value)}
-                                onKeyDown={handleKeyDownInput}
-                            />
-                            <button
-                                className="send-btn"
-                                disabled={isGenerating || inputText.trim().length === 0}
-                                onClick={() => handleSendMessage()}
-                                aria-label="Send message">
-                                <ArrowUp weight="bold" size={18} />
-                            </button>
-                        </div>
+                    {/* Footer input */}
+                    <div className="ai-chat-footer">
+                        <input
+                            type="text"
+                            placeholder={isGenerating ? "Agent Vinod is typing…" : "Reply to Agent Vinod…"}
+                            disabled={isGenerating}
+                            value={inputText}
+                            onChange={(e) => setInputText(e.target.value)}
+                            onKeyDown={handleKeyDownInput}
+                            autoFocus
+                        />
+                        <button
+                            className="ai-send-btn"
+                            disabled={isGenerating || inputText.trim().length === 0}
+                            onClick={() => handleSendMessage()}
+                            aria-label="Send message"
+                        >
+                            <ArrowUp weight="bold" size={16} />
+                        </button>
                     </div>
+                </div>
             )}
         </>
     );

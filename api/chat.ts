@@ -5,23 +5,24 @@ import fs from 'fs';
 import path from 'path';
 
 const SYSTEM_PROMPT = `
-You are an AI assistant embedded into the personal portfolio website of Karan Kapoor.
+You are Vinod, an AI assistant embedded in the personal portfolio of Karan Kapoor.
 
 About Karan Kapoor:
-- Karan is a Product Designer bridging the gap between technology and art.
-- He focuses on velocity and clarity, deeply understanding user needs to reduce time-to-insight by up to 5x.
-- He has spent years building rapid prototypes for startups and deep systems architecture for late-stage enterprises like Keka HR.
-- Known for reducing decision fatigue and scaling UX cleanly.
+- Senior Product Designer, 7 years across B2B SaaS and consumer products.
+- Currently at Keka HR: leads design for Rewards & Recognition, HR Helpdesk, and Surveys for 2.2M+ users.
+- Education: Master's in Design from NID Ahmedabad + B.Tech from Bharati Vidyapeeth's College of Engineering, Delhi.
+- Based in Hyderabad. Open to Lead, Staff, or Design Manager roles. Remote-first is fine.
 
-Your goal is to answer questions from site visitors about Karan or the specific project page they are currently reading.
-If the visitor uses first-person pronouns like "I" or "my" (e.g., "What is my design process?"), they mean Karan Kapoor. Treat "my" as "Karan's".
-Be EXTREMELY concise and give very short, punchy outputs. Do not write long paragraphs—get straight to the point. Professional, friendly, and helpful. Do NOT hallucinate information.
+Your goal is to answer questions from visitors (typically recruiters or hiring managers) about Karan.
+When the visitor uses "I" or "my" they mean Karan. Be concise, warm, and professional. Do NOT hallucinate.
 
-CRITICAL INSTRUCTION FOR FORMATTING:
-- Use rich Markdown formatting (e.g. bold text "**text**" or bulleted lists) to make your response extremely scannable and easy to read.
-- When answering a larger query, you may optionally prefix the response with a tiny context label by using the "######" (h6) markdown tag, like: "###### Formatted context loaded from documentation >"
-- Always use "###" (h3) for any major section headers.
+CRITICAL FORMATTING RULES:
+- Use rich Markdown (bold, bullets) for scannability.
+- Use "######" (h6) for tiny context labels where helpful.
+- Use "###" for major section headers only.
+- Keep answers punchy — 3-5 lines max per point. Recruiters scan, not read.
 `;
+
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== 'POST') {
@@ -84,18 +85,34 @@ Here is the raw text for ALL of Karan's projects. You can use this to answer que
 ${globalPortfolioContext}
 </global_projects>
 
-FOLLOW-UP PROMPT GENERATION (MANDATORY):
-At the very end of EVERY single response you generate, you MUST append a pipe character "|" followed EXACTLY by a raw JSON array of 2 or 3 strings. Do not use markdown backticks around it. Do not add any conversational text after the JSON.
-CRITICAL: To keep the conversation moving, one of these 2-3 suggested follow-up questions MUST be a short, intriguing question derived directly from the "Interview Questions & Answers" document below (if provided). Frame it so the user can click it to ask you.
-CRITICAL RULE: Frame all follow-up questions from the visitor's perspective asking about Karan using "my" or "I" (e.g., "What is my design process?" instead of "What is his design process?").
+FOLLOW-UP PROMPT GENERATION — STORY ARC (MANDATORY):
+At the end of EVERY response, append a "|" followed by a raw JSON array of 2–3 follow-up questions.
+These questions must guide the visitor through a natural recruiter narrative arc:
 
+  Stage 1 — Intro/Background answered  → suggest process & work questions
+    e.g. ["What kind of work has he shipped?", "What's his design process?", "What tools does he use?"]
+
+  Stage 2 — Process/Craft answered     → suggest collaboration & delivery questions
+    e.g. ["How does he work with engineers?", "What does his design handoff look like?", "How does he handle disagreements?"]
+
+  Stage 3 — Collaboration answered      → suggest career & intent questions
+    e.g. ["What roles is he looking for?", "Is he open to remote work?", "Does he manage other designers?"]
+
+  Stage 4 — Career/Roles answered       → suggest contact questions
+    e.g. ["How can I contact Karan?", "Is his resume available?"]
+
+Always frame suggestions from the visitor's perspective (third-person about Karan: "What does he...", "Is he...", "How does he...").
+Do NOT add any text after the JSON array. No markdown backticks.
+
+Example format:
+Your helpful answer goes here.
+|["What does his handoff process look like?", "How does he work with engineers?"]
+
+INTERVIEW Q&A KNOWLEDGE BASE:
+Use the following Q&A document as your primary source for answering recruiter questions about Karan:
 <interview_qa>
 ${interviewQaText}
 </interview_qa>
-
-Example exact format (no extra text after the array!):
-Your helpful answer text goes here.
-|["What was my specific role?", "Can you walk me through my design process?"]
 `;
 
         const genAI = new GoogleGenerativeAI(apiKey);
@@ -146,22 +163,21 @@ Your helpful answer text goes here.
 
         const cleanMessage = latestUserMessage.toLowerCase().trim().replace(/[^a-z0-9 ]/g, '');
         const qaFallback: Record<string, string> = {
-            "whats my design process": "My design process evolves as per the project. If it's a big project, I usually research thoroughly, understand competitors, talk to customers, and then start designing. Otherwise, a quick AI prototype to align stakeholders is good enough.",
-            "can you walk me through your endtoend design process": "My design process evolves as per the project. If it's a big project, I usually research thoroughly, understand competitors, talk to customers, and then start designing. Otherwise, a quick AI prototype to align stakeholders is good enough.",
-            "whats my work experience": "I have 7 years of design and tech experience across B2B and B2C products, backed by a Master's in Design and Bachelor's in Engineering from NID.",
-            "what roles am i looking for": "I am looking for Product Design roles where I can leverage my experience in user-centric design, rapid prototyping, and complex systems architecture.",
-            "how do you balance user needs with hard business goals": "I work closely with business stakeholders throughout the process & spend enough time to refine the designs so they tightly follow both user needs and core design principles.",
-            "how do you handle disagreements with product managers or engineers": "I usually back conversations with data and customer feedback, which elegantly reframes the problem from a debate to the customer's actual perspective.",
-            "which of your portfolio projects was the most challenging and why": "The most challenging project was creating Looppanel's Highlight view for bulk tagging and summary of research notes. It had heavy tech constraints and required first-principles thinking.",
-            "how do you measure the success of a design after it launches": "Success criteria is usually set before the project starts. I look at customer tickets, sync with the sales team, and analyze core usage metrics.",
-            "what design tools figma framer etc and prototyping workflows are you most proficient in": "I am a Figma trainer, and actively use Claude, Figma Make, & Google AI Studio for structural prototyping.",
-            "can you give an example of a time you used data to inform a design decision": "I observed usage trends on Keka wall falling; leveraging intuition and competitor analysis, I proposed a simple Wish CTA that boosted engagement by 5x."
+            "tell me about karan": "**Karan Kapoor** — Senior Product Designer, 7 years.\n\n- Currently at **Keka HR**: Rewards & Recognition, HR Helpdesk, Surveys — 2.2M+ users\n- **Education**: Master's in Design, NID Ahmedabad + B.Tech Engineering\n- **Based in** Hyderabad — open to remote, hybrid, or relocation\n- **Looking for**: Lead, Staff, or Design Manager roles",
+            "whats his design process": "**Research-first for big bets, prototype-first for speed.**\n\n- Large projects: competitor analysis → customer calls → stakeholder alignment → design\n- Smaller projects: AI-assisted prototype to align stakeholders, then user testing\n- Common thread: understand the problem deeply, ship fast, iterate",
+            "is he open to new roles": "**Yes — actively looking.**\n\n- Targeting **Lead, Staff, or Design Manager** roles\n- B2B SaaS preferred (HR Tech, enterprise software, dev tools)\n- **Remote-first** is fine; open to hybrid or relocation for the right fit\n- Available now — best reached on [LinkedIn](https://www.linkedin.com/in/karankapoorux)",
+            "whats my design process": "**Research-first for big bets, prototype-first for speed.**\n\n- Large projects: competitor analysis → customer calls → stakeholder alignment → design\n- Smaller projects: AI-assisted prototype to align stakeholders, then user testing\n- Common thread: understand the problem deeply, ship fast, iterate",
+            "whats my work experience": "**7 years** across B2B and B2C — startups (Looppanel, Aphelia) and enterprises (Keka HR, Obvious).\n\nCurrently at Keka HR leading design for 2.2M+ users across Rewards, HR Helpdesk, and Surveys.",
+            "what roles am i looking for": "**Lead, Staff, or Design Manager** in B2B SaaS — ideally where design has a direct revenue or retention lever. Remote-first is fine.",
+            "how do i handle disagreements with pms or engineers": "I back my position with data — customer verbatims, usage metrics, or a quick prototype. It shifts 'your opinion vs mine' to 'what does the customer need?' Most disagreements dissolve when you put a real user quote in the room.",
+            "what does his design handoff look like": "**Handoff is continuous, not a single event.**\n\n- Figma files organised by user flow with every state annotated (empty, loading, error, edge case)\n- Dev Mode / Code Connect so engineers pull specs themselves\n- Complex interactions → async Loom walkthrough\n- Stays active in the build channel so questions are answered same-day",
+            "how does he collaborate with engineers": "**Closely and early.** He ships detailed Figma specs with annotated edge cases and component states. For complex flows he records async Loom walkthroughs. He syncs with devs frequently and runs co-creation sessions — engineers are collaborators, not consumers of design output.",
         };
 
         if (qaFallback[cleanMessage] && !pageContext) {
             // Bypass Gemini to save API token quota, returning the pre-mapped answer instantly.
             const answer = qaFallback[cleanMessage];
-            const nextQs = `\n|["How do you balance user needs with hard business goals?", "Which of your portfolio projects was the most challenging and why?", "What's my work experience?"]`;
+            const nextQs = `\n|["How does he work with engineers?", "What's his design process?", "Is he open to new roles?"]`;
             res.setHeader('Content-Type', 'text/plain; charset=utf-8');
             res.status(200).send(answer + nextQs);
             return;

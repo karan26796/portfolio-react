@@ -29,7 +29,10 @@ body {
   background-color: var(--bg-color);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden;
+  // Use `clip` (not `hidden`) so the body does NOT become a scroll container.
+  // `overflow-x: hidden` forces overflow-y to compute as `auto`, which breaks
+  // `position: sticky` for descendants like the project side panel.
+  overflow-x: clip;
 }
 
 main {

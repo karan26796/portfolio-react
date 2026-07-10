@@ -80,22 +80,22 @@ const ProjectSidePanel: React.FC<ProjectSidePanelProps> = ({
   return (
     <nav className="project-sidepanel" aria-label="Page sections">
       <ol className="project-sidepanel-list">
-        {headers.map((header, index) => (
-          <li key={header.id}>
-            <a
-              href={`#${header.id}`}
-              className={activeSection === header.id ? "active" : ""}
-              onClick={(e) => {
-                e.preventDefault();
-                handleItemClick(header.id);
-              }}
-            >
-              <span className="section-index">{String(index + 1).padStart(2, "0")}</span>
-              <span className="section-label">{formatSectionTitle(header.text)}</span>
-            </a>
-          </li>
-        ))}
-      </ol>
+          {headers.map((header, index) => (
+            <li key={header.id}>
+              <a
+                href={`#${header.id}`}
+                className={activeSection === header.id ? "active" : ""}
+                onClick={(e) => {
+                  e.preventDefault();
+                  handleItemClick(header.id);
+                }}
+              >
+                <span className="section-index">{String(index + 1).padStart(2, "0")}</span>
+                <span className="section-label">{formatSectionTitle(header.text)}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
     </nav>
   );
 };

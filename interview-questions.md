@@ -3,26 +3,28 @@
 ## 👤 About Karan
 
 ### Work Experience
-7 years across B2B and B2C — startups (Looppanel, Aphelia) and late-stage enterprises (Keka HR, Nimbuzz).
+7 years across B2B and B2C — startups (Keka HR, Obvious, Looppanel, Aphelia).
 
 ### Educational Qualifications
-Bachelor's in Engineering (Electronics & Telecom) and Master's in Design from NID (National Institute of Design), Ahmedabad.
+Master's in Design from NID (National Institute of Design), Ahmedabad and B.Tech from Bharati Vidyapeeth's College of Engineering, Delhi.
 
 ### Current Role
-Senior Product Designer at Keka HR, owning the product strategy for Rewards, Recognition, and Employee Experience for 2.2M+ users.
+Senior Product Designer at Keka HR, owning the product strategy for Rewards, Recognition, HR Helpdesk, and Survey tools for 2.2M+ users.
 
 ### Location & Availability
-Based in India. Open to remote, hybrid, or relocation depending on the opportunity. Available for interviews immediately.
+Based in Hyderabad, India. Open to remote, hybrid, or relocation depending on the opportunity. Available for new roles.
 
 ---
 
 ## 🎨 Design Process & Craft
 
 ### Q: Can you walk me through your end-to-end design process?
-**A:** The process evolves per project. For big projects I research thoroughly — competitor analysis, customer calls, stakeholder alignment — then design. For smaller projects, I jump into an AI-assisted prototype to align stakeholders before user testing. The common thread is always: understand the problem deeply, ship fast, iterate.
+**A:** The process evolves per project. For big projects I research thoroughly — competitor analysis, customer calls, stakeholder alignment — then design. 
+
+For smaller projects, I jump into an AI-assisted prototype to align stakeholders before user testing. The common thread is always: understand the problem deeply, ship fast, iterate.
 
 ### Q: What design tools are you most proficient in?
-**A:** Figma (I'm a certified Figma trainer), Claude + Google AI Studio for prototypes and research, Framer for interactive demos, Gamma for presentations, and Antigravity / Xcode for vibe-coded front-ends.
+**A:** Figma (I'm a Figma trainer), Claude + Google AI Studio for prototypes and research, Framer for interactive demos, Gamma for presentations, and Antigravity / Xcode for vibe-coded front-ends.
 
 ### Q: How do you handle disagreements with PMs or engineers?
 **A:** I back my position with data — customer verbatims, usage metrics, or a quick prototype that makes the idea tangible. It shifts the conversation from "your opinion vs mine" to "what does the customer actually need." Most disagreements dissolve when you put a real user quote in the room.
@@ -31,42 +33,39 @@ Based in India. Open to remote, hybrid, or relocation depending on the opportuni
 **A:** I set success criteria before the project starts — usually a mix of qualitative (support tickets, CS calls, sales feedback) and quantitative (feature adoption, retention, engagement metrics). I also watch for what *doesn't* get raised: silence on a feature that used to generate complaints is a strong signal.
 
 ### Q: Which project was the most challenging?
-**A:** Looppanel's Highlights view — bulk tagging and summary of qualitative research notes with severe tech constraints. It required first-principles thinking about how researchers actually synthesise data, not just how they imagine they do.
+**A:** Revamping the Awards Program & Looppanel's Highlights view — bulk tagging and summary of qualitative research notes with severe tech constraints. It required first-principles thinking about how researchers actually synthesise data, not just how they imagine they do.
 
 ### Q: Can you give an example of using data to drive a decision?
-**A:** Keka Wall engagement was falling. Usage trends plus competitor benchmarking led me to a deceptively simple change — a dedicated "Wish" CTA. It boosted engagement 5×. Sometimes the data tells you to do less, not more.
+**A:** Keka Wall engagement was falling. Usage trends plus competitor benchmarking led me to a deceptively simple change — a dedicated "Wish" CTA. It boosted engagement 5×.
 
 ---
 
 ## 💼 Roles & Career
 
 ### Q: What roles is Karan looking for?
-**A:** Senior Product Designer, Lead Designer, or Head of Design roles. Ideally in companies building complex B2B SaaS products, enterprise software, or developer/HR tools — places where design has a direct revenue or retention lever. Also open to founding designer roles at well-funded early-stage startups.
-
-### Q: What's Karan's salary expectation?
-**A:** Happy to discuss based on the role scope, company stage, and equity structure. Best to connect on LinkedIn for specifics.
+**A:** Lead, Staff or Designer Manager roles. Ideally in companies building complex B2B SaaS products, enterprise software.
 
 ### Q: Is Karan open to remote work?
-**A:** Yes — remote-first is fine. He's been working effectively in remote and hybrid setups across time zones.
+**A:** Yes — remote-first is fine. I've been working effectively in remote and hybrid setups across time zones.
 
 ### Q: Does Karan manage other designers?
-**A:** Yes — at Keka he has mentored junior and mid-level designers, run critique sessions, and shaped design culture. Open to lead or player-coach roles.
+**A:** Yes — at Keka I have mentored junior and mid-level designers, run critique sessions, and shaped design culture. Open to lead or player-coach roles.
 
 ### Q: What industries has Karan worked in?
-**A:** HR Tech (Keka), UX Research Tools (Looppanel), Consumer Apps (Nimbuzz / Kurakaani), IoT & Behavioral Design (NID thesis). Strong B2B SaaS depth with B2C product sense.
+**A:** HR Tech (Keka), UX Research Tools (Looppanel), Consumer Apps (Grab, Guesthouser) etc.
 
 ---
 
 ## 🤝 Collaboration & Leadership
 
 ### Q: How does Karan work with engineers?
-**A:** He ships detailed Figma specs with annotated edge cases and component states, uses dev tokens for design systems, and does async Loom walkthroughs for complex flows. He treats engineers as collaborators, not consumers.
+**A:** I work closely with engineers. I ship detailed Figma specs with annotated edge cases and component states & do async Loom walkthroughs for complex flows. I sync with the devs frequently and conduct co-creation sessions as well.
 
 ### Q: How does Karan approach stakeholder buy-in?
-**A:** By making decisions visible early — through lightweight prototypes, annotated explorations, and design reviews that invite pushback. He'd rather surface a disagreement in a Figma file than after engineering has started.
+**A:** By making decisions visible early — through lightweight prototypes, annotated explorations, and design reviews that invite pushback. I'd rather surface a disagreement in a Figma file than after engineering has started.
 
 ### Q: How does Karan handle ambiguous briefs?
-**A:** He asks "what does success look like in 6 months?" first, then maps backward. He's comfortable with ambiguity as long as there's a clear signal of what's actually broken.
+**A:** I ask "what does success look like in 6 months?" first, then map backward. I'm comfortable with ambiguity as long as there's a clear signal of what's actually broken.
 
 ---
 
@@ -76,25 +75,25 @@ Based in India. Open to remote, hybrid, or relocation depending on the opportuni
 **A:** Handoff is continuous, not a single event. Figma files are organized by user flow with every state — empty, loading, error, edge case — annotated. I use Dev Mode / Code Connect where available so engineers can pull exact specs and tokens themselves. For complex interactions I record a quick Loom walking through the logic, then stay active in the build channel so questions get answered same-day instead of piling up for a "handoff meeting."
 
 ### Q: How do you work with design systems?
-**A:** I treat a design system as a product with its own roadmap, not a static component library. That means auditing for drift regularly, documenting usage rules alongside the visuals, and versioning changes so teams can adopt updates without breaking screens already in production.
+**A:** I read through the documentation thoroughly, understand what each component does and then try to use them as much as possible without reinventing the wheel. If a component doesn't exist, I propose a new one with proper documentation.
 
 ### Q: How do you approach accessibility?
 **A:** I build it in at the design stage, not QA — checking contrast ratios while picking a palette, designing visible focus states, and writing alt-text guidance directly into the spec. It's far cheaper to fix in Figma than after ship.
 
 ### Q: What does your feedback or critique process look like?
-**A:** I default to async, written critique with the "why" attached, over live meetings that tend to collapse into taste debates. When I do run a live crit, I ask reviewers to react to the problem statement first and the solution second — it keeps feedback anchored to user needs.
+**A:** I try understanding the problem fully before commenting and evaluating the person's work based on the goals.
 
 ### Q: How do you onboard onto a new team or codebase?
-**A:** I ship something small in week one — even a minor fix — to learn the real tooling and review process rather than just reading docs. In parallel, I audit existing flows for low-risk, high-trust wins I can deliver early.
+**A:** I read a lot of documents, audit existing flows and try to understand the problem space first.
 
 ### Q: How do you prioritize your design backlog?
-**A:** Three factors: revenue/retention impact, how many users a change touches, and how reversible the decision is. Low-risk, high-impact work goes first; irreversible or high-effort bets earn a proper research pass before they get a slot.
+**A:** I look at what we're exactly trying to solve and then go about solutioning. Most often the problem is not what we think it is. 
 
 ### Q: What's a mistake you've learned from?
-**A:** Early on I over-invested in visual polish before the interaction model was validated — it made feedback harder to act on because reviewers fixated on color instead of flow. Now I ship rough, grayscale flows first and only add polish once the structure is agreed.
+**A:** To design only for the screen without thinking of the user's physical context.
 
 ### Q: What's your ideal team or company culture?
-**A:** Teams that treat design as a strategic input, not a downstream service — where designers are in the room while problems are being framed, not just brought in once screens need making.
+**A:** Teams that treat design as an equal product partner and not as an afterthought or just execution lever.
 
 ### Q: How do you mentor other designers?
 **A:** Through paired critique rather than top-down feedback — asking questions that surface gaps in their own reasoning instead of just handing over the "right" answer. Slower short-term, but it builds designers who don't need to be told twice.

@@ -4,6 +4,42 @@
   align-self: start;
   height: fit-content;
   padding-top: 2em;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+
+  // Meta grid lives at the top of the sticky column — compact and vertical
+  .project-meta-grid {
+    flex-direction: column;
+    gap: 1.25em;
+
+    div {
+      gap: 0.2em;
+    }
+
+    h4 {
+      font-size: 0.72em;
+      font-weight: 600;
+      color: var(--tertiary-text);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin: 0;
+    }
+
+    p {
+      font-size: 0.8em;
+      color: var(--secondary-text);
+      line-height: 1.4;
+      max-width: 20ch;
+    }
+  }
+
+  // Divider between meta and nav (only when both exist)
+  .project-meta-grid + ol {
+    border-top: 1px solid var(--border-color);
+    padding-top: 1.25em;
+    margin-top: 0;
+  }
 
   .project-sidepanel-list {
     list-style: none;

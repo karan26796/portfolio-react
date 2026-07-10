@@ -56,14 +56,14 @@ We showed our initial explorations to customers. On talking to customers we foun
 </div>
 </details> -->
 
-### 1️⃣ Marketplace integration & exchange dynamics
+### 1️⃣ Reward branding & multi geography set up
 Admins connect to the **partner platform (XOXO Days)** via a redirect link, can **rename and brand** their rewards, set **geo-specific conversion rates**, and limit how many **points employees can carry forward**.
 
 <blockquote>"Employees give out donuts to each other on slack and whoever has the most donuts at the end of the month gets a donut box"</blockquote>
 
 </section>
 
-<img src="/project-imgs/continuous rewards/marketplace-settings.webp" caption="Connection with rewards redemption platform"></img>
+<!-- <img src="/project-imgs/continuous rewards/marketplace-settings.webp" caption="Connection with rewards redemption platform"></img> -->
 
 <img src="/project-imgs/continuous rewards/rewards-settings.webp" caption="Personalizing reward name and geo specific conversion rate"></img>
 
@@ -78,9 +78,9 @@ Points are given out automatically on **birthdays, work anniversaries, and joini
 
 </section>
 
-<img src="/project-imgs/continuous rewards/employee milestone settings.webp" caption="Defining reward values to recognize employees"></img>
+<img src="/project-imgs/continuous rewards/employee milestone setup.webp" caption="Defining reward values to recognize employees"></img>
 
-<img src="/project-imgs/continuous rewards/employee milestone data.webp" caption="Surfacing data to the admin post launch"></img>
+<img src="/project-imgs/continuous rewards/employee milestone settings.webp" caption="Surfacing data to the admin post launch"></img>
 
 <section>
 

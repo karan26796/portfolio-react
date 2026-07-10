@@ -165,12 +165,12 @@ const HomePage: React.FC = () => {
       <FAQ data={faqData} />
       <WorkTogether />
       <AISummarizer
-        text="Hi, I'm Karan! 👋&#10;&#10;I'm a Product Designer who blends technology with art to create intuitive and highly scalable user experiences. &#10;&#10;My design philosophy is rooted in velocity and clarity. By thoroughly understanding user needs, I reduce time-to-insight by up to 5x. Whether building rapid prototypes for early-stage startups or deep systems architecture (like at Keka HR), my goal is always to reduce decision fatigue and ship fast.&#10;&#10;Feel free to explore my case studies to see my process in action!"
+        text="Karan Kapoor is a Senior Product Designer with 7 years across B2B SaaS and consumer products. Currently at Keka HR, he leads design for Rewards & Recognition, HR Helpdesk, and Surveys — products used by 2.2M+ people. He holds a Master's in Design from NID Ahmedabad and is based in Hyderabad.\n\nKey work: redesigned Keka's Award Programs into a governed nomination workflow (unblocked enterprise deals); built Continuous Rewards platform (secured 10+ enterprise clients); redesigned Keka Wall Wishes (5× engagement boost); founding designer at Looppanel building qualitative research tooling.\n\nHe's open to Lead, Staff, or Design Manager roles. Remote-first is fine. Available now."
         buttonLabel="Ask Agent Vinod"
         initialPrompts={[
-          "What's my design process?",
-          "What's my work experience?",
-          "What roles am I looking for?"
+          "What does his design handoff look like?",
+          "How does he collaborate with engineers?",
+          "What's his design process?"
         ]}
       />
     </ScrollRevealDefaultsProvider>
