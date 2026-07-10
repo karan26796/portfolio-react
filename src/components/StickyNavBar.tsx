@@ -245,6 +245,17 @@ const StickyNavBar: React.FC = () => {
             <span>Craft</span>
           </Link>
 
+          {/* Figma Training Link - always visible */}
+          <Link
+            to="/figma-training"
+            className={`a-header${location.pathname === "/figma-training" ? " active" : ""}`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <FigmaLogo size={18} weight="duotone" />
+            <span>Figma Training</span>
+          </Link>
+
           {/* ================================================================== */}
           {/* MOBILE NAVIGATION */}
           {/* ================================================================== */}
@@ -276,14 +287,6 @@ const StickyNavBar: React.FC = () => {
               {/* Dropdown Menu Content */}
               <div className={`menu-content ${isMenuOpen ? 'open' : ''}`}>
                 <Link
-                  to="/figma-training"
-                  className={`menu-item a-header${location.pathname === "/figma-training" ? " active" : ""}`}
-                >
-                  <FigmaLogo size={18} weight="duotone" />
-                  <span>Design Training</span>
-                </Link>
-
-                <Link
                   to="/gallery"
                   className={`menu-item a-header${location.pathname === "/gallery" ? " active" : ""}`}
                 >
@@ -302,19 +305,6 @@ const StickyNavBar: React.FC = () => {
             /* DESKTOP NAVIGATION */
             /* ================================================================ */
             <>
-              {/* Figma Training Link - Desktop */}
-              <Link
-                to="/figma-training"
-                className={`a-header${location.pathname === "/figma-training" ? " active" : ""}`}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <FigmaLogo size={18} weight="duotone" />
-                <span style={isBelow776 ? { display: "inline" } : undefined}>
-                  Figma Training
-                </span>
-              </Link>
-
               {/* Gallery Link - Desktop */}
               <Link
                 to="/gallery"
