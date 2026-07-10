@@ -6,6 +6,7 @@ const keka = "/project-imgs/continuous rewards/Thumb.webp";
 const loopinfo = "/project-imgs/looppanel-insights/insight-thumb.gif";
 const wish = "/project-imgs/kekawish/thumb-cr.webp";
 const award = "/project-imgs/award program/Thumb-certi-spot.webp";
+const awardPrograms = "/project-imgs/award program/Thumb-certi-spot.webp";
 const kurakaani = "/project-imgs/kurakaani/01.webp";
 const loopdata = "/project-imgs/loop-research/loop-research.gif";
 
@@ -25,6 +26,7 @@ export type ProjectSummary = ProjectCardData & { meta: ProjectMeta };
  * - Reorder ids to change display order
  */
 export const PROJECT_DISPLAY_ORDER: string[] = [
+  // "9",
   "6",
   "2",
   "7",
@@ -39,6 +41,21 @@ export const PROJECT_DISPLAY_ORDER: string[] = [
 export const FEATURED_PROJECT_COUNT = 3;
 
 const projectsById: Record<string, ProjectSummary> = {
+  "9": {
+    id: "9",
+    description: "Rebuilt Keka's award programs into a governed nomination workflow to unblock enterprise deals.",
+    title: "Keka Award Programs: From Gift Catalog to Governed Workflow",
+    img: awardPrograms,
+    tags: ["Product Design", "Enterprise UX"],
+    type: "client",
+    details: "Keka / 2026",
+    meta: {
+      duration: "Feb – Apr 2026",
+      role: "Design Strategy & Execution",
+      scope: "Enterprise Award Programs",
+      impact: "Unblocked enterprise deals stalled at evaluation; beta programs reached announcement phase for the first time.",
+    },
+  },
   "8": {
     id: "8",
     description: "Removing barriers to help companies adopt Keka for their R&R needs.",

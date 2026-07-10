@@ -1,8 +1,13 @@
-.ai-fab-button {
+// Wrapper that positions the FAB + pills together
+.ai-fab-group {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
     z-index: 999;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.6em;
     transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
 
     &.hidden {
@@ -13,16 +18,70 @@
     }
 }
 
+// Prompt pills row
+.ai-fab-pills {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 0.45em;
+}
+
+.ai-fab-pill {
+    background: var(--bg-color);
+    border: 1px solid var(--border-color);
+    color: var(--secondary-text);
+    padding: 0.5em 1em;
+    border-radius: 2em;
+    font-size: calc(var(--text-size) * 0.88);
+    font-family: inherit;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
+    animation: fabPillIn 0.25s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+    &:nth-child(1) { animation-delay: 0ms; }
+    &:nth-child(2) { animation-delay: 60ms; }
+    &:nth-child(3) { animation-delay: 120ms; }
+
+    &:hover {
+        background: var(--highlight-color);
+        color: #fff;
+        border-color: var(--highlight-color);
+        transform: translateY(-2px);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.14);
+    }
+}
+
+@keyframes fabPillIn {
+    from {
+        opacity: 0;
+        transform: translateY(8px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+// Keep the button itself un-positioned (group handles position)
+.ai-fab-button {
+    transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+
 .ai-chat-window {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
     width: 420px;
     max-height: 80vh;
-    background: var(--bg-color);
+    background: color-mix(in srgb, var(--bg-color) 97%, transparent);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
-    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.15);
+    border-radius: calc(var(--border-radius) * 1.4);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.18), 0 2px 8px rgba(0, 0, 0, 0.06);
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -70,20 +129,22 @@
         }
     }
 
-    .online-status {
+    .chat-subtitle {
         display: flex;
         align-items: center;
-        gap: 0.375em;
+        gap: 0.4em;
         font-size: 0.8em;
-        color: #22c55e;
-        font-weight: 500;
+        color: var(--secondary-text);
+        font-weight: 400;
     }
 
     .online-dot {
         width: 6px;
         height: 6px;
+        min-width: 6px;
         border-radius: 50%;
         background-color: #22c55e;
+        box-shadow: 0 0 0 3px color-mix(in srgb, #22c55e 20%, transparent);
     }
 
     .bot-info {
@@ -167,6 +228,7 @@
         display: flex;
         flex-direction: column;
         max-width: 90%;
+        animation: messageIn 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
 
         &.user-message {
             align-self: flex-end;
@@ -190,12 +252,50 @@
             border: none;
             padding: 0;
             max-width: 100%;
-            /* Removed custom markdown styling logic. 
+
+            .bot-message-row {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.7em;
+            }
+
+            .bot-avatar-sm {
+                flex-shrink: 0;
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-top: 0.15em;
+                background: linear-gradient(135deg,
+                    color-mix(in srgb, var(--highlight-color) 18%, transparent),
+                    color-mix(in srgb, var(--highlight-color-light) 18%, transparent));
+                color: var(--highlight-color);
+            }
+
+            .bot-message-body {
+                flex: 1;
+                min-width: 0;
+            }
+
+            /* Removed custom markdown styling logic.
                This empowers global index.scss defaults to take over! */
 
             p:last-child {
                 margin-bottom: 0;
             }
+        }
+    }
+
+    @keyframes messageIn {
+        from {
+            opacity: 0;
+            transform: translateY(6px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
         }
     }
 
@@ -224,12 +324,34 @@
         }
     }
 
-    .searching-text {
-        font-family: inherit;
-        font-size: var(--text-size);
-        color: var(--secondary-text);
-        animation: pulse 1.5s infinite;
-        margin: 0;
+    .typing-indicator {
+        display: flex;
+        align-items: center;
+        gap: 0.3em;
+        padding: 0.6em 0;
+
+        span {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: var(--secondary-text);
+            opacity: 0.5;
+            animation: typingBounce 1.1s ease-in-out infinite;
+
+            &:nth-child(2) { animation-delay: 0.15s; }
+            &:nth-child(3) { animation-delay: 0.3s; }
+        }
+    }
+}
+
+@keyframes typingBounce {
+    0%, 60%, 100% {
+        transform: translateY(0);
+        opacity: 0.5;
+    }
+    30% {
+        transform: translateY(-4px);
+        opacity: 1;
     }
 }
 
@@ -306,17 +428,6 @@
     }
 }
 
-@keyframes pulse {
-
-    0%,
-    100% {
-        opacity: 0.5;
-    }
-
-    50% {
-        opacity: 1;
-    }
-}
 
 @media (max-width: 768px) {
     .ai-chat-window {
@@ -336,8 +447,13 @@
         padding-bottom: env(safe-area-inset-bottom, 1rem);
     }
 
-    .ai-fab-button {
+    .ai-fab-group {
         bottom: 1.25rem;
         right: 1.25rem;
+    }
+
+    // Pills are redundant on mobile — in-chat chips handle it
+    .ai-fab-pills {
+        display: none;
     }
 }

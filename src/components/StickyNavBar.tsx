@@ -221,7 +221,7 @@ const StickyNavBar: React.FC = () => {
         <div className="navbar-center">
           <div className="hover-indicator" style={indicatorStyle}></div>
 
-          {/* Home Link */}
+          {/* Work Link */}
           <Link
             to="/home"
             className={`a-header${location.pathname === "/home" ? " active" : ""}`}
@@ -230,7 +230,7 @@ const StickyNavBar: React.FC = () => {
           >
             <House size={18} weight="duotone" />
             <span style={isBelow776 ? { display: "inline" } : undefined}>
-              Home
+              Work
             </span>
           </Link>
 

@@ -35,6 +35,7 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
     }, [initialPrompts, messages.length]);
 
     const messagesEndRef = useRef<HTMLDivElement>(null);
+    const inputRef = useRef<HTMLInputElement>(null);
 
     const scrollToBottom = () => {
         messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -46,6 +47,14 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
             scrollToBottom();
         }
     }, [messages, isOpen, isGenerating, suggestedPrompts]);
+
+    // Autofocus the input as soon as the chat window opens, so visitors can start typing immediately
+    useEffect(() => {
+        if (isOpen) {
+            const focusTimer = setTimeout(() => inputRef.current?.focus(), 320);
+            return () => clearTimeout(focusTimer);
+        }
+    }, [isOpen]);
 
     // Handle escape key to close
     useEffect(() => {
@@ -187,18 +196,39 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
 
     return (
         <>
+            <div className={`ai-fab-group ${isOpen ? 'hidden' : ''}`}>
+            {/* Prompt pills — visible on desktop when chat is closed */}
+            {initialPrompts && initialPrompts.length > 0 && (
+                <div className="ai-fab-pills">
+                    {initialPrompts.map((prompt, i) => (
+                        <button
+                            key={i}
+                            className="ai-fab-pill"
+                            onClick={() => {
+                                setIsOpen(true);
+                                // slight delay so the chat window mounts before sending
+                                setTimeout(() => handleSendMessage(prompt), 50);
+                            }}
+                        >
+                            {prompt}
+                        </button>
+                    ))}
+                </div>
+            )}
+
             <Button
-                className={`ai-fab-button ${isOpen ? 'hidden' : ''}`}
+                className="ai-fab-button"
                 text={buttonLabel || "Summarize Page"}
                 iconName="Sparkle"
                 withIcon
                 withText
                 iconDirection="left"
-                variant="primary"
+                variant="ai"
                 size="m"
                 weight="fill"
                 onClick={() => setIsOpen(true)}
             />
+        </div>
 
             {isOpen && (
                 <div className="ai-chat-window" onClick={(e) => e.stopPropagation()}>
@@ -207,8 +237,10 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                             <div className="ai-chat-icon"><Sparkle weight="fill" size={20} /></div>
                             <div className="ai-chat-title-text">
                                 <h3>Agent Vinod</h3>
-                                <span className="online-status">
-                                    <span className="online-dot"></span> Online</span>
+                                <span className="chat-subtitle">
+                                    <span className="online-dot"></span>
+                                    Ask me about Karan's experience
+                                </span>
                             </div>
                         </div>
                         <button className="close-btn" onClick={() => setIsOpen(false)} aria-label="Close chat">
@@ -227,18 +259,23 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                                     {msg.role === 'user' ? (
                                         <p>{displayContent}</p>
                                     ) : (
-                                        <>
-                                            {isBotLastAndEmpty ? (
-                                                <p><span className="searching-text">Searching...</span></p>
-                                            ) : (
-                                                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                                                    {displayContent}
-                                                </ReactMarkdown>
-                                            )}
-                                            {isGenerating && !isBotLastAndEmpty && index === messages.length - 1 && msg.role === 'bot' && (
-                                                <span className="typing-cursor" aria-hidden="true" />
-                                            )}
-                                        </>
+                                        <div className="bot-message-row">
+                                            <div className="bot-avatar-sm"><Sparkle weight="fill" size={13} /></div>
+                                            <div className="bot-message-body">
+                                                {isBotLastAndEmpty ? (
+                                                    <div className="typing-indicator" aria-label="Agent Vinod is typing">
+                                                        <span></span><span></span><span></span>
+                                                    </div>
+                                                ) : (
+                                                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                                                        {displayContent}
+                                                    </ReactMarkdown>
+                                                )}
+                                                {isGenerating && !isBotLastAndEmpty && index === messages.length - 1 && msg.role === 'bot' && (
+                                                    <span className="typing-cursor" aria-hidden="true" />
+                                                )}
+                                            </div>
+                                        </div>
                                     )}
                                 </div>
                             );
@@ -263,6 +300,7 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
 
                     <div className="ai-chat-input">
                             <input
+                                ref={inputRef}
                                 type="text"
                                 placeholder={isGenerating ? "AI is typing..." : "Ask me anything..."}
                                 disabled={isGenerating}

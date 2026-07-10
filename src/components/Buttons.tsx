@@ -61,7 +61,7 @@ type ButtonProps = {
   iconDirection?: 'left' | 'right';
   withText?: boolean;
   size?: 's' | 'm' | 'l';
-  variant?: 'primary' | 'secondary' | 'tertiary' | 'success';
+  variant?: 'primary' | 'secondary' | 'tertiary' | 'success' | 'ai';
   weight?: IconWeight;
   type?: 'button' | 'submit' | 'reset';
   onClick?: () => void;
