@@ -53,7 +53,7 @@ const App: React.FC = () => {
 
   return (
     <Router>
-      <Analytics />
+      {window.location.hostname !== 'localhost' && <Analytics />}
       <Routes>
         <Route
           path="*"
