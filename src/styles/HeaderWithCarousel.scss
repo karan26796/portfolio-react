@@ -82,8 +82,8 @@
     .intro-text {
       font-size: 1.5em;
       text-align: left;
-      max-width: 46ch;
-      color: var(--tertiary-text);
+      max-width: 80%;
+      color: var(--secondary-text);
       line-height: 1.4;
 
       @media screen and (max-width: 767px) {

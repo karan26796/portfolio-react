@@ -1,196 +1,165 @@
+// Skeleton for ProjectDetails — mirrors the live single-column layout:
+// big title → description (left) + meta (right), then heading-left / body-right
+// sections separated by full-width image blocks.
 .details-skeleton {
-    opacity: 0.7;
-    animation: pulse 1.5s infinite ease-in-out;
+    // Theme-aware skeleton tones derived from the text colour, so they read as
+    // subtle grey in both light and dark mode without extra overrides.
+    --sk-base: color-mix(in srgb, var(--primary-text) 9%, transparent);
+    --sk-shine: color-mix(in srgb, var(--primary-text) 16%, transparent);
+
     pointer-events: none;
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 200px;
-    gap: 3em;
+    grid-template-columns: minmax(0, 1fr);
     max-width: 1120px;
     margin: 0 auto;
     padding: 0 2em 4em;
-    align-items: start;
-
-    .project-side-panel {
-        background-color: transparent;
-        padding-top: 40px;
-
-        .side-panel-content {
-            display: flex;
-            flex-direction: column;
-            gap: 16px;
-
-            .skeleton-sidebar-title {
-                height: 20px;
-                width: 60%;
-                background-color: var(--background-color, #e0e0e0);
-                border-radius: 4px;
-                margin-bottom: 8px;
-            }
-
-            .skeleton-sidebar-line {
-                height: 14px;
-                width: 90%;
-                background-color: var(--background-color, #e0e0e0);
-                border-radius: 4px;
-
-                &.short {
-                    width: 70%;
-                }
-            }
-        }
-    }
 
     .project-content-wrapper {
         display: flex;
         flex-direction: column;
-        gap: 40px;
+    }
 
-        .project-detail-header-skeleton {
+    // Shimmering block base — every skeleton element gets `.sk`.
+    .sk {
+        background: linear-gradient(
+            90deg,
+            var(--sk-base) 25%,
+            var(--sk-shine) 37%,
+            var(--sk-base) 63%
+        );
+        background-size: 400% 100%;
+        border-radius: 6px;
+        animation: sk-shimmer 1.5s ease infinite;
+    }
+
+    // ── Header ──
+    .sk-header {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        margin-top: 3em;
+        padding: 2em 0 3em;
+    }
+
+    .sk-title {
+        display: flex;
+        flex-direction: column;
+        gap: 0.4em;
+
+        .sk-title-line {
+            height: 2.4rem;
+            border-radius: 8px;
+        }
+    }
+
+    .sk-intro {
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        gap: 3em;
+        align-items: start;
+
+        .sk-desc {
             display: flex;
             flex-direction: column;
-            gap: 16px;
-            margin-top: 40px;
+            gap: 0.75em;
 
-            .skeleton-tags {
+            .sk-line {
+                height: 1.1rem;
+            }
+        }
+
+        .sk-meta {
+            display: flex;
+            flex-direction: column;
+            gap: 1em;
+
+            &__row {
                 display: flex;
-                gap: 8px;
-
-                .skeleton-tag {
-                    height: 28px;
-                    width: 80px;
-                    background-color: var(--background-color, #e0e0e0);
-                    border-radius: 14px;
-                }
+                flex-direction: column;
+                gap: 0.5em;
             }
 
-            .skeleton-title-big {
-                height: 48px;
+            &__label {
+                height: 0.7rem;
+                width: 45%;
+            }
+
+            &__value {
+                height: 1rem;
                 width: 80%;
-                background-color: var(--background-color, #e0e0e0);
-                border-radius: 4px;
-                margin-top: 16px;
-            }
-
-            .skeleton-desc-block {
-                display: flex;
-                flex-direction: column;
-                gap: 12px;
-                margin-top: 16px;
-
-                .skeleton-text-line {
-                    height: 18px;
-                    background-color: var(--background-color, #e0e0e0);
-                    border-radius: 4px;
-                }
             }
         }
+    }
 
-        .project-meta-grid-skeleton {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 24px;
-            padding: 32px 0;
-            border-top: 1px solid var(--border-color, #e0e0e0);
-            border-bottom: 1px solid var(--border-color, #e0e0e0);
+    // ── Content sections: heading (left) + body (right) ──
+    .sk-section {
+        display: grid;
+        grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+        column-gap: 3.5em;
+        align-items: start;
+        padding-top: 3em;
+        padding-bottom: 2em;
 
-            @media (min-width: 768px) {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            .meta-item-skeleton {
-                display: flex;
-                flex-direction: column;
-                gap: 8px;
-
-                .meta-title-skeleton {
-                    height: 14px;
-                    width: 60%;
-                    background-color: var(--background-color, #e0e0e0);
-                    border-radius: 4px;
-                }
-
-                .meta-value-skeleton {
-                    height: 18px;
-                    width: 90%;
-                    background-color: var(--background-color, #e0e0e0);
-                    border-radius: 4px;
-                }
-            }
-        }
-
-        .skeleton-markdown {
+        &__heading {
             display: flex;
             flex-direction: column;
-            gap: 24px;
+            gap: 0.5em;
 
-            .skeleton-h2 {
-                height: 32px;
-                width: 40%;
-                background-color: var(--background-color, #e0e0e0);
-                border-radius: 4px;
-                margin-top: 32px;
-            }
+            .sk-heading-line {
+                height: 1.4rem;
+                width: 90%;
 
-            .skeleton-h3 {
-                height: 24px;
-                width: 30%;
-                background-color: var(--background-color, #e0e0e0);
-                border-radius: 4px;
-                margin-top: 24px;
-            }
-
-            .skeleton-paragraph {
-                display: flex;
-                flex-direction: column;
-                gap: 12px;
-
-                .skeleton-text-line {
-                    height: 16px;
-                    background-color: var(--background-color, #e0e0e0);
-                    border-radius: 4px;
+                &--short {
+                    width: 55%;
                 }
             }
+        }
 
-            .skeleton-hero-image {
-                width: 100%;
-                padding-top: 56.25%;
-                /* 16:9 Aspect Ratio */
-                background-color: var(--background-color, #e0e0e0);
-                border-radius: var(--border-radius, 8px);
-                margin: 32px 0;
+        &__body {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75em;
+
+            .sk-line {
+                height: 1.05rem;
             }
+        }
+    }
+
+    .sk-figure {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 0.5em;
+        margin-bottom: 3em;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0 1.5em 3em;
+
+        .sk-intro,
+        .sk-section {
+            grid-template-columns: 1fr;
+            gap: 1.5em;
+        }
+
+        .sk-section {
+            row-gap: 1em;
         }
     }
 }
 
-@media (prefers-color-scheme: dark) {
+@keyframes sk-shimmer {
+    0% {
+        background-position: 100% 0;
+    }
 
-    .details-skeleton .skeleton-sidebar-title,
-    .details-skeleton .skeleton-sidebar-line,
-    .details-skeleton .skeleton-tag,
-    .details-skeleton .skeleton-title-big,
-    .details-skeleton .skeleton-text-line,
-    .details-skeleton .meta-title-skeleton,
-    .details-skeleton .meta-value-skeleton,
-    .details-skeleton .skeleton-h2,
-    .details-skeleton .skeleton-h3,
-    .details-skeleton .skeleton-hero-image {
-        background-color: var(--background-color, #2a2a2a);
+    100% {
+        background-position: 0 0;
     }
 }
 
-body.dark-theme .details-skeleton {
-
-    .skeleton-sidebar-title,
-    .skeleton-sidebar-line,
-    .skeleton-tag,
-    .skeleton-title-big,
-    .skeleton-text-line,
-    .meta-title-skeleton,
-    .meta-value-skeleton,
-    .skeleton-h2,
-    .skeleton-h3,
-    .skeleton-hero-image {
-        background-color: var(--background-color, #2a2a2a);
+@media (prefers-reduced-motion: reduce) {
+    .details-skeleton .sk {
+        animation: none;
     }
 }

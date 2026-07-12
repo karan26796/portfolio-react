@@ -9,7 +9,9 @@ import {
   PencilRuler,
   List,
   X,
-  LinkedinLogo
+  LinkedinLogo,
+  Sun,
+  Moon
 } from "@phosphor-icons/react";
 import "../styles/StickyNavBar.scss";
 import { useProjects } from "../utils/useProjects";
@@ -41,6 +43,18 @@ const StickyNavBar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isResumeOpen, setIsResumeOpen] = useState(false);
   const [indicatorStyle, setIndicatorStyle] = useState({});
+
+  // Theme state
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    return (document.documentElement.getAttribute('data-theme') as 'light' | 'dark') || 'light';
+  });
+
+  const toggleTheme = () => {
+    const newTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(newTheme);
+    document.documentElement.setAttribute('data-theme', newTheme);
+    localStorage.setItem('theme', newTheme);
+  };
 
   // ============================================================================
   // PROJECT NAVIGATION HELPERS
@@ -116,6 +130,15 @@ const StickyNavBar: React.FC = () => {
 
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
+  // Initialize theme on mount
+  useEffect(() => {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme) {
+      setTheme(savedTheme as 'light' | 'dark');
+      document.documentElement.setAttribute('data-theme', savedTheme);
+    }
   }, []);
 
   // Close mobile menu when clicking outside
@@ -205,15 +228,26 @@ const StickyNavBar: React.FC = () => {
         {/* Left Section - LinkedIn icon for desktop */}
         <div className="navbar-left">
           {!isMobile && (
-            <Button
-              variant="secondary"
-              withText={false}
-              onClick={() => window.open("https://www.linkedin.com/in/karankapoorux/", "_blank", "noopener,noreferrer")}
-              size="m"
-              withIcon={true}
-              iconName="LinkedinLogo"
-              className="a-header linkedin-btn"
-            />
+            <div style={{ display: 'flex', gap: '0.5em' }}>
+              <Button
+                variant="secondary"
+                withText={false}
+                onClick={() => window.open("https://www.linkedin.com/in/karankapoorux/", "_blank", "noopener,noreferrer")}
+                size="m"
+                withIcon={true}
+                iconName="LinkedinLogo"
+                className="a-header linkedin-btn"
+              />
+              {/* <Button
+                variant="secondary"
+                withText={false}
+                onClick={toggleTheme}
+                size="m"
+                withIcon={true}
+                iconName={theme === 'dark' ? 'Sun' : 'Moon'}
+                className="a-header theme-btn"
+              /> */}
+            </div>
           )}
         </div>
 
@@ -272,6 +306,16 @@ const StickyNavBar: React.FC = () => {
                 >
                   <LinkedinLogo size={18} weight="duotone" />
                 </a>
+
+                {/* Theme Toggle - Mobile */}
+                <button
+                  className="a-header theme-btn"
+                  onClick={toggleTheme}
+                  aria-label="Toggle theme"
+                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', color: 'var(--tertiary-text)', cursor: 'pointer', padding: 0 }}
+                >
+                  {theme === 'dark' ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
+                </button>
 
                 {/* Menu Toggle Button */}
                 <button

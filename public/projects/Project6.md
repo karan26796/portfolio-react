@@ -62,7 +62,7 @@ Admins connect to the **partner platform (XOXO Days)** via a redirect link, can 
 
 </section>
 
-<!-- <img src="/project-imgs/continuous rewards/marketplace-settings.webp" caption="Connection with rewards redemption platform"></img> -->
+<img src="/project-imgs/continuous rewards/marketplace-settings.webp" caption="Connection with rewards redemption platform"></img>
 
 <img src="/project-imgs/continuous rewards/rewards-settings.webp" caption="Personalizing reward name and geo specific conversion rate"></img>
 

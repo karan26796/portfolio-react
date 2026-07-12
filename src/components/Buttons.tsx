@@ -15,6 +15,8 @@ import {
   X,
   XLogo,
   YoutubeLogo,
+  Sun,
+  Moon,
 } from '@phosphor-icons/react';
 import '../styles/Button.scss';
 
@@ -34,7 +36,9 @@ export type ButtonIconName =
   | 'Sparkle'
   | 'X'
   | 'XLogo'
-  | 'YoutubeLogo';
+  | 'YoutubeLogo'
+  | 'Sun'
+  | 'Moon';
 
 const iconMap: Record<ButtonIconName, PhosphorIcon> = {
   ArrowDown,
@@ -51,6 +55,8 @@ const iconMap: Record<ButtonIconName, PhosphorIcon> = {
   X,
   XLogo,
   YoutubeLogo,
+  Sun,
+  Moon,
 };
 
 type ButtonProps = {

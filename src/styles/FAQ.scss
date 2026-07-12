@@ -46,7 +46,7 @@
     background-color: var(--bg-color);
     // border-bottom: 1px solid var(--border-color);
     color: var(--secondary-text);
-    font-size: var(--text-size); // match p/li size for plain text nodes
+    font-size: var(--p-size); // match p/li size for plain text nodes
 
     li {
         font-size: 1em; // prevent double-scaling (index.scss already sets li to --text-size)

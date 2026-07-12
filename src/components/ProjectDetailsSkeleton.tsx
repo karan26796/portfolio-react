@@ -2,64 +2,55 @@ import React from 'react';
 import '../styles/ProjectDetailsSkeleton.scss';
 
 const ProjectDetailsSkeleton: React.FC = () => {
-    // Generate some random lines for the fake paragraph content
-    const generateLines = (count: number) => {
-        return Array.from({ length: count }).map((_, i) => (
+    // Fake paragraph lines with slightly varied widths for a natural look.
+    const lines = (count: number, minWidth = 80) =>
+        Array.from({ length: count }).map((_, i) => (
             <div
                 key={i}
-                className="skeleton-text-line"
-                style={{ width: `${Math.random() * 20 + 80}%` }}
-            ></div>
+                className="sk sk-line"
+                style={{ width: `${Math.random() * (100 - minWidth) + minWidth}%` }}
+            />
         ));
-    };
+
+    // A content section: heading block (left) + body lines (right).
+    const Section = ({ bodyLines }: { bodyLines: number }) => (
+        <div className="sk-section">
+            <div className="sk-section__heading">
+                <div className="sk sk-heading-line" />
+                <div className="sk sk-heading-line sk-heading-line--short" />
+            </div>
+            <div className="sk-section__body">{lines(bodyLines)}</div>
+        </div>
+    );
 
     return (
-        <div className="container-project details-skeleton">
+        <div className="container-project details-skeleton" aria-hidden="true">
             <div className="project-content-wrapper">
-                {/* Header Skeleton */}
-                <div className="project-detail-header-skeleton">
-                    <div className="skeleton-tags">
-                        <div className="skeleton-tag"></div>
-                        <div className="skeleton-tag"></div>
+                {/* Header: big title, then description (left) + meta (right) */}
+                <div className="sk-header">
+                    <div className="sk-title">
+                        <div className="sk sk-title-line" style={{ width: '92%' }} />
+                        <div className="sk sk-title-line" style={{ width: '58%' }} />
                     </div>
-                    <div className="skeleton-title-big"></div>
-                    <div className="skeleton-desc-block">
-                        {generateLines(3)}
-                    </div>
-                </div>
-
-                {/* Meta Grid Skeleton */}
-                <div className="project-meta-grid-skeleton">
-                    {Array.from({ length: 4 }).map((_, i) => (
-                        <div className="meta-item-skeleton" key={i}>
-                            <div className="meta-title-skeleton"></div>
-                            <div className="meta-value-skeleton"></div>
+                    <div className="sk-intro">
+                        <div className="sk-desc">{lines(4, 85)}</div>
+                        <div className="sk-meta">
+                            {Array.from({ length: 2 }).map((_, i) => (
+                                <div className="sk-meta__row" key={i}>
+                                    <div className="sk sk-meta__label" />
+                                    <div className="sk sk-meta__value" />
+                                </div>
+                            ))}
                         </div>
-                    ))}
-                </div>
-
-                {/* Content Skeleton */}
-                <div className="project-details skeleton-markdown">
-                    <div className="skeleton-h2"></div>
-                    <div className="skeleton-paragraph">
-                        {generateLines(4)}
-                    </div>
-                    <div className="skeleton-hero-image"></div>
-                    <div className="skeleton-h3"></div>
-                    <div className="skeleton-paragraph">
-                        {generateLines(6)}
                     </div>
                 </div>
-            </div>
 
-            <div className="project-side-panel">
-                <div className="side-panel-content">
-                    <div className="skeleton-sidebar-title"></div>
-                    <div className="skeleton-sidebar-line"></div>
-                    <div className="skeleton-sidebar-line"></div>
-                    <div className="skeleton-sidebar-line short"></div>
-                    <div className="skeleton-sidebar-line"></div>
-                </div>
+                {/* Content: sections (heading left / body right) with full-width images */}
+                <Section bodyLines={4} />
+                <div className="sk sk-figure" />
+                <Section bodyLines={6} />
+                <div className="sk sk-figure" />
+                <Section bodyLines={3} />
             </div>
         </div>
     );
