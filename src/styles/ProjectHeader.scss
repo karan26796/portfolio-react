@@ -2,48 +2,79 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
-    padding: 2em 0 3em;
-    gap: 1.5em;
-    margin-top: 4em;
-    margin-bottom: 1em;
-    border-bottom: none;
+    align-items: stretch;
+    padding: 2em 0 5em;
+    gap: 2em;
+    margin-top: 7em;
+    margin-bottom: 7em;
+    border-bottom: 1px solid var(--border-color);
 
-    .data {
+    h2 {
+        margin: 0;
+        max-width: 70%;
+        line-height: 1.1;
+        font-size: var(--h1-size);
+        font-weight: 600;
+        color: var(--primary-text);
+    }
+
+    // Description (left) + meta (right), shown side by side.
+    .project-header-intro {
+        display: grid;
+        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
+        gap: 3em;
+        align-items: start;
+    }
+
+    .project-header-desc {
+        margin: 0;
+        max-width: 60ch;
+        // font-size: 1.35em;
+        line-height: 1.5;
+        color: var(--secondary-text);
+    }
+
+    // Compact label/value meta on the right — labels and values align in a grid.
+    .project-meta-grid {
         display: flex;
         flex-direction: column;
+        align-items: start;
         gap: 1em;
 
-        h2 {
+        >div {
+            display: flex;
+            align-items: center;
+            gap: 0.5em;
+        }
+
+        h4 {
             margin: 0;
-            max-width: 35ch;
-            line-height: 1.15;
-            font-size: var(--h1-size);
-            font-weight: 500;
+            font-size: 1em;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--tertiary-text);
+            white-space: nowrap;
+        }
+
+        p {
+            margin: 0;
+            max-width: none;
+            // font-size: 1.15em;
+            line-height: 1.4;
             color: var(--primary-text);
         }
-
-        .project-tags {
-            margin: 0;
-            color: var(--grey-300);
-        }
-    }
-
-    .tag-container {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.5rem;
-    }
-}
-
-@media (max-width: 1024px) {
-    .project-header {
-        padding: 2em 0;
     }
 }
 
 @media (max-width: 768px) {
     .project-header {
-        margin-top: 3em;
+        margin-top: 2em;
+        padding: 1.5em 0 2em;
+
+        .project-header-intro {
+            grid-template-columns: 1fr;
+            gap: 1.5em;
+        }
     }
 }

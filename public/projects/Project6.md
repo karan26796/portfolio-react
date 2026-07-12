@@ -1,11 +1,10 @@
-<section>
+<!-- <section>
 
-### Companies usually use two platorms, one for HRMS and one for rewards, leading to fragmentation and added cost. 
+### The problem
 
+#### Companies usually use two platorms, one for HRMS and one for rewards, leading to fragmentation and added cost. To help organizations save additional spend on a separate rewards platform, we integrated a recognition system directly into Keka's suite.
 
-#### To help organizations avoid additional expenses on separate rewards platforms, Keka chose to integrate a recognition system directly into its suite.
-
-</section>
+</section> -->
 
 <section>
 

@@ -114,7 +114,7 @@ We did a quick round of testing on Notion with a mock script to see if users cou
 
 <section>
 
-<h2 class="results-title">📈 Results & Key Learnings</h2>
+### Results & Key Learnings
 
 1. **5x faster insights** — Teams went from days to hours in their synthesis phase.
 2. **Less is more** — Removing shortcuts and panels actually made researchers faster by reducing friction.

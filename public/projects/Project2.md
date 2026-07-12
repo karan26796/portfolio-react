@@ -87,7 +87,7 @@ We also added a summary view that allowed researchers to share their findings wi
 
 <section>
 
-<h2 class="results-title">📈 Results & Key Learnings</h2>
+### Results & Key Learnings
 
 1. **Strategic Scaling**: The system successfully supported the introduction of complex project structures without overwhelming existing users.
 2. **Velocity of Discovery**: Collapsible views and script-based navigation significantly reduced the time required to group and categorize insights.

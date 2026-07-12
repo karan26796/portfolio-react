@@ -8,7 +8,7 @@
 
 <section>
 
-<details class="tldr-container">
+<!-- <details class="tldr-container">
 <summary>
   <h3>Research & Findings, TL;DR:</h3>
   <ul>
@@ -35,7 +35,7 @@ When sales demoed against that expectation, there was no nomination workflow to 
 4. **The ending had no ceremony.** The entire program builds toward announcing winners — precisely the moment HR shows leadership what the tool delivered — and we had no decent certificate template.
 
 </div>
-</details>
+</details> -->
 
 ### 1️⃣ Nomination became a deliberate choice, not a default
 The new creation wizard forks explicitly on **"Require nominations?"** — direct panel selection stays a one-step path, while opting in unlocks the full workflow. Nominator scope is now a real decision: **specific roles** (reporting manager, L2, dotted-line, department head, HR admin), **named employees**, or everyone.

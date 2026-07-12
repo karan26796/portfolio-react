@@ -4,14 +4,17 @@
   --bg-color-high: #f5f7fa;
   --border-color: var(--grey-300);
   --project-card-border: #ff0000;
-  
+
   --primary-text: var(--grey-800);
   --secondary-text: var(--grey-600);
   --tertiary-text: var(--grey-500);
-  
-  --highlight-color: #491cff;         /* Blue-600 */
-  --highlight-color-light: #6e4aff;            /* Blue-500 */
-  --highlight-color-high: #2900cf;            /* Blue-700 */
+
+  --highlight-color: #491cff;
+  /* Blue-600 */
+  --highlight-color-light: #6e4aff;
+  /* Blue-500 */
+  --highlight-color-high: #2900cf;
+  /* Blue-700 */
 
   --button-color: var(--highlight-color);
   --button-color-hover: var(--highlight-color-high);
@@ -25,20 +28,24 @@
   --bg-color-high: #262523;
   --border-color: var(--grey-700);
   --project-card-border: #373737;
-  
+
   --primary-text: var(--grey-300);
   --secondary-text: var(--grey-400);
   --tertiary-text: var(--grey-500);
-  
-   /* Even deeper gold/brown for strong emphasis */
-  --highlight-color: #f59e42;         /* Vibrant orange, high contrast for dark background */
-  --highlight-color-light: #ffb347;   /* Lighter vibrant orange for accents */
+
+  /* Even deeper gold/brown for strong emphasis */
+  --highlight-color: #f59e42;
+  /* Vibrant orange, high contrast for dark background */
+  --highlight-color-light: #ffb347;
+  /* Lighter vibrant orange for accents */
   --highlight-color-high: ;
-  
-  --button-color: #e67300; /* Vibrant orange for buttons */
-  --button-color-hover: #d97706; /* Darker vibrant orange for buttons on hover */
+
+  --button-color: #e67300;
+  /* Vibrant orange for buttons */
+  --button-color-hover: #d97706;
+  /* Darker vibrant orange for buttons on hover */
 
   /* Deep vibrant orange for strong emphasis */
 
   --logo-filter: none;
-} 
+}

@@ -168,9 +168,9 @@ const HomePage: React.FC = () => {
         text="Karan Kapoor is a Senior Product Designer with 7 years across B2B SaaS and consumer products. Currently at Keka HR, he leads design for Rewards & Recognition, HR Helpdesk, and Surveys — products used by 2.2M+ people. He holds a Master's in Design from NID Ahmedabad and is based in Hyderabad.\n\nKey work: redesigned Keka's Award Programs into a governed nomination workflow (unblocked enterprise deals); built Continuous Rewards platform (secured 10+ enterprise clients); redesigned Keka Wall Wishes (5× engagement boost); founding designer at Looppanel building qualitative research tooling.\n\nHe's open to Lead, Staff, or Design Manager roles. Remote-first is fine. Available now."
         buttonLabel="Ask Agent Vinod"
         initialPrompts={[
-          "What does his design handoff look like?",
-          "How does he collaborate with engineers?",
-          "What's his design process?"
+          "What does my design handoff look like?",
+          "How do I collaborate with engineers?",
+          "What's my design process?"
         ]}
       />
     </ScrollRevealDefaultsProvider>

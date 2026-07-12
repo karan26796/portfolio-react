@@ -73,8 +73,8 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "6": {
     id: "6",
-    description: "Created a flexible, points-based recognition system that secured 50+ enterprise clients within 6 months.",
-    title: "Designed a day-to-day recognition platform for Keka for companies to manage HRMS and employee recognition in one place",
+    description: "Solved the problem of companies using two platforms for their HRMS and rewards, leading to fragmentation and added cost.",
+    title: "Designed a day-to-day recognition platform for Keka to strengthen it's position in the market",
     img: keka,
     tags: ["Systems Thinking", "Revenue Growth"],
     type: "client",
@@ -106,7 +106,7 @@ const projectsById: Record<string, ProjectSummary> = {
   "7": {
     id: "7",
     description: "Scaled weekly engagement from 15k to 100k users by redesigning the workplace celebrations framework.",
-    title: "Fixed falling engagement on Keka wall by adding delight to peer to peer wishes",
+    title: "Revived falling engagement on HR platform wall by adding delight when people wish each other on special days",
     img: wish,
     tags: ["Product Design", "Design Strategy"],
     type: "client",

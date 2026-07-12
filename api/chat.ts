@@ -90,23 +90,23 @@ At the end of EVERY response, append a "|" followed by a raw JSON array of 2–3
 These questions must guide the visitor through a natural recruiter narrative arc:
 
   Stage 1 — Intro/Background answered  → suggest process & work questions
-    e.g. ["What kind of work has he shipped?", "What's his design process?", "What tools does he use?"]
+    e.g. ["What kind of work have I shipped?", "What's my design process?", "What tools do I use?"]
 
   Stage 2 — Process/Craft answered     → suggest collaboration & delivery questions
-    e.g. ["How does he work with engineers?", "What does his design handoff look like?", "How does he handle disagreements?"]
+    e.g. ["How do I work with engineers?", "What does my design handoff look like?", "How do I handle disagreements?"]
 
   Stage 3 — Collaboration answered      → suggest career & intent questions
-    e.g. ["What roles is he looking for?", "Is he open to remote work?", "Does he manage other designers?"]
+    e.g. ["What roles am I looking for?", "Am I open to remote work?", "Do I manage other designers?"]
 
   Stage 4 — Career/Roles answered       → suggest contact questions
-    e.g. ["How can I contact Karan?", "Is his resume available?"]
+    e.g. ["How can I contact Karan?", "Is my resume available?"]
 
-Always frame suggestions from the visitor's perspective (third-person about Karan: "What does he...", "Is he...", "How does he...").
+Always frame suggestions from the visitor's perspective using first-person ("my", "I") — they are asking as Karan.
 Do NOT add any text after the JSON array. No markdown backticks.
 
 Example format:
 Your helpful answer goes here.
-|["What does his handoff process look like?", "How does he work with engineers?"]
+|["What does my handoff process look like?", "How do I work with engineers?"]
 
 INTERVIEW Q&A KNOWLEDGE BASE:
 Use the following Q&A document as your primary source for answering recruiter questions about Karan:
@@ -170,14 +170,14 @@ ${interviewQaText}
             "whats my work experience": "**7 years** across B2B and B2C — startups (Looppanel, Aphelia) and enterprises (Keka HR, Obvious).\n\nCurrently at Keka HR leading design for 2.2M+ users across Rewards, HR Helpdesk, and Surveys.",
             "what roles am i looking for": "**Lead, Staff, or Design Manager** in B2B SaaS — ideally where design has a direct revenue or retention lever. Remote-first is fine.",
             "how do i handle disagreements with pms or engineers": "I back my position with data — customer verbatims, usage metrics, or a quick prototype. It shifts 'your opinion vs mine' to 'what does the customer need?' Most disagreements dissolve when you put a real user quote in the room.",
-            "what does his design handoff look like": "**Handoff is continuous, not a single event.**\n\n- Figma files organised by user flow with every state annotated (empty, loading, error, edge case)\n- Dev Mode / Code Connect so engineers pull specs themselves\n- Complex interactions → async Loom walkthrough\n- Stays active in the build channel so questions are answered same-day",
-            "how does he collaborate with engineers": "**Closely and early.** He ships detailed Figma specs with annotated edge cases and component states. For complex flows he records async Loom walkthroughs. He syncs with devs frequently and runs co-creation sessions — engineers are collaborators, not consumers of design output.",
+            "what does my design handoff look like": "**Handoff is continuous, not a single event.**\n\n- Figma files organised by user flow with every state annotated (empty, loading, error, edge case)\n- Dev Mode / Code Connect so engineers pull specs themselves\n- Complex interactions → async Loom walkthrough\n- Stays active in the build channel so questions are answered same-day",
+            "how do i collaborate with engineers": "**Closely and early.** I ship detailed Figma specs with annotated edge cases and component states. For complex flows I record async Loom walkthroughs. I sync with devs frequently and run co-creation sessions — engineers are collaborators, not consumers of design output.",
         };
 
         if (qaFallback[cleanMessage] && !pageContext) {
             // Bypass Gemini to save API token quota, returning the pre-mapped answer instantly.
             const answer = qaFallback[cleanMessage];
-            const nextQs = `\n|["How does he work with engineers?", "What's his design process?", "Is he open to new roles?"]`;
+            const nextQs = `\n|["How do I work with engineers?", "What's my design process?", "Am I open to new roles?"]`;
             res.setHeader('Content-Type', 'text/plain; charset=utf-8');
             res.status(200).send(answer + nextQs);
             return;

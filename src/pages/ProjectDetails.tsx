@@ -110,6 +110,13 @@ const ProjectDetails: React.FC = () => {
   return (
     <>
       <div className="container-project">
+        {/* Index panel temporarily disabled
+        <ProjectSidePanel
+          headers={headers}
+          onHeaderClick={handleHeaderClick}
+          scrollRootRef={contentRef}
+        />
+        */}
         <div className="project-content-wrapper">
           <ProjectDetailHeader data={projectSummary} />
           <div ref={contentRef} className="project-details">
@@ -180,12 +187,6 @@ const ProjectDetails: React.FC = () => {
             />
           )}
         </div>
-
-        <ProjectSidePanel
-          headers={headers}
-          onHeaderClick={handleHeaderClick}
-          scrollRootRef={contentRef}
-        />
       </div>
       <WorkTogether />
     </>

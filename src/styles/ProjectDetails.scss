@@ -1,15 +1,16 @@
 .container-project {
     display: grid;
-    grid-template-columns: minmax(0, 1fr) 200px;
-    gap: 3em;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 3.5em;
     max-width: 1120px;
     margin: 0 auto;
     padding: 0 2em 4em;
-    align-items: stretch;
+    align-items: start;
 
     .project-content-wrapper {
         min-width: 0;
         width: 100%;
+        grid-column: 1;
     }
 
     .project-details {
@@ -35,58 +36,57 @@
             padding: 0.25em;
         }
 
-        section {
+        // Section header (left) + body (right), side by side.
+        // NOTE: the heading is wrapped in a <ScrollReveal> div, so the section's
+        // real first child is `.scroll-reveal` (containing the <h3>), not the h3.
+        section:has(h3) {
+            display: grid;
+            grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+            column-gap: 10em;
+            align-items: start;
             max-width: 100%;
-            padding-bottom: 3em;
-            counter-increment: project-section;
+            padding-top: 3em;
+            padding-bottom: 2em;
 
-            > h3:first-child,
-            > h3:first-of-type {
-                display: flex;
-                flex-direction: column;
-                gap: 0.35em;
+            // Everything except the leading heading flows into the right column.
+            >* {
+                grid-column: 2;
+                min-width: 0;
+            }
+
+            // The heading wrapper sits in the left column, top-aligned.
+            >.scroll-reveal:first-child {
+                grid-column: 1;
+                grid-row: 1;
+            }
+
+            // First body element aligns to the heading's top edge.
+            >.scroll-reveal:first-child+* {
                 margin-top: 0;
-                margin-bottom: 1em;
-                font-size: var(--h3-size);
-                font-weight: 550;
-                color: var(--primary-text);
-                max-width: 40ch;
-                line-height: 1.2;
-                scroll-margin-top: 5.5em;
-
-                &::before {
-                    content: counter(project-section, decimal-leading-zero);
-                    font-size: 0.75em;
-                    font-weight: 450;
-                    color: var(--tertiary-text);
-                    letter-spacing: 0.05em;
-                }
             }
+        }
 
-            > p:first-of-type,
-            > blockquote:first-of-type {
-                max-width: 52ch;
-                margin-bottom: 0;
-            }
+        // Sections without a heading (e.g. the FAQ block) stay full width.
+        section:not(:has(h3)) {
+            max-width: 100%;
+            padding-bottom: 5em;
         }
 
         h3 {
             display: flex;
             flex-direction: column;
             gap: 0.35em;
-            margin-top: 2em;
-            margin-bottom: 1em;
+            margin: 0;
             font-size: var(--h3-size);
             font-weight: 550;
             color: var(--primary-text);
-            max-width: 40ch;
-            line-height: 1.2;
+            line-height: 1.25;
             scroll-margin-top: 5.5em;
         }
 
         figure {
             width: 100%;
-            margin: 2em 0;
+            margin-bottom: 3em;
             padding: 0;
             border: none;
             background: transparent;
@@ -168,18 +168,6 @@
             }
         }
 
-        video {
-            width: 100%;
-            height: auto;
-            margin: 2em 0;
-            border: 1px solid var(--border-color);
-            border-radius: 0.5em;
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
-
-            @media (max-width: 768px) {
-                border-radius: 0;
-            }
-        }
 
         .stories {
             width: 100%;
@@ -188,7 +176,7 @@
         }
 
         h4 {
-            max-width: 40ch;
+            // max-width: 80%;
         }
 
         blockquote {
@@ -201,7 +189,7 @@
             margin-left: 0;
             margin-top: 1em;
             border-left: 0.15em solid var(--highlight-color);
-            max-width: 52ch;
+            max-width: 80%;
 
             @media (max-width: 767px) {
                 width: 100%;
@@ -328,14 +316,34 @@
     .container-project {
         grid-template-columns: 1fr;
         padding: 0 1.5em 3em;
+
+        .project-content-wrapper {
+            grid-column: 1;
+        }
     }
 }
 
 @media (max-width: 768px) {
-    .project-details {
+
+    // Scoped under .container-project to match the base rule's specificity.
+    .container-project .project-details {
         max-width: 100vw;
 
-        section {
+        // Stack the section heading above its body on small screens.
+        section:has(h3) {
+            display: block;
+            padding: 0 0 2em;
+
+            >.scroll-reveal:first-child {
+                margin-bottom: 1em;
+            }
+
+            >.scroll-reveal:first-child+* {
+                margin-top: 0;
+            }
+        }
+
+        section:not(:has(h3)) {
             padding: 0 0 2em;
         }
 
@@ -352,12 +360,7 @@
             }
         }
 
-        video {
-            border-radius: 0;
-            margin-left: -1.5em;
-            margin-right: -1.5em;
-            width: calc(100% + 3em);
-        }
+
     }
 }
 
@@ -368,6 +371,7 @@
     }
 
     .project-details {
+
         section,
         .intro {
             max-width: 100%;
