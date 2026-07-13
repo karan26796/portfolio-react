@@ -28,8 +28,8 @@ export type ProjectSummary = ProjectCardData & { meta: ProjectMeta };
 export const PROJECT_DISPLAY_ORDER: string[] = [
   // "9",
   "6",
-  "2",
   "7",
+  "2",
   "1",
   "5",
   "4",
@@ -38,17 +38,18 @@ export const PROJECT_DISPLAY_ORDER: string[] = [
 ];
 
 /** Number of featured projects shown as large cards on the home page. */
-export const FEATURED_PROJECT_COUNT = 3;
+export const FEATURED_PROJECT_COUNT = 4;
 
 const projectsById: Record<string, ProjectSummary> = {
   "9": {
     id: "9",
+    newdesc: "Rebuilt Keka's award programs into a governed nomination workflow to unblock enterprise deals.",
     description: "Rebuilt Keka's award programs into a governed nomination workflow to unblock enterprise deals.",
     title: "Keka Award Programs: From Gift Catalog to Governed Workflow",
     img: awardPrograms,
     tags: ["Product Design", "Enterprise UX"],
     type: "client",
-    details: "Keka / 2026",
+    details: "Keka HR / 2026",
     meta: {
       duration: "Feb – Apr 2026",
       role: "Design Strategy & Execution",
@@ -58,12 +59,13 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "8": {
     id: "8",
+    newdesc: "Removing barriers to help companies adopt Keka for their R&R needs.",
     description: "Removing barriers to help companies adopt Keka for their R&R needs.",
     title: "Strengthening Keka's Reward & Recognition Suite",
     img: award,
     tags: ["Product Design", "Design Strategy"],
     type: "client",
-    details: "Keka / 2026",
+    details: "Keka HR / 2026",
     meta: {
       duration: "Nov 2025 – Jan 2026",
       role: "Design Strategy & Execution",
@@ -73,12 +75,13 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "6": {
     id: "6",
+    newdesc: "Designed a unified Continuous Rewards platform natively integrated into Keka's HRMS, driving a new revenue stream and securing 10+ enterprise accounts.",
     description: "Solved the problem of companies using two platforms for their HRMS and rewards, leading to fragmentation and added cost.",
     title: "Designed a day-to-day recognition platform for Keka to strengthen it's position in the market",
     img: keka,
     tags: ["Systems Thinking", "Revenue Growth"],
     type: "client",
-    details: "Keka / 2024",
+    details: "Keka HR / 2024",
     meta: {
       duration: "Jun'24 – Nov'24",
       role: "Design, Research, Execution",
@@ -90,12 +93,13 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "2": {
     id: "2",
+    newdesc: "Helped teams take evidence-backed decisions by connecting insights to sources",
     description: "Helped teams take evidence-backed decisions by connecting insights to sources",
     title: "Redesigned the highlights view for UX Researchers to synthesize research data into actionable insights & get stakeholder buy-in",
     img: loopinfo,
     tags: ["Data Analysis", "Research Ops"],
     type: "client",
-    details: "Looppanel / Founding Designer",
+    details: "Looppanel / 2022",
     meta: {
       duration: "Apr'22 – Jun'22",
       role: "Founding Designer",
@@ -105,12 +109,13 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "7": {
     id: "7",
+    newdesc: "Scaled weekly engagement from 15k to 100k users by adding delight when people wish each other.",
     description: "Scaled weekly engagement from 15k to 100k users by redesigning the workplace celebrations framework.",
     title: "Revived falling engagement on HR platform wall by adding delight when people wish each other on special days",
     img: wish,
     tags: ["Product Design", "Design Strategy"],
     type: "client",
-    details: "Keka / 2025",
+    details: "Keka HR / 2025",
     meta: {
       duration: "Nov'24 – Jan'25",
       role: "Design & Execution",
@@ -120,12 +125,13 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "1": {
     id: "1",
+    newdesc: "Zoom bot helped consolidate all the research data into a single view for user researchers",
     description: "Zoom bot helped consolidate all the research data into a single view for user researchers",
     title: "Designed a note-taking meeting bot for UX Researchers to get transcript, notes, and highlights in one place",
     img: loopnote,
     tags: ["AI & Automation", "Productivity"],
     type: "client",
-    details: "Looppanel / Founding Designer",
+    details: "Looppanel / 2022",
     meta: {
       duration: "Jan'22 – Mar'22",
       role: "Founding Designer",
@@ -135,6 +141,7 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "3": {
     id: "3",
+    newdesc: "Developed a comprehensive Design Language System that reduced design-to-dev velocity by 60%.",
     description: "Developed a comprehensive Design Language System that reduced design-to-dev velocity by 60%.",
     title: "Nimbuzz: Scaling a Super App Design System",
     img: kurakaani,
@@ -150,6 +157,7 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "5": {
     id: "5",
+    newdesc: "Simplified the user experience for new and first time users by creating logical groupings of features",
     description: "Simplified the user experience for new and first time users by creating logical groupings of features",
     title: "Redesigned the information architecture of Looppanel to improve feature discovery and data organization.",
     img: loopdata,
@@ -165,6 +173,7 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "4": {
     id: "4",
+    newdesc: "Designed a multi-sensory hardware device to help users regain control over binge-behavior through mindful habit-forming.",
     description: "Designed a multi-sensory hardware device to help users regain control over binge-behavior through mindful habit-forming.",
     title: "Mindful Hardware: Tackling Binge Behavior",
     img: awaconimg,

@@ -1,6 +1,6 @@
 .contact-form-container {
-  width: 100%;
-  max-width: -webkit-fill-available;
+  // width: 92vw;
+  max-width: 2000px;
   margin: auto;
   // margin-bottom: 4em;
   // border-radius: .75em;
@@ -44,7 +44,7 @@
     text-align: center;
   }
 
-  #contact > .scroll-reveal {
+  #contact>.scroll-reveal {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -85,7 +85,7 @@
     margin-top: 1em;
     flex-wrap: wrap;
 
-    > .scroll-reveal {
+    >.scroll-reveal {
       display: flex;
     }
   }

@@ -1,15 +1,37 @@
+.indiefinds-wrapper {
+    width: 100%;
+    min-height: 60vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2em 0;
+
+    >.scroll-reveal {
+        width: 80%;
+        display: flex;
+        justify-content: center;
+    }
+}
+
 .indiefinds-banner {
     position: relative;
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 1.5em;
-    padding: 1.5em;
+    padding: 3em 2em;
     border-radius: 2em;
     border: none;
     background: var(--bg-color-high);
     cursor: pointer;
     transition: transform 0.2s ease;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+
+    @media (max-width: 900px) {
+        width: 100%;
+    }
 
     &::before,
     &::after {
@@ -18,19 +40,17 @@
         inset: -2px;
         border-radius: calc(2em + 2px);
         padding: 2px;
-        background: linear-gradient(
-            45deg,
-            #fb0094,
-            #0000ff,
-            #00ff00,
-            #ffff00,
-            #ff0000,
-            #fb0094,
-            #0000ff,
-            #00ff00,
-            #ffff00,
-            #ff0000
-        );
+        background: linear-gradient(45deg,
+                #fb0094,
+                #0000ff,
+                #00ff00,
+                #ffff00,
+                #ff0000,
+                #fb0094,
+                #0000ff,
+                #00ff00,
+                #ffff00,
+                #ff0000);
         background-size: 400%;
         pointer-events: none;
         -webkit-mask:
@@ -54,7 +74,7 @@
         opacity: 0.55;
     }
 
-    > * {
+    >* {
         position: relative;
         z-index: 2;
     }
@@ -209,6 +229,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+
         &::before,
         &::after {
             animation: none;
@@ -232,8 +253,8 @@
 }
 
 .project-parent {
-    width: var(--width-container);
-    max-width: var(--max-width-container);
+    width: 92vw;
+    max-width: 1400px;
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -250,10 +271,53 @@
     }
 
     .project-featured {
-        display: flex;
-        flex-direction: column;
-        gap: 2em;
+        display: grid;
+        grid-template-columns: repeat(12, 1fr);
+        gap: 4em;
         width: 100%;
+
+        /* Ensure the ScrollReveal wrappers fill the grid items */
+        >* {
+            min-width: 0;
+            display: flex;
+
+            /* The ProjectCard inside should grow */
+            >* {
+                flex: 1;
+            }
+        }
+
+        /* 1st card: Large, left */
+        >*:nth-child(1) {
+            grid-column: span 8;
+        }
+
+        /* 2nd card: Small, right, top-aligned */
+        >*:nth-child(2) {
+            grid-column: span 4;
+            align-self: start;
+        }
+
+        /* 3rd card: Small, left, bottom-aligned */
+        >*:nth-child(3) {
+            grid-column: span 4;
+            align-self: end;
+        }
+
+        /* 4th card: Large, right */
+        >*:nth-child(4) {
+            grid-column: span 8;
+        }
+
+        @media (max-width: 996px) {
+            grid-template-columns: 1fr;
+            gap: 2em;
+
+            >* {
+                grid-column: 1 / -1 !important;
+                align-self: stretch !important;
+            }
+        }
     }
 
     .project-scroll-section {

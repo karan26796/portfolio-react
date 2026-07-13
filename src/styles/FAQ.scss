@@ -1,12 +1,43 @@
 .faq-container {
-    max-width: var(--max-width-container);
-    display: flex;
-    flex-direction: column;
+    width: 92vw;
+    max-width: 1400px;
+    display: grid;
+    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+    column-gap: 15em;
+    align-items: start;
     background-color: var(--bg-color);
-    gap: 1em;
     margin: auto;
     padding-top: 4em;
     padding-bottom: 4em;
+
+    >.scroll-reveal:first-child {
+        grid-column: 1;
+        grid-row: 1;
+
+        h2 {
+            text-align: left !important;
+            margin: 0;
+        }
+    }
+
+    >.scroll-reveal:not(:first-child) {
+        grid-column: 2;
+    }
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+        gap: 0;
+
+        >.scroll-reveal {
+            grid-column: 1 !important;
+        }
+
+        // Keep the title separated from the accordion when it stacks on top.
+        >.scroll-reveal:first-child h1 {
+            margin-bottom: 0.75em;
+        }
+    }
 
     @media screen and (max-width: 768px) {
         padding: 1em;
@@ -15,36 +46,35 @@
 }
 
 .faq-item {
-    // border: 1px solid var(--border-color);
     overflow: hidden;
+    border-bottom: 1px solid var(--border-color);
 }
 
 .faq-question {
     display: flex;
     justify-content: space-between;
-    border-radius: 1em;
     align-items: center;
-    padding: 1em;
-    background-color: var(--bg-color-high);
+    gap: 1em;
+    padding: 1.4em 0;
     cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
+
+    h4 {
+        margin: 0;
+    }
 }
 
-.faq-question:hover {
-    background-color: var(--bg-color-hover, var(--bg-color-high));
+.faq-question:hover .faq-icon {
+    color: var(--primary-text);
 }
 
 .faq-icon {
     font-size: 1.5em;
     color: var(--secondary-text);
-    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, color 0.2s ease;
 }
 
 .faq-answer {
-    padding: 1em;
-    background-color: var(--bg-color);
-    // border-bottom: 1px solid var(--border-color);
     color: var(--secondary-text);
     font-size: var(--p-size); // match p/li size for plain text nodes
 
@@ -53,6 +83,7 @@
     }
 
     max-height: 0;
+    padding: 0;
     overflow: hidden;
     opacity: 0;
     transition: max-height 0.3s ease,
@@ -64,9 +95,9 @@
     max-height: 500px;
     /* Adjust based on your content */
     opacity: 1;
+    padding: 0 0 1.6em;
 }
 
 .faq-answer.closed {
-    padding-top: 0;
-    padding-bottom: 0;
+    padding: 0;
 }

@@ -35,7 +35,7 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title }) => {
   return (
     <div className="testimonials-section">
       <ScrollReveal>
-        <h1>{title}</h1>
+        <h2>{title}</h2>
       </ScrollReveal>
       <div className="testimonials-grid">
         {data.map((testimonial, index) => (

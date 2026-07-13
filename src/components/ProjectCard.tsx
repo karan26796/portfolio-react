@@ -7,6 +7,7 @@ interface ProjectCardProps {
   data: {
     id: string;
     img: string;
+    newdesc: string;
     title: string;
     description: string;
     tags: string[];
@@ -97,33 +98,36 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     <div
       className={containerClass}
       onClick={data.specialStatus ? undefined : handleClick}
-      style={enableTilt ? {
-        transform: `rotate(${tilt}deg)`,
-        transition: 'transform 0.25s ease-in-out',
-      } : undefined}
-      onMouseEnter={enableTilt ? (e => {
+      style={{
+        backgroundColor: data.accentColor ? `color-mix(in srgb, ${data.accentColor} 4%, var(--bg-color-high))` : undefined,
+        /* ...(enableTilt ? {
+          transform: `rotate(${tilt}deg)`,
+          transition: 'transform 0.25s ease-in-out',
+        } : {}) */
+      }}
+      /* onMouseEnter={enableTilt ? (e => {
         (e.currentTarget as HTMLDivElement).style.transform = 'rotate(0deg)';
       }) : undefined}
       onMouseLeave={enableTilt ? (e => {
         (e.currentTarget as HTMLDivElement).style.transform = `rotate(${tilt}deg)`;
-      }) : undefined}
+      }) : undefined} */
     >
       <img className="project-image" src={data.img} alt={data.title} />
 
       <div className="project-card">
 
         <div className="title-details-group">
-          <h3>{data.title}</h3>
-          <p style={{ opacity: '.6', fontSize: '1.1em' }}>{data.details}</p>
+          <h3>{data.details}</h3>
+          {/* <p style={{ opacity: '.6', fontSize: '1.1em' }}>{data.details}</p> */}
         </div>
 
         <div className="desc-btn-group">
           {data.description && (
-            <p className="description">{data.description}</p>
+            <p className="description">{data.newdesc}</p>
           )}
-          <div className="button-container">
+          {/* <div className="button-container">
             {renderButton()}
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

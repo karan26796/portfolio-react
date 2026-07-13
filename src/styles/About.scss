@@ -1,4 +1,40 @@
-.about-parent{
-    max-width: 840px;
+.about-parent {
+    width: 92vw;
+    max-width: 1400px;
     margin: auto;
+    padding-top: 5em;
+    padding-bottom: 5em;
+    display: grid;
+    grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
+    column-gap: 10em;
+    align-items: start;
+
+    > .scroll-reveal:first-child {
+        grid-column: 1;
+        grid-row: 1;
+        
+        h2 {
+            text-align: left;
+            margin: 0;
+        }
+    }
+
+    > .scroll-reveal:nth-child(2) {
+        grid-column: 2;
+        p {
+            margin-top: 0;
+            line-height: 1.6;
+        }
+    }
+
+    @media (max-width: 900px) {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+        gap: 2em;
+        padding-top: 2em;
+        
+        > .scroll-reveal {
+            grid-column: 1 !important;
+        }
+    }
 }

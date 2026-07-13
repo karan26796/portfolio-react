@@ -1,6 +1,7 @@
 export interface ProjectCardData {
   id: string;
   title: string;
+  newdesc: string;
   description: string,
   img: string;
   tags: string[];
