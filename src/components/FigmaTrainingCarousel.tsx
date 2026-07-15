@@ -26,7 +26,7 @@ const trainingItems: TrainingItem[] = [
 
 const FigmaTrainingMasonry: React.FC = () => (
   <section className="figma-training-masonry">
-    <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 640: 2, 1024: 2 }}>
+    <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 640: 2, 1024: 3 }}>
       <Masonry gutter="1em">
         {trainingItems.map((item, index) => (
           <ScrollReveal key={item.id} delay={scrollRevealStagger(index, 70)}>

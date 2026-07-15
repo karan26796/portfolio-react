@@ -39,7 +39,7 @@
         min-height: 10em;
         display: flex;
         background-color: var(--bg-color-high);
-        border: 1px solid var(--border-color);
+        // border: 1px solid var(--border-color);
         flex-direction: column-reverse;
         justify-content: flex-end;
         gap: 1.5em;
@@ -57,7 +57,7 @@
         p {
             margin: 0;
             line-height: 145%;
-            color: #666;
+            // color: #666;
             flex-grow: 1;
 
             .highlighted {

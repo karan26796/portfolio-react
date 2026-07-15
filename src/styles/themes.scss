@@ -24,26 +24,26 @@
 
 /* Dark mode */
 [data-theme="dark"] {
-  --bg-color: #1c1c1b;
-  --bg-color-high: #262523;
+  --bg-color: #1a1b1e;
+  --bg-color-high: #242529;
   --border-color: var(--grey-700);
   --project-card-border: #373737;
 
-  --primary-text: var(--grey-300);
-  --secondary-text: var(--grey-400);
-  --tertiary-text: var(--grey-500);
+  --primary-text: var(--grey-200);
+  --secondary-text: var(--grey-300);
+  --tertiary-text: var(--grey-400);
 
   /* Even deeper gold/brown for strong emphasis */
-  --highlight-color: #f59e42;
+  --highlight-color: #b09cff;
   /* Vibrant orange, high contrast for dark background */
-  --highlight-color-light: #ffb347;
+  --highlight-color-light: hwb(253 80% 0%);
   /* Lighter vibrant orange for accents */
-  --highlight-color-high: ;
+  --highlight-color-high: #ffffff;
 
-  --button-color: #491cff;
-  /* Keep blue for buttons to match light mode */
-  --button-color-hover: #2900cf;
-  /* Darker blue for buttons on hover */
+  --button-color: #8262ff;
+  /* Soft purple for buttons */
+  --button-color-hover: #5935fb;
+  /* Slightly darker/more vibrant purple for buttons on hover */
 
   /* Deep vibrant orange for strong emphasis */
 

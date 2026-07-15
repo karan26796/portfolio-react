@@ -105,12 +105,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           transition: 'transform 0.25s ease-in-out',
         } : {}) */
       }}
-      /* onMouseEnter={enableTilt ? (e => {
-        (e.currentTarget as HTMLDivElement).style.transform = 'rotate(0deg)';
-      }) : undefined}
-      onMouseLeave={enableTilt ? (e => {
-        (e.currentTarget as HTMLDivElement).style.transform = `rotate(${tilt}deg)`;
-      }) : undefined} */
+    /* onMouseEnter={enableTilt ? (e => {
+      (e.currentTarget as HTMLDivElement).style.transform = 'rotate(0deg)';
+    }) : undefined}
+    onMouseLeave={enableTilt ? (e => {
+      (e.currentTarget as HTMLDivElement).style.transform = `rotate(${tilt}deg)`;
+    }) : undefined} */
     >
       <img className="project-image" src={data.img} alt={data.title} />
 
@@ -118,7 +118,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
         <div className="title-details-group">
           <h3>{data.details}</h3>
-          {/* <p style={{ opacity: '.6', fontSize: '1.1em' }}>{data.details}</p> */}
+          <h6>{data.year}</h6>
         </div>
 
         <div className="desc-btn-group">

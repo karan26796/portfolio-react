@@ -136,8 +136,8 @@ const StickyNavBar: React.FC = () => {
   useEffect(() => {
     const savedTheme = localStorage.getItem('theme');
     if (savedTheme === 'light') {
-        // If they had light saved previously, let's force them to dark once
-        localStorage.setItem('theme', 'dark');
+      // If they had light saved previously, let's force them to dark once
+      localStorage.setItem('theme', 'dark');
     }
     setTheme('dark');
     document.documentElement.setAttribute('data-theme', 'dark');
@@ -240,7 +240,7 @@ const StickyNavBar: React.FC = () => {
                 iconName="LinkedinLogo"
                 className="a-header linkedin-btn"
               />
-              <Button
+              {/* <Button
                 variant="secondary"
                 withText={false}
                 onClick={toggleTheme}
@@ -248,7 +248,7 @@ const StickyNavBar: React.FC = () => {
                 withIcon={true}
                 iconName={theme === 'dark' ? 'Sun' : 'Moon'}
                 className="a-header theme-btn"
-              />
+              /> */}
             </div>
           )}
         </div>
