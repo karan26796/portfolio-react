@@ -158,7 +158,7 @@ const ProjectDetails: React.FC = () => {
                       const parsedData = JSON.parse(props.data);
                       return (
                         <ScrollReveal>
-                          <FAQ data={parsedData} hideTitle={true} />
+                          <FAQ data={parsedData} hideTitle={false} title="FAQs" />
                         </ScrollReveal>
                       );
                     } catch (error) {

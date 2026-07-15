@@ -79,7 +79,7 @@ Points are given out automatically on **birthdays, work anniversaries, and joini
 
 <img src="/project-imgs/continuous rewards/employee milestone setup.webp" caption="Defining reward values to recognize employees"></img>
 
-<img src="/project-imgs/continuous rewards/employee milestone settings.webp" caption="Surfacing data to the admin post launch"></img>
+<img src="/project-imgs/continuous rewards/employee milestone data.webp" caption="Surfacing data to the admin post launch"></img>
 
 <section>
 
@@ -90,7 +90,7 @@ Every employee gets a **standard points allocation**. Managers and specific team
 
 </section>
 
-<img src="/project-imgs/continuous rewards/p2p settings.webp" caption="Rules for how peers recognize each other"></img>
+<img src="/project-imgs/continuous rewards/p2p setup.webp" caption="Rules for how peers recognize each other"></img>
 
 <img src="/project-imgs/continuous rewards/p2p data.webp" caption="Data visibility for admins"></img>
 

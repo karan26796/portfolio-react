@@ -11,9 +11,10 @@ interface FAQItem {
 interface FAQProps {
   data: FAQItem[];
   hideTitle?: boolean;
+  title?: string;
 }
 
-const FAQ: React.FC<FAQProps> = ({ data, hideTitle = false }) => {
+const FAQ: React.FC<FAQProps> = ({ data, hideTitle = false, title = "About my process" }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const toggleFAQ = (index: number) => {
@@ -24,7 +25,7 @@ const FAQ: React.FC<FAQProps> = ({ data, hideTitle = false }) => {
     <div className="faq-container">
       {!hideTitle && (
         <ScrollReveal>
-          <h2 style={{ textAlign: "center" }}>About my process</h2>
+          <h2 style={{ textAlign: "center" }}>{title}</h2>
         </ScrollReveal>
       )}
       {data.map((item, index) => (

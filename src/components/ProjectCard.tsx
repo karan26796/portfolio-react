@@ -15,6 +15,8 @@ interface ProjectCardProps {
     details?: string;
     url?: string;
     specialStatus?: string;
+    year?: string;
+    accentColor?: string;
   };
   variant: "small" | "large";
   onClick?: () => void;
