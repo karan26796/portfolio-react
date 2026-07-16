@@ -17,7 +17,7 @@
 <!-- #### Based on competitor analysis, we tried a few design directions that might make the experience more special. -->
 
 ### 🔍 Design Direction I: Large special day cards
-We first tried putting large cards directly on the wall.
+#### We first tried putting large cards directly on the wall.
 
 - **What worked**: More focus on each person and a clear CTA to wish them.
 - **What didn't work**: It prioritized 3-4 employees over everyone else and didn't fit the brand.
@@ -29,7 +29,7 @@ We first tried putting large cards directly on the wall.
 <section>
 
 ### 🔍 Design Direction II: Dedicated wall of wishes
-Next, we explored a dedicated space for everyone to make them feel special.
+#### Next, we explored a dedicated space for everyone to make them feel special.
 
 - **What didn't work**: It felt disconnected from the main widget and fragmented user attention.
 
@@ -40,8 +40,7 @@ Next, we explored a dedicated space for everyone to make them feel special.
 <section>
 
 ### 💡 The New System: Personalized & Persistent
-We moved to a system that balances visibility with delight.
-
+#### We moved to a system that balances visibility with delight.
 - **Personalized wish cards**: A card showing a list of everyone who has wished you.
 - **Templated responses**: Solved the "empty slate" problem to make wishing easier.
 - **Delightful Confetti**: Added confetti for the person opening Keka and for the wisher after posting.
@@ -52,8 +51,9 @@ We moved to a system that balances visibility with delight.
 
 <section>
 
-<h2 class="results-title">📈 Impact: 31K Users. 116K Wishes.</h2>
-What started as a small feature exploded across the platform:
+<h3 class="results-title">📈 Impact: 31K Users. 116K Wishes.</h3>
+
+#### What started as a small feature exploded across the platform:
 
 - **6x User Growth**: Jumped from 5k to 31k users.
 - **7x Engagement**: Total wishes increased from 15k to 116k.
@@ -65,7 +65,7 @@ What started as a small feature exploded across the platform:
 
 <section>
 
-<h2 class="results-title">🗝️ What I learned</h2>
+<h3 class="results-title">🗝️ What I learned</h3>
 
 1. **Simple is better**: Clear actions drive the most engagement.
 2. **Personalized experiences work**: People respond better when they feel special.
