@@ -289,7 +289,7 @@ const StickyNavBar: React.FC = () => {
             onMouseLeave={handleMouseLeave}
           >
             <FigmaLogo size={18} weight="duotone" />
-            <span>Figma Training</span>
+            <span>Training</span>
           </Link>
 
           {/* ================================================================== */}
@@ -309,15 +309,7 @@ const StickyNavBar: React.FC = () => {
                   <LinkedinLogo size={18} weight="duotone" />
                 </a>
 
-                {/* Theme Toggle - Mobile */}
-                <button
-                  className="a-header theme-btn"
-                  onClick={toggleTheme}
-                  aria-label="Toggle theme"
-                  style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', background: 'none', border: 'none', color: 'var(--tertiary-text)', cursor: 'pointer', padding: 0 }}
-                >
-                  {theme === 'dark' ? <Sun size={18} weight="duotone" /> : <Moon size={18} weight="duotone" />}
-                </button>
+
 
                 {/* Menu Toggle Button */}
                 <button

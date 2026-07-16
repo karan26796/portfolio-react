@@ -11,6 +11,15 @@
         display: flex;
         justify-content: center;
     }
+
+    @media (max-width: 767px) {
+        min-height: auto;
+        padding: 4em 0;
+
+        >.scroll-reveal {
+            width: 100%;
+        }
+    }
 }
 
 .indiefinds-banner {

@@ -57,6 +57,7 @@
         p {
             margin: 0;
             line-height: 145%;
+            font-size: var(--p-size);
             // color: #666;
             flex-grow: 1;
 
@@ -71,6 +72,7 @@
         }
 
         .testimonial-title {
+            font-size: var(--h3-size);
             font-weight: 500;
             color: var(--primary-text);
             margin: 0;
@@ -127,6 +129,10 @@
         .testimonials-grid {
             grid-column: 1;
             grid-template-columns: 1fr;
+        }
+
+        .testimonial-content {
+            padding-left: 0;
         }
     }
 }
