@@ -9,6 +9,7 @@ const award = "/project-imgs/award program/Thumb-certi-spot.webp";
 const awardPrograms = "/project-imgs/award program/Thumb-certi-spot.webp";
 const kurakaani = "/project-imgs/kurakaani/01.webp";
 const loopdata = "/project-imgs/loop-research/loop-research.gif";
+const interconnect = "/project-imgs/interconnect-thumb.webp";
 
 export interface ProjectMeta {
   duration: string;
@@ -26,21 +27,33 @@ export type ProjectSummary = ProjectCardData & { meta: ProjectMeta };
  * - Reorder ids to change display order
  */
 export const PROJECT_DISPLAY_ORDER: string[] = [
-  // "9",
+  "10",
   "6",
-  "7",
   "2",
   "1",
-  "5",
-  "4",
-  // "8",
-  "3",
 ];
 
 /** Number of featured projects shown as large cards on the home page. */
 export const FEATURED_PROJECT_COUNT = 4;
 
 const projectsById: Record<string, ProjectSummary> = {
+  "10": {
+    id: "10",
+    newdesc: "Developed & designed an app to help people in gated communities get referrals for open jobs",
+    description: "Developed & designed an app to help people in gated communities post jobs and get referrals",
+    title: "Interconnect",
+    img: interconnect,
+    year: "Personal project / 2026",
+    tags: ["Project"],
+    type: "client",
+    details: "Interconnect",
+    meta: {
+      duration: "2026",
+      role: "Designer",
+      scope: "Scope",
+      impact: "Impact",
+    },
+  },
   "9": {
     id: "9",
     newdesc: "Rebuilt Keka's award programs into a governed nomination workflow to unblock enterprise deals.",

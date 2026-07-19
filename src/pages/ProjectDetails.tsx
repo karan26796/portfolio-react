@@ -14,6 +14,12 @@ import AISummarizer from "../components/AISummarizer";
 import FAQ from "../components/FAQ";
 import WorkTogether from "../components/WorkTogether";
 import { formatSectionTitle } from "../utils/formatSectionTitle";
+import AwardProgramsCaseStudy from "../projects/AwardProgramsCaseStudy";
+
+// Projects that render as bespoke React pages instead of markdown.
+const CUSTOM_PROJECTS: Record<string, React.ComponentType> = {
+  "9": AwardProgramsCaseStudy,
+};
 // Force fast refresh
 
 // Deterministic slug from a heading's text — same input always yields the same
@@ -67,8 +73,10 @@ const ProjectDetails: React.FC = () => {
       }
     };
 
-    if (projectId) {
+    if (projectId && !CUSTOM_PROJECTS[projectId]) {
       loadProjectContent();
+    } else {
+      setLoading(false);
     }
   }, [projectId]);
 
@@ -98,6 +106,12 @@ const ProjectDetails: React.FC = () => {
       window.scrollTo({ top, behavior: "smooth" });
     }
   };
+
+  // Bespoke React case-study pages bypass the markdown pipeline entirely.
+  const CustomPage = projectId ? CUSTOM_PROJECTS[projectId] : undefined;
+  if (CustomPage) {
+    return <CustomPage />;
+  }
 
   if (loading || projectsLoading) {
     return <ProjectDetailsSkeleton />;

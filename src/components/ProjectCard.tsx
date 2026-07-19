@@ -93,13 +93,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     );
   };
 
-  // Add 'no-divider' class if showDivider is false
-  const containerClass = `project-container${variant === "small" ? " project-container-small" : ""}${data.specialStatus ? " has-special-status" : ""}${showDivider === false ? " no-divider" : ""}`;
+  const isClickable = !!(onClick || data.url) && !data.specialStatus;
+  const containerClass = `project-container${variant === "small" ? " project-container-small" : ""}${data.specialStatus ? " has-special-status" : ""}${showDivider === false ? " no-divider" : ""}${!isClickable ? " unclickable" : ""}`;
 
   return (
     <div
       className={containerClass}
-      onClick={data.specialStatus ? undefined : handleClick}
+      onClick={isClickable ? handleClick : undefined}
       style={{
         backgroundColor: data.accentColor ? `color-mix(in srgb, ${data.accentColor} 4%, var(--bg-color-high))` : undefined,
         /* ...(enableTilt ? {

@@ -17,11 +17,21 @@
     cursor: pointer;
     // background-color: var(--bg-color-high);
 
-
     img {
       transition: all 0.2s ease;
       transform: scale(.98);
       border-radius: 1.2em;
+    }
+  }
+
+  &.unclickable {
+    &:hover {
+      cursor: default;
+      
+      img {
+        transform: none;
+        border-radius: 1em;
+      }
     }
   }
 

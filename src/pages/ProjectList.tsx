@@ -43,7 +43,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
               data={project}
               variant="large"
               buttonType="button"
-              onClick={() => handleCardClick(project.id)}
+              onClick={index === 0 ? undefined : () => handleCardClick(project.id)}
               showDivider={true}
             />
           </ScrollReveal>
