@@ -298,12 +298,12 @@
 
         /* 1st card: Large, left */
         >*:nth-child(1) {
-            grid-column: span 6;
+            grid-column: span 8;
         }
 
         /* 2nd card: Small, right, top-aligned */
         >*:nth-child(2) {
-            grid-column: span 6;
+            grid-column: span 4;
             align-self: start;
         }
 

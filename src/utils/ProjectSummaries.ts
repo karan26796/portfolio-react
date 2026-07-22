@@ -10,6 +10,7 @@ const awardPrograms = "/project-imgs/award program/Thumb-certi-spot.webp";
 const kurakaani = "/project-imgs/kurakaani/01.webp";
 const loopdata = "/project-imgs/loop-research/loop-research.gif";
 const interconnect = "/project-imgs/interconnect-thumb.webp";
+const holidayCalendar = "/project-imgs/holiday-calendar/thumb.webp";
 
 export interface ProjectMeta {
   duration: string;
@@ -27,10 +28,11 @@ export type ProjectSummary = ProjectCardData & { meta: ProjectMeta };
  * - Reorder ids to change display order
  */
 export const PROJECT_DISPLAY_ORDER: string[] = [
+  "11",
+  "1",
   "10",
   "6",
-  "2",
-  "1",
+  // "10",
 ];
 
 /** Number of featured projects shown as large cards on the home page. */
@@ -52,6 +54,23 @@ const projectsById: Record<string, ProjectSummary> = {
       role: "Designer",
       scope: "Scope",
       impact: "Impact",
+    },
+  },
+  "11": {
+    id: "11",
+    newdesc: "Redesigned Keka's holiday calendar so admins assign holidays one by one to different teams, instead of a whole fixed calendar.",
+    description: "Redesigned Keka's holiday calendar framework to support multi-location enterprise teams and regional holiday lists.",
+    title: "Redesigned Keka's Holiday Calendar for Multi-Location Enterprise Teams",
+    img: holidayCalendar,
+    year: "Keka HR / 2025",
+    tags: ["Product Design", "Enterprise UX"],
+    type: "client",
+    details: "Redesigned Keka's holiday calendar framework",
+    meta: {
+      duration: "2025",
+      role: "Design Strategy & Execution",
+      scope: "Enterprise Holiday & Leave System",
+      impact: "Streamlined regional holiday setup and automated leave logic across enterprise accounts.",
     },
   },
   "9": {
@@ -150,7 +169,7 @@ const projectsById: Record<string, ProjectSummary> = {
     year: "Looppanel / 2022",
     tags: ["AI & Automation", "Productivity"],
     type: "client",
-    details: "Zoom bot",
+    details: "Looppanel's zoom bot",
     meta: {
       duration: "Jan'22 – Mar'22",
       role: "Founding Designer",
