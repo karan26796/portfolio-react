@@ -26,6 +26,7 @@ import maryam from './utils/testimonials/maryam-img.jpeg';
 import megha from './utils/testimonials/megha-pfp.jpeg';
 import { Analytics } from "@vercel/analytics/react";
 import Archive from "./pages/Archive";
+import usePageSEO from "./utils/usePageSEO";
 
 const ProjectDetails = React.lazy(() => import("./pages/ProjectDetails"));
 const About = React.lazy(() => import("./pages/About"));
@@ -86,6 +87,13 @@ const App: React.FC = () => {
 };
 
 const HomePage: React.FC = () => {
+  usePageSEO({
+    title: "Karan Kapoor | Senior Product Designer & Figma Trainer",
+    description: "Karan Kapoor is a Senior Product Designer & Figma Trainer with 8+ years experience leading design for products used by 2.2M+ people.",
+    keywords: "Karan Kapoor, Product Designer, Figma Trainer, Design Systems, UX Designer, Keka HR, NID Ahmedabad",
+    canonicalUrl: "https://kadankapoor.com/"
+  });
+
   const { projects: projectSummaries, loading } = useProjects();
 
   const testimonialsData: Testimonial[] = [

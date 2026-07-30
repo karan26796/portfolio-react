@@ -16,9 +16,16 @@ import zuddl from "../utils/logos/zuddl.webp";
 import indiana from "../utils/logos/indiana.webp";
 import flame from "../utils/logos/flame.webp";
 import { Logo } from "../utils/logos";
+import usePageSEO from "../utils/usePageSEO";
 
 const TrainingList: React.FC = () => {
-  // Add useEffect to reset scroll position when component mounts
+  usePageSEO({
+    title: "Figma Training & Workshops by Karan Kapoor | Professional Figma Trainer",
+    description: "Hands-on Figma training & corporate design workshops led by Karan Kapoor. Learn Auto Layout, Design Systems, Prototyping, and Design Tokens.",
+    keywords: "Figma Training, Figma Trainer, Learn Figma, Karan Kapoor, Figma Workshop, Design Systems Training, UI UX Workshop",
+    canonicalUrl: "https://kadankapoor.com/figma-training"
+  });
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
