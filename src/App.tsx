@@ -24,13 +24,12 @@ import kritika from './utils/testimonials/pfp-02.jpg';
 import malavika from './utils/testimonials/pfp-03.jpg';
 import maryam from './utils/testimonials/maryam-img.jpeg';
 import megha from './utils/testimonials/megha-pfp.jpeg';
-import { Analytics } from "@vercel/analytics/react";
+import Archive from "./pages/Archive";
 
 const ProjectDetails = React.lazy(() => import("./pages/ProjectDetails"));
 const About = React.lazy(() => import("./pages/About"));
 const Gallery = React.lazy(() => import("./pages/Gallery"));
 const TrainingList = React.lazy(() => import("./pages/FigmaTraining"));
-const Archive = React.lazy(() => import("./pages/Archive"));
 const Resume = React.lazy(() => import("./components/Resume"));
 const ResumeStandalone = React.lazy(() => import("./pages/ResumeStandalone"));
 const Overview = React.lazy(() => import("./pages/Overview"));
@@ -158,6 +157,7 @@ const HomePage: React.FC = () => {
       ) : (
         <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
       )}
+      <Archive />
       <Testimonials
         data={testimonialsData}
         title="Testimonials"

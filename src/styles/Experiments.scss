@@ -1,16 +1,12 @@
 .experiments-grid {
-  width: -webkit-fill-available;
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem 0.5rem;
+  gap: 2rem 1.5rem;
 
-  @media(max-width: 1024px) {
-    // padding: 0 2em;
-  }
-
-  @media(max-width: 767px) {
+  @media(max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
-    // padding: 0 2em;
+    gap: 1.5rem;
   }
 }
 
@@ -65,4 +61,5 @@
   color: var(--secondary-text);
   line-height: var(--paragraph-line-height);
   letter-spacing: var(--text-letter-spacing);
+  text-align: center;
 }

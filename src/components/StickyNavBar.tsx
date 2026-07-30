@@ -6,7 +6,6 @@ import {
   Camera,
   ArrowLeft,
   ArrowRight,
-  PencilRuler,
   List,
   X,
   LinkedinLogo,
@@ -268,17 +267,6 @@ const StickyNavBar: React.FC = () => {
             <span style={isBelow776 ? { display: "inline" } : undefined}>
               Work
             </span>
-          </Link>
-
-          {/* Experiments Link */}
-          <Link
-            to="/archive"
-            className={`a-header${location.pathname === "/archive" ? " active" : ""}`}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            <PencilRuler size={18} weight="duotone" />
-            <span>Craft</span>
           </Link>
 
           {/* Figma Training Link - always visible */}
