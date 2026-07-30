@@ -24,6 +24,7 @@ import kritika from './utils/testimonials/pfp-02.jpg';
 import malavika from './utils/testimonials/pfp-03.jpg';
 import maryam from './utils/testimonials/maryam-img.jpeg';
 import megha from './utils/testimonials/megha-pfp.jpeg';
+import { Analytics } from "@vercel/analytics/react";
 import Archive from "./pages/Archive";
 
 const ProjectDetails = React.lazy(() => import("./pages/ProjectDetails"));
