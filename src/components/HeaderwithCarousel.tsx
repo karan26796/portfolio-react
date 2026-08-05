@@ -41,7 +41,7 @@ const HeaderWithCarousel: React.FC = () => {
     >
       <div className="header-column-one">
         <ScrollReveal variant="scale" delay={0}>
-          <img src="/gallery/profile.webp" alt="Karan" className="profile-pic" />
+          {/* <img src="/gallery/profile.webp" alt="Karan" className="profile-pic" /> */}
         </ScrollReveal>
         <div className="header-text-content">
           <ScrollReveal delay={80}>

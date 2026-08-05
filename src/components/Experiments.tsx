@@ -1,53 +1,59 @@
 import React from 'react';
 import experiments from "../utils/experiments";
-import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
-import '../styles/Experiments.scss'
+import HorizontalCarouselSection from './HorizontalCarouselSection';
+import '../styles/Experiments.scss';
 
-const Experiments: React.FC = () => {
+interface ExperimentsProps {
+  title?: string;
+  subtitle?: string;
+}
+
+const Experiments: React.FC<ExperimentsProps> = ({
+  title = "Experiments",
+  subtitle = ""
+}) => {
   const getTransform = (index: number): string => {
-    const yOffset = index % 2 === 0 ? -10 : 10;
-    const rotation = index % 2 === 0 ? -2 : 2;
+    const yOffset = index % 2 === 0 ? -4 : 4;
+    const rotation = index % 2 === 0 ? -1 : 1;
     return `translateY(${yOffset}px) rotate(${rotation}deg)`;
   };
 
   return (
-    <div className="experiments-grid">
+    <HorizontalCarouselSection title={title} subtitle={subtitle}>
       {experiments.map((experiment, index) => (
-        <ScrollReveal key={index} className="experiment-item" delay={scrollRevealStagger(index, 70)}>
-          <figure className="experiment-figure">
-            <div
-              className="experiment-card"
-              style={{
-                transform: getTransform(index),
-              }}
-            >
-              <div className="experiment-image-container">
-                {experiment.type === "video" ? (
-                  <video
-                    src={experiment.src}
-                    autoPlay
-                    loop
-                    muted
-                    playsInline
-                    aria-label={experiment.caption ?? `Experiment ${index + 1}`}
-                  />
-                ) : (
-                  <img
-                    src={experiment.src}
-                    alt={experiment.caption ?? `Experiment ${index + 1}`}
-                  />
-                )}
-              </div>
+        <figure key={index} className="experiment-figure" style={{ margin: 0 }}>
+          <div
+            className="experiment-card"
+            style={{
+              transform: getTransform(index),
+            }}
+          >
+            <div className="experiment-image-container">
+              {experiment.type === "video" ? (
+                <video
+                  src={experiment.src}
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
+                  aria-label={experiment.caption ?? `Experiment ${index + 1}`}
+                />
+              ) : (
+                <img
+                  src={experiment.src}
+                  alt={experiment.caption ?? `Experiment ${index + 1}`}
+                />
+              )}
             </div>
-            {experiment.caption && (
-              <figcaption className="experiment-caption">
-                {experiment.caption}
-              </figcaption>
-            )}
-          </figure>
-        </ScrollReveal>
+          </div>
+          {experiment.caption && (
+            <figcaption className="experiment-caption" style={{ marginTop: '0.75em' }}>
+              {experiment.caption}
+            </figcaption>
+          )}
+        </figure>
       ))}
-    </div>
+    </HorizontalCarouselSection>
   );
 };
 

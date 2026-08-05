@@ -1,0 +1,100 @@
+.horizontal-carousel-section {
+  width: 100%;
+  box-sizing: border-box;
+
+  .carousel-section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 1.5em;
+    flex-wrap: wrap;
+    gap: 1em;
+
+    .header-text {
+      max-width: 650px;
+
+      h2 {
+        font-size: var(--h2-size, 2em);
+        font-weight: 600;
+        color: var(--primary-text, #ffffff);
+        margin: 0 0 0.4em 0;
+        letter-spacing: -0.02em;
+      }
+
+      p {
+        font-size: var(--p-size, 1.05em);
+        color: var(--secondary-text, #aaaaaa);
+        margin: 0;
+        line-height: 1.6;
+      }
+    }
+
+    .carousel-nav-buttons {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+
+      .nav-btn {
+        background-color: var(--bg-color-high, rgba(255, 255, 255, 0.08));
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+        color: var(--primary-text, #ffffff);
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: background-color 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+          background-color: rgba(255, 255, 255, 0.2);
+          transform: scale(1.05);
+        }
+
+        &:active {
+          transform: scale(0.95);
+        }
+
+        &:disabled {
+          opacity: 0.3;
+          cursor: not-allowed;
+        }
+      }
+    }
+  }
+
+  .carousel-track {
+    display: flex;
+    gap: 1.5em;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 0.5em 0.25em 1.5em 0.25em;
+    box-sizing: border-box;
+
+    /* Remove scrollbar */
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+      width: 0;
+      height: 0;
+    }
+
+    .carousel-item {
+      flex: 0 0 460px;
+      scroll-snap-align: start;
+      box-sizing: border-box;
+
+      @media (max-width: 768px) {
+        flex: 0 0 340px;
+      }
+
+      @media (max-width: 480px) {
+        flex: 0 0 290px;
+      }
+    }
+  }
+}

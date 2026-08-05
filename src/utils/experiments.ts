@@ -16,10 +16,10 @@ export interface Experiment {
 }
 
 const experiments: Experiment[] = [
+  { src: colorPickerVideo, type: "video", caption: "Figma color picker concept" },
   { src: gif1, type: "gif", caption: "Shopping app prototype" },
   { src: gif2, type: "gif", caption: "News app prototype" },
   { src: gif4, type: "gif", caption: "Unsplash app concept" },
-  { src: colorPickerVideo, type: "video", caption: "Figma color picker concept" },
   { src: gif6, type: "gif", caption: "ColreTech logo design" },
   { src: gif3, type: "gif", caption: "Movie app prototype" },
 ];
