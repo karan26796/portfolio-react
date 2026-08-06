@@ -3,7 +3,7 @@
     max-width: 1400px;
     display: grid;
     grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-    column-gap: 15em;
+    column-gap: 4em;
     align-items: start;
     background-color: var(--bg-color);
     margin: auto;
@@ -14,14 +14,22 @@
         grid-column: 1;
         grid-row: 1;
 
-        h2 {
+        h2, h3 {
             text-align: left !important;
             margin: 0;
+            padding: 0;
+            line-height: 1.25;
         }
     }
 
     >.scroll-reveal:not(:first-child) {
         grid-column: 2;
+    }
+
+    // Align top edge of first FAQ item with the section title on the left
+    >.scroll-reveal:nth-child(2) .faq-question,
+    >.scroll-reveal:not(:first-child):first-of-type .faq-question {
+        padding-top: 0;
     }
 
     @media (max-width: 900px) {
@@ -34,8 +42,15 @@
         }
 
         // Keep the title separated from the accordion when it stacks on top.
-        >.scroll-reveal:first-child h1 {
-            margin-bottom: 0.75em;
+        >.scroll-reveal:first-child h1,
+        >.scroll-reveal:first-child h2,
+        >.scroll-reveal:first-child h3 {
+            margin-bottom: 1.25em;
+        }
+
+        >.scroll-reveal:nth-child(2) .faq-question,
+        >.scroll-reveal:not(:first-child):first-of-type .faq-question {
+            padding-top: 1.4em;
         }
     }
 
@@ -58,6 +73,7 @@
     h4 {
         margin: 0;
         font-size: var(--h3-size);
+        line-height: 1.25;
     }
 }
 

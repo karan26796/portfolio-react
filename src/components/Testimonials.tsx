@@ -41,12 +41,6 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title }) => {
         {data.map((testimonial, index) => (
           <ScrollReveal key={testimonial.id} delay={scrollRevealStagger(index, 70)}>
             <div className="testimonial-card">
-              <div className="testimonial-content">
-                <p>{highlightText(testimonial.testimonial, testimonial.highlightedWords)}</p>
-                {testimonial.title && testimonial.title.trim() !== '' && (
-                  <p className="testimonial-title">{testimonial.title}</p>
-                )}
-              </div>
               <div className="testimonial-header">
                 {testimonial.avatarUrl ? (
                   <img
@@ -58,9 +52,19 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title }) => {
                   <div className="testimonial-avatar placeholder" />
                 )}
                 <div className="testimonial-meta">
-                  <p className='name'>{testimonial.name} · {testimonial.role}</p>
+                  <p className="name">
+                    {testimonial.name} · {testimonial.role}
+                  </p>
                   <h5>{testimonial.company}</h5>
                 </div>
+              </div>
+              <div className="testimonial-content">
+                {testimonial.title && testimonial.title.trim() !== "" && (
+                  <h4 className="testimonial-title">{testimonial.title}</h4>
+                )}
+                <p className="testimonial-quote">
+                  {highlightText(testimonial.testimonial, testimonial.highlightedWords)}
+                </p>
               </div>
             </div>
           </ScrollReveal>

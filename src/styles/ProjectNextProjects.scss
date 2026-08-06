@@ -1,7 +1,7 @@
 .project-next-projects {
-  margin-top: 4em;
-  padding-top: 3em;
-  border-top: 1px solid var(--border-color);
+  // margin-top: 4em;
+  // padding-top: 3em;
+  // border-top: 1px solid var(--border-color);
 
   h3 {
     margin: 0 0 1.25em;
@@ -17,7 +17,7 @@
 
     // The ScrollReveal wrapper is the real grid child — make it fill its track
     // so both cards are exactly equal width.
-    > .scroll-reveal {
+    >.scroll-reveal {
       min-width: 0;
     }
   }

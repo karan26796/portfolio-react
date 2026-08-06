@@ -6,15 +6,15 @@
     padding: 2em 0 5em;
     gap: 2em;
     margin-top: 7em;
-    margin-bottom: 7em;
+    // margin-bottom: 7em;
     border-bottom: 1px solid var(--border-color);
 
     h2 {
         margin: 0;
-        max-width: 70%;
-        line-height: 1.1;
-        font-size: var(--h1-size);
-        font-weight: 600;
+        font-size: 2.2em;
+        max-width: 40ch;
+        line-height: 1.15;
+        font-weight: 550;
         color: var(--primary-text);
     }
 
@@ -29,8 +29,8 @@
     .project-header-desc {
         margin: 0;
         max-width: 60ch;
-        // font-size: 1.35em;
-        line-height: 1.5;
+        font-size: 1.3em;
+        line-height: 1.55;
         color: var(--secondary-text);
     }
 
@@ -49,7 +49,7 @@
 
         h4 {
             margin: 0;
-            font-size: 1em;
+            font-size: 0.9em;
             font-weight: 600;
             letter-spacing: 0.07em;
             text-transform: uppercase;
@@ -60,7 +60,7 @@
         p {
             margin: 0;
             max-width: none;
-            // font-size: 1.15em;
+            font-size: 1.15em;
             line-height: 1.4;
             color: var(--primary-text);
         }

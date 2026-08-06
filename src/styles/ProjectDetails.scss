@@ -58,11 +58,18 @@
             >.scroll-reveal:first-child {
                 grid-column: 1;
                 grid-row: 1;
+                margin-top: 0;
+
+                h3 {
+                    margin-top: 0;
+                    padding-top: 0;
+                }
             }
 
             // First body element aligns to the heading's top edge.
             >.scroll-reveal:first-child+* {
                 margin-top: 0;
+                padding-top: 0;
             }
         }
 
@@ -77,11 +84,30 @@
             flex-direction: column;
             gap: 0.35em;
             margin: 0;
-            font-size: var(--h3-size);
+            // font-size: 1.85em;
             font-weight: 550;
             color: var(--primary-text);
             line-height: 1.25;
+            letter-spacing: -0.02em;
             scroll-margin-top: 5.5em;
+        }
+
+        p {
+            font-size: 1.25em;
+            line-height: 1.6;
+            color: var(--primary-text);
+            margin-bottom: 1.25em;
+        }
+
+        ul,
+        ol {
+            font-size: 1.2em;
+            line-height: 1.6;
+            margin-bottom: 1.25em;
+
+            li {
+                margin-bottom: 0.5em;
+            }
         }
 
         figure {
@@ -103,7 +129,7 @@
             figcaption {
                 margin-top: 0.75em;
                 text-align: left;
-                font-size: 0.95em;
+                font-size: 1.05em;
                 color: var(--tertiary-text);
             }
         }
