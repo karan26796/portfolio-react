@@ -226,33 +226,22 @@ const StickyNavBar: React.FC = () => {
   return (
     <div className="container-nav">
       <nav className="navbar main-nav active" ref={containerRef}>
-        {/* Left Section - LinkedIn icon for desktop */}
-        <div className="navbar-left">
-          {!isMobile && (
-            <div style={{ display: 'flex', gap: '0.5em' }}>
-              <Button
-                variant="secondary"
-                withText={false}
-                onClick={() => window.open("https://www.linkedin.com/in/karankapoorux/", "_blank", "noopener,noreferrer")}
-                size="m"
-                withIcon={true}
-                iconName="LinkedinLogo"
-                className="a-header linkedin-btn"
-              />
-              {/* <Button
-                variant="secondary"
-                withText={false}
-                onClick={toggleTheme}
-                size="m"
-                withIcon={true}
-                iconName={theme === 'dark' ? 'Sun' : 'Moon'}
-                className="a-header theme-btn"
-              /> */}
-            </div>
-          )}
-        </div>
+        {/* Left Section - LinkedIn icon (Desktop Only) */}
+        {!isMobile && (
+          <div className="navbar-left">
+            <Button
+              variant="secondary"
+              withText={false}
+              onClick={() => window.open("https://www.linkedin.com/in/karankapoorux/", "_blank", "noopener,noreferrer")}
+              size="m"
+              withIcon={true}
+              iconName="LinkedinLogo"
+              className="a-header linkedin-btn"
+            />
+          </div>
+        )}
 
-        {/* Center Section - Main Navigation */}
+        {/* Center Section - Main Navigation (3 Tabs) */}
         <div className="navbar-center">
           <div className="hover-indicator" style={indicatorStyle}></div>
 
@@ -264,12 +253,10 @@ const StickyNavBar: React.FC = () => {
             onMouseLeave={handleMouseLeave}
           >
             <House size={18} weight="duotone" />
-            <span style={isBelow776 ? { display: "inline" } : undefined}>
-              Work
-            </span>
+            <span>Work</span>
           </Link>
 
-          {/* Figma Training Link - always visible */}
+          {/* Training Link */}
           <Link
             to="/figma-training"
             className={`a-header${location.pathname === "/figma-training" ? " active" : ""}`}
@@ -280,75 +267,34 @@ const StickyNavBar: React.FC = () => {
             <span>Training</span>
           </Link>
 
-          {/* ================================================================== */}
-          {/* MOBILE NAVIGATION */}
-          {/* ================================================================== */}
-          {isMobile ? (
-            <div className="menu-dropdown" ref={menuRef}>
-              <div className="mobile-actions">
-                {/* LinkedIn - Mobile */}
-                <a
-                  href="https://www.linkedin.com/in/karankapoorux/"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="LinkedIn Profile"
-                  className="a-header linkedin-btn"
-                >
-                  <LinkedinLogo size={18} weight="duotone" />
-                </a>
-
-
-
-                {/* Menu Toggle Button */}
-                <button
-                  className={`menu-toggle ${isMenuOpen ? 'open' : ''}`}
-                  onClick={toggleMenu}
-                  aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-                  aria-expanded={isMenuOpen ? "true" : "false"}
-                >
-                  {isMenuOpen ? <X size={18} weight="duotone" /> : <List size={18} />}
-                </button>
-              </div>
-
-              {/* Dropdown Menu Content */}
-              <div className={`menu-content ${isMenuOpen ? 'open' : ''}`}>
-                <Link
-                  to="/gallery"
-                  className={`menu-item a-header${location.pathname === "/gallery" ? " active" : ""}`}
-                >
-                  <Camera size={18} weight="duotone" />
-                  <span>Travel</span>
-                </Link>
-              </div>
-
-              {/* Backdrop Overlay */}
-              {isMenuOpen && (
-                <div className="menu-backdrop" onClick={() => setIsMenuOpen(false)} />
-              )}
-            </div>
-          ) : (
-            /* ================================================================ */
-            /* DESKTOP NAVIGATION */
-            /* ================================================================ */
-            <>
-              {/* Gallery Link - Desktop */}
-              <Link
-                to="/gallery"
-                className={`a-header${location.pathname === "/gallery" ? " active" : ""}`}
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-              >
-                <Camera size={18} weight="duotone" />
-                <span>Travel</span>
-              </Link>
-            </>
-          )}
+          {/* Travel Link */}
+          <Link
+            to="/gallery"
+            className={`a-header${location.pathname === "/gallery" ? " active" : ""}`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <Camera size={18} weight="duotone" />
+            <span>Travel</span>
+          </Link>
         </div>
 
-        {/* Right Section - Resume Button (Desktop Only) */}
-        {!isMobile && (
-          <>
-            <div className="navbar-right">
+        {/* Right Section - LinkedIn icon (Mobile) & CTA Button (Desktop) */}
+        <div className="navbar-right-group">
+          {isMobile && (
+            <Button
+              variant="secondary"
+              withText={false}
+              onClick={() => window.open("https://www.linkedin.com/in/karankapoorux/", "_blank", "noopener,noreferrer")}
+              size="m"
+              withIcon={true}
+              iconName="LinkedinLogo"
+              className="a-header linkedin-btn"
+            />
+          )}
+
+          {!isMobile && (
+            <>
               {location.pathname === "/home" ? (
                 <Button
                   text="Let's work together"
@@ -373,10 +319,10 @@ const StickyNavBar: React.FC = () => {
                   iconName="FileText"
                 />
               )}
-            </div>
-            <ResumePopup isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
-          </>
-        )}
+            </>
+          )}
+        </div>
+        <ResumePopup isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
       </nav>
     </div>
   );
