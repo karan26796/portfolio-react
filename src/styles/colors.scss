@@ -1,12 +1,16 @@
 :root {
-  /* Color palette */
-  --grey-100: #fdfcf9;
-  --grey-200: #f8f7f7;
-  --grey-300: #e8e7e4;
-  --grey-400: #c9c8c5;
-  --grey-500: #9a999e;
-  --grey-600: #636366;
-  --grey-700: #3b3a3e;
-  --grey-800: #232327;
-  --grey-900: #131313;
+  /* Color palette — X (Twitter) neutral scale */
+  --grey-100: #ffffff;
+  --grey-200: #f7f9f9;
+  --grey-300: #eff3f4;
+  --grey-400: #cfd9de;
+  --grey-500: #8b98a5;
+  --grey-600: #536471;
+  --grey-700: #38444d;
+  --grey-800: #1e2732;
+  --grey-900: #0f1419;
+
+  /* X (Twitter) brand blue */
+  --twitter-blue: #1d9bf0;
+  --twitter-blue-hover: #1a8cd8;
 } 

@@ -1,51 +1,41 @@
-/* Light mode (default) */
+/* Light mode (default) — X (Twitter) "Light" theme */
 :root {
   --bg-color: #ffffff;
-  --bg-color-high: #f5f7fa;
+  --bg-color-high: var(--grey-200);
   --border-color: var(--grey-300);
-  --project-card-border: #ff0000;
+  --project-card-border: var(--grey-300);
 
-  --primary-text: var(--grey-800);
+  --primary-text: var(--grey-900);
   --secondary-text: var(--grey-600);
-  --tertiary-text: var(--grey-500);
+  --tertiary-text: var(--grey-600);
 
-  --highlight-color: #491cff;
-  /* Blue-600 */
-  --highlight-color-light: #6e4aff;
-  /* Blue-500 */
-  --highlight-color-high: #2900cf;
-  /* Blue-700 */
+  --highlight-color: var(--twitter-blue);
+  --highlight-color-light: var(--twitter-blue-hover);
+  --highlight-color-high: var(--twitter-blue-hover);
 
-  --button-color: var(--highlight-color);
-  --button-color-hover: var(--highlight-color-high);
+  --button-color: var(--twitter-blue);
+  --button-color-hover: var(--twitter-blue-hover);
 
   --logo-filter: invert(1);
 }
 
-/* Dark mode */
+/* Dark mode — X (Twitter) "Dim" theme */
 [data-theme="dark"] {
-  --bg-color: #1a1b1e;
-  --bg-color-high: #242529;
+  --bg-color: #15202b;
+  --bg-color-high: #1e2732;
   --border-color: var(--grey-700);
-  --project-card-border: #373737;
+  --project-card-border: var(--grey-700);
 
-  --primary-text: var(--grey-200);
-  --secondary-text: var(--grey-300);
-  --tertiary-text: var(--grey-400);
+  --primary-text: #ffffff;
+  --secondary-text: var(--grey-500);
+  --tertiary-text: var(--grey-500);
 
-  /* Even deeper gold/brown for strong emphasis */
-  --highlight-color: #b09cff;
-  /* Vibrant orange, high contrast for dark background */
-  --highlight-color-light: hwb(253 80% 0%);
-  /* Lighter vibrant orange for accents */
+  --highlight-color: var(--twitter-blue);
+  --highlight-color-light: var(--twitter-blue-hover);
   --highlight-color-high: #ffffff;
 
-  --button-color: #8262ff;
-  /* Soft purple for buttons */
-  --button-color-hover: #5935fb;
-  /* Slightly darker/more vibrant purple for buttons on hover */
-
-  /* Deep vibrant orange for strong emphasis */
+  --button-color: var(--twitter-blue);
+  --button-color-hover: var(--twitter-blue-hover);
 
   --logo-filter: none;
 }

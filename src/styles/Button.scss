@@ -6,10 +6,10 @@
   justify-content: center;
   border: none;
   flex-direction: row;
-  font-weight: 500;
+  font-weight: 700;
   cursor: pointer;
   gap: .5em;
-  transition: transform 0.2s ease-in-out, background 0.3s ease, color 0.3s ease;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
 
   svg {
     display: inline-block;
@@ -17,7 +17,7 @@
   }
 
   &:hover {
-    transform: scale(1.02);
+    opacity: 0.9;
   }
 
   // Icon position variants
@@ -29,84 +29,67 @@
     flex-direction: row-reverse;
   }
 
-  // Size variants
+  // Size variants — X (Twitter) buttons are fully pill-shaped
   &.custom-button-s {
-    padding: 0.5em 0.75em;
+    padding: 0.5em 0.9em;
     gap: 0.25em;
-    border-radius: 0.75em;
+    border-radius: 999px;
   }
 
   &.custom-button-m {
-    padding: 0.75em 1.25em;
-    border-radius: 0.75em;
+    padding: 0.65em 1.25em;
+    border-radius: 999px;
   }
 
   &.custom-button-l {
-    padding: 1em 1.5em;
-    border-radius: 1em;
+    padding: 0.8em 1.5em;
+    border-radius: 999px;
   }
 
   // Variant styles
   &.custom-button-primary {
     border: 1px solid transparent;
-    background-origin: border-box;
-    background-clip: padding-box, border-box;
-    background-image:
-      linear-gradient(180deg,
-        var(--button-color) 0%,
-        color-mix(in srgb, var(--button-color) 70%, #000 30%) 100%),
-      linear-gradient(180deg,
-        rgb(38 0 196) 0%, rgb(207 196 255) 100%);
+    background: var(--button-color);
     color: white;
-    transition: all 0.3s ease;
 
     &:hover {
-      background-image:
-        linear-gradient(180deg,
-          var(--button-color-hover) 0%,
-          color-mix(in srgb, var(--button-color-hover) 70%, #000 30%) 100%),
-        linear-gradient(180deg,
-          rgb(207 196 255) 0%, rgb(38 0 196) 100%);
+      background: var(--button-color-hover);
+      opacity: 1;
     }
   }
 
   &.custom-button-secondary {
-    background: linear-gradient(180deg,
-        var(--bg-color-high) 0%,
-        color-mix(in srgb, var(--bg-color-high) 70%, #000 10%) 100%);
+    background: transparent;
     color: var(--primary-text);
     border: 1px solid var(--border-color);
 
     &:hover {
-      background: linear-gradient(180deg,
-          var(--bg-color-high) 0%,
-          color-mix(in srgb, var(--bg-color-high) 50%, #000 5%) 100%);
-      color: var(--highlight-color-high);
-      text-decoration: underline;
+      background: color-mix(in srgb, var(--primary-text) 5%, transparent);
+      border-color: var(--tertiary-text);
+      opacity: 1;
     }
   }
 
   &.custom-button-tertiary {
-    background: linear-gradient(180deg,
-        transparent 0%,
-        color-mix(in srgb, var(--bg-color-high) 60%, transparent 10%) 100%);
+    background: transparent;
     color: var(--highlight-color);
     padding: 0.5em !important;
+    border-radius: 999px;
 
     &:hover {
-      background: linear-gradient(180deg,
-          var(--bg-color-high) 0%,
-          color-mix(in srgb, var(--bg-color-high) 60%, #000 5%) 100%);
+      background: color-mix(in srgb, var(--highlight-color) 10%, transparent);
+      opacity: 1;
     }
   }
 
   &.custom-button-link {
-    background-color: #28a745;
+    background-color: var(--highlight-color);
     color: #ffffff;
-    border-radius: 1em;
+    border-radius: 999px;
 
     &:hover {
-      background-color: #218838;
+      background-color: var(--button-color-hover);
+      opacity: 1;
     }
   }
 
