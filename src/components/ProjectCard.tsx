@@ -127,9 +127,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           {data.description && (
             <p className="description">{data.newdesc}</p>
           )}
-          {/* <div className="button-container">
-            {renderButton()}
-          </div> */}
+          {isClickable && (
+            <div className="button-container">
+              {renderButton()}
+            </div>
+          )}
         </div>
       </div>
     </div>

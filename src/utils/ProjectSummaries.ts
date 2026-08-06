@@ -28,10 +28,10 @@ export type ProjectSummary = ProjectCardData & { meta: ProjectMeta };
  * - Reorder ids to change display order
  */
 export const PROJECT_DISPLAY_ORDER: string[] = [
-  "11",
-  "1",
-  "10",
   "6",
+  "11",
+  "10",
+  "1",
   // "10",
 ];
 

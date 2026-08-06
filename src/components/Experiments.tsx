@@ -24,9 +24,6 @@ const Experiments: React.FC<ExperimentsProps> = ({
         <figure key={index} className="experiment-figure" style={{ margin: 0 }}>
           <div
             className="experiment-card"
-            style={{
-              transform: getTransform(index),
-            }}
           >
             <div className="experiment-image-container">
               {experiment.type === "video" ? (

@@ -4,43 +4,37 @@
   grid-template-columns: repeat(2, 1fr);
   gap: 2rem 1.5rem;
 
-  @media(max-width: 600px) {
+  @media (max-width: 600px) {
     grid-template-columns: repeat(1, 1fr);
     gap: 1.5rem;
   }
 }
 
-.experiment-item {
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75em;
-}
-
+.experiment-item,
 .experiment-figure {
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.75em;
+  gap: 0.5em;
 }
 
 .experiment-card {
-  border-radius: 0.5em;
-  padding: .5em;
-  background-color: var(--bg-color-high);
-  border: 1px solid var(--border-color);
-  border-radius: 1.5em;
-  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease;
 
   &:hover {
-    transform: translateY(0) rotate(0deg) !important;
+    transform: translateY(-3px);
+
+    img,
+    video {
+      border-color: rgba(255, 255, 255, 0.3);
+    }
   }
 
   .experiment-image-container {
     position: relative;
     overflow: hidden;
-    border-radius: 0.5em;
-    aspect-ratio: 1 / 1;
+    aspect-ratio: 3 / 4;
+    border-radius: 1em;
 
     img,
     video {
@@ -48,7 +42,10 @@
       height: 100%;
       object-fit: cover;
       border-radius: 1em;
+      border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
+      box-sizing: border-box;
       display: block;
+      transition: border-color 0.3s ease;
     }
   }
 }

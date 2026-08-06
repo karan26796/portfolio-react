@@ -1,0 +1,207 @@
+.company-work-list-container {
+  width: 92vw;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 2em 0 5em;
+  display: flex;
+  flex-direction: column;
+  gap: 4em;
+  color: #ffffff;
+  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+  .company-block {
+    position: relative;
+    padding-left: 2.5em;
+    border-left: 2px solid rgba(255, 255, 255, 0.1);
+
+    &::before {
+      content: "";
+      position: absolute;
+      left: -7px;
+      top: 0;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: #ff0000;
+      border: 2px solid #0f0f0f;
+    }
+
+    .company-header-card {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 2.5em;
+
+      .company-title-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+
+        .company-logo {
+          width: 44px;
+          height: 44px;
+          border-radius: 12px;
+          object-fit: cover;
+          background-color: #1a1a1a;
+          border: 1px solid rgba(255, 255, 255, 0.12);
+          padding: 4px;
+          box-sizing: border-box;
+        }
+
+        .company-meta {
+          display: flex;
+          flex-direction: column;
+
+          h3.role-title {
+            margin: 0;
+            font-size: 1.35em;
+            font-weight: 650;
+            color: #ffffff;
+            letter-spacing: -0.01em;
+          }
+
+          span.period-location {
+            font-size: 0.9em;
+            color: #888888;
+            margin-top: 3px;
+          }
+        }
+      }
+
+      p.company-desc {
+        margin: 4px 0 0 0;
+        font-size: 1.05em;
+        line-height: 1.6;
+        color: #aaaaaa;
+        max-width: 850px;
+      }
+    }
+
+    .company-projects-list {
+      display: flex;
+      flex-direction: column;
+      gap: 3.5em;
+
+      .project-item-card {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+
+        .project-header-info {
+          display: flex;
+          flex-direction: column;
+          gap: 6px;
+
+          h4.project-title {
+            margin: 0;
+            font-size: 1.3em;
+            font-weight: 600;
+            color: #f1f1f1;
+            line-height: 1.35;
+          }
+
+          p.project-desc {
+            margin: 0;
+            font-size: 1.05em;
+            line-height: 1.55;
+            color: #888888;
+            max-width: 900px;
+
+            strong.impact-label {
+              color: #ffffff;
+              font-weight: 500;
+            }
+          }
+        }
+
+        /* 2 Screenshots in 1 row */
+        .two-screenshot-row {
+          display: grid;
+          grid-template-columns: repeat(2, 1fr);
+          gap: 16px;
+          margin-top: 8px;
+
+          @media (max-width: 768px) {
+            grid-template-columns: 1fr;
+            gap: 12px;
+          }
+
+          .screenshot-frame {
+            position: relative;
+            width: 100%;
+            aspect-ratio: 16 / 10;
+            background-color: #181818;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            overflow: hidden;
+            cursor: pointer;
+            transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+
+            &:hover {
+              transform: translateY(-3px);
+              border-color: rgba(255, 255, 255, 0.3);
+              box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5);
+
+              img {
+                transform: scale(1.02);
+              }
+            }
+
+            img {
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              display: block;
+              transition: transform 0.3s ease;
+            }
+          }
+        }
+
+        .project-footer-row {
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-top: 8px;
+          flex-wrap: wrap;
+          gap: 12px;
+
+          .tags-group {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+
+            .tag-pill {
+              background-color: rgba(255, 255, 255, 0.08);
+              color: #aaaaaa;
+              padding: 5px 12px;
+              border-radius: 6px;
+              font-size: 0.85em;
+              font-weight: 500;
+            }
+          }
+
+          .read-case-study-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background-color: #ffffff;
+            color: #0f0f0f;
+            padding: 8px 18px;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 700;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.2s ease, transform 0.2s ease;
+
+            &:hover {
+              background-color: #e2e2e2;
+              transform: translateX(2px);
+            }
+          }
+        }
+      }
+    }
+  }
+}

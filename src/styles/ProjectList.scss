@@ -281,21 +281,35 @@
 
     .project-featured {
         display: grid;
-        grid-template-columns: repeat(2, 1fr);
+        grid-template-columns: repeat(12, 1fr);
         gap: 2.5em;
         width: 100%;
 
-        /* Ensure all project cards fill equal width */
         >* {
             min-width: 0;
             display: flex;
-            grid-column: span 1 !important;
-            align-self: stretch !important;
+            align-self: stretch;
 
-            /* The ProjectCard inside should grow */
             >* {
                 flex: 1;
             }
+        }
+
+        /* Disproportionate alternating 12-column grid layout */
+        >*:nth-child(4n + 1) {
+            grid-column: span 8;
+        }
+
+        >*:nth-child(4n + 2) {
+            grid-column: span 4;
+        }
+
+        >*:nth-child(4n + 3) {
+            grid-column: span 4;
+        }
+
+        >*:nth-child(4n + 4) {
+            grid-column: span 8;
         }
 
         @media (max-width: 900px) {
