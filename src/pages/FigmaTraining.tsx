@@ -23,7 +23,8 @@ const TrainingList: React.FC = () => {
     title: "Figma Training & Workshops by Karan Kapoor | Professional Figma Trainer",
     description: "Hands-on Figma training & corporate design workshops led by Karan Kapoor. Learn Auto Layout, Design Systems, Prototyping, and Design Tokens.",
     keywords: "Figma Training, Figma Trainer, Learn Figma, Karan Kapoor, Figma Workshop, Design Systems Training, UI UX Workshop",
-    canonicalUrl: "https://kadankapoor.com/figma-training"
+    canonicalUrl: "https://kadankapoor.com/figma-training",
+    ogImage: "https://kadankapoor.com/figma-training-thumbnail.webp"
   });
 
   useEffect(() => {
