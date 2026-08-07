@@ -84,7 +84,7 @@
             max-width: 100%;
             padding: 2em 0;
 
-            > * {
+            >* {
                 width: 100%;
             }
         }
@@ -111,12 +111,35 @@
 
         ul,
         ol {
-            font-size: 1.2em;
+            font-size: 1.25em;
             line-height: 1.6;
+            color: var(--primary-text);
             margin-bottom: 1.25em;
+            padding-left: 1.4em;
 
             li {
-                margin-bottom: 0.5em;
+                font-family: inherit;
+                font-size: 1em;
+                line-height: 1.6;
+                color: var(--primary-text);
+                margin-bottom: 0.6em;
+                font-weight: 400;
+
+                p {
+                    font-size: 1em;
+                    line-height: 1.6;
+                    color: var(--primary-text);
+                    margin-bottom: 0.4em;
+                }
+
+                strong {
+                    color: var(--primary-text);
+                    font-weight: 600;
+                }
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
             }
         }
 
@@ -216,19 +239,44 @@
         }
 
         blockquote {
+            position: relative;
             font-family: 'Google Sans Code', Courier, monospace;
-            font-size: var(--block-quote-size);
+            font-size: var(--block-quote-size, 1.15em);
             font-weight: 500;
-            line-height: 1.2;
+            line-height: 1.4;
             color: var(--highlight-color);
-            padding: 0.5em;
+            padding: 1em 1.2em 0.85em 1.2em;
             margin-left: 0;
-            margin-top: 1em;
-            border-left: 0.15em solid var(--highlight-color);
+            margin-top: 1.5em;
+            margin-bottom: 1.5em;
+            border-left: 3px solid var(--highlight-color);
+            background: color-mix(in srgb, var(--highlight-color) 6%, transparent);
+            border-radius: 0 0.5em 0.5em 0;
             max-width: 80%;
+
+            &::before {
+                content: "Insight";
+                display: block;
+                font-family: var(--font-body, inherit);
+                font-size: 0.7em;
+                font-weight: 700;
+                letter-spacing: 0.08em;
+                text-transform: uppercase;
+                color: var(--highlight-color);
+                margin-bottom: 0.4em;
+                opacity: 0.85;
+            }
+
+            p {
+                font-family: inherit;
+                font-size: 1em;
+                color: inherit;
+                margin: 0;
+            }
 
             @media (max-width: 767px) {
                 width: 100%;
+                max-width: 100%;
             }
         }
 
@@ -368,7 +416,7 @@
         // Stack the section heading above its body on small screens.
         section:has(h3) {
             display: block;
-            padding: 2em;
+            // padding: 2em;
 
             >.scroll-reveal:first-child {
                 margin-bottom: 1em;
@@ -384,6 +432,12 @@
         }
 
         figure {
+            // Standalone markdown images land inside a <p>, which inherits
+            // `p { font-size: 1.25em }` above — that inflates the em basis
+            // for any nested em value. Reset it here so the bleed margins
+            // below reliably cancel out the container's own padding
+            // regardless of how deeply the figure is nested.
+            font-size: var(--base-font-size-mobile);
             border-radius: 0;
             margin-left: -1.5em;
             margin-right: -1.5em;
@@ -412,5 +466,15 @@
         .intro {
             max-width: 100%;
         }
+    }
+
+    // Container padding drops to 1em at this breakpoint (from 1.5em) — the
+    // figure bleed set at the 768px breakpoint was still calibrated for
+    // 1.5em, which overshot the viewport edge and clipped the image on
+    // both sides. Match the same selector specificity so this wins.
+    .container-project .project-details figure {
+        margin-left: -1em;
+        margin-right: -1em;
+        width: calc(100% + 2em);
     }
 }

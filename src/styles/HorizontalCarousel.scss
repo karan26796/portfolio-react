@@ -89,11 +89,12 @@
       box-sizing: border-box;
 
       @media (max-width: 768px) {
-        flex: 0 0 340px;
+        flex: 0 0 84vw;
+        max-width: 420px;
       }
 
       @media (max-width: 480px) {
-        flex: 0 0 290px;
+        flex: 0 0 88vw;
       }
     }
   }

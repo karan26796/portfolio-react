@@ -226,6 +226,57 @@ const StickyNavBar: React.FC = () => {
   // RENDER: DESKTOP LEFT SIDEBAR
   // ============================================================================
   if (!isMobile) {
+    if (isProjectDetailPage) {
+      return (
+        <aside className="sidebar-nav">
+          <Link to="/home" className="sidebar-logo">
+            <img src="/gallery/profile.webp" alt="Karan Kapoor" className="sidebar-logo-img" />
+          </Link>
+
+          <nav className="sidebar-links">
+            <Link to="/home" className="sidebar-link active">
+              <ArrowLeft size={22} weight="duotone" />
+              <span>Back</span>
+            </Link>
+          </nav>
+
+          <div className="sidebar-bottom">
+            <a
+              href="https://x.com/kadankapoor"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sidebar-user-badge twitter-badge"
+            >
+              <div className="avatar-wrapper twitter-icon-bg">
+                <XLogo size={18} weight="bold" />
+              </div>
+              <div className="user-details">
+                <span className="name">Karan Kapoor</span>
+                <span className="handle">@kadankapoor</span>
+              </div>
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/karankapoorux/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="sidebar-user-badge linkedin-badge"
+            >
+              <div className="avatar-wrapper linkedin-icon-bg">
+                <LinkedinLogo size={18} weight="bold" />
+              </div>
+              <div className="user-details">
+                <span className="name">Karan Kapoor</span>
+                <span className="handle">in/karankapoorux</span>
+              </div>
+            </a>
+          </div>
+
+          <ResumePopup isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
+        </aside>
+      );
+    }
+
     const isResumeCtaPage = location.pathname === "/figma-training" || location.pathname === "/gallery";
 
     const mainCta = isResumeCtaPage ? (

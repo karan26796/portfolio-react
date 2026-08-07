@@ -157,6 +157,9 @@
   flex: 0 0 auto;
 
   @media screen and (max-width: 767px) {
-    display: none;
+    button.custom-button {
+      padding: 0.45em 0.85em;
+      font-size: 0.82em;
+    }
   }
 }

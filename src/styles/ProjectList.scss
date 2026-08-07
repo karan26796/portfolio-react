@@ -14,7 +14,7 @@
 
     @media (max-width: 767px) {
         min-height: auto;
-        padding: 10em 0;
+        padding: 4em 2em;
 
         >.scroll-reveal {
             width: 100%;
@@ -273,11 +273,6 @@
     border-radius: 0 0 1.5em 1.5em;
     z-index: 2;
     margin-top: 0;
-
-    @media (max-width: 996px) {
-        padding: 0;
-        gap: 2em;
-    }
 
     .project-featured {
         display: flex;

@@ -30,6 +30,10 @@
   border: 1px solid var(--border-color);
   border-width: 0 1px 0 1px;
   width: 100%;
+
+  @media screen and (max-width: 768px) {
+    border-width: 0px;
+  }
 }
 
 /* Explicit column assignment: any left-nav variant that renders
