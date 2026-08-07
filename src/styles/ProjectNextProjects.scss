@@ -1,7 +1,11 @@
 .project-next-projects {
-  // margin-top: 4em;
-  // padding-top: 3em;
-  // border-top: 1px solid var(--border-color);
+  width: 100%;
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  padding: 4em 2em;
+  box-sizing: border-box;
+  background-color: var(--bg-color);
+  border-top: 1px solid var(--border-color);
 
   h3 {
     margin: 0 0 1.25em;
@@ -28,9 +32,9 @@
     display: flex;
     flex-direction: column;
     padding: 0;
-    border: 1px solid var(--border-color);
-    border-radius: 1em;
-    background: var(--bg-color-high);
+    border: 0px;
+    gap: 1em;
+    background: transparent;
     overflow: hidden;
     text-align: left;
     cursor: pointer;
@@ -46,6 +50,7 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       object-fit: cover;
+      border-radius: 1em;
       display: block;
     }
 
@@ -53,7 +58,7 @@
       display: flex;
       flex-direction: column;
       gap: 0.5em;
-      padding: 1.25em 1.35em 1.4em;
+      // padding: 1.25em 1.35em 1.4em;
     }
 
     .project-next-card-tag {
@@ -67,7 +72,7 @@
 
     h4 {
       margin: 0;
-      font-size: 1.15em;
+      // font-size: 1.15em;
       font-weight: 550;
       line-height: 1.25;
       color: var(--primary-text);

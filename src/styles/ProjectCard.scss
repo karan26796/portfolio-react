@@ -9,8 +9,10 @@
   position: relative;
   z-index: 1;
   // border-radius: 1.5em;
-  // padding: .5em .5em 0em .5em;
-  // border: 1px solid var(--border-color);
+  padding: 2em;
+  gap: 2em;
+  border: 1px solid var(--border-color);
+  border-width: 0 0 1px 0;
   // background: var(--bg-color-high);
 
   &:hover {
@@ -35,7 +37,7 @@
     }
   }
 
-  img {
+  img.project-image {
     width: 100%;
     height: auto;
     display: block;
@@ -56,7 +58,7 @@
     width: -webkit-fill-available;
     display: flex;
     gap: .5em;
-    padding: 2em 0em;
+    // padding-top: 2em;
     position: relative;
     flex-direction: column;
     justify-content: space-between;

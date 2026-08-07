@@ -44,13 +44,14 @@ const Experiments: React.FC<ExperimentsProps> = ({
             </div>
           </div>
           {experiment.caption && (
-            <figcaption className="experiment-caption" style={{ marginTop: '0.75em' }}>
+            <figcaption className="experiment-caption">
               {experiment.caption}
             </figcaption>
           )}
         </figure>
-      ))}
-    </HorizontalCarouselSection>
+      ))
+      }
+    </HorizontalCarouselSection >
   );
 };
 

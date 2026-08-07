@@ -11,9 +11,12 @@ $border-radius: 0.75em;
   @include flex(column);
   align-items: center;
   justify-content: center;
+  width: 100%;
   max-width: var(--max-width-container);
-  margin: 0 auto; // Center the container
-  margin-top: 6em;
+  margin: 0 auto;
+  // padding: 2em;
+  box-sizing: border-box;
+  border-bottom: 1px solid var(--border-color);
 
   @media (max-width: 768px) {
     flex-direction: column;
@@ -26,7 +29,7 @@ $border-radius: 0.75em;
   gap: $gap;
   align-items: center;
   justify-content: center;
-  padding: $gap*4 1em;
+  padding: 6em 2em;
   background-color: var(--bg-color);
 
   h1 {
@@ -40,7 +43,7 @@ $border-radius: 0.75em;
 
   p {
     font-size: 1.6em;
-    max-width: 40ch;
+    max-width: 50ch;
   }
 
   .data {
@@ -104,7 +107,7 @@ $border-radius: 0.75em;
 
   p,
   h6 {
-    max-width: 40ch;
+    max-width: 50ch;
   }
 
   h1,

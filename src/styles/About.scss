@@ -1,12 +1,13 @@
 .about-parent {
-    width: 92vw;
-    max-width: 1400px;
-    margin: auto;
-    padding-top: 5em;
-    padding-bottom: 5em;
+    width: 100%;
+    max-width: var(--max-width-container);
+    margin: 0 auto;
+    padding: 2em;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--border-color);
     display: grid;
     grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-    column-gap: 10em;
+    column-gap: 6em;
     align-items: start;
 
     > .scroll-reveal:first-child {

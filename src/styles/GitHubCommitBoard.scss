@@ -1,0 +1,80 @@
+.github-commit-board {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25em;
+  padding: 1.25em;
+  border: 1px solid var(--border-color);
+  border-radius: 1em;
+  background: var(--bg-color-high);
+
+  .board-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    .board-title-group {
+      display: flex;
+      align-items: center;
+      gap: 0.75em;
+      color: var(--primary-text);
+    }
+
+    .board-titles {
+      display: flex;
+      flex-direction: column;
+
+      h4 {
+        margin: 0;
+        font-size: 0.95em;
+        font-weight: 600;
+        color: var(--primary-text);
+      }
+
+      .handle {
+        font-size: 0.75em;
+        color: var(--tertiary-text);
+      }
+    }
+
+    .external-link {
+      color: var(--secondary-text);
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: var(--primary-text);
+      }
+    }
+  }
+
+  .contribution-grid-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+
+    .grid-header-label {
+      font-size: 0.7em;
+      font-weight: 600;
+      color: var(--secondary-text);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+  }
+
+  .contribution-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+
+    .grid-square {
+      aspect-ratio: 1;
+      border-radius: 3px;
+
+      &.level-0 { background-color: rgba(255, 255, 255, 0.06); }
+      &.level-1 { background-color: #0e4429; }
+      &.level-2 { background-color: #006d32; }
+      &.level-3 { background-color: #26a641; }
+      &.level-4 { background-color: #39d353; }
+    }
+  }
+}

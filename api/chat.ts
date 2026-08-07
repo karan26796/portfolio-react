@@ -124,7 +124,7 @@ ${interviewQaText}
 
         // Add generation configuration to prevent gibberish and looping
         const model = genAI.getGenerativeModel({
-            model: "gemini-2.5-flash",
+            model: "gemini-1.5-flash",
             generationConfig: {
                 temperature: 0.7,
                 topK: 40,
@@ -172,6 +172,9 @@ ${interviewQaText}
             "how do i handle disagreements with pms or engineers": "I back my position with data — customer verbatims, usage metrics, or a quick prototype. It shifts 'your opinion vs mine' to 'what does the customer need?' Most disagreements dissolve when you put a real user quote in the room.",
             "what does my design handoff look like": "**Handoff is continuous, not a single event.**\n\n- Figma files organised by user flow with every state annotated (empty, loading, error, edge case)\n- Dev Mode / Code Connect so engineers pull specs themselves\n- Complex interactions → async Loom walkthrough\n- Stays active in the build channel so questions are answered same-day",
             "how do i collaborate with engineers": "**Closely and early.** I ship detailed Figma specs with annotated edge cases and component states. For complex flows I record async Loom walkthroughs. I sync with devs frequently and run co-creation sessions — engineers are collaborators, not consumers of design output.",
+            "can you summarize this project": "**Project Summary:**\n\n- End-to-end design for complex B2B SaaS workflows\n- High adoption metrics and enterprise scalability\n- Solves key user frictions with intuitive UI patterns",
+            "what was my role here": "Lead Product Designer — responsible for end-to-end UX research, interaction design, prototyping, and cross-functional alignment with engineering & PM teams.",
+            "what was the biggest challenge": "Balancing complex enterprise requirements with a clean, low-friction user experience while migrating legacy workflows cleanly."
         };
 
         if (qaFallback[cleanMessage] && !pageContext) {

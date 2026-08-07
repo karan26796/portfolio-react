@@ -165,18 +165,20 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                         ))}
                     </div>
                 )}
-                <Button
-                    className="ai-fab-button"
-                    text={buttonLabel || "Ask AI"}
-                    iconName="Sparkle"
-                    withIcon
-                    withText
-                    iconDirection="left"
-                    variant="ai"
-                    size="m"
-                    weight="fill"
+                <button
+                    className="ai-fab-button-custom"
                     onClick={() => setIsOpen(true)}
-                />
+                    aria-label={buttonLabel || "Ask Agent Vinod"}
+                >
+                    <div className="ai-button-glow-ring">
+                        <div className="ai-button-inner">
+                            <div className="sparkle-group">
+                                <Sparkle weight="fill" size={22} className="main-sparkle" />
+                            </div>
+                            <span>{buttonLabel || "Ask Agent Vinod"}</span>
+                        </div>
+                    </div>
+                </button>
             </div>
 
             {/* ── CHAT WINDOW ── */}

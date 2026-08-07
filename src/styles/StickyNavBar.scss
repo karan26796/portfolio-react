@@ -325,6 +325,221 @@
 }
 
 /* ============================================================================
+   DESKTOP LEFT SIDEBAR (X/Twitter-style)
+   ============================================================================ */
+.sidebar-nav {
+  position: sticky;
+  top: 0;
+  align-self: start;
+  height: 100vh;
+  width: 260px;
+  flex: 0 0 260px;
+  display: flex;
+  flex-direction: column;
+  padding: 1.5em 1em;
+  gap: 0.5em;
+  box-sizing: border-box;
+
+  @media (max-width: 800px) {
+    display: none;
+  }
+
+  .sidebar-back-btn {
+    display: flex;
+    align-items: center;
+    gap: 1em;
+    padding: 0.75em 1em;
+    border-radius: 999px;
+    background: none;
+    border: none;
+    color: var(--primary-text);
+    font-size: 1.2em;
+    font-weight: 500;
+    cursor: pointer;
+    width: fit-content;
+    transition: background 0.15s ease;
+
+    &:hover {
+      background: var(--bg-color-high);
+    }
+  }
+
+  .sidebar-logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.75em;
+    height: 2.75em;
+    margin: 0 0 0.5em 0.5em;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #00c6ff, #0072ff);
+    padding: 2px;
+    box-sizing: border-box;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 14px rgba(0, 114, 255, 0.4);
+    }
+
+    .sidebar-logo-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 50%;
+    }
+  }
+
+  .sidebar-links {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25em;
+
+    .sidebar-link {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      padding: 0.75em 1em;
+      border-radius: 999px;
+      font-size: 1.2em;
+      font-weight: 500;
+      color: var(--primary-text);
+      transition: background 0.15s ease;
+
+      &:hover {
+        background: var(--bg-color-high);
+      }
+
+      &.active {
+        font-weight: 800;
+        color: var(--highlight-color);
+      }
+    }
+
+    .sidebar-cta-wrapper {
+      margin-top: 0.75em;
+      width: 100%;
+
+      .custom-button {
+        width: 100%;
+        font-size: 1em !important;
+        padding: 0.75em 1.25em;
+        justify-content: center;
+        white-space: nowrap;
+        box-sizing: border-box;
+      }
+    }
+  }
+
+  .sidebar-bottom {
+    margin-top: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 0.9em;
+
+    .sidebar-icon-row {
+      display: flex;
+      gap: 0.5em;
+      padding: 0 0.5em;
+    }
+
+    .sidebar-icon-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.4em;
+      height: 2.4em;
+      border-radius: 50%;
+      border: none;
+      background: none;
+      color: var(--tertiary-text);
+      cursor: pointer;
+      transition: all 0.2s ease;
+
+      &:hover {
+        color: var(--highlight-color);
+        background-color: var(--bg-color-high);
+      }
+    }
+
+    .sidebar-user-badge {
+      display: flex;
+      align-items: center;
+      gap: 0.75em;
+      padding: 0.6em 0.8em;
+      border-radius: 9999px;
+      cursor: pointer;
+      user-select: none;
+      text-decoration: none;
+      transition: background-color 0.15s ease;
+
+      &:hover {
+        background-color: var(--bg-color-high);
+      }
+
+      .avatar-wrapper {
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+
+        &.twitter-icon-bg {
+          background-color: var(--bg-color-high);
+          border: 1px solid var(--border-color);
+          color: var(--primary-text);
+        }
+
+        &.linkedin-icon-bg {
+          background-color: #0077b5;
+          color: #ffffff;
+        }
+
+        .avatar-img {
+          width: 100%;
+          height: 100%;
+          border-radius: 50%;
+          object-fit: cover;
+        }
+      }
+
+      .user-details {
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        min-width: 0;
+
+        .name {
+          font-size: 0.95em;
+          font-weight: 700;
+          color: var(--primary-text);
+          line-height: 1.2;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+
+        .handle {
+          font-size: 0.85em;
+          color: var(--secondary-text);
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      .user-more-dots {
+        color: var(--primary-text);
+        flex-shrink: 0;
+      }
+    }
+  }
+}
+
+/* ============================================================================
    PROJECT DETAIL PAGE NAVIGATION
    ============================================================================ */
 .project-nav {

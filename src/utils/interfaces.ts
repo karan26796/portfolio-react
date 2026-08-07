@@ -13,6 +13,7 @@ export type ProjectElement = HeaderElement | BulletElement | FigureElement | Cus
 export interface ProjectCardData {
   id: string;
   img: string;
+  images?: string[];
   title: string;
   year: string;
   description: string;

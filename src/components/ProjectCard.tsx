@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/ProjectCard.scss";
 import "../styles/ProjectCardSmall.scss";
 import Buttons from "./Buttons";
@@ -7,6 +7,7 @@ interface ProjectCardProps {
   data: {
     id: string;
     img: string;
+    images?: string[];
     newdesc: string;
     title: string;
     description: string;
@@ -35,6 +36,34 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [tilt, setTilt] = useState(0);
+  /* Carousel logic commented out for now
+  const [activeDot, setActiveDot] = useState(0);
+  const scrollTrackRef = useRef<HTMLDivElement>(null);
+  const imageList = (data.images && data.images.length > 0) ? data.images : [data.img];
+
+  const handleScroll = () => {
+    if (scrollTrackRef.current) {
+      const { scrollLeft, clientWidth } = scrollTrackRef.current;
+      if (clientWidth > 0) {
+        const newIndex = Math.round(scrollLeft / clientWidth);
+        setActiveDot(newIndex);
+      }
+    }
+  };
+
+  const handleDotClick = (e: React.MouseEvent, index: number) => {
+    e.stopPropagation();
+    if (scrollTrackRef.current) {
+      const clientWidth = scrollTrackRef.current.clientWidth;
+      scrollTrackRef.current.scrollTo({
+        left: index * clientWidth,
+        behavior: 'smooth',
+      });
+      setActiveDot(index);
+    }
+  };
+  */
+
   useEffect(() => {
     if (enableTilt) {
       setTilt(Math.random() * 4 - 2);
@@ -102,19 +131,42 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       onClick={isClickable ? handleClick : undefined}
       style={{
         backgroundColor: data.accentColor ? `color-mix(in srgb, ${data.accentColor} 4%, var(--bg-color-high))` : undefined,
-        /* ...(enableTilt ? {
-          transform: `rotate(${tilt}deg)`,
-          transition: 'transform 0.25s ease-in-out',
-        } : {}) */
       }}
-    /* onMouseEnter={enableTilt ? (e => {
-      (e.currentTarget as HTMLDivElement).style.transform = 'rotate(0deg)';
-    }) : undefined}
-    onMouseLeave={enableTilt ? (e => {
-      (e.currentTarget as HTMLDivElement).style.transform = `rotate(${tilt}deg)`;
-    }) : undefined} */
     >
       <img className="project-image" src={data.img} alt={data.title} />
+
+      {/* Carousel structure commented out for now
+      <div className="project-card-image-carousel">
+        <div
+          className="carousel-track"
+          ref={scrollTrackRef}
+          onScroll={handleScroll}
+        >
+          {imageList.map((imgSrc, idx) => (
+            <img
+              key={idx}
+              className="project-image"
+              src={imgSrc}
+              alt={`${data.title} ${idx + 1}`}
+            />
+          ))}
+        </div>
+
+        {imageList.length > 1 && (
+          <div className="carousel-dots">
+            {imageList.map((_, idx) => (
+              <button
+                type="button"
+                key={idx}
+                className={`carousel-dot${idx === activeDot ? " active" : ""}`}
+                onClick={(e) => handleDotClick(e, idx)}
+                aria-label={`Go to image ${idx + 1}`}
+              />
+            ))}
+          </div>
+        )}
+      </div>
+      */}
 
       <div className="project-card">
 

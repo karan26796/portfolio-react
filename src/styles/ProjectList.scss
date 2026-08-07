@@ -4,7 +4,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 2em 0;
+    // padding: 2em 0;
 
     >.scroll-reveal {
         width: 80%;
@@ -35,7 +35,7 @@
     cursor: pointer;
     transition: transform 0.2s ease;
     width: 100%;
-    max-width: 1400px;
+    max-width: var(--max-width-container);
     margin: 0 auto;
 
     @media (max-width: 900px) {
@@ -262,17 +262,17 @@
 }
 
 .project-parent {
-    width: 92vw;
-    max-width: 1400px;
+    width: 100%;
+    max-width: var(--max-width-container);
     display: flex;
     flex-direction: column;
     margin: auto;
-    gap: 2em;
-    padding: 2em;
+    // gap: 2em;
+    // padding: 2em;
     background-color: var(--bg-color);
     border-radius: 0 0 1.5em 1.5em;
     z-index: 2;
-    margin-top: -5em;
+    margin-top: 0;
 
     @media (max-width: 996px) {
         padding: 0;
@@ -280,12 +280,13 @@
     }
 
     .project-featured {
-        display: grid;
-        grid-template-columns: repeat(12, 1fr);
-        gap: 2.5em;
+        display: flex;
+        flex-direction: column;
+        // gap: 2.5em;
         width: 100%;
 
         >* {
+            width: 100%;
             min-width: 0;
             display: flex;
             align-self: stretch;
@@ -295,30 +296,8 @@
             }
         }
 
-        /* Disproportionate alternating 12-column grid layout */
-        >*:nth-child(4n + 1) {
-            grid-column: span 8;
-        }
-
-        >*:nth-child(4n + 2) {
-            grid-column: span 4;
-        }
-
-        >*:nth-child(4n + 3) {
-            grid-column: span 4;
-        }
-
-        >*:nth-child(4n + 4) {
-            grid-column: span 8;
-        }
-
         @media (max-width: 900px) {
-            grid-template-columns: 1fr;
             gap: 2em;
-
-            >* {
-                grid-column: 1 / -1 !important;
-            }
         }
     }
 

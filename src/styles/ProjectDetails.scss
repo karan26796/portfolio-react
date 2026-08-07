@@ -2,10 +2,13 @@
     display: grid;
     grid-template-columns: minmax(0, 1fr);
     gap: 3.5em;
-    max-width: 1120px;
+    width: 100%;
+    max-width: var(--max-width-container);
     margin: 0 auto;
-    padding: 0 2em 4em;
+    padding: 2em;
+    box-sizing: border-box;
     align-items: start;
+    border-bottom: 1px solid var(--border-color);
 
     .project-content-wrapper {
         min-width: 0;
@@ -42,7 +45,7 @@
         section:has(h3) {
             display: grid;
             grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-            column-gap: 10em;
+            column-gap: 5em;
             align-items: start;
             max-width: 100%;
             padding-top: 3em;
@@ -74,9 +77,16 @@
         }
 
         // Sections without a heading (e.g. the FAQ block) stay full width.
-        section:not(:has(h3)) {
+        section:not(:has(h3)),
+        section:has(.faq-container) {
+            display: block;
+            width: 100%;
             max-width: 100%;
-            padding-bottom: 5em;
+            padding: 2em 0;
+
+            > * {
+                width: 100%;
+            }
         }
 
         h3 {
@@ -112,7 +122,7 @@
 
         figure {
             width: 100%;
-            margin-bottom: 3em;
+            margin-bottom: 1em;
             padding: 0;
             border: none;
             background: transparent;
@@ -358,7 +368,7 @@
         // Stack the section heading above its body on small screens.
         section:has(h3) {
             display: block;
-            padding: 0 0 2em;
+            padding: 2em;
 
             >.scroll-reveal:first-child {
                 margin-bottom: 1em;

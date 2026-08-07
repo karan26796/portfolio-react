@@ -8,6 +8,7 @@ import {
   ArrowRight,
   List,
   X,
+  XLogo,
   LinkedinLogo,
   Sun,
   Moon
@@ -175,9 +176,10 @@ const StickyNavBar: React.FC = () => {
 
 
   // ============================================================================
-  // RENDER: PROJECT DETAIL PAGE NAVIGATION
+  // RENDER: PROJECT DETAIL PAGE NAVIGATION (mobile only — desktop uses the
+  // same left sidebar as every other page, see below)
   // ============================================================================
-  if (isProjectDetailPage) {
+  if (isProjectDetailPage && isMobile) {
     return (
       <div className="container-nav">
         <nav className="navbar main-nav active project-nav" ref={containerRef}>
@@ -221,7 +223,113 @@ const StickyNavBar: React.FC = () => {
   }
 
   // ============================================================================
-  // RENDER: MAIN NAVIGATION
+  // RENDER: DESKTOP LEFT SIDEBAR
+  // ============================================================================
+  if (!isMobile) {
+    const isResumeCtaPage = location.pathname === "/figma-training" || location.pathname === "/gallery";
+
+    const mainCta = isResumeCtaPage ? (
+      <Button
+        text="View Resume"
+        onClick={() => setIsResumeOpen(true)}
+        variant="secondary"
+        size="m"
+        withIcon={true}
+        iconName="FileText"
+      />
+    ) : (
+      <Button
+        text="Let's work together"
+        onClick={() => {
+          if (location.pathname !== "/home" && location.pathname !== "/") {
+            navigate("/home#contact");
+          } else {
+            const section = document.getElementById("contact") || document.querySelector(".work-together");
+            if (section) {
+              section.scrollIntoView({ behavior: "smooth" });
+            }
+          }
+        }}
+        variant={location.pathname === "/home" || location.pathname === "/" ? "primary" : "secondary"}
+        size="m"
+      />
+    );
+
+    return (
+      <aside className="sidebar-nav">
+        <Link to="/home" className="sidebar-logo">
+          <img src="/gallery/profile.webp" alt="Karan Kapoor" className="sidebar-logo-img" />
+        </Link>
+
+        <nav className="sidebar-links">
+          <Link
+            to="/home"
+            className={`sidebar-link${location.pathname === "/home" ? " active" : ""}`}
+          >
+            <House size={22} weight="duotone" />
+            <span>Work</span>
+          </Link>
+
+          <Link
+            to="/figma-training"
+            className={`sidebar-link${location.pathname === "/figma-training" ? " active" : ""}`}
+          >
+            <FigmaLogo size={22} weight="duotone" />
+            <span>Figma training</span>
+          </Link>
+
+          <Link
+            to="/gallery"
+            className={`sidebar-link${location.pathname === "/gallery" ? " active" : ""}`}
+          >
+            <Camera size={22} weight="duotone" />
+            <span>Travel</span>
+          </Link>
+
+          <div className="sidebar-cta-wrapper">
+            {mainCta}
+          </div>
+        </nav>
+
+        <div className="sidebar-bottom">
+          <a
+            href="https://x.com/kadankapoor"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sidebar-user-badge twitter-badge"
+          >
+            <div className="avatar-wrapper twitter-icon-bg">
+              <XLogo size={18} weight="bold" />
+            </div>
+            <div className="user-details">
+              <span className="name">Karan Kapoor</span>
+              <span className="handle">@kadankapoor</span>
+            </div>
+          </a>
+
+          <a
+            href="https://www.linkedin.com/in/karankapoorux/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="sidebar-user-badge linkedin-badge"
+          >
+            <div className="avatar-wrapper linkedin-icon-bg">
+              <LinkedinLogo size={18} weight="bold" />
+            </div>
+            <div className="user-details">
+              <span className="name">Karan Kapoor</span>
+              <span className="handle">in/karankapoorux</span>
+            </div>
+          </a>
+        </div>
+
+        <ResumePopup isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
+      </aside>
+    );
+  }
+
+  // ============================================================================
+  // RENDER: MAIN NAVIGATION (MOBILE)
   // ============================================================================
   return (
     <div className="container-nav">

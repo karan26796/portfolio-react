@@ -16,7 +16,7 @@
   --button-color: var(--twitter-blue);
   --button-color-hover: var(--twitter-blue-hover);
 
-  --logo-filter: invert(1);
+  --logo-filter: none;
 }
 
 /* Dark mode — X (Twitter) "Dim" theme */
@@ -37,5 +37,5 @@
   --button-color: var(--twitter-blue);
   --button-color-hover: var(--twitter-blue-hover);
 
-  --logo-filter: none;
+  --logo-filter: brightness(0) invert(1);
 }

@@ -1,0 +1,45 @@
+.app-shell {
+  display: grid;
+  grid-template-columns: 260px minmax(0, 960px) 300px;
+  column-gap: 2.5em;
+  justify-content: center;
+  align-items: start;
+  max-width: 1680px;
+  margin: 0 auto;
+
+  @media (max-width: 1280px) {
+    grid-template-columns: 260px minmax(0, 960px);
+
+    .sidebar-right {
+      display: none;
+    }
+  }
+
+  @media (max-width: 800px) {
+    display: block;
+
+    .sidebar-right {
+      display: none;
+    }
+  }
+}
+
+.app-center {
+  grid-column: 2;
+  min-width: 0;
+  border: 1px solid var(--border-color);
+  border-width: 0 1px 0 1px;
+  width: 100%;
+}
+
+/* Explicit column assignment: any left-nav variant that renders
+   position: fixed (e.g. the project-detail top bar) drops out of grid
+   flow, which would otherwise shift .app-center/.sidebar-right left
+   by one track. Pinning columns keeps them in place regardless. */
+.sidebar-nav {
+  grid-column: 1;
+}
+
+.sidebar-right {
+  grid-column: 3;
+}

@@ -17,6 +17,7 @@ import WorkTogether from "./components/WorkTogether";
 import AISummarizer from "./components/AISummarizer";
 import { ScrollRevealDefaultsProvider } from "./components/ScrollRevealContext";
 import Footer from "./components/Footer";
+import RightSidebar from "./components/RightSidebar";
 import ResumePopup from "./pages/ResumePopup";
 import "./styles/AboutRedirect.scss";
 
@@ -59,26 +60,29 @@ const App: React.FC = () => {
         <Route
           path="*"
           element={
-            <>
+            <div className="app-shell">
               <StickyNavBar />
-              <React.Suspense fallback={<div>Loading...</div>}>
-                <Routes>
-                  <Route path="/" element={<Navigate replace to="/home" />} />
-                  <Route path="/home" element={<HomePage />} />
-                  <Route path="/project/:projectId" element={<ProjectDetails />} />
-                  <Route path="/about" element={<About />} />
-                  <Route path="/gallery" element={<Gallery />} />
-                  <Route path="/archive" element={<Archive />} />
-                  <Route path="/figma-training" element={<TrainingList />} />
-                  <Route path="/resume" element={<Resume />} />
-                  <Route path="/resume-view" element={<ResumeStandalone />} />
-                  <Route path="/resume-popup" element={<StandaloneResumePopup />} />
-                  <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
-                  <Route path="/overview" element={<Overview />} />
-                </Routes>
-              </React.Suspense>
-              <Footer />
-            </>
+              <div className="app-center">
+                <React.Suspense fallback={<div>Loading...</div>}>
+                  <Routes>
+                    <Route path="/" element={<Navigate replace to="/home" />} />
+                    <Route path="/home" element={<HomePage />} />
+                    <Route path="/project/:projectId" element={<ProjectDetails />} />
+                    <Route path="/about" element={<About />} />
+                    <Route path="/gallery" element={<Gallery />} />
+                    <Route path="/archive" element={<Archive />} />
+                    <Route path="/figma-training" element={<TrainingList />} />
+                    <Route path="/resume" element={<Resume />} />
+                    <Route path="/resume-view" element={<ResumeStandalone />} />
+                    <Route path="/resume-popup" element={<StandaloneResumePopup />} />
+                    <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
+                    <Route path="/overview" element={<Overview />} />
+                  </Routes>
+                </React.Suspense>
+                <Footer />
+              </div>
+              <RightSidebar />
+            </div>
           }
         />
       </Routes>

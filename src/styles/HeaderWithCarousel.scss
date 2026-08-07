@@ -15,14 +15,15 @@
   .header-column-one {
     display: flex;
     flex-direction: column;
-    height: 55vh;
+    // height: 55vh;
     justify-content: center;
     align-items: flex-start;
     width: var(--width-container);
+    border: 1px solid var(--border-color);
+    border-width: 0 0 1px 0;
     max-width: var(--max-width-container);
     margin: 0 auto;
-    padding: 4em 1em;
-    padding-bottom: 2em;
+    padding: 6em 2em;
     gap: 1.5em;
 
     @media screen and (max-width: 767px) {

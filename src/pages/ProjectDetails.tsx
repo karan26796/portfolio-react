@@ -32,6 +32,23 @@ const slugify = (text: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "") || "section";
 
+// Helper to extract <faq> data from markdown content and strip it from the body
+const extractFAQ = (content: string | null) => {
+  if (!content) return { cleanContent: content, faqData: null };
+  const faqRegex = /(?:<section[^>]*>\s*)?<faq\s+data=(['"])(.*?)\1\s*><\/faq>(?:\s*<\/section>)?/s;
+  const match = content.match(faqRegex);
+  if (match && match[2]) {
+    try {
+      const parsed = JSON.parse(match[2]);
+      const cleanContent = content.replace(faqRegex, '').trim();
+      return { cleanContent, faqData: parsed };
+    } catch (err) {
+      console.error("Failed to parse FAQ JSON from markdown:", err);
+    }
+  }
+  return { cleanContent: content, faqData: null };
+};
+
 const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
   const [markdownContent, setMarkdownContent] = useState<string | null>(null);
@@ -45,6 +62,10 @@ const ProjectDetails: React.FC = () => {
   const projectSummary = projectSummaries.find(
     (summary) => summary.id === projectId
   );
+
+  const { cleanContent, faqData } = React.useMemo(() => {
+    return extractFAQ(markdownContent);
+  }, [markdownContent]);
 
   useEffect(() => {
     const loadProjectContent = async () => {
@@ -96,7 +117,7 @@ const ProjectDetails: React.FC = () => {
       });
       setHeaders(headerList);
     }
-  }, [loading, markdownContent]);
+  }, [loading, cleanContent]);
 
   const handleHeaderClick = (id: string) => {
     const el = document.getElementById(id);
@@ -134,7 +155,7 @@ const ProjectDetails: React.FC = () => {
         <div className="project-content-wrapper">
           <ProjectDetailHeader data={projectSummary} />
           <div ref={contentRef} className="project-details">
-            {markdownContent ? (
+            {cleanContent ? (
               <ReactMarkdown
                 rehypePlugins={[rehypeRaw]}
                 components={{
@@ -166,42 +187,34 @@ const ProjectDetails: React.FC = () => {
                         <CustomVideo src={props.src} caption={customProps.caption} />
                       </ScrollReveal>
                     );
-                  },
-                  faq: ({ node, ...props }: any) => {
-                    try {
-                      const parsedData = JSON.parse(props.data);
-                      return (
-                        <ScrollReveal>
-                          <FAQ data={parsedData} hideTitle={false} title="FAQs" />
-                        </ScrollReveal>
-                      );
-                    } catch (error) {
-                      console.error("Failed to parse FAQ JSON data in markdown:", error);
-                      return null;
-                    }
                   }
                 } as any}
               >
-                {markdownContent}
+                {cleanContent}
               </ReactMarkdown>
             ) : <div>Project content not available</div>}
           </div>
-
-          <ProjectNextProjects currentProjectId={projectId!} />
-
-          {markdownContent && (
-            <AISummarizer
-              text={markdownContent}
-              buttonLabel="Ask Agent Vinod"
-              initialPrompts={[
-                "Can you summarize this project?",
-                "What was my role here?",
-                "What was the biggest challenge?"
-              ]}
-            />
-          )}
         </div>
       </div>
+
+      {faqData && (
+        <FAQ data={faqData} hideTitle={false} title="FAQs" />
+      )}
+
+      {/* <ProjectNextProjects currentProjectId={projectId!} /> */}
+
+      {markdownContent && (
+        <AISummarizer
+          text={markdownContent}
+          buttonLabel="Ask Agent Vinod"
+          initialPrompts={[
+            "Can you summarize this project?",
+            "What was my role here?",
+            "What was the biggest challenge?"
+          ]}
+        />
+      )}
+
       <WorkTogether />
     </>
   );
