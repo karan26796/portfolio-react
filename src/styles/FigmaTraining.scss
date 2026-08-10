@@ -29,7 +29,7 @@ $border-radius: 0.75em;
   gap: $gap;
   align-items: center;
   justify-content: center;
-  padding: 6em 2em;
+  padding: 2em;
   background-color: var(--bg-color);
 
   h1 {
@@ -42,7 +42,7 @@ $border-radius: 0.75em;
   }
 
   p {
-    font-size: 1.6em;
+    // font-size: 1.6em;
     max-width: 50ch;
   }
 

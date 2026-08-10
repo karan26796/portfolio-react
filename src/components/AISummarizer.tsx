@@ -46,8 +46,15 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape' && isOpen) setIsOpen(false);
         };
+        const handleOpenEvent = () => setIsOpen(true);
+
         window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+        window.addEventListener('open-agent-vinod', handleOpenEvent);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('open-agent-vinod', handleOpenEvent);
+        };
     }, [isOpen]);
 
     const handleSendMessage = async (customText?: string) => {

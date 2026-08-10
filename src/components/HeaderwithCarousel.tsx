@@ -61,7 +61,7 @@ const HeaderWithCarousel: React.FC = () => {
             </p>
           </ScrollReveal>
           <ScrollReveal delay={240}>
-            <LogoCarousel align="center" />
+            <LogoCarousel align="flex-end" />
           </ScrollReveal>
         </div>
         {/* <Tag text="Open to new roles" color={{ text: '#3100f4ff' }} dot={true} pulsatingDot={true} /> */}

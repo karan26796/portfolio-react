@@ -41,27 +41,6 @@
     .company-tenure {
         margin: 0;
     }
-
-    @media (max-width: 768px) {
-        padding: 0.75em 1em;
-
-        .company-info-group {
-            gap: 0.5em;
-
-            .company-logo {
-                width: 24px;
-                height: 24px;
-            }
-
-            .company-name {
-                font-size: var(--h3-size-mobile, 1.4em);
-            }
-        }
-
-        .company-tenure {
-            font-size: var(--text-size-mobile, 0.9em);
-        }
-    }
 }
 
 .company-project-cards {

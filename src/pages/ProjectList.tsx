@@ -75,7 +75,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                     className="company-logo"
                   />
                 )}
-                <h3 className="company-name">{group.company}</h3>
+                <h4 className="company-name">{group.company}</h4>
               </div>
               {COMPANY_TENURES[group.company] && (
                 <p className="company-tenure">{COMPANY_TENURES[group.company]}</p>
