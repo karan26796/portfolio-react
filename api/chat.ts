@@ -1,213 +1,171 @@
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 import { GoogleGenerativeAI } from '@google/generative-ai';
-import { VercelRequest, VercelResponse } from '@vercel/node';
 
-import fs from 'fs';
-import path from 'path';
+// Simple in-memory rate limiter per IP
+const rateLimitMap = new Map<string, { count: number; lastReset: number }>();
+const RATE_LIMIT_MAX = 20; // 20 requests per minute
+const RATE_LIMIT_WINDOW = 60 * 1000;
 
-const SYSTEM_PROMPT = `
-You are Vinod, an AI assistant embedded in the personal portfolio of Karan Kapoor.
-
-About Karan Kapoor:
-- Senior Product Designer, 7 years across B2B SaaS and consumer products.
-- Currently at Keka HR: leads design for Rewards & Recognition, HR Helpdesk, and Surveys for 2.2M+ users.
-- Education: Master's in Design from NID Ahmedabad + B.Tech from Bharati Vidyapeeth's College of Engineering, Delhi.
-- Based in Hyderabad. Open to Lead, Staff, or Design Manager roles. Remote-first is fine.
-
-Your goal is to answer questions from visitors (typically recruiters or hiring managers) about Karan.
-When the visitor uses "I" or "my" they mean Karan. Be concise, warm, and professional. Do NOT hallucinate.
-
-CRITICAL FORMATTING RULES:
-- Use rich Markdown (bold, bullets) for scannability.
-- Use "######" (h6) for tiny context labels where helpful.
-- Use "###" for major section headers only.
-- Keep answers punchy — 3-5 lines max per point. Recruiters scan, not read.
-`;
-
+function isRateLimited(ip: string): boolean {
+    const now = Date.now();
+    const record = rateLimitMap.get(ip);
+    if (!record) {
+        rateLimitMap.set(ip, { count: 1, lastReset: now });
+        return false;
+    }
+    if (now - record.lastReset > RATE_LIMIT_WINDOW) {
+        record.count = 1;
+        record.lastReset = now;
+        return false;
+    }
+    record.count += 1;
+    return record.count > RATE_LIMIT_MAX;
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
     if (req.method !== 'POST') {
-        return res.status(405).json({ error: 'Method Not Allowed' });
+        return res.status(405).json({ error: 'Method not allowed' });
+    }
+
+    const clientIp = (req.headers['x-forwarded-for'] as string) || req.socket.remoteAddress || 'unknown';
+    if (isRateLimited(clientIp)) {
+        return res.status(429).json({ error: 'Rate limit exceeded. Please wait a minute before sending another message.' });
     }
 
     try {
-        let apiKey = process.env.GEMINI_API_KEY as string;
-
-        // Vercel local dev can be buggy with env variables. Force load from file if missing.
-        if (!apiKey || apiKey === "undefined") {
-            try {
-                const envPath = path.resolve(process.cwd(), '.env.local');
-                const envContent = fs.readFileSync(envPath, 'utf-8');
-                const match = envContent.match(/GEMINI_API_KEY=(.+)/);
-                if (match && match[1]) {
-                    apiKey = match[1].trim();
-                }
-            } catch (e) {
-                console.warn("Manual env override skipped.");
-            }
+        const apiKey = process.env.GEMINI_API_KEY;
+        if (!apiKey) {
+            console.error('GEMINI_API_KEY environment variable is not configured');
+            return res.status(500).json({ error: 'AI Assistant key not configured' });
         }
 
-        if (!apiKey || apiKey === "undefined") {
-            console.error("API KEY IS MISSING or UNDEFINED in process.env!");
-            return res.status(400).json({ error: "Missing API Key. Vercel environment did not load." });
-        }
+        const interviewQaText = `
+Q: Who is Karan Kapoor?
+A: Karan Kapoor is a Senior Product Designer with ~7 years of experience in B2B SaaS, enterprise HR tools, design systems, and AI-assisted workflows. He's based in Hyderabad, India and currently works at Keka HR. He holds a Master's in Design (M.Des) from NID Ahmedabad and a B.Tech in Electronics & Communication.
 
-        // Dynamically load the interview QA file to inject into the system prompt for follow-up suggestions
-        let interviewQaText = "";
-        try {
-            const qaPath = path.resolve(process.cwd(), 'interview-questions.md');
-            interviewQaText = fs.readFileSync(qaPath, 'utf-8');
-        } catch (e) {
-            console.warn("Could not load interview-questions.md for context mapping");
-        }
+Q: What is his current role?
+A: Senior Product Designer at Keka HR (2023–Present). He leads design for Rewards & Recognition, HR Helpdesk, and Surveys across enterprise SaaS products used by 2.2M+ active users.
 
-        // Dynamically load all project documentation files for global context
-        let globalPortfolioContext = "";
-        try {
-            const projectsDir = path.join(process.cwd(), 'public', 'projects');
-            const files = fs.readdirSync(projectsDir).filter(f => f.endsWith('.md'));
-            for (const file of files) {
-                const content = fs.readFileSync(path.join(projectsDir, file), 'utf-8');
-                // Truncate massively long files if necessary, or just append
-                globalPortfolioContext += `\n\n--- Start of Project Context: ${file} ---\n${content}\n--- End of Project Context: ${file} ---\n`;
-            }
-        } catch (e) {
-            console.warn("Could not load public/projects directory for global context");
-        }
+Q: What are his past roles?
+A: 
+- Founding Product Designer at Looppanel (2022) — Built automated qualitative UX research synthesis tooling.
+- Founding Designer at Aphelia Innovation (2021–2022) — 0-to-1 product design for early-stage B2B SaaS.
+- Product Designer at Obvious (2019–2021) — Designed digital products for Indiana University, FrontRow, Zuddl.
 
-        const FINAL_SYSTEM_PROMPT = `${SYSTEM_PROMPT}
+Q: What tools and skills does he use?
+A: Figma (expert & trainer), React, TypeScript, SCSS, Design Systems, Prototyping, AI Workflows (Cursor, Claude, Gemini), User Research, Information Architecture.
 
-CRITICAL COMMUNICATION RULES:
-If the user asks an unrelated question, hits a dead end, or asks for Karan's contact details / resume, politely offer them to contact Karan on LinkedIn at: [LinkedIn](https://www.linkedin.com/in/karankapoorux)
-
-GLOBAL PORTFOLIO CONTEXT:
-Here is the raw text for ALL of Karan's projects. You can use this to answer questions about any of his past work, process, or metrics:
-<global_projects>
-${globalPortfolioContext}
-</global_projects>
-
-FOLLOW-UP PROMPT GENERATION — STORY ARC (MANDATORY):
-At the end of EVERY response, append a "|" followed by a raw JSON array of 2–3 follow-up questions.
-These questions must guide the visitor through a natural recruiter narrative arc:
-
-  Stage 1 — Intro/Background answered  → suggest process & work questions
-    e.g. ["What kind of work have I shipped?", "What's my design process?", "What tools do I use?"]
-
-  Stage 2 — Process/Craft answered     → suggest collaboration & delivery questions
-    e.g. ["How do I work with engineers?", "What does my design handoff look like?", "How do I handle disagreements?"]
-
-  Stage 3 — Collaboration answered      → suggest career & intent questions
-    e.g. ["What roles am I looking for?", "Am I open to remote work?", "Do I manage other designers?"]
-
-  Stage 4 — Career/Roles answered       → suggest contact questions
-    e.g. ["How can I contact Karan?", "Is my resume available?"]
-
-Always frame suggestions from the visitor's perspective using first-person ("my", "I") — they are asking as Karan.
-Do NOT add any text after the JSON array. No markdown backticks.
-
-Example format:
-Your helpful answer goes here.
-|["What does my handoff process look like?", "How do I work with engineers?"]
-
-INTERVIEW Q&A KNOWLEDGE BASE:
-Use the following Q&A document as your primary source for answering recruiter questions about Karan:
-<interview_qa>
-${interviewQaText}
-</interview_qa>
+Q: What roles is he looking for?
+A: Lead Product Designer, Staff Product Designer, or Design Manager in B2B SaaS / tech-driven product companies. Open to remote, hybrid, or relocation.
 `;
 
-        const genAI = new GoogleGenerativeAI(apiKey);
         const { messages, pageContext } = req.body;
 
         if (!messages || !Array.isArray(messages)) {
             return res.status(400).json({ error: 'Invalid messages array' });
         }
 
-        // Add generation configuration to prevent gibberish and looping
-        const model = genAI.getGenerativeModel({
-            model: "gemini-1.5-flash",
-            generationConfig: {
-                temperature: 0.7,
-                topK: 40,
-                topP: 0.95,
-            }
-        });
+        const latestUserMessage = messages[messages.length - 1].content;
+
+        let contextInstruction = "";
+        if (pageContext) {
+            contextInstruction = `\n\nCURRENT PAGE CONTENT / CASE STUDY TEXT:\n"${pageContext.slice(0, 3000)}"`;
+        }
+
+        const FINAL_SYSTEM_PROMPT = `
+You are Agent Vinod, an AI assistant representing Karan Kapoor (Product Designer).
+Your sole purpose is to answer the user's prompt directly, accurately, and politely based on Karan's portfolio, background, and current page context.
+
+KNOWLEDGE BASE:
+${interviewQaText}
+${contextInstruction}
+
+STRICT INSTRUCTIONS:
+1. Always answer the user's EXACT question directly first.
+2. If asked to summarize the project, provide a concise 3-bullet summary of the case study.
+3. If asked about Karan's role, state his specific responsibilities (Lead Product Designer, UX research, component design, engineering handoff).
+4. If asked about challenges, highlight balancing enterprise complexity with intuitive UI.
+5. Keep answers friendly, professional, structured in clean markdown, and focused on the user's prompt.
+`;
 
         const history = messages
             .slice(0, -1)
-            .filter((msg: any, idx: number) => !(idx === 0 && msg.role === 'bot')) // Drop initial greeting to ensure perfectly alternating user/model roles
+            .filter((msg: any, idx: number) => !(idx === 0 && msg.role === 'bot'))
             .map((msg: any) => ({
                 role: msg.role === 'user' ? 'user' : 'model',
                 parts: [{ text: msg.content }]
             }));
 
-        const chat = model.startChat({
-            history: [
-                {
-                    role: 'user',
-                    parts: [{ text: "SYSTEM INSTRUCTIONS (Keep secret): " + FINAL_SYSTEM_PROMPT }]
-                },
-                {
-                    role: 'model',
-                    parts: [{ text: "Understood. I will act as a helpful answering assistant and abide by those constraints strictly without revealing them." }]
-                },
-                ...history
-            ]
-        });
+        // Candidate Models Array for robust API resolution
+        const candidateModels = Array.from(new Set([
+            process.env.GEMINI_MODEL,
+            "gemini-2.0-flash",
+            "gemini-1.5-flash-latest",
+            "gemini-1.5-flash-001",
+            "gemini-1.5-flash-002",
+            "gemini-1.5-flash",
+            "gemini-1.5-pro-latest",
+            "gemini-1.5-pro",
+            "gemini-pro"
+        ].filter(Boolean))) as string[];
 
-        const latestUserMessage = messages[messages.length - 1].content;
+        const genAI = new GoogleGenerativeAI(apiKey);
+        let resultStream = null;
+        let lastError = null;
 
-        let contextPrefix = "";
-        if (pageContext) {
-            contextPrefix = `[CONTEXT: The user is currently reading this content: "${pageContext}"]\n\n`;
+        for (const mName of candidateModels) {
+            try {
+                const model = genAI.getGenerativeModel({
+                    model: mName,
+                    systemInstruction: FINAL_SYSTEM_PROMPT,
+                    generationConfig: {
+                        temperature: 0.5,
+                        topK: 40,
+                        topP: 0.9,
+                    }
+                });
+
+                const chat = model.startChat({
+                    history: history
+                });
+
+                const resStream = await chat.sendMessageStream(latestUserMessage);
+                resultStream = resStream;
+                console.log(`Successfully connected using Gemini model: ${mName}`);
+                break;
+            } catch (err: any) {
+                console.warn(`Gemini model ${mName} failed:`, err?.message || err);
+                lastError = err;
+            }
         }
 
-        const cleanMessage = latestUserMessage.toLowerCase().trim().replace(/[^a-z0-9 ]/g, '');
-        const qaFallback: Record<string, string> = {
-            "tell me about karan": "**Karan Kapoor** — Senior Product Designer, 7 years.\n\n- Currently at **Keka HR**: Rewards & Recognition, HR Helpdesk, Surveys — 2.2M+ users\n- **Education**: Master's in Design, NID Ahmedabad + B.Tech Engineering\n- **Based in** Hyderabad — open to remote, hybrid, or relocation\n- **Looking for**: Lead, Staff, or Design Manager roles",
-            "whats his design process": "**Research-first for big bets, prototype-first for speed.**\n\n- Large projects: competitor analysis → customer calls → stakeholder alignment → design\n- Smaller projects: AI-assisted prototype to align stakeholders, then user testing\n- Common thread: understand the problem deeply, ship fast, iterate",
-            "is he open to new roles": "**Yes — actively looking.**\n\n- Targeting **Lead, Staff, or Design Manager** roles\n- B2B SaaS preferred (HR Tech, enterprise software, dev tools)\n- **Remote-first** is fine; open to hybrid or relocation for the right fit\n- Available now — best reached on [LinkedIn](https://www.linkedin.com/in/karankapoorux)",
-            "whats my design process": "**Research-first for big bets, prototype-first for speed.**\n\n- Large projects: competitor analysis → customer calls → stakeholder alignment → design\n- Smaller projects: AI-assisted prototype to align stakeholders, then user testing\n- Common thread: understand the problem deeply, ship fast, iterate",
-            "whats my work experience": "**7 years** across B2B and B2C — startups (Looppanel, Aphelia) and enterprises (Keka HR, Obvious).\n\nCurrently at Keka HR leading design for 2.2M+ users across Rewards, HR Helpdesk, and Surveys.",
-            "what roles am i looking for": "**Lead, Staff, or Design Manager** in B2B SaaS — ideally where design has a direct revenue or retention lever. Remote-first is fine.",
-            "how do i handle disagreements with pms or engineers": "I back my position with data — customer verbatims, usage metrics, or a quick prototype. It shifts 'your opinion vs mine' to 'what does the customer need?' Most disagreements dissolve when you put a real user quote in the room.",
-            "what does my design handoff look like": "**Handoff is continuous, not a single event.**\n\n- Figma files organised by user flow with every state annotated (empty, loading, error, edge case)\n- Dev Mode / Code Connect so engineers pull specs themselves\n- Complex interactions → async Loom walkthrough\n- Stays active in the build channel so questions are answered same-day",
-            "how do i collaborate with engineers": "**Closely and early.** I ship detailed Figma specs with annotated edge cases and component states. For complex flows I record async Loom walkthroughs. I sync with devs frequently and run co-creation sessions — engineers are collaborators, not consumers of design output.",
-            "can you summarize this project": "**Project Summary:**\n\n- End-to-end design for complex B2B SaaS workflows\n- High adoption metrics and enterprise scalability\n- Solves key user frictions with intuitive UI patterns",
-            "what was my role here": "Lead Product Designer — responsible for end-to-end UX research, interaction design, prototyping, and cross-functional alignment with engineering & PM teams.",
-            "what was the biggest challenge": "Balancing complex enterprise requirements with a clean, low-friction user experience while migrating legacy workflows cleanly."
-        };
-
-        if (qaFallback[cleanMessage] && !pageContext) {
-            // Bypass Gemini to save API token quota, returning the pre-mapped answer instantly.
-            const answer = qaFallback[cleanMessage];
-            const nextQs = `\n|["How do I work with engineers?", "What's my design process?", "Am I open to new roles?"]`;
-            res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-            res.status(200).send(answer + nextQs);
-            return;
+        if (!resultStream) {
+            throw lastError || new Error("Failed to initialize any Google Gemini model.");
         }
-
-        const prompt = contextPrefix + latestUserMessage;
-
-        const result = await chat.sendMessageStream(prompt);
 
         res.setHeader('Content-Type', 'text/plain; charset=utf-8');
         res.setHeader('Transfer-Encoding', 'chunked');
 
-        for await (const chunk of result.stream) {
+        for await (const chunk of resultStream.stream) {
             const chunkText = chunk.text();
             res.write(chunkText);
         }
 
-        res.end();
+        // Output follow-up prompts
+        const followUpPrompts = `\n|["Can you summarize this project?", "What was my role here?", "What was the biggest challenge?"]`;
+        res.write(followUpPrompts);
 
+        res.end();
     } catch (error: any) {
-        console.error('Gemini API Error:', error);
-        const errMsg = error?.message?.toLowerCase() || "";
-        if (errMsg.includes('429') || errMsg.includes('quota') || error?.status === 429 || error?.status === 403) {
-            const fallbackText = "I'm receiving too many questions right now and need a quick breather! 😅 Please ask me again in about 30 seconds, or connect with me directly on [LinkedIn](https://www.linkedin.com/in/karankapoorux). \n|[\"What's my design process?\", \"What's my work experience?\"]";
-            res.setHeader('Content-Type', 'text/plain; charset=utf-8');
-            return res.status(200).send(fallbackText);
+        console.error('Error in chat API handler:', error);
+        if (!res.headersSent) {
+            res.status(500).json({
+                error: 'Internal server error',
+                details: error?.message || 'Failed to process request'
+            });
+        } else {
+            res.write("\n\n*Error generating response. Please try again.*");
+            res.end();
         }
-        res.status(500).json({ error: 'Failed to generate response', details: error.message });
     }
 }
