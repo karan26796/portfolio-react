@@ -1,3 +1,75 @@
+.project-parent {
+    display: flex;
+    flex-direction: column;
+    // gap: 3.5em;
+    width: 100%;
+}
+
+.company-project-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.company-section-title {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1em;
+    margin: 0;
+    padding: 1em 2em;
+    border-bottom: 1px solid var(--border-color);
+
+    .company-info-group {
+        display: flex;
+        align-items: center;
+        gap: 0.75em;
+
+        .company-logo {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+            border-radius: 8px;
+            flex-shrink: 0;
+        }
+
+        .company-name {
+            margin: 0;
+        }
+    }
+
+    .company-tenure {
+        margin: 0;
+    }
+
+    @media (max-width: 768px) {
+        padding: 0.75em 1em;
+
+        .company-info-group {
+            gap: 0.5em;
+
+            .company-logo {
+                width: 24px;
+                height: 24px;
+            }
+
+            .company-name {
+                font-size: var(--h3-size-mobile, 1.4em);
+            }
+        }
+
+        .company-tenure {
+            font-size: var(--text-size-mobile, 0.9em);
+        }
+    }
+}
+
+.company-project-cards {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+}
+
 .indiefinds-wrapper {
     width: 100%;
     min-height: 50vh;
@@ -30,57 +102,24 @@
     gap: 1.5em;
     padding: 3em 2em;
     border-radius: 2em;
-    border: none;
-    background: var(--bg-color-high);
+    border: 2px solid transparent;
+    background-image:
+        linear-gradient(var(--bg-color-high), var(--bg-color-high)),
+        linear-gradient(90deg, #ff007f, #7000ff, #00d2ff, #00ff66, #ffdd00, #ff007f);
+    background-origin: border-box;
+    background-clip: padding-box, border-box;
+    background-size: 100% 100%, 300% 100%;
+    animation: indiefinds-rainbow 15s linear infinite;
     cursor: pointer;
     transition: transform 0.2s ease;
     width: 100%;
     max-width: var(--max-width-container);
     margin: 0 auto;
 
+    z-index: 1;
+
     @media (max-width: 900px) {
         width: 100%;
-    }
-
-    &::before,
-    &::after {
-        content: '';
-        position: absolute;
-        inset: -2px;
-        border-radius: calc(2em + 2px);
-        padding: 2px;
-        background: linear-gradient(45deg,
-                #fb0094,
-                #0000ff,
-                #00ff00,
-                #ffff00,
-                #ff0000,
-                #fb0094,
-                #0000ff,
-                #00ff00,
-                #ffff00,
-                #ff0000);
-        background-size: 400%;
-        pointer-events: none;
-        -webkit-mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask:
-            linear-gradient(#fff 0 0) content-box,
-            linear-gradient(#fff 0 0);
-        mask-composite: exclude;
-        animation: indiefinds-rainbow 20s linear infinite;
-    }
-
-    &::before {
-        z-index: 1;
-    }
-
-    &::after {
-        z-index: 0;
-        filter: blur(16px);
-        opacity: 0.55;
     }
 
     >* {
@@ -89,11 +128,7 @@
     }
 
     &:hover {
-        transform: translateY(-1px);
-
-        &::after {
-            opacity: 0.75;
-        }
+        transform: scale(0.99);
 
         .indiefinds-banner__cta {
             transform: translateX(2px);

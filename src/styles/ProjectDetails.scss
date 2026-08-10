@@ -245,14 +245,14 @@
             font-weight: 500;
             line-height: 1.4;
             color: var(--highlight-color);
-            padding: 1em 1.2em 0.85em 1.2em;
+            padding: 1em;
             margin-left: 0;
             margin-top: 1.5em;
             margin-bottom: 1.5em;
             border-left: 3px solid var(--highlight-color);
-            background: color-mix(in srgb, var(--highlight-color) 6%, transparent);
+            background: color-mix(in srgb, var(--highlight-color) 4%, transparent);
             border-radius: 0 0.5em 0.5em 0;
-            max-width: 80%;
+            // max-width: 80%;
 
             &::before {
                 content: "Insight";

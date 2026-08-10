@@ -604,4 +604,13 @@
     .ai-fab-pills {
         display: none;
     }
+
+    // The full-size pill is wide enough to sit over a couple of lines of
+    // body text as the page scrolls — shrink it so it reads as a compact
+    // FAB rather than a banner blocking content underneath.
+    .ai-fab-button-custom .ai-button-inner {
+        padding: 0.6em 1.1em;
+        font-size: 0.9em;
+        gap: 0.5em;
+    }
 }

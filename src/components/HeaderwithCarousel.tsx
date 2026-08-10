@@ -48,6 +48,7 @@ const HeaderWithCarousel: React.FC = () => {
             <div className="name-tag-group">
               <h1>Hey, I'm Karan</h1>
               <div className="tags">
+                <Tag text="Currently at Keka HR" color={{ text: '#ff8c00' }} dot={true} pulsatingDot={true} />
                 <Tag text="Figma Trainer" color={{ text: '#41ffc0ff' }} />
                 <Tag text="2X Founding Designer" color={{ text: '#a754ffff' }} />
                 <Tag text="NID Alum" color={{ text: '#5c98ffff' }} />
@@ -55,9 +56,9 @@ const HeaderWithCarousel: React.FC = () => {
             </div>
           </ScrollReveal>
           <ScrollReveal delay={160}>
-            <h2 className="intro-text">
+            <p className="intro-text">
               Product Designer with management & technical chops. In the last ~8 years I've worked with early stage startups on 0-1 projects, conducted 100+ Figma workshops, headed FoF Delhi for 5 years, and built passion projects using with AI as a sidekick.
-            </h2>
+            </p>
           </ScrollReveal>
           <ScrollReveal delay={240}>
             <LogoCarousel align="center" />

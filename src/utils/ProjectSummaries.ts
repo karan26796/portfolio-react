@@ -1,15 +1,28 @@
 import { ProjectCardData } from "./interfaces";
 
 const awaconimg = "/project-imgs/binge-eating/binge.gif";
+
+//looppanel notetaker
 const loopnote = "/project-imgs/loop-note/loop-note.gif";
+const final = "/project-imgs/loop-note/final-design.webp";
+const questions = "/project-imgs/loop-note/editor-question.webp";
+
+
+//continuous rewards
 const keka = "/project-imgs/continuous rewards/Thumb-2.webp";
+const transactions = "/project-imgs/continuous rewards/employee-transaction.webp";
+const milestone = "/project-imgs/continuous rewards/employee milestone data.webp";
+
 const loopinfo = "/project-imgs/looppanel-insights/insight-thumb.gif";
 const wish = "/project-imgs/kekawish/thumb-cr.webp";
 const award = "/project-imgs/award program/Thumb-certi-spot.webp";
 const awardPrograms = "/project-imgs/award program/Thumb-certi-spot.webp";
 const kurakaani = "/project-imgs/kurakaani/01.webp";
 const loopdata = "/project-imgs/loop-research/loop-research.gif";
-const interconnect = "/project-imgs/interconnect-thumb.webp";
+
+//interconnect
+const interconnect = "/project-imgs/interconnect/interconnect-thumb.webp";
+const referral = "/project-imgs/interconnect/referral.webp";
 const holidayCalendar = "/project-imgs/holiday-calendar/thumb.webp";
 
 export interface ProjectMeta {
@@ -30,7 +43,10 @@ export type ProjectSummary = ProjectCardData & { meta: ProjectMeta };
 export const PROJECT_DISPLAY_ORDER: string[] = [
   "6",
   "1",
+  "7",
   "10",
+  "2",
+  "5",
   "11",
   // "10",
 ];
@@ -41,11 +57,12 @@ export const FEATURED_PROJECT_COUNT = 4;
 const projectsById: Record<string, ProjectSummary> = {
   "10": {
     id: "10",
+    company: "Side Projects",
     newdesc: "Developed & designed an app to help people in gated communities get referrals for open jobs",
     description: "Developed & designed an app to help people in gated communities post jobs and get referrals",
     title: "Interconnect : Professional networking for gated societies",
     img: interconnect,
-    images: [interconnect, "/project-imgs/award-programs/ia-before-after.webp"],
+    images: [interconnect, referral],
     year: "Personal project / 2026",
     tags: ["Project"],
     type: "client",
@@ -59,15 +76,16 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "11": {
     id: "11",
-    newdesc: "Redesigned Keka's holiday calendar so admins assign holidays one by one to different teams, instead of a whole fixed calendar.",
+    company: "Keka HR",
+    newdesc: "Redesigned Keka's holiday calendar for global teams to flexibly assign leaves to custom groups instead of assigning an entire calendar ",
     description: "Redesigned Keka's holiday calendar framework to support multi-location enterprise teams and regional holiday lists.",
     title: "Redesigned Keka's Holiday Calendar for Multi-Location Enterprise Teams",
     img: holidayCalendar,
-    images: [holidayCalendar, "/project-imgs/award-programs/open-nominations-dates.webp"],
+    // images: [holidayCalendar, "/project-imgs/award-programs/open-nominations-dates.webp"],
     year: "Keka HR / 2025",
     tags: ["Product Design", "Enterprise UX"],
     type: "client",
-    details: "Redesigned Keka's holiday calendar framework",
+    details: "Moved holiday calendar from audience first approach to a leave first approach",
     meta: {
       duration: "2025",
       role: "Design Strategy & Execution",
@@ -77,6 +95,7 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "9": {
     id: "9",
+    company: "Keka HR",
     newdesc: "Rebuilt Keka's award programs into a governed nomination workflow to unblock enterprise deals.",
     description: "Rebuilt Keka's award programs into a governed nomination workflow to unblock enterprise deals.",
     title: "Keka Award Programs: From Gift Catalog to Governed Workflow",
@@ -95,6 +114,7 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "8": {
     id: "8",
+    company: "Keka HR",
     newdesc: "Removing barriers to help companies adopt Keka for their R&R needs.",
     description: "Removing barriers to help companies adopt Keka for their R&R needs.",
     title: "Strengthening Keka's Reward & Recognition Suite",
@@ -113,15 +133,16 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "6": {
     id: "6",
+    company: "Keka HR",
     newdesc: "Designed a unified Continuous Rewards platform natively integrated into Keka's HRMS, driving a new revenue stream and securing 10+ enterprise accounts.",
     description: "Solved the problem of companies using two platforms for their HRMS and rewards, leading to fragmentation and added cost.",
     title: "Designed a day-to-day recognition platform for Keka to strengthen it's position in the market",
     img: keka,
-    images: [keka, award, wish],
+    images: [keka, milestone, transactions],
     year: "Keka HR / 2024",
     tags: ["Systems Thinking", "Revenue Growth"],
     type: "client",
-    details: "Continuous employee rewards",
+    details: "Employee rewards baked directly into an HR tool",
     meta: {
       duration: "Jun'24 – Nov'24",
       role: "Design, Research, Execution",
@@ -133,11 +154,12 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "2": {
     id: "2",
+    company: "Looppanel",
     newdesc: "Helped teams take evidence-backed decisions by connecting insights to sources",
     description: "Helped teams take evidence-backed decisions by connecting insights to sources",
     title: "Redesigned the highlights view for UX Researchers to synthesize research data into actionable insights & get stakeholder buy-in",
     img: loopinfo,
-    images: [loopinfo, loopnote],
+    // images: [loopinfo, loopnote],
     year: "Looppanel / 2022",
     tags: ["Data Analysis", "Research Ops"],
     type: "client",
@@ -151,15 +173,16 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "7": {
     id: "7",
+    company: "Keka HR",
     newdesc: "Scaled weekly engagement from 15k to 100k users by adding delight when people wish each other.",
     description: "Scaled weekly engagement from 15k to 100k users by redesigning the workplace celebrations framework.",
     title: "Revived falling engagement on HR platform wall by adding delight when people wish each other on special days",
     img: wish,
-    images: [wish, keka],
+    // images: [wish, keka],
     year: "Keka HR / 2025",
     tags: ["Product Design", "Design Strategy"],
     type: "client",
-    details: "Peer to Peer celebrations",
+    details: "5x'ed the engagement for Peer to Peer celebrations",
     meta: {
       duration: "Nov'24 – Jan'25",
       role: "Design & Execution",
@@ -169,11 +192,12 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "1": {
     id: "1",
+    company: "Looppanel",
     newdesc: "Zoom bot helped consolidate all the research data into a single view for user researchers",
     description: "Zoom bot helped consolidate all the research data into a single view for user researchers",
     title: "Designed a note-taking meeting bot for UX Researchers to get transcript, notes, and highlights in one place",
     img: loopnote,
-    images: [loopnote, loopinfo, loopdata],
+    // images: [loopnote, final, questions],
     year: "Looppanel / 2022",
     tags: ["AI & Automation", "Productivity"],
     type: "client",
@@ -187,6 +211,7 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "3": {
     id: "3",
+    company: "Nimbuzz",
     newdesc: "Developed a comprehensive Design Language System that reduced design-to-dev velocity by 60%.",
     description: "Developed a comprehensive Design Language System that reduced design-to-dev velocity by 60%.",
     title: "Nimbuzz: Scaling a Super App Design System",
@@ -205,15 +230,16 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "5": {
     id: "5",
+    company: "Looppanel",
     newdesc: "Simplified the user experience for new and first time users by creating logical groupings of features",
     description: "Simplified the user experience for new and first time users by creating logical groupings of features",
     title: "Redesigned the information architecture of Looppanel to improve feature discovery and data organization.",
     img: loopdata,
-    images: [loopdata, loopnote, loopinfo],
+    // images: [loopdata, loopnote, loopinfo],
     year: "2025-26",
     tags: ["Product", "Design research"],
     type: "client",
-    details: "Looppanel / Founding Designer",
+    details: "Information architecture revamp",
     meta: {
       duration: "Jun'22 – Jul'22",
       role: "Product Designer",
@@ -223,6 +249,7 @@ const projectsById: Record<string, ProjectSummary> = {
   },
   "4": {
     id: "4",
+    company: "NID",
     newdesc: "Designed a multi-sensory hardware device to help users regain control over binge-behavior through mindful habit-forming.",
     description: "Designed a multi-sensory hardware device to help users regain control over binge-behavior through mindful habit-forming.",
     title: "Mindful Hardware: Tackling Binge Behavior",

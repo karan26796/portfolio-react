@@ -36,17 +36,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [tilt, setTilt] = useState(0);
-  /* Carousel logic commented out for now
   const [activeDot, setActiveDot] = useState(0);
   const scrollTrackRef = useRef<HTMLDivElement>(null);
   const imageList = (data.images && data.images.length > 0) ? data.images : [data.img];
+  const isCarouselEnabled = variant === "large" && imageList.length > 1;
 
   const handleScroll = () => {
     if (scrollTrackRef.current) {
       const { scrollLeft, clientWidth } = scrollTrackRef.current;
       if (clientWidth > 0) {
-        const newIndex = Math.round(scrollLeft / clientWidth);
-        setActiveDot(newIndex);
+        const itemWidth = clientWidth * 0.92;
+        const newIndex = Math.round(scrollLeft / itemWidth);
+        setActiveDot(Math.min(newIndex, imageList.length - 1));
       }
     }
   };
@@ -55,14 +56,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     e.stopPropagation();
     if (scrollTrackRef.current) {
       const clientWidth = scrollTrackRef.current.clientWidth;
+      const itemWidth = clientWidth * 0.92 + 12;
       scrollTrackRef.current.scrollTo({
-        left: index * clientWidth,
+        left: index * itemWidth,
         behavior: 'smooth',
       });
       setActiveDot(index);
     }
   };
-  */
 
   useEffect(() => {
     if (enableTilt) {
@@ -132,26 +133,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         backgroundColor: data.accentColor ? `color-mix(in srgb, ${data.accentColor} 4%, var(--bg-color-high))` : undefined,
       }}
     >
-      <img className="project-image" src={data.img} alt={data.title} />
+      {isCarouselEnabled ? (
+        <div className="project-card-image-carousel">
+          <div
+            className="carousel-track"
+            ref={scrollTrackRef}
+            onScroll={handleScroll}
+          >
+            {imageList.map((imgSrc, idx) => (
+              <img
+                key={idx}
+                className="project-image"
+                src={imgSrc}
+                alt={`${data.title} ${idx + 1}`}
+              />
+            ))}
+          </div>
 
-      {/* Carousel structure commented out for now
-      <div className="project-card-image-carousel">
-        <div
-          className="carousel-track"
-          ref={scrollTrackRef}
-          onScroll={handleScroll}
-        >
-          {imageList.map((imgSrc, idx) => (
-            <img
-              key={idx}
-              className="project-image"
-              src={imgSrc}
-              alt={`${data.title} ${idx + 1}`}
-            />
-          ))}
-        </div>
-
-        {imageList.length > 1 && (
           <div className="carousel-dots">
             {imageList.map((_, idx) => (
               <button
@@ -163,9 +161,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               />
             ))}
           </div>
-        )}
-      </div>
-      */}
+        </div>
+      ) : (
+        <img className="project-image" src={data.img} alt={data.title} />
+      )}
 
       <div className="project-card">
 

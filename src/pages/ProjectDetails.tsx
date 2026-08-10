@@ -172,7 +172,7 @@ const ProjectDetails: React.FC = () => {
                   img: ({ node, caption, alt, ...props }: any) => {
                     const captionText = caption || alt || "";
                     return (
-                      <ScrollReveal variant="fade">
+                      <ScrollReveal variant="image-reveal">
                         <figure>
                           <img alt={captionText} {...props} />
                           {captionText && <figcaption>{captionText}</figcaption>}

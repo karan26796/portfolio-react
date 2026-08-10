@@ -21,7 +21,7 @@ export interface ProjectCardData {
   type: "personal" | "client" | "other";
   url?: string;
   specialStatus?: string; // Add this line to resolve the error
-  details?: string; // Add this line to resolve the error
+  company?: string;
   aiSummary?: string;
 }
 

@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import {
   House,
+  User,
   FigmaLogo,
   Camera,
   ArrowLeft,
@@ -277,7 +278,7 @@ const StickyNavBar: React.FC = () => {
       );
     }
 
-    const isResumeCtaPage = location.pathname === "/figma-training" || location.pathname === "/gallery";
+    const isResumeCtaPage = location.pathname === "/figma-training" || location.pathname === "/gallery" || location.pathname === "/about";
 
     const mainCta = isResumeCtaPage ? (
       <Button
@@ -336,6 +337,14 @@ const StickyNavBar: React.FC = () => {
             <Camera size={22} weight="duotone" />
             <span>Travel</span>
           </Link>
+
+          {/* <Link
+            to="/about"
+            className={`sidebar-link${location.pathname === "/about" ? " active" : ""}`}
+          >
+            <User size={22} weight="duotone" />
+            <span>About</span>
+          </Link> */}
 
           <div className="sidebar-cta-wrapper">
             {mainCta}
@@ -413,6 +422,17 @@ const StickyNavBar: React.FC = () => {
           >
             <House size={18} weight="duotone" />
             <span>Work</span>
+          </Link>
+
+          {/* About Link */}
+          <Link
+            to="/about"
+            className={`a-header${location.pathname === "/about" ? " active" : ""}`}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            <User size={18} weight="duotone" />
+            <span>About</span>
           </Link>
 
           {/* Training Link */}

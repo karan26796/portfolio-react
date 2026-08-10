@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useScrollRevealDefaults } from './ScrollRevealContext';
 import '../styles/ScrollReveal.scss';
 
-export type ScrollRevealVariant = 'fade-up' | 'fade' | 'scale';
+export type ScrollRevealVariant = 'fade-up' | 'fade' | 'scale' | 'image-reveal';
 
 interface ScrollRevealProps {
   children: React.ReactNode;
