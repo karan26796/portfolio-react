@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import "../styles/ProjectDetails.scss";
 import ProjectDetailHeader from "../components/ProjectHeader";
 import { useProjects } from "../utils/useProjects";
@@ -13,6 +13,7 @@ import ScrollReveal from "../components/ScrollReveal";
 import AISummarizer from "../components/AISummarizer";
 import FAQ from "../components/FAQ";
 import WorkTogether from "../components/WorkTogether";
+import ReaderModeHeader from "../components/ReaderModeHeader";
 import { formatSectionTitle } from "../utils/formatSectionTitle";
 import AwardProgramsCaseStudy from "../projects/AwardProgramsCaseStudy";
 
@@ -20,11 +21,11 @@ import AwardProgramsCaseStudy from "../projects/AwardProgramsCaseStudy";
 const CUSTOM_PROJECTS: Record<string, React.ComponentType> = {
   "9": AwardProgramsCaseStudy,
 };
-// Force fast refresh
 
-// Deterministic slug from a heading's text — same input always yields the same
-// id, so the ids stay stable across re-renders and the TOC's getElementById
-// lookups never drift out of sync.
+// Explicit IDs of projects that do NOT have a detailed case study
+const EXCLUDED_PROJECT_IDS = new Set(["10"]);
+
+// Deterministic slug from a heading's text
 const slugify = (text: string) =>
   text
     .toLowerCase()
@@ -51,10 +52,13 @@ const extractFAQ = (content: string | null) => {
 
 const ProjectDetails: React.FC = () => {
   const { projectId } = useParams<{ projectId: string }>();
+  const navigate = useNavigate();
   const [markdownContent, setMarkdownContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [headers, setHeaders] = useState<{ text: string; id: string }[]>([]);
+  const [isExpanded, setIsExpanded] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
+  const bodyRef = useRef<HTMLDivElement>(null);
 
   // Fetch the list of all projects dynamically
   const { projects: projectSummaries, loading: projectsLoading } = useProjects();
@@ -62,6 +66,33 @@ const ProjectDetails: React.FC = () => {
   const projectSummary = projectSummaries.find(
     (summary) => summary.id === projectId
   );
+
+  // Filter to only include projects that have valid case study content
+  const validProjectList = projectSummaries
+    .filter((p) => !EXCLUDED_PROJECT_IDS.has(p.id) && (p as any).hasCaseStudy !== false)
+    .map((p) => ({
+      id: p.id,
+      title: p.title,
+      company: p.company,
+    }));
+
+  const currentIndex = validProjectList.findIndex((p) => p.id === projectId);
+
+  const handlePrev = () => {
+    if (validProjectList.length === 0) return;
+    const prevIdx = currentIndex > 0 ? currentIndex - 1 : validProjectList.length - 1;
+    navigate(`/project/${validProjectList[prevIdx].id}`);
+  };
+
+  const handleNext = () => {
+    if (validProjectList.length === 0) return;
+    const nextIdx = currentIndex < validProjectList.length - 1 ? currentIndex + 1 : 0;
+    navigate(`/project/${validProjectList[nextIdx].id}`);
+  };
+
+  const handleClose = () => {
+    navigate("/home");
+  };
 
   const { cleanContent, faqData } = React.useMemo(() => {
     return extractFAQ(markdownContent);
@@ -76,20 +107,28 @@ const ProjectDetails: React.FC = () => {
         const response = await fetch(`/projects/Project${projectId}.md`);
 
         if (!response.ok) {
-          throw new Error('Failed to fetch from local path');
+          throw new Error('Case study content not available');
         }
 
         const text = await response.text();
 
-        // Simulate a tiny network delay to test skeleton locally
+        if (!text || text.trim().length === 0) {
+          throw new Error('Case study content is empty');
+        }
+
         setTimeout(() => {
           setMarkdownContent(text);
           setLoading(false);
-        }, 400);
+        }, 200);
 
-        window.scrollTo(0, 0);
+        if (bodyRef.current) {
+          bodyRef.current.scrollTop = 0;
+        } else {
+          window.scrollTo(0, 0);
+        }
       } catch (error) {
         console.error("Failed to load project content:", error);
+        setMarkdownContent(null);
         setLoading(false);
       }
     };
@@ -107,7 +146,6 @@ const ProjectDetails: React.FC = () => {
       const seen = new Map<string, number>();
       const h3s = Array.from(contentRef.current.querySelectorAll("h3"));
       const headerList = h3s.map((h3) => {
-        // Ensure a stable, unique id even if two headings slugify to the same value.
         let id = h3.id || slugify(h3.textContent || "");
         const count = seen.get(id) ?? 0;
         seen.set(id, count + 1);
@@ -121,102 +159,114 @@ const ProjectDetails: React.FC = () => {
 
   const handleHeaderClick = (id: string) => {
     const el = document.getElementById(id);
-    if (el) {
-      const navOffset = 88;
-      const top = el.getBoundingClientRect().top + window.scrollY - navOffset;
-      window.scrollTo({ top, behavior: "smooth" });
+    if (el && bodyRef.current) {
+      const navOffset = 60;
+      const top = el.getBoundingClientRect().top + bodyRef.current.scrollTop - navOffset;
+      bodyRef.current.scrollTo({ top, behavior: "smooth" });
     }
   };
 
-  // Bespoke React case-study pages bypass the markdown pipeline entirely.
+  // Bespoke React case-study pages bypass markdown pipeline
   const CustomPage = projectId ? CUSTOM_PROJECTS[projectId] : undefined;
-  if (CustomPage) {
-    return <CustomPage />;
-  }
-
-  if (loading || projectsLoading) {
-    return <ProjectDetailsSkeleton />;
-  }
-
-  if (!projectSummary) {
-    return <div className="error-message">Project not found</div>;
-  }
 
   return (
-    <>
-      <div className="container-project">
-        {/* Index panel temporarily disabled
-        <ProjectSidePanel
-          headers={headers}
-          onHeaderClick={handleHeaderClick}
-          scrollRootRef={contentRef}
+    <div
+      className="reader-mode-overlay"
+      onClick={(e) => {
+        if (e.target === e.currentTarget) handleClose();
+      }}
+    >
+      <div className={`reader-mode-window${isExpanded ? " full-width" : ""}`}>
+        <ReaderModeHeader
+          currentProjectId={projectId || ""}
+          projectList={validProjectList}
+          onClose={handleClose}
+          onPrev={handlePrev}
+          onNext={handleNext}
+          isExpanded={isExpanded}
+          onToggleExpand={() => setIsExpanded(!isExpanded)}
         />
-        */}
-        <div className="project-content-wrapper">
-          <ProjectDetailHeader data={projectSummary} />
-          <div ref={contentRef} className="project-details">
-            {cleanContent ? (
-              <ReactMarkdown
-                rehypePlugins={[rehypeRaw]}
-                components={{
-                  h3: ({ children, ...props }: any) => {
-                    const id = props.id || slugify(String(children));
-                    return (
-                      <ScrollReveal>
-                        <h3 {...props} id={id}>
-                          {formatSectionTitle(String(children))}
-                        </h3>
-                      </ScrollReveal>
-                    );
-                  },
-                  img: ({ node, caption, alt, ...props }: any) => {
-                    const captionText = caption || alt || "";
-                    return (
-                      <ScrollReveal variant="image-reveal">
-                        <figure>
-                          <img alt={captionText} {...props} />
-                          {captionText && <figcaption>{captionText}</figcaption>}
-                        </figure>
-                      </ScrollReveal>
-                    );
-                  },
-                  video: ({ node, ...props }: any) => {
-                    const customProps = props as any;
-                    return (
-                      <ScrollReveal variant="fade">
-                        <CustomVideo src={props.src} caption={customProps.caption} />
-                      </ScrollReveal>
-                    );
-                  }
-                } as any}
-              >
-                {cleanContent}
-              </ReactMarkdown>
-            ) : <div>Project content not available</div>}
-          </div>
+
+        <div className="reader-mode-body" ref={bodyRef}>
+          {CustomPage ? (
+            <CustomPage />
+          ) : loading || projectsLoading ? (
+            <ProjectDetailsSkeleton />
+          ) : !projectSummary || !markdownContent ? (
+            <div className="error-message" style={{ padding: '4em 2em', textAlign: 'center' }}>
+              <h3>Case study coming soon</h3>
+              <p style={{ opacity: 0.7, marginTop: '0.5em' }}>This project does not have a detailed case study document yet.</p>
+            </div>
+          ) : (
+            <>
+              <div className="container-project">
+                <div className="project-content-wrapper">
+                  <ProjectDetailHeader data={projectSummary} />
+                  <div ref={contentRef} className="project-details">
+                    {cleanContent ? (
+                      <ReactMarkdown
+                        rehypePlugins={[rehypeRaw]}
+                        components={{
+                          h3: ({ children, ...props }: any) => {
+                            const id = props.id || slugify(String(children));
+                            return (
+                              <ScrollReveal>
+                                <h3 {...props} id={id}>
+                                  {formatSectionTitle(String(children))}
+                                </h3>
+                              </ScrollReveal>
+                            );
+                          },
+                          img: ({ node, caption, alt, ...props }: any) => {
+                            const captionText = caption || alt || "";
+                            return (
+                              <ScrollReveal variant="image-reveal">
+                                <figure>
+                                  <img alt={captionText} {...props} />
+                                  {captionText && <figcaption>{captionText}</figcaption>}
+                                </figure>
+                              </ScrollReveal>
+                            );
+                          },
+                          video: ({ node, ...props }: any) => {
+                            const customProps = props as any;
+                            return (
+                              <ScrollReveal variant="fade">
+                                <CustomVideo src={props.src} caption={customProps.caption} />
+                              </ScrollReveal>
+                            );
+                          }
+                        } as any}
+                      >
+                        {cleanContent}
+                      </ReactMarkdown>
+                    ) : <div>Project content not available</div>}
+                  </div>
+                </div>
+              </div>
+
+              {faqData && (
+                <FAQ data={faqData} hideTitle={false} title="FAQs" />
+              )}
+
+              {markdownContent && (
+                <AISummarizer
+                  text={markdownContent}
+                  buttonLabel="Ask Agent Vinod"
+                  initialPrompts={[
+                    "Can you summarize this project?",
+                    "What was my role here?",
+                    "What was the biggest challenge?"
+                  ]}
+                />
+              )}
+
+              <WorkTogether />
+            </>
+          )}
         </div>
       </div>
-
-      {faqData && (
-        <FAQ data={faqData} hideTitle={false} title="FAQs" />
-      )}
-
-      {/* <ProjectNextProjects currentProjectId={projectId!} /> */}
-
-      {markdownContent && (
-        <AISummarizer
-          text={markdownContent}
-          buttonLabel="Ask Agent Vinod"
-          initialPrompts={[
-            "Can you summarize this project?",
-            "What was my role here?",
-            "What was the biggest challenge?"
-          ]}
-        />
-      )}
-
-      <WorkTogether />
-    </>
+    </div>
   );
 };
 

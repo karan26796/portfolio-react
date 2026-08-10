@@ -242,6 +242,7 @@
       gap: 0.5em;
       position: relative;
 
+
       @media (max-width: 800px) {
         justify-content: space-around;
         flex: 1;
@@ -250,9 +251,9 @@
         padding: 0.35em 0.5em;
         background: color-mix(in srgb, var(--bg-color) 85%, transparent);
         backdrop-filter: blur(16px);
+        border: 1px solid var(--border-color);
         -webkit-backdrop-filter: blur(16px);
-        border: none;
-        border-radius: 999px;
+        border-radius: 100px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
       }
     }
