@@ -48,7 +48,7 @@
     transition: all 0.3s linear;
 
     @media screen and (max-width: 767px) {
-      aspect-ratio: 5/4;
+      aspect-ratio: 6/4;
       border: 1px solid transparent;
       border-radius: 1em;
     }
@@ -89,9 +89,9 @@
         box-sizing: border-box;
 
         @media screen and (max-width: 767px) {
-          flex: 0 0 88%;
-          width: 88%;
-          aspect-ratio: 5/4;
+          flex: 0 0 95%;
+          width: 95%;
+          aspect-ratio: 7/5;
           border: 1px solid transparent;
           border-radius: 1em;
         }
