@@ -84,6 +84,16 @@
     }
   }
 
+  .tag-icon {
+    height: 1.1em;
+    width: auto;
+    max-height: 18px;
+    object-fit: contain;
+    filter: var(--logo-filter);
+    display: inline-block;
+    vertical-align: middle;
+  }
+
   .tag {
     font-size: 0.9em;
     font-weight: 500;

@@ -52,7 +52,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.5em;
+      gap: 1.5em;
     }
 
     .tags {
@@ -76,11 +76,29 @@
       }
     }
 
+    .headline-text {
+      font-size: 1.45em;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--primary-text);
+      margin: 0.1em 0 0.3em 0;
+      letter-spacing: -0.015em;
+
+      @media screen and (max-width: 767px) {
+        font-size: 1.2em;
+      }
+    }
+
     .intro-text {
       margin-top: 0;
-      font-weight: 600;
-      color: var(--primary-text);
-      // font-size: var(--h3-size);
+      font-weight: 450;
+      font-size: 1.05em;
+      line-height: 1.6;
+      color: var(--secondary-text);
+
+      @media screen and (max-width: 767px) {
+        font-size: 0.95em;
+      }
     }
 
     .button-group {
