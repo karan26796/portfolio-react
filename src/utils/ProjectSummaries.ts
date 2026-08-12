@@ -10,8 +10,8 @@ const questions = "/project-imgs/loop-note/editor-question.webp";
 
 //continuous rewards
 const keka = "/project-imgs/continuous rewards/Thumb-2.webp";
-const transactions = "/project-imgs/continuous rewards/employee-transaction.webp";
-const milestone = "/project-imgs/continuous rewards/employee milestone data.webp";
+const transactions = "/project-imgs/continuous rewards/employee-transaction-thumb.webp";
+const milestone = "/project-imgs/continuous rewards/employee milestone data-thumb.webp";
 
 const loopinfo = "/project-imgs/looppanel-insights/insight-thumb.gif";
 const wish = "/project-imgs/kekawish/thumb-cr.webp";
@@ -139,7 +139,7 @@ const projectsById: Record<string, ProjectSummary> = {
     description: "Solved the problem of companies using two platforms for their HRMS and rewards, leading to fragmentation and added cost.",
     title: "Designed a day-to-day recognition platform for Keka to strengthen it's position in the market",
     img: keka,
-    images: [keka, milestone, transactions],
+    images: [keka, transactions, milestone],
     year: "Keka HR / 2024",
     tags: ["Systems Thinking", "Revenue Growth"],
     type: "client",
