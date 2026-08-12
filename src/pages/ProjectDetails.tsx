@@ -15,12 +15,8 @@ import FAQ from "../components/FAQ";
 import WorkTogether from "../components/WorkTogether";
 import ReaderModeHeader from "../components/ReaderModeHeader";
 import { formatSectionTitle } from "../utils/formatSectionTitle";
-import AwardProgramsCaseStudy from "../projects/AwardProgramsCaseStudy";
-
 // Projects that render as bespoke React pages instead of markdown.
-const CUSTOM_PROJECTS: Record<string, React.ComponentType> = {
-  "9": AwardProgramsCaseStudy,
-};
+const CUSTOM_PROJECTS: Record<string, React.ComponentType> = {};
 
 // Explicit IDs of projects that do NOT have a detailed case study
 const EXCLUDED_PROJECT_IDS = new Set(["10"]);
@@ -253,6 +249,7 @@ const ProjectDetails: React.FC = () => {
                 <AISummarizer
                   text={markdownContent}
                   buttonLabel="Ask Agent Vinod"
+                  pageType="project"
                   initialPrompts={[
                     "Can you summarize this project?",
                     "What was my role here?",

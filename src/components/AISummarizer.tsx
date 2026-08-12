@@ -3,59 +3,39 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { Sparkle, X, ArrowUp } from "@phosphor-icons/react";
 import Button from "./Buttons";
+import { findInterviewAnswer } from '../utils/interviewKnowledge';
 import '../styles/AISummarizer.scss';
 
 interface AISummarizerProps {
     text: string;
     initialPrompts?: string[];
     buttonLabel?: string;
+    pageType?: 'home' | 'project';
 }
+
+const FALLBACK_PROMPTS: Record<'home' | 'project', string[]> = {
+    home: [
+        "What roles are you looking for?",
+        "How do you handle disagreements with PMs?",
+        "How can I contact you?"
+    ],
+    project: [
+        "Can you summarize this project?",
+        "What was my role here?",
+        "What was the biggest challenge?"
+    ]
+};
 
 interface ChatMessage {
     role: 'user' | 'bot';
     content: string;
 }
 
-const getMatchedAnswer = (userInput: string, projectContext?: string): string => {
-    const clean = userInput.toLowerCase().trim();
-
-    if (clean.includes("summarize") || clean.includes("summary")) {
-        if (projectContext && projectContext.length > 50) {
-            const lines = projectContext
-                .split("\n")
-                .map(l => l.trim())
-                .filter(l => l.length > 20 && !l.startsWith("#") && !l.startsWith("!["))
-                .slice(0, 3);
-            const overview = lines.join(" ") || "Redesigned complex B2B SaaS workflows into intuitive enterprise systems.";
-            return `### Case Study Summary\n\n- **Overview**: ${overview.slice(0, 220)}...\n- **Key Solution**: Governed workflow automation and scalable component patterns.\n- **Impact**: High enterprise adoption, reduced task friction, and unblocked sales evaluation pipelines.`;
-        }
-        return "### Case Study Summary\n\n- **Overview**: End-to-end UX research, interaction design, and component architecture for complex enterprise B2B SaaS.\n- **Key Solution**: Governed workflow automation, intuitive navigation, and high-density data visualizations.\n- **Impact**: High enterprise adoption and streamlined daily operation workflows.";
-    }
-
-    if (clean.includes("role") || clean.includes("do here") || clean.includes("contribution")) {
-        return "### Karan's Role & Responsibilities\n\n- **Lead Product Designer**: Owned end-to-end design strategy, user research, wireframing, and high-fidelity UI execution.\n- **Design Systems**: Created component specifications and interactive prototypes in Figma.\n- **Cross-Functional Sync**: Partnered closely with Product Managers and Engineering teams to deliver production-ready features.";
-    }
-
-    if (clean.includes("challenge") || clean.includes("hardest") || clean.includes("problem")) {
-        return "### Key Challenge & Resolution\n\n- **Challenge**: Balancing complex multi-location enterprise governance rules with a simple, low-friction user experience.\n- **Resolution**: Conducted user interviews to map edge cases, designed modular permission structures, and validated prototypes prior to engineering build.";
-    }
-
-    if (clean.includes("process") || clean.includes("how do")) {
-        return "### Design Process\n\n- **Research & Strategy**: Deep domain mapping, customer verbatims, and competitive analysis.\n- **Ideation & Testing**: Wireframing, interactive Figma prototypes, and usability testing.\n- **Delivery**: Detailed developer specs, component state documentation, and post-launch metric tracking.";
-    }
-
-    if (clean.includes("karan") || clean.includes("who")) {
-        return "### About Karan Kapoor\n\nSenior Product Designer with ~7 years of experience building B2B SaaS, enterprise systems, and AI tools.\n\n- **Current Role**: Sr. Product Designer at **Keka HR** (2.2M+ users)\n- **Education**: Master's in Design (**NID Ahmedabad**) + B.Tech Engineering\n- **Location**: Hyderabad, India (open to remote & relocation)";
-    }
-
-    if (clean.includes("open") || clean.includes("looking") || clean.includes("hire") || clean.includes("role")) {
-        return "### Career Focus & Availability\n\n- **Target Roles**: Lead Product Designer, Staff Product Designer, or Design Manager\n- **Domain Preference**: B2B SaaS, enterprise software, developer tools\n- **Setup**: Open to remote-first, hybrid, or relocation";
-    }
-
-    return "### Answer\n\nKaran Kapoor is a Senior Product Designer (~7 years exp) specializing in B2B SaaS, enterprise systems, and AI-driven workflows.\n\nFeel free to ask about his design process, case study summaries, or career background!";
+const getMatchedAnswer = (userInput: string, projectContext: string | undefined, pageType: 'home' | 'project'): string => {
+    return findInterviewAnswer(userInput, projectContext, pageType);
 };
 
-const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, buttonLabel }) => {
+const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, buttonLabel, pageType = 'project' }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([{
         role: 'bot',
@@ -113,7 +93,7 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ messages: updatedHistory, pageContext: text }),
+                body: JSON.stringify({ messages: updatedHistory, pageContext: text, pageType }),
             });
 
             if (!response.ok) {
@@ -161,7 +141,7 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
 
         } catch (error) {
             console.warn('API connection offline or proxy error. Using matched answer:', error);
-            const matchedAnswer = getMatchedAnswer(userInput, text);
+            const matchedAnswer = getMatchedAnswer(userInput, text, pageType);
             setMessages((prevMessages) => {
                 const newMessages = [...prevMessages];
                 const lastMessage = newMessages[newMessages.length - 1];
@@ -171,11 +151,7 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                 return newMessages;
             });
             setIsGenerating(false);
-            setSuggestedPrompts([
-                "Can you summarize this project?",
-                "What was my role here?",
-                "What was the biggest challenge?"
-            ]);
+            setSuggestedPrompts(FALLBACK_PROMPTS[pageType]);
         }
     };
 

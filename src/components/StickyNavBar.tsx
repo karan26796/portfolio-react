@@ -62,7 +62,8 @@ const StickyNavBar: React.FC = () => {
       <Button
         text={location.pathname === "/home" || location.pathname === "/" ? "Let's work together" : "View Resume"}
         withIcon={true}
-        iconName="FileText"
+        iconName={location.pathname === "/home" || location.pathname === "/" ? "ArrowRight" : "FileText"}
+        iconDirection={location.pathname === "/home" || location.pathname === "/" ? "right" : "left"}
         onClick={() => {
           if (location.pathname !== "/home" && location.pathname !== "/") {
             setIsResumeOpen(true);
