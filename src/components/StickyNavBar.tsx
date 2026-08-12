@@ -21,9 +21,11 @@ const StickyNavBar: React.FC = () => {
 
   const [isMobile, setIsMobile] = useState<boolean>(window.innerWidth <= 800);
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
+  const [isContactInView, setIsContactInView] = useState<boolean>(false);
 
   const containerRef = useRef<HTMLDivElement>(null);
   const location = useLocation();
+  const isHome = location.pathname === "/home" || location.pathname === "/";
 
   useEffect(() => {
     const handleResize = () => {
@@ -33,6 +35,26 @@ const StickyNavBar: React.FC = () => {
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
+
+  // Hide the "Let's work together" sidebar CTA once the user has scrolled
+  // to the contact/WorkTogether section on the home page.
+  useEffect(() => {
+    if (isMobile || !isHome) {
+      setIsContactInView(false);
+      return;
+    }
+
+    const target = document.getElementById("contact");
+    if (!target) return;
+
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsContactInView(entry.isIntersecting),
+      { threshold: 0.15 }
+    );
+    observer.observe(target);
+
+    return () => observer.disconnect();
+  }, [isHome, isMobile, location.pathname]);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {
     if (isMobile) return;
@@ -60,12 +82,12 @@ const StickyNavBar: React.FC = () => {
   if (!isMobile) {
     const mainCta = (
       <Button
-        text={location.pathname === "/home" || location.pathname === "/" ? "Let's work together" : "View Resume"}
+        text={isHome ? "Let's work together" : "View Resume"}
         withIcon={true}
-        iconName={location.pathname === "/home" || location.pathname === "/" ? "ArrowRight" : "FileText"}
-        iconDirection={location.pathname === "/home" || location.pathname === "/" ? "right" : "left"}
+        iconName={isHome ? "ArrowRight" : "FileText"}
+        iconDirection={isHome ? "right" : "left"}
         onClick={() => {
-          if (location.pathname !== "/home" && location.pathname !== "/") {
+          if (!isHome) {
             setIsResumeOpen(true);
           } else {
             const section = document.getElementById("contact");
@@ -74,7 +96,7 @@ const StickyNavBar: React.FC = () => {
             }
           }
         }}
-        variant={location.pathname === "/home" || location.pathname === "/" ? "primary" : "secondary"}
+        variant={isHome ? "primary" : "secondary"}
         size="m"
       />
     );
@@ -110,7 +132,7 @@ const StickyNavBar: React.FC = () => {
             <span>Travel</span>
           </Link>
 
-          <div className="sidebar-cta-wrapper">
+          <div className={`sidebar-cta-wrapper${isHome && isContactInView ? " is-hidden" : ""}`}>
             {mainCta}
           </div>
         </nav>

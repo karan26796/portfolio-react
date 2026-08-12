@@ -523,6 +523,10 @@
     .sidebar-cta-wrapper {
       margin-top: 0.75em;
       width: 100%;
+      opacity: 1;
+      max-height: 100px;
+      overflow: hidden;
+      transition: opacity 0.2s ease, max-height 0.25s ease, margin-top 0.25s ease;
 
       .custom-button {
         width: 100%;
@@ -531,6 +535,13 @@
         justify-content: center;
         white-space: nowrap;
         box-sizing: border-box;
+      }
+
+      &.is-hidden {
+        opacity: 0;
+        max-height: 0;
+        margin-top: 0;
+        pointer-events: none;
       }
     }
   }
