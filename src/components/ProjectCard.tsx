@@ -109,11 +109,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       className: "read-more-button",
       withIcon: true,
       iconDirection: "right" as const,
-      size: (isSmallScreen ? "s" : variant === "large" ? "m" : "s") as "s" | "m",
+      size: "s" as "s" | "m",
     };
     return (
       <Buttons
         {...commonProps}
+        size="s"
         text={variant === "large" ? "Read" : "Visit site"}
         iconName={variant === "large" ? "ArrowRight" : "ArrowSquareOut"}
         withText={true}

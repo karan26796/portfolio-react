@@ -90,7 +90,7 @@ const StickyNavBar: React.FC = () => {
             to="/home"
             className={`sidebar-link${location.pathname === "/home" ? " active" : ""}`}
           >
-            <House size={22} weight="duotone" />
+            <House size={22} weight="light" />
             <span>Work</span>
           </Link>
 
@@ -98,7 +98,7 @@ const StickyNavBar: React.FC = () => {
             to="/figma-training"
             className={`sidebar-link${location.pathname === "/figma-training" ? " active" : ""}`}
           >
-            <FigmaLogo size={22} weight="duotone" />
+            <FigmaLogo size={22} weight="light" />
             <span>Figma training</span>
           </Link>
 
@@ -106,7 +106,7 @@ const StickyNavBar: React.FC = () => {
             to="/gallery"
             className={`sidebar-link${location.pathname === "/gallery" ? " active" : ""}`}
           >
-            <Camera size={22} weight="duotone" />
+            <Camera size={22} weight="light" />
             <span>Travel</span>
           </Link>
 

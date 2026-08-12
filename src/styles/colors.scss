@@ -1,16 +1,24 @@
 :root {
-  /* Color palette — X (Twitter) neutral scale */
+  /* Color palette — Neutral scale */
   --grey-100: #ffffff;
   --grey-200: #f7f9f9;
   --grey-300: #eff3f4;
   --grey-400: #cfd9de;
   --grey-500: #8b98a5;
   --grey-600: #536471;
-  --grey-700: #38444d;
-  --grey-800: #1e2732;
-  --grey-900: #0f1419;
+  --grey-700: #2d3748;
+  --grey-800: #1a202c;
+  --grey-900: #0d1117;
 
-  /* X (Twitter) brand blue */
+  /* Brand and Highlight accents */
   --twitter-blue: #1d9bf0;
   --twitter-blue-hover: #1a8cd8;
+  --accent-purple: #7000ff;
+  --accent-cyan: #00d2ff;
+  
+  /* Glass and surface overlays */
+  --surface-dark: #121820;
+  --surface-card-dark: #18222d;
+  --border-subtle-dark: rgba(255, 255, 255, 0.08);
+  --border-subtle-light: rgba(0, 0, 0, 0.08);
 } 
