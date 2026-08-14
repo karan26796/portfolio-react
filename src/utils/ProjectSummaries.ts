@@ -103,10 +103,10 @@ const projectsById: Record<string, ProjectSummary> = {
     img: awardPrograms,
     images: [
       "/project-imgs/award-programs/thumb.webp",
-      "/project-imgs/award-programs/nominee list.webp",
-      "/project-imgs/award-programs/Category creation.webp",
       "/project-imgs/award-programs/nominations required.webp",
       "/project-imgs/award-programs/nominations workflow.webp",
+      "/project-imgs/award-programs/Category creation.webp",
+      "/project-imgs/award-programs/nominee list.webp",
     ],
     year: "2025-26",
     tags: ["Product Design", "Enterprise UX"],
