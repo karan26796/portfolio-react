@@ -2,6 +2,7 @@ import React from 'react';
 import experiments from "../utils/experiments";
 import HorizontalCarouselSection from './HorizontalCarouselSection';
 import '../styles/Experiments.scss';
+import ImageWithSkeleton from './ImageWithSkeleton';
 
 interface ExperimentsProps {
   title?: string;
@@ -36,7 +37,7 @@ const Experiments: React.FC<ExperimentsProps> = ({
                   aria-label={experiment.caption ?? `Experiment ${index + 1}`}
                 />
               ) : (
-                <img
+                <ImageWithSkeleton
                   src={experiment.src}
                   alt={experiment.caption ?? `Experiment ${index + 1}`}
                 />

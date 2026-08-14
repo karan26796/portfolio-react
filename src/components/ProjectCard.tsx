@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from "react";
 import "../styles/ProjectCard.scss";
 import "../styles/ProjectCardSmall.scss";
 import Buttons from "./Buttons";
+import ImageWithSkeleton from "./ImageWithSkeleton";
 
 interface ProjectCardProps {
   data: {
@@ -142,8 +143,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             onScroll={handleScroll}
           >
             {imageList.map((imgSrc, idx) => (
-              <img
+              <ImageWithSkeleton
                 key={idx}
+                containerClassName="project-image-wrapper"
                 className="project-image"
                 src={imgSrc}
                 alt={`${data.title} ${idx + 1}`}
@@ -164,7 +166,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
         </div>
       ) : (
-        <img className="project-image" src={data.img} alt={data.title} />
+        <ImageWithSkeleton
+          containerClassName="project-image-single-wrapper"
+          className="project-image"
+          src={data.img}
+          alt={data.title}
+        />
       )}
 
       <div className="project-card">

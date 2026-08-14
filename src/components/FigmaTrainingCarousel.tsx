@@ -3,6 +3,7 @@ import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
 import { MapPin } from '@phosphor-icons/react';
 import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
 import '../styles/FigmaTrainingCarousel.scss';
+import ImageWithSkeleton from './ImageWithSkeleton';
 
 interface TrainingItem {
   id: string;
@@ -34,7 +35,7 @@ const FigmaTrainingMasonry: React.FC = () => (
               {item.isVideo ? (
                 <video src={item.image} autoPlay loop muted playsInline />
               ) : (
-                <img src={item.image} alt={item.title} loading="lazy" />
+                <ImageWithSkeleton src={item.image} alt={item.title} loading="lazy" />
               )}
               <div className="masonry-item-text">
                 <h4>{item.title}</h4>

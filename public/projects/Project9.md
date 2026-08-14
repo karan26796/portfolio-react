@@ -7,10 +7,10 @@ We redesigned award programs to close that gap: structured nominations, a review
 
 </section>
 
-<img src="/project-imgs/award-programs/Category creation.webp" caption="Setting up an award category"></img>
-
 <img src="/project-imgs/award-programs/nominations required.webp" caption="Require nominations? — the fork that keeps the simple path simple"></img>
 
 <img src="/project-imgs/award-programs/nominations workflow.webp" caption="Nominations route through a review chain before reaching panelists"></img>
+
+<img src="/project-imgs/award-programs/Category creation.webp" caption="Setting up an award category"></img>
 
 <img src="/project-imgs/award-programs/nominee list.webp" caption="A dedicated, filterable nominee table"></img>
