@@ -41,14 +41,14 @@ export type ProjectSummary = ProjectCardData & { meta: ProjectMeta };
  * - Reorder ids to change display order
  */
 export const PROJECT_DISPLAY_ORDER: string[] = [
+  "9",
   "6",
   "1",
-  "7",
+  // "7",
   "10",
   "2",
-  "5",
+  // "5",
   "11",
-  // "9"
   // "10",
 ];
 
@@ -78,7 +78,7 @@ const projectsById: Record<string, ProjectSummary> = {
   "11": {
     id: "11",
     company: "Keka HR",
-    newdesc: "Redesigned Keka's holiday calendar for global teams to flexibly assign leaves to custom groups instead of assigning an entire calendar ",
+    newdesc: "Redesigned Keka's holiday calendar for global teams to flexibly assign custom groups to a leave instead of an entire calendar",
     description: "Redesigned Keka's holiday calendar framework to support multi-location enterprise teams and regional holiday lists.",
     title: "Redesigned Keka's Holiday Calendar for Multi-Location Enterprise Teams",
     img: holidayCalendar,
@@ -101,11 +101,17 @@ const projectsById: Record<string, ProjectSummary> = {
     description: "Rebuilt Keka's award programs into a governed nomination workflow to unblock enterprise deals.",
     title: "Keka Award Programs: From Gift Catalog to Governed Workflow",
     img: awardPrograms,
-    images: [awardPrograms, award, "/project-imgs/award-programs/winner-announcement.webp"],
+    images: [
+      "/project-imgs/award-programs/thumb.webp",
+      "/project-imgs/award-programs/nominee list.webp",
+      "/project-imgs/award-programs/Category creation.webp",
+      "/project-imgs/award-programs/nominations required.webp",
+      "/project-imgs/award-programs/nominations workflow.webp",
+    ],
     year: "2025-26",
     tags: ["Product Design", "Enterprise UX"],
     type: "client",
-    details: "Keka HR / 2026",
+    details: "Redesigning Keka's awards platform for customizability & enterprise readiness",
     meta: {
       duration: "Feb – Apr 2026",
       role: "Design Strategy & Execution",
