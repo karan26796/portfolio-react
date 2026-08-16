@@ -19,9 +19,9 @@ const logos: Logo[] = [
   {
     url: loop,
   },
-  {
-    url: indiana,
-  },
+  // {
+  //   url: indiana,
+  // },
   // {
   //   url: shaadi,
   // },

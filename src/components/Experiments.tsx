@@ -42,16 +42,17 @@ const Experiments: React.FC<ExperimentsProps> = ({
                   alt={experiment.caption ?? `Experiment ${index + 1}`}
                 />
               )}
+              {experiment.caption && (
+                <div className="experiment-overlay">
+                  <span className="experiment-overlay-caption">
+                    {experiment.caption}
+                  </span>
+                </div>
+              )}
             </div>
           </div>
-          {experiment.caption && (
-            <figcaption className="experiment-caption">
-              {experiment.caption}
-            </figcaption>
-          )}
         </figure>
-      ))
-      }
+      ))}
     </HorizontalCarouselSection >
   );
 };
