@@ -18,8 +18,8 @@ import { formatSectionTitle } from "../utils/formatSectionTitle";
 // Projects that render as bespoke React pages instead of markdown.
 const CUSTOM_PROJECTS: Record<string, React.ComponentType> = {};
 
-// Explicit IDs of projects that do NOT have a detailed case study
-const EXCLUDED_PROJECT_IDS = new Set(["10"]);
+// Explicit IDs of projects that do NOT have a detailed case study or should be skipped in navigation
+const EXCLUDED_PROJECT_IDS = new Set(["10", "11"]);
 
 // Deterministic slug from a heading's text
 const slugify = (text: string) =>

@@ -14,7 +14,7 @@ export interface Experiment {
 }
 
 const experiments: Experiment[] = [
-  { src: colorPickerVideo, type: "video", caption: "DS color picker concept" },
+  { src: colorPickerVideo, type: "video", caption: "DS color picker concept for Figma" },
   { src: gif1, type: "gif", caption: "Shopping app prototype" },
   { src: gif2, type: "gif", caption: "News app prototype" },
   { src: gif4, type: "gif", caption: "Unsplash app concept" },
