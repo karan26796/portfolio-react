@@ -68,6 +68,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["Project"],
     type: "client",
     details: "Interconnect : Professional networking for gated societies",
+    accentColor: "#00e676",
     meta: {
       duration: "2026",
       role: "Designer",
@@ -87,6 +88,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["Product Design", "Enterprise UX"],
     type: "client",
     details: "Moved holiday calendar from audience first approach to a leave first approach",
+    accentColor: "#0d9488",
     meta: {
       duration: "2025",
       role: "Design Strategy & Execution",
@@ -112,6 +114,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["Product Design", "Enterprise UX"],
     type: "client",
     details: "Redesigning Keka's awards platform for customizability & enterprise readiness",
+    accentColor: "#f59e0b",
     meta: {
       duration: "Feb – Apr 2026",
       role: "Design Strategy & Execution",
@@ -131,6 +134,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["Product Design", "Design Strategy"],
     type: "client",
     details: "Peer to Peer celebrations",
+    accentColor: "#9333ea",
     meta: {
       duration: "Nov 2025 – Jan 2026",
       role: "Design Strategy & Execution",
@@ -150,6 +154,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["Systems Thinking", "Revenue Growth"],
     type: "client",
     details: "Employee rewards baked directly into an HR tool",
+    accentColor: "#ff6b00",
     meta: {
       duration: "Jun'24 – Nov'24",
       role: "Design, Research, Execution",
@@ -171,6 +176,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["Data Analysis", "Research Ops"],
     type: "client",
     details: "Interview highlights view",
+    accentColor: "#6366f1",
     meta: {
       duration: "Apr'22 – Jun'22",
       role: "Founding Designer",
@@ -190,6 +196,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["Product Design", "Design Strategy"],
     type: "client",
     details: "5x'ed the engagement for Peer to Peer celebrations",
+    accentColor: "#ec4899",
     meta: {
       duration: "Nov'24 – Jan'25",
       role: "Design & Execution",
@@ -209,6 +216,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["AI & Automation", "Productivity"],
     type: "client",
     details: "Looppanel's zoom bot",
+    accentColor: "#8b5cf6",
     meta: {
       duration: "Jan'22 – Mar'22",
       role: "Founding Designer",
@@ -228,6 +236,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["Design Systems", "Velocity"],
     type: "client",
     details: "Nimbuzz / UI Designer",
+    accentColor: "#2563eb",
     meta: {
       duration: "2021",
       role: "UI & Systems Design",
@@ -247,6 +256,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["Product", "Design research"],
     type: "client",
     details: "Information architecture revamp",
+    accentColor: "#7c3aed",
     meta: {
       duration: "Jun'22 – Jul'22",
       role: "Product Designer",
@@ -265,6 +275,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["IoT", "Behavioral Design"],
     type: "client",
     details: "Master's Project / NID",
+    accentColor: "#10b981",
     meta: {
       duration: "Aug'22 – Oct'22",
       role: "Research & Industrial Design",

@@ -28,21 +28,25 @@ const trainingItems: TrainingItem[] = [
 const FigmaTrainingMasonry: React.FC = () => (
   <section className="figma-training-masonry">
     <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 640: 2 }}>
-      <Masonry gutter="1em">
+      <Masonry >
         {trainingItems.map((item, index) => (
           <ScrollReveal key={item.id} delay={scrollRevealStagger(index, 70)}>
-            <article className="masonry-item">
-              {item.isVideo ? (
-                <video src={item.image} autoPlay loop muted playsInline />
-              ) : (
-                <ImageWithSkeleton src={item.image} alt={item.title} loading="lazy" />
-              )}
-              <div className="masonry-item-text">
-                <h4>{item.title}</h4>
-                <h5>
-                  <MapPin size={20} weight="regular" />
-                  {item.location}
-                </h5>
+            <article className="common-gallery-card masonry-item">
+              <div className="card-media">
+                {item.isVideo ? (
+                  <video src={item.image} autoPlay loop muted playsInline />
+                ) : (
+                  <ImageWithSkeleton src={item.image} alt={item.title} loading="lazy" />
+                )}
+              </div>
+              <div className="card-body">
+                <h4 className="card-title">{item.title}</h4>
+                <div className="card-meta">
+                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.25em' }}>
+                    <MapPin size={18} weight="regular" />
+                    {item.location}
+                  </span>
+                </div>
               </div>
             </article>
           </ScrollReveal>

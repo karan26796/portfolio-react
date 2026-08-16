@@ -9,15 +9,43 @@
   position: relative;
   z-index: 1;
   // border-radius: 1.5em;
-  padding: 2em;
-  gap: 2em;
+  // padding: 2em;
+  // gap: 2em;
   border: 1px solid var(--border-color);
   border-width: 0 0 1px 0;
   // background: var(--bg-color-high);
+  overflow: hidden;
+
+  >* {
+    position: relative;
+    z-index: 1;
+  }
+
+  // Ambient glow strictly restricted to the bottom of the project card
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    background: radial-gradient(ellipse 55% 100% at 50% 100%,
+        color-mix(in srgb, var(--card-accent, #00e676) 24%, transparent) 0%,
+        color-mix(in srgb, var(--card-accent, #00e676) 5%, transparent) 50%,
+        transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+  }
 
   &:hover {
     cursor: pointer;
     // background-color: var(--bg-color-high);
+
+    &::after {
+      opacity: 1;
+    }
 
     img {
       transition: all 0.2s ease;
@@ -39,7 +67,7 @@
 
   .project-image-single-wrapper {
     width: 100%;
-    border-radius: 0.75em;
+    // border-radius: 0.75em;
     border: 1px solid var(--border-color);
     box-sizing: border-box;
 
@@ -82,16 +110,16 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    border-radius: 1em;
+    // border-radius: 1em;
 
     .carousel-track {
       display: flex;
-      gap: 0.75em;
+      // gap: 0.75em;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       width: 100%;
-      border-radius: 1em;
+      // border-radius: 1em;
       -ms-overflow-style: none;
       scrollbar-width: none;
 
@@ -104,7 +132,7 @@
         width: 92%;
         scroll-snap-align: start;
         scroll-snap-stop: always;
-        border-radius: 1em;
+        // border-radius: 1em;
         border: 1px solid var(--border-color);
         box-sizing: border-box;
 
@@ -190,7 +218,7 @@
     width: -webkit-fill-available;
     display: flex;
     gap: .5em;
-    // padding-top: 2em;
+    padding: 2em;
     position: relative;
     flex-direction: column;
     justify-content: space-between;

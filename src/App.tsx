@@ -12,6 +12,7 @@ import ProjectCard from "./components/ProjectCard";
 import ProjectListSkeleton from "./components/ProjectListSkeleton";
 import { useProjects } from "./utils/useProjects";
 import Testimonials, { Testimonial } from "./components/Testimonials";
+import TalksAndWorkshops from "./components/TalksAndWorkshops";
 import FAQ from "./components/FAQ";
 import WorkTogether from "./components/WorkTogether";
 import AISummarizer from "./components/AISummarizer";
@@ -171,6 +172,7 @@ const HomePage: React.FC = () => {
         <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
       )}
       <Archive />
+      <TalksAndWorkshops />
       <Testimonials
         data={testimonialsData}
         title="Testimonials"

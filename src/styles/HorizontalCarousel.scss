@@ -88,13 +88,24 @@
       scroll-snap-align: start;
       box-sizing: border-box;
 
+      .experiment-image-container,
+      .card-media {
+        overflow: hidden;
+
+        img,
+        video,
+        .image-skeleton-wrapper {
+          transition: transform 0.05s ease-out;
+        }
+      }
+
       @media (max-width: 768px) {
         flex: 0 0 84vw;
         max-width: 420px;
       }
 
       @media (max-width: 480px) {
-        flex: 0 0 88vw;
+        flex: 0 0 70vw;
       }
     }
   }

@@ -23,6 +23,7 @@ export interface ProjectCardData {
   specialStatus?: string; // Add this line to resolve the error
   company?: string;
   aiSummary?: string;
+  accentColor?: string;
 }
 
 export interface IntroElement {

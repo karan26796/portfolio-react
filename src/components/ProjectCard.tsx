@@ -132,8 +132,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       className={containerClass}
       onClick={isClickable ? handleClick : undefined}
       style={{
-        backgroundColor: data.accentColor ? `color-mix(in srgb, ${data.accentColor} 4%, var(--bg-color-high))` : undefined,
-      }}
+        '--card-accent': data.accentColor || '#00e676',
+      } as React.CSSProperties}
     >
       {isCarouselEnabled ? (
         <div className="project-card-image-carousel">

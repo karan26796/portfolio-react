@@ -69,76 +69,83 @@ const ReaderModeHeader: React.FC<ReaderModeHeaderProps> = ({
   };
 
   return (
-    <div
-      className="reader-mode-header-sticky"
-      style={{
-        transform: dragY > 0 ? `translateY(${dragY}px)` : "none",
-        transition: dragY === 0 ? "transform 0.2s ease" : "none",
-      }}
-      onTouchStart={handleTouchStart}
-      onTouchMove={handleTouchMove}
-      onTouchEnd={handleTouchEnd}
-    >
-      {/* Mobile Pull Down Handle Indicator */}
-      <div className="mobile-pull-handle-bar">
+    <>
+      {/* Mobile Top Drag Handle Pill */}
+      <div
+        className="mobile-top-pull-bar"
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
         <div className="handle-pill" />
       </div>
 
-      <div className="reader-topbar-content">
-        {/* Left Side: Expand Toggle (Desktop only) & Prev/Next Arrows */}
-        <div className="reader-topbar-left">
-          {onToggleExpand && (
-            <>
-              <button
-                className="reader-icon-btn reader-expand-btn"
-                onClick={onToggleExpand}
-                title={isExpanded ? "Center view" : "Full width view"}
-                aria-label="Toggle view width"
-              >
-                {isExpanded ? (
-                  <ArrowsInSimple size={16} weight="bold" />
-                ) : (
-                  <ArrowsOutSimple size={16} weight="bold" />
-                )}
-              </button>
-              <div className="reader-divider reader-expand-divider" />
-            </>
-          )}
+      <div
+        className="reader-mode-header-sticky"
+        style={{
+          transform: dragY > 0 ? `translateY(${dragY}px)` : "none",
+          transition: dragY === 0 ? "transform 0.2s ease" : "none",
+        }}
+        onTouchStart={handleTouchStart}
+        onTouchMove={handleTouchMove}
+        onTouchEnd={handleTouchEnd}
+      >
+        <div className="reader-topbar-content">
+          {/* Left Side: Expand Toggle (Desktop only) & Prev/Next Arrows */}
+          <div className="reader-topbar-left">
+            {onToggleExpand && (
+              <>
+                <button
+                  className="reader-icon-btn reader-expand-btn"
+                  onClick={onToggleExpand}
+                  title={isExpanded ? "Center view" : "Full width view"}
+                  aria-label="Toggle view width"
+                >
+                  {isExpanded ? (
+                    <ArrowsInSimple size={16} weight="bold" />
+                  ) : (
+                    <ArrowsOutSimple size={16} weight="bold" />
+                  )}
+                </button>
+                <div className="reader-divider reader-expand-divider" />
+              </>
+            )}
 
-          {/* Prev / Next Case Study Navigation */}
-          <div className="reader-nav-cluster">
+            {/* Prev / Next Case Study Navigation */}
+            <div className="reader-nav-cluster">
+              <button
+                className="nav-btn"
+                onClick={onPrev}
+                title="Previous Case Study (← Left Arrow)"
+                aria-label="Previous case study"
+              >
+                <CaretLeft size={20} weight="bold" />
+              </button>
+              <button
+                className="nav-btn"
+                onClick={onNext}
+                title="Next Case Study (→ Right Arrow)"
+                aria-label="Next case study"
+              >
+                <CaretRight size={20} weight="bold" />
+              </button>
+            </div>
+          </div>
+
+          {/* Right Side: Close Cross Button */}
+          <div className="reader-topbar-right">
             <button
-              className="reader-icon-btn"
-              onClick={onPrev}
-              title="Previous Case Study (← Left Arrow)"
-              aria-label="Previous case study"
+              className="reader-close-btn"
+              onClick={onClose}
+              title="Close Case Study (Esc)"
+              aria-label="Close reader mode"
             >
-              <CaretLeft size={18} weight="bold" />
-            </button>
-            <button
-              className="reader-icon-btn"
-              onClick={onNext}
-              title="Next Case Study (→ Right Arrow)"
-              aria-label="Next case study"
-            >
-              <CaretRight size={18} weight="bold" />
+              <X size={18} weight="bold" />
             </button>
           </div>
         </div>
-
-        {/* Right Side: Close Cross Button */}
-        <div className="reader-topbar-right">
-          <button
-            className="reader-close-btn"
-            onClick={onClose}
-            title="Close Case Study (Esc)"
-            aria-label="Close reader mode"
-          >
-            <X size={18} weight="bold" />
-          </button>
-        </div>
       </div>
-    </div>
+    </>
   );
 };
 
