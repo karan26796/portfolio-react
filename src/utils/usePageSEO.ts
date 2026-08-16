@@ -5,9 +5,10 @@ interface PageSEOProps {
   description?: string;
   keywords?: string;
   canonicalUrl?: string;
+  ogImage?: string;
 }
 
-export const usePageSEO = ({ title, description, keywords, canonicalUrl }: PageSEOProps) => {
+export const usePageSEO = ({ title, description, keywords, canonicalUrl, ogImage }: PageSEOProps) => {
   useEffect(() => {
     // Update document title
     if (title) {
@@ -49,7 +50,18 @@ export const usePageSEO = ({ title, description, keywords, canonicalUrl }: PageS
         canonical.setAttribute('href', canonicalUrl);
       }
     }
-  }, [title, description, keywords, canonicalUrl]);
+
+    // Update OG & Twitter Image
+    const targetImage = ogImage || 'https://kadankapoor.com/site-thumbnail.webp';
+    let ogImg = document.querySelector('meta[property="og:image"]');
+    if (ogImg) {
+      ogImg.setAttribute('content', targetImage);
+    }
+    let twImg = document.querySelector('meta[name="twitter:image"]');
+    if (twImg) {
+      twImg.setAttribute('content', targetImage);
+    }
+  }, [title, description, keywords, canonicalUrl, ogImage]);
 };
 
 export default usePageSEO;

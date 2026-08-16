@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import "../styles/ProjectCard.scss";
 import "../styles/ProjectCardSmall.scss";
 import Buttons from "./Buttons";
+import ImageWithSkeleton from "./ImageWithSkeleton";
 
 interface ProjectCardProps {
   data: {
     id: string;
     img: string;
+    images?: string[];
     newdesc: string;
     title: string;
     description: string;
@@ -35,6 +37,35 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 }) => {
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [tilt, setTilt] = useState(0);
+  const [activeDot, setActiveDot] = useState(0);
+  const scrollTrackRef = useRef<HTMLDivElement>(null);
+  const imageList = (data.images && data.images.length > 0) ? data.images : [data.img];
+  const isCarouselEnabled = variant === "large" && imageList.length > 1;
+
+  const handleScroll = () => {
+    if (scrollTrackRef.current) {
+      const { scrollLeft, clientWidth } = scrollTrackRef.current;
+      if (clientWidth > 0) {
+        const itemWidth = clientWidth * 0.92;
+        const newIndex = Math.round(scrollLeft / itemWidth);
+        setActiveDot(Math.min(newIndex, imageList.length - 1));
+      }
+    }
+  };
+
+  const handleDotClick = (e: React.MouseEvent, index: number) => {
+    e.stopPropagation();
+    if (scrollTrackRef.current) {
+      const clientWidth = scrollTrackRef.current.clientWidth;
+      const itemWidth = clientWidth * 0.92 + 12;
+      scrollTrackRef.current.scrollTo({
+        left: index * itemWidth,
+        behavior: 'smooth',
+      });
+      setActiveDot(index);
+    }
+  };
+
   useEffect(() => {
     if (enableTilt) {
       setTilt(Math.random() * 4 - 2);
@@ -79,16 +110,16 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       className: "read-more-button",
       withIcon: true,
       iconDirection: "right" as const,
-      size: isSmallScreen ? "s" : (variant === "large" ? "m" : "s") as "s" | "m",
+      size: "s" as "s" | "m",
     };
     return (
       <Buttons
         {...commonProps}
-        text={isSmallScreen ? "" : variant === "large" ? "Read" : "Visit site"}
-        iconName={variant === "large" ? "ArrowRight" : "ArrowSquareOut"}
-        withText={!isSmallScreen}
-        variant="primary"
         size="s"
+        text={variant === "large" ? "Read" : "Visit site"}
+        iconName={variant === "large" ? "ArrowRight" : "ArrowSquareOut"}
+        withText={true}
+        variant="primary"
       />
     );
   };
@@ -101,20 +132,47 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       className={containerClass}
       onClick={isClickable ? handleClick : undefined}
       style={{
-        backgroundColor: data.accentColor ? `color-mix(in srgb, ${data.accentColor} 4%, var(--bg-color-high))` : undefined,
-        /* ...(enableTilt ? {
-          transform: `rotate(${tilt}deg)`,
-          transition: 'transform 0.25s ease-in-out',
-        } : {}) */
-      }}
-    /* onMouseEnter={enableTilt ? (e => {
-      (e.currentTarget as HTMLDivElement).style.transform = 'rotate(0deg)';
-    }) : undefined}
-    onMouseLeave={enableTilt ? (e => {
-      (e.currentTarget as HTMLDivElement).style.transform = `rotate(${tilt}deg)`;
-    }) : undefined} */
+        '--card-accent': data.accentColor || '#00e676',
+      } as React.CSSProperties}
     >
-      <img className="project-image" src={data.img} alt={data.title} />
+      {isCarouselEnabled ? (
+        <div className="project-card-image-carousel">
+          <div
+            className="carousel-track"
+            ref={scrollTrackRef}
+            onScroll={handleScroll}
+          >
+            {imageList.map((imgSrc, idx) => (
+              <ImageWithSkeleton
+                key={idx}
+                containerClassName="project-image-wrapper"
+                className="project-image"
+                src={imgSrc}
+                alt={`${data.title} ${idx + 1}`}
+              />
+            ))}
+          </div>
+
+          <div className="carousel-dots">
+            {imageList.map((_, idx) => (
+              <button
+                type="button"
+                key={idx}
+                className={`carousel-dot${idx === activeDot ? " active" : ""}`}
+                onClick={(e) => handleDotClick(e, idx)}
+                aria-label={`Go to image ${idx + 1}`}
+              />
+            ))}
+          </div>
+        </div>
+      ) : (
+        <ImageWithSkeleton
+          containerClassName="project-image-single-wrapper"
+          className="project-image"
+          src={data.img}
+          alt={data.title}
+        />
+      )}
 
       <div className="project-card">
 

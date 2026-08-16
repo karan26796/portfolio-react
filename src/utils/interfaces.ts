@@ -13,6 +13,7 @@ export type ProjectElement = HeaderElement | BulletElement | FigureElement | Cus
 export interface ProjectCardData {
   id: string;
   img: string;
+  images?: string[];
   title: string;
   year: string;
   description: string;
@@ -20,8 +21,9 @@ export interface ProjectCardData {
   type: "personal" | "client" | "other";
   url?: string;
   specialStatus?: string; // Add this line to resolve the error
-  details?: string; // Add this line to resolve the error
+  company?: string;
   aiSummary?: string;
+  accentColor?: string;
 }
 
 export interface IntroElement {

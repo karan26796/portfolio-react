@@ -6,11 +6,11 @@
   align-items: center;
   gap: 1.5em;
   padding: 1.5em;
-  // border-radius: 0.75em;
-  background: var(--bg-color);
-  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
-  transition: box-shadow 0.2s;
-  transition: all linear 0.2s;
+  border-radius: var(--radius-card, 16px);
+  background: var(--card-bg, var(--bg-color));
+  border: 1px solid var(--border-color);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &::before {
     content: '';
@@ -18,7 +18,7 @@
     z-index: -1;
     inset: 0;
     padding: 2px;
-    border-radius: 0.75em;
+    border-radius: var(--radius-card, 16px);
     background: linear-gradient(120deg, #3b82f6, #ef4444 40%, #ec4899 100%);
     -webkit-mask:
       linear-gradient(#fff 0 0) content-box,
@@ -33,10 +33,9 @@
   }
 
   &:hover {
-    box-shadow: 0 4px 16px rgba(0,0,0,0.08);
-    background: var(--bg-color-high);
-    scale: 0.995;
-    
+    box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.2);
+    background: var(--card-bg-hover);
+    transform: translateY(-2px);
   }
 
   .figma-training-image {

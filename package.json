@@ -9,6 +9,7 @@
     "@phosphor-icons/react": "^2.1.7",
     "@vercel/analytics": "^1.3.1",
     "@vercel/node": "^5.3.0",
+    "brew": "^0.0.8",
     "dotenv": "^17.3.1",
     "notion-to-md": "^3.1.9",
     "react": "^18.3.1",

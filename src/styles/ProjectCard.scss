@@ -9,17 +9,47 @@
   position: relative;
   z-index: 1;
   // border-radius: 1.5em;
-  // padding: .5em .5em 0em .5em;
-  // border: 1px solid var(--border-color);
+  // padding: 2em;
+  // gap: 2em;
+  border: 1px solid var(--border-color);
+  border-width: 0 0 1px 0;
   // background: var(--bg-color-high);
+  overflow: hidden;
+
+  >* {
+    position: relative;
+    z-index: 1;
+  }
+
+  // Ambient glow strictly restricted to the bottom of the project card
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 36px;
+    background: radial-gradient(ellipse 55% 100% at 50% 100%,
+        color-mix(in srgb, var(--card-accent, #00e676) 24%, transparent) 0%,
+        color-mix(in srgb, var(--card-accent, #00e676) 5%, transparent) 50%,
+        transparent 100%);
+    pointer-events: none;
+    z-index: 0;
+    opacity: 0.75;
+    transition: opacity 0.3s ease;
+  }
 
   &:hover {
     cursor: pointer;
     // background-color: var(--bg-color-high);
 
+    &::after {
+      opacity: 1;
+    }
+
     img {
       transition: all 0.2s ease;
-      transform: scale(.98);
+      // transform: scale(.98);
       border-radius: 1.2em;
     }
   }
@@ -35,20 +65,152 @@
     }
   }
 
-  img {
+  .project-image-single-wrapper {
+    width: 100%;
+    // border-radius: 0.75em;
+    border: 1px solid var(--border-color);
+    box-sizing: border-box;
+
+    @media screen and (max-width: 767px) {
+      aspect-ratio: 6/4;
+      border: 1px solid transparent;
+      // border-radius: 1em;
+    }
+
+    img.project-image {
+      width: 100%;
+      height: auto;
+      display: block;
+      object-fit: cover;
+      transform-origin: center;
+      border-radius: inherit;
+      border: none;
+      transition: all 0.3s linear;
+    }
+  }
+
+  img.project-image {
     width: 100%;
     height: auto;
     display: block;
     object-fit: cover;
     transform-origin: center;
-    border-radius: 1em;
+    border-radius: 0.75em;
     border: 1px solid var(--border-color);
     transition: all 0.3s linear;
 
     @media screen and (max-width: 767px) {
-      aspect-ratio: 5/4;
+      aspect-ratio: 6/4;
       border: 1px solid transparent;
       border-radius: 1em;
+    }
+  }
+
+  .project-card-image-carousel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    // border-radius: 1em;
+
+    .carousel-track {
+      display: flex;
+      // gap: 0.75em;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      width: 100%;
+      // border-radius: 1em;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .project-image-wrapper {
+        flex: 0 0 92%;
+        width: 92%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        // border-radius: 1em;
+        border: 1px solid var(--border-color);
+        box-sizing: border-box;
+
+        @media screen and (max-width: 767px) {
+          flex: 0 0 95%;
+          width: 95%;
+          aspect-ratio: 7/5;
+          border: 1px solid transparent;
+        }
+
+        img.project-image {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+          border-radius: inherit;
+          border: none;
+        }
+      }
+
+      img.project-image {
+        flex: 0 0 92%;
+        width: 92%;
+        height: auto;
+        display: block;
+        object-fit: cover;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        transform-origin: center;
+        border-radius: 1em;
+        border: 1px solid var(--border-color);
+        box-sizing: border-box;
+
+        @media screen and (max-width: 767px) {
+          flex: 0 0 95%;
+          width: 95%;
+          aspect-ratio: 7/5;
+          border: 1px solid transparent;
+          border-radius: 1em;
+        }
+      }
+    }
+
+    .carousel-dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      padding: 5px 10px;
+      border-radius: 9999px;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      z-index: 5;
+      pointer-events: auto;
+
+      .carousel-dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.4);
+        border: none;
+        padding: 0;
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &.active {
+          background: #ffffff;
+          width: 16px;
+          border-radius: 4px;
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.85);
+        }
+      }
     }
   }
 
@@ -56,7 +218,7 @@
     width: -webkit-fill-available;
     display: flex;
     gap: .5em;
-    padding: 2em 0em;
+    padding: 2em;
     position: relative;
     flex-direction: column;
     justify-content: space-between;
@@ -123,7 +285,7 @@
   }
 
   h3 {
-    // max-width: 35ch;
+    max-width: 35ch;
     margin-bottom: 0;
   }
 
@@ -155,6 +317,9 @@
   flex: 0 0 auto;
 
   @media screen and (max-width: 767px) {
-    display: none;
+    button.custom-button {
+      padding: 0.45em 0.85em;
+      font-size: 0.82em;
+    }
   }
 }

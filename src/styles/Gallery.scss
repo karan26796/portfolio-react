@@ -1,17 +1,17 @@
 .gallery-parent {
-    // width: var(--width-container);
-    // width: 1280px;
-    max-width: 1280px;
-    margin: auto;
+    width: 100%;
+    max-width: var(--max-width-container);
+    margin: 0 auto;
+    padding: 2em;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    margin-top: 6em;
-
+    border-bottom: 1px solid var(--border-color);
 
     .gallery-grid {
         display: grid;
         gap: 0.5em;
-        padding: 1.5em;
+        padding: 0;
     }
 
     .gallery-content {
@@ -35,8 +35,8 @@
         }
 
         p {
-            font-size: 1.6em;
-            max-width: 40ch;
+            // font-size: 1.6em;
+            max-width: 50ch;
         }
     }
 
@@ -56,7 +56,7 @@
         // box-shadow: 1px 1px 1px 1px #00000014;
 
         &:hover {
-            > div {
+            >div {
                 transform: rotate(0deg) !important;
             }
 

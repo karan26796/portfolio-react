@@ -1,0 +1,80 @@
+.image-skeleton-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  width: 100%;
+
+  .image-skeleton-pulse {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.03) 0%,
+      rgba(255, 255, 255, 0.12) 50%,
+      rgba(255, 255, 255, 0.03) 100%
+    );
+    background-size: 200% 100%;
+    animation: skeletonPulse 1.4s ease-in-out infinite, skeletonShimmer 1.8s linear infinite;
+    z-index: 1;
+    pointer-events: none;
+  }
+
+  img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+}
+
+@keyframes skeletonPulse {
+  0% {
+    opacity: 0.4;
+  }
+  50% {
+    opacity: 0.95;
+  }
+  100% {
+    opacity: 0.4;
+  }
+}
+
+@keyframes skeletonShimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Light / dark theme support */
+:root {
+  --skeleton-base-bg: rgba(0, 0, 0, 0.06);
+  --skeleton-highlight-bg: rgba(0, 0, 0, 0.14);
+}
+
+body.dark-theme,
+[data-theme="dark"] {
+  --skeleton-base-bg: rgba(255, 255, 255, 0.04);
+  --skeleton-highlight-bg: rgba(255, 255, 255, 0.14);
+}
+
+.image-skeleton-wrapper .image-skeleton-pulse {
+  background: linear-gradient(
+    90deg,
+    var(--skeleton-base-bg) 0%,
+    var(--skeleton-highlight-bg) 50%,
+    var(--skeleton-base-bg) 100%
+  );
+  background-size: 200% 100%;
+}

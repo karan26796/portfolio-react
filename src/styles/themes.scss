@@ -1,51 +1,51 @@
-/* Light mode (default) */
+/* Light mode (default) — Sleek light theme */
 :root {
   --bg-color: #ffffff;
-  --bg-color-high: #f5f7fa;
-  --border-color: var(--grey-300);
-  --project-card-border: #ff0000;
+  --bg-color-high: #f6f8fa;
+  --card-bg: #ffffff;
+  --card-bg-hover: #f3f5f8;
+  --border-color: #e1e4e8;
+  --project-card-border: #e1e4e8;
 
-  --primary-text: var(--grey-800);
-  --secondary-text: var(--grey-600);
-  --tertiary-text: var(--grey-500);
+  --primary-text: #0d1117;
+  --secondary-text: #57606a;
+  --tertiary-text: #6e7781;
 
-  --highlight-color: #491cff;
-  /* Blue-600 */
-  --highlight-color-light: #6e4aff;
-  /* Blue-500 */
-  --highlight-color-high: #2900cf;
-  /* Blue-700 */
+  --highlight-color: var(--twitter-blue);
+  --highlight-color-light: var(--twitter-blue-hover);
+  --highlight-color-high: var(--twitter-blue-hover);
 
-  --button-color: var(--highlight-color);
-  --button-color-hover: var(--highlight-color-high);
+  --button-color: var(--twitter-blue);
+  --button-color-hover: var(--twitter-blue-hover);
 
-  --logo-filter: invert(1);
-}
-
-/* Dark mode */
-[data-theme="dark"] {
-  --bg-color: #1a1b1e;
-  --bg-color-high: #242529;
-  --border-color: var(--grey-700);
-  --project-card-border: #373737;
-
-  --primary-text: var(--grey-200);
-  --secondary-text: var(--grey-300);
-  --tertiary-text: var(--grey-400);
-
-  /* Even deeper gold/brown for strong emphasis */
-  --highlight-color: #b09cff;
-  /* Vibrant orange, high contrast for dark background */
-  --highlight-color-light: hwb(253 80% 0%);
-  /* Lighter vibrant orange for accents */
-  --highlight-color-high: #ffffff;
-
-  --button-color: #8262ff;
-  /* Soft purple for buttons */
-  --button-color-hover: #5935fb;
-  /* Slightly darker/more vibrant purple for buttons on hover */
-
-  /* Deep vibrant orange for strong emphasis */
+  --tag-bg: rgba(0, 0, 0, 0.04);
+  --tag-border: rgba(0, 0, 0, 0.08);
 
   --logo-filter: none;
+}
+
+/* Dark mode — Modern ultra-sleek dark theme */
+[data-theme="dark"] {
+  --bg-color: #0b0f17;
+  --bg-color-high: #121824;
+  --card-bg: #111722;
+  --card-bg-hover: #17202e;
+  --border-color: rgba(255, 255, 255, 0.1);
+  --project-card-border: rgba(255, 255, 255, 0.1);
+
+  --primary-text: #f0f6fc;
+  --secondary-text: #8b949e;
+  --tertiary-text: #6e7681;
+
+  --highlight-color: var(--twitter-blue);
+  --highlight-color-light: var(--twitter-blue-hover);
+  --highlight-color-high: #ffffff;
+
+  --button-color: var(--twitter-blue);
+  --button-color-hover: var(--twitter-blue-hover);
+
+  --tag-bg: rgba(255, 255, 255, 0.06);
+  --tag-border: rgba(255, 255, 255, 0.12);
+
+  --logo-filter: brightness(0) invert(1);
 }

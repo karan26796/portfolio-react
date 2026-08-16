@@ -3,20 +3,39 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { Sparkle, X, ArrowUp } from "@phosphor-icons/react";
 import Button from "./Buttons";
+import { findInterviewAnswer } from '../utils/interviewKnowledge';
 import '../styles/AISummarizer.scss';
 
 interface AISummarizerProps {
     text: string;
     initialPrompts?: string[];
     buttonLabel?: string;
+    pageType?: 'home' | 'project';
 }
+
+const FALLBACK_PROMPTS: Record<'home' | 'project', string[]> = {
+    home: [
+        "What roles are you looking for?",
+        "How do you handle disagreements with PMs?",
+        "How can I contact you?"
+    ],
+    project: [
+        "Can you summarize this project?",
+        "What was my role here?",
+        "What was the biggest challenge?"
+    ]
+};
 
 interface ChatMessage {
     role: 'user' | 'bot';
     content: string;
 }
 
-const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, buttonLabel }) => {
+const getMatchedAnswer = (userInput: string, projectContext: string | undefined, pageType: 'home' | 'project'): string => {
+    return findInterviewAnswer(userInput, projectContext, pageType);
+};
+
+const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, buttonLabel, pageType = 'project' }) => {
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([{
         role: 'bot',
@@ -46,8 +65,15 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape' && isOpen) setIsOpen(false);
         };
+        const handleOpenEvent = () => setIsOpen(true);
+
         window.addEventListener('keydown', handleKeyDown);
-        return () => window.removeEventListener('keydown', handleKeyDown);
+        window.addEventListener('open-agent-vinod', handleOpenEvent);
+
+        return () => {
+            window.removeEventListener('keydown', handleKeyDown);
+            window.removeEventListener('open-agent-vinod', handleOpenEvent);
+        };
     }, [isOpen]);
 
     const handleSendMessage = async (customText?: string) => {
@@ -67,20 +93,11 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
             const response = await fetch('/api/chat', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ messages: updatedHistory, pageContext: text }),
+                body: JSON.stringify({ messages: updatedHistory, pageContext: text, pageType }),
             });
 
             if (!response.ok) {
-                let errorMessage = 'Failed to fetch from chat API';
-                try {
-                    const errorData = await response.json();
-                    errorMessage = errorData.details || errorData.error || errorMessage;
-                } catch {
-                    errorMessage = response.status === 404
-                        ? 'Chat API is unavailable. Restart the dev server with npm start.'
-                        : `Chat API error (${response.status})`;
-                }
-                throw new Error(errorMessage);
+                throw new Error(`API returned ${response.status}`);
             }
 
             if (!response.body) throw new Error('ReadableStream not supported');
@@ -123,19 +140,18 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
             setIsGenerating(false);
 
         } catch (error) {
-            console.error('Chat AI Error:', error);
+            console.warn('API connection offline or proxy error. Using matched answer:', error);
+            const matchedAnswer = getMatchedAnswer(userInput, text, pageType);
             setMessages((prevMessages) => {
                 const newMessages = [...prevMessages];
                 const lastMessage = newMessages[newMessages.length - 1];
                 if (lastMessage.role === 'bot') {
-                    lastMessage.content = error instanceof Error
-                        ? `Sorry, I'm having trouble connecting. ${error.message}`
-                        : "Sorry, I'm having trouble connecting. Please try again.";
+                    lastMessage.content = matchedAnswer;
                 }
                 return newMessages;
             });
             setIsGenerating(false);
-            setSuggestedPrompts(initialPrompts || []);
+            setSuggestedPrompts(FALLBACK_PROMPTS[pageType]);
         }
     };
 
@@ -157,7 +173,7 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                                 className="ai-fab-pill"
                                 onClick={() => {
                                     setIsOpen(true);
-                                    setTimeout(() => handleSendMessage(prompt), 60);
+                                    handleSendMessage(prompt);
                                 }}
                             >
                                 {prompt}
@@ -165,95 +181,76 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                         ))}
                     </div>
                 )}
-                <Button
-                    className="ai-fab-button"
-                    text={buttonLabel || "Ask AI"}
-                    iconName="Sparkle"
-                    withIcon
-                    withText
-                    iconDirection="left"
-                    variant="ai"
-                    size="m"
-                    weight="fill"
+
+                <button
+                    className="ai-fab-button-custom"
                     onClick={() => setIsOpen(true)}
-                />
+                    aria-label={buttonLabel || "Ask Agent Vinod"}
+                >
+                    <div className="ai-button-glow-ring">
+                        <div className="ai-button-inner">
+                            <div className="sparkle-group">
+                                <Sparkle size={20} weight="fill" className="main-sparkle" />
+                            </div>
+                            <span>{buttonLabel || "Ask Agent Vinod"}</span>
+                        </div>
+                    </div>
+                </button>
             </div>
 
             {/* ── CHAT WINDOW ── */}
             {isOpen && (
-                <div className="ai-chat-window" onClick={(e) => e.stopPropagation()}>
-
-                    {/* Top bar */}
+                <div className="ai-chat-window">
                     <div className="ai-chat-topbar">
                         <div className="ai-topbar-brand">
                             <div className="ai-topbar-avatar">
-                                <Sparkle weight="fill" size={16} />
+                                <Sparkle size={20} weight="fill" />
                             </div>
                             <div>
                                 <p className="ai-topbar-name">Agent Vinod</p>
-                                <p className="ai-topbar-sub">AI Agent</p>
+                                <p className="ai-topbar-sub">AI Assistant</p>
                             </div>
                         </div>
-                        <button
-                            className="ai-close-btn"
-                            onClick={() => setIsOpen(false)}
-                            aria-label="Close chat"
-                        >
-                            <X weight="bold" size={15} />
+
+                        <button className="ai-close-btn" onClick={() => setIsOpen(false)} aria-label="Close chat">
+                            <X size={18} weight="bold" />
                         </button>
                     </div>
 
-                    {/* Messages */}
                     <div className="ai-chat-messages">
-                        {messages.map((msg, index) => {
-                            const isBotTyping = isGenerating
-                                && index === messages.length - 1
-                                && msg.role === 'bot'
-                                && msg.content === '';
-                            const isLastBotStreaming = isGenerating
-                                && index === messages.length - 1
-                                && msg.role === 'bot'
-                                && msg.content !== '';
-                            const displayContent = msg.content.split('|')[0];
-
-                            return (
-                                <div key={index} className={`ai-msg-row ${msg.role}`}>
-                                    {msg.role === 'bot' && (
-                                        <div className="ai-agent-label-row">
-                                            <div className="ai-avatar">
-                                                <Sparkle weight="fill" size={11} />
-                                            </div>
-                                            <span className="ai-agent-name">Agent Vinod · AI</span>
+                        {messages.map((msg, index) => (
+                            <div key={index} className={`ai-msg-row ${msg.role}`}>
+                                {msg.role === 'bot' && (
+                                    <div className="ai-agent-label-row">
+                                        <div className="ai-avatar">
+                                            <Sparkle size={12} weight="fill" />
                                         </div>
-                                    )}
-                                    <div className={`ai-bubble ${msg.role}`}>
-                                        {msg.role === 'user' ? (
-                                            <p>{displayContent}</p>
-                                        ) : isBotTyping ? (
-                                            <div className="ai-typing-indicator">
-                                                <span /><span /><span />
-                                            </div>
-                                        ) : (
-                                            <>
-                                                <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                                                    {displayContent}
-                                                </ReactMarkdown>
-                                                {isLastBotStreaming && (
-                                                    <span className="ai-typing-cursor" aria-hidden="true" />
-                                                )}
-                                            </>
-                                        )}
+                                        <span className="ai-agent-name">Agent Vinod · AI</span>
                                     </div>
-                                </div>
-                            );
-                        })}
+                                )}
 
-                        {/* Story-driven follow-up chips */}
+                                <div className={`ai-bubble ${msg.role}`}>
+                                    {msg.content === '' && isGenerating ? (
+                                        <div className="ai-typing-indicator">
+                                            <span />
+                                            <span />
+                                            <span />
+                                        </div>
+                                    ) : (
+                                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                                            {msg.content}
+                                        </ReactMarkdown>
+                                    )}
+                                </div>
+                            </div>
+                        ))}
+
+                        {/* Suggested Follow-up Prompts inside chat body */}
                         {!isGenerating && suggestedPrompts.length > 0 && (
                             <div className="ai-chips">
-                                {suggestedPrompts.map((prompt, i) => (
+                                {suggestedPrompts.map((prompt, idx) => (
                                     <button
-                                        key={i}
+                                        key={idx}
                                         className="ai-chip"
                                         onClick={() => handleSendMessage(prompt)}
                                     >
@@ -266,24 +263,22 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                         <div ref={messagesEndRef} />
                     </div>
 
-                    {/* Footer input */}
                     <div className="ai-chat-footer">
                         <input
                             type="text"
-                            placeholder={isGenerating ? "Agent Vinod is typing…" : "Reply to Agent Vinod…"}
-                            disabled={isGenerating}
                             value={inputText}
                             onChange={(e) => setInputText(e.target.value)}
                             onKeyDown={handleKeyDownInput}
-                            autoFocus
+                            placeholder={isGenerating ? "Agent Vinod is typing…" : "Reply to Agent Vinod…"}
+                            disabled={isGenerating}
                         />
                         <button
                             className="ai-send-btn"
-                            disabled={isGenerating || inputText.trim().length === 0}
                             onClick={() => handleSendMessage()}
+                            disabled={!inputText.trim() || isGenerating}
                             aria-label="Send message"
                         >
-                            <ArrowUp weight="bold" size={16} />
+                            <ArrowUp size={18} weight="bold" />
                         </button>
                     </div>
                 </div>

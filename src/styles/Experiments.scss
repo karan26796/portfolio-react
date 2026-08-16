@@ -22,7 +22,7 @@
   transition: transform 0.3s ease;
 
   &:hover {
-    transform: translateY(-3px);
+    // transform: translateY(-3px);
 
     img,
     video {
@@ -33,7 +33,7 @@
   .experiment-image-container {
     position: relative;
     overflow: hidden;
-    aspect-ratio: 3 / 4;
+    aspect-ratio: 1/1;
     border-radius: 1em;
 
     img,
@@ -52,7 +52,7 @@
 
 .experiment-caption {
   margin: 0;
-  padding: 0 0.35em;
+  // padding: 0 0.35em;
   font-size: var(--text-size);
   font-weight: 500;
   color: var(--secondary-text);

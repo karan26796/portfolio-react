@@ -1,5 +1,6 @@
 import React from "react";
 import { ImageItem } from "../utils/communityFiles";
+import ImageWithSkeleton from "./ImageWithSkeleton";
 
 interface CarouselContentProps {
   images: ImageItem[];
@@ -16,7 +17,7 @@ const CarouselContent: React.FC<CarouselContentProps> = ({ images }) => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          <img src={image.url} alt={`Image ${index}`} />
+          <ImageWithSkeleton src={image.url} alt={`Image ${index}`} />
         </a>
       ))}
     </>

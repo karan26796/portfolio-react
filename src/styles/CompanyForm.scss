@@ -1,6 +1,5 @@
 .company-form-container {
-  width: 100vw;
-  margin-top: 5em;
+  width: 100%;
   padding: 5em 2em 7em 2em;
   display: flex;
   flex-direction: column;
@@ -20,7 +19,7 @@
     position: absolute;
     inset: 0;
     padding-top: 3px;
-    background: linear-gradient(90deg, var(--bg-color-high) 10%, #491cff7a 50%, var(--bg-color-high) 90%);
+    background: linear-gradient(90deg, var(--bg-color-high) 10%, color-mix(in srgb, var(--highlight-color) 60%, transparent) 50%, var(--bg-color-high) 90%);
     -webkit-mask:
       linear-gradient(#ffcfcf 0 0) content-box,
       linear-gradient(#fff 0 0);

@@ -40,9 +40,17 @@
     transition: background 0.15s ease, color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
     animation: fabPillIn 0.32s cubic-bezier(0.16, 1, 0.3, 1) both;
 
-    &:nth-child(1) { animation-delay: 0ms; }
-    &:nth-child(2) { animation-delay: 70ms; }
-    &:nth-child(3) { animation-delay: 140ms; }
+    &:nth-child(1) {
+        animation-delay: 0ms;
+    }
+
+    &:nth-child(2) {
+        animation-delay: 70ms;
+    }
+
+    &:nth-child(3) {
+        animation-delay: 140ms;
+    }
 
     &:hover {
         background: var(--highlight-color);
@@ -54,13 +62,83 @@
 }
 
 @keyframes fabPillIn {
-    from { opacity: 0; transform: translateY(10px) scale(0.95); }
-    to   { opacity: 1; transform: translateY(0)   scale(1); }
+    from {
+        opacity: 0;
+        transform: translateY(10px) scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
 }
 
-// The FAB button itself (position handled by group)
-.ai-fab-button {
-    transition: transform 0.2s ease, opacity 0.2s ease;
+.ai-fab-button-custom {
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: none;
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+    &:hover {
+        transform: scale(1.04) translateY(-2px);
+
+        .ai-button-glow-ring {
+            box-shadow: 0 0 35px rgba(168, 85, 247, 0.6), 0 8px 32px rgba(126, 34, 206, 0.5);
+            border-color: rgba(216, 180, 254, 0.6);
+        }
+    }
+
+    &:active {
+        transform: scale(0.98);
+    }
+
+    .ai-button-glow-ring {
+        padding: 5px;
+        border-radius: 9999px;
+        background: rgba(139, 92, 246, 0.25);
+        border: 1.5px solid rgba(192, 132, 252, 0.4);
+        box-shadow: 0 8px 32px rgba(126, 34, 206, 0.4), 0 0 20px rgba(168, 85, 247, 0.3);
+        backdrop-filter: blur(12px);
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .ai-button-inner {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.65em;
+        padding: 0.75em 1.6em;
+        border-radius: 9999px;
+        background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
+        color: #ffffff;
+        font-size: 1.1em;
+        font-weight: 600;
+        letter-spacing: -0.01em;
+        white-space: nowrap;
+        border-top: 1px solid rgba(255, 255, 255, 0.35);
+        border-bottom: 2.5px solid #752eb9;
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
+
+        .sparkle-group {
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            .main-sparkle {
+                color: #ffffff;
+                filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
+            }
+        }
+
+        span {
+            color: #ffffff;
+            font-weight: 600;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        }
+    }
 }
 
 // ─── CHAT WINDOW ─────────────────────────────────────────────────────────────
@@ -69,12 +147,15 @@
     bottom: 2rem;
     right: 2rem;
     width: 390px;
-    font-size: 13px; /* fixed — prevents var(--text-size) 1.4em cascade */
+    font-size: 13px;
+    /* fixed — prevents var(--text-size) 1.4em cascade */
     max-height: 600px;
     background: var(--bg-color);
     border-radius: 20px;
     border: 1px solid var(--border-color);
-    box-shadow: 0 28px 72px rgba(0, 0, 0, 0.18), 0 4px 16px rgba(0, 0, 0, 0.06);
+    box-shadow: 0 28px 72px rgba(0, 0, 0, 0.25), 0 0 30px rgba(168, 85, 247, 0.18);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
     z-index: 1000;
     display: flex;
     flex-direction: column;
@@ -83,8 +164,15 @@
 }
 
 @keyframes chatSlideUp {
-    from { transform: translateY(22px) scale(0.95); opacity: 0; }
-    to   { transform: translateY(0)    scale(1);    opacity: 1; }
+    from {
+        transform: translateY(22px) scale(0.95);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0) scale(1);
+        opacity: 1;
+    }
 }
 
 // ─── TOP BAR ─────────────────────────────────────────────────────────────────
@@ -107,18 +195,24 @@
         width: 36px;
         height: 36px;
         border-radius: 10px;
-        background: linear-gradient(135deg, #7c3aed, var(--highlight-color));
+        background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
+        border-top: 1px solid rgba(255, 255, 255, 0.35);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 2px 8px rgba(147, 51, 234, 0.35);
         display: flex;
         align-items: center;
         justify-content: center;
         color: #fff;
         flex-shrink: 0;
+
+        svg {
+            filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8));
+        }
     }
 
     .ai-topbar-name {
         margin: 0;
         font-size: 0.92em;
-        font-weight: 650;
+        font-weight: 700;
         color: var(--primary-text);
         line-height: 1.25;
     }
@@ -127,7 +221,7 @@
     .ai-topbar-sub {
         margin: 0;
         font-size: 0.74em;
-        color: #22c55e;
+        color: var(--tertiary-text);
         font-weight: 500;
         display: flex;
         align-items: center;
@@ -139,7 +233,7 @@
             display: inline-block;
             width: 5px;
             height: 5px;
-            background: #22c55e;
+            background: var(--highlight-color);
             border-radius: 50%;
             flex-shrink: 0;
         }
@@ -177,9 +271,18 @@
     background: var(--bg-color-high);
     min-height: 280px;
 
-    &::-webkit-scrollbar        { width: 4px; }
-    &::-webkit-scrollbar-track  { background: transparent; }
-    &::-webkit-scrollbar-thumb  { background: var(--border-color); border-radius: 4px; }
+    &::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background: var(--border-color);
+        border-radius: 4px;
+    }
 }
 
 // Individual message row
@@ -190,13 +293,28 @@
     max-width: 87%;
     animation: msgIn 0.22s ease;
 
-    &.bot  { align-self: flex-start; align-items: flex-start; }
-    &.user { align-self: flex-end;   align-items: flex-end;   max-width: 80%; }
+    &.bot {
+        align-self: flex-start;
+        align-items: flex-start;
+    }
+
+    &.user {
+        align-self: flex-end;
+        align-items: flex-end;
+        max-width: 80%;
+    }
 }
 
 @keyframes msgIn {
-    from { opacity: 0; transform: translateY(7px); }
-    to   { opacity: 1; transform: translateY(0);   }
+    from {
+        opacity: 0;
+        transform: translateY(7px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 // "Vinod · AI Agent" label row above bot bubble
@@ -210,26 +328,31 @@
     width: 22px;
     height: 22px;
     border-radius: 6px;
-    background: #1a1a1a;
+    background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
     display: flex;
     align-items: center;
     justify-content: center;
     color: #fff;
     flex-shrink: 0;
+
+    svg {
+        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.8));
+    }
 }
 
 .ai-agent-name {
     font-size: 0.76em;
-    font-weight: 600;
+    font-weight: 700;
     color: var(--tertiary-text);
-    letter-spacing: 0.01em;
+    letter-spacing: normal;
 }
 
 // ─── BUBBLES ─────────────────────────────────────────────────────────────────
 .ai-bubble {
     padding: 0.85em 1.1em;
     border-radius: 16px;
-    font-size: 1em; /* inherits 13px window root */
+    font-size: 1em;
+    /* inherits 13px window root */
     line-height: 1.55;
 
     // Bot bubble — card-like
@@ -239,21 +362,74 @@
         border-top-left-radius: 4px;
         color: var(--primary-text);
 
-        p { margin: 0 0 0.55em; &:last-child { margin-bottom: 0; } }
-        ul, ol { margin: 0.4em 0; padding-left: 1.4em; }
-        li { margin-bottom: 0.25em; }
-        strong { font-weight: 650; }
-        a { color: var(--highlight-color); text-decoration: underline; text-underline-offset: 2px; }
-        h3, h4, h5, h6 { margin: 0.6em 0 0.3em; }
+        // Reset the site's blog-post typography (large em-scaled sizes,
+        // secondary-text color, heavy letter-spacing) — it cascades into
+        // ReactMarkdown output otherwise and reads as foreign/washed-out.
+        p,
+        li {
+            font-size: 1em;
+            font-weight: 400;
+            line-height: 1.55;
+            letter-spacing: normal;
+            color: inherit;
+            margin: 0 0 0.55em;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        ul,
+        ol {
+            margin: 0.4em 0;
+            padding-left: 1.4em;
+        }
+
+        li {
+            margin-bottom: 0.25em;
+        }
+
+        strong {
+            font-weight: 700;
+            color: var(--primary-text);
+        }
+
+        a {
+            color: var(--highlight-color);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+        }
+
+        h3,
+        h4,
+        h5,
+        h6 {
+            margin: 0.6em 0 0.3em;
+            font-size: 1.05em;
+            font-weight: 700;
+            letter-spacing: normal;
+            line-height: 1.3;
+            text-transform: none;
+            color: var(--primary-text);
+        }
     }
 
     // User bubble — colored pill
     &.user {
-        background: var(--highlight-color);
+        background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
         color: #fff;
+        border-top: 1px solid rgba(255, 255, 255, 0.35);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 14px rgba(147, 51, 234, 0.25);
         border-top-right-radius: 4px;
 
-        p { margin: 0; color: #fff; }
+        p {
+            margin: 0;
+            font-size: 1em;
+            font-weight: 400;
+            line-height: 1.55;
+            letter-spacing: normal;
+            color: #fff;
+        }
     }
 }
 
@@ -271,14 +447,29 @@
         background: var(--tertiary-text);
         animation: typingBounce 1.1s infinite ease-in-out;
 
-        &:nth-child(2) { animation-delay: 0.18s; }
-        &:nth-child(3) { animation-delay: 0.36s; }
+        &:nth-child(2) {
+            animation-delay: 0.18s;
+        }
+
+        &:nth-child(3) {
+            animation-delay: 0.36s;
+        }
     }
 }
 
 @keyframes typingBounce {
-    0%, 60%, 100% { transform: translateY(0);   opacity: 0.4; }
-    30%            { transform: translateY(-5px); opacity: 1;   }
+
+    0%,
+    60%,
+    100% {
+        transform: translateY(0);
+        opacity: 0.4;
+    }
+
+    30% {
+        transform: translateY(-5px);
+        opacity: 1;
+    }
 }
 
 .ai-typing-cursor {
@@ -292,8 +483,15 @@
 }
 
 @keyframes cursorBlink {
-    0%, 100% { opacity: 1; }
-    50%       { opacity: 0; }
+
+    0%,
+    100% {
+        opacity: 1;
+    }
+
+    50% {
+        opacity: 0;
+    }
 }
 
 // ─── STORY FOLLOW-UP CHIPS ───────────────────────────────────────────────────
@@ -319,10 +517,11 @@
         line-height: 1.4;
 
         &:hover {
-            background: var(--highlight-color);
+            background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
             color: #fff;
-            border-color: var(--highlight-color);
+            border-color: rgba(192, 132, 252, 0.5);
             transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
         }
     }
 }
@@ -343,23 +542,35 @@
         border: 1.5px solid var(--border-color);
         border-radius: 50px;
         padding: 0.68em 1.1em;
-        font-size: 1em; /* inherits 13px window root */
+        font-size: 1em;
+        /* inherits 13px window root */
         color: var(--primary-text);
         outline: none;
         font-family: inherit;
         transition: border-color 0.2s ease;
 
-        &:focus       { border-color: var(--highlight-color); }
-        &::placeholder { color: var(--tertiary-text); opacity: 0.85; }
-        &:disabled    { opacity: 0.5; cursor: not-allowed; }
+        &:focus {
+            border-color: #a855f7;
+        }
+
+        &::placeholder {
+            color: var(--tertiary-text);
+            opacity: 0.85;
+        }
+
+        &:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
     }
 
     .ai-send-btn {
         width: 38px;
         height: 38px;
         border-radius: 50%;
-        background: var(--highlight-color);
-        border: none;
+        background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
+        border: 1px solid rgba(255, 255, 255, 0.3);
+        box-shadow: 0 4px 12px rgba(147, 51, 234, 0.35);
         color: #fff;
         display: flex;
         align-items: center;
@@ -368,20 +579,31 @@
         flex-shrink: 0;
         transition: transform 0.15s ease, background 0.15s ease;
 
+        svg {
+            filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.7));
+        }
+
         &:disabled {
             background: var(--border-color);
             color: var(--secondary-text);
             cursor: not-allowed;
         }
-        &:not(:disabled):hover { transform: scale(1.08); }
+
+        &:not(:disabled):hover {
+            transform: scale(1.08);
+        }
     }
 }
 
 // ─── MOBILE ───────────────────────────────────────────────────────────────────
 @media (max-width: 768px) {
     .ai-chat-window {
-        top: 0; bottom: 0; right: 0; left: 0;
-        width: 100%; height: 100%;
+        top: 0;
+        bottom: 0;
+        right: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
         max-height: 100dvh;
         border-radius: 0;
         border: none;
@@ -393,10 +615,20 @@
     }
 
     .ai-fab-group {
-        bottom: 1.25rem;
-        right: 1.25rem;
+        display: none !important;
     }
 
     // Pills redundant on mobile — in-chat chips handle it
-    .ai-fab-pills { display: none; }
+    .ai-fab-pills {
+        display: none;
+    }
+
+    // The full-size pill is wide enough to sit over a couple of lines of
+    // body text as the page scrolls — shrink it so it reads as a compact
+    // FAB rather than a banner blocking content underneath.
+    .ai-fab-button-custom .ai-button-inner {
+        padding: 0.6em 1.1em;
+        font-size: 0.9em;
+        gap: 0.5em;
+    }
 }

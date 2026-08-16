@@ -1,9 +1,10 @@
 .header-container {
+  width: 100%;
+  box-sizing: border-box;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  column-count: 2;
   background-color: var(--bg-color);
   position: sticky;
   top: 0;
@@ -15,29 +16,25 @@
   .header-column-one {
     display: flex;
     flex-direction: column;
-    height: 55vh;
     justify-content: center;
     align-items: flex-start;
-    width: var(--width-container);
-    max-width: var(--max-width-container);
+    width: 100%;
+    box-sizing: border-box;
+    border-bottom: 1px solid var(--border-color);
     margin: 0 auto;
-    padding: 4em 1em;
-    padding-bottom: 2em;
+    padding: 6em 2em;
     gap: 1.5em;
 
     @media screen and (max-width: 767px) {
-      padding: 2em 1em;
-      height: auto;
-      min-height: 80vh;
+      padding: 2em 1.5em;
     }
 
     .profile-pic {
       width: 8.5em;
       height: 8.5em;
       display: block; // Re-enable
-      border: 5px solid var(--grey-100);
+      border: 5px solid var(--bg-color);
       background: var(--bg-color-high);
-      background: linear-gradient(0deg, var(--bg-color-high) 0%, #d9e5ff 30%);
       border-radius: 50%;
       object-fit: cover;
       box-shadow: 1px 1px 13px 1px #00000012;
@@ -55,7 +52,7 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 0.5em;
+      gap: 1.5em;
     }
 
     .tags {
@@ -70,7 +67,7 @@
 
     h1 {
       font-size: var(--h1-size, 2.1em);
-      font-weight: 600;
+      font-weight: 800;
       text-align: left;
       margin: 0;
 
@@ -79,8 +76,29 @@
       }
     }
 
+    .headline-text {
+      font-size: 1.45em;
+      font-weight: 700;
+      line-height: 1.35;
+      color: var(--primary-text);
+      margin: 0.1em 0 0.3em 0;
+      letter-spacing: -0.015em;
+
+      @media screen and (max-width: 767px) {
+        font-size: 1.2em;
+      }
+    }
+
     .intro-text {
       margin-top: 0;
+      font-weight: 450;
+      font-size: 1.05em;
+      line-height: 1.6;
+      color: var(--secondary-text);
+
+      @media screen and (max-width: 767px) {
+        font-size: 0.95em;
+      }
     }
 
     .button-group {
@@ -103,9 +121,8 @@
       width: 7.5em;
       height: 7.5em;
       // padding: .3em;
-      border: 3px solid var(--grey-100);
+      border: 3px solid var(--bg-color);
       background: var(--bg-color-high);
-      background: linear-gradient(0deg, var(--bg-color-high) 0%, #f5ecd7 30%, #f0e5ce 100%);
       border-radius: 5em;
       object-fit: cover;
       box-shadow: 1px 1px 13px 1px #00000012;

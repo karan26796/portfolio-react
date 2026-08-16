@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../styles/StackedCard.scss';
 import Button, { ButtonIconName } from './Buttons';
 import { User } from '@phosphor-icons/react';
+import ImageWithSkeleton from './ImageWithSkeleton';
 
 interface StackedCardProps {
   file: {
@@ -66,7 +67,7 @@ const StackedCard: React.FC<StackedCardProps> = ({ file, index }) => {
         <div className="stacked-bg-card secondary" />
         {/* Main image container */}
         <div className="main-image-container">
-          <img src={file.url} alt={`Community file ${index + 1}`} />
+          <ImageWithSkeleton src={file.url} alt={`Community file ${index + 1}`} />
         </div>
       </div>
 

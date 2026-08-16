@@ -1,6 +1,7 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { imagesByProject } from "../utils/assorted";
 import '../styles/VerticalCarouselWall.scss';
+import ImageWithSkeleton from "./ImageWithSkeleton";
 
 type ProjectKey = 'banner' | 'aiguire' | 'frontrow' | 'pause' | 'qohoo' | 'skylark' | 'vdoAi' | 'vector';
 
@@ -75,7 +76,7 @@ const HorizontalCarouselWall: React.FC<HorizontalCarouselWallProps> = ({
                   transform: `translateY(${index % 2 === 0 ? '0px' : '0px'})`,
                 }}
               >
-                <img src={imgSrc} alt={`Carousel image ${index + 1}`} />
+                <ImageWithSkeleton src={imgSrc} alt={`Carousel image ${index + 1}`} />
               </div>
             ))}
           </div>

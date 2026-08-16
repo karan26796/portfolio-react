@@ -1,6 +1,6 @@
 .company-work-list-container {
-  width: 92vw;
-  max-width: 1400px;
+  width: 100%;
+  max-width: var(--max-width-container);
   margin: 0 auto;
   padding: 2em 0 5em;
   display: flex;

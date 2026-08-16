@@ -5,6 +5,7 @@ import ScrollReveal from "./ScrollReveal";
 import LogoCarousel from "./LogoCarousel";
 import ResumePopup from "../pages/ResumePopup";
 import Tag from "./Tag";
+import kekaLogo from "../utils/logos/keka-logo.webp";
 
 
 const HeaderWithCarousel: React.FC = () => {
@@ -40,27 +41,42 @@ const HeaderWithCarousel: React.FC = () => {
       }}
     >
       <div className="header-column-one">
-        <ScrollReveal variant="scale" delay={0}>
+        <ScrollReveal variant="scale" delay={0} children={undefined}>
           {/* <img src="/gallery/profile.webp" alt="Karan" className="profile-pic" /> */}
         </ScrollReveal>
         <div className="header-text-content">
           <ScrollReveal delay={80}>
             <div className="name-tag-group">
-              <h1>Hey, I'm Karan</h1>
               <div className="tags">
-                <Tag text="Figma Trainer" color={{ text: '#41ffc0ff' }} />
-                <Tag text="2X Founding Designer" color={{ text: '#a754ffff' }} />
+                {/* <Tag
+                  text="Currently at Keka HR"
+                  color={{ text: '#ff8c00' }}
+                  dot={true}
+                  pulsatingDot={true}
+                  icon={kekaLogo}
+                /> */}
+                <Tag text="Vibe Coder" color={{ text: '#00e676' }} />
+                <Tag text="2X Founding Designer" color={{ text: '#d0a4ffff' }} />
+                <Tag text="Figma Trainer" color={{ text: '#ffb641ff' }} />
                 <Tag text="NID Alum" color={{ text: '#5c98ffff' }} />
               </div>
+
+              <h1>Hey, I'm Karan <br />
+                I specialize in designing intuitive interfaces and complex product flows backed by deep user insights and behavior.
+              </h1>
+
             </div>
           </ScrollReveal>
-          <ScrollReveal delay={160}>
-            <h2 className="intro-text">
-              Product Designer with management & technical chops. In the last ~8 years I've worked with early stage startups on 0-1 projects, conducted 100+ Figma workshops, headed FoF Delhi for 5 years, and built passion projects using with AI as a sidekick.
+          {/* <ScrollReveal delay={160}>
+            <h2 className="headline-text">
+              I specialize in designing intuitive interfaces and complex product flows backed by deep user insights and behavior.
             </h2>
-          </ScrollReveal>
+            <p className="intro-text">
+              Product Designer with management & technical chops. Over the last ~8 years as a 2x Founding Designer and NID alum, I've brought 0-to-1 products to life for early-stage startups, led Friends of Figma Delhi for 5 years, and conducted 100+ design workshops. Currently shaping employee experience for 2+ million users at Keka HR while integrating AI and vibe coding into my workflow.
+            </p>
+          </ScrollReveal> */}
           <ScrollReveal delay={240}>
-            <LogoCarousel align="center" />
+            <LogoCarousel align="flex-start" />
           </ScrollReveal>
         </div>
         {/* <Tag text="Open to new roles" color={{ text: '#3100f4ff' }} dot={true} pulsatingDot={true} /> */}

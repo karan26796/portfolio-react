@@ -13,6 +13,7 @@ interface TagProps {
   dot?: boolean;
   pulsatingDot?: boolean;
   variant?: 'default' | 'nobg' | 'small';
+  icon?: string | React.ReactNode;
 }
 
 const Tag: React.FC<TagProps> = ({
@@ -21,7 +22,8 @@ const Tag: React.FC<TagProps> = ({
   rotation,
   dot,
   pulsatingDot = false,
-  variant = 'default'
+  variant = 'default',
+  icon
 }) => {
   // Use state to ensure stable random value across re-renders
   const [randomRotation] = useState(() => Math.random() * 4 - 2);
@@ -41,6 +43,13 @@ const Tag: React.FC<TagProps> = ({
           className={`dot ${pulsatingDot ? 'pulsating' : ''}`}
           style={{ backgroundColor: color.text }}
         ></div>
+      )}
+      {icon && (
+        typeof icon === 'string' ? (
+          <img src={icon} alt="" className="tag-icon" />
+        ) : (
+          <span className="tag-icon">{icon}</span>
+        )
       )}
       <p
         className="tag"

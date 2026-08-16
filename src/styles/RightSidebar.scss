@@ -1,0 +1,73 @@
+.sidebar-right {
+  position: sticky;
+  top: 1.5em;
+  align-self: start;
+  width: 300px;
+  flex: 0 0 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+  padding: 1.5em 0 2em;
+
+  .profile-card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.6em;
+    padding: 1.25em;
+    border: 1px solid var(--border-color);
+    border-radius: 1em;
+    background: var(--bg-color-high);
+  }
+
+  .profile-card-avatar {
+    width: 4em;
+    height: 4em;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 0.4em;
+  }
+
+  .profile-card-name {
+    margin: 0;
+    font-size: 1.15em;
+  }
+
+  .profile-card-role {
+    margin: 0;
+    color: var(--secondary-text);
+    font-size: 0.95em;
+    font-weight: 500;
+  }
+
+  .profile-card-desc {
+    margin: 0;
+    color: var(--tertiary-text);
+    font-size: 0.85em;
+    line-height: 145%;
+  }
+
+  .profile-card-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.6em;
+    width: 100%;
+    margin-top: 0.4em;
+
+    a {
+      width: 100%;
+    }
+
+    .custom-button {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+
+  .sidebar-right-footnote {
+    color: var(--tertiary-text);
+    font-size: 0.8em;
+    text-align: center;
+    margin: 0;
+  }
+}

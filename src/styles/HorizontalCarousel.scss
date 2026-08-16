@@ -70,7 +70,7 @@
     overflow-x: auto;
     scroll-snap-type: x mandatory;
     scroll-behavior: smooth;
-    padding: 0.5em 0.25em 1.5em 0.25em;
+    // padding: 0.5em 0.25em 1.5em 0.25em;
     box-sizing: border-box;
 
     /* Remove scrollbar */
@@ -88,12 +88,24 @@
       scroll-snap-align: start;
       box-sizing: border-box;
 
+      .experiment-image-container,
+      .card-media {
+        overflow: hidden;
+
+        img,
+        video,
+        .image-skeleton-wrapper {
+          transition: transform 0.05s ease-out;
+        }
+      }
+
       @media (max-width: 768px) {
-        flex: 0 0 340px;
+        flex: 0 0 84vw;
+        max-width: 420px;
       }
 
       @media (max-width: 480px) {
-        flex: 0 0 290px;
+        flex: 0 0 70vw;
       }
     }
   }

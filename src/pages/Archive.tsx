@@ -19,7 +19,7 @@ export const CommunityFilesSection: React.FC = () => {
       className="figma-community-carousel-section"
     >
       {communityFiles.map((file, index) => (
-        <div key={index} style={{ padding: "10px 4px" }}>
+        <div key={index}>
           <StackedCard file={file} index={index} />
         </div>
       ))}

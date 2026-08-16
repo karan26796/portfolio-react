@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Plus, Minus } from "@phosphor-icons/react";
+import { CaretDown } from "@phosphor-icons/react";
 import ScrollReveal, { scrollRevealStagger } from "./ScrollReveal";
 import "../styles/FAQ.scss";
 
@@ -15,7 +15,7 @@ interface FAQProps {
 }
 
 const FAQ: React.FC<FAQProps> = ({ data, hideTitle = false, title = "About my process" }) => {
-  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
     setOpenIndex(openIndex === index ? null : index);
@@ -25,24 +25,41 @@ const FAQ: React.FC<FAQProps> = ({ data, hideTitle = false, title = "About my pr
     <div className="faq-container">
       {!hideTitle && (
         <ScrollReveal>
-          <h2 style={{ textAlign: "center" }}>{title}</h2>
+          <h2>{title}</h2>
         </ScrollReveal>
       )}
-      {data.map((item, index) => (
-        <ScrollReveal key={index} delay={scrollRevealStagger(index, 70)}>
-          <div className="faq-item">
-            <div className="faq-question" onClick={() => toggleFAQ(index)}>
-              <h4>{item.question}</h4>
-              <span className="faq-icon" style={{ transform: openIndex === index ? 'rotate(180deg)' : 'rotate(0deg)' }}>
-                {openIndex === index ? <Minus size={24} /> : <Plus size={24} />}
-              </span>
-            </div>
-            <div className={`faq-answer ${openIndex === index ? 'open' : 'closed'}`}>
-              <div dangerouslySetInnerHTML={{ __html: item.answer as string }} />
-            </div>
-          </div>
-        </ScrollReveal>
-      ))}
+      <div className="faq-list">
+        {data.map((item, index) => {
+          const isOpen = openIndex === index;
+          return (
+            <ScrollReveal key={index} delay={scrollRevealStagger(index, 60)}>
+              <div className={`faq-item ${isOpen ? "open" : ""}`}>
+                <div 
+                  className="faq-question" 
+                  onClick={() => toggleFAQ(index)}
+                  role="button"
+                  tabIndex={0}
+                  aria-expanded={isOpen}
+                  onKeyDown={(e) => {
+                    if (e.key === "Enter" || e.key === " ") {
+                      e.preventDefault();
+                      toggleFAQ(index);
+                    }
+                  }}
+                >
+                  <h4>{item.question}</h4>
+                  <div className={`faq-icon-circle ${isOpen ? "open" : ""}`}>
+                    <CaretDown size={20} weight="bold" />
+                  </div>
+                </div>
+                <div className={`faq-answer ${isOpen ? "open" : "closed"}`}>
+                  <div dangerouslySetInnerHTML={{ __html: item.answer as string }} />
+                </div>
+              </div>
+            </ScrollReveal>
+          );
+        })}
+      </div>
     </div>
   );
 };

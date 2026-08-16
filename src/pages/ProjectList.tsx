@@ -1,12 +1,9 @@
-import React from 'react';
-import { FC } from 'react';
+import React, { FC, useMemo } from 'react';
 import CircleArrowIcon from '../components/CircleArrowIcon';
 import ScrollReveal, { scrollRevealStagger } from '../components/ScrollReveal';
 import '../styles/ProjectList.scss';
 import { useNavigate } from 'react-router-dom';
 import { ProjectCardData } from '../utils/interfaces';
-
-import { FEATURED_PROJECT_COUNT } from '../utils/ProjectSummaries';
 
 interface ProjectListProps {
   projectData: ProjectCardData[];
@@ -20,6 +17,19 @@ interface ProjectListProps {
   }>;
 }
 
+const COMPANY_TENURES: Record<string, string> = {
+  "Keka HR": "Mar 2024 – Present",
+  "Looppanel": "2022",
+  "Side Projects": "2025 - Present",
+  "Nimbuzz": "2021",
+  "NID": "2017 – 2019",
+};
+
+const COMPANY_LOGOS: Record<string, string> = {
+  "Keka HR": "/project-imgs/kekalogo.webp",
+  "Looppanel": "/project-imgs/Looppanel-logo.webp",
+};
+
 const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: ProjectCard }) => {
   const navigate = useNavigate();
 
@@ -27,31 +37,71 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
     navigate(`/project/${projectId}`);
   };
 
-  const featuredProjects = projectData.slice(0, FEATURED_PROJECT_COUNT);
-  const overflowProjects = projectData.slice(FEATURED_PROJECT_COUNT, FEATURED_PROJECT_COUNT + 3);
-
   const handleIndiefindsClick = () => {
     window.open('https://indiefinds.vercel.app', '_blank', 'noopener,noreferrer');
   };
 
+  // Group projects by company tag/metadata
+  const companyGroups = useMemo(() => {
+    const groups: { company: string; projects: ProjectCardData[] }[] = [];
+
+    projectData.forEach((project) => {
+      const companyName =
+        project.company ||
+        (project.year ? project.year.split('/')[0].trim() : 'Featured Projects');
+
+      let group = groups.find((g) => g.company === companyName);
+      if (!group) {
+        group = { company: companyName, projects: [] };
+        groups.push(group);
+      }
+      group.projects.push(project);
+    });
+
+    return groups;
+  }, [projectData]);
+
   return (
     <div className="project-parent">
-      <div className="project-featured">
-        {featuredProjects.map((project, index) => (
-          <ScrollReveal key={project.id} delay={scrollRevealStagger(index)}>
-            <ProjectCard
-              data={project}
-              variant="large"
-              buttonType="button"
-              onClick={project.id === '10' || project.id === '11' ? undefined : () => handleCardClick(project.id)}
-              showDivider={true}
-            />
+      {companyGroups.map((group, groupIndex) => (
+        <div key={group.company} className="company-project-section">
+          <ScrollReveal delay={scrollRevealStagger(groupIndex * 2)}>
+            <div className="company-section-title">
+              <div className="company-info-group">
+                {COMPANY_LOGOS[group.company] && (
+                  <img
+                    src={COMPANY_LOGOS[group.company]}
+                    alt={`${group.company} logo`}
+                    className="company-logo"
+                  />
+                )}
+                <h4 className="company-name">{group.company}</h4>
+              </div>
+              {COMPANY_TENURES[group.company] && (
+                <p className="company-tenure">{COMPANY_TENURES[group.company]}</p>
+              )}
+            </div>
           </ScrollReveal>
-        ))}
-      </div>
 
+          <div className="company-project-cards">
+            {group.projects.map((project, index) => (
+              <ScrollReveal key={project.id} delay={scrollRevealStagger(index)}>
+                <ProjectCard
+                  data={project}
+                  variant="large"
+                  buttonType="button"
+                  onClick={project.id === '10' || project.id === '11' ? undefined : () => handleCardClick(project.id)}
+                  showDivider={index < group.projects.length - 1}
+                />
+              </ScrollReveal>
+            ))}
+          </div>
+        </div>
+      ))}
+
+      {/* Side Project Highlight Banner */}
       <div className="indiefinds-wrapper">
-        <ScrollReveal delay={scrollRevealStagger(featuredProjects.length)}>
+        <ScrollReveal delay={scrollRevealStagger(3)}>
           <div
             className="indiefinds-banner"
             onClick={handleIndiefindsClick}
@@ -89,32 +139,6 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
           </div>
         </ScrollReveal>
       </div>
-
-      {/* overflowProjects.length > 0 && (
-        <div className="project-scroll-section">
-          <ScrollReveal delay={scrollRevealStagger(featuredProjects.length + 1)}>
-            <h4 className="project-scroll-label">More projects</h4>
-          </ScrollReveal>
-          <div className="project-scroll-row">
-            {overflowProjects.map((project, index) => (
-              <ScrollReveal
-                key={project.id}
-                className="project-scroll-item"
-                delay={scrollRevealStagger(index, 60)}
-              >
-                <ProjectCard
-                  data={project}
-                  variant="small"
-                  buttonType="none"
-                  onClick={() => handleCardClick(project.id)}
-                  showDivider={false}
-                  enableTilt={false}
-                />
-              </ScrollReveal>
-            ))}
-          </div>
-        </div>
-      ) */}
     </div>
   );
 };
