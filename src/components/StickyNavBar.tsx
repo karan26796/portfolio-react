@@ -103,10 +103,6 @@ const StickyNavBar: React.FC = () => {
 
     return (
       <aside className="sidebar-nav">
-        <Link to="/home" className="sidebar-logo">
-          <img src="/gallery/profile.webp" alt="Karan Kapoor" className="sidebar-logo-img" />
-        </Link>
-
         <nav className="sidebar-links">
           <Link
             to="/home"

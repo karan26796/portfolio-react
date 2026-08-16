@@ -47,16 +47,31 @@
       display: block;
       transition: border-color 0.3s ease;
     }
-  }
-}
 
-.experiment-caption {
-  margin: 0;
-  // padding: 0 0.35em;
-  font-size: var(--text-size);
-  font-weight: 500;
-  color: var(--secondary-text);
-  line-height: var(--paragraph-line-height);
-  letter-spacing: var(--text-letter-spacing);
-  text-align: center;
+    .experiment-overlay {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 2.5em 1em 0.85em 1em;
+      background: linear-gradient(to top,
+          rgba(0, 0, 0, 0.82) 0%,
+          rgba(0, 0, 0, 0.4) 60%,
+          transparent 100%);
+      display: flex;
+      justify-content: center;
+      align-items: flex-end;
+      pointer-events: none;
+      z-index: 5;
+    }
+
+    .experiment-overlay-caption {
+      color: #ffffff;
+      font-size: 1em;
+      font-weight: 500;
+      line-height: 1.35;
+      letter-spacing: -0.01em;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+    }
+  }
 }
