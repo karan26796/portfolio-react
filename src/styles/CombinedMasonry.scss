@@ -1,0 +1,90 @@
+.combined-masonry-section {
+  width: 100%;
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  padding: 2em;
+  box-sizing: border-box;
+  background-color: var(--bg-color);
+  border-top: 1px solid var(--border-color);
+
+  // Single source of truth for spacing — tweak this to control gap everywhere below.
+  --masonry-gap: 1.5em;
+
+  .masonry-columns {
+    display: flex;
+    gap: var(--masonry-gap);
+  }
+
+  .masonry-column {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: var(--masonry-gap);
+  }
+
+  @media (max-width: 700px) {
+    --masonry-gap: 2em;
+  }
+
+  .masonry-photo-card {
+    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 1.5em;
+    padding: 0.5em;
+    background-color: var(--bg-color-high);
+    border: 1px solid var(--border-color);
+    text-decoration: none;
+    color: inherit;
+    transform: rotate(var(--rotate));
+    transition: transform 0.3s ease;
+
+    &:hover {
+      transform: rotate(0deg);
+
+      .photo-external-icon {
+        opacity: 1;
+      }
+    }
+
+    .photo-media {
+      position: relative;
+
+      img,
+      video,
+      .image-skeleton-wrapper {
+        width: 100%;
+        height: auto;
+        border-radius: 1em;
+        display: block;
+      }
+    }
+
+    .photo-caption {
+      font-family: 'Architects Daughter', Courier, monospace;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3em;
+      font-size: 1.1em;
+      color: var(--secondary-text);
+      padding: 0.5em 0.5em 0.25em;
+      line-height: 1.25;
+
+      .photo-caption-text {
+        display: flex;
+        align-items: center;
+        gap: 0.3em;
+        text-align: center;
+        min-width: 0;
+      }
+
+      .photo-external-icon {
+        flex: none;
+        opacity: 0.7;
+        transition: opacity 0.2s ease;
+      }
+    }
+  }
+}

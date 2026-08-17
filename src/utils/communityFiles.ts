@@ -8,7 +8,7 @@ export interface FigmaFile {
   url: string;
   link: string | "null";
   name: string;
-  downloads:string;
+  downloads: string;
 }
 
 export interface ImageItem {
@@ -20,20 +20,20 @@ const communityFiles: FigmaFile[] = [
   {
     url: bggradients,
     link: "https://www.figma.com/community/file/1076867776880340874/animated-gradient-backgrounds-for-presentations",
-    name: 'Background gradients for interactive presentations',
-    downloads:'13k downloads'
+    name: '13k downloads',
+    downloads: '13k downloads'
   },
   {
     url: evolve,
     link: "https://www.figma.com/community/file/897091186704896395/evolve-component-library-karan-kapoor",
-    name: 'Evolve component library',
-    downloads:'3k downloads'
+    name: '3k downloads',
+    downloads: '3k downloads'
   },
   {
     url: proto,
     link: "https://www.figma.com/community/file/905774038894769917/animation-prototype-playground",
-    name: 'Learn Figma prototyping and animation',
-    downloads:'4k downloads'
+    name: '4k downloads',
+    downloads: '4k downloads'
   },
 ];
 

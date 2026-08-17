@@ -1,12 +1,67 @@
-.experiments-grid {
+.experiments-corkboard {
+  position: relative;
   width: 100%;
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem 1.5rem;
+  height: 640px;
+  overflow: hidden;
+  background: var(--bg-color-high);
+  border: 1px solid var(--border-color);
+  border-radius: 1.25em;
+  background-image: radial-gradient(var(--border-color) 1px, transparent 1.4px);
+  background-size: 18px 18px;
 
-  @media (max-width: 600px) {
-    grid-template-columns: repeat(1, 1fr);
+  .cork-item {
+    position: absolute;
+    width: clamp(150px, 17vw, 200px);
+    margin: 0;
+    transform: rotate(var(--rotate));
+    transition: transform 0.25s ease, z-index 0s;
+    z-index: 1;
+
+    &:hover {
+      transform: rotate(0deg) scale(1.04);
+      z-index: 5;
+    }
+  }
+
+  .cork-pin {
+    position: absolute;
+    top: -6px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 30% 30%, #fff, var(--highlight-color));
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    z-index: 6;
+  }
+
+  @media (max-width: 700px) {
+    position: static;
+    height: auto;
+    background-image: none;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
     gap: 1.5rem;
+    padding: 1.25em;
+
+    .cork-item {
+      position: static;
+      width: 100%;
+      transform: none;
+
+      &:hover {
+        transform: none;
+      }
+    }
+
+    .cork-pin {
+      display: none;
+    }
+
+    @media (max-width: 480px) {
+      grid-template-columns: 1fr;
+    }
   }
 }
 
@@ -18,60 +73,47 @@
   gap: 0.5em;
 }
 
-.experiment-card {
-  transition: transform 0.3s ease;
+.experiment-card-gallery-style {
+  position: relative;
+  overflow: hidden;
+  border-radius: 1.5em;
+  padding: 0.5em;
+  background-color: var(--bg-color-high);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  transition: border-color 0.3s ease, transform 0.3s ease;
 
   &:hover {
-    // transform: translateY(-3px);
-
-    img,
-    video {
-      border-color: rgba(255, 255, 255, 0.3);
-    }
+    border-color: color-mix(in srgb, var(--highlight-color) 40%, var(--border-color));
   }
 
-  .experiment-image-container {
+  .experiment-media-wrapper {
     position: relative;
     overflow: hidden;
     aspect-ratio: 1/1;
     border-radius: 1em;
+    width: 100%;
 
     img,
-    video {
+    video,
+    .image-skeleton-container {
       width: 100%;
       height: 100%;
       object-fit: cover;
       border-radius: 1em;
-      border: 1px solid var(--border-color, rgba(255, 255, 255, 0.12));
-      box-sizing: border-box;
       display: block;
-      transition: border-color 0.3s ease;
     }
+  }
 
-    .experiment-overlay {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: 2.5em 1em 0.85em 1em;
-      background: linear-gradient(to top,
-          rgba(0, 0, 0, 0.82) 0%,
-          rgba(0, 0, 0, 0.4) 60%,
-          transparent 100%);
-      display: flex;
-      justify-content: center;
-      align-items: flex-end;
-      pointer-events: none;
-      z-index: 5;
-    }
-
-    .experiment-overlay-caption {
-      color: #ffffff;
-      font-size: 1em;
-      font-weight: 500;
-      line-height: 1.35;
-      letter-spacing: -0.01em;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
-    }
+  .experiment-caption-handwritten {
+    font-family: 'Architects Daughter', Courier, monospace;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    font-size: 1.1em;
+    color: var(--secondary-text);
+    padding: 0.5em 0.35em 0.25em;
+    line-height: 1.25;
   }
 }

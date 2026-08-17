@@ -12,7 +12,7 @@
     position: relative;
     z-index: 2;
 
-    .figma-community-carousel-section,
+    .community-deck-container,
     .experiments-section-container {
         padding: 2em;
         border-top: 1px solid var(--border-color);
@@ -57,9 +57,5 @@
         .craft-content {
             width: 100%;
         }
-    }
-
-    .community-files-grid {
-        width: 100%;
     }
 }

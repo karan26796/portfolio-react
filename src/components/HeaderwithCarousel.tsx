@@ -62,8 +62,8 @@ const HeaderWithCarousel: React.FC = () => {
 
           <ScrollReveal delay={160}>
             <h3 className="intro-paragraph">
-              I specialize in designing intuitive interfaces and complex product flows backed by deep user insights and behavior.
-              Currently @Keka HR owning the product strategy for Rewards, Recognition, and Employee Experience.
+              My work spans across product design, research, design systems, and developing apps.
+              <strong>Currently @Keka HR</strong>, shaping how companies reward & recognize employees.
             </h3>
           </ScrollReveal>
 
