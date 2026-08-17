@@ -195,68 +195,70 @@ const ProjectDetails: React.FC = () => {
             </div>
           ) : (
             <>
-              <div className="container-project">
-                <div className="project-content-wrapper">
-                  <ProjectDetailHeader data={projectSummary} />
-                  <div ref={contentRef} className="project-details">
-                    {cleanContent ? (
-                      <ReactMarkdown
-                        rehypePlugins={[rehypeRaw]}
-                        components={{
-                          h3: ({ children, ...props }: any) => {
-                            const id = props.id || slugify(String(children));
-                            return (
-                              <ScrollReveal>
-                                <h3 {...props} id={id}>
-                                  {formatSectionTitle(String(children))}
-                                </h3>
-                              </ScrollReveal>
-                            );
-                          },
-                          img: ({ node, caption, alt, ...props }: any) => {
-                            const captionText = caption || alt || "";
-                            return (
-                              <ScrollReveal variant="image-reveal">
-                                <figure>
-                                  <img alt={captionText} {...props} />
-                                  {captionText && <figcaption>{captionText}</figcaption>}
-                                </figure>
-                              </ScrollReveal>
-                            );
-                          },
-                          video: ({ node, ...props }: any) => {
-                            const customProps = props as any;
-                            return (
-                              <ScrollReveal variant="fade">
-                                <CustomVideo src={props.src} caption={customProps.caption} />
-                              </ScrollReveal>
-                            );
-                          }
-                        } as any}
-                      >
-                        {cleanContent}
-                      </ReactMarkdown>
-                    ) : <div>Project content not available</div>}
+              <div className="project-details-main-content">
+                <div className="container-project">
+                  <div className="project-content-wrapper">
+                    <ProjectDetailHeader data={projectSummary} />
+                    <div ref={contentRef} className="project-details">
+                      {cleanContent ? (
+                        <ReactMarkdown
+                          rehypePlugins={[rehypeRaw]}
+                          components={{
+                            h3: ({ children, ...props }: any) => {
+                              const id = props.id || slugify(String(children));
+                              return (
+                                <ScrollReveal>
+                                  <h3 {...props} id={id}>
+                                    {formatSectionTitle(String(children))}
+                                  </h3>
+                                </ScrollReveal>
+                              );
+                            },
+                            img: ({ node, caption, alt, ...props }: any) => {
+                              const captionText = caption || alt || "";
+                              return (
+                                <ScrollReveal variant="image-reveal">
+                                  <figure>
+                                    <img alt={captionText} {...props} />
+                                    {captionText && <figcaption>{captionText}</figcaption>}
+                                  </figure>
+                                </ScrollReveal>
+                              );
+                            },
+                            video: ({ node, ...props }: any) => {
+                              const customProps = props as any;
+                              return (
+                                <ScrollReveal variant="fade">
+                                  <CustomVideo src={props.src} caption={customProps.caption} />
+                                </ScrollReveal>
+                              );
+                            }
+                          } as any}
+                        >
+                          {cleanContent}
+                        </ReactMarkdown>
+                      ) : <div>Project content not available</div>}
+                    </div>
                   </div>
                 </div>
+
+                {faqData && (
+                  <FAQ data={faqData} hideTitle={false} title="FAQs" />
+                )}
+
+                {markdownContent && (
+                  <AISummarizer
+                    text={markdownContent}
+                    buttonLabel="Ask Agent Vinod"
+                    pageType="project"
+                    initialPrompts={[
+                      "Can you summarize this project?",
+                      "What was my role here?",
+                      "What was the biggest challenge?"
+                    ]}
+                  />
+                )}
               </div>
-
-              {faqData && (
-                <FAQ data={faqData} hideTitle={false} title="FAQs" />
-              )}
-
-              {markdownContent && (
-                <AISummarizer
-                  text={markdownContent}
-                  buttonLabel="Ask Agent Vinod"
-                  pageType="project"
-                  initialPrompts={[
-                    "Can you summarize this project?",
-                    "What was my role here?",
-                    "What was the biggest challenge?"
-                  ]}
-                />
-              )}
 
               <WorkTogether />
             </>

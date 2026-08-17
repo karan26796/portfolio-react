@@ -1,3 +1,10 @@
+.project-details-main-content {
+  position: relative;
+  z-index: 2;
+  background-color: var(--bg-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
 .container-project {
     display: grid;
     grid-template-columns: minmax(0, 1fr);

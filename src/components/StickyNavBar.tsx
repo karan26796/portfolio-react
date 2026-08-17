@@ -44,16 +44,28 @@ const StickyNavBar: React.FC = () => {
       return;
     }
 
-    const target = document.getElementById("contact");
-    if (!target) return;
+    const checkContactVisibility = () => {
+      const contactEl = document.getElementById("contact") || document.querySelector(".contact-form-container");
+      if (!contactEl) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => setIsContactInView(entry.isIntersecting),
-      { threshold: 0.15 }
-    );
-    observer.observe(target);
+      const windowHeight = window.innerHeight || document.documentElement.clientHeight;
+      const scrollBottom = window.scrollY + windowHeight;
+      const docHeight = document.documentElement.scrollHeight;
 
-    return () => observer.disconnect();
+      // Hide CTA when scrolled near page bottom / WorkTogether section
+      const isNearBottom = (docHeight - scrollBottom) < 550;
+      setIsContactInView(isNearBottom);
+    };
+
+    checkContactVisibility();
+
+    window.addEventListener("scroll", checkContactVisibility, { passive: true });
+    window.addEventListener("resize", checkContactVisibility, { passive: true });
+
+    return () => {
+      window.removeEventListener("scroll", checkContactVisibility);
+      window.removeEventListener("resize", checkContactVisibility);
+    };
   }, [isHome, isMobile, location.pathname]);
 
   const handleMouseEnter = (e: React.MouseEvent<HTMLElement>) => {

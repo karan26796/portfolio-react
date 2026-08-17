@@ -13,7 +13,9 @@
   gap: 1em;
   border: 1px solid var(--border-color);
   background: linear-gradient(180deg, var(--bg-color-high) 80%, var(--bg-color) 100%);
-  position: relative;
+  position: sticky;
+  bottom: 0;
+  z-index: 1;
   border: none;
 
   &::before {

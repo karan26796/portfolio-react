@@ -37,6 +37,15 @@
   }
 }
 
+/* Main content container preceding sticky WorkTogether section */
+.home-main-content {
+  position: relative;
+  z-index: 2;
+  background-color: var(--bg-color);
+  border-bottom: 1px solid var(--border-color);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
 /* Explicit column assignment: any left-nav variant that renders
    position: fixed (e.g. the project-detail top bar) drops out of grid
    flow, which would otherwise shift .app-center/.sidebar-right left

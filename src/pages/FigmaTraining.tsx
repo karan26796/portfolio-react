@@ -43,12 +43,14 @@ const TrainingList: React.FC = () => {
 
   return (
     <>
-      <div className='training-parent'>
-        <IntroSection onBookTrainingClick={scrollToCompanyForm} />
+      <div className="figma-training-main-content">
+        <div className="training-parent">
+          <IntroSection onBookTrainingClick={scrollToCompanyForm} />
+        </div>
+        <FigmaTrainingCarousel />
+        <TestimonialsSection />
       </div>
-      <FigmaTrainingCarousel />
-      <TestimonialsSection />
-      <div className='training-parent' ref={companyFormRef}>
+      <div className="training-parent company-form-sticky-wrapper" ref={companyFormRef}>
         <CompanyForm />
       </div>
     </>
