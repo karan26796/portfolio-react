@@ -47,6 +47,45 @@
     }
   }
 
+  .monthly-stat-banner {
+    display: flex;
+    align-items: center;
+    padding: 0.65em 0.85em;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid var(--border-color);
+    border-radius: 0.75em;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.05);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .stat-content {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+
+      .stat-icon {
+        color: #39d353;
+        flex-shrink: 0;
+      }
+
+      .stat-number {
+        font-weight: 700;
+        font-size: 1.05em;
+        color: var(--primary-text);
+        letter-spacing: -0.01em;
+      }
+
+      .stat-text {
+        font-size: 0.78em;
+        color: var(--secondary-text);
+        font-weight: 500;
+      }
+    }
+  }
+
   .contribution-grid-wrapper {
     display: flex;
     flex-direction: column;

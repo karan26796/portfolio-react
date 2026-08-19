@@ -7,6 +7,10 @@
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform, opacity;
 
+  &:has(.has-hover-card:hover) {
+    z-index: 1000;
+  }
+
   .header-column-one {
     display: flex;
     flex-direction: column;
@@ -83,10 +87,12 @@
   }
 
   .inline-badge {
+    position: relative;
     display: inline-flex;
     align-items: center;
     gap: 0.4em;
     padding: 0.15em 0.55em;
+    padding-left: 0.15em;
     border-radius: 0.45em;
     background-color: var(--bg-color-high);
     border: 1px solid var(--border-color);
@@ -97,6 +103,8 @@
     vertical-align: middle;
     margin: 0 0.1em;
     white-space: nowrap;
+    text-decoration: none;
+    transition: border-color 0.2s ease, background-color 0.2s ease, transform 0.15s ease;
 
     .badge-icon {
       width: 1.15em;
@@ -105,6 +113,121 @@
       border-radius: 0.25em;
       display: block;
       flex-shrink: 0;
+    }
+
+    &.has-hover-card {
+      cursor: default;
+
+      &:hover {
+        border-color: rgba(255, 255, 255, 0.25);
+        background-color: rgba(255, 255, 255, 0.08);
+
+        .badge-hover-card {
+          opacity: 1;
+          visibility: visible;
+          transform: translateX(-50%) translateY(0);
+          pointer-events: auto;
+        }
+      }
+
+      .badge-hover-card {
+        display: block;
+        position: absolute;
+        bottom: calc(100% + 10px);
+        left: 50%;
+        transform: translateX(-50%) translateY(6px);
+        width: 250px;
+        background: var(--bg-color-high, #1c1c1f);
+        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
+        border-radius: 14px;
+        padding: 8px;
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transition: opacity 0.22s cubic-bezier(0.4, 0, 0.2, 1), transform 0.22s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.22s ease;
+        z-index: 1000;
+        text-align: left;
+        white-space: normal;
+        color: inherit;
+        text-decoration: none;
+        cursor: pointer;
+
+        &::after {
+          content: '';
+          position: absolute;
+          top: 100%;
+          left: 50%;
+          transform: translateX(-50%);
+          border-width: 6px;
+          border-style: solid;
+          border-color: var(--bg-color-high, #1c1c1f) transparent transparent transparent;
+        }
+
+        .hover-card-media {
+          display: block;
+          width: 100%;
+          height: 125px;
+          border-radius: 10px;
+          overflow: hidden;
+          margin-bottom: 8px;
+          background-color: rgba(0, 0, 0, 0.2);
+
+          img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+          }
+        }
+
+        .hover-card-body {
+          display: block;
+          padding: 4px 6px 6px;
+        }
+
+        .hover-card-header {
+          display: flex;
+          align-items: center;
+          gap: 8px;
+          margin-bottom: 4px;
+
+          .hover-card-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            object-fit: contain;
+            flex-shrink: 0;
+          }
+
+          .hover-card-titles {
+            display: flex;
+            flex-direction: column;
+
+            .hover-card-title {
+              font-size: 0.88em;
+              font-weight: 650;
+              color: var(--primary-text);
+              line-height: 1.25;
+            }
+
+            .hover-card-subtitle {
+              font-size: 0.72em;
+              color: #4a9eff;
+              font-weight: 500;
+            }
+          }
+        }
+
+        .hover-card-desc {
+          display: block;
+          font-size: 0.78em;
+          line-height: 1.35;
+          color: var(--secondary-text);
+          margin: 4px 0 0;
+          font-weight: 400;
+        }
+      }
     }
   }
 

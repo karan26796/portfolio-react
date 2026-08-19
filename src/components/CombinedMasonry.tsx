@@ -83,7 +83,6 @@ const renderEntry = (entry: (typeof CARD_ORDER)[number], rotate: number) => {
   if (entry.type === 'talk') {
     return (
       <PhotoCard
-        to="/figma-training"
         rotate={rotate}
         media={
           entry.data.isVideo ? (

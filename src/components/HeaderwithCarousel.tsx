@@ -1,8 +1,12 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { XLogo, FigmaLogo, Sparkle } from "@phosphor-icons/react";
 import "../styles/HeaderWithCarousel.scss";
 import ScrollReveal from "./ScrollReveal";
 import ResumePopup from "../pages/ResumePopup";
+import grabLogo from "../utils/logos/grab.png";
+import obviousLogo from "../utils/logos/obvious.webp";
+import interconnect from "../utils/logos/interconnect.webp";
 
 const HeaderWithCarousel: React.FC = () => {
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
@@ -66,32 +70,86 @@ const HeaderWithCarousel: React.FC = () => {
           </ScrollReveal>
 
           <ScrollReveal delay={200}>
-            {/* <h3 className="intro-paragraph">
-              My work spans across product design, research, design systems, and developing apps,
-              shaping how companies reward &amp; recognize employees. Along the way I've worn the
-              hats of a{" "}
-              <span className="text-badge outline">
-                <FigmaLogo size={16} weight="bold" />
-                Figma Trainer
-              </span>
-              ,{" "}
-              <span className="text-badge solid">
-                <Sparkle size={16} weight="fill" />
-                Vibe coder
-              </span>
-              , and <span className="text-badge solid">2X Founding Designer</span>.
-            </h3> */}
             <h3 className="intro-paragraph">
-              Currently shaping how companies reward &amp; recognize their employees. I specialize in customer research, design systems, product design, and developing apps. Along the way I've led{" "}
+              Currently shaping how companies reward &amp; recognize their employees. I specialize in customer research, design systems, 0-1 product design, and developing apps. I've worked with{" "}
               <span className="inline-badge">
-                <img src="/project-imgs/figma-logo.webp" alt="Figma" className="badge-icon" />
-                <span>Friends of Figma, Delhi</span>
+                <img src={grabLogo} alt="Grab" className="badge-icon" />
+                <span>Grab</span>
               </span>{" "}
-              for 5 years, been a founding designer at{" "}
+              through{" "}
               <span className="inline-badge">
+                <img src={obviousLogo} alt="Obvious" className="badge-icon" />
+                <span>Obvious</span>
+              </span>{" "}
+              and was a founding designer at{" "}
+              <span className="inline-badge has-hover-card">
                 <img src="/project-imgs/Looppanel-logo.webp" alt="Looppanel" className="badge-icon" />
                 <span>Looppanel</span>
-              </span>{" "} and vibe coded a few apps.
+                <a
+                  href="https://looppanel.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="badge-hover-card"
+                >
+                  <span className="hover-card-media">
+                    <img src="/project-imgs/loop-research/thumb.webp" alt="Looppanel" />
+                  </span>
+                  <span className="hover-card-body">
+                    <span className="hover-card-header">
+                      <img src="/project-imgs/Looppanel-logo.webp" alt="" className="hover-card-icon" />
+                      <span className="hover-card-titles">
+                        <span className="hover-card-title">Looppanel</span>
+                        <span className="hover-card-subtitle">looppanel.com</span>
+                      </span>
+                    </span>
+                    <span className="hover-card-desc">AI-powered qualitative user research &amp; time-to-insights platform</span>
+                  </span>
+                </a>
+              </span>. I also led{" "}
+              <span className="inline-badge has-hover-card">
+                <img src="/project-imgs/figma-logo.webp" alt="Figma" className="badge-icon" />
+                <span>Friends of Figma, Delhi</span>
+                <Link to="/figma-training" className="badge-hover-card">
+                  <span className="hover-card-media">
+                    <img src="/figma-training/training9.webp" alt="Friends of Figma, Delhi" />
+                  </span>
+                  <span className="hover-card-body">
+                    <span className="hover-card-header">
+                      <img src="/project-imgs/figma-logo.webp" alt="" className="hover-card-icon" />
+                      <span className="hover-card-titles">
+                        <span className="hover-card-title">Friends of Figma, Delhi</span>
+                        <span className="hover-card-subtitle">Figma Training Gallery</span>
+                      </span>
+                    </span>
+                    <span className="hover-card-desc">Organized 20+ workshops &amp; events for 5,000+ designers</span>
+                  </span>
+                </Link>
+              </span>{" "}
+              for 5 years and built{" "}
+              <span className="inline-badge has-hover-card">
+                <img src={interconnect} alt="Interconnect" className="badge-icon" />
+                <span>Interconnect</span>
+                <a
+                  href="https://getinterconnect.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="badge-hover-card"
+                >
+                  <span className="hover-card-media">
+                    <img src="/project-imgs/interconnect/interconnect-thumb.webp" alt="Interconnect" />
+                  </span>
+                  <span className="hover-card-body">
+                    <span className="hover-card-header">
+                      <img src={interconnect} alt="" className="hover-card-icon" />
+                      <span className="hover-card-titles">
+                        <span className="hover-card-title">Interconnect</span>
+                        <span className="hover-card-subtitle">getinterconnect.vercel.app</span>
+                      </span>
+                    </span>
+                    <span className="hover-card-desc">Platform to connect teams and streamline workplace communication</span>
+                  </span>
+                </a>
+              </span>.
             </h3>
           </ScrollReveal>
 

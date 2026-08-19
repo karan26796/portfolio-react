@@ -33,6 +33,9 @@
   &.is-visible {
     opacity: 1;
     transform: none;
+  }
+
+  &--image-reveal.is-visible {
     clip-path: inset(0 0 0 0);
   }
 }
