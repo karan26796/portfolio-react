@@ -3,14 +3,7 @@
    ============================================================================ */
 
 /* ============================================================================
-   BREAKPOINTS
-   - Mobile/Tablet: <= 800px
-   - Small screens: < 776px
-   - Extra small: <= 487px
-   ============================================================================ */
-
-/* ============================================================================
-   CONTAINER
+   1. BASE & SHARED STYLES
    ============================================================================ */
 
 .container-nav {
@@ -25,29 +18,9 @@
   border-bottom: 1px solid var(--border-color);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  /* Optional: add a subtle background overlay for extra softness */
-  background-color: var(--bg-color);
   background-color: color-mix(in srgb, var(--bg-color) 80%, transparent);
 
-  /* Mobile Floating Tab Bar (Elevated above bottom & full width) */
-  @media screen and (max-width: 800px) {
-    top: auto;
-    bottom: max(1.25em, env(safe-area-inset-bottom, 1.25em));
-    left: 1em;
-    right: 1em;
-    transform: none;
-    width: calc(100% - 2em);
-    max-width: calc(100% - 2em);
-    background: transparent;
-    border: none;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
-    box-shadow: none;
-  }
-
-  /* ========================================================================
-     NAVBAR BASE
-     ======================================================================== */
+  /* NAVBAR BASE */
   .navbar {
     width: -webkit-fill-available;
     position: relative;
@@ -59,18 +32,7 @@
     transition: all 0.3s ease;
     overflow: visible;
 
-    /* Mobile: Floating flex container stretching full width */
-    @media (max-width: 800px) {
-      width: 100%;
-      padding: 0;
-      gap: 0.6em;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    /* ======================================================================
-       HOVER INDICATOR (Desktop only)
-       ====================================================================== */
+    /* Hover Indicator */
     .hover-indicator {
       display: none;
       position: absolute;
@@ -82,15 +44,13 @@
       z-index: 0;
     }
 
-    /* ======================================================================
-       NAVIGATION LINKS
-       ====================================================================== */
+    /* Navigation Links */
     .a-header {
       font-size: 1.2em;
       display: flex;
       align-items: center;
       gap: 0.5em;
-      padding: 0.5em .75em;
+      padding: 0.5em;
       color: var(--tertiary-text);
       position: relative;
       z-index: 1;
@@ -101,16 +61,468 @@
       cursor: pointer;
       text-decoration: none;
 
-      @media (max-width: 800px) {
-        flex: 1;
+      &:hover {
+        color: var(--primary-text);
+      }
+
+      &.active {
+        color: var(--highlight-color);
+      }
+    }
+
+    /* Floating Agent Vinod Sparkle Button (hidden by default on desktop) */
+    .mobile-agent-vinod-btn {
+      display: none;
+    }
+
+    /* Left section - Logo/branding */
+    .navbar-left {
+      display: flex;
+      align-items: center;
+      flex: 0 0 auto;
+
+      .linkedin-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--primary-text);
+        transition: color 0.2s ease;
+
+        &:hover {
+          color: var(--highlight-color);
+        }
+      }
+    }
+
+    .navbar-logo {
+      height: 2.2em;
+      width: auto;
+      margin-right: 2em;
+      flex-shrink: 0;
+    }
+
+    /* Center section - Main navigation links */
+    .navbar-center {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      gap: 0.5em;
+      position: relative;
+    }
+
+    /* Right section - Actions */
+    .navbar-right-group,
+    .navbar-right {
+      display: flex;
+      align-items: center;
+      gap: 0.5em;
+      flex: 0 0 auto;
+    }
+
+    .theme-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: none;
+      padding: 0.5em;
+      cursor: pointer;
+      color: var(--tertiary-text);
+      border-radius: 50%;
+      transition: all 0.2s ease;
+      margin-right: 1em;
+
+      &:hover {
+        color: var(--highlight-color);
+        background-color: var(--bg-color-hover, var(--bg-color-high));
+      }
+    }
+
+    /* Mobile Menu Dropdown Base */
+    .menu-dropdown {
+      position: relative;
+      display: flex;
+      align-items: center;
+
+      .mobile-actions {
+        display: flex;
+        align-items: center;
+        gap: 0.5em;
+
+        .theme-toggle-mobile {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background: none;
+          border: none;
+          padding: 0.5em;
+          cursor: pointer;
+          color: var(--tertiary-text);
+          border-radius: 50%;
+          transition: all 0.2s ease;
+
+          &:hover {
+            color: var(--highlight-color);
+            background-color: var(--bg-color-hover, var(--bg-color-high));
+          }
+        }
+      }
+
+      .menu-toggle {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5em 1em;
+        background: none;
+        border: none;
+        color: var(--secondary-text);
+        cursor: pointer;
+        border-radius: 1.5em;
+        transition: all 0.2s ease;
+        font-size: 1.2em;
+        position: relative;
+        z-index: 10;
+
+        &:hover {
+          color: var(--highlight-color);
+        }
+
+        &.open {
+          color: var(--highlight-color);
+          background-color: var(--bg-color-hover, var(--bg-color-high));
+        }
+      }
+
+      .menu-content {
+        position: absolute;
+        top: calc(100% + 0.5em);
+        right: 0;
+        background: var(--bg-color);
+        border: 1px solid var(--border-color);
+        border-radius: 0.75em;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        backdrop-filter: blur(10px);
+        min-width: 160px;
+        opacity: 0;
+        visibility: hidden;
+        transform: translateY(-8px);
+        transition: all 0.2s ease;
+        z-index: 110;
+
+        &.open {
+          opacity: 1;
+          visibility: visible;
+          transform: translateY(0);
+        }
+
+        .menu-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5em;
+          padding: 0.75em 1em;
+          color: var(--secondary-text);
+          text-decoration: none;
+          transition: all 0.2s ease;
+          font-size: 1em;
+
+          &:last-child {
+            border-bottom: none;
+          }
+
+          &:hover,
+          &.active {
+            color: var(--highlight-color);
+            background-color: var(--bg-color-hover, var(--bg-color-high));
+          }
+
+          span {
+            display: inline !important;
+          }
+        }
+      }
+
+      .menu-backdrop {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: transparent;
+        z-index: 100;
+      }
+    }
+  }
+}
+
+/* ============================================================================
+   2. DESKTOP STYLES (> 800px)
+   ============================================================================ */
+
+@media screen and (min-width: 801px) {
+
+  /* Left Sidebar (Twitter-style nav on desktop) */
+  .sidebar-nav {
+    position: sticky;
+    top: 0;
+    align-self: start;
+    height: 100vh;
+    width: 260px;
+    flex: 0 0 260px;
+    display: flex;
+    flex-direction: column;
+    padding: 1.5em 1em;
+    gap: 0.5em;
+    box-sizing: border-box;
+
+    .sidebar-back-btn {
+      display: flex;
+      align-items: center;
+      gap: 1em;
+      padding: 0.75em 1em;
+      border-radius: 999px;
+      background: none;
+      border: none;
+      color: var(--primary-text);
+      font-size: 1.2em;
+      font-weight: 500;
+      cursor: pointer;
+      width: fit-content;
+      transition: background 0.15s ease;
+
+      &:hover {
+        background: var(--bg-color-high);
+      }
+    }
+
+    .sidebar-logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.75em;
+      height: 2.75em;
+      margin: 0 0 0.5em 0.5em;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #00c6ff, #0072ff);
+      padding: 2px;
+      box-sizing: border-box;
+      overflow: hidden;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+      &:hover {
+        transform: scale(1.05);
+        box-shadow: 0 4px 14px rgba(0, 114, 255, 0.4);
+      }
+
+      .sidebar-logo-img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+    }
+
+    .sidebar-links {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25em;
+
+      .sidebar-link {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        padding: 0.75em 1em;
+        border-radius: 999px;
+        font-size: 1.2em;
+        font-weight: 500;
+        color: var(--primary-text);
+        transition: background 0.15s ease;
+
+        &:hover {
+          background: var(--bg-color-high);
+        }
+
+        &.active {
+          font-weight: 800;
+          color: var(--highlight-color);
+        }
+      }
+
+      .sidebar-cta-wrapper {
+        margin-top: 0.75em;
+        width: 100%;
+        opacity: 1;
+        max-height: 100px;
+        overflow: hidden;
+        transition: opacity 0.2s ease, max-height 0.25s ease, margin-top 0.25s ease;
+
+        .custom-button {
+          width: 100%;
+          font-size: 1em !important;
+          padding: 0.75em 1.25em;
+          justify-content: center;
+          white-space: nowrap;
+          box-sizing: border-box;
+        }
+
+        &.is-hidden {
+          opacity: 0;
+          max-height: 0;
+          margin-top: 0;
+          pointer-events: none;
+        }
+      }
+    }
+
+    .sidebar-bottom {
+      margin-top: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9em;
+
+      .sidebar-icon-row {
+        display: flex;
+        gap: 0.5em;
+        padding: 0 0.5em;
+      }
+
+      .sidebar-icon-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 2.4em;
+        height: 2.4em;
+        border-radius: 50%;
+        border: none;
+        background: none;
+        color: var(--tertiary-text);
+        cursor: pointer;
+        transition: all 0.2s ease;
+
+        &:hover {
+          color: var(--highlight-color);
+          background-color: var(--bg-color-high);
+        }
+      }
+
+      .sidebar-user-badge {
+        display: flex;
+        align-items: center;
+        gap: 0.75em;
+        padding: 0.6em 0.8em;
+        border-radius: 9999px;
+        cursor: pointer;
+        user-select: none;
+        text-decoration: none;
+        transition: background-color 0.15s ease;
+
+        &:hover {
+          background-color: var(--bg-color-high);
+        }
+
+        .avatar-wrapper {
+          width: 36px;
+          height: 36px;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          flex-shrink: 0;
+
+          &.twitter-icon-bg {
+            background-color: var(--bg-color-high);
+            border: 1px solid var(--border-color);
+            color: var(--primary-text);
+          }
+
+          &.linkedin-icon-bg {
+            background-color: #0077b5;
+            color: #ffffff;
+          }
+
+          .avatar-img {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+
+        .user-details {
+          display: flex;
+          flex-direction: column;
+          flex: 1;
+          min-width: 0;
+
+          .name {
+            font-size: 0.95em;
+            font-weight: 700;
+            color: var(--primary-text);
+            line-height: 1.2;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+
+          .handle {
+            font-size: 0.85em;
+            color: var(--secondary-text);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+          }
+        }
+
+        .user-more-dots {
+          color: var(--primary-text);
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+}
+
+/* ============================================================================
+   3. MOBILE FLOATING NAVIGATION STYLES (<= 800px)
+   ============================================================================ */
+
+@media screen and (max-width: 800px) {
+  .sidebar-nav {
+    display: none;
+  }
+
+  /* Floating Bottom Navigation Bar */
+  .container-nav {
+    top: auto;
+    bottom: max(1.25em, env(safe-area-inset-bottom, 1.25em));
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
+    width: fit-content;
+    max-width: calc(100% - 2em);
+    background: transparent;
+    border: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+
+    .navbar {
+      width: fit-content;
+      padding: 0;
+      gap: 0.5em;
+      justify-content: center;
+      align-items: center;
+
+      .a-header {
+        flex: 0 0 auto;
         flex-direction: column;
         justify-content: center;
         align-items: center;
         gap: 0.2em;
         font-size: 0.72rem;
-        padding: 0.4em 0.5em;
+        padding: 0.4em 2.4em;
         border-radius: 999px;
-        color: var(--tertiary-text);
+        color: var(--secondary-text);
 
         svg {
           width: 20px;
@@ -123,28 +535,13 @@
           font-weight: 500;
           line-height: 1;
         }
-      }
 
-      /* Hover state */
-      &:hover {
-        color: var(--primary-text);
-      }
-
-      /* Active/current page state */
-      &.active {
-        color: var(--highlight-color);
-
-        @media (max-width: 800px) {
+        &.active {
           background-color: var(--bg-color-high);
         }
       }
-    }
 
-    /* Floating Standalone Agent Vinod Sparkle Button on Mobile */
-    .mobile-agent-vinod-btn {
-      display: none;
-
-      @media (max-width: 800px) {
+      .mobile-agent-vinod-btn {
         display: flex;
         align-items: center;
         justify-content: center;
@@ -201,461 +598,40 @@
           }
         }
       }
-    }
 
-    /* ======================================================================
-       NAVBAR LAYOUT SECTIONS
-       ====================================================================== */
-
-    /* Left section - Logo/branding area */
-    .navbar-left {
-      display: flex;
-      align-items: center;
-      flex: 0 0 auto;
-
-      .linkedin-btn {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        color: var(--primary-text);
-        transition: color 0.2s ease;
-
-        &:hover {
-          color: var(--highlight-color);
-        }
-      }
-    }
-
-    .navbar-logo {
-      height: 2.2em;
-      width: auto;
-      margin-right: 2em;
-      flex-shrink: 0;
-    }
-
-    /* Center section - Main navigation links */
-    .navbar-center {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex: 1;
-      gap: 0.5em;
-      position: relative;
-
-
-      @media (max-width: 800px) {
-        justify-content: space-around;
-        flex: 1;
-        width: auto;
+      .navbar-center {
+        flex: 0 0 auto;
+        width: fit-content;
         gap: 0.25em;
-        padding: 0.35em 0.5em;
+        padding: 0.5em;
         background: color-mix(in srgb, var(--bg-color) 85%, transparent);
         backdrop-filter: blur(16px);
         border: 1px solid var(--border-color);
-        -webkit-backdrop-filter: blur(16px);
+        -webkit-backdrop-filter: blur(5px);
         border-radius: 100px;
         box-shadow: 0 10px 30px rgba(0, 0, 0, 0.22);
       }
-    }
 
-    /* Right section - LinkedIn icon & CTA buttons */
-    .navbar-right-group,
-    .navbar-right {
-      display: flex;
-      align-items: center;
-      gap: 0.5em;
-      flex: 0 0 auto;
-
-      @media (max-width: 800px) {
+      .navbar-right-group,
+      .navbar-right {
         margin-left: auto;
       }
-    }
 
-    .theme-toggle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: none;
-      border: none;
-      padding: 0.5em;
-      cursor: pointer;
-      color: var(--tertiary-text);
-      border-radius: 50%;
-      transition: all 0.2s ease;
-      margin-right: 1em;
-
-      &:hover {
-        color: var(--highlight-color);
-        background-color: var(--bg-color-hover, var(--bg-color-high));
-      }
-    }
-
-    /* ======================================================================
-       MOBILE MENU DROPDOWN
-       ====================================================================== */
-    .menu-dropdown {
-      position: relative;
-      display: flex;
-      align-items: center;
-
-      /* Mobile: Position at top-right corner */
-      @media (max-width: 800px) {
+      .menu-dropdown {
         position: absolute;
         right: 0;
         top: 0;
         height: 100%;
         z-index: 50;
       }
-
-      .mobile-actions {
-        display: flex;
-        align-items: center;
-        gap: 0.5em;
-
-        .theme-toggle-mobile {
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: none;
-          border: none;
-          padding: 0.5em;
-          cursor: pointer;
-          color: var(--tertiary-text);
-          border-radius: 50%;
-          transition: all 0.2s ease;
-
-          &:hover {
-            color: var(--highlight-color);
-            background-color: var(--bg-color-hover, var(--bg-color-high));
-          }
-        }
-      }
-
-      /* Menu toggle button */
-      .menu-toggle {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        padding: 0.5em 1em;
-        background: none;
-        border: none;
-        color: var(--secondary-text);
-        cursor: pointer;
-        border-radius: 1.5em;
-        transition: all 0.2s ease;
-        font-size: 1.2em;
-        position: relative;
-        z-index: 10;
-
-        &:hover {
-          color: var(--highlight-color);
-        }
-
-        &.open {
-          color: var(--highlight-color);
-          background-color: var(--bg-color-hover, var(--bg-color-high));
-        }
-      }
-
-      /* Dropdown menu content */
-      .menu-content {
-        position: absolute;
-        top: calc(100% + 0.5em);
-        right: 0;
-        background: var(--bg-color);
-        border: 1px solid var(--border-color);
-        border-radius: 0.75em;
-        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
-        backdrop-filter: blur(10px);
-        min-width: 160px;
-        opacity: 0;
-        visibility: hidden;
-        transform: translateY(-8px);
-        transition: all 0.2s ease;
-        z-index: 110;
-
-        /* Open state */
-        &.open {
-          opacity: 1;
-          visibility: visible;
-          transform: translateY(0);
-        }
-
-        /* Menu items */
-        .menu-item {
-          display: flex;
-          align-items: center;
-          gap: 0.5em;
-          padding: 0.75em 1em;
-          color: var(--secondary-text);
-          text-decoration: none;
-          transition: all 0.2s ease;
-          font-size: 1em;
-
-          &:last-child {
-            border-bottom: none;
-          }
-
-          &:hover {
-            color: var(--highlight-color);
-            background-color: var(--bg-color-hover, var(--bg-color-high));
-          }
-
-          &.active {
-            color: var(--highlight-color);
-            background-color: var(--bg-color-hover, var(--bg-color-high));
-          }
-
-          /* Ensure text is visible in mobile menu */
-          span {
-            display: inline !important;
-          }
-        }
-      }
-
-      /* Backdrop overlay - closes menu when clicked */
-      .menu-backdrop {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100vw;
-        height: 100vh;
-        background: transparent;
-        z-index: 100;
-      }
     }
   }
 }
 
 /* ============================================================================
-   DESKTOP LEFT SIDEBAR (X/Twitter-style)
+   4. PROJECT DETAIL PAGE NAVIGATION STYLES
    ============================================================================ */
-.sidebar-nav {
-  position: sticky;
-  top: 0;
-  align-self: start;
-  height: 100vh;
-  width: 260px;
-  flex: 0 0 260px;
-  display: flex;
-  flex-direction: column;
-  padding: 1.5em 1em;
-  gap: 0.5em;
-  box-sizing: border-box;
 
-  @media (max-width: 800px) {
-    display: none;
-  }
-
-  .sidebar-back-btn {
-    display: flex;
-    align-items: center;
-    gap: 1em;
-    padding: 0.75em 1em;
-    border-radius: 999px;
-    background: none;
-    border: none;
-    color: var(--primary-text);
-    font-size: 1.2em;
-    font-weight: 500;
-    cursor: pointer;
-    width: fit-content;
-    transition: background 0.15s ease;
-
-    &:hover {
-      background: var(--bg-color-high);
-    }
-  }
-
-  .sidebar-logo {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 2.75em;
-    height: 2.75em;
-    margin: 0 0 0.5em 0.5em;
-    border-radius: 50%;
-    background: linear-gradient(135deg, #00c6ff, #0072ff);
-    padding: 2px;
-    box-sizing: border-box;
-    overflow: hidden;
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-    &:hover {
-      transform: scale(1.05);
-      box-shadow: 0 4px 14px rgba(0, 114, 255, 0.4);
-    }
-
-    .sidebar-logo-img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      border-radius: 50%;
-    }
-  }
-
-  .sidebar-links {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25em;
-
-    .sidebar-link {
-      display: flex;
-      align-items: center;
-      gap: 1em;
-      padding: 0.75em 1em;
-      border-radius: 999px;
-      font-size: 1.2em;
-      font-weight: 500;
-      color: var(--primary-text);
-      transition: background 0.15s ease;
-
-      &:hover {
-        background: var(--bg-color-high);
-      }
-
-      &.active {
-        font-weight: 800;
-        color: var(--highlight-color);
-      }
-    }
-
-    .sidebar-cta-wrapper {
-      margin-top: 0.75em;
-      width: 100%;
-      opacity: 1;
-      max-height: 100px;
-      overflow: hidden;
-      transition: opacity 0.2s ease, max-height 0.25s ease, margin-top 0.25s ease;
-
-      .custom-button {
-        width: 100%;
-        font-size: 1em !important;
-        padding: 0.75em 1.25em;
-        justify-content: center;
-        white-space: nowrap;
-        box-sizing: border-box;
-      }
-
-      &.is-hidden {
-        opacity: 0;
-        max-height: 0;
-        margin-top: 0;
-        pointer-events: none;
-      }
-    }
-  }
-
-  .sidebar-bottom {
-    margin-top: auto;
-    display: flex;
-    flex-direction: column;
-    gap: 0.9em;
-
-    .sidebar-icon-row {
-      display: flex;
-      gap: 0.5em;
-      padding: 0 0.5em;
-    }
-
-    .sidebar-icon-btn {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 2.4em;
-      height: 2.4em;
-      border-radius: 50%;
-      border: none;
-      background: none;
-      color: var(--tertiary-text);
-      cursor: pointer;
-      transition: all 0.2s ease;
-
-      &:hover {
-        color: var(--highlight-color);
-        background-color: var(--bg-color-high);
-      }
-    }
-
-    .sidebar-user-badge {
-      display: flex;
-      align-items: center;
-      gap: 0.75em;
-      padding: 0.6em 0.8em;
-      border-radius: 9999px;
-      cursor: pointer;
-      user-select: none;
-      text-decoration: none;
-      transition: background-color 0.15s ease;
-
-      &:hover {
-        background-color: var(--bg-color-high);
-      }
-
-      .avatar-wrapper {
-        width: 36px;
-        height: 36px;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        flex-shrink: 0;
-
-        &.twitter-icon-bg {
-          background-color: var(--bg-color-high);
-          border: 1px solid var(--border-color);
-          color: var(--primary-text);
-        }
-
-        &.linkedin-icon-bg {
-          background-color: #0077b5;
-          color: #ffffff;
-        }
-
-        .avatar-img {
-          width: 100%;
-          height: 100%;
-          border-radius: 50%;
-          object-fit: cover;
-        }
-      }
-
-      .user-details {
-        display: flex;
-        flex-direction: column;
-        flex: 1;
-        min-width: 0;
-
-        .name {
-          font-size: 0.95em;
-          font-weight: 700;
-          color: var(--primary-text);
-          line-height: 1.2;
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-
-        .handle {
-          font-size: 0.85em;
-          color: var(--secondary-text);
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-        }
-      }
-
-      .user-more-dots {
-        color: var(--primary-text);
-        flex-shrink: 0;
-      }
-    }
-  }
-}
-
-/* ============================================================================
-   PROJECT DETAIL PAGE NAVIGATION
-   ============================================================================ */
 .project-nav {
   justify-content: center;
   gap: 2rem;
@@ -678,7 +654,6 @@
       color: var(--accent-color);
     }
 
-    /* Disabled state for "Next" button when no next project */
     &:disabled {
       opacity: 0.5;
       cursor: not-allowed;
@@ -687,17 +662,8 @@
         color: var(--text-color);
       }
     }
-
-    /* Mobile: Full width centered navigation */
-    @media (max-width: 800px) {
-      justify-content: center;
-      align-items: center;
-      width: 100%;
-      text-align: center;
-    }
   }
 
-  /* Mobile: Constrained width, centered */
   @media (max-width: 800px) {
     width: 60% !important;
     margin: 0 auto !important;
@@ -705,5 +671,12 @@
     right: 0;
     display: flex !important;
     justify-content: center !important;
+
+    .a-header {
+      justify-content: center;
+      align-items: center;
+      width: 100%;
+      text-align: center;
+    }
   }
 }
