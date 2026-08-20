@@ -274,6 +274,37 @@
       display: flex;
       gap: 0.3em;
     }
+
+    // Matches ProjectMetaGrid.tsx/.scss's label-above-value pattern used on
+    // the case-study page header — plain text, no badge/pill.
+    .meta-row {
+      display: flex;
+      align-self: flex-start;
+      gap: 1.4em;
+      width: 100%;
+
+      .meta-item {
+        display: flex;
+        flex-direction: column;
+        gap: 0.2em;
+        min-width: 0;
+      }
+
+      h4 {
+        font-size: 0.72em;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+        color: var(--tertiary-text);
+        font-weight: 500;
+      }
+
+      p {
+        // Same size as .description (which sets no override of its own).
+        font-size: 1em;
+        color: var(--primary-text);
+        max-width: 40ch;
+      }
+    }
   }
 
   h2,
@@ -315,6 +346,7 @@
 
 .button-container {
   flex: 0 0 auto;
+  margin-left: auto;
 
   @media screen and (max-width: 767px) {
     button.custom-button {

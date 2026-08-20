@@ -6,6 +6,17 @@
   overflow: hidden;
   width: 100%;
 
+  // Corner rounding is intentionally left to whatever the surrounding card
+  // style sets (via border-radius: inherit on the image) — not forced here,
+  // so contexts that want square corners (like the carousel) stay square.
+
+  // While loading, suppress whatever border the surrounding card style puts
+  // on this same element — a bordered empty box reads as broken, not
+  // "loading". The border returns once the real image is in.
+  &.is-skeleton-active {
+    border-color: transparent;
+  }
+
   .image-skeleton-pulse {
     position: absolute;
     top: 0;
