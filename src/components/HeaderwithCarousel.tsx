@@ -8,7 +8,89 @@ import grabLogo from "../utils/logos/grab.png";
 import obviousLogo from "../utils/logos/obvious.webp";
 import interconnect from "../utils/logos/interconnect.webp";
 
+const SCRAMBLE_CHARS = "abcdefghijklmnopqrstuvwxyz";
+
+interface ScrambleChar {
+  char: string;
+  settled: boolean;
+}
+
+const settledOf = (text: string): ScrambleChar[] =>
+  text.split("").map((char) => ({ char, settled: true }));
+
+// A quiet, staggered letter-by-letter reveal — each character flickers
+// through a couple of nearby glyphs, then settles left to right with a soft
+// blur/opacity transition (no hard character-swap glitch). Respects
+// reduced-motion by rendering the final text immediately.
+const useScrambleReveal = (
+  text: string,
+  { delay = 0, stagger = 28, settleAfter = 2 }: { delay?: number; stagger?: number; settleAfter?: number } = {}
+): ScrambleChar[] => {
+  const [chars, setChars] = useState<ScrambleChar[]>(() => settledOf(text));
+
+  useEffect(() => {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setChars(settledOf(text));
+      return;
+    }
+
+    setChars(
+      text.split("").map((char) => ({
+        char: char === " " ? " " : SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)],
+        settled: char === " ",
+      }))
+    );
+
+    const tickLength = 50;
+    let tick = 0;
+    let interval: ReturnType<typeof setInterval>;
+
+    const timeout = setTimeout(() => {
+      interval = setInterval(() => {
+        tick++;
+        let allSettled = true;
+
+        setChars(
+          text.split("").map((char, i) => {
+            if (char === " ") return { char, settled: true };
+            const settleTick = Math.floor((i * stagger) / tickLength) + settleAfter;
+            const isSettled = tick >= settleTick;
+            if (!isSettled) allSettled = false;
+            return {
+              char: isSettled ? char : SCRAMBLE_CHARS[Math.floor(Math.random() * SCRAMBLE_CHARS.length)],
+              settled: isSettled,
+            };
+          })
+        );
+
+        if (allSettled) clearInterval(interval);
+      }, tickLength);
+    }, delay);
+
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(interval);
+    };
+  }, [text, delay, stagger, settleAfter]);
+
+  return chars;
+};
+
+const ScrambleText: React.FC<{ text: string; chars: ScrambleChar[] }> = ({ text, chars }) => (
+  <span className="scramble-text" role="text" aria-label={text}>
+    {chars.map((c, i) => (
+      <span key={i} aria-hidden="true" className={`scramble-char${c.settled ? " is-settled" : ""}`}>
+        {c.char === " " ? " " : c.char}
+      </span>
+    ))}
+  </span>
+);
+
 const HeaderWithCarousel: React.FC = () => {
+  const greetingChars = useScrambleReveal("Hey, my name is", { delay: 0 });
+  const nameChars = useScrambleReveal("Karan", { delay: 350 });
+  const roleChars = useScrambleReveal("Product Designer at", { delay: 550 });
+  const companyChars = useScrambleReveal("Keka HR", { delay: 1150 });
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
   const [scrollY, setScrollY] = useState<number>(0);
 
@@ -44,17 +126,17 @@ const HeaderWithCarousel: React.FC = () => {
         <div className="header-text-content">
           <ScrollReveal delay={0}>
             <h1 className="serif-line">
-              Hey, my name is{" "}
+              <ScrambleText text="Hey, my name is" chars={greetingChars} />{" "}
               <span className="inline-icon-chip avatar-chip">
                 <img src="/gallery/profile.webp" alt="Karan Kapoor" />
               </span>{" "}
-              Karan
+              <ScrambleText text="Karan" chars={nameChars} />
             </h1>
           </ScrollReveal>
 
           <ScrollReveal delay={80}>
             <h1 className="serif-line muted-line">
-              Product Designer at{" "}
+              <ScrambleText text="Product Designer at" chars={roleChars} />{" "}
               <span className="inline-icon-chip light-chip">
                 <img src="/project-imgs/kekalogo.webp" alt="Keka HR" />
               </span>{" "}
@@ -64,7 +146,7 @@ const HeaderWithCarousel: React.FC = () => {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                Keka HR
+                <ScrambleText text="Keka HR" chars={companyChars} />
               </a>
             </h1>
           </ScrollReveal>
@@ -105,7 +187,7 @@ const HeaderWithCarousel: React.FC = () => {
                     <span className="hover-card-desc">AI-powered qualitative user research &amp; time-to-insights platform</span>
                   </span>
                 </a>
-              </span>. I also led{" "}
+              </span>. I've also worked as a Figma trainer, leading{" "}
               <span className="inline-badge has-hover-card">
                 <img src="/project-imgs/figma-logo.webp" alt="Figma" className="badge-icon" />
                 <span>Friends of Figma, Delhi</span>
@@ -125,7 +207,7 @@ const HeaderWithCarousel: React.FC = () => {
                   </span>
                 </Link>
               </span>{" "}
-              for 5 years and built{" "}
+              for 5 years, and built{" "}
               <span className="inline-badge has-hover-card">
                 <img src={interconnect} alt="Interconnect" className="badge-icon" />
                 <span>Interconnect</span>

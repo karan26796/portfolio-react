@@ -19,6 +19,9 @@ interface ProjectCardProps {
     specialStatus?: string;
     year?: string;
     accentColor?: string;
+    meta?: {
+      impact?: string;
+    };
   };
   variant: "small" | "large";
   onClick?: () => void;
@@ -182,8 +185,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
 
         <div className="desc-btn-group">
-          {data.description && (
-            <p className="description">{data.newdesc}</p>
+          {(data.newdesc || data.description) && (
+            <p className="description">{data.newdesc || data.description}</p>
           )}
           {isClickable && (
             <div className="button-container">
