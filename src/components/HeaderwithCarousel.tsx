@@ -92,36 +92,13 @@ const HeaderWithCarousel: React.FC = () => {
   const roleChars = useScrambleReveal("Product Designer at", { delay: 550 });
   const companyChars = useScrambleReveal("Keka HR", { delay: 1150 });
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
-  const [scrollY, setScrollY] = useState<number>(0);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  // Clamp scrollY for effect (0 to 120px)
-  const clampedScroll = Math.min(scrollY, 30);
-  const scale = 1 - clampedScroll / 600; // Shrink to ~0.7
-  const opacity = 1 - clampedScroll / 100 * 0.7; // Fade to 0.7
-
 
   const closeResume = (): void => {
     setIsResumeOpen(false);
   };
 
   return (
-    <div
-      className="header-container"
-      style={{
-        transform: `scale(${scale})`,
-        opacity: opacity,
-        transition: 'transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s cubic-bezier(0.4,0,0.2,1)',
-        willChange: 'transform, opacity',
-      }}
-    >
+    <div className="header-container">
       <div className="header-column-one">
         <div className="header-text-content">
           <ScrollReveal delay={0}>
@@ -153,7 +130,7 @@ const HeaderWithCarousel: React.FC = () => {
 
           <ScrollReveal delay={200}>
             <h3 className="intro-paragraph">
-              Currently shaping how companies reward &amp; recognize their employees. I specialize in customer research, design systems, 0-1 product design, and developing apps. I've worked with{" "}
+              I talk to customers, uncover what others overlook, and turn that into design-centric roadmaps stakeholders actually get behind — then work with engineering to ship it. I've worked with{" "}
               <span className="inline-badge">
                 <img src={grabLogo} alt="Grab" className="badge-icon" />
                 <span>Grab</span>
