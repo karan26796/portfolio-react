@@ -2,13 +2,13 @@
   width: 100%;
   max-width: var(--max-width-container);
   margin: 0 auto;
-  padding: 3em 1em;
+  padding: 3em 0;
   box-sizing: border-box;
   background-color: var(--bg-color);
-  // border-top: 1px solid var(--border-color);
 
-  // Single source of truth for spacing — tweak this to control gap everywhere below.
-  --masonry-gap: 1.5em;
+  @media (max-width: 767px) {
+    padding: 2em 1em;
+  }
 
   .masonry-columns {
     display: flex;
@@ -73,7 +73,7 @@
       justify-content: center;
       gap: 0.3em;
       font-size: 1.1em;
-      color: var(--secondary-text);
+      color: var(--primary-text);
       padding: 0.5em 0.5em 0.25em;
       line-height: 1.25;
 

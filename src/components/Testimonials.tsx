@@ -7,6 +7,7 @@ export interface Testimonial {
   name: string;
   role: string;
   company: string;
+  companyLogoUrl?: string;
   avatarUrl?: string;
   title?: string;
   testimonial: string;
@@ -34,6 +35,17 @@ export const highlightText = (text: string, wordsToHighlight: string[] = []) => 
 
 export const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }) => (
   <div className="testimonial-card tweet-card">
+    <div className="tweet-body">
+      {testimonial.title && testimonial.title.trim() !== "" && (
+        <h3 className="tweet-title-headline">{testimonial.title}</h3>
+      )}
+      <p className="tweet-text">
+        {highlightText(testimonial.testimonial, testimonial.highlightedWords)}
+      </p>
+    </div>
+
+    <div className="tweet-footer-divider" />
+
     <div className="tweet-header">
       {testimonial.avatarUrl ? (
         <img
@@ -45,27 +57,19 @@ export const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testim
         <div className="tweet-avatar placeholder" />
       )}
       <div className="tweet-author-info">
-        <div className="tweet-author-line">
-          <span className="tweet-author-name">{testimonial.name}</span>
-          <span className="tweet-dot">·</span>
-          <span className="tweet-role">{testimonial.role}</span>
+        <span className="tweet-author-name">{testimonial.name}</span>
+        <div className="tweet-author-role-company">
+          {testimonial.role}{testimonial.role && testimonial.company ? " at " : ""}{testimonial.company}
         </div>
-        <div className="tweet-sub-info">{testimonial.company}</div>
       </div>
-    </div>
-
-    <div className="tweet-body">
-      {testimonial.title && testimonial.title.trim() !== "" && (
-        <div className="tweet-title-headline">{testimonial.title}</div>
-      )}
-      <p className="tweet-text">
-        {highlightText(testimonial.testimonial, testimonial.highlightedWords)}
-      </p>
     </div>
   </div>
 );
 
 const Testimonials: React.FC<TestimonialsProps> = ({ data, title, subtitle }) => {
+  const col1 = data.filter((_, idx) => idx % 2 === 0);
+  const col2 = data.filter((_, idx) => idx % 2 === 1);
+
   return (
     <div className="testimonials-section">
       <ScrollReveal>
@@ -77,12 +81,21 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title, subtitle }) =>
         </div>
       </ScrollReveal>
 
-      <div className="testimonials-grid">
-        {data.map((testimonial, index) => (
-          <ScrollReveal key={testimonial.id} delay={scrollRevealStagger(index, 70)}>
-            <TestimonialCard testimonial={testimonial} />
-          </ScrollReveal>
-        ))}
+      <div className="testimonials-masonry">
+        <div className="testimonials-column">
+          {col1.map((testimonial, index) => (
+            <ScrollReveal key={testimonial.id} delay={scrollRevealStagger(index * 2, 70)}>
+              <TestimonialCard testimonial={testimonial} />
+            </ScrollReveal>
+          ))}
+        </div>
+        <div className="testimonials-column">
+          {col2.map((testimonial, index) => (
+            <ScrollReveal key={testimonial.id} delay={scrollRevealStagger(index * 2 + 1, 70)}>
+              <TestimonialCard testimonial={testimonial} />
+            </ScrollReveal>
+          ))}
+        </div>
       </div>
     </div>
   );

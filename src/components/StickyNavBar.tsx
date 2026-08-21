@@ -124,7 +124,7 @@ const StickyNavBar: React.FC = () => {
           <div className="navbar-right-group">
             <Button
               text={isHome ? "Let's work together" : "View Resume"}
-              variant="secondary"
+              variant={isHome ? "primary" : "secondary"}
               size="s"
               onClick={() => {
                 if (!isHome) {

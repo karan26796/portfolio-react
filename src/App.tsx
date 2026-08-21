@@ -26,6 +26,8 @@ import kritika from './utils/testimonials/pfp-02.jpg';
 import malavika from './utils/testimonials/pfp-03.jpg';
 import maryam from './utils/testimonials/maryam-img.jpeg';
 import megha from './utils/testimonials/megha-pfp.jpeg';
+import looppanelLogo from './utils/logos/looppanel.webp';
+import apheliaLogo from './utils/logos/aphelia-innovations.webp';
 import { Analytics } from "@vercel/analytics/react";
 import Archive from "./pages/Archive";
 import usePageSEO from "./utils/usePageSEO";
@@ -106,7 +108,7 @@ const HomePage: React.FC = () => {
       id: 5,
       name: "Maryam Jahanshahi",
       role: "Co-Founder",
-      company: "Managed at Datapeople",
+      company: "Datapeople",
       avatarUrl: maryam,
       title: "Drives velocity, clarity, and team growth",
       testimonial: `Karan brought incredible velocity and systems thinking to our redesigns at Datapeople. He played a critical role in developing our design system, reducing decision fatigue and improving user experience. Karan works fast, thinks clearly, and incorporates feedback in real time...`,
@@ -116,7 +118,8 @@ const HomePage: React.FC = () => {
       id: 1,
       name: "Kritika Oberoi",
       role: "Co-Founder",
-      company: "Worked together at Looppanel",
+      company: "Looppanel",
+      companyLogoUrl: looppanelLogo,
       avatarUrl: kritika,
       title: "Elevated design quality and team confidence",
       testimonial: `Karan brought a high level of commitment and craft to our team. He worked fast and always incorporated feedback in real time. His clarity and confidence helped us move forward quickly...`,
@@ -126,7 +129,8 @@ const HomePage: React.FC = () => {
       id: 2,
       name: "Megha Agarwal",
       role: "Designer",
-      company: "Worked together at Looppanel",
+      company: "Looppanel",
+      companyLogoUrl: looppanelLogo,
       avatarUrl: megha,
       title: "Exceptional mentor and design system builder",
       testimonial: `Karan mentored and collaborated with me, always bringing clarity to complex problems. He established a comprehensive design system that kept our startup consistent and fast-moving. His enthusiasm and leadership inspired the team every day...`,
@@ -136,7 +140,8 @@ const HomePage: React.FC = () => {
       id: 3,
       name: "Malavika Susan",
       role: "Designer",
-      company: "Worked together at Aphelia Innovations",
+      company: "Aphelia Innovations",
+      companyLogoUrl: apheliaLogo,
       avatarUrl: malavika,
       title: "Blends technology, art, and process",
       testimonial: `Karan's approach to design standardization and planning set a strong foundation for our projects. He consistently brought the latest trends and techniques to the team. Karan's ability to combine technology with art is exceptional...`,

@@ -1,9 +1,8 @@
-import React from 'react';
-import Masonry, { ResponsiveMasonry } from 'react-responsive-masonry';
+import React, { useEffect, useMemo, useState } from 'react';
 import { MapPin } from '@phosphor-icons/react';
-import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
-import '../styles/FigmaTrainingCarousel.scss';
 import ImageWithSkeleton from './ImageWithSkeleton';
+import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
+import '../styles/CombinedMasonry.scss';
 
 interface TrainingItem {
   id: string;
@@ -25,35 +24,66 @@ const trainingItems: TrainingItem[] = [
   { id: 'training-13', image: '/figma-training/training13.webp', title: 'Figma training for PMs', location: 'IIM Shillong' },
 ];
 
-const FigmaTrainingMasonry: React.FC = () => (
-  <section className="figma-training-masonry">
-    <ResponsiveMasonry columnsCountBreakPoints={{ 0: 1, 640: 2 }}>
-      <Masonry >
-        {trainingItems.map((item, index) => (
-          <ScrollReveal key={item.id} delay={scrollRevealStagger(index, 70)}>
-            <article className="common-gallery-card masonry-item">
-              <div className="card-media">
-                {item.isVideo ? (
-                  <video src={item.image} autoPlay loop muted playsInline />
-                ) : (
-                  <ImageWithSkeleton src={item.image} alt={item.title} loading="lazy" />
-                )}
-              </div>
-              <div className="card-body">
-                <h4 className="card-title">{item.title}</h4>
-                <div className="card-meta">
-                  <span style={{ display: 'flex', alignItems: 'center', gap: '0.25em' }}>
-                    <MapPin size={18} weight="regular" />
-                    {item.location}
-                  </span>
-                </div>
-              </div>
-            </article>
-          </ScrollReveal>
+const FigmaTrainingMasonry: React.FC = () => {
+  const [columnCount, setColumnCount] = useState(2);
+
+  useEffect(() => {
+    const updateColumns = () => setColumnCount(window.innerWidth < 700 ? 1 : 2);
+    updateColumns();
+    window.addEventListener('resize', updateColumns);
+    return () => window.removeEventListener('resize', updateColumns);
+  }, []);
+
+  const rotations = useMemo(
+    () => trainingItems.map((_, i) => (i % 2 === 0 ? -1 : 1) * Math.random()),
+    []
+  );
+
+  const columns = useMemo(() => {
+    const cols: { item: TrainingItem; index: number }[][] = Array.from(
+      { length: columnCount },
+      () => []
+    );
+    trainingItems.forEach((item, index) => {
+      cols[index % columnCount].push({ item, index });
+    });
+    return cols;
+  }, [columnCount]);
+
+  return (
+    <div className="combined-masonry-section" style={{ padding: '2em 1em' }}>
+      <div className="masonry-columns">
+        {columns.map((col, colIndex) => (
+          <div className="masonry-column" key={colIndex}>
+            {col.map(({ item, index }) => {
+              const rotate = rotations[index];
+              const style = { '--rotate': `${rotate}deg` } as React.CSSProperties;
+
+              return (
+                <ScrollReveal key={item.id} delay={scrollRevealStagger(index, 70)}>
+                  <article className="masonry-photo-card" style={style}>
+                    <div className="photo-media">
+                      {item.isVideo ? (
+                        <video src={item.image} autoPlay loop muted playsInline />
+                      ) : (
+                        <ImageWithSkeleton src={item.image} alt={item.title} loading="lazy" />
+                      )}
+                    </div>
+                    <div className="photo-caption">
+                      <span className="photo-caption-text">
+                        <MapPin size={18} />
+                        {item.location} • {item.title}
+                      </span>
+                    </div>
+                  </article>
+                </ScrollReveal>
+              );
+            })}
+          </div>
         ))}
-      </Masonry>
-    </ResponsiveMasonry>
-  </section>
-);
+      </div>
+    </div>
+  );
+};
 
 export default FigmaTrainingMasonry;

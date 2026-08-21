@@ -152,18 +152,22 @@
 
         figure {
             width: 100%;
-            margin-bottom: 1em;
+            max-width: 100%;
+            margin: 1.5em 0;
             padding: 0;
             border: none;
             background: transparent;
+            box-sizing: border-box;
 
             img {
                 width: 100%;
+                max-width: 100%;
                 height: auto;
                 display: block;
                 border-radius: 0.5em;
                 border: 1px solid var(--border-color);
                 box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+                box-sizing: border-box;
             }
 
             figcaption {
@@ -439,25 +443,18 @@
         }
 
         figure {
-            // Standalone markdown images land inside a <p>, which inherits
-            // `p { font-size: 1.25em }` above — that inflates the em basis
-            // for any nested em value. Reset it here so the bleed margins
-            // below reliably cancel out the container's own padding
-            // regardless of how deeply the figure is nested.
-            font-size: var(--base-font-size-mobile);
-            border-radius: 0;
-            margin-left: -1.5em;
-            margin-right: -1.5em;
-            width: calc(100% + 3em);
+            width: 100%;
+            max-width: 100%;
+            margin-left: 0;
+            margin-right: 0;
 
             img {
-                border-radius: 0;
-                border-left: none;
-                border-right: none;
+                width: 100%;
+                max-width: 100%;
+                height: auto;
+                border-radius: 0.5em;
             }
         }
-
-
     }
 }
 
@@ -475,13 +472,10 @@
         }
     }
 
-    // Container padding drops to 1em at this breakpoint (from 1.5em) — the
-    // figure bleed set at the 768px breakpoint was still calibrated for
-    // 1.5em, which overshot the viewport edge and clipped the image on
-    // both sides. Match the same selector specificity so this wins.
     .container-project .project-details figure {
-        margin-left: -1em;
-        margin-right: -1em;
-        width: calc(100% + 2em);
+        margin-left: 0;
+        margin-right: 0;
+        width: 100%;
+        max-width: 100%;
     }
 }
