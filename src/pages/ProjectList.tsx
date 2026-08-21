@@ -69,6 +69,13 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
           <ScrollReveal delay={scrollRevealStagger(groupIndex * 2)}>
             <div className="company-section-title">
               <div className="company-info-group">
+                {COMPANY_LOGOS[group.company] && (
+                  <img
+                    src={COMPANY_LOGOS[group.company]}
+                    alt={`${group.company} logo`}
+                    className="company-logo"
+                  />
+                )}
                 <h4 className="company-name">{group.company}</h4>
               </div>
               {COMPANY_TENURES[group.company] && (
