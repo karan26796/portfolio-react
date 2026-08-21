@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
+import { ArrowRight, ArrowSquareOut } from "@phosphor-icons/react";
 import "../styles/ProjectCard.scss";
 import "../styles/ProjectCardSmall.scss";
 import Buttons from "./Buttons";
@@ -41,6 +42,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [tilt, setTilt] = useState(0);
   const [activeDot, setActiveDot] = useState(0);
+  const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(null);
+  const [isHovered, setIsHovered] = useState(false);
   const scrollTrackRef = useRef<HTMLDivElement>(null);
   const imageList = (data.images && data.images.length > 0) ? data.images : [data.img];
   const isCarouselEnabled = variant === "large" && imageList.length > 1;
@@ -49,7 +52,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     if (scrollTrackRef.current) {
       const { scrollLeft, clientWidth } = scrollTrackRef.current;
       if (clientWidth > 0) {
-        const itemWidth = clientWidth * 0.92;
+        const itemWidth = clientWidth * 0.90 + 8;
         const newIndex = Math.round(scrollLeft / itemWidth);
         setActiveDot(Math.min(newIndex, imageList.length - 1));
       }
@@ -60,7 +63,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     e.stopPropagation();
     if (scrollTrackRef.current) {
       const clientWidth = scrollTrackRef.current.clientWidth;
-      const itemWidth = clientWidth * 0.92 + 12;
+      const itemWidth = clientWidth * 0.90 + 8;
       scrollTrackRef.current.scrollTo({
         left: index * itemWidth,
         behavior: 'smooth',
@@ -77,7 +80,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
   useEffect(() => {
     const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth < 900);
+      setIsSmallScreen(window.innerWidth < 768);
     };
     checkScreenSize();
     window.addEventListener('resize', checkScreenSize);
@@ -91,6 +94,24 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     } else if (data.url) {
       window.open(data.url, "_blank", "noopener,noreferrer");
     }
+  };
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (isSmallScreen || !isClickable) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    setCursorPos({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
+
+  const handleMouseEnter = () => {
+    if (!isSmallScreen && isClickable) setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+    setCursorPos(null);
   };
 
   const renderButton = () => {
@@ -134,10 +155,30 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     <div
       className={containerClass}
       onClick={isClickable ? handleClick : undefined}
+      onMouseMove={handleMouseMove}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       style={{
         '--card-accent': data.accentColor || '#00e676',
       } as React.CSSProperties}
     >
+      {isClickable && !isSmallScreen && isHovered && cursorPos && (
+        <div
+          className="custom-cursor-read-pill"
+          style={{
+            left: `${cursorPos.x}px`,
+            top: `${cursorPos.y}px`,
+          }}
+        >
+          <span>{variant === "large" ? "Read" : "Visit"}</span>
+          {variant === "large" ? (
+            <ArrowRight size={14} weight="bold" />
+          ) : (
+            <ArrowSquareOut size={14} weight="bold" />
+          )}
+        </div>
+      )}
+
       {isCarouselEnabled ? (
         <div className="project-card-image-carousel">
           <div
@@ -169,19 +210,20 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
         </div>
       ) : (
-        <ImageWithSkeleton
-          containerClassName="project-image-single-wrapper"
-          className="project-image"
-          src={data.img}
-          alt={data.title}
-        />
+        <div className="project-image-single-wrapper">
+          <ImageWithSkeleton
+            containerClassName="project-image-single-inner"
+            className="project-image"
+            src={data.img}
+            alt={data.title}
+          />
+        </div>
       )}
 
       <div className="project-card">
-
         <div className="title-details-group">
-          <h3>{data.details}</h3>
           <h6>{data.year}</h6>
+          <h3>{data.details}</h3>
         </div>
 
         <div className="desc-btn-group">

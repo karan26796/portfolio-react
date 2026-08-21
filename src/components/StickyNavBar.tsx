@@ -89,94 +89,93 @@ const StickyNavBar: React.FC = () => {
   };
 
   // ============================================================================
-  // RENDER: DESKTOP LEFT SIDEBAR
+  // RENDER: DESKTOP TOP NAVBAR (horizontal)
   // ============================================================================
   if (!isMobile) {
-    const mainCta = (
-      <Button
-        text={isHome ? "Let's work together" : "View Resume"}
-        withIcon={true}
-        iconName={isHome ? "ArrowRight" : "FileText"}
-        iconDirection={isHome ? "right" : "left"}
-        onClick={() => {
-          if (!isHome) {
-            setIsResumeOpen(true);
-          } else {
-            const section = document.getElementById("contact");
-            if (section) {
-              section.scrollIntoView({ behavior: "smooth" });
-            }
-          }
-        }}
-        variant={isHome ? "primary" : "secondary"}
-        size="m"
-      />
-    );
-
     return (
-      <aside className="sidebar-nav">
-        <nav className="sidebar-links">
-          <Link
-            to="/home"
-            className={`sidebar-link${location.pathname === "/home" ? " active" : ""}`}
-          >
-            <House size={22} weight="light" />
-            <span>Work</span>
-          </Link>
+      <div className="container-nav desktop-top-nav">
+        <nav className="navbar main-nav active">
+          <div className="navbar-center-pill">
+            <Link
+              to="/home"
+              className={`a-header${isHome ? " active" : ""}`}
+            >
+              <House size={18} weight={isHome ? "bold" : "regular"} />
+              <span>Home</span>
+            </Link>
 
-          <Link
-            to="/figma-training"
-            className={`sidebar-link${location.pathname === "/figma-training" ? " active" : ""}`}
-          >
-            <FigmaLogo size={22} weight="light" />
-            <span>Figma training</span>
-          </Link>
+            <Link
+              to="/figma-training"
+              className={`a-header${location.pathname === "/figma-training" ? " active" : ""}`}
+            >
+              <FigmaLogo size={18} weight={location.pathname === "/figma-training" ? "bold" : "regular"} />
+              <span>Figma Training</span>
+            </Link>
 
-          <Link
-            to="/gallery"
-            className={`sidebar-link${location.pathname === "/gallery" ? " active" : ""}`}
-          >
-            <Camera size={22} weight="light" />
-            <span>Travel</span>
-          </Link>
+            <Link
+              to="/gallery"
+              className={`a-header${location.pathname === "/gallery" ? " active" : ""}`}
+            >
+              <Camera size={18} weight={location.pathname === "/gallery" ? "bold" : "regular"} />
+              <span>Travel</span>
+            </Link>
+          </div>
 
-          <div className={`sidebar-cta-wrapper${isHome && isContactInView ? " is-hidden" : ""}`}>
-            {mainCta}
+          <div className="navbar-right-group">
+            <Button
+              text={isHome ? "Let's work together" : "View Resume"}
+              variant="secondary"
+              size="s"
+              onClick={() => {
+                if (!isHome) {
+                  setIsResumeOpen(true);
+                } else {
+                  const section = document.getElementById("contact");
+                  if (section) {
+                    section.scrollIntoView({ behavior: "smooth" });
+                  }
+                }
+              }}
+            />
+
+            <a
+              href="https://x.com/kadankapoor"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="@kadankapoor on X"
+              title="X (Twitter)"
+            >
+              <Button
+                iconName="XLogo"
+                withIcon={true}
+                withText={false}
+                variant="secondary"
+                size="s"
+                weight="bold"
+              />
+            </a>
+
+            <a
+              href="https://www.linkedin.com/in/karankapoorux/"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Karan Kapoor on LinkedIn"
+              title="LinkedIn"
+            >
+              <Button
+                iconName="LinkedinLogo"
+                withIcon={true}
+                withText={false}
+                variant="secondary"
+                size="s"
+                weight="bold"
+              />
+            </a>
           </div>
         </nav>
 
-        <div className="sidebar-bottom">
-          <a
-            href="https://x.com/kadankapoor"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="sidebar-user-badge twitter-badge"
-          >
-            <div className="avatar-wrapper twitter-icon-bg">
-              <XLogo size={18} weight="bold" />
-            </div>
-            <div className="user-details">
-              <span className="handle">@kadankapoor</span>
-            </div>
-          </a>
-
-          <a
-            href="https://www.linkedin.com/in/karankapoorux/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="sidebar-user-badge linkedin-badge"
-          >
-            <div className="avatar-wrapper linkedin-icon-bg">
-              <LinkedinLogo size={18} weight="bold" />
-            </div>
-            <div className="user-details">
-              <span className="handle">in/karankapoorux</span>
-            </div>
-          </a>
-        </div>
-
         <ResumePopup isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
-      </aside>
+      </div>
     );
   }
 

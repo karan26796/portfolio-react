@@ -61,7 +61,7 @@
   }
 
   &.custom-button-secondary {
-    background: transparent;
+    background: var(--bg-color-high);
     color: var(--primary-text);
     border: 1px solid var(--border-color);
 

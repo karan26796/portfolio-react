@@ -15,7 +15,6 @@
   z-index: 100;
   background: var(--bg-color);
   align-items: center;
-  border-bottom: 1px solid var(--border-color);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
   background-color: color-mix(in srgb, var(--bg-color) 80%, transparent);
@@ -24,7 +23,7 @@
   .navbar {
     width: -webkit-fill-available;
     position: relative;
-    padding: 0.5em 1em;
+    // padding: 0.5em 1em;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -46,10 +45,10 @@
 
     /* Navigation Links */
     .a-header {
-      font-size: 1.2em;
+      font-size: 1em;
       display: flex;
       align-items: center;
-      gap: 0.5em;
+      gap: 0.25em;
       padding: 0.5em;
       color: var(--tertiary-text);
       position: relative;
@@ -79,6 +78,7 @@
     .navbar-left {
       display: flex;
       align-items: center;
+      gap: 0.5em;
       flex: 0 0 auto;
 
       .linkedin-btn {
@@ -261,221 +261,123 @@
 
 @media screen and (min-width: 801px) {
 
-  /* Left Sidebar (Twitter-style nav on desktop) */
-  .sidebar-nav {
-    position: sticky;
-    top: 0;
-    align-self: start;
-    height: 100vh;
-    width: 260px;
-    flex: 0 0 260px;
-    display: flex;
-    flex-direction: column;
-    padding: 1.5em 1em;
-    gap: 0.5em;
-    box-sizing: border-box;
+  /* Horizontal top navbar on desktop */
+  .desktop-top-nav {
+    background: transparent;
+    border-bottom: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    pointer-events: none;
+    padding-top: 0.5em;
 
-    .sidebar-back-btn {
+    .navbar {
+      width: 100%;
+      max-width: 960px;
+      margin: 0 auto;
       display: flex;
       align-items: center;
-      gap: 1em;
-      padding: 0.75em 1em;
-      border-radius: 999px;
-      background: none;
-      border: none;
-      color: var(--primary-text);
-      font-size: 1.2em;
-      font-weight: 500;
-      cursor: pointer;
-      width: fit-content;
-      transition: background 0.15s ease;
-
-      &:hover {
-        background: var(--bg-color-high);
-      }
+      justify-content: space-between;
+      pointer-events: auto;
     }
 
-    .sidebar-logo {
+    .navbar-left {
+      flex: 1;
+    }
+
+    .navbar-center-pill {
       display: flex;
       align-items: center;
-      justify-content: center;
-      width: 2.75em;
-      height: 2.75em;
-      margin: 0 0 0.5em 0.5em;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #00c6ff, #0072ff);
-      padding: 2px;
-      box-sizing: border-box;
-      overflow: hidden;
-      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      gap: 0.35em;
+      padding: 0.35em 0.5em;
+      background: var(--bg-color-high);
+      // border: 1px solid var(--border-color);
+      border-radius: 9999px;
+      box-shadow: inset 0 0 0 1px #ffffff12, inset 0 1px #5050504d, inset 0 -1px #0000004d;
 
-      &:hover {
-        transform: scale(1.05);
-        box-shadow: 0 4px 14px rgba(0, 114, 255, 0.4);
-      }
-
-      .sidebar-logo-img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        border-radius: 50%;
-      }
-    }
-
-    .sidebar-links {
-      display: flex;
-      flex-direction: column;
-      gap: 0.25em;
-
-      .sidebar-link {
+      .a-header {
         display: flex;
         align-items: center;
-        gap: 1em;
-        padding: 0.75em 1em;
-        border-radius: 999px;
-        font-size: 1.2em;
+        // gap: 0.45em;
+        // padding: 0.75em;
+        border-radius: 9999px;
+        // font-size: 0.92em;
         font-weight: 500;
-        color: var(--primary-text);
-        transition: background 0.15s ease;
+        color: var(--secondary-text);
+        text-decoration: none;
+        transition: all 0.2s ease;
+
+        svg {
+          width: 18px;
+          height: 18px;
+          color: currentColor;
+        }
 
         &:hover {
-          background: var(--bg-color-high);
+          color: var(--primary-text);
         }
 
         &.active {
-          font-weight: 800;
           color: var(--highlight-color);
-        }
-      }
+          font-weight: 600;
 
-      .sidebar-cta-wrapper {
-        margin-top: 0.75em;
-        width: 100%;
-        opacity: 1;
-        max-height: 100px;
-        overflow: hidden;
-        transition: opacity 0.2s ease, max-height 0.25s ease, margin-top 0.25s ease;
-
-        .custom-button {
-          width: 100%;
-          font-size: 1em !important;
-          padding: 0.75em 1.25em;
-          justify-content: center;
-          white-space: nowrap;
-          box-sizing: border-box;
-        }
-
-        &.is-hidden {
-          opacity: 0;
-          max-height: 0;
-          margin-top: 0;
-          pointer-events: none;
+          svg {
+            color: var(--highlight-color);
+          }
         }
       }
     }
 
-    .sidebar-bottom {
-      margin-top: auto;
+    .navbar-right-group {
+      flex: 1;
       display: flex;
-      flex-direction: column;
-      gap: 0.9em;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 0.6em;
 
-      .sidebar-icon-row {
-        display: flex;
-        gap: 0.5em;
-        padding: 0 0.5em;
-      }
-
-      .sidebar-icon-btn {
-        display: flex;
+      .navbar-cta-btn {
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 2.4em;
-        height: 2.4em;
-        border-radius: 50%;
+        padding: 0.6em 1.35em;
+        border-radius: 9999px;
+        background: var(--button-color);
+        color: #ffffff;
+        font-size: 0.88em;
+        font-weight: 600;
         border: none;
-        background: none;
-        color: var(--tertiary-text);
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 
         &:hover {
-          color: var(--highlight-color);
-          background-color: var(--bg-color-high);
+          background: var(--button-color-hover);
+          transform: translateY(-1px);
+          box-shadow: 0 4px 14px color-mix(in srgb, var(--button-color) 35%, transparent);
+        }
+
+        &:active {
+          transform: translateY(0);
         }
       }
 
-      .sidebar-user-badge {
-        display: flex;
+      .navbar-social-btn {
+        display: inline-flex;
         align-items: center;
-        gap: 0.75em;
-        padding: 0.6em 0.8em;
-        border-radius: 9999px;
-        cursor: pointer;
-        user-select: none;
+        justify-content: center;
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: var(--bg-color-high);
+        border: 1px solid var(--border-color);
+        color: var(--secondary-text);
+        transition: all 0.2s ease;
         text-decoration: none;
-        transition: background-color 0.15s ease;
 
         &:hover {
-          background-color: var(--bg-color-high);
-        }
-
-        .avatar-wrapper {
-          width: 36px;
-          height: 36px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          flex-shrink: 0;
-
-          &.twitter-icon-bg {
-            background-color: var(--bg-color-high);
-            border: 1px solid var(--border-color);
-            color: var(--primary-text);
-          }
-
-          &.linkedin-icon-bg {
-            background-color: #0077b5;
-            color: #ffffff;
-          }
-
-          .avatar-img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            object-fit: cover;
-          }
-        }
-
-        .user-details {
-          display: flex;
-          flex-direction: column;
-          flex: 1;
-          min-width: 0;
-
-          .name {
-            font-size: 0.95em;
-            font-weight: 700;
-            color: var(--primary-text);
-            line-height: 1.2;
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-
-          .handle {
-            font-size: 0.85em;
-            color: var(--secondary-text);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-          }
-        }
-
-        .user-more-dots {
           color: var(--primary-text);
-          flex-shrink: 0;
+          border-color: var(--border-color);
+          background: var(--card-bg-hover, var(--bg-color-high));
+          transform: translateY(-1px);
+          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
         }
       }
     }

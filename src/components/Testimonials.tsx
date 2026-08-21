@@ -1,5 +1,5 @@
 import React from 'react';
-import HorizontalCarouselSection from './HorizontalCarouselSection';
+import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
 import '../styles/Testimonials.scss';
 
 export interface Testimonial {
@@ -68,11 +68,22 @@ export const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testim
 const Testimonials: React.FC<TestimonialsProps> = ({ data, title, subtitle }) => {
   return (
     <div className="testimonials-section">
-      <HorizontalCarouselSection title={title} subtitle={subtitle}>
-        {data.map((testimonial) => (
-          <TestimonialCard key={testimonial.id} testimonial={testimonial} />
+      <ScrollReveal>
+        <div className="carousel-section-header">
+          <div className="header-text">
+            <h2>{title}</h2>
+            {subtitle && <p>{subtitle}</p>}
+          </div>
+        </div>
+      </ScrollReveal>
+
+      <div className="testimonials-grid">
+        {data.map((testimonial, index) => (
+          <ScrollReveal key={testimonial.id} delay={scrollRevealStagger(index, 70)}>
+            <TestimonialCard testimonial={testimonial} />
+          </ScrollReveal>
         ))}
-      </HorizontalCarouselSection>
+      </div>
     </div>
   );
 };

@@ -8,8 +8,8 @@
   padding: 1.5em;
   border-radius: var(--radius-card, 16px);
   background: var(--card-bg, var(--bg-color));
-  border: 1px solid var(--border-color);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.06);
+  box-shadow: inset 0 0 0 1px #ffffff12, inset 0 1px #5050504d, inset 0 -1px #0000004d;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.06);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &::before {
@@ -29,7 +29,7 @@
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
-    
+
   }
 
   &:hover {
@@ -64,9 +64,11 @@
       h5 {
         color: var(--highlight-color);
       }
+
       h3 {
         margin: 0;
       }
+
       p {
         margin: 0.5em 0 0 0;
         max-width: 40ch;
@@ -90,10 +92,11 @@
       height: clamp(95px, 20vw, 140px);
       object-fit: cover;
       border-radius: 0.4em;
-      box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
       border: 2px solid var(--border-color);
       transition: box-shadow 0.2s, transform 0.2s;
     }
+
     .stacked-img-bottom {
       z-index: 1;
       left: 10px;
@@ -101,6 +104,7 @@
       transform: rotate(-13deg) scale(0.95);
       opacity: 0.85;
     }
+
     .stacked-img-middle {
       z-index: 2;
       left: 20px;
@@ -108,13 +112,14 @@
       transform: rotate(8deg) scale(0.98);
       opacity: 0.92;
     }
+
     .stacked-img-top {
       z-index: 3;
       left: 0;
       top: 0;
       transform: rotate(0deg) scale(1.05);
       opacity: 1;
-      box-shadow: 0 4px 16px rgba(0,0,0,0.13);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.13);
     }
   }
 
@@ -145,6 +150,7 @@
       align-items: flex-start;
       gap: 1em;
       justify-content: center;
+
       .figma-training-actions {
         align-items: stretch;
         width: 100%;
@@ -170,12 +176,14 @@
         border-radius: 0.4em;
       }
     }
+
     .figma-training-content {
       gap: 0.2em;
-    
+
     }
+
     .arrow-icon {
       display: none;
     }
   }
-} 
+}

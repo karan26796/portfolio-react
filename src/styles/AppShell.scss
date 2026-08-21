@@ -1,33 +1,21 @@
 .app-shell {
-  display: grid;
-  grid-template-columns: 260px minmax(0, 960px) 300px;
-  column-gap: 2.5em;
-  justify-content: center;
-  align-items: start;
-  max-width: 1680px;
-  margin: 0 auto;
-
-  @media (max-width: 1280px) {
-    grid-template-columns: 260px minmax(0, 960px);
-
-    .sidebar-right {
-      display: none;
-    }
-  }
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding-top: 4.5em;
 
   @media (max-width: 800px) {
     display: block;
-
-    .sidebar-right {
-      display: none;
-    }
+    padding-top: 0;
   }
 }
 
 .app-center {
-  grid-column: 2;
   min-width: 0;
-  border: 1px solid var(--border-color);
+  // max-width: 960px;
+  margin: 0 auto;
+  // border: 1px solid var(--border-color);
   border-width: 0 1px 0 1px;
   width: 100%;
 

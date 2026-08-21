@@ -1,20 +1,247 @@
-// Add a bottom border by default, but allow removal with a modifier class
+.project-container:not(.project-container-small) {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5em;
+  width: 100%;
+  padding: 0;
+  margin-bottom: 3.5em;
+  border-bottom: none;
+
+  .project-image-single-wrapper,
+  .project-card-image-carousel {
+    position: relative;
+    width: 100%;
+    border-radius: 1.25em;
+    overflow: hidden;
+
+    @media screen and (max-width: 767px) {
+      border-radius: 0;
+    }
+
+    .image-overlay-cta {
+      position: absolute;
+      top: 1em;
+      right: 1em;
+      z-index: 10;
+      pointer-events: auto;
+
+      .read-more-button,
+      button.custom-button {
+        background: rgba(0, 0, 0, 0.55);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        color: #ffffff;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+        &:hover {
+          background: var(--button-color);
+          border-color: var(--button-color);
+          transform: translateY(-2px) scale(1.04);
+          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+        }
+      }
+    }
+
+    .carousel-track {
+      display: flex;
+      gap: 0.5em;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
+      width: 100%;
+      border-radius: 1.25em;
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+
+      @media screen and (max-width: 767px) {
+        border-radius: 0;
+      }
+
+      &::-webkit-scrollbar {
+        display: none;
+      }
+
+      .project-image-wrapper {
+        flex: 0 0 90%;
+        width: 90%;
+        scroll-snap-align: start;
+        scroll-snap-stop: always;
+        border-radius: 1.25em;
+        border: 1px solid var(--border-color);
+        box-sizing: border-box;
+        overflow: hidden;
+
+        @media screen and (max-width: 767px) {
+          border-radius: 0;
+        }
+
+        img.project-image {
+          width: 100%;
+          height: 100%;
+          display: block;
+          object-fit: cover;
+          border-radius: 1.25em;
+
+          @media screen and (max-width: 767px) {
+            border-radius: 0;
+          }
+        }
+      }
+    }
+  }
+
+  .project-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2.5em;
+    align-items: start;
+    width: 100%;
+    padding: 0.5em 0 0 0;
+
+    .title-details-group {
+      display: flex;
+      flex-direction: column;
+      gap: 0.35em;
+      width: 100%;
+    }
+
+    .desc-btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 1.25em;
+      align-items: flex-start;
+      width: 100%;
+
+      .description {
+        font-size: 1.05em;
+        line-height: 1.6;
+        color: var(--secondary-text);
+        margin: 0;
+        max-width: none;
+      }
+
+      .button-container {
+        margin-left: 0;
+        display: none;
+      }
+    }
+
+    @media screen and (max-width: 767px) {
+      grid-template-columns: 1fr;
+      gap: 1em;
+      padding: 0 1em;
+
+      .title-details-group {
+        gap: 0.3em;
+
+        h6 {
+          font-size: 0.9em;
+        }
+
+        h3 {
+          font-size: 1.35em;
+          line-height: 1.25;
+        }
+      }
+
+      .desc-btn-group {
+        flex-direction: row;
+        align-items: flex-end;
+        justify-content: space-between;
+        gap: 1em;
+        width: 100%;
+
+        .description {
+          flex: 1 1 auto;
+          font-size: 0.95em;
+          line-height: 1.55;
+          margin: 0;
+        }
+
+        .button-container {
+          display: block;
+          flex: 0 0 auto;
+          margin-left: auto;
+
+          button.custom-button,
+          .read-more-button {
+            padding: 0.55em 1.15em;
+            border-radius: 9999px;
+            background: var(--button-color, var(--twitter-blue, #1d9bf0));
+            color: #ffffff;
+            font-size: 0.88em;
+            font-weight: 600;
+
+            &:hover {
+              background: var(--button-color-hover);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 .project-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  // justify-content: space-between;
   height: auto;
   transition: all linear .2s;
   position: relative;
   z-index: 1;
-  // border-radius: 1.5em;
-  // padding: 2em;
-  // gap: 2em;
   border: 1px solid var(--border-color);
   border-width: 0 0 1px 0;
-  // background: var(--bg-color-high);
   overflow: hidden;
+
+  @media screen and (min-width: 769px) {
+    &:not(.unclickable) {
+      cursor: none !important;
+
+      *,
+      a,
+      button,
+      img,
+      div,
+      p,
+      h3,
+      h6,
+      span {
+        cursor: none !important;
+      }
+
+      .carousel-dots,
+      .carousel-dot {
+        cursor: pointer !important;
+      }
+    }
+  }
+
+  .custom-cursor-read-pill {
+    position: absolute;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45em;
+    padding: 0.55em 1.15em;
+    border-radius: 9999px;
+    background: var(--button-color, var(--twitter-blue, #1d9bf0));
+    color: #ffffff;
+    font-size: 0.85em;
+    font-weight: 600;
+    letter-spacing: 0.01em;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+    animation: readCursorPop 0.18s cubic-bezier(0.16, 1, 0.3, 1);
+    white-space: nowrap;
+
+    svg {
+      flex-shrink: 0;
+    }
+  }
 
   >* {
     position: relative;
@@ -29,10 +256,10 @@
     left: 0;
     right: 0;
     height: 36px;
-    background: radial-gradient(ellipse 55% 100% at 50% 100%,
-        color-mix(in srgb, var(--card-accent, #00e676) 24%, transparent) 0%,
-        color-mix(in srgb, var(--card-accent, #00e676) 5%, transparent) 50%,
-        transparent 100%);
+    // background: radial-gradient(ellipse 55% 100% at 50% 100%,
+    //     color-mix(in srgb, var(--card-accent, #00e676) 24%, transparent) 0%,
+    //     color-mix(in srgb, var(--card-accent, #00e676) 5%, transparent) 50%,
+    //     transparent 100%);
     pointer-events: none;
     z-index: 0;
     opacity: 0.75;
@@ -102,7 +329,7 @@
     @media screen and (max-width: 767px) {
       aspect-ratio: 6/4;
       border: 1px solid transparent;
-      border-radius: 1em;
+      border-radius: 0;
     }
   }
 
@@ -353,5 +580,17 @@
       padding: 0.45em 0.85em;
       font-size: 0.82em;
     }
+  }
+}
+
+@keyframes readCursorPop {
+  from {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
   }
 }

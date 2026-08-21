@@ -2,10 +2,10 @@
   width: 100%;
   max-width: var(--max-width-container);
   margin: 0 auto;
-  padding: 2em;
+  padding: 3em 1em;
   box-sizing: border-box;
   background-color: var(--bg-color);
-  border-top: 1px solid var(--border-color);
+  // border-top: 1px solid var(--border-color);
 
   // Single source of truth for spacing — tweak this to control gap everywhere below.
   --masonry-gap: 1.5em;
@@ -34,7 +34,7 @@
     border-radius: 1.5em;
     padding: 0.5em;
     background-color: var(--bg-color-high);
-    border: 1px solid var(--border-color);
+    box-shadow: inset 0 0 0 1px #ffffff12, inset 0 1px #5050504d, inset 0 -1px #0000004d;
     text-decoration: none;
     color: inherit;
     transform: rotate(var(--rotate));

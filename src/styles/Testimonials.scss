@@ -5,11 +5,21 @@
     margin-right: auto;
     display: flex;
     flex-direction: column;
-    padding: 2em;
+    padding: 3em 1em;
     background-color: var(--bg-color);
-    border: solid var(--border-color);
-    border-width: 1px 0 1px 0;
     box-sizing: border-box;
+
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1.5em;
+        width: 100%;
+
+        @media (max-width: 767px) {
+            grid-template-columns: 1fr;
+            gap: 1.25em;
+        }
+    }
 
     .testimonial-card.tweet-card {
         min-width: 0;
@@ -18,19 +28,13 @@
         display: flex;
         flex-direction: column;
         justify-content: flex-start;
-        gap: 0.85em;
-        // padding: 1.25em 1.5em;
-        // background-color: var(--card-bg, #000000);
-        // border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
-        // border-radius: 1rem;
+        gap: 1em;
+        padding: 1.5em;
+        border-radius: 1.25rem;
         box-sizing: border-box;
         transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.25s ease, box-shadow 0.25s ease;
-
-        &:hover {
-            border-color: rgba(255, 255, 255, 0.25);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
-            // transform: translateY(-1px);
-        }
+        background-color: var(--bg-color-high);
+        box-shadow: inset 0 0 0 1px #ffffff12, inset 0 1px #5050504d, inset 0 -1px #0000004d
     }
 
     .tweet-header {
@@ -39,8 +43,8 @@
         gap: 0.75em;
 
         .tweet-avatar {
-            width: 42px;
-            height: 42px;
+            width: 44px;
+            height: 44px;
             border-radius: 50%;
             object-fit: cover;
             flex-shrink: 0;
@@ -66,17 +70,17 @@
                 .tweet-author-name {
                     font-size: 1.05em;
                     font-weight: 700;
-                    color: var(--primary-text, #ffffff);
+                    color: var(--primary-text);
                     white-space: nowrap;
                 }
 
                 .tweet-dot {
-                    color: var(--secondary-text, #71767b);
+                    color: var(--secondary-text);
                     font-size: 0.95em;
                 }
 
                 .tweet-role {
-                    color: var(--secondary-text, #71767b);
+                    color: var(--secondary-text);
                     font-size: 0.95em;
                     font-weight: 400;
                 }
@@ -84,7 +88,7 @@
 
             .tweet-sub-info {
                 font-size: 0.85em;
-                color: var(--secondary-text, #71767b);
+                color: var(--secondary-text);
                 margin-top: 0.15em;
                 opacity: 0.9;
             }
@@ -94,27 +98,28 @@
     .tweet-body {
         display: flex;
         flex-direction: column;
-        gap: 0.4em;
+        gap: 0.5em;
 
         .tweet-title-headline {
-            font-size: 1.05em;
-            font-weight: 700;
-            color: var(--primary-text, #ffffff);
-            line-height: 1.4;
+            font-size: 1.28em;
+            font-weight: 650;
+            color: var(--primary-text);
+            line-height: 1.3;
+            letter-spacing: -0.015em;
         }
 
         .tweet-text {
             margin: 0;
-            line-height: 1.55;
+            line-height: 1.6;
             font-size: 1.05em;
-            color: var(--primary-text, #e7e9ea);
+            color: var(--secondary-text);
             font-weight: 400;
 
             .highlighted {
-                color: var(--highlight-color, #1d9bf0);
-                background-color: rgba(29, 155, 240, 0.08);
-                padding: 0.1em 0.3em;
-                border-radius: 0.25em;
+                color: var(--primary-text);
+                background-color: transparent;
+                padding: 0;
+                border-radius: 0;
                 font-weight: 600;
             }
         }

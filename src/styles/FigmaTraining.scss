@@ -26,11 +26,11 @@ $border-radius: 0.75em;
   align-items: center;
   justify-content: center;
   width: 100%;
-  max-width: var(--max-width-container);
+  // max-width: var(--max-width-container);
   margin: 0 auto;
   // padding: 2em;
   box-sizing: border-box;
-  border-bottom: 1px solid var(--border-color);
+  // border-bottom: 1px solid var(--border-color);
 
   @media (max-width: 768px) {
     flex-direction: column;
