@@ -35,7 +35,7 @@
             color: var(--highlight-color);
 
             strong {
-                color: var(--text-color);
+                color: var(--primary-text);
             }
         }
 
@@ -164,7 +164,7 @@
                 max-width: 100%;
                 height: auto;
                 display: block;
-                border-radius: 0.5em;
+                border-radius: var(--radius-sm);
                 border: 1px solid var(--border-color);
                 box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
                 box-sizing: border-box;
@@ -245,10 +245,6 @@
             overflow: hidden;
         }
 
-        h4 {
-            // max-width: 80%;
-        }
-
         blockquote {
             position: relative;
             font-family: 'Google Sans Code', Courier, monospace;
@@ -309,7 +305,7 @@
             background: linear-gradient(145deg, var(--bg-color-high) 0%, rgba(73, 28, 255, 0.04) 100%);
             position: relative;
             border: 1.5px solid var(--border-color);
-            border-radius: 1em;
+            border-radius: var(--border-radius);
             padding: 1.5em;
             margin: 2em 0;
             box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
@@ -452,7 +448,7 @@
                 width: 100%;
                 max-width: 100%;
                 height: auto;
-                border-radius: 0.5em;
+                border-radius: var(--radius-sm);
             }
         }
     }

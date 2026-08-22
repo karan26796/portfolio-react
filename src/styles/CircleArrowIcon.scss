@@ -1,6 +1,6 @@
 .circle-arrow-icon {
   --circle-arrow-bg: var(--grey-900);
-  --circle-arrow-fg: #fff;
+  --circle-arrow-fg: var(--grey-100);
 
   display: inline-flex;
   align-items: center;
@@ -28,6 +28,6 @@
 }
 
 [data-theme='dark'] .circle-arrow-icon:not(.circle-arrow-icon--primary) {
-  --circle-arrow-bg: #fff;
+  --circle-arrow-bg: var(--grey-100);
   --circle-arrow-fg: var(--grey-900);
 }

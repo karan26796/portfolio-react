@@ -143,9 +143,9 @@
                     align-items: center;
                     gap: 0.4em;
                     padding: 0.2em 0.65em 0.2em 0.3em;
-                    border-radius: 9999px;
-                    background-color: rgba(255, 255, 255, 0.08);
-                    border: 1px solid rgba(255, 255, 255, 0.08);
+                    border-radius: var(--radius-pill);
+                    background-color: var(--border-subtle-dark);
+                    border: 1px solid var(--border-subtle-dark);
                     line-height: 1;
 
                     .company-badge-logo {

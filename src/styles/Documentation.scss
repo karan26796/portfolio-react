@@ -3,7 +3,7 @@
 .documentation-container {
     display: flex;
     min-height: 100vh;
-    background-color: #fff;
+    background-color: var(--bg-color);
     color: #1a1a1a;
     font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 }
@@ -73,7 +73,7 @@
     max-width: 900px;
 
     h1 {
-        font-size: 2.5rem;
+        font-size: var(--h1-size);
         font-weight: 600;
         margin-bottom: 0.5rem;
         color: #1a1a1a;
@@ -81,7 +81,7 @@
 
     .tagline {
         color: rgba(0, 0, 0, 0.5);
-        font-size: 1.1rem;
+        font-size: var(--h5-size);
         margin-bottom: 3rem;
     }
 
@@ -90,7 +90,7 @@
     }
 
     h2 {
-        font-size: 1.25rem;
+        font-size: var(--h4-size);
         font-weight: 600;
         margin-bottom: 1rem;
         margin-top: 2rem;
@@ -204,7 +204,7 @@
 .demo-section {
     padding: 2rem;
     background: #f9f9f9;
-    border-radius: 8px;
+    border-radius: var(--radius-sm);
     margin-top: 2rem;
 
     .demo-elements {
@@ -246,9 +246,9 @@
     }
 
     .demo-card {
-        background: #fff;
+        background: var(--card-bg);
         padding: 1.5rem;
-        border-radius: 8px;
+        border-radius: var(--radius-sm);
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
         border: 1px solid rgba(0, 0, 0, 0.05);
 

@@ -27,7 +27,7 @@
             align-items: center;
             gap: 0.6em;
             padding: 0.4em 0.9em 0.4em 0.45em;
-            border-radius: 9999px;
+            border-radius: var(--radius-pill);
             cursor: pointer;
             user-select: none;
             text-decoration: none;

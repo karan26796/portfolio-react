@@ -1,7 +1,7 @@
 .about-redirect{
     max-width: var(--max-width-container);
     display: flex;
-    background-color: #fff;
+    background-color: var(--bg-color);
     flex-direction: column;
     align-items: start;
     transition: box-shadow 0.15s ease-in-out;

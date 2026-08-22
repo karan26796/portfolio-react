@@ -30,7 +30,7 @@
       height: auto;
       display: block;
       object-fit: cover;
-      border-radius: 1em;
+      border-radius: var(--border-radius);
     }
 
     .masonry-item-text {

@@ -12,7 +12,7 @@
   .company-block {
     position: relative;
     padding-left: 2.5em;
-    border-left: 2px solid rgba(255, 255, 255, 0.1);
+    border-left: 2px solid var(--border-color);
 
     &::before {
       content: "";
@@ -43,7 +43,7 @@
           border-radius: 12px;
           object-fit: cover;
           background-color: #1a1a1a;
-          border: 1px solid rgba(255, 255, 255, 0.12);
+          border: 1px solid var(--tag-border);
           padding: 4px;
           box-sizing: border-box;
         }
@@ -70,7 +70,7 @@
 
       p.company-desc {
         margin: 4px 0 0 0;
-        font-size: 1.05em;
+        font-size: var(--text-size);
         line-height: 1.6;
         color: #aaaaaa;
         max-width: 850px;
@@ -102,7 +102,7 @@
 
           p.project-desc {
             margin: 0;
-            font-size: 1.05em;
+            font-size: var(--text-size);
             line-height: 1.55;
             color: #888888;
             max-width: 900px;
@@ -132,7 +132,7 @@
             aspect-ratio: 16 / 10;
             background-color: #181818;
             border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.12);
+            border: 1px solid var(--tag-border);
             overflow: hidden;
             cursor: pointer;
             transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
@@ -172,7 +172,7 @@
             flex-wrap: wrap;
 
             .tag-pill {
-              background-color: rgba(255, 255, 255, 0.08);
+              background-color: var(--tag-bg);
               color: #aaaaaa;
               padding: 5px 12px;
               border-radius: 6px;

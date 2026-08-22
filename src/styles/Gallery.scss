@@ -68,7 +68,7 @@
 
     .gallery-image {
         width: 100%;
-        border-radius: 1em;
+        border-radius: var(--border-radius);
         height: auto;
         display: block;
     }

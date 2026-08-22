@@ -183,7 +183,7 @@ $border-radius: 0.75em;
   width: -webkit-fill-available;
   height: 700px;
   border: 1px solid var(--border-color);
-  border-radius: 1em;
+  border-radius: var(--border-radius);
   overflow: hidden;
   background-color: var(--bg-color-high);
 }
@@ -213,8 +213,9 @@ form {
 
   input,
   textarea {
+    width: 100%;
     padding: 1.25em;
-    border-radius: .75em;
+    border-radius: $border-radius;
     border: 1px solid var(--border-color);
     background-color: var(--bg-color);
     color: var(--primary-text);
@@ -222,8 +223,8 @@ form {
     font-size: 1.2em;
 
     &:focus-visible {
-      outline: transparent;
-      border: 1px solid var(--highlight-color);
+      outline: none;
+      border-color: var(--highlight-color);
     }
 
     &::placeholder {
@@ -236,25 +237,6 @@ form {
 
     @media (max-width: 800px) {
       grid-column: 1/1;
-    }
-  }
-
-  input {
-    width: 100%;
-    padding: 1.25em;
-    border-radius: $border-radius;
-    border: 1px solid var(--border-color);
-    background-color: var(--bg-color);
-    color: var(--primary-text);
-    box-sizing: border-box;
-
-    &:focus-visible {
-      outline: none;
-      border-color: var(--highlight-color);
-    }
-
-    &::placeholder {
-      color: var(--tertiary-text);
     }
   }
 

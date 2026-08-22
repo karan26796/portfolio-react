@@ -28,7 +28,7 @@
             var(--sk-base) 63%
         );
         background-size: 400% 100%;
-        border-radius: 6px;
+        border-radius: var(--radius-sm);
         animation: sk-shimmer 1.5s ease infinite;
     }
 
@@ -48,7 +48,7 @@
 
         .sk-title-line {
             height: 2.4rem;
-            border-radius: 8px;
+            border-radius: var(--radius-sm);
         }
     }
 
@@ -129,7 +129,7 @@
     .sk-figure {
         width: 100%;
         aspect-ratio: 16 / 9;
-        border-radius: 0.5em;
+        border-radius: var(--radius-sm);
         margin-bottom: 3em;
     }
 

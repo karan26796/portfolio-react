@@ -17,7 +17,7 @@
   will-change: transform; // Optimize for animations
   transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out; // Smooth transition for stacking
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // Optional: adds shadow for depth
-  border-radius: 8px; // Optional: rounds the corners of the cards
+  border-radius: var(--radius-sm); // Optional: rounds the corners of the cards
 
   // Initially position off the bottom of the view, ready to animate in
   transform: translateY(100vh) scale(0.9);

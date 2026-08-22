@@ -18,7 +18,7 @@ interface WorkshopItem {
 
 const talks: WorkshopItem[] = [
   { id: 'training-10', image: '/figma-training/training10.webp', title: 'Vibe coding talk', location: 'T-Hub, Hyderabad' },
-  { id: 'training-9', image: '/figma-training/training9.webp', title: "Hosting the Figma Config '24 event", location: 'IIT Delhi' },
+  { id: 'training-9', image: '/figma-training/training9.webp', title: "Hosting the Figma Config '24 event", location: "Config '24 at IIT Delhi" },
 ];
 
 // Edit this list to control what shows and in what order — top to bottom here
