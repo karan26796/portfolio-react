@@ -45,15 +45,15 @@ export const PROJECT_DISPLAY_ORDER: string[] = [
   "6",
   "1",
   // "7",
-  "10",
-  "2",
+  // "10",
+  // "2",
   // "5",
-  "11",
+  // "11",
   // "10",
 ];
 
 /** Number of featured projects shown as large cards on the home page. */
-export const FEATURED_PROJECT_COUNT = 4;
+export const FEATURED_PROJECT_COUNT = 3;
 
 const projectsById: Record<string, ProjectSummary> = {
   "10": {
@@ -101,7 +101,7 @@ const projectsById: Record<string, ProjectSummary> = {
     company: "Keka HR",
     newdesc: "Rebuilt Keka's award programs into a governed nomination workflow to unblock enterprise deals.",
     description: "Rebuilt Keka's award programs into a governed nomination workflow to unblock enterprise deals.",
-    title: "Keka Award Programs: From Gift Catalog to Governed Workflow",
+    title: "Unblocked Stalled Enterprise Deals by Rebuilding Keka's Award Workflow",
     img: awardPrograms,
     images: [
       "/project-imgs/award-programs/thumb.webp",
@@ -147,7 +147,7 @@ const projectsById: Record<string, ProjectSummary> = {
     company: "Keka HR",
     newdesc: "Designed a unified Continuous Rewards platform natively integrated into Keka's HRMS, driving a new revenue stream and securing 10+ enterprise accounts.",
     description: "Solved the problem of companies using two platforms for their HRMS and rewards, leading to fragmentation and added cost.",
-    title: "Designed a day-to-day recognition platform for Keka to strengthen it's position in the market",
+    title: "Drove a New Revenue Stream & Secured 10+ Enterprise Accounts in 5 Months",
     img: keka,
     images: [keka, transactions, milestone],
     year: "Keka HR / 2024",
@@ -209,7 +209,7 @@ const projectsById: Record<string, ProjectSummary> = {
     company: "Looppanel",
     newdesc: "Zoom bot helped consolidate all the research data into a single view for user researchers",
     description: "Zoom bot helped consolidate all the research data into a single view for user researchers",
-    title: "Designed a note-taking meeting bot for UX Researchers to get transcript, notes, and highlights in one place",
+    title: "Cut Research Synthesis Time by 5x with an AI-Powered Meeting Bot",
     img: loopnote,
     // images: [loopnote, final, questions],
     year: "Looppanel / 2022",
