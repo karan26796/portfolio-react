@@ -24,6 +24,7 @@ export interface ProjectCardData {
   company?: string;
   aiSummary?: string;
   accentColor?: string;
+  tools?: string[];
 }
 
 export interface IntroElement {

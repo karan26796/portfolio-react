@@ -6,6 +6,7 @@ import ScrollReveal from "./ScrollReveal";
 import ResumePopup from "../pages/ResumePopup";
 import grabLogo from "../utils/logos/grab.png";
 import obviousLogo from "../utils/logos/obvious.webp";
+import figmaLogo from "../utils/logos/figma.webp";
 import interconnect from "../utils/logos/interconnect.webp";
 
 const SCRAMBLE_CHARS = "abcdefghijklmnopqrstuvwxyz";
@@ -89,7 +90,8 @@ const ScrambleText: React.FC<{ text: string; chars: ScrambleChar[] }> = ({ text,
 const HeaderWithCarousel: React.FC = () => {
   const greetingChars = useScrambleReveal("Hey, my name is", { delay: 0 });
   const nameChars = useScrambleReveal("Karan", { delay: 350 });
-  const roleChars = useScrambleReveal("Product Designer at", { delay: 550 });
+  const roleChars = useScrambleReveal("Designer at", { delay: 550 });
+  const trainerChars = useScrambleReveal("& Figma trainer", { delay: 700 });
   const companyChars = useScrambleReveal("Keka HR", { delay: 1150 });
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
 
@@ -113,7 +115,7 @@ const HeaderWithCarousel: React.FC = () => {
 
           <ScrollReveal delay={80}>
             <h1 className="serif-line muted-line">
-              <ScrambleText text="Product Designer at" chars={roleChars} />{" "}
+              <ScrambleText text="Designer at" chars={roleChars} />{" "}
               <span className="inline-icon-chip light-chip">
                 <img src="/project-imgs/kekalogo.webp" alt="Keka HR" />
               </span>{" "}
@@ -128,19 +130,19 @@ const HeaderWithCarousel: React.FC = () => {
             </h1>
           </ScrollReveal>
 
+          <ScrollReveal delay={80}>
+            <h1 className="serif-line muted-line">
+              <ScrambleText text="& " chars={trainerChars.slice(0, 2)} />{" "}
+              <span className="inline-icon-chip light-chip">
+                <img src={figmaLogo} alt="Figma" />
+              </span>
+              <ScrambleText text="Figma trainer" chars={trainerChars.slice(2)} />{" "}
+            </h1>
+          </ScrollReveal>
+
           <ScrollReveal delay={200}>
             <h3 className="intro-paragraph">
-              I talk to customers, uncover what others overlook, and turn that into design-centric roadmaps stakeholders actually get behind — then work with engineering to ship it. I've worked with{" "}
-              <span className="inline-badge">
-                <img src={grabLogo} alt="Grab" className="badge-icon" />
-                <span>Grab</span>
-              </span>{" "}
-              through{" "}
-              <span className="inline-badge">
-                <img src={obviousLogo} alt="Obvious" className="badge-icon" />
-                <span>Obvious</span>
-              </span>{" "}
-              and was a founding designer at{" "}
+              I'm an AI-native product design leader working across product strategy, user research, 0→1, design systems, and scaling complex products. Currently leading employee rewards and helpdesk at Keka for 5,000+ employee organizations. Previously a founding designer at{" "}
               <span className="inline-badge has-hover-card">
                 <img src="/project-imgs/Looppanel-logo.webp" alt="Looppanel" className="badge-icon" />
                 <span>Looppanel</span>
@@ -164,7 +166,16 @@ const HeaderWithCarousel: React.FC = () => {
                     <span className="hover-card-desc">AI-powered qualitative user research &amp; time-to-insights platform</span>
                   </span>
                 </a>
-              </span>. I've also worked as a Figma trainer, leading{" "}
+              </span>, consultant for{" "}
+              <span className="inline-badge">
+                <img src={grabLogo} alt="Grab" className="badge-icon" />
+                <span>Grab</span>
+              </span>{" "}
+              through{" "}
+              <span className="inline-badge">
+                <img src={obviousLogo} alt="Obvious" className="badge-icon" />
+                <span>Obvious</span>
+              </span>, and lead of{" "}
               <span className="inline-badge has-hover-card">
                 <img src="/project-imgs/figma-logo.webp" alt="Figma" className="badge-icon" />
                 <span>Friends of Figma, Delhi</span>
@@ -184,7 +195,7 @@ const HeaderWithCarousel: React.FC = () => {
                   </span>
                 </Link>
               </span>{" "}
-              for 5 years, and built{" "}
+              for 5 years. Building{" "}
               <span className="inline-badge has-hover-card">
                 <img src={interconnect} alt="Interconnect" className="badge-icon" />
                 <span>Interconnect</span>

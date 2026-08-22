@@ -8,6 +8,9 @@ const final = "/project-imgs/loop-note/final-design.webp";
 const questions = "/project-imgs/loop-note/editor-question.webp";
 
 
+//award revamp
+const awardRevamo = "/project-imgs/award program/award-revamp-thumb.mp4";
+
 //continuous rewards
 const keka = "/project-imgs/continuous rewards/Thumb-2.webp";
 const transactions = "/project-imgs/continuous rewards/employee-transaction-thumb.webp";
@@ -41,10 +44,11 @@ export type ProjectSummary = ProjectCardData & { meta: ProjectMeta };
  * - Reorder ids to change display order
  */
 export const PROJECT_DISPLAY_ORDER: string[] = [
-  "9",
-  "6",
+  "8",
+  // "9",
+  // "6",
   "1",
-  // "7",
+  "7",
   // "10",
   // "2",
   // "5",
@@ -99,9 +103,10 @@ const projectsById: Record<string, ProjectSummary> = {
   "9": {
     id: "9",
     company: "Keka HR",
-    newdesc: "Rebuilt Keka's award programs into a governed nomination workflow to unblock enterprise deals.",
+    newdesc: "Built flexible decision-making workflows on Keka HR, enabling enterprise teams to manage employee awards entirely on the platform.",
     description: "Rebuilt Keka's award programs into a governed nomination workflow to unblock enterprise deals.",
     title: "Unblocked Stalled Enterprise Deals by Rebuilding Keka's Award Workflow",
+    tools: ["Claude", "Snowflake", "Figma"],
     img: awardPrograms,
     images: [
       "/project-imgs/award-programs/thumb.webp",
@@ -111,9 +116,9 @@ const projectsById: Record<string, ProjectSummary> = {
       "/project-imgs/award-programs/nominee list.webp",
     ],
     year: "Keka / 2026",
-    tags: ["Product Design", "Enterprise UX"],
+    tags: ["Customer interviews", "AI prototyping", "Enterprise UX"],
     type: "client",
-    details: "Redesigning Keka's awards platform for customizability & enterprise readiness",
+    details: "Designed customizable nomination and evaluation workflows in Keka HR’s award platform to support 5000+ employee companies",
     accentColor: "#f59e0b",
     meta: {
       duration: "Feb – Apr 2026",
@@ -125,15 +130,15 @@ const projectsById: Record<string, ProjectSummary> = {
   "8": {
     id: "8",
     company: "Keka HR",
-    newdesc: "Removing barriers to help companies adopt Keka for their R&R needs.",
-    description: "Removing barriers to help companies adopt Keka for their R&R needs.",
-    title: "Strengthening Keka's Reward & Recognition Suite",
-    img: award,
-    images: [award, keka],
+    newdesc: "Used an AI native workflow to get stakeholder buy in & shrunk design hand off time by 50% ",
+    description: "Ran the entire redesign solo using AI — research, prioritization, and engineering handoff — with no PM on the project.",
+    title: "How I Revamped Keka's Awards Platform using AI workflows without a PM",
+    img: awardRevamo,
     year: "Keka HR / 2026",
-    tags: ["Product Design", "Design Strategy"],
+    tags: ["Discovery", "AI prototyping", "Product management"],
+    tools: ["NotebookLM", "Descript", "Figma"],
     type: "client",
-    details: "Peer to Peer celebrations",
+    details: "Revamped Keka's Awards Platform using AI workflows without a PM to close 6 sales deals",
     accentColor: "#9333ea",
     meta: {
       duration: "Nov 2025 – Jan 2026",
@@ -145,15 +150,16 @@ const projectsById: Record<string, ProjectSummary> = {
   "6": {
     id: "6",
     company: "Keka HR",
-    newdesc: "Designed a unified Continuous Rewards platform natively integrated into Keka's HRMS, driving a new revenue stream and securing 10+ enterprise accounts.",
+    newdesc: "Added points based recognition into existing workflows for managers and peers to recognize great work",
     description: "Solved the problem of companies using two platforms for their HRMS and rewards, leading to fragmentation and added cost.",
     title: "Drove a New Revenue Stream & Secured 10+ Enterprise Accounts in 5 Months",
+    tools: ["Figma"],
     img: keka,
     images: [keka, transactions, milestone],
     year: "Keka HR / 2024",
     tags: ["Systems Thinking", "Revenue Growth"],
     type: "client",
-    details: "Employee rewards baked directly into an HR tool",
+    details: "Designed a unified Rewards platform natively integrated into Keka's HRMS, driving a new revenue stream and securing 140+ accounts.",
     accentColor: "#ff6b00",
     meta: {
       duration: "Jun'24 – Nov'24",
@@ -187,15 +193,16 @@ const projectsById: Record<string, ProjectSummary> = {
   "7": {
     id: "7",
     company: "Keka HR",
-    newdesc: "Scaled weekly engagement from 15k to 100k users by adding delight when people wish each other.",
+    newdesc: "Added a simple CTA to drive engagement on Keka wall visited by 1M+ users in a week",
     description: "Scaled weekly engagement from 15k to 100k users by redesigning the workplace celebrations framework.",
     title: "Revived falling engagement on HR platform wall by adding delight when people wish each other on special days",
     img: wish,
     // images: [wish, keka],
     year: "Keka HR / 2025",
-    tags: ["Product Design", "Design Strategy"],
+    tags: ["Growth Design", "AI prototyping", "Data analysis", "Beta Testing"],
+    tools: ["Claude", "Figma"],
     type: "client",
-    details: "5x'ed the engagement for Peer to Peer celebrations",
+    details: "Scaled weekly engagement from 15k to 100k users by adding delight when people wish each other on their special day",
     accentColor: "#ec4899",
     meta: {
       duration: "Nov'24 – Jan'25",
@@ -207,15 +214,16 @@ const projectsById: Record<string, ProjectSummary> = {
   "1": {
     id: "1",
     company: "Looppanel",
-    newdesc: "Zoom bot helped consolidate all the research data into a single view for user researchers",
+    newdesc: "Created a seamless pipeline between zoom recording and interview insights",
     description: "Zoom bot helped consolidate all the research data into a single view for user researchers",
     title: "Cut Research Synthesis Time by 5x with an AI-Powered Meeting Bot",
+    tools: ["ProtoPie", "Figma"],
     img: loopnote,
     // images: [loopnote, final, questions],
     year: "Looppanel / 2022",
-    tags: ["AI & Automation", "Productivity"],
+    tags: ["Competitor study", "User research", "Prototyping"],
     type: "client",
-    details: "Looppanel's zoom bot",
+    details: "Created a zoom bot with question script to remove 5 external tools from the workflow ",
     accentColor: "#8b5cf6",
     meta: {
       duration: "Jan'22 – Mar'22",

@@ -4,6 +4,8 @@ import "../styles/ProjectCard.scss";
 import "../styles/ProjectCardSmall.scss";
 import Buttons from "./Buttons";
 import ImageWithSkeleton from "./ImageWithSkeleton";
+import Tag from "./Tag";
+import { TOOL_LOGOS } from "../utils/toolLogos";
 
 interface ProjectCardProps {
   data: {
@@ -20,6 +22,7 @@ interface ProjectCardProps {
     specialStatus?: string;
     year?: string;
     accentColor?: string;
+    tools?: string[];
     meta?: {
       impact?: string;
     };
@@ -221,6 +224,34 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       )}
 
       <div className="project-card">
+        {(data.tags?.length > 0 || (data.tools && data.tools.length > 0)) && (
+          <div className="card-meta-row">
+            {data.tags?.length > 0 && (
+              <div className="tag-pills">
+                {data.tags.map((tag) => (
+                  <Tag
+                    key={tag}
+                    text={tag}
+                    color={{ text: "var(--primary-text)" }}
+                    rotation={0}
+                    dot={false}
+                  />
+                ))}
+              </div>
+            )}
+            {data.tools && data.tools.length > 0 && (
+              <div className="tool-logos">
+                {data.tools
+                  .filter((tool) => TOOL_LOGOS[tool])
+                  .map((tool) => (
+                    <span className="tool-logo" data-tooltip={tool} key={tool}>
+                      <img src={TOOL_LOGOS[tool]} alt={tool} />
+                    </span>
+                  ))}
+              </div>
+            )}
+          </div>
+        )}
         <div className="title-details-group">
           <h6>{data.year}</h6>
           <h3>{data.details}</h3>
@@ -228,7 +259,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
         <div className="desc-btn-group">
           {(data.newdesc || data.description) && (
-            <p className="description">{data.newdesc || data.description}</p>
+            <p
+              className="description"
+              dangerouslySetInnerHTML={{ __html: data.newdesc || data.description || "" }}
+            />
           )}
           {isClickable && (
             <div className="button-container">

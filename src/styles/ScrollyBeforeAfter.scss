@@ -1,0 +1,185 @@
+.scrolly-before-after {
+    position: relative;
+    display: flex;
+    gap: 3em;
+    margin: 2.5em 0;
+    align-items: flex-start;
+
+    @media (max-width: 768px) {
+        flex-direction: column-reverse;
+        gap: 1.5em;
+    }
+
+    .scrolly-steps {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 55vh;
+        padding: 15vh 0;
+        min-width: 0;
+
+        @media (max-width: 768px) {
+            gap: 1.5em;
+            padding: 0;
+        }
+    }
+
+    .scrolly-step {
+        display: block;
+        padding: 1.5em;
+        border-radius: var(--radius-card, 1em);
+        border: 1px solid var(--border-color);
+        border-left: 3px solid transparent;
+        background: var(--bg-color-high, #f9f9f9);
+        opacity: 0.45;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+
+        &.is-active {
+            opacity: 1;
+            border-color: var(--border-color);
+            border-left-color: var(--highlight-color, #d50019);
+            background: color-mix(in srgb, var(--highlight-color, #d50019) 6%, var(--bg-color-high));
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+            transform: translateX(4px);
+        }
+
+        &:hover:not(.is-active) {
+            opacity: 0.75;
+            border-left-color: color-mix(in srgb, var(--highlight-color, #d50019) 50%, transparent);
+        }
+
+        p:last-child {
+            margin-bottom: 0;
+        }
+
+        @media (max-width: 768px) {
+            opacity: 1;
+            transform: none !important;
+        }
+    }
+
+    .scrolly-sticky-visual {
+        flex: 1.25;
+        position: sticky;
+        top: 6em;
+        align-self: flex-start;
+        height: fit-content;
+        min-width: 0;
+
+        @media (max-width: 768px) {
+            position: static;
+            align-self: stretch;
+            width: 100%;
+        }
+    }
+
+    .scrolly-image-frame {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 3 / 2;
+        border-radius: var(--radius-card, 1em);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        background: var(--bg-color-high, #f9f9f9);
+
+        // Composed (coded) content has natural height, not a fixed photo aspect ratio.
+        &.is-composed {
+            aspect-ratio: auto;
+            min-height: 340px;
+        }
+
+        /* Shifting red/accent alignment lines overlay (InterfaceCraft style) */
+        .scrolly-shift-lines {
+            position: absolute;
+            inset: 0;
+            z-index: 10;
+            pointer-events: none;
+
+            .shift-line {
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 2px;
+                background: var(--highlight-color, #d50019);
+                box-shadow: 0 0 10px rgba(213, 0, 25, 0.5), 0 0 2px rgba(213, 0, 25, 0.8);
+                transition: left 0.45s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    top: 10px;
+                    left: -3px;
+                    width: 8px;
+                    height: 8px;
+                    border-radius: 50%;
+                    background: var(--highlight-color, #d50019);
+                }
+            }
+        }
+
+        .scrolly-image {
+            display: block;
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: opacity 0.2s linear;
+        }
+
+        .scrolly-composed {
+            position: absolute;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            padding: 1.5em;
+            box-sizing: border-box;
+            transition: opacity 0.2s linear;
+        }
+
+        .scrolly-label {
+            position: absolute;
+            top: 1em;
+            left: 1em;
+            display: flex;
+            gap: 0.5em;
+            z-index: 15;
+
+            span {
+                padding: 0.35em 0.9em;
+                border-radius: var(--radius-pill);
+                font-size: 0.8em;
+                font-weight: 600;
+                background: rgba(0, 0, 0, 0.55);
+                color: rgba(255, 255, 255, 0.6);
+                backdrop-filter: blur(6px);
+                transition: all 0.2s ease;
+
+                &.is-active {
+                    background: var(--highlight-color);
+                    color: #fff;
+                }
+            }
+        }
+
+        .scrolly-progress-track {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: rgba(0, 0, 0, 0.15);
+            z-index: 15;
+
+            .scrolly-progress-fill {
+                height: 100%;
+                background: var(--highlight-color);
+                transition: width 0.1s linear;
+            }
+        }
+    }
+}

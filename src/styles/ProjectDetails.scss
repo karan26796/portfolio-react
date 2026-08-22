@@ -1,8 +1,8 @@
 .project-details-main-content {
-  position: relative;
-  z-index: 2;
-  background-color: var(--bg-color);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+    position: relative;
+    z-index: 2;
+    background-color: var(--bg-color);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
 .container-project {
@@ -80,6 +80,15 @@
             >.scroll-reveal:first-child+* {
                 margin-top: 0;
                 padding-top: 0;
+            }
+
+            // Comparison/scrolly blocks need more room than the narrow body
+            // column gives them — let them span the full section width,
+            // heading column included, instead of being squeezed next to it.
+            .scrolly-before-after,
+            .wipe-compare-wrapper,
+            .card-grid {
+                grid-column: 1 / -1;
             }
         }
 
@@ -171,9 +180,9 @@
             }
 
             figcaption {
-                margin-top: 0.75em;
+                // margin-top: 0.75em;
                 text-align: left;
-                font-size: 1.05em;
+                // font-size: 1.05em;
                 color: var(--tertiary-text);
             }
         }

@@ -1,0 +1,128 @@
+.scroll-wipe-compare {
+    width: 100%;
+    margin: 2.5em 0;
+
+    .scroll-wipe-caption {
+        font-size: 1.2em;
+        line-height: 1.5;
+        margin-top: 0;
+        margin-bottom: 0;
+        padding: 0.85em 1.1em;
+        border-radius: var(--radius-sm);
+        border: 1px solid;
+        width: fit-content;
+        max-width: 30ch;
+
+        // Anchor old to the left, new to the right, by pushing each box's
+        // opposite side out with margin — longhand only, so neither variant's
+        // declaration can be shadowed by the other via shorthand overlap.
+        &--before {
+            color: #ff5555;
+            background: color-mix(in srgb, #ff7e7e 4%, transparent);
+            margin-bottom: 0.75em;
+            margin-left: 0;
+            margin-right: auto;
+        }
+
+        &--after {
+            color: #00ff99;
+            background: color-mix(in srgb, #00ffbf 3%, transparent);
+            margin-top: 0.75em;
+            margin-left: auto;
+            margin-right: 0;
+        }
+    }
+
+    .scroll-wipe-frame {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 3 / 2; // fallback until both images report their natural size
+        border-radius: var(--radius-card, 1em);
+        border: 1px solid var(--border-color);
+        box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        background: var(--bg-color-high, #f9f9f9) url("/project-imgs/award program/bg.webp") center / cover no-repeat;
+        cursor: grab;
+        touch-action: pan-y;
+        user-select: none;
+
+        &:active {
+            cursor: grabbing;
+        }
+    }
+
+    // Inset from the frame's edges so there's visible empty space around the
+    // whole old/new composition — the divider only sweeps within this box,
+    // not edge to edge across the frame.
+    .scroll-wipe-canvas {
+        position: absolute;
+        inset: 1.5em;
+
+        @media (max-width: 768px) {
+            inset: 1em;
+        }
+    }
+
+    // Width/height come from inline styles computed against both images'
+    // real natural dimensions, so the same real-world pixel renders at the
+    // same size in both — object-fit is just a rounding-error safety net.
+    .scroll-wipe-image {
+        display: block;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        object-fit: contain;
+        -webkit-user-drag: none;
+        user-select: none;
+        pointer-events: none;
+    }
+
+    .scroll-wipe-image-clip {
+        position: absolute;
+        inset: 0;
+        // clip-path is applied inline (animated by scroll progress)
+    }
+
+    .scroll-wipe-divider {
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #000;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.35);
+        transform: translateY(-1px);
+        z-index: 5;
+        pointer-events: none;
+    }
+
+    .scroll-wipe-handle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 2.4em;
+        height: 2.4em;
+        border-radius: 50%;
+        background: #000;
+        color: #fff;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+    }
+
+    .scroll-wipe-label {
+        position: absolute;
+        top: 1em;
+        left: 1em;
+        z-index: 4;
+        padding: 0.35em 0.9em;
+        border-radius: var(--radius-pill);
+        font-size: 0.8em;
+        font-weight: 600;
+        background: rgba(0, 0, 0, 0.55);
+        color: #fff;
+        backdrop-filter: blur(6px);
+    }
+}

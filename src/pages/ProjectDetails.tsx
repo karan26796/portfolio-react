@@ -9,6 +9,11 @@ import ProjectSidePanel from "../components/ProjectSidePanel";
 import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
 import ProjectNextProjects from "../components/ProjectNextProjects";
 import CustomVideo from "../components/CustomVideo";
+import ScrollyBeforeAfter, { ScrollyBeforeSlot, ScrollyAfterSlot } from "../components/ScrollyBeforeAfter";
+import ScrollWipeCompare from "../components/ScrollWipeCompare";
+import AwardProgramCTA from "../components/skeletons/AwardProgramCTA";
+import AwardCard from "../components/skeletons/AwardCard";
+import NomineeRow from "../components/skeletons/NomineeRow";
 import ScrollReveal from "../components/ScrollReveal";
 import AISummarizer from "../components/AISummarizer";
 import FAQ from "../components/FAQ";
@@ -232,7 +237,49 @@ const ProjectDetails: React.FC = () => {
                                   <CustomVideo src={props.src} caption={customProps.caption} />
                                 </ScrollReveal>
                               );
-                            }
+                            },
+                            "scrolly-before-after": ({ node, children, ...props }: any) => (
+                              <ScrollyBeforeAfter
+                                before={props.before}
+                                after={props.after}
+                                beforelabel={props.beforelabel}
+                                afterlabel={props.afterlabel}
+                              >
+                                {children}
+                              </ScrollyBeforeAfter>
+                            ),
+                            "scrolly-step": ({ node, children }: any) => <>{children}</>,
+                            "scrolly-before": ScrollyBeforeSlot,
+                            "scrolly-after": ScrollyAfterSlot,
+                            "wipe-compare": ({ node, ...props }: any) => (
+                              <ScrollWipeCompare
+                                before={props.before}
+                                after={props.after}
+                                beforelabel={props.beforelabel}
+                                afterlabel={props.afterlabel}
+                                beforecaption={props.beforecaption}
+                                aftercaption={props.aftercaption}
+                              />
+                            ),
+                            "award-cta": ({ node, ...props }: any) => (
+                              <AwardProgramCTA label={props.label} variant={props.variant} />
+                            ),
+                            "award-card": ({ node, ...props }: any) => (
+                              <AwardCard
+                                title={props.title}
+                                description={props.description}
+                                tags={props.tags ? String(props.tags).split(",").map((t: string) => t.trim()) : undefined}
+                                editable={props.editable === "true"}
+                              />
+                            ),
+                            "nominee-row": ({ node, ...props }: any) => (
+                              <NomineeRow
+                                name={props.name}
+                                role={props.role}
+                                comment={props.comment}
+                                editable={props.editable === "true"}
+                              />
+                            ),
                           } as any}
                         >
                           {cleanContent}

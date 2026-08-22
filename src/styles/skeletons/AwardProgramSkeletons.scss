@@ -1,0 +1,157 @@
+// Low-fidelity, chrome-free UI atoms used to recreate product moments inside
+// case studies without relying on real screenshots or brand colors.
+// Deliberately generic (grey/neutral) so they read as a diagram, not a screen.
+
+.skeleton-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  font-size: 0.9em;
+  font-weight: 600;
+  white-space: nowrap;
+
+  &--button {
+    padding: 0.55em 1.2em;
+    border-radius: var(--radius-pill);
+    border: none;
+    background: var(--highlight-color, #6366f1);
+    color: #fff;
+    cursor: default;
+
+    &.is-disabled {
+      background: var(--border-color);
+      color: var(--tertiary-text);
+    }
+  }
+
+  &--countdown {
+    padding: 0.4em 0.9em;
+    border-radius: var(--radius-pill);
+    color: var(--tertiary-text);
+    background: var(--bg-color-high, #f9f9f9);
+    border: 1px dashed var(--border-color);
+  }
+}
+
+.skeleton-award-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  padding: 1.1em;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  background: var(--bg-color-high, #f9f9f9);
+  min-width: 180px;
+
+  &__top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &__icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2em;
+    height: 2em;
+    border-radius: 50%;
+    background: var(--border-color);
+    color: var(--secondary-text);
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.5em;
+    color: var(--tertiary-text);
+  }
+
+  h5 {
+    margin: 0;
+    font-size: 0.95em;
+    font-weight: 600;
+    color: var(--primary-text);
+  }
+
+  &__desc {
+    margin: 0;
+    font-size: 0.82em;
+    color: var(--tertiary-text);
+    line-height: 1.4;
+  }
+
+  &__tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+    margin-top: 0.2em;
+
+    span {
+      padding: 0.25em 0.6em;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border-color);
+      font-size: 0.75em;
+      color: var(--secondary-text);
+    }
+  }
+}
+
+.skeleton-nominee-row {
+  display: flex;
+  align-items: center;
+  gap: 0.85em;
+  padding: 0.75em 0;
+  border-bottom: 1px solid var(--border-color);
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  &__avatar {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 2.2em;
+    height: 2.2em;
+    border-radius: 50%;
+    background: var(--highlight-color, #6366f1);
+    color: #fff;
+    font-size: 0.85em;
+    font-weight: 600;
+  }
+
+  &__info {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+
+    .name {
+      margin: 0;
+      font-size: 0.9em;
+      font-weight: 600;
+      color: var(--primary-text);
+    }
+
+    .role {
+      margin: 0;
+      font-size: 0.78em;
+      color: var(--tertiary-text);
+    }
+  }
+
+  &__comment {
+    flex: 1 1 auto;
+    margin: 0;
+    font-size: 0.85em;
+    color: var(--secondary-text);
+    text-align: right;
+  }
+
+  &__actions {
+    display: flex;
+    gap: 0.5em;
+    color: var(--tertiary-text);
+    flex-shrink: 0;
+  }
+}
