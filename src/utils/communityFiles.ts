@@ -21,13 +21,13 @@ const communityFiles: FigmaFile[] = [
     url: bggradients,
     link: "https://www.figma.com/community/file/1076867776880340874/animated-gradient-backgrounds-for-presentations",
     name: '13k downloads',
-    downloads: '13k downloads'
+    downloads: '18k downloads'
   },
   {
     url: evolve,
     link: "https://www.figma.com/community/file/897091186704896395/evolve-component-library-karan-kapoor",
     name: '3k downloads',
-    downloads: '3k downloads'
+    downloads: '3.2k downloads'
   },
   {
     url: proto,
