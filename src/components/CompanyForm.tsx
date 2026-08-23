@@ -78,11 +78,11 @@ const CompanyForm: React.FC = () => {
 
   // Tag logic (copied from WorkTogether)
   const vibrantColors: VibrantColor[] = [
-    { bg: '#fefefe', text: '#FF4D4D' },
-    { bg: '#fefefe', text: '#00CC66' },
-    { bg: '#fefefe', text: '#3399FF' },
-    { bg: '#fefefe', text: '#FF9933' },
-    { bg: '#fefefe', text: '#9933FF' },
+    { text: '#FF4D4D' },
+    { text: '#00CC66' },
+    { text: '#3399FF' },
+    { text: '#FF9933' },
+    { text: '#9933FF' },
   ];
   const tagTexts = [
     'Design systems',

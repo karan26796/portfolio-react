@@ -15,31 +15,46 @@
     --masonry-row-gap: 1.5em;
   }
 
-  .masonry-columns {
-    display: flex;
-    gap: var(--masonry-column-gap);
-  }
-
-  .masonry-column {
-    flex: 1;
-    min-width: 0;
+  .asymmetric-grid-container {
     display: flex;
     flex-direction: column;
-    gap: var(--masonry-row-gap);
+    gap: 1.25em;
   }
 
-  .community-files-grid {
+  .asymmetric-grid-block {
     display: grid;
     grid-template-columns: 1.65fr 1fr;
     gap: 1.25em;
     align-items: stretch;
 
-    @media (max-width: 767px) {
-      grid-template-columns: 1fr;
-      gap: 1.5em;
+    &.reverse-layout {
+      grid-template-columns: 1fr 1.65fr;
+
+      .grid-featured-column {
+        order: 2;
+      }
+
+      .grid-stacked-column {
+        order: 1;
+      }
     }
 
-    .community-featured-column {
+    @media (max-width: 767px) {
+      grid-template-columns: 1fr !important;
+      gap: 1.5em;
+
+      &.reverse-layout {
+        .grid-featured-column {
+          order: unset;
+        }
+
+        .grid-stacked-column {
+          order: unset;
+        }
+      }
+    }
+
+    .grid-featured-column {
       display: flex;
       flex-direction: column;
 
@@ -59,6 +74,7 @@
           display: flex;
 
           img,
+          video,
           .image-skeleton-wrapper {
             width: 100%;
             height: 100%;
@@ -68,7 +84,7 @@
       }
     }
 
-    .community-stacked-column {
+    .grid-stacked-column {
       display: flex;
       flex-direction: column;
       gap: 1.25em;
@@ -90,6 +106,7 @@
           display: flex;
 
           img,
+          video,
           .image-skeleton-wrapper {
             width: 100%;
             height: 100%;

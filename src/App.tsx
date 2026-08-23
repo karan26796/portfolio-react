@@ -128,7 +128,7 @@ const HomePage: React.FC = () => {
     {
       id: 2,
       name: "Megha Agarwal",
-      role: "Designer",
+      role: "Worked together at",
       company: "Looppanel",
       companyLogoUrl: looppanelLogo,
       avatarUrl: megha,
@@ -139,7 +139,7 @@ const HomePage: React.FC = () => {
     {
       id: 3,
       name: "Malavika Susan",
-      role: "Designer",
+      role: "Worked together at",
       company: "Aphelia Innovations",
       companyLogoUrl: apheliaLogo,
       avatarUrl: malavika,

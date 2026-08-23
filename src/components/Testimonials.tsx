@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
 import '../styles/Testimonials.scss';
 
@@ -33,15 +33,36 @@ export const highlightText = (text: string, wordsToHighlight: string[] = []) => 
   });
 };
 
-export const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testimonial }) => (
-  <div className="testimonial-card tweet-card">
+export const TestimonialCard: React.FC<{
+  testimonial: Testimonial;
+  featured?: boolean;
+  onClick?: () => void;
+}> = ({
+  testimonial,
+  featured = false,
+  onClick,
+}) => (
+  <div
+    className={`testimonial-card tweet-card ${featured ? 'featured-testimonial' : 'compact-testimonial'}`}
+    onClick={onClick}
+    role={onClick ? 'button' : undefined}
+    tabIndex={onClick ? 0 : undefined}
+    onKeyDown={(e) => {
+      if (onClick && (e.key === 'Enter' || e.key === ' ')) {
+        e.preventDefault();
+        onClick();
+      }
+    }}
+  >
     <div className="tweet-body">
       {testimonial.title && testimonial.title.trim() !== "" && (
         <h3 className="tweet-title-headline">{testimonial.title}</h3>
       )}
-      <p className="tweet-text">
-        {highlightText(testimonial.testimonial, testimonial.highlightedWords)}
-      </p>
+      {featured && (
+        <p className="tweet-text">
+          {highlightText(testimonial.testimonial, testimonial.highlightedWords)}
+        </p>
+      )}
     </div>
 
     <div className="tweet-footer-divider" />
@@ -67,8 +88,24 @@ export const TestimonialCard: React.FC<{ testimonial: Testimonial }> = ({ testim
 );
 
 const Testimonials: React.FC<TestimonialsProps> = ({ data, title, subtitle }) => {
-  const col1 = data.filter((_, idx) => idx % 2 === 0);
-  const col2 = data.filter((_, idx) => idx % 2 === 1);
+  const [activeId, setActiveId] = useState<number | string>(() => data[0]?.id);
+  const [isAnimating, setIsAnimating] = useState(false);
+
+  useEffect(() => {
+    if (data.length > 0 && !data.some((item) => item.id === activeId)) {
+      setActiveId(data[0].id);
+    }
+  }, [data, activeId]);
+
+  const handleSelect = (id: number | string) => {
+    if (id === activeId) return;
+    setIsAnimating(true);
+    setActiveId(id);
+    setTimeout(() => setIsAnimating(false), 450);
+  };
+
+  const featuredTestimonial = data.find((item) => item.id === activeId) || data[0];
+  const remainingTestimonials = data.filter((item) => item.id !== featuredTestimonial?.id);
 
   return (
     <div className="testimonials-section">
@@ -81,18 +118,22 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title, subtitle }) =>
         </div>
       </ScrollReveal>
 
-      <div className="testimonials-masonry">
-        <div className="testimonials-column">
-          {col1.map((testimonial, index) => (
-            <ScrollReveal key={testimonial.id} delay={scrollRevealStagger(index * 2, 70)}>
-              <TestimonialCard testimonial={testimonial} />
+      <div className={`testimonials-grid ${isAnimating ? 'swapping' : ''}`}>
+        {featuredTestimonial && (
+          <div className="testimonials-featured-column">
+            <ScrollReveal delay={scrollRevealStagger(0, 70)}>
+              <TestimonialCard testimonial={featuredTestimonial} featured />
             </ScrollReveal>
-          ))}
-        </div>
-        <div className="testimonials-column">
-          {col2.map((testimonial, index) => (
-            <ScrollReveal key={testimonial.id} delay={scrollRevealStagger(index * 2 + 1, 70)}>
-              <TestimonialCard testimonial={testimonial} />
+          </div>
+        )}
+
+        <div className="testimonials-stacked-column">
+          {remainingTestimonials.map((testimonial, index) => (
+            <ScrollReveal key={testimonial.id} delay={scrollRevealStagger(index + 1, 70)}>
+              <TestimonialCard
+                testimonial={testimonial}
+                onClick={() => handleSelect(testimonial.id)}
+              />
             </ScrollReveal>
           ))}
         </div>

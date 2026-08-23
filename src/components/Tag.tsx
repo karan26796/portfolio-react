@@ -34,7 +34,7 @@ const Tag: React.FC<TagProps> = ({
     <div
       className={`tag-parent ${variant}`}
       style={{
-        // backgroundColor: variant !== 'nobg' ? 'var(--bg-color-high)' : 'transparent',
+        backgroundColor: color.bg,
         transform: `rotate(${finalRotation}deg)`,
       }}
     >

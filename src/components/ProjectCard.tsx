@@ -7,6 +7,30 @@ import ImageWithSkeleton from "./ImageWithSkeleton";
 import Tag from "./Tag";
 import { TOOL_LOGOS } from "../utils/toolLogos";
 
+const TAG_COLORS = [
+  '#FF6B6B', // Coral Red
+  '#79b1ffff', // Sky Blue
+  '#6BCB77', // Mint Green
+  '#FFB830', // Amber Yellow
+  '#A855F7', // Vibrant Purple
+  '#FF76CE', // Neon Pink
+  '#00D7FF', // Bright Cyan
+  '#F97316', // Bright Orange
+  '#10B981', // Emerald
+  '#EC4899', // Hot Pink
+  '#65a0ffff', // Blue
+  '#F59E0B', // Amber
+];
+
+const getTagColor = (tag: string, index: number) => {
+  let hash = 0;
+  for (let i = 0; i < tag.length; i++) {
+    hash = tag.charCodeAt(i) + ((hash << 5) - hash);
+  }
+  const colorIndex = Math.abs(hash + index * 4) % TAG_COLORS.length;
+  return TAG_COLORS[colorIndex];
+};
+
 interface ProjectCardProps {
   data: {
     id: string;
@@ -228,11 +252,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="card-meta-row">
             {data.tags?.length > 0 && (
               <div className="tag-pills">
-                {data.tags.map((tag) => (
+                {data.tags.map((tag, idx) => (
                   <Tag
                     key={tag}
                     text={tag}
-                    color={{ text: "var(--primary-text)" }}
+                    color={{ text: getTagColor(tag, idx) }}
                     rotation={0}
                     dot={false}
                   />

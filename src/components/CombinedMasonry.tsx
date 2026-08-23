@@ -17,7 +17,7 @@ interface WorkshopItem {
 }
 
 const talks: WorkshopItem[] = [
-  { id: 'training-10', image: '/figma-training/training10.webp', title: 'Vibe coding talk', location: 'T-Hub, Hyderabad' },
+  { id: 'training-10', image: '/figma-training/training10.webp', title: 'Vibe coding talk', location: 'UX India \'24 at T-Hub, Hyderabad' },
   { id: 'training-9', image: '/figma-training/training9.webp', title: "Hosting the Figma Config '24 event", location: "Config '24 at IIT Delhi" },
   { id: 'training-11', image: '/figma-training/training11.webp', title: "Hosting the Figma Config '25 event", location: "Hosted Config '25 at Microsoft, Noida" },
   { id: 'training-14', image: '/figma-training/training14.webp', title: "Hosting the Figma Config '25 event", location: "Speaking at FoF Hyd event" },
@@ -27,16 +27,15 @@ const talks: WorkshopItem[] = [
 // Edit this list to control what shows and in what order — top to bottom here
 // reads left-to-right, top-to-bottom in the masonry below.
 const CARD_ORDER = [
-  { type: 'experiment' as const, data: experiments[0] },
   { type: 'talk' as const, data: talks[0] },
-  { type: 'experiment' as const, data: experiments[1] },
   { type: 'talk' as const, data: talks[2] },
-  { type: 'experiment' as const, data: experiments[3] },
   { type: 'talk' as const, data: talks[3] },
-  { type: 'experiment' as const, data: experiments[2] },
+  { type: 'experiment' as const, data: experiments[0] },
   { type: 'talk' as const, data: talks[4] },
-  // { type: 'experiment' as const, data: experiments[4] },
-  // { type: 'talk' as const, data: talks[1] },
+  { type: 'experiment' as const, data: experiments[3] },
+  { type: 'experiment' as const, data: experiments[1] },
+  { type: 'experiment' as const, data: experiments[2] },
+  { type: 'experiment' as const, data: experiments[4] },
 ];
 
 interface PhotoCardProps {
@@ -119,19 +118,9 @@ const renderEntry = (entry: (typeof CARD_ORDER)[number], rotate: number) => {
 };
 
 const CombinedMasonry: React.FC<{ title?: string; communityTitle?: string }> = ({
-  title = 'After hours',
+  title = 'Design and community interactions',
   communityTitle = 'Figma community files',
 }) => {
-  // 1 column on mobile, 2 above — matches the breakpoint Gallery.tsx uses.
-  const [columnCount, setColumnCount] = useState(2);
-
-  useEffect(() => {
-    const updateColumns = () => setColumnCount(window.innerWidth < 700 ? 1 : 2);
-    updateColumns();
-    window.addEventListener('resize', updateColumns);
-    return () => window.removeEventListener('resize', updateColumns);
-  }, []);
-
   // A small alternating tilt per item, like the travel gallery's polaroid photos.
   const rotations = useMemo(
     () => CARD_ORDER.map((_, i) => (i % 2 === 0 ? -1 : 1) * Math.random()),
@@ -139,20 +128,24 @@ const CombinedMasonry: React.FC<{ title?: string; communityTitle?: string }> = (
   );
 
   const communityRotations = useMemo(
-    () => communityFiles.map((_, i) => (i % 2 === 0 ? -1 : 1) * (0.5 + Math.random() * 0.5)),
+    () => [-0.8, 0.8, -0.6],
     []
   );
 
-  const columns = useMemo(() => {
-    const cols: { entry: (typeof CARD_ORDER)[number]; index: number }[][] = Array.from(
-      { length: columnCount },
-      () => []
-    );
-    CARD_ORDER.forEach((entry, index) => {
-      cols[index % columnCount].push({ entry, index });
-    });
-    return cols;
-  }, [columnCount]);
+  const cardBlocks = useMemo(() => {
+    const blocks: {
+      featured?: { entry: (typeof CARD_ORDER)[number]; index: number };
+      stacked: { entry: (typeof CARD_ORDER)[number]; index: number }[];
+    }[] = [];
+    for (let i = 0; i < CARD_ORDER.length; i += 3) {
+      const featured = { entry: CARD_ORDER[i], index: i };
+      const stacked: { entry: (typeof CARD_ORDER)[number]; index: number }[] = [];
+      if (i + 1 < CARD_ORDER.length) stacked.push({ entry: CARD_ORDER[i + 1], index: i + 1 });
+      if (i + 2 < CARD_ORDER.length) stacked.push({ entry: CARD_ORDER[i + 2], index: i + 2 });
+      blocks.push({ featured, stacked });
+    }
+    return blocks;
+  }, []);
 
   return (
     <>
@@ -165,16 +158,32 @@ const CombinedMasonry: React.FC<{ title?: string; communityTitle?: string }> = (
           </div>
         </ScrollReveal>
 
-        <div className="masonry-columns">
-          {columns.map((col, colIndex) => (
-            <div className="masonry-column" key={colIndex}>
-              {col.map(({ entry, index }) => (
-                <ScrollReveal key={`${entry.type}-${index}`} delay={scrollRevealStagger(index, 70)}>
-                  {renderEntry(entry, rotations[index])}
-                </ScrollReveal>
-              ))}
-            </div>
-          ))}
+        <div className="asymmetric-grid-container">
+          {cardBlocks.map((block, blockIndex) => {
+            const isReversed = blockIndex % 2 === 1;
+            return (
+              <div
+                className={`asymmetric-grid-block ${isReversed ? 'reverse-layout' : ''}`}
+                key={`block-${blockIndex}`}
+              >
+                {block.featured && (
+                  <div className="grid-featured-column">
+                    <ScrollReveal delay={scrollRevealStagger(block.featured.index, 70)}>
+                      {renderEntry(block.featured.entry, rotations[block.featured.index])}
+                    </ScrollReveal>
+                  </div>
+                )}
+
+                <div className="grid-stacked-column">
+                  {block.stacked.map(({ entry, index }) => (
+                    <ScrollReveal key={`${entry.type}-${index}`} delay={scrollRevealStagger(index, 70)}>
+                      {renderEntry(entry, rotations[index])}
+                    </ScrollReveal>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
@@ -187,9 +196,9 @@ const CombinedMasonry: React.FC<{ title?: string; communityTitle?: string }> = (
           </div>
         </ScrollReveal>
 
-        <div className="community-files-grid">
+        <div className="asymmetric-grid-block">
           {communityFiles[0] && (
-            <div className="community-featured-column">
+            <div className="grid-featured-column">
               <ScrollReveal delay={scrollRevealStagger(0, 70)}>
                 <PhotoCard
                   href={communityFiles[0].link}
@@ -204,7 +213,7 @@ const CombinedMasonry: React.FC<{ title?: string; communityTitle?: string }> = (
             </div>
           )}
 
-          <div className="community-stacked-column">
+          <div className="grid-stacked-column">
             {communityFiles.slice(1).map((item, i) => {
               const index = i + 1;
               return (
