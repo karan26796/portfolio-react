@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv, type Plugin, type ViteDevServer } from 'vite';
 import react from '@vitejs/plugin-react';
-import { resolve } from 'path';
+import babel from 'vite-plugin-babel';
+import { resolve, extname } from 'path';
 import type { IncomingMessage, ServerResponse } from 'http';
 
 type VercelLikeResponse = ServerResponse & {
@@ -98,7 +99,33 @@ function vercelApiDevPlugin(): Plugin {
 }
 
 export default defineConfig({
-  plugins: [vercelApiDevPlugin(), react()],
+  plugins: [
+    vercelApiDevPlugin(),
+    babel({
+      include: /\/src\/.*\.[jt]sx?$/,
+      loader: (path) => (extname(path) === '.ts' ? 'ts' : 'tsx'),
+      babelConfig: {
+        babelrc: false,
+        configFile: false,
+        presets: [['@babel/preset-typescript', { isTSX: true, allExtensions: true }]],
+        plugins: [
+          [
+            '@stylexjs/babel-plugin',
+            {
+              runtimeInjection: false,
+              dev: process.env.NODE_ENV !== 'production',
+              test: false,
+              unstable_moduleResolution: {
+                type: 'commonJS',
+                rootDir: __dirname,
+              },
+            },
+          ],
+        ],
+      },
+    }),
+    react(),
+  ],
   build: {
     outDir: 'dist',
     sourcemap: false,

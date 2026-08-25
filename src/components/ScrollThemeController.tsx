@@ -1,4 +1,8 @@
 import { useEffect } from "react";
+import * as stylex from "@stylexjs/stylex";
+import { darkTheme } from "../styles/stylex/theme.stylex";
+
+const darkThemeClassName = stylex.props(darkTheme).className ?? "";
 
 /**
  * Flips the site's data-theme from light to dark as the reader scrolls past
@@ -13,11 +17,16 @@ const ScrollThemeController: React.FC = () => {
     const root = document.documentElement;
     let ticking = false;
 
+    const applyTheme = (isDark: boolean) => {
+      root.setAttribute("data-theme", isDark ? "dark" : "light");
+      root.classList.toggle(darkThemeClassName, isDark);
+    };
+
     const update = () => {
       ticking = false;
       const community = document.querySelector(".community-section");
       if (!community) {
-        root.setAttribute("data-theme", "light");
+        applyTheme(false);
         return;
       }
 
@@ -25,7 +34,7 @@ const ScrollThemeController: React.FC = () => {
       const communityTop = community.getBoundingClientRect().top;
       const shouldBeDark = communityTop <= triggerY;
 
-      root.setAttribute("data-theme", shouldBeDark ? "dark" : "light");
+      applyTheme(shouldBeDark);
     };
 
     const handleScroll = () => {
@@ -41,7 +50,7 @@ const ScrollThemeController: React.FC = () => {
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("resize", handleScroll);
-      root.setAttribute("data-theme", "dark");
+      applyTheme(true);
     };
   }, []);
 
