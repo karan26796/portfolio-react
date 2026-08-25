@@ -13,6 +13,10 @@ interface ScrollRevealProps {
   threshold?: number;
   rootMargin?: string;
   style?: React.CSSProperties;
+  onClick?: (e: React.MouseEvent<HTMLDivElement>) => void;
+  role?: string;
+  tabIndex?: number;
+  onKeyDown?: (e: React.KeyboardEvent<HTMLDivElement>) => void;
 }
 
 export const scrollRevealStagger = (index: number, step = 80) => index * step;
@@ -26,6 +30,10 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   threshold = 0.05,
   rootMargin = '100px 0px -2% 0px',
   style,
+  onClick,
+  role,
+  tabIndex,
+  onKeyDown,
 }) => {
   const { once: defaultOnce } = useScrollRevealDefaults();
   const once = onceProp ?? defaultOnce;
@@ -62,6 +70,10 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
       ref={ref}
       className={`scroll-reveal scroll-reveal--${variant}${visible ? ' is-visible' : ''}${className ? ` ${className}` : ''}`}
       style={{ '--scroll-reveal-delay': `${delay}ms`, ...style } as React.CSSProperties}
+      onClick={onClick}
+      role={role}
+      tabIndex={tabIndex}
+      onKeyDown={onKeyDown}
     >
       {children}
     </div>

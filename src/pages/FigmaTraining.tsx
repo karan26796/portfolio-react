@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
 import '../styles/FigmaTraining.scss';
-import Button from '../components/Buttons';
 import Testimonials from '../components/Testimonials';
 import ScrollReveal from '../components/ScrollReveal';
 
@@ -30,14 +29,10 @@ const TrainingList: React.FC = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  const handleBookTraining = () => {
-    window.open("https://calendly.com/karankapoor/figma-1-1-session", "_blank", "noopener,noreferrer");
-  };
-
   return (
     <div className="figma-training-main-content">
       <div className="training-parent">
-        <IntroSection onBookTrainingClick={handleBookTraining} />
+        <IntroSection />
       </div>
       <FigmaTrainingCarousel />
       <TestimonialsSection />
@@ -45,12 +40,8 @@ const TrainingList: React.FC = () => {
   );
 };
 
-interface IntroSectionProps {
-  onBookTrainingClick: () => void;
-}
-
-// Intro Section with button to scroll to the company form section
-const IntroSection: React.FC<IntroSectionProps> = ({ onBookTrainingClick }) => {
+// Intro Section with title, bio, and client logos
+const IntroSection: React.FC = () => {
 
   const logos: Logo[] = [
     {
@@ -83,23 +74,6 @@ const IntroSection: React.FC<IntroSectionProps> = ({ onBookTrainingClick }) => {
 
       <ScrollReveal delay={160}>
         <LogoCarousel logos={logos} />
-      </ScrollReveal>
-
-      <ScrollReveal delay={240}>
-        <div style={{ marginTop: "2em", marginBottom: "2em" }}>
-          <Button
-            text="Book a training today"
-            withIcon={true}
-            iconName="ArrowDown"
-            iconDirection="right"
-            withText={true}
-            size="m"
-            variant="primary"
-            weight="regular"
-            type="button"
-            onClick={onBookTrainingClick}
-          />
-        </div>
       </ScrollReveal>
     </ScrollReveal>
   );
