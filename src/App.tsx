@@ -24,8 +24,9 @@ import kritika from './utils/testimonials/pfp-02.jpg';
 import malavika from './utils/testimonials/pfp-03.jpg';
 import maryam from './utils/testimonials/maryam-img.jpeg';
 import megha from './utils/testimonials/megha-pfp.jpeg';
-import looppanelLogo from './utils/logos/looppanel.webp';
-import apheliaLogo from './utils/logos/aphelia-innovations.webp';
+import looppanelLogo from './utils/logos/looppanel-logo.svg';
+import apheliaLogo from './utils/logos/aphelia.webp';
+import datapeopleLogo from './utils/logos/datapeople.webp';
 import { Analytics } from "@vercel/analytics/react";
 import Archive from "./pages/Archive";
 import usePageSEO from "./utils/usePageSEO";
@@ -107,6 +108,7 @@ const HomePage: React.FC = () => {
       name: "Maryam Jahanshahi",
       role: "Co-Founder",
       company: "Datapeople",
+      companyLogoUrl: datapeopleLogo,
       avatarUrl: maryam,
       title: "Drives velocity, clarity, and team growth",
       testimonial: `Karan brought incredible velocity and systems thinking to our redesigns at Datapeople. He played a critical role in developing our design system, reducing decision fatigue and improving user experience. Karan works fast, thinks clearly, and incorporates feedback in real time...`,

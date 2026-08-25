@@ -158,15 +158,29 @@ function groupByShape(images: number[]): number[][] {
 // row height, scaled so the row's total width lands exactly on the
 // container width — no row, including a region's last one, falls short and
 // leaves a gap. Only width varies with each photo's own aspect ratio.
-function computeGroupedRows(images: number[], containerWidth: number, targetHeight: number): JustifiedRow[] {
+// On mobile, `oneImagePerRow` skips the wide+tall pairing entirely — two or
+// three photos squeezed side by side on a narrow phone screen would each
+// end up too small to actually look at, so each photo gets its own full
+// width row (and its natural aspect ratio, since there's nothing to justify
+// it against) instead.
+function computeGroupedRows(
+  images: number[],
+  containerWidth: number,
+  targetHeight: number,
+  oneImagePerRow = false
+): JustifiedRow[] {
   if (containerWidth <= 0) return [];
 
   const maxRowHeight = targetHeight * MAX_ROW_HEIGHT_FACTOR;
+  const groups = oneImagePerRow ? images.map((n) => [n]) : groupByShape(images);
 
-  return groupByShape(images).map((group) => {
+  return groups.map((group) => {
     const aspectSum = group.reduce((sum, n) => sum + (ASPECT_RATIOS[n] || 1.5), 0);
     const rawHeight = (containerWidth - (group.length - 1) * GAP) / aspectSum;
-    const height = Math.min(rawHeight, maxRowHeight);
+    // Single-photo mobile rows always fill the full width, however tall
+    // that makes them — capping the height there would shrink the photo
+    // back off the edges and reopen the gap this whole scheme avoids.
+    const height = oneImagePerRow ? rawHeight : Math.min(rawHeight, maxRowHeight);
     return {
       rowHeight: height,
       items: group.map((n) => ({ num: n, width: (ASPECT_RATIOS[n] || 1.5) * height })),
@@ -212,8 +226,8 @@ const Gallery = () => {
   const targetRowHeight = isMobile ? 220 : 420;
 
   const regionRows = useMemo(
-    () => REGIONS.map((region) => computeGroupedRows(region.images, canvasWidth, targetRowHeight)),
-    [canvasWidth, targetRowHeight]
+    () => REGIONS.map((region) => computeGroupedRows(region.images, canvasWidth, targetRowHeight, isMobile)),
+    [canvasWidth, targetRowHeight, isMobile]
   );
 
   return (

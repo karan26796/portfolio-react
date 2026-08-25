@@ -27,6 +27,16 @@
             max-width: 50ch;
         }
     }
+
+    @media (max-width: 750px) {
+        padding: 1em 1em 3em;
+
+        .gallery-content {
+            padding: 0.5em 0.5em 1.5em;
+            gap: 0.6em;
+            margin-bottom: 1.5em;
+        }
+    }
 }
 
 .gallery-canvas {
@@ -34,6 +44,10 @@
     flex-direction: column;
     gap: 3em;
     min-width: 0;
+
+    @media (max-width: 750px) {
+        gap: 2em;
+    }
 }
 
 // The title sticks to the top of the viewport while its region's photos
