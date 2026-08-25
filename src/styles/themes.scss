@@ -21,7 +21,7 @@
   --tag-bg: rgba(0, 0, 0, 0.04);
   --tag-border: rgba(0, 0, 0, 0.08);
 
-  --logo-filter: none;
+  --logo-filter: invert(0.6);
 }
 
 /* Dark mode — Modern ultra-sleek dark theme */
@@ -47,5 +47,5 @@
   --tag-bg: rgba(255, 255, 255, 0.06);
   --tag-border: rgba(255, 255, 255, 0.12);
 
-  --logo-filter: brightness(0) invert(1);
+  --logo-filter: invert(1);
 }
