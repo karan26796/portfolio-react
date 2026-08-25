@@ -30,6 +30,9 @@ body {
   // `overflow-x: hidden` forces overflow-y to compute as `auto`, which breaks
   // `position: sticky` for descendants like the project side panel.
   overflow-x: clip;
+  // Smooths the scroll-triggered dark/light swap from ScrollThemeController
+  // instead of the page hard-cutting between themes.
+  transition: background-color 0.6s ease, color 0.6s ease;
 }
 
 main {

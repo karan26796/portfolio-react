@@ -12,10 +12,8 @@ import ProjectCard from "./components/ProjectCard";
 import ProjectListSkeleton from "./components/ProjectListSkeleton";
 import { useProjects } from "./utils/useProjects";
 import Testimonials, { Testimonial } from "./components/Testimonials";
-import CombinedMasonry from "./components/CombinedMasonry";
+import ExploreFolder from "./components/ExploreFolder";
 import FAQ from "./components/FAQ";
-import WorkTogether from "./components/WorkTogether";
-import AISummarizer from "./components/AISummarizer";
 import { ScrollRevealDefaultsProvider } from "./components/ScrollRevealContext";
 import Footer from "./components/Footer";
 import RightSidebar from "./components/RightSidebar";
@@ -177,21 +175,10 @@ const HomePage: React.FC = () => {
         ) : (
           <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
         )}
-        <CombinedMasonry />
         <Testimonials data={testimonialsData} title="Testimonials" />
         <FAQ data={faqData} />
+        {/* <ExploreFolder /> */}
       </div>
-      <WorkTogether />
-      <AISummarizer
-        text="Karan Kapoor is a Senior Product Designer with 7 years across B2B SaaS and consumer products. Currently at Keka HR, he leads design for Rewards & Recognition, HR Helpdesk, and Surveys — products used by 2.2M+ people. He holds a Master's in Design from NID Ahmedabad and is based in Hyderabad.\n\nKey work: redesigned Keka's Award Programs into a governed nomination workflow (unblocked enterprise deals); built Continuous Rewards platform (secured 10+ enterprise clients); redesigned Keka Wall Wishes (5× engagement boost); founding designer at Looppanel building qualitative research tooling.\n\nHe's open to Lead, Staff, or Design Manager roles. Remote-first is fine. Available now."
-        buttonLabel="Ask Agent Vinod"
-        pageType="home"
-        initialPrompts={[
-          "What does my design handoff look like?",
-          "How do I collaborate with engineers?",
-          "What's my design process?"
-        ]}
-      />
     </ScrollRevealDefaultsProvider>
   );
 };

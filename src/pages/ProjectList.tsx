@@ -38,11 +38,10 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
     navigate(`/project/${projectId}`);
   };
 
-  const handleIndiefindsClick = () => {
-    window.open('https://indiefinds.vercel.app', '_blank', 'noopener,noreferrer');
-  };
-
-  // Group projects by company tag/metadata
+  // Group consecutive same-company projects under one heading — grouping
+  // against only the previous group (not any earlier one) keeps the
+  // original display order intact instead of merging a company's projects
+  // together out of order when they're not adjacent.
   const companyGroups = useMemo(() => {
     const groups: { company: string; projects: ProjectCardData[] }[] = [];
 
@@ -51,21 +50,23 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
         project.company ||
         (project.year ? project.year.split('/')[0].trim() : 'Featured Projects');
 
-      let group = groups.find((g) => g.company === companyName);
-      if (!group) {
-        group = { company: companyName, projects: [] };
-        groups.push(group);
+      const last = groups[groups.length - 1];
+      if (last && last.company === companyName) {
+        last.projects.push(project);
+      } else {
+        groups.push({ company: companyName, projects: [project] });
       }
-      group.projects.push(project);
     });
 
     return groups;
   }, [projectData]);
 
+  let cardIndex = 0;
+
   return (
     <div className="project-parent">
       {companyGroups.map((group, groupIndex) => (
-        <div key={group.company} className="company-project-section">
+        <div key={`${group.company}-${groupIndex}`} className="company-project-section">
           <ScrollReveal delay={scrollRevealStagger(groupIndex * 2)}>
             <div className="company-section-title">
               <div className="company-info-group">
@@ -85,61 +86,33 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
           </ScrollReveal>
 
           <div className="company-project-cards">
-            {group.projects.map((project, index) => (
-              <ScrollReveal key={project.id} delay={scrollRevealStagger(index)}>
-                <ProjectCard
-                  data={project}
-                  variant="large"
-                  buttonType="button"
-                  onClick={project.id === '10' || project.id === '11' ? undefined : () => handleCardClick(project.id)}
-                  showDivider={index < group.projects.length - 1}
-                />
-              </ScrollReveal>
-            ))}
+            {group.projects.map((project, indexInGroup) => {
+              const index = cardIndex++;
+              return (
+                <div key={project.id} className="project-card-row">
+                  <ScrollReveal delay={scrollRevealStagger(index)}>
+                    <ProjectCard
+                      data={project}
+                      variant="large"
+                      buttonType="button"
+                      onClick={project.id === '10' || project.id === '11' ? undefined : () => handleCardClick(project.id)}
+                      showDivider={indexInGroup < group.projects.length - 1}
+                    />
+                  </ScrollReveal>
+                  {project.story && (
+                    <ScrollReveal
+                      className={`project-story-note-wrap${index % 2 === 0 ? " is-left" : " is-right"}`}
+                      delay={scrollRevealStagger(index) + 150}
+                    >
+                      <div className="project-story-note">{project.story}</div>
+                    </ScrollReveal>
+                  )}
+                </div>
+              );
+            })}
           </div>
         </div>
       ))}
-
-      {/* Side Project Highlight Banner */}
-      <div className="indiefinds-wrapper">
-        <ScrollReveal delay={scrollRevealStagger(3)}>
-          <div
-            className="indiefinds-banner"
-            onClick={handleIndiefindsClick}
-            role="link"
-            tabIndex={0}
-            onKeyDown={(e) => e.key === 'Enter' && handleIndiefindsClick()}
-          >
-            <div className="indiefinds-banner__content">
-              <div className="indiefinds-banner__text">
-                <p className="indiefinds-banner__eyebrow">#Side project</p>
-                <h3 className="indiefinds-banner__title">Discover affordable homegrown brands</h3>
-                <p className="indiefinds-banner__desc">
-                  A curated directory of affordable Indian brands that give international ones a run for their money
-                </p>
-                <CircleArrowIcon className="indiefinds-banner__cta" size={44} variant="primary" />
-              </div>
-            </div>
-            <div className="indiefinds-banner__visual" aria-hidden="true">
-              <img
-                className="indiefinds-banner__img indiefinds-banner__img--left"
-                src="/project-imgs/indie-finds/Container-2.png"
-                alt=""
-              />
-              <img
-                className="indiefinds-banner__img indiefinds-banner__img--center"
-                src="/project-imgs/indie-finds/Container.png"
-                alt=""
-              />
-              <img
-                className="indiefinds-banner__img indiefinds-banner__img--right"
-                src="/project-imgs/indie-finds/Container-1.png"
-                alt=""
-              />
-            </div>
-          </div>
-        </ScrollReveal>
-      </div>
     </div>
   );
 };

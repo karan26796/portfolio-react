@@ -45,10 +45,10 @@ export type ProjectSummary = ProjectCardData & { meta: ProjectMeta };
  */
 export const PROJECT_DISPLAY_ORDER: string[] = [
   "8",
+  "7",
   // "9",
   // "6",
   "1",
-  "7",
   // "10",
   // "2",
   // "5",
@@ -140,6 +140,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Revamped Keka's Awards Platform using AI workflows without a PM to close 6 sales deals",
     accentColor: "#9333ea",
+    story: "The time I also donned the PM hat.",
     meta: {
       duration: "Nov 2025 – Jan 2026",
       role: "Design Strategy & Execution",
@@ -204,6 +205,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Scaled weekly engagement from 15k to 100k users by adding delight when people wish each other on their special day",
     accentColor: "#ec4899",
+    story: "The time a simple CTA 6x'ed engagement.",
     meta: {
       duration: "Nov'24 – Jan'25",
       role: "Design & Execution",
@@ -225,6 +227,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Created a zoom bot with question script to remove 5 external tools from the workflow ",
     accentColor: "#8b5cf6",
+    story: "The time I replaced 5 tools with one AI bot.",
     meta: {
       duration: "Jan'22 – Mar'22",
       role: "Founding Designer",

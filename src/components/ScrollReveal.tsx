@@ -12,6 +12,7 @@ interface ScrollRevealProps {
   once?: boolean;
   threshold?: number;
   rootMargin?: string;
+  style?: React.CSSProperties;
 }
 
 export const scrollRevealStagger = (index: number, step = 80) => index * step;
@@ -24,6 +25,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
   once: onceProp,
   threshold = 0.05,
   rootMargin = '100px 0px -2% 0px',
+  style,
 }) => {
   const { once: defaultOnce } = useScrollRevealDefaults();
   const once = onceProp ?? defaultOnce;
@@ -59,7 +61,7 @@ const ScrollReveal: React.FC<ScrollRevealProps> = ({
     <div
       ref={ref}
       className={`scroll-reveal scroll-reveal--${variant}${visible ? ' is-visible' : ''}${className ? ` ${className}` : ''}`}
-      style={{ '--scroll-reveal-delay': `${delay}ms` } as React.CSSProperties}
+      style={{ '--scroll-reveal-delay': `${delay}ms`, ...style } as React.CSSProperties}
     >
       {children}
     </div>

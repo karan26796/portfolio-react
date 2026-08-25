@@ -1,0 +1,112 @@
+.explore-folder {
+    position: relative;
+    width: 100%;
+    max-width: 420px;
+    margin: 0 auto;
+    padding-top: 70px; // room for the stacked items peeking above the folder
+}
+
+.explore-folder-stack {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 130px;
+    display: flex;
+    justify-content: center;
+}
+
+.explore-folder-item {
+    position: absolute;
+    bottom: 0;
+    width: 110px;
+    background: #fff;
+    border-radius: 10px;
+    padding: 0.6em 0.6em 0.55em;
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.22);
+    text-decoration: none;
+    transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+
+    &:nth-child(1) {
+        left: calc(50% - 130px);
+        transform: rotate(-8deg);
+        z-index: 1;
+    }
+
+    &:nth-child(2) {
+        left: calc(50% - 55px);
+        transform: rotate(2deg) translateY(-6px);
+        z-index: 3;
+    }
+
+    &:nth-child(3) {
+        left: calc(50% + 20px);
+        transform: rotate(9deg);
+        z-index: 2;
+    }
+
+    &:hover {
+        box-shadow: 0 18px 32px rgba(0, 0, 0, 0.28);
+
+        &:nth-child(1) {
+            transform: rotate(-11deg) translate(-4px, -8px);
+        }
+
+        &:nth-child(2) {
+            transform: rotate(2deg) translateY(-14px);
+        }
+
+        &:nth-child(3) {
+            transform: rotate(12deg) translate(4px, -8px);
+        }
+    }
+}
+
+.explore-folder-item-media {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    border-radius: 6px;
+    overflow: hidden;
+    background: var(--bg-color-high);
+
+    img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+    }
+}
+
+.explore-folder-item-title {
+    display: block;
+    margin-top: 0.4em;
+    font-size: 0.72em;
+    font-weight: 700;
+    color: #1a1a1a;
+    line-height: 1.25;
+}
+
+.explore-folder-body {
+    position: relative;
+    width: 100%;
+    height: 90px;
+    border-radius: 16px 16px 20px 20px;
+    background: linear-gradient(160deg, #2a2a30 0%, #131316 100%);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.explore-folder-label {
+    font-size: 1em;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: -0.01em;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .explore-folder-item {
+        transition: none;
+    }
+}
