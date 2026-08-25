@@ -52,12 +52,12 @@ const PhotoCard: React.FC<PhotoCardProps> = ({ to, href, rotate, media, children
   const inner = (
     <>
       <div className="photo-media">{media}</div>
-      <div className="photo-caption">
+      {/* <div className="photo-caption">
         <span className="photo-caption-text">{children}</span>
         {external && (
           <ArrowSquareOut size={16} weight="bold" className="photo-external-icon" aria-hidden="true" />
         )}
-      </div>
+      </div> */}
     </>
   );
 

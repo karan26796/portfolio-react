@@ -142,7 +142,7 @@ const HeaderWithCarousel: React.FC = () => {
 
           <ScrollReveal delay={200}>
             <h3 className="intro-paragraph">
-              I'm an AI-native product design leader working across product strategy, user research, 0→1, design systems, and scaling complex products. Currently leading employee rewards and helpdesk at Keka for 5,000+ employee organizations. Previously a founding designer at{" "}
+              I'm an AI-native product design lead working across product strategy, user research, 0→1, design systems, and scaling complex products. Currently leading employee rewards and helpdesk at Keka for 5,000+ employee organizations. Previously a founding designer at{" "}
               <span className="inline-badge has-hover-card">
                 <img src="/project-imgs/Looppanel-logo.webp" alt="Looppanel" className="badge-icon" />
                 <span>Looppanel</span>

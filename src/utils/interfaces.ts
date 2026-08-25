@@ -25,6 +25,8 @@ export interface ProjectCardData {
   aiSummary?: string;
   accentColor?: string;
   tools?: string[];
+  /** Short scrollytelling one-liner shown as a side note, e.g. "The time I worked without a PM." */
+  story?: string;
 }
 
 export interface IntroElement {

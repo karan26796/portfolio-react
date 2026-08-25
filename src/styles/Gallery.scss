@@ -1,23 +1,13 @@
 .gallery-parent {
     width: 100%;
-    max-width: 1280px;
     margin: 0 auto;
-    padding: 2em 1em;
+    padding: 2em 2em 4em;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    // border-bottom: 1px solid var(--border-color);
-
-    .gallery-grid {
-        display: grid;
-        gap: 0.5em;
-        padding: 0;
-    }
 
     .gallery-content {
         width: -webkit-fill-available;
-        // border: 1px solid var(--border-color);
-        // background-color: var(--bg-color-high);
         border-radius: 0.5em;
         padding: 1.5em;
         display: flex;
@@ -25,8 +15,7 @@
         align-items: center;
         justify-content: center;
         gap: 1em;
-        margin-bottom: 6em;
-
+        margin-bottom: 3em;
 
         h1,
         p {
@@ -35,77 +24,115 @@
         }
 
         p {
-            // font-size: 1.6em;
             max-width: 50ch;
         }
     }
 
-    .column {
-        display: flex;
-        flex-direction: column;
-        gap: 0.5em;
-    }
+    @media (max-width: 750px) {
+        padding: 1em 1em 3em;
 
-    .image-container {
-        position: relative;
-        overflow: hidden;
-        border-radius: 1.5em;
-        padding: .5em;
-        background-color: var(--bg-color-high);
-        box-shadow: inset 0 0 0 1px #ffffff12, inset 0 1px #5050504d, inset 0 -1px #0000004d;
-        // box-shadow: 1px 1px 1px 1px #00000014;
-
-        &:hover {
-            >div {
-                transform: rotate(0deg) !important;
-            }
-
-            .location-text:not(.always-visible) {
-                opacity: 1;
-            }
+        .gallery-content {
+            padding: 0.5em 0.5em 1.5em;
+            gap: 0.6em;
+            margin-bottom: 1.5em;
         }
     }
+}
 
-    .gallery-image {
-        width: 100%;
-        border-radius: var(--border-radius);
-        height: auto;
-        display: block;
+.gallery-canvas {
+    display: flex;
+    flex-direction: column;
+    gap: 3em;
+    min-width: 0;
+
+    @media (max-width: 750px) {
+        gap: 2em;
     }
+}
 
-    .location-text {
-        font-family: 'Architects Daughter', Courier, monospace;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: .2em;
-        font-size: 1.3em;
-        color: var(--secondary-text);
-        padding: .5em .75em;
-        border-radius: .75em;
-        // opacity: 0;
-        transition: opacity 0.3s ease;
+// The title sticks to the top of the viewport while its region's photos
+// scroll underneath, handing off to the next region's title once that
+// section reaches the top.
+.gallery-region-title {
+    position: sticky;
+    top: 4.5em;
+    z-index: 1;
+    margin: 0 0 1em;
+    padding: 0.5em 0.75em;
+    width: fit-content;
+    border-radius: var(--radius-sm);
+    background: color-mix(in srgb, var(--bg-color) 85%, transparent);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    font-size: var(--h4-size);
+    color: var(--primary-text);
 
-        &.always-visible {
+    @media (max-width: 750px) {
+        top: 0.5em;
+    }
+}
+
+// Justified rows — each row (including the last) is packed then stretched
+// so its total width lands exactly on the container width, edge to edge,
+// with no leftover gap. Every photo keeps its own aspect ratio throughout;
+// nothing is cropped or stretched off-ratio, only uniformly resized. Every
+// photo in a row shares that row's height.
+.gallery-justified {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 0;
+}
+
+.gallery-row {
+    display: flex;
+    align-items: stretch;
+    gap: 8px;
+}
+
+.gallery-tile {
+    position: relative;
+    overflow: hidden;
+    border-radius: 0.75em;
+    flex-shrink: 0;
+
+    &:hover {
+        .location-text {
             opacity: 1;
-            top: auto;
-            bottom: 10px;
-            right: 10px;
         }
+    }
+}
+
+.gallery-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.location-text {
+    position: absolute;
+    left: 0.6em;
+    bottom: 0.6em;
+    right: 0.6em;
+    display: flex;
+    align-items: center;
+    gap: 0.3em;
+    font-size: 0.85em;
+    color: #fff;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    transition: opacity 0.2s ease;
+    pointer-events: none;
+
+    &.always-visible {
+        opacity: 1;
     }
 }
 
 @media (max-width: 750px) {
     .gallery-parent {
-        .location-text {
-            opacity: 1;
-        }
-
         h1,
-        p {
-            width: -webkit-fill-available;
-        }
-
         p {
             width: -webkit-fill-available;
         }

@@ -14,7 +14,7 @@ interface FAQProps {
   title?: string;
 }
 
-const FAQ: React.FC<FAQProps> = ({ data, hideTitle = false, title = "About my process" }) => {
+const FAQ: React.FC<FAQProps> = ({ data, hideTitle = false, title = "You might ask" }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const toggleFAQ = (index: number) => {
@@ -34,8 +34,8 @@ const FAQ: React.FC<FAQProps> = ({ data, hideTitle = false, title = "About my pr
           return (
             <ScrollReveal key={index} delay={scrollRevealStagger(index, 60)}>
               <div className={`faq-item ${isOpen ? "open" : ""}`}>
-                <div 
-                  className="faq-question" 
+                <div
+                  className="faq-question"
                   onClick={() => toggleFAQ(index)}
                   role="button"
                   tabIndex={0}

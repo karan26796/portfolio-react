@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
+import React, { useState, useEffect, useRef } from 'react';
+import ScrollReveal from './ScrollReveal';
 import '../styles/Testimonials.scss';
 
 export interface Testimonial {
@@ -20,76 +20,10 @@ interface TestimonialsProps {
   subtitle?: string;
 }
 
-export const highlightText = (text: string, wordsToHighlight: string[] = []) => {
-  if (!wordsToHighlight.length) return text;
-  const parts = text.split(new RegExp(`(${wordsToHighlight.join('|')})`, 'gi'));
-  return parts.map((part, index) => {
-    const isHighlighted = wordsToHighlight.some(word =>
-      part.toLowerCase() === word.toLowerCase()
-    );
-    return isHighlighted ?
-      <span key={index} className="highlighted">{part}</span> :
-      <React.Fragment key={index}>{part}</React.Fragment>;
-  });
-};
+const AUTO_ADVANCE_MS = 6000;
 
-export const TestimonialCard: React.FC<{
-  testimonial: Testimonial;
-  featured?: boolean;
-  onClick?: () => void;
-}> = ({
-  testimonial,
-  featured = false,
-  onClick,
-}) => (
-  <div
-    className={`testimonial-card tweet-card ${featured ? 'featured-testimonial' : 'compact-testimonial'}`}
-    onClick={onClick}
-    role={onClick ? 'button' : undefined}
-    tabIndex={onClick ? 0 : undefined}
-    onKeyDown={(e) => {
-      if (onClick && (e.key === 'Enter' || e.key === ' ')) {
-        e.preventDefault();
-        onClick();
-      }
-    }}
-  >
-    <div className="tweet-body">
-      {testimonial.title && testimonial.title.trim() !== "" && (
-        <h3 className="tweet-title-headline">{testimonial.title}</h3>
-      )}
-      {featured && (
-        <p className="tweet-text">
-          {highlightText(testimonial.testimonial, testimonial.highlightedWords)}
-        </p>
-      )}
-    </div>
-
-    <div className="tweet-footer-divider" />
-
-    <div className="tweet-header">
-      {testimonial.avatarUrl ? (
-        <img
-          src={testimonial.avatarUrl}
-          alt={`${testimonial.name}'s avatar`}
-          className="tweet-avatar"
-        />
-      ) : (
-        <div className="tweet-avatar placeholder" />
-      )}
-      <div className="tweet-author-info">
-        <span className="tweet-author-name">{testimonial.name}</span>
-        <div className="tweet-author-role-company">
-          {testimonial.role}{testimonial.role && testimonial.company ? " at " : ""}{testimonial.company}
-        </div>
-      </div>
-    </div>
-  </div>
-);
-
-const Testimonials: React.FC<TestimonialsProps> = ({ data, title, subtitle }) => {
+const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
   const [activeId, setActiveId] = useState<number | string>(() => data[0]?.id);
-  const [isAnimating, setIsAnimating] = useState(false);
 
   useEffect(() => {
     if (data.length > 0 && !data.some((item) => item.id === activeId)) {
@@ -97,47 +31,100 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data, title, subtitle }) =>
     }
   }, [data, activeId]);
 
-  const handleSelect = (id: number | string) => {
-    if (id === activeId) return;
-    setIsAnimating(true);
-    setActiveId(id);
-    setTimeout(() => setIsAnimating(false), 450);
+  // `data` is a new array reference on every parent render (it's an inline
+  // literal in the caller), so a ref avoids that identity churn resetting
+  // the timer below before it ever fires.
+  const dataRef = useRef(data);
+  dataRef.current = data;
+
+  // Auto-advance through testimonials; re-armed whenever activeId changes,
+  // so a manual dot click resets the countdown instead of fighting it.
+  useEffect(() => {
+    if (data.length <= 1) return;
+
+    const timer = setInterval(() => {
+      const list = dataRef.current;
+      setActiveId((current) => {
+        const index = list.findIndex((item) => item.id === current);
+        const next = list[(index + 1) % list.length];
+        return next.id;
+      });
+    }, AUTO_ADVANCE_MS);
+
+    return () => clearInterval(timer);
+  }, [data.length, activeId]);
+
+  const handleNext = () => {
+    if (data.length <= 1) return;
+    const index = data.findIndex((item) => item.id === activeId);
+    const next = data[(index + 1) % data.length];
+    setActiveId(next.id);
   };
 
-  const featuredTestimonial = data.find((item) => item.id === activeId) || data[0];
-  const remainingTestimonials = data.filter((item) => item.id !== featuredTestimonial?.id);
+  const active = data.find((item) => item.id === activeId) || data[0];
+  if (!active) return null;
 
   return (
     <div className="testimonials-section">
-      <ScrollReveal>
-        <div className="carousel-section-header">
-          <div className="header-text">
-            <h2>{title}</h2>
-            {subtitle && <p>{subtitle}</p>}
+      <ScrollReveal
+        key={active.id}
+        className="testimonial-spotlight"
+        onClick={handleNext}
+        role="button"
+        tabIndex={0}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleNext();
+          }
+        }}
+      >
+        <div className="testimonial-icon-wrap">
+          {active.companyLogoUrl || active.avatarUrl ? (
+            <img
+              src={active.companyLogoUrl || active.avatarUrl}
+              alt={active.company || active.name}
+              className="testimonial-icon"
+            />
+          ) : (
+            <div className="testimonial-icon placeholder" />
+          )}
+        </div>
+
+        <div className="testimonial-copy">
+          {active.title && <h3 className="testimonial-title">{active.title}</h3>}
+          <p className="testimonial-quote">&ldquo;{active.testimonial}&rdquo;</p>
+        </div>
+
+        <div className="testimonial-attribution">
+          {active.avatarUrl ? (
+            <img src={active.avatarUrl} alt={active.name} className="testimonial-avatar" />
+          ) : (
+            <div className="testimonial-avatar placeholder" />
+          )}
+          <div className="testimonial-attribution-text">
+            <span className="testimonial-name">{active.name}</span>
+            <span className="testimonial-role">
+              {active.role}
+              {active.role && active.company ? `, ${active.company}` : active.company}
+            </span>
           </div>
         </div>
       </ScrollReveal>
 
-      <div className={`testimonials-grid ${isAnimating ? 'swapping' : ''}`}>
-        {featuredTestimonial && (
-          <div className="testimonials-featured-column">
-            <ScrollReveal delay={scrollRevealStagger(0, 70)}>
-              <TestimonialCard testimonial={featuredTestimonial} featured />
-            </ScrollReveal>
-          </div>
-        )}
-
-        <div className="testimonials-stacked-column">
-          {remainingTestimonials.map((testimonial, index) => (
-            <ScrollReveal key={testimonial.id} delay={scrollRevealStagger(index + 1, 70)}>
-              <TestimonialCard
-                testimonial={testimonial}
-                onClick={() => handleSelect(testimonial.id)}
-              />
-            </ScrollReveal>
+      {data.length > 1 && (
+        <div className="testimonial-dots">
+          {data.map((item) => (
+            <button
+              key={item.id}
+              type="button"
+              className={`testimonial-dot${item.id === activeId ? ' active' : ''}`}
+              onClick={() => setActiveId(item.id)}
+              aria-label={`Show testimonial from ${item.name}`}
+            />
           ))}
         </div>
-      </div>
+      )}
     </div>
   );
 };

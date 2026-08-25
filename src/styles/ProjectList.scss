@@ -46,6 +46,52 @@
     // gap: 2em;
 }
 
+.project-card-row {
+    position: relative;
+}
+
+// Handwritten-feeling story callouts pinned in the page gutter beside each
+// project, for a scrapbook/storytelling touch as you scroll through the
+// list. Hidden below the width where there's no real gutter to sit in.
+.project-story-note-wrap {
+    display: none;
+
+    @media (min-width: 1320px) {
+        display: block;
+        position: absolute;
+        top: 2.5em;
+        width: 190px;
+        z-index: 1;
+        pointer-events: none;
+
+        &.is-right {
+            left: calc(100% + 2.5em);
+        }
+
+        &.is-left {
+            right: calc(100% + 2.5em);
+        }
+    }
+}
+
+.project-story-note {
+    background: #fdf3c7;
+    color: #4a3f1f;
+    font-family: var(--font-serif, Georgia, serif);
+    font-style: italic;
+    font-weight: 500;
+    font-size: 1.25em;
+    line-height: 1.4;
+    padding: 0.9em 1em;
+    border-radius: 0.2em;
+    box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
+    transform: rotate(-3deg);
+
+    .project-story-note-wrap.is-left & {
+        transform: rotate(3deg);
+    }
+}
+
 .indiefinds-wrapper {
     width: 100%;
     min-height: 50vh;

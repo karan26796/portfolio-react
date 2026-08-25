@@ -1,86 +1,183 @@
 .footer-container {
-    margin: auto;
+    width: 100%;
+    padding-top: 2em;
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding: 3em 2em 6em;
-    gap: 1.75em;
-    text-align: center;
+    gap: 0;
+}
+
+// Filmstrip of travel + Figma training photos, bottom-aligned at varying
+// heights for a jagged skyline look, scrolling left in an infinite loop.
+.footer-marquee {
     width: 100%;
+    overflow: hidden;
+    display: flex;
+    align-items: flex-end;
+    // border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0;
+    mask-image: linear-gradient(90deg, transparent 0, black 3%, black 97%, transparent 100%);
+    -webkit-mask-image: linear-gradient(90deg, transparent 0, black 3%, black 97%, transparent 100%);
+}
+
+.footer-marquee-track {
+    display: flex;
+    align-items: flex-end;
+    gap: 1em;
+    animation: footer-marquee-scroll 45s linear infinite;
+    will-change: transform;
+}
+
+.footer-marquee-item {
+    position: relative;
+    flex-shrink: 0;
+    width: auto;
+
+    img {
+        height: 100%;
+        width: auto;
+        display: block;
+        object-fit: cover;
+        border-radius: 1em;
+    }
+}
+
+.footer-marquee-caption {
+    position: absolute;
+    top: 0.6em;
+    right: 0.6em;
+    color: #fff;
+    font-size: 0.75em;
+    font-weight: 600;
+    line-height: 1.3;
+    text-shadow: 0 1px 6px rgba(0, 0, 0, 0.6), 0 1px 2px rgba(0, 0, 0, 0.5);
+    pointer-events: none;
+}
+
+@keyframes footer-marquee-scroll {
+    from {
+        transform: translateX(0);
+    }
+
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .footer-marquee-track {
+        animation: none;
+    }
+}
+
+.footer-bottom {
+    width: 100%;
+    max-width: var(--max-width-container);
+    margin: 0 auto;
+    display: flex;
+    padding: 2.5em 2em 3em;
     box-sizing: border-box;
+    gap: 3em;
 
-    /* Social badges row: Hidden on desktop (since it's in the side nav), shown on mobile */
-    .footer-badges-row {
-        display: none;
+    @media (max-width: 700px) {
+        flex-direction: column;
+        gap: 2em;
+    }
+}
 
-        @media (max-width: 800px) {
-            display: flex;
-            flex-direction: row;
-            align-items: center;
-            justify-content: center;
-            gap: 1em;
-            flex-wrap: wrap;
-        }
+.footer-profile {
+    flex: 0 0 auto;
+    padding-right: 3em;
+    border-right: 1px solid var(--border-color);
+    max-width: 280px;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
 
-        .sidebar-user-badge {
-            display: flex;
-            align-items: center;
-            gap: 0.6em;
-            padding: 0.4em 0.9em 0.4em 0.45em;
-            border-radius: var(--radius-pill);
-            cursor: pointer;
-            user-select: none;
-            text-decoration: none;
-            // border: 1px solid var(--border-color);
-            background-color: var(--bg-color);
-            transition: background-color 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
+    @media (max-width: 700px) {
+        border-right: none;
+        padding-right: 0;
+        max-width: none;
+    }
+}
 
-            &:hover {
-                background-color: var(--bg-color-high);
-                border-color: var(--border-color);
-                transform: translateY(-2px);
+.footer-profile-header {
+    display: flex;
+    align-items: center;
+    gap: 0.85em;
+}
 
-                .handle {
-                    color: var(--primary-text);
-                }
-            }
+.footer-profile-avatar {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
 
-            .avatar-wrapper {
-                width: 30px;
-                height: 30px;
-                border-radius: 50%;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                flex-shrink: 0;
+.footer-profile-text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1em;
+}
 
-                &.twitter-icon-bg {
-                    background-color: var(--bg-color-high);
-                    border: 1px solid var(--border-color);
-                    color: var(--primary-text);
-                }
+.footer-profile-name {
+    font-size: 1.15em;
+    font-weight: 700;
+    color: var(--primary-text);
+    letter-spacing: -0.01em;
+}
 
-                &.linkedin-icon-bg {
-                    background-color: #0077b5;
-                    color: #ffffff;
-                }
-            }
+.footer-profile-handle {
+    font-size: 0.85em;
+    color: var(--tertiary-text);
+}
 
-            .handle {
-                font-size: 0.88em;
-                font-weight: 500;
-                color: var(--secondary-text);
-                white-space: nowrap;
-                transition: color 0.15s ease;
-            }
-        }
+.footer-link-groups {
+    display: flex;
+    gap: 4em;
+    justify-content: flex-end;
+    flex: 1;
+
+    @media (max-width: 700px) {
+        justify-content: flex-start;
+        gap: 3em;
+    }
+}
+
+.footer-link-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0.85em;
+    min-width: 120px;
+
+    h6 {
+        margin: 0 0 0.2em;
+        color: var(--primary-text);
+        font-size: 0.8em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.06em;
     }
 
-    h5 {
-        margin: 0;
-        text-align: center;
-        color: var(--tertiary-text);
-        font-weight: 400;
-        font-size: 0.85em;
+    a {
+        color: var(--secondary-text);
+        text-decoration: none;
+        font-size: 0.95em;
+        font-weight: 450;
+        transition: color 0.15s ease;
+
+        &:hover {
+            color: var(--primary-text);
+        }
     }
+}
+
+.footer-attribution {
+    margin: 0;
+    text-align: center;
+    color: var(--tertiary-text);
+    font-weight: 400;
+    font-size: 0.85em;
+    padding-bottom: 2em;
 }

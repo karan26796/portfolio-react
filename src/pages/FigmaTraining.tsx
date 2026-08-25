@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useEffect } from "react";
 import '../styles/FigmaTraining.scss';
 import Button from '../components/Buttons';
 import Testimonials from '../components/Testimonials';
@@ -6,7 +6,6 @@ import ScrollReveal from '../components/ScrollReveal';
 
 import LogoCarousel from "../components/LogoCarousel";
 import FigmaTrainingCarousel from "../components/FigmaTrainingCarousel";
-import CompanyForm from '../components/CompanyForm';
 import { trainingTestimonialsData } from '../utils/trainingData';
 
 import iima from "../utils/logos/iima.webp";
@@ -31,29 +30,18 @@ const TrainingList: React.FC = () => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Ref for company form section
-  const companyFormRef = useRef<HTMLDivElement>(null);
-
-  // Function to handle scrolling to the company form section
-  const scrollToCompanyForm = () => {
-    if (companyFormRef.current) {
-      companyFormRef.current.scrollIntoView({ behavior: 'smooth' });
-    }
+  const handleBookTraining = () => {
+    window.open("https://calendly.com/karankapoor/figma-1-1-session", "_blank", "noopener,noreferrer");
   };
 
   return (
-    <>
-      <div className="figma-training-main-content">
-        <div className="training-parent">
-          <IntroSection onBookTrainingClick={scrollToCompanyForm} />
-        </div>
-        <FigmaTrainingCarousel />
-        <TestimonialsSection />
+    <div className="figma-training-main-content">
+      <div className="training-parent">
+        <IntroSection onBookTrainingClick={handleBookTraining} />
       </div>
-      <div className="training-parent company-form-sticky-wrapper" ref={companyFormRef}>
-        <CompanyForm />
-      </div>
-    </>
+      <FigmaTrainingCarousel />
+      <TestimonialsSection />
+    </div>
   );
 };
 

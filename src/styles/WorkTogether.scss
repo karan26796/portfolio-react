@@ -59,6 +59,13 @@
     margin-bottom: 0;
     text-align: center;
     width: 100%;
+    // Matches the other home page section titles (Testimonials, FAQ,
+    // CombinedMasonry, project company names).
+    font-size: 2.2em;
+
+    @media (max-width: 767px) {
+      font-size: 1.8em;
+    }
   }
 
   h4 {
