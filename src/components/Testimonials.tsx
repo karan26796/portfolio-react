@@ -79,17 +79,15 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
           }
         }}
       >
-        <div className="testimonial-icon-wrap">
-          {active.companyLogoUrl || active.avatarUrl ? (
+        {active.companyLogoUrl && (
+          <div className="testimonial-icon-wrap">
             <img
-              src={active.companyLogoUrl || active.avatarUrl}
+              src={active.companyLogoUrl}
               alt={active.company || active.name}
               className="testimonial-icon"
             />
-          ) : (
-            <div className="testimonial-icon placeholder" />
-          )}
-        </div>
+          </div>
+        )}
 
         <div className="testimonial-copy">
           {active.title && <h3 className="testimonial-title">{active.title}</h3>}
