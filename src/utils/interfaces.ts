@@ -27,6 +27,14 @@ export interface ProjectCardData {
   tools?: string[];
   /** Short scrollytelling one-liner shown as a side note, e.g. "The time I worked without a PM." */
   story?: string;
+  /** Short label like "Keka HR / 2026", shown above the card title. */
+  details?: string;
+  /**
+   * Explicit page-wash color shown while this project is the active card in
+   * the scrolling project list. Set this to hand-pick the color; when it's
+   * omitted the color is derived from the thumbnail's dominant tone instead.
+   */
+  bgColor?: string;
 }
 
 export interface IntroElement {

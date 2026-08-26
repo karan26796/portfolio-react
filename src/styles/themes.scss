@@ -1,6 +1,15 @@
 /* Light mode (default) — Sleek light theme */
 :root {
-  --bg-color: #ffffff;
+  /* The theme's own page background. */
+  --bg-base: #ffffff;
+  /* The single page background every surface paints.
+     `--page-bg-active` is published on :root by ProjectList while the
+     project list is scrolling (an interpolation from --bg-base to the
+     active project's colour). Because every section resolves its
+     background through this one variable, the whole site stays exactly one
+     colour — no per-section patching, no seams between sections. With no
+     project active it falls back to --bg-base, i.e. the normal theme. */
+  --bg-color: var(--page-bg-active, var(--bg-base));
   --bg-color-high: #f6f8fa;
   --card-bg: #ffffff;
   --card-bg-hover: #f3f5f8;
@@ -26,7 +35,8 @@
 
 /* Dark mode — Modern ultra-sleek dark theme */
 [data-theme="dark"] {
-  --bg-color: #111112;
+  --bg-base: #111112;
+  --bg-color: var(--page-bg-active, var(--bg-base));
   --bg-color-high: #19191b;
   --card-bg: #111722;
   --card-bg-hover: #17202e;
