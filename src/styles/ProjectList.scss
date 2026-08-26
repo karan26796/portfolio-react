@@ -50,7 +50,23 @@
   transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 
   @media (max-width: 768px) {
-    padding: 5em 1.25em 2.5em;
+    // No side padding, so the card's image runs edge to edge. The text
+    // blocks below re-add their own (smaller) inset instead.
+    padding: 4.5em 0 1.5em;
+    // On mobile the card content is shorter than the 100vh stage, so
+    // top-aligning dumped all the leftover height below the card. Centering
+    // splits it evenly and reads as intentional. Safe here precisely because
+    // the content is shorter than the viewport at this width.
+    align-items: center;
+
+    &__header {
+      padding: 0 1em;
+    }
+
+    // Scoped to the stage so ProjectCard is unchanged everywhere else.
+    .project-card {
+      padding: 1.25em 1em 1.5em;
+    }
   }
 
   &__inner {
@@ -114,6 +130,20 @@
 .project-story-note-wrap {
   display: none;
 
+  // On mobile there's no page gutter to pin the note into, so it sits in the
+  // normal flow just under the card instead — which also uses up some of the
+  // leftover height on the shorter mobile card. Desktop (>= 1320px) keeps the
+  // gutter placement below, untouched.
+  @media (max-width: 768px) {
+    display: block;
+    position: static;
+    width: fit-content;
+    max-width: 16em;
+    margin: 1.5em 1em 0;
+    pointer-events: none;
+    perspective: 700px;
+  }
+
   @media (min-width: 1320px) {
     display: block;
     position: absolute;
@@ -173,6 +203,11 @@
   // itself stays in a variable so the keyframes can preserve it.
   transform-origin: top center;
   transform: rotate(var(--note-rotate));
+
+  @media (max-width: 768px) {
+    font-size: 1.05em;
+    padding: 0.75em 0.9em;
+  }
 
   .project-story-note-wrap.is-left & {
     --note-rotate: 3deg;
