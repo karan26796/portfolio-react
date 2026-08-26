@@ -1,0 +1,77 @@
+.project-scroll-indicator {
+    position: fixed;
+    right: 2em;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 5;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    pointer-events: none;
+    // Only shown while the project stack is pinned on screen — hidden the
+    // rest of the time (hero, testimonials, etc.) rather than floating
+    // there for the whole page.
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+
+    &.is-visible {
+        opacity: 1;
+        visibility: visible;
+    }
+
+    @media (max-width: 600px) {
+        right: 0.75em;
+        gap: 3px;
+    }
+}
+
+.project-scroll-indicator__pill {
+    position: relative;
+    width: 10px;
+    height: 10px;
+    border-radius: 999px;
+    border: 1px solid transparent;
+    box-sizing: border-box;
+    transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.35s ease;
+
+    &.is-active {
+        height: 64px;
+        background-color: var(--bg-color-high);
+        border-color: var(--border-color);
+
+        @media (max-width: 600px) {
+            height: 44px;
+        }
+    }
+
+    @media (max-width: 600px) {
+        width: 8px;
+        height: 8px;
+    }
+}
+
+.project-scroll-indicator__dot {
+    position: absolute;
+    left: 50%;
+    top: 3px;
+    width: 4px;
+    height: 4px;
+    background: var(--primary-text);
+    opacity: 0.3;
+    transform: translate(-50%, -50%) rotate(45deg);
+    transition: opacity 0.35s ease;
+}
+
+.project-scroll-indicator__pill.is-active .project-scroll-indicator__dot {
+    // `top` is intentionally NOT transitioned: a pill only just became
+    // active (e.g. scrolling upward into the previous card) needs to show
+    // its true position immediately — a transitioned `top` would visibly
+    // animate from the old resting spot (near the pill's top) first,
+    // flashing there before catching up to where the scroll actually is.
+    // Rotation still gets a light transition since it has no "wrong
+    // starting point" problem.
+    opacity: 1;
+    transition: opacity 0.35s ease, transform 0.12s ease-out;
+}

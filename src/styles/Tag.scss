@@ -24,7 +24,7 @@
   padding: 0.35em 0.85em;
   border-radius: var(--radius-pill, 999px);
   border: 1px solid var(--tag-border, var(--border-color));
-  // background-color: var(--tag-bg, var(--bg-color-high));
+  background-color: var(--bg-color-high);
   // backdrop-filter: blur(8px);
   transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 

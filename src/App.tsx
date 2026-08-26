@@ -4,6 +4,7 @@ import {
   Route,
   Routes,
   Navigate,
+  useLocation,
 } from "react-router-dom";
 import StickyNavBar from "./components/StickyNavBar";
 import HeaderWithCarousel from "./components/HeaderwithCarousel";
@@ -59,36 +60,50 @@ const App: React.FC = () => {
     <Router>
       {window.location.hostname !== 'localhost' && <Analytics />}
       <Routes>
-        <Route
-          path="*"
-          element={
-            <div className="app-shell">
-              <StickyNavBar />
-              <div className="app-center">
-                <React.Suspense fallback={<div>Loading...</div>}>
-                  <Routes>
-                    <Route path="/" element={<Navigate replace to="/home" />} />
-                    <Route path="/home" element={<HomePage />} />
-                    <Route path="/project/:projectId" element={<ProjectDetails />} />
-                    <Route path="/about" element={<About />} />
-                    <Route path="/gallery" element={<Gallery />} />
-                    <Route path="/archive" element={<Archive />} />
-                    <Route path="/figma-training" element={<TrainingList />} />
-                    <Route path="/resume" element={<Resume />} />
-                    <Route path="/resume-view" element={<ResumeStandalone />} />
-                    <Route path="/resume-popup" element={<StandaloneResumePopup />} />
-                    <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
-                    <Route path="/overview" element={<Overview />} />
-                  </Routes>
-                </React.Suspense>
-                <Footer />
-              </div>
-              <RightSidebar />
-            </div>
-          }
-        />
+        <Route path="*" element={<AppShell />} />
       </Routes>
     </Router>
+  );
+};
+
+const AppShell: React.FC = () => {
+  const location = useLocation();
+  // A case study opens as a full-screen overlay on top of the home page.
+  // Rendering HomePage here — at a fixed position outside <Routes>, for both
+  // /home and /project/:id — keeps it mounted while the overlay is open, so
+  // closing a case study returns to the home page exactly as it was instead
+  // of remounting it (which replayed the intro animations, re-showed the
+  // loading skeleton and lost the scroll position).
+  const isHomeOrProject =
+    location.pathname === "/home" || location.pathname.startsWith("/project/");
+
+  return (
+    <div className="app-shell">
+      <StickyNavBar />
+      <div className="app-center">
+        {isHomeOrProject && <HomePage />}
+        <React.Suspense fallback={<div>Loading...</div>}>
+          <Routes>
+            <Route path="/" element={<Navigate replace to="/home" />} />
+            {/* HomePage is rendered above, outside <Routes>, so this route
+                intentionally renders nothing of its own. */}
+            <Route path="/home" element={null} />
+            <Route path="/project/:projectId" element={<ProjectDetails />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/archive" element={<Archive />} />
+            <Route path="/figma-training" element={<TrainingList />} />
+            <Route path="/resume" element={<Resume />} />
+            <Route path="/resume-view" element={<ResumeStandalone />} />
+            <Route path="/resume-popup" element={<StandaloneResumePopup />} />
+            <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
+            <Route path="/overview" element={<Overview />} />
+          </Routes>
+        </React.Suspense>
+        <Footer />
+      </div>
+      <RightSidebar />
+    </div>
   );
 };
 

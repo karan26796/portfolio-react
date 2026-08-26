@@ -142,7 +142,7 @@ const HeaderWithCarousel: React.FC = () => {
 
           <ScrollReveal delay={200}>
             <h3 className="intro-paragraph">
-              I'm an AI-native product design lead working across product strategy, user research, 0→1, design systems, and scaling complex products. Currently leading employee rewards and helpdesk at Keka for 5,000+ employee organizations. Previously a founding designer at{" "}
+              AI-native design lead building products for enterprise scale companies.  I am experienced in leading and hiring teams, user research, design systems, and building 0-1 products. Previously a founding designer at{" "}
               <span className="inline-badge has-hover-card">
                 <img src="/project-imgs/Looppanel-logo.webp" alt="Looppanel" className="badge-icon" />
                 <span>Looppanel</span>
@@ -163,7 +163,7 @@ const HeaderWithCarousel: React.FC = () => {
                         <span className="hover-card-subtitle">looppanel.com</span>
                       </span>
                     </span>
-                    <span className="hover-card-desc">AI-powered qualitative user research &amp; time-to-insights platform</span>
+                    <span className="hover-card-desc">AI-powered qualitative user research platform</span>
                   </span>
                 </a>
               </span>, consultant for{" "}
@@ -216,7 +216,7 @@ const HeaderWithCarousel: React.FC = () => {
                         <span className="hover-card-subtitle">getinterconnect.vercel.app</span>
                       </span>
                     </span>
-                    <span className="hover-card-desc">Platform to connect teams and streamline workplace communication</span>
+                    <span className="hover-card-desc">App to connect professionals in gated communities</span>
                   </span>
                 </a>
               </span>.
