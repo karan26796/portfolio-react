@@ -38,8 +38,8 @@
 
     &.is-active {
         height: 64px;
-        background-color: var(--bg-color);
-        // border-color: var(--border-color);
+        background-color: var(--bg-color-high);
+        border-color: var(--border-color);
 
         @media (max-width: 600px) {
             height: 44px;

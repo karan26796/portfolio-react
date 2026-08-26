@@ -122,6 +122,9 @@
     z-index: 1;
     pointer-events: none;
 
+    // Gives the unfurl below a sense of depth as the note tips upright.
+    perspective: 700px;
+
     &.is-right {
       left: calc(100% + 2.5em);
     }
@@ -132,8 +135,31 @@
   }
 }
 
+// The note "unfurls" — hinged at its top edge, tipping down into place with
+// a small overshoot, like a sheet of paper being unrolled. Runs whenever the
+// note's project becomes the active card, so it replays on each visit.
+@keyframes note-unfurl {
+  0% {
+    opacity: 0;
+    transform: rotate(var(--note-rotate)) rotateX(-88deg) translateY(-10px);
+  }
+
+  60% {
+    opacity: 1;
+    transform: rotate(var(--note-rotate)) rotateX(7deg) translateY(0);
+  }
+
+  100% {
+    opacity: 1;
+    transform: rotate(var(--note-rotate)) rotateX(0deg) translateY(0);
+  }
+}
+
 .project-story-note {
-  background: #fdf3c7;
+  // Set per note from the project's index (see NOTE_COLORS in ProjectList),
+  // with the original yellow as the fallback.
+  --note-rotate: -3deg;
+  background: var(--note-bg, #fdf3c7);
   color: #4a3f1f;
   font-family: var(--font-serif, Georgia, serif);
   font-style: italic;
@@ -143,9 +169,32 @@
   padding: 0.9em 1em;
   border-radius: 0.2em;
   box-shadow: 0 10px 24px rgba(0, 0, 0, 0.28);
-  transform: rotate(-3deg);
+  // Hinged at the top edge so the unfurl tips down from there. The tilt
+  // itself stays in a variable so the keyframes can preserve it.
+  transform-origin: top center;
+  transform: rotate(var(--note-rotate));
 
   .project-story-note-wrap.is-left & {
-    transform: rotate(3deg);
+    --note-rotate: 3deg;
+  }
+
+  .project-story-note-wrap.is-active & {
+    animation-name: note-unfurl;
+    animation-duration: 0.7s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    // Held until the card has finished sliding into place (the delay is set
+    // inline to the card's push duration). Without it the unfurl runs while
+    // the card is still travelling up from off-screen, so it's over before
+    // the note is ever visible — only the very first note, whose card is
+    // already in place, appeared to animate. `both` keeps the note in its
+    // rolled-up first frame during the wait.
+    animation-delay: var(--note-unfurl-delay, 0s);
+    animation-fill-mode: both;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .project-story-note-wrap.is-active & {
+      animation-name: none;
+    }
   }
 }

@@ -1,6 +1,6 @@
 import React, { FC, useEffect, useRef, useState } from 'react';
 import '../styles/ProjectList.scss';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { ProjectCardData } from '../utils/interfaces';
 import ProjectScrollIndicator from '../components/ProjectScrollIndicator';
 import { getDominantPastelColor } from '../utils/dominantColor';
@@ -50,15 +50,22 @@ const PUSH_SECONDS_PER_STEP = 0.75;
 
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 
+// Paper colours for the handwritten story notes, cycled by project order so
+// no two adjacent notes share one.
+const NOTE_COLORS = ["#FDF3C7", "#fff7a2ff", "#fffdcdff", "#D9E8FB", "#E8DEFB", "#FDE2CF"];
+
 type Rgb = [number, number, number];
 
 const parseColor = (input: string): Rgb | null => {
   const value = input.trim();
   const hex = value.replace(/^#/, "");
-  if (/^[0-9a-f]{3}$/i.test(hex)) {
+  // 3- or 4-digit shorthand; a 4th digit is alpha, which the page background
+  // has no use for, so it's ignored.
+  if (/^[0-9a-f]{3,4}$/i.test(hex)) {
     return [0, 1, 2].map((i) => parseInt(hex[i] + hex[i], 16)) as Rgb;
   }
-  if (/^[0-9a-f]{6}$/i.test(hex)) {
+  // 6- or 8-digit; trailing pair is alpha and is likewise ignored.
+  if (/^[0-9a-f]{6}(?:[0-9a-f]{2})?$/i.test(hex)) {
     return [0, 2, 4].map((i) => parseInt(hex.slice(i, i + 2), 16)) as Rgb;
   }
   const nums = value.match(/-?[\d.]+/g);
@@ -71,6 +78,7 @@ const mixRgb = (from: Rgb, to: Rgb, t: number): Rgb =>
 
 const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: ProjectCard }) => {
   const navigate = useNavigate();
+  const location = useLocation();
   const containerRef = useRef<HTMLDivElement>(null);
   const prevActiveIndexRef = useRef(0);
   const [activeIndex, setActiveIndex] = useState(0);
@@ -166,12 +174,6 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
     prevActiveIndexRef.current = activeIndex;
   }, [activeIndex]);
 
-  // A hand-picked `bgColor` on the project wins; otherwise fall back to the
-  // tone sampled from its thumbnail.
-  const activeProject = projectData[activeIndex];
-  const activeBg = activeProject?.bgColor || bgColors[activeProject?.id];
-  const hasBg = !!activeBg && activeBg !== "transparent";
-
   // THE page colour. themes.scss defines `--bg-color` in terms of
   // `--page-bg-active`, so every surface on the site that paints
   // `--bg-color` shifts together and the whole page is always exactly one
@@ -183,43 +185,47 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
   // added to every consuming section, and any section missing one (or with
   // different timing) would visibly lag behind the rest. Easing the single
   // variable means all consumers read the same value on the same frame.
-  const targetRgbRef = useRef<Rgb | null>(null);
-  const shownRgbRef = useRef<Rgb | null>(null);
-
-  useEffect(() => {
-    const baseRaw = getComputedStyle(document.documentElement).getPropertyValue("--bg-base");
-    const base = parseColor(baseRaw) || [255, 255, 255];
-    const project = hasBg ? parseColor(activeBg!) : null;
-    targetRgbRef.current = project ? mixRgb(base, project, colorRamp) : base;
-  }, [activeBg, hasBg, colorRamp]);
-
   useEffect(() => {
     const root = document.documentElement;
-    let frame = 0;
+    const base = parseColor(getComputedStyle(root).getPropertyValue("--bg-base")) || [255, 255, 255];
 
-    const tick = () => {
-      const target = targetRgbRef.current;
-      if (target) {
-        const shown = shownRgbRef.current ?? target;
-        const next = mixRgb(shown, target, 0.12);
-        // Snap once it's within a rounding error, so it settles exactly on
-        // the target instead of easing forever.
-        const settled = next.every((c, i) => Math.abs(c - target[i]) < 0.5);
-        shownRgbRef.current = settled ? target : next;
-        const [r, g, b] = shownRgbRef.current;
-        root.style.setProperty(
-          "--page-bg-active",
-          `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`
-        );
-      }
-      frame = requestAnimationFrame(tick);
+    const colorAt = (i: number): Rgb | null => {
+      const project = projectData[i];
+      if (!project) return null;
+      const raw = project.bgColor || bgColors[project.id];
+      return raw && raw !== "transparent" ? parseColor(raw) : null;
     };
 
-    frame = requestAnimationFrame(tick);
-    return () => {
-      cancelAnimationFrame(frame);
+    // This page stays mounted underneath an open case study (see AppShell),
+    // so pause the tint while that overlay is up — otherwise the project
+    // colour would bleed into the reader view via `--bg-color`.
+    const current = location.pathname.startsWith("/project/") ? null : colorAt(activeIndex);
+    if (!current) {
       root.style.removeProperty("--page-bg-active");
-    };
+      return;
+    }
+
+    // Blend into the next project's colour over the tail of this project's
+    // hold, so the colour eases across the handover instead of stepping the
+    // moment the active index changes.
+    const BLEND_FROM = 0.85;
+    const next = colorAt(activeIndex + 1);
+    const projectColor =
+      next && holdProgress > BLEND_FROM
+        ? mixRgb(current, next, (holdProgress - BLEND_FROM) / (1 - BLEND_FROM))
+        : current;
+
+    // Then the section ramp: base colour at the section's edges, full
+    // project colour once it owns the viewport.
+    const [r, g, b] = mixRgb(base, projectColor, colorRamp);
+    root.style.setProperty(
+      "--page-bg-active",
+      `rgb(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)})`
+    );
+  }, [activeIndex, holdProgress, colorRamp, bgColors, projectData, location.pathname]);
+
+  useEffect(() => () => {
+    document.documentElement.style.removeProperty("--page-bg-active");
   }, []);
 
   const stepsToCover = Math.max(1, Math.abs(activeIndex - prevActiveIndexRef.current));
@@ -242,7 +248,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
           const prevCompanyName =
             index > 0
               ? projectData[index - 1].company ||
-                (projectData[index - 1].year ? projectData[index - 1].year!.split('/')[0].trim() : 'Featured Projects')
+              (projectData[index - 1].year ? projectData[index - 1].year!.split('/')[0].trim() : 'Featured Projects')
               : null;
           const isFirstForCompany = companyName !== prevCompanyName;
           const offset = index - activeIndex;
@@ -285,7 +291,19 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                     showDivider={false}
                   />
                   {project.story && (
-                    <div className={`project-story-note-wrap${index % 2 === 0 ? " is-left" : " is-right"}`}>
+                    <div
+                      // `is-active` drives the unfurl. It requires the section
+                      // to actually be on screen, not just a matching index —
+                      // `activeIndex` is 0 from mount, so keying off it alone
+                      // played the first note's animation at page load, before
+                      // the project list had been scrolled to.
+                      className={`project-story-note-wrap${index % 2 === 0 ? " is-left" : " is-right"}${isSectionPinned && index === activeIndex ? " is-active" : ""}`}
+                      style={{
+                        ["--note-bg" as string]: NOTE_COLORS[index % NOTE_COLORS.length],
+                        // Hold the unfurl until this card has finished its push.
+                        ["--note-unfurl-delay" as string]: pushTransitionDuration,
+                      } as React.CSSProperties}
+                    >
                       <div className="project-story-note">{project.story}</div>
                     </div>
                   )}
