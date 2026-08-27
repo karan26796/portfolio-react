@@ -15,7 +15,7 @@ interface AISummarizerProps {
 
 const FALLBACK_PROMPTS: Record<'home' | 'project', string[]> = {
     home: [
-        "What roles are you looking for?",
+        "What roles am I looking for?",
         "How do you handle disagreements with PMs?",
         "How can I contact you?"
     ],

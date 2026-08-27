@@ -1,3 +1,6 @@
+// Uses only existing design tokens — no bespoke palette of its own. The
+// purple gradient this widget used to carry has been replaced by the site's
+// own button colour so the assistant reads as part of the page.
 // ─── FAB GROUP (pills + button wrapper) ──────────────────────────────────────
 .ai-fab-group {
     position: fixed;
@@ -54,7 +57,7 @@
 
     &:hover {
         background: var(--highlight-color);
-        color: #fff;
+        color: var(--grey-100);
         border-color: var(--highlight-color);
         transform: translateY(-2px);
         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.14);
@@ -85,8 +88,8 @@
         transform: scale(1.04) translateY(-2px);
 
         .ai-button-glow-ring {
-            box-shadow: 0 0 35px rgba(168, 85, 247, 0.6), 0 8px 32px rgba(126, 34, 206, 0.5);
-            border-color: rgba(216, 180, 254, 0.6);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.22);
+            border-color: var(--border-color);
         }
     }
 
@@ -97,9 +100,9 @@
     .ai-button-glow-ring {
         padding: 2px;
         border-radius: 5em;
-        background: rgba(139, 92, 246, 0.25);
-        border: 1.5px solid rgba(192, 132, 252, 0.4);
-        box-shadow: 0 8px 32px rgba(126, 34, 206, 0.4), 0 0 20px rgba(168, 85, 247, 0.3);
+        background: transparent;
+        border: 1.5px solid var(--border-color);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.18);
         backdrop-filter: blur(12px);
         transition: border-color 0.3s ease, box-shadow 0.3s ease;
     }
@@ -111,14 +114,14 @@
         gap: 0.65em;
         padding: 0.75em 1.6em;
         border-radius: 5em;
-        background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
-        color: #ffffff;
+        background: var(--button-color);
+        color: var(--grey-100);
         font-size: 1.1em;
         font-weight: 600;
         letter-spacing: -0.01em;
         white-space: nowrap;
         border-top: 1px solid rgba(255, 255, 255, 0.35);
-        border-bottom: 2.5px solid #752eb9;
+        border-bottom: 2.5px solid var(--highlight-color-hover);
         box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3);
 
         .sparkle-group {
@@ -128,13 +131,13 @@
             justify-content: center;
 
             .main-sparkle {
-                color: #ffffff;
+                color: var(--grey-100);
                 filter: drop-shadow(0 0 6px rgba(255, 255, 255, 0.8));
             }
         }
 
         span {
-            color: #ffffff;
+            color: var(--grey-100);
             font-weight: 600;
             text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
         }
@@ -151,9 +154,9 @@
     /* fixed — prevents var(--text-size) 1.4em cascade */
     max-height: 600px;
     background: var(--bg-color);
-    border-radius: 20px;
+    border-radius: var(--radius-card);
     border: 1px solid var(--border-color);
-    box-shadow: 0 28px 72px rgba(0, 0, 0, 0.25), 0 0 30px rgba(168, 85, 247, 0.18);
+    box-shadow: 0 28px 72px rgba(0, 0, 0, 0.25);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
     z-index: 1000;
@@ -194,14 +197,14 @@
     .ai-topbar-avatar {
         width: 36px;
         height: 36px;
-        border-radius: 10px;
-        background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
+        border-radius: var(--radius-sm);
+        background: var(--button-color);
         border-top: 1px solid rgba(255, 255, 255, 0.35);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 2px 8px rgba(147, 51, 234, 0.35);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 2px 8px rgba(0, 0, 0, 0.18);
         display: flex;
         align-items: center;
         justify-content: center;
-        color: #fff;
+        color: var(--grey-100);
         flex-shrink: 0;
 
         svg {
@@ -327,12 +330,12 @@
 .ai-avatar {
     width: 22px;
     height: 22px;
-    border-radius: 6px;
-    background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
+    border-radius: var(--radius-sm);
+    background: var(--button-color);
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #fff;
+    color: var(--grey-100);
     flex-shrink: 0;
 
     svg {
@@ -416,10 +419,10 @@
 
     // User bubble — colored pill
     &.user {
-        background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
-        color: #fff;
+        background: var(--button-color);
+        color: var(--grey-100);
         border-top: 1px solid rgba(255, 255, 255, 0.35);
-        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 14px rgba(147, 51, 234, 0.25);
+        box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.3), 0 4px 14px rgba(0, 0, 0, 0.18);
         border-top-right-radius: 4px;
 
         p {
@@ -428,7 +431,7 @@
             font-weight: 500;
             line-height: 1.55;
             letter-spacing: normal;
-            color: #fff;
+            color: var(--grey-100);
         }
     }
 }
@@ -517,11 +520,11 @@
         line-height: 1.4;
 
         &:hover {
-            background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
-            color: #fff;
-            border-color: rgba(192, 132, 252, 0.5);
+            background: var(--button-color);
+            color: var(--grey-100);
+            border-color: var(--highlight-color);
             transform: translateY(-1px);
-            box-shadow: 0 4px 12px rgba(147, 51, 234, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.18);
         }
     }
 }
@@ -550,7 +553,7 @@
         transition: border-color 0.2s ease;
 
         &:focus {
-            border-color: #a855f7;
+            border-color: var(--highlight-color);
         }
 
         &::placeholder {
@@ -568,10 +571,10 @@
         width: 38px;
         height: 38px;
         border-radius: 50%;
-        background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
+        background: var(--button-color);
         border: 1px solid rgba(255, 255, 255, 0.3);
-        box-shadow: 0 4px 12px rgba(147, 51, 234, 0.35);
-        color: #fff;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        color: var(--grey-100);
         display: flex;
         align-items: center;
         justify-content: center;

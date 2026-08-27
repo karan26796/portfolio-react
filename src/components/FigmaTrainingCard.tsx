@@ -6,14 +6,14 @@ import Button from './Buttons';
 
 const FigmaTrainingCard: React.FC = () => {
   return (
-    <Link to="/figma-training" className="figma-training-card" style={{ textDecoration: 'none', color: 'inherit' }}>
+    <Link to="/figma-training" className="figma-training-card">
       <div className="figma-training-content">
         <div className="figma-training-text">
           <h3>
             Figma training for designers, students, and PMs
           </h3>
           <p>I've conducted more than 100+ Figma training at IIMs, IITs, Indiana University, Shaadi.com and more.</p>
-          <div style={{marginTop:'1em'}}>
+          <div className="figma-training-cta">
           <Button
             text="Set up a session"
             iconName="ArrowRight"

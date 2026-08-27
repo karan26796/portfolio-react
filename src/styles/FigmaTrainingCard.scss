@@ -1,4 +1,8 @@
 .figma-training-card {
+  // Was inline on the <Link> in FigmaTrainingCard.tsx.
+  text-decoration: none;
+  color: inherit;
+
   position: relative;
   z-index: 1;
   display: flex;
@@ -8,7 +12,7 @@
   padding: 1.5em;
   border-radius: var(--radius-card, 16px);
   background: var(--card-bg, var(--bg-color));
-  box-shadow: inset 0 0 0 1px #ffffff12, inset 0 1px #5050504d, inset 0 -1px #0000004d, 0 4px 20px rgba(0, 0, 0, 0.06);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.07), inset 0 1px rgba(80, 80, 80, 0.3), inset 0 -1px rgba(0, 0, 0, 0.3), 0 4px 20px rgba(0, 0, 0, 0.06);
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 
   &::before {
@@ -18,13 +22,15 @@
     inset: 0;
     padding: 2px;
     border-radius: var(--radius-card, 16px);
-    background: linear-gradient(120deg, #3b82f6, #ef4444 40%, #ec4899 100%);
+    background: linear-gradient(120deg, var(--frame-stroke), var(--accent-red) 40%, var(--accent-purple) 100%);
     -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
+      // Mask stops, not palette colours: these must be fully opaque.
+      linear-gradient(rgb(255 255 255) 0 0) content-box,
+      linear-gradient(rgb(255 255 255) 0 0);
     mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
+      // Mask stops, not palette colours: these must be fully opaque.
+      linear-gradient(rgb(255 255 255) 0 0) content-box,
+      linear-gradient(rgb(255 255 255) 0 0);
     -webkit-mask-composite: xor;
     mask-composite: exclude;
     pointer-events: none;
@@ -185,4 +191,8 @@
       display: none;
     }
   }
+}
+// Was an inline margin on the button's wrapper in FigmaTrainingCard.tsx.
+.figma-training-cta {
+  margin-top: 1em;
 }
