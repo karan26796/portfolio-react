@@ -13,17 +13,64 @@ interface AISummarizerProps {
     pageType?: 'home' | 'project';
 }
 
-const FALLBACK_PROMPTS: Record<'home' | 'project', string[]> = {
+/**
+ * The pool follow-up questions are drawn from, rather than a fixed trio.
+ *
+ * Three fixed prompts meant the same three came back after every single
+ * reply, which reads as the assistant having nothing else to offer. Wider
+ * pools plus a random draw keep the suggestions moving.
+ */
+const PROMPT_POOL: Record<'home' | 'project', string[]> = {
     home: [
         "What roles am I looking for?",
         "How do you handle disagreements with PMs?",
-        "How can I contact you?"
+        "How can I contact you?",
+        "What does your design process look like?",
+        "Which tools do you use day to day?",
+        "Tell me about your Figma training work",
+        "What's your experience with design systems?",
+        "Where have you worked before?",
+        "What kind of team do you work best in?",
+        "What are you strongest at?"
     ],
     project: [
         "Can you summarize this project?",
         "What was my role here?",
-        "What was the biggest challenge?"
+        "What was the biggest challenge?",
+        "What was the outcome?",
+        "How long did this take?",
+        "Who did you work with on this?",
+        "What would you do differently?",
+        "How did you validate the design?",
+        "What did you learn from it?"
     ]
+};
+
+const PROMPT_COUNT = 3;
+
+/**
+ * Draws prompts at random, skipping anything already asked so the same
+ * question isn't offered back to someone who has just had it answered. Falls
+ * back to the full pool if avoiding repeats would leave too few.
+ */
+const pickPrompts = (
+    pageType: 'home' | 'project',
+    alreadyAsked: Set<string>,
+    count = PROMPT_COUNT
+): string[] => {
+    const pool = PROMPT_POOL[pageType];
+    const unasked = pool.filter((p) => !alreadyAsked.has(p.trim().toLowerCase()));
+    const source = unasked.length >= count ? unasked : pool;
+
+    // Fisher-Yates on a copy — a sort() with a random comparator is biased
+    // and, worse, not a valid comparator.
+    const shuffled = [...source];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+
+    return shuffled.slice(0, count);
 };
 
 interface ChatMessage {
@@ -49,6 +96,23 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
     // Anything beyond the opening greeting means the reader has already asked
     // something.
     const hasConversationStarted = messages.length > 1;
+
+    // Read off the transcript rather than tracked separately, so it stays
+    // correct however a question was sent (pill, chip, or typed).
+    //
+    // Via a ref, not the state variable: this is called from the async
+    // continuation after a reply arrives, which closes over the `messages`
+    // from the render that created the handler. Reading that directly missed
+    // the question just asked, and so kept re-offering it.
+    const messagesRef = useRef(messages);
+    messagesRef.current = messages;
+
+    const askedQuestions = () =>
+        new Set(
+            messagesRef.current
+                .filter((m) => m.role === 'user')
+                .map((m) => m.content.trim().toLowerCase())
+        );
 
     // Sync prompts when props change (first message only)
     useEffect(() => {
@@ -141,6 +205,12 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                 return newMessages;
             });
 
+            // A reply that carried no follow-ups of its own still gets a
+            // fresh draw, so the chip row is never simply empty.
+            setSuggestedPrompts((current) =>
+                current.length > 0 ? current : pickPrompts(pageType, askedQuestions())
+            );
+
             setIsGenerating(false);
 
         } catch (error) {
@@ -155,7 +225,7 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                 return newMessages;
             });
             setIsGenerating(false);
-            setSuggestedPrompts(FALLBACK_PROMPTS[pageType]);
+            setSuggestedPrompts(pickPrompts(pageType, askedQuestions()));
         }
     };
 
