@@ -1,0 +1,157 @@
+/* ============================================================================
+   GALLERY CANVAS — photos spread across a pannable 2D canvas.
+   Companion to the justified /gallery page, not a replacement (yet).
+   ========================================================================== */
+
+.gallery-canvas-page {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: var(--bg-base);
+  overflow: hidden;
+
+  &__viewport {
+    position: absolute;
+    inset: 0;
+    // The canvas owns every gesture: otherwise the browser claims pinch-zoom
+    // and horizontal swipe (back-navigation) before the handlers see them.
+    touch-action: none;
+    cursor: grab;
+
+    &.is-panning {
+      cursor: grabbing;
+    }
+  }
+
+  // Zero-size origin box: photos position themselves in canvas coordinates and
+  // the camera transform moves this one element.
+  &__stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+  }
+}
+
+.gallery-canvas-photo {
+  position: absolute;
+  overflow: hidden;
+  background: var(--bg-color-high);
+  // Squared off, in keeping with the frame treatment elsewhere on the site.
+  border-radius: 0;
+  transition: box-shadow 0.25s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    // The box is already the photo's native aspect ratio, so `cover` only ever
+    // guards against a rounding difference — it never actually crops.
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  &.is-active {
+    box-shadow: 0 0 0 2px var(--accent-purple);
+  }
+
+  &__caption {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.4em 0.7em;
+    // Counter-scaled inline against the camera, so it holds one size on screen.
+    transform-origin: 0 100%;
+    font-size: 13px;
+    font-weight: 550;
+    white-space: nowrap;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.62);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+}
+
+.gallery-canvas-hud {
+  position: absolute;
+  bottom: 1.5em;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.7em;
+  padding: 1em 1.25em;
+  max-width: calc(100vw - 2em);
+  box-sizing: border-box;
+  border: 1px solid var(--border-color);
+  background: color-mix(in srgb, var(--bg-base) 88%, transparent);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.14);
+
+  &__title {
+    display: flex;
+    align-items: baseline;
+    gap: 0.75em;
+    margin: 0;
+    font-size: 0.95em;
+    font-weight: 650;
+    color: var(--primary-text);
+
+    span {
+      font-family: 'Google Sans Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+      font-size: 0.78em;
+      font-weight: 400;
+      color: var(--tertiary-text);
+    }
+  }
+
+  &__regions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4em;
+
+    button {
+      padding: 0.35em 0.75em;
+      font-family: inherit;
+      font-size: 0.82em;
+      font-weight: 550;
+      color: var(--secondary-text);
+      background: var(--bg-color-high);
+      border: 1px solid var(--border-color);
+      cursor: pointer;
+      transition: color 0.15s ease, border-color 0.15s ease;
+
+      &:hover {
+        color: var(--primary-text);
+        border-color: var(--tertiary-text);
+      }
+    }
+  }
+
+  &__hint {
+    margin: 0;
+    font-size: 0.74em;
+    color: var(--tertiary-text);
+    text-align: center;
+  }
+
+  @media (max-width: 768px) {
+    bottom: 0.75em;
+    padding: 0.85em 1em;
+
+    &__hint {
+      display: none;
+    }
+  }
+}

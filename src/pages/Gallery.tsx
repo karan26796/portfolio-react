@@ -3,7 +3,7 @@ import "../styles/Gallery.scss";
 import { MapPin } from "@phosphor-icons/react";
 import ScrollReveal from "../components/ScrollReveal";
 
-interface Region {
+export interface Region {
   id: string;
   name: string;
   images: number[];
@@ -14,7 +14,7 @@ interface JustifiedRow {
   items: { num: number; width: number }[];
 }
 
-const LOCATIONS: Record<number, string> = {
+export const LOCATIONS: Record<number, string> = {
   1: "Tabo, Himachal",
   2: "Chandratal lake, Himachal",
   3: "Langza, Spiti Valley",
@@ -59,7 +59,7 @@ const LOCATIONS: Record<number, string> = {
 
 // Real pixel dimensions of each /gallery/{n}.webp file, used to lay out rows
 // without ever cropping or stretching a photo off its native aspect ratio.
-const ASPECT_RATIOS: Record<number, number> = {
+export const ASPECT_RATIOS: Record<number, number> = {
   1: 1920 / 1280,
   2: 1280 / 1930,
   3: 1280 / 1920,
@@ -106,7 +106,7 @@ const ASPECT_RATIOS: Record<number, number> = {
 // from the location strings, since a few spots (e.g. "Shanti stupa, Leh")
 // don't literally contain their region's name. Note: image 11 doesn't exist
 // on disk, so it's excluded rather than 404ing.
-const REGIONS: Region[] = [
+export const REGIONS: Region[] = [
   { id: "himachal", name: "Himachal & Spiti", images: [1, 2, 3, 4, 6, 9, 12, 16, 14, 19, 20, 25] },
   { id: "kashmir", name: "Kashmir", images: [13, 15, 21, 26, 27, 31, 32] },
   { id: "ladakh", name: "Ladakh", images: [17, 18, 22, 23, 24, 28, 29, 30] },

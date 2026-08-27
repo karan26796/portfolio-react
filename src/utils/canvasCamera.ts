@@ -43,8 +43,11 @@ export interface Point {
 export const MIN_ZOOM = 0.08;
 export const MAX_ZOOM = 2.5;
 
-export const clampZoom = (zoom: number): number =>
-  Math.min(MAX_ZOOM, Math.max(MIN_ZOOM, zoom));
+export const clampZoom = (
+  zoom: number,
+  min: number = MIN_ZOOM,
+  max: number = MAX_ZOOM
+): number => Math.min(max, Math.max(min, zoom));
 
 /** Where a canvas point currently sits on screen. */
 export const toScreen = (p: Point, c: Camera): Point => ({
@@ -73,8 +76,14 @@ export const panBy = (c: Camera, dx: number, dy: number): Camera => ({
  * (a screen position, usually the cursor) pinned in place — the thing that
  * makes wheel-zoom feel attached to the pointer rather than to the corner.
  */
-export const zoomAt = (c: Camera, factor: number, anchor: Point): Camera => {
-  const zoom = clampZoom(c.zoom * factor);
+export const zoomAt = (
+  c: Camera,
+  factor: number,
+  anchor: Point,
+  min: number = MIN_ZOOM,
+  max: number = MAX_ZOOM
+): Camera => {
+  const zoom = clampZoom(c.zoom * factor, min, max);
   // Nothing to re-anchor once a limit is reached.
   if (zoom === c.zoom) return c;
 
@@ -107,13 +116,19 @@ export const cameraFromCenter = (
 export const fitTo = (
   rect: Rect,
   viewport: Viewport,
-  padding = 64
+  padding = 64,
+  minZoom: number = MIN_ZOOM,
+  maxZoom: number = MAX_ZOOM
 ): Camera => {
   // Guard against a padding larger than the viewport itself, which would
   // otherwise ask for a negative scale.
   const availableW = Math.max(1, viewport.w - padding * 2);
   const availableH = Math.max(1, viewport.h - padding * 2);
-  const zoom = clampZoom(Math.min(availableW / rect.w, availableH / rect.h));
+  const zoom = clampZoom(
+    Math.min(availableW / rect.w, availableH / rect.h),
+    minZoom,
+    maxZoom
+  );
 
   return cameraFromCenter(
     { x: rect.x + rect.w / 2, y: rect.y + rect.h / 2 },
@@ -154,6 +169,42 @@ export const isVisible = (
     rect.y < view.y + view.h &&
     rect.y + rect.h > view.y
   );
+};
+
+/**
+ * Keep the camera near the content.
+ *
+ * Without this the camera can be zoomed or flown into empty space with no
+ * content on screen and no visible way back — which the spike reached in about
+ * fifteen wheel notches.
+ *
+ * `overlap` is the fraction of the smaller of (viewport, content) that must
+ * stay intersected on each axis, so some content is always genuinely on
+ * screen. Clamping the viewport's own rect rather than its centre point is
+ * what makes that guarantee hold: clamping the centre to the content's edge
+ * plus half a viewport leaves the viewport exactly flush with the content and
+ * nothing actually visible.
+ */
+export const clampCamera = (
+  c: Camera,
+  content: Rect,
+  viewport: Viewport,
+  overlap = 0.25
+): Camera => {
+  // The viewport's size in canvas units at this zoom.
+  const vw = viewport.w / c.zoom;
+  const vh = viewport.h / c.zoom;
+
+  // Taking the smaller of the two keeps this sane when the content is smaller
+  // than the screen (zoomed out) as well as larger (zoomed in).
+  const keepX = Math.min(vw, content.w) * overlap;
+  const keepY = Math.min(vh, content.h) * overlap;
+
+  return {
+    zoom: c.zoom,
+    x: Math.min(Math.max(c.x, content.x + keepX - vw), content.x + content.w - keepX),
+    y: Math.min(Math.max(c.y, content.y + keepY - vh), content.y + content.h - keepY),
+  };
 };
 
 const lerp = (a: number, b: number, t: number): number => a + (b - a) * t;

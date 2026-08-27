@@ -42,6 +42,8 @@ const ResumeStandalone = React.lazy(() => import("./pages/ResumeStandalone"));
 const Overview = React.lazy(() => import("./pages/Overview"));
 // Throwaway canvas spike — see src/pages/CanvasSpike.tsx.
 const CanvasSpike = React.lazy(() => import("./pages/CanvasSpike"));
+// Canvas treatment of the photo gallery, alongside the existing /gallery.
+const GalleryCanvas = React.lazy(() => import("./pages/GalleryCanvas"));
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -102,6 +104,7 @@ const AppShell: React.FC = () => {
             <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
             <Route path="/overview" element={<Overview />} />
             <Route path="/canvas-spike" element={<CanvasSpike />} />
+            <Route path="/gallery-canvas" element={<GalleryCanvas />} />
           </Routes>
         </React.Suspense>
         <Footer />
