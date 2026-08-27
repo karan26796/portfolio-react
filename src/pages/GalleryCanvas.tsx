@@ -86,11 +86,16 @@ const MOBILE_BREAKPOINT = 750;
 // zero overlaps, where 6000 reaches 60% but starts overlapping and 9000 drops
 // to 38% and reads as empty.
 const MOBILE_SCATTER = {
-  areaWidth: 4400,
-  areaHeight: 7500,
+  areaWidth: 3900,
+  areaHeight: 7600,
   minHeight: 380,
   maxHeight: 620,
-  spacing: 60,
+  // Tighter than the previous 60/4400x7500, which sat at 44% coverage and read
+  // as a lot of empty space while panning. This is 50% — a shade fuller than
+  // the desktop field — while still leaving 1.18 x 1.03 screens of travel, so
+  // the opening view can pan in both directions. Going denser still (52% at
+  // 4000x7000) cost the vertical travel entirely.
+  spacing: 34,
 };
 
 // How many photos should span the screen at the opening zoom. The zoom is
@@ -295,6 +300,85 @@ const GalleryCanvas: React.FC = () => {
     return () => el.removeEventListener("wheel", onWheel);
   }, [stopMotion, applyCamera]);
 
+  /**
+   * Every pointer currently down, so a second finger can be detected.
+   *
+   * Touchscreens have no wheel events, so the ctrl+wheel path that a trackpad
+   * pinch arrives on never fires there — and `touch-action: none` stops the
+   * browser zooming too. Without this, pinch did nothing at all on a phone.
+   */
+  const pointersRef = useRef<Map<number, { x: number; y: number }>>(new Map());
+  const pinchRef = useRef<{ dist: number; mid: { x: number; y: number } } | null>(null);
+
+  /** Pointer position relative to the canvas, which is what zoomAt expects. */
+  const toLocal = useCallback((clientX: number, clientY: number) => {
+    const rect = containerRef.current?.getBoundingClientRect();
+    return { x: clientX - (rect?.left ?? 0), y: clientY - (rect?.top ?? 0) };
+  }, []);
+
+  /** Distance and midpoint of the two active pointers, in canvas-local px. */
+  const pinchGeometry = useCallback(() => {
+    const two = [...pointersRef.current.values()].slice(0, 2);
+    if (two.length < 2) return null;
+    const mid = toLocal((two[0].x + two[1].x) / 2, (two[0].y + two[1].y) / 2);
+    return { dist: Math.hypot(two[0].x - two[1].x, two[0].y - two[1].y), mid };
+  }, [toLocal]);
+
+  /**
+   * iOS Safari pinch.
+   *
+   * Safari does not deliver usable multi-touch pointer events for a pinch: it
+   * fires its own non-standard gesture events instead, and because the page's
+   * viewport meta permits user scaling it would zoom the whole page rather than
+   * the canvas. Handling them here keeps the pinch local, without setting
+   * `user-scalable=no` globally — which would stop people zooming text
+   * anywhere on the site.
+   *
+   * `scale` is cumulative from the gesture's start, so it is applied against
+   * the zoom recorded at gesturestart rather than compounded per event.
+   */
+  useEffect(() => {
+    const el = containerRef.current;
+    if (!el) return;
+
+    let startZoom = cameraRef.current.zoom;
+    let anchorPoint = { x: 0, y: 0 };
+
+    const onGestureStart = (e: Event) => {
+      e.preventDefault();
+      stopMotion();
+      const g = e as Event & { clientX?: number; clientY?: number };
+      startZoom = cameraRef.current.zoom;
+      anchorPoint = toLocal(g.clientX ?? 0, g.clientY ?? 0);
+    };
+
+    const onGestureChange = (e: Event) => {
+      e.preventDefault();
+      const scale = (e as Event & { scale?: number }).scale ?? 1;
+      applyCamera((c) =>
+        zoomAt(
+          c,
+          (startZoom * scale) / c.zoom,
+          anchorPoint,
+          minZoomRef.current,
+          GALLERY_MAX_ZOOM
+        )
+      );
+    };
+
+    const onGestureEnd = (e: Event) => e.preventDefault();
+
+    el.addEventListener("gesturestart", onGestureStart, { passive: false });
+    el.addEventListener("gesturechange", onGestureChange, { passive: false });
+    el.addEventListener("gestureend", onGestureEnd, { passive: false });
+
+    return () => {
+      el.removeEventListener("gesturestart", onGestureStart);
+      el.removeEventListener("gesturechange", onGestureChange);
+      el.removeEventListener("gestureend", onGestureEnd);
+    };
+  }, [stopMotion, applyCamera, toLocal]);
+
   const dragRef = useRef<{
     id: number;
     startX: number;
@@ -340,6 +424,17 @@ const GalleryCanvas: React.FC = () => {
   const handlePointerDown = (e: React.PointerEvent) => {
     if (e.button !== 0) return;
     stopMotion();
+
+    pointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+
+    // A second finger turns the gesture into a pinch: abandon the pan so the
+    // two don't fight, and take no click from it.
+    if (pointersRef.current.size >= 2) {
+      dragRef.current = null;
+      setIsPanning(false);
+      pinchRef.current = pinchGeometry();
+      return;
+    }
     // Resolved here, while `e.target` is still the element actually under the
     // pointer — pointer capture is claimed just below and rewrites the target
     // of everything that follows.
@@ -365,6 +460,36 @@ const GalleryCanvas: React.FC = () => {
   };
 
   const handlePointerMove = (e: React.PointerEvent) => {
+    if (pointersRef.current.has(e.pointerId)) {
+      pointersRef.current.set(e.pointerId, { x: e.clientX, y: e.clientY });
+    }
+
+    // Pinch: scale by how much the fingers' separation changed, anchored on
+    // their midpoint, then follow the midpoint itself so the gesture can pan
+    // and zoom at once the way a map does.
+    if (pointersRef.current.size >= 2) {
+      const now = pinchGeometry();
+      const previous = pinchRef.current;
+      if (!now || now.dist <= 0) return;
+
+      if (previous && previous.dist > 0) {
+        const factor = now.dist / previous.dist;
+        const dx = now.mid.x - previous.mid.x;
+        const dy = now.mid.y - previous.mid.y;
+
+        applyCamera((c) =>
+          panBy(
+            zoomAt(c, factor, now.mid, minZoomRef.current, GALLERY_MAX_ZOOM),
+            dx,
+            dy
+          )
+        );
+      }
+
+      pinchRef.current = now;
+      return;
+    }
+
     const drag = dragRef.current;
     if (!drag || drag.id !== e.pointerId) return;
 
@@ -382,6 +507,33 @@ const GalleryCanvas: React.FC = () => {
   };
 
   const handlePointerUp = (e: React.PointerEvent) => {
+    const wasPinching = pointersRef.current.size >= 2;
+    pointersRef.current.delete(e.pointerId);
+
+    if (wasPinching) {
+      // Lifting one finger of a pinch: reseed from whichever remains so the
+      // gesture continues smoothly instead of jumping, and never treat the
+      // release as a click.
+      pinchRef.current = pointersRef.current.size >= 2 ? pinchGeometry() : null;
+
+      const [remaining] = [...pointersRef.current.entries()];
+      dragRef.current = remaining
+        ? {
+            id: remaining[0],
+            startX: remaining[1].x,
+            startY: remaining[1].y,
+            lastX: remaining[1].x,
+            lastY: remaining[1].y,
+            vx: 0,
+            vy: 0,
+            photoNum: null,
+          }
+        : null;
+
+      setIsPanning(false);
+      return;
+    }
+
     const drag = dragRef.current;
     dragRef.current = null;
     setIsPanning(false);
