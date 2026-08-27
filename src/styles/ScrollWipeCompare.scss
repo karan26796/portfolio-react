@@ -8,7 +8,7 @@
         margin-top: 0;
         margin-bottom: 0;
         padding: 0.85em 1.1em;
-        border-radius: var(--radius-sm);
+        // border-radius: var(--radius-sm);
         border: 1px solid;
         width: fit-content;
         max-width: 30ch;
@@ -18,8 +18,9 @@
         // declaration can be shadowed by the other via shorthand overlap.
         &--before {
             // Reads as red against the light page — #ff5555 was washing out.
-            color: #e5484d;
-            background: color-mix(in srgb, #ff7e7e 4%, transparent);
+            border: solid #e5484d;
+            border-width: 0 0 0 4px;
+            background: color-mix(in srgb, #ff7e7e 10%, transparent);
             margin-bottom: 0.75em;
             margin-left: 0;
             margin-right: auto;
@@ -28,8 +29,9 @@
         &--after {
             // Reads as green against the light page — #00ff99 was near
             // invisible on white.
-            color: #30a46c;
-            background: color-mix(in srgb, #00ffbf 3%, transparent);
+            border: solid #30a46c;
+            border-width: 0 0 0 4px;
+            background: color-mix(in srgb, #00ffbf 10%, transparent);
             margin-top: 0.75em;
             margin-left: auto;
             margin-right: 0;

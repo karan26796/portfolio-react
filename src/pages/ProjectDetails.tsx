@@ -5,7 +5,6 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../styles/ProjectDetails.scss";
 import { useProjects } from "../utils/useProjects";
 import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
-import ProjectNextProjects from "../components/ProjectNextProjects";
 import CustomVideo from "../components/CustomVideo";
 import ScrollyBeforeAfter, { ScrollyBeforeSlot, ScrollyAfterSlot } from "../components/ScrollyBeforeAfter";
 import ScrollWipeCompare from "../components/ScrollWipeCompare";
@@ -15,7 +14,6 @@ import NomineeRow from "../components/skeletons/NomineeRow";
 import ScrollReveal from "../components/ScrollReveal";
 import AISummarizer from "../components/AISummarizer";
 import FAQ from "../components/FAQ";
-import WorkTogether from "../components/WorkTogether";
 import ReaderModeHeader from "../components/ReaderModeHeader";
 import { formatSectionTitle } from "../utils/formatSectionTitle";
 // Projects that render as bespoke React pages instead of markdown.
@@ -157,10 +155,6 @@ const ProjectDetails: React.FC = () => {
   // Bespoke React case-study pages bypass markdown pipeline
   const CustomPage = projectId ? CUSTOM_PROJECTS[projectId] : undefined;
 
-  const nextProject =
-    validProjectList.length > 1
-      ? validProjectList[(currentIndex + 1) % validProjectList.length]
-      : null;
 
   // The docs format accents the lead-in of the headline. Our titles read
   // "Name : descriptor", so the name before the colon takes the accent rule
@@ -332,11 +326,6 @@ const ProjectDetails: React.FC = () => {
 
                     <footer className="docs-footer">
                       <nav className="docs-footer__links">
-                        {nextProject && (
-                          <button type="button" onClick={handleNext}>
-                            {nextProject.title} <span aria-hidden="true">→</span>
-                          </button>
-                        )}
                         <button type="button" onClick={handleClose}>
                           Back to all work <span aria-hidden="true">→</span>
                         </button>
@@ -351,8 +340,6 @@ const ProjectDetails: React.FC = () => {
                   </div>
                 </div>
               </div>
-
-              <WorkTogether />
             </>
           )}
         </div>
