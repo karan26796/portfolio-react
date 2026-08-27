@@ -111,10 +111,6 @@ const GalleryCanvas: React.FC = () => {
   const [activePhoto, setActivePhoto] = useState<number | null>(null);
   const [hoveredPhoto, setHoveredPhoto] = useState<number | null>(null);
   const [isPanning, setIsPanning] = useState(false);
-  // The hint has done its job the moment a photo is opened, so it retires
-  // rather than sitting there for the rest of the visit.
-  const [hintUsed, setHintUsed] = useState(false);
-
   // "Click" reads wrong on a phone. Resolved once on mount rather than per
   // render — the pointer type doesn't change mid-visit.
   const [tapWord] = useState(() =>
@@ -574,7 +570,6 @@ const GalleryCanvas: React.FC = () => {
       fitAll();
     } else {
       setActivePhoto(photo.num);
-      setHintUsed(true);
       flyToRect(photo, PHOTO_FIT_PADDING);
     }
   };
@@ -640,11 +635,9 @@ const GalleryCanvas: React.FC = () => {
         </div>
       </div>
 
-      {!hintUsed && (
-        <p className="gallery-canvas-hint">
-          {tapWord} a photo to zoom in, {tapWord.toLowerCase()} again to zoom out
-        </p>
-      )}
+      <p className="gallery-canvas-hint">
+        {tapWord} a photo to zoom in, {tapWord.toLowerCase()} again to zoom out
+      </p>
     </div>
   );
 };

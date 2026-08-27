@@ -58,7 +58,7 @@
   }
 
   &.is-active {
-    box-shadow: 0 0 0 2px var(--accent-purple);
+    box-shadow: 0 0 0 2px var(--frame-color);
   }
 
   &__caption {
@@ -82,21 +82,27 @@
   }
 }
 
-/* One-line hint, bottom centre. Deliberately unadorned — no panel, no border —
-   so it reads as a caption on the canvas rather than the instruction bar this
-   page used to carry. It disappears for good once a photo has been opened. */
+/* One-line hint, bottom centre. Kept deliberately quiet — no border, no
+   instruction-bar framing — but it now stays for the whole visit, so it needs
+   to survive sitting over a photo. A zoomed-to-fit photo stops short of it,
+   but zooming in past that brings pixels underneath, which a plain text
+   colour cannot be relied on to read against. Hence the faint wash: enough to
+   hold the words at any zoom, light enough to disappear against the page. */
 .gallery-canvas-hint {
   position: absolute;
   left: 50%;
   bottom: calc(1.5em + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);
   margin: 0;
-  padding: 0 1em;
   max-width: calc(100vw - 2em);
   text-align: center;
   white-space: nowrap;
+  padding: 0.4em 0.95em;
   font-size: 0.78em;
   color: var(--tertiary-text);
+  background: color-mix(in srgb, var(--bg-color) 72%, transparent);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
   // Purely advisory: it must never intercept a drag or a click on a photo.
   pointer-events: none;
   // Held back a beat so it arrives after the photos, rather than competing
