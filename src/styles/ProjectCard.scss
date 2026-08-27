@@ -11,7 +11,7 @@
   .project-card-image-carousel {
     position: relative;
     width: 100%;
-    border-radius: 1.25em;
+    // border-radius: 1.25em;
     overflow: hidden;
 
     @media screen and (max-width: 767px) {
@@ -52,7 +52,7 @@
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       width: 100%;
-      border-radius: 1.25em;
+      // border-radius: 1.25em;
       -ms-overflow-style: none;
       scrollbar-width: none;
 
@@ -70,13 +70,13 @@
         width: 90%;
         scroll-snap-align: start;
         scroll-snap-stop: always;
-        border-radius: 1.25em;
+        // border-radius: 1.25em;
         border: 1px solid var(--border-color);
         box-sizing: border-box;
         overflow: hidden;
 
         @media screen and (max-width: 767px) {
-          border-radius: 1em;
+          // border-radius: 1em;
         }
 
         img.project-image,
@@ -85,10 +85,10 @@
           height: 100%;
           display: block;
           object-fit: cover;
-          border-radius: 1.25em;
+          // border-radius: 1.25em;
 
           @media screen and (max-width: 767px) {
-            border-radius: 1em;
+            // border-radius: 1em;
           }
         }
       }
@@ -181,6 +181,69 @@
       width: 100%;
     }
 
+    // Card body as two labelled columns — "00 Problem" beside "01 Solution".
+    // Spans the full width of `.project-card`'s own 2-column grid and sets up
+    // its own halves, so the two blocks always sit side by side.
+    .project-card-split {
+      grid-column: 1 / -1;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 3.5em;
+      row-gap: 2em;
+      width: 100%;
+
+      &__label {
+        display: flex;
+        align-items: baseline;
+        gap: 0.7em;
+        margin: 0 0 0.7em;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: var(--secondary-text);
+      }
+
+      &__num {
+        font-family: 'Google Sans Code', Courier, monospace;
+        font-weight: 500;
+        color: var(--secondary-text);
+        flex-shrink: 0;
+      }
+
+      &__problem {
+        margin: 0;
+        // font-size: 1.15em;
+        font-weight: 600;
+        line-height: 1.55;
+        color: var(--secondary-text);
+
+        strong,
+        b {
+          color: var(--primary-text);
+          font-weight: 600;
+        }
+      }
+
+      &__solution {
+        margin: 0;
+        font-size: 1.75em;
+        font-weight: 700;
+        line-height: 1.28;
+        letter-spacing: -0.01em;
+        color: var(--primary-text);
+      }
+
+      // Stacked on mobile, solution first.
+      @media screen and (max-width: 767px) {
+        grid-template-columns: 1fr;
+        column-gap: 0;
+        row-gap: 1.5em;
+
+        &__solution {
+          font-size: 1.5em;
+        }
+      }
+    }
+
     .desc-btn-group {
       display: flex;
       flex-direction: column;
@@ -195,7 +258,8 @@
         margin: 0;
         max-width: none;
 
-        strong, b {
+        strong,
+        b {
           color: var(--primary-text);
           font-weight: 600;
         }

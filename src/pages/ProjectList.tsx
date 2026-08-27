@@ -20,7 +20,7 @@ interface ProjectListProps {
 const COMPANY_TENURES: Record<string, string> = {
   "Keka HR": "Mar 2024 – Present",
   "Keka": "Mar 2024 – Present",
-  "Looppanel": "2022",
+  "Looppanel": "2022 - 2023",
   "Side Projects": "2025 - Present",
   "Nimbuzz": "2021",
   "NID": "2017 – 2019",

@@ -42,6 +42,7 @@
         opacity: 0;
         transform: translateY(6px);
     }
+
     100% {
         opacity: 1;
         transform: translateY(0);
@@ -51,6 +52,13 @@
 .testimonial-icon-wrap {
     position: relative;
     display: inline-flex;
+
+    // This slot now holds the person's photo, so it takes the large size the
+    // logo used to have here.
+    .testimonial-avatar {
+        width: 80px;
+        height: 80px;
+    }
 }
 
 .testimonial-icon {
@@ -88,8 +96,8 @@
 
 .testimonial-quote {
     margin: 0;
-    font-size: 1.15em;
-    font-weight: 450;
+    // font-size: 1.15em;
+    font-weight: 600;
     line-height: 1.6;
     letter-spacing: -0.01em;
     color: var(--secondary-text);
@@ -103,6 +111,15 @@
     display: flex;
     align-items: center;
     gap: 0.75em;
+
+    // This slot now holds the company logo, so it takes the small size the
+    // avatar used to have here (with padding scaled down to match).
+    .testimonial-icon {
+        width: 44px;
+        height: 44px;
+        padding: 0.5em;
+        flex-shrink: 0;
+    }
 }
 
 .testimonial-avatar {

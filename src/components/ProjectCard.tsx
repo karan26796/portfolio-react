@@ -7,30 +7,6 @@ import ImageWithSkeleton from "./ImageWithSkeleton";
 import Tag from "./Tag";
 import { TOOL_LOGOS } from "../utils/toolLogos";
 
-const TAG_COLORS = [
-  '#FF6B6B', // Coral Red
-  '#79b1ffff', // Sky Blue
-  '#6BCB77', // Mint Green
-  '#FFB830', // Amber Yellow
-  '#A855F7', // Vibrant Purple
-  '#FF76CE', // Neon Pink
-  '#00D7FF', // Bright Cyan
-  '#F97316', // Bright Orange
-  '#10B981', // Emerald
-  '#EC4899', // Hot Pink
-  '#65a0ffff', // Blue
-  '#F59E0B', // Amber
-];
-
-const getTagColor = (tag: string, index: number) => {
-  let hash = 0;
-  for (let i = 0; i < tag.length; i++) {
-    hash = tag.charCodeAt(i) + ((hash << 5) - hash);
-  }
-  const colorIndex = Math.abs(hash + index * 4) % TAG_COLORS.length;
-  return TAG_COLORS[colorIndex];
-};
-
 interface ProjectCardProps {
   data: {
     id: string;
@@ -252,11 +228,14 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           <div className="card-meta-row">
             {data.tags?.length > 0 && (
               <div className="tag-pills">
-                {data.tags.map((tag, idx) => (
+                {data.tags.map((tag) => (
                   <Tag
                     key={tag}
                     text={tag}
-                    color={{ text: getTagColor(tag, idx) }}
+                    // One neutral grey for every tag, rather than a colour
+                    // per tag. `Tag` applies this as an inline style, so it
+                    // has to be set here rather than overridden in CSS.
+                    color={{ text: "var(--secondary-text)" }}
                     rotation={0}
                     dot={false}
                   />
@@ -276,24 +255,54 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             )}
           </div>
         )}
-        <div className="title-details-group">
-          <h6>{data.year}</h6>
-          <h3>{data.details}</h3>
-        </div>
-
-        <div className="desc-btn-group">
-          {(data.newdesc || data.description) && (
-            <p
-              className="description"
-              dangerouslySetInnerHTML={{ __html: data.newdesc || data.description || "" }}
-            />
-          )}
-          {isClickable && (
-            <div className="button-container">
-              {renderButton()}
+        {variant === "large" ? (
+          // Two labelled columns: the headline reads as the solution, the
+          // description as the problem. The numbers are the two blocks
+          // (00/01) in reading order, not the card's position in the list.
+          <div className="project-card-split">
+            <div className="project-card-split__col">
+              <p className="project-card-split__label">
+                <span className="project-card-split__num">00</span>
+                Solution
+              </p>
+              <h3 className="project-card-split__solution">{data.details}</h3>
             </div>
-          )}
-        </div>
+
+            <div className="project-card-split__col">
+              <p className="project-card-split__label">
+                <span className="project-card-split__num">01</span>
+                Problem
+              </p>
+              {(data.newdesc || data.description) && (
+                <p
+                  className="project-card-split__problem"
+                  dangerouslySetInnerHTML={{ __html: data.newdesc || data.description || "" }}
+                />
+              )}
+            </div>
+          </div>
+        ) : (
+          <>
+            <div className="title-details-group">
+              <h6>{data.year}</h6>
+              <h3>{data.details}</h3>
+            </div>
+
+            <div className="desc-btn-group">
+              {(data.newdesc || data.description) && (
+                <p
+                  className="description"
+                  dangerouslySetInnerHTML={{ __html: data.newdesc || data.description || "" }}
+                />
+              )}
+              {isClickable && (
+                <div className="button-container">
+                  {renderButton()}
+                </div>
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );

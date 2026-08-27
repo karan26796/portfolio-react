@@ -79,12 +79,16 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
           }
         }}
       >
-        {active.companyLogoUrl && (
+        {/* The person's photo leads at the top; the company logo sits with
+            the attribution below. Each keeps its own class so it stays styled
+            for what it is (photo cropped to fill, logo contained on a
+            backdrop) — only their positions are swapped. */}
+        {active.avatarUrl && (
           <div className="testimonial-icon-wrap">
             <img
-              src={active.companyLogoUrl}
-              alt={active.company || active.name}
-              className="testimonial-icon"
+              src={active.avatarUrl}
+              alt={active.name}
+              className="testimonial-avatar"
             />
           </div>
         )}
@@ -95,10 +99,14 @@ const Testimonials: React.FC<TestimonialsProps> = ({ data }) => {
         </div>
 
         <div className="testimonial-attribution">
-          {active.avatarUrl ? (
-            <img src={active.avatarUrl} alt={active.name} className="testimonial-avatar" />
+          {active.companyLogoUrl ? (
+            <img
+              src={active.companyLogoUrl}
+              alt={active.company || active.name}
+              className="testimonial-icon"
+            />
           ) : (
-            <div className="testimonial-avatar placeholder" />
+            <div className="testimonial-icon placeholder" />
           )}
           <div className="testimonial-attribution-text">
             <span className="testimonial-name">{active.name}</span>
