@@ -190,109 +190,104 @@ body.nav-menu-open {
   }
 }
 
+/* ============================================================================
+   MOBILE MENU — a bottom sheet.
+   Three links need very little height, and the bottom of the screen is where
+   a thumb already is. The scrim sits under the nav bar's z-index so the
+   toggle stays visible and usable as the close control.
+   ============================================================================ */
+
 .nav-menu-overlay {
   position: fixed;
   inset: 0;
   z-index: 99;
+  display: flex;
+  // The sheet rises from the bottom edge.
+  align-items: flex-end;
+  background: rgba(0, 0, 0, 0.42);
+  backdrop-filter: blur(2px);
+  -webkit-backdrop-filter: blur(2px);
+  animation: nav-scrim-in 0.22s ease both;
 
   // The menu is a mobile affordance; on web the page names sit in the bar and
   // the toggle that would close this is hidden, so it must never show here.
   @media (min-width: 769px) {
     display: none;
   }
-
-  background: var(--bg-color);
-  display: flex;
-  align-items: center;
-  padding: 6em 0 4em;
-  box-sizing: border-box;
-  overflow-y: auto;
-  animation: nav-menu-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-@keyframes nav-menu-in {
-  from {
-    opacity: 0;
-    transform: translateY(-8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes nav-scrim-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 
-.nav-menu-list {
+.nav-menu-sheet {
   width: 100%;
-  max-width: var(--max-width-container);
-  margin: 0 auto;
-  padding: 0 2em;
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
+  padding: 0.6em 1.25em calc(1.25em + env(safe-area-inset-bottom, 0px));
+  background: var(--bg-color);
+  border-top: 1px solid var(--border-color);
+  box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.18);
+  animation: nav-sheet-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 
-  @media (max-width: 768px) {
-    padding: 0 1.25em;
+  // Squared off, matching the frame treatment used elsewhere on the site.
+  border-radius: 0;
+
+  &__handle {
+    width: 38px;
+    height: 4px;
+    border-radius: 2px;
+    margin: 0 auto 0.9em;
+    background: var(--tertiary-text);
+    opacity: 0.45;
+    flex-shrink: 0;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
   }
 }
 
-@keyframes nav-menu-item-in {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+@keyframes nav-sheet-up {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
 }
 
 .nav-menu-item {
   display: flex;
-  // Centre rather than baseline, now that an icon sits between the index and
-  // the label — a baseline would hang the icon off the text's baseline.
+  // Centre rather than baseline, since an icon sits between the index and the
+  // label — a baseline would hang the icon off the text's baseline.
   align-items: center;
   gap: 0.75em;
-  padding: 0.5em 0;
+  padding: 0.85em 0;
   border-bottom: 1px solid var(--border-color);
   text-decoration: none;
   color: var(--secondary-text);
   transition: color 0.2s ease;
   // Delay is set per item inline, so the rows arrive one after another.
-  animation: nav-menu-item-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation: nav-menu-item-in 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
 
-  &:first-child {
-    border-top: 1px solid var(--border-color);
+  &:last-child {
+    border-bottom: none;
   }
 
   &__index {
     flex-shrink: 0;
-    font-size: 0.85em;
+    font-size: 0.8em;
     font-weight: 500;
     font-variant-numeric: tabular-nums;
     color: var(--tertiary-text);
   }
 
   &__label {
-    font-size: 2.6em;
-    font-weight: 650;
-    line-height: 1.15;
-    letter-spacing: -0.03em;
-    // Nudges toward the reader on hover without shifting the row's height.
-    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-
-    @media (max-width: 768px) {
-      font-size: 1.9em;
-    }
-  }
-
-  &:hover {
-    color: var(--primary-text);
-
-    .nav-menu-item__label {
-      transform: translateX(8px);
-    }
+    // Sized for a sheet rather than a full screen — big enough to tap
+    // comfortably, small enough that three rows sit in the bottom third.
+    font-size: 1.35em;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
   }
 
   &.active {
@@ -303,11 +298,24 @@ body.nav-menu-open {
     }
   }
 
+  // No hover state worth having on a touch surface; press feedback instead.
+  &:active {
+    color: var(--primary-text);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     animation: none;
+  }
+}
 
-    &__label {
-      transition: none;
-    }
+@keyframes nav-menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }

@@ -150,24 +150,34 @@ const StickyNavBar: React.FC = () => {
           child and shrink the overlay to the height of the bar. */}
       {isMenuOpen &&
         createPortal(
-          <div className="nav-menu-overlay" role="dialog" aria-modal="true">
-            <nav className="nav-menu-list">
-              {NAV_PAGES.map(({ to, label, Icon }, index) => (
-                <Link
-                  key={to}
-                  to={to}
-                  className={`nav-menu-item${isActive(to) ? " active" : ""}`}
-                  // Each row rises in just behind the one above it.
-                  style={{ animationDelay: `${60 + index * 55}ms` }}
-                  onClick={() => setIsMenuOpen(false)}
-                >
-                  <span className="nav-menu-item__index">
-                    {String(index + 1).padStart(2, "0")}
-                  </span>
-                  <Icon size={26} weight={isActive(to) ? "bold" : "regular"} />
-                  <span className="nav-menu-item__label">{label}</span>
-                </Link>
-              ))}
+          <div
+            className="nav-menu-overlay"
+            role="dialog"
+            aria-modal="true"
+            // Tapping the dimmed area outside the sheet closes it, which is
+            // what a sheet trains people to expect.
+            onClick={(e) => {
+              if (e.target === e.currentTarget) setIsMenuOpen(false);
+            }}
+          >
+            <nav className="nav-menu-sheet" aria-label="Pages">
+              <span className="nav-menu-sheet__handle" aria-hidden="true" />
+                {NAV_PAGES.map(({ to, label, Icon }, index) => (
+                  <Link
+                    key={to}
+                    to={to}
+                    className={`nav-menu-item${isActive(to) ? " active" : ""}`}
+                    // Each row rises in just behind the one above it.
+                    style={{ animationDelay: `${60 + index * 55}ms` }}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    <span className="nav-menu-item__index">
+                      {String(index + 1).padStart(2, "0")}
+                    </span>
+                    <Icon size={26} weight={isActive(to) ? "bold" : "regular"} />
+                    <span className="nav-menu-item__label">{label}</span>
+                  </Link>
+                ))}
             </nav>
           </div>,
           document.body
