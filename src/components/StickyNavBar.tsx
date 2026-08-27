@@ -60,6 +60,18 @@ const StickyNavBar: React.FC = () => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
+  // The toggle is hidden on web, so a menu left open across a resize past the
+  // breakpoint would be stranded — overlay up, no visible way to close it.
+  useEffect(() => {
+    const wide = window.matchMedia("(min-width: 769px)");
+    const handleChange = (e: MediaQueryListEvent) => {
+      if (e.matches) setIsMenuOpen(false);
+    };
+
+    wide.addEventListener("change", handleChange);
+    return () => wide.removeEventListener("change", handleChange);
+  }, []);
+
   // While the full-page menu is up, Escape closes it and the page behind it
   // stays put instead of scrolling under the overlay.
   useEffect(() => {
@@ -90,6 +102,21 @@ const StickyNavBar: React.FC = () => {
           <Link to="/home" className="navbar-name-link">
             <span className="navbar-name">केके</span>
           </Link>
+        </div>
+
+        {/* Exposed on web. Below the mobile breakpoint these are hidden and
+            the three-line toggle below takes over — both read the same
+            NAV_PAGES, so the list is defined once. */}
+        <div className="navbar-right-links">
+          {NAV_PAGES.map((page) => (
+            <Link
+              key={page.to}
+              to={page.to}
+              className={`a-header${isActive(page.to) ? " active" : ""}`}
+            >
+              <span>{page.label}</span>
+            </Link>
+          ))}
         </div>
 
         <button
