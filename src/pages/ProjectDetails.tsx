@@ -166,9 +166,6 @@ const ProjectDetails: React.FC = () => {
     return [raw.slice(0, idx).trim(), raw.slice(idx + 1).trim()];
   }, [projectSummary?.title]);
 
-  const scrollToTop = () =>
-    bodyRef.current?.scrollTo({ top: 0, behavior: "smooth" });
-
   return (
     <div
       className="reader-mode-overlay"
@@ -323,20 +320,6 @@ const ProjectDetails: React.FC = () => {
                         ]}
                       />
                     )}
-
-                    <footer className="docs-footer">
-                      <nav className="docs-footer__links">
-                        <button type="button" onClick={handleClose}>
-                          Back to all work <span aria-hidden="true">→</span>
-                        </button>
-                      </nav>
-                      <div className="docs-footer__colophon">
-                        <span>Written by Karan Kapoor</span>
-                        <button type="button" onClick={scrollToTop}>
-                          Top <span aria-hidden="true">↑</span>
-                        </button>
-                      </div>
-                    </footer>
                   </div>
                 </div>
               </div>

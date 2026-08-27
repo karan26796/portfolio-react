@@ -15,6 +15,7 @@ import { useProjects } from "./utils/useProjects";
 import Testimonials, { Testimonial } from "./components/Testimonials";
 import ExploreFolder from "./components/ExploreFolder";
 import FAQ from "./components/FAQ";
+import AISummarizer from "./components/AISummarizer";
 import { ScrollRevealDefaultsProvider } from "./components/ScrollRevealContext";
 import Footer from "./components/Footer";
 import RightSidebar from "./components/RightSidebar";
@@ -198,6 +199,16 @@ const HomePage: React.FC = () => {
         <Testimonials data={testimonialsData} title="Testimonials" />
         <FAQ data={faqData} />
         {/* <ExploreFolder /> */}
+        <AISummarizer
+          text="Karan Kapoor is a Senior Product Designer & Figma Trainer with 8+ years experience leading design for products used by 2.2M+ people."
+          buttonLabel="Ask Agent Vinod"
+          pageType="home"
+          initialPrompts={[
+            "What roles are you looking for?",
+            "How do you handle disagreements with PMs?",
+            "How can I contact you?"
+          ]}
+        />
       </div>
     </ScrollRevealDefaultsProvider>
   );
