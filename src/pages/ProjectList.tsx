@@ -2,6 +2,7 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import '../styles/ProjectList.scss';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ProjectCardData } from '../utils/interfaces';
+import ScrollReveal from "../components/ScrollReveal";
 import ProjectScrollIndicator from '../components/ProjectScrollIndicator';
 import { getDominantPastelColor } from '../utils/dominantColor';
 
@@ -258,6 +259,10 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
     ? `${HOLD_VH_PER_CARD * projectData.length + 100}vh`
     : undefined;
 
+  // A plain div when the stack is pinned, a reveal wrapper when the cards
+  // flow. ScrollReveal renders the div itself, so this adds no extra node.
+  const CardShell = (STICKY_STACK_ENABLED ? "div" : ScrollReveal) as React.ElementType;
+
   const companyOf = (project?: ProjectCardData) =>
     project
       ? project.company || (project.year ? project.year.split('/')[0].trim() : 'Featured Projects')
@@ -289,7 +294,13 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                   : undefined
               }
             >
-              <div className="project-stage-card__inner">
+              {/* In flow the card fades up as it's scrolled to, like the
+                  other sections. Skipped when the sticky stack is on: there
+                  the cards are absolutely positioned inside a clipped 100vh
+                  stage, so an IntersectionObserver would either fire for all
+                  of them at once or — for the ones translated off-stage —
+                  never fire, leaving them stuck at opacity 0 as they slide in. */}
+              <CardShell className="project-stage-card__inner">
                 {/* Sits in the card's normal flow, so it scrolls and pushes
                     along with the card's content rather than holding its own
                     position at the top of the stage. */}
@@ -317,7 +328,12 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                       with a handle straddling each corner. The handles are
                       decorative, so they stay out of the card's hover and
                       click handling. */}
-                  <div className="project-frame">
+                  <div
+                    className="project-frame"
+                    style={{
+                      backgroundColor: project.bgColor || bgColors[project.id] || "hsla(0, 0%, 100%, 0.507)",
+                    }}
+                  >
                     <ProjectCard
                       data={project}
                       variant="large"
@@ -352,7 +368,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                     </div>
                   )}
                 </div>
-              </div>
+              </CardShell>
             </div>
           );
         })}

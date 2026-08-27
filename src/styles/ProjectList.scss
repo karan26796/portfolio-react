@@ -57,9 +57,10 @@
   transition-timing-function: cubic-bezier(0.65, 0, 0.35, 1);
 
   @media (max-width: 768px) {
-    // No side padding, so the card's image runs edge to edge. The text
-    // blocks below re-add their own (smaller) inset instead.
-    padding: 4.5em 0 1.5em;
+    // Side padding leaves room for the selection frame and its corner handles,
+    // which straddle the frame's edge. This replaces the previous edge-to-edge
+    // treatment — the frame can't read as a frame while flush to the screen.
+    padding: 4.5em 1em 1.5em;
     // The fallback when the content is taller than the stage and the inner's
     // auto margins collapse — keeps the top edge (and so the company title)
     // intact, clipping only the bottom. Centering is handled by those auto
@@ -81,7 +82,7 @@
     // Wider than the site's 960px container: the project image is the point of
     // the card, and it reads better with the extra width. The text columns
     // below follow it.
-    max-width: 1180px;
+    max-width: 1100px;
     // Horizontal only — the vertical margins are left alone so the mobile
     // rule below can use `auto` there to centre the card.
     margin-left: auto;
@@ -110,10 +111,10 @@
     gap: 0.75em;
     margin: 0 0 0.75em;
 
-    // The card has no side padding at this width, so the header supplies
-    // its own — matching the body text, and clearing the scroll indicator.
+    // The frame below now supplies the inset at this width, so the header
+    // only needs to clear the frame's own padding.
     @media (max-width: 768px) {
-      padding: 0 1.15em;
+      padding: 0;
     }
   }
 
@@ -172,7 +173,7 @@
     padding: 3em 2em 5em;
 
     @media (max-width: 768px) {
-      padding: 2em 0 3.5em;
+      padding: 2em 1em 3.5em;
     }
   }
 }
@@ -188,6 +189,7 @@
    Scoped to the stage so ProjectCard is untouched everywhere else, and the
    selector matches ProjectCard.scss's own depth so it wins. */
 .project-stage-card {
+
   // Desktop only: mobile already has its own 6/4 ratio, and 2.2/1 on a phone
   // left the image only ~177px tall.
   @media (min-width: 769px) {
@@ -208,19 +210,20 @@
 .project-frame {
   position: relative;
   background-color: hsla(0, 0%, 100%, 0.507);
-  border: 1px solid var(--border-color);
+  border: 1px solid #008FF0;
   // Squared off — the handles only read as drag handles on sharp corners.
   border-radius: 0;
   padding: 1.75em;
   box-sizing: border-box;
+  transition: background-color 0.4s ease, border-color 0.4s ease;
 
   &__corner {
     position: absolute;
     width: 9px;
     height: 9px;
-    background: hsla(0, 0%, 100%, 0.507);
+    background: hsla(0, 0%, 100%, 1);
     // Same hairline colour as the frame's own border.
-    border: 1.5px solid var(--border-color);
+    border: 1.5px solid #008FF0;
     box-sizing: border-box;
     // Purely decorative — must not eat the card's hover or clicks.
     pointer-events: none;
@@ -250,15 +253,10 @@
     }
   }
 
-  // The mobile card is deliberately edge to edge, so a frame would pin its
-  // side borders to the screen edges. No frame at this width.
+  // Shown on mobile too, with a tighter inset — the stage card's own side
+  // padding keeps it and its corner handles clear of the screen edges.
   @media (max-width: 768px) {
-    border: none;
-    padding: 0;
-
-    .project-frame__corner {
-      display: none;
-    }
+    padding: 0.75em;
   }
 }
 

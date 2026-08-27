@@ -73,7 +73,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tools: ["Xcode", "Figma"],
     type: "client",
     details: "Interconnect : Platform for people in gated societies to post jobs and get referals for open jobs",
-    bgColor: "#fff7e8ff",
+    bgColor: "#fff9efff",
     story: "The time I wanted to help my wife find a job.",
     meta: {
       duration: "2026",
@@ -95,6 +95,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Moved holiday calendar from audience first approach to a leave first approach",
     accentColor: "#0d9488",
+    bgColor: "#e8f4f1ff",
     meta: {
       duration: "2025",
       role: "Design Strategy & Execution",
@@ -122,6 +123,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Designed customizable nomination and evaluation workflows in Keka HR’s award platform to support 5000+ employee companies",
     accentColor: "#f59e0b",
+    bgColor: "#fef3c7ff",
     meta: {
       duration: "Feb – Apr 2026",
       role: "Design Strategy & Execution",
@@ -144,7 +146,7 @@ const projectsById: Record<string, ProjectSummary> = {
     accentColor: "#9333ea",
     // Page background while this project is the active card in the scrolling
     // project list. Omit it to fall back to a tone sampled from `img`.
-    bgColor: "#F2ECE3",
+    bgColor: "#fff9f0ff",
     story: "The time I also donned the PM hat.",
     meta: {
       duration: "Nov 2025 – Jan 2026",
@@ -167,6 +169,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Designed a unified Rewards platform natively integrated into Keka's HRMS, driving a new revenue stream and securing 140+ accounts.",
     accentColor: "#ff6b00",
+    bgColor: "#fff2e6ff",
     meta: {
       duration: "Jun'24 – Nov'24",
       role: "Design, Research, Execution",
@@ -189,6 +192,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Interview highlights view",
     accentColor: "#6366f1",
+    bgColor: "#eef2ffff",
     meta: {
       duration: "Apr'22 – Jun'22",
       role: "Founding Designer",
@@ -210,7 +214,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Scaled weekly engagement from 15k to 100k users by adding delight when people wish each other on their special day",
     accentColor: "#ec4899",
-    bgColor: "#f4edfdff",
+    bgColor: "#f9f5ffff",
     story: "The time a simple CTA 6x'ed engagement.",
     meta: {
       duration: "Nov'24 – Jan'25",
@@ -233,7 +237,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Zoom bot with question script to record notes & generate transcript to remove 5 external tools from the workflow ",
     accentColor: "#8b5cf6",
-    bgColor: "#ebf0fdff",
+    bgColor: "#f4f7ffff",
     story: "The time I replaced 5 tools with one AI bot.",
     meta: {
       duration: "Jan'22 – Mar'22",
@@ -255,6 +259,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Nimbuzz / UI Designer",
     accentColor: "#2563eb",
+    bgColor: "#eff6ffff",
     meta: {
       duration: "2021",
       role: "UI & Systems Design",
@@ -275,6 +280,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Information architecture revamp",
     accentColor: "#7c3aed",
+    bgColor: "#f3e8ffff",
     meta: {
       duration: "Jun'22 – Jul'22",
       role: "Product Designer",
@@ -294,6 +300,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Master's Project / NID",
     accentColor: "#10b981",
+    bgColor: "#ecfdf5ff",
     meta: {
       duration: "Aug'22 – Oct'22",
       role: "Research & Industrial Design",
