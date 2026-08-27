@@ -78,7 +78,10 @@
 
   &__inner {
     width: 100%;
-    max-width: var(--max-width-container);
+    // Wider than the site's 960px container: the project image is the point of
+    // the card, and it reads better with the extra width. The text columns
+    // below follow it.
+    max-width: 1180px;
     // Horizontal only — the vertical margins are left alone so the mobile
     // rule below can use `auto` there to centre the card.
     margin-left: auto;
@@ -149,8 +152,55 @@
   }
 }
 
+/* TEMPORARY companion to STICKY_STACK_ENABLED in ProjectList.tsx: unpins the
+   stage so the cards lay out in ordinary vertical flow. Remove alongside the
+   flag when the stack comes back. */
+.project-parent.is-static {
+  height: auto;
+
+  .project-stage {
+    position: static;
+    height: auto;
+    overflow: visible;
+  }
+
+  .project-stage-card {
+    position: static;
+    inset: auto;
+    transform: none;
+    transition: none;
+    padding: 3em 2em 5em;
+
+    @media (max-width: 768px) {
+      padding: 2em 0 3.5em;
+    }
+  }
+}
+
 .project-card-row {
   position: relative;
+}
+
+/* Wider project image, without getting taller.
+   The extra width comes from the wider content column below; this aspect ratio
+   pins the height at roughly where it already was (~512px) instead of letting
+   it grow with the width, and `cover` crops top/bottom rather than distorting.
+   Scoped to the stage so ProjectCard is untouched everywhere else, and the
+   selector matches ProjectCard.scss's own depth so it wins. */
+.project-stage-card {
+  // Desktop only: mobile already has its own 6/4 ratio, and 2.2/1 on a phone
+  // left the image only ~177px tall.
+  @media (min-width: 769px) {
+    .project-container:not(.project-container-small) .project-image-single-wrapper {
+      aspect-ratio: 2.2 / 1;
+
+      img.project-image,
+      video.project-image {
+        height: 100%;
+        object-fit: cover;
+      }
+    }
+  }
 }
 
 /* Selection-frame chrome: a hairline box around the card with a small handle
@@ -212,12 +262,15 @@
   }
 }
 
-// Hidden by default — only shown from 1320px up, where there's a page gutter
-// wide enough to pin it into beside the card.
+// Hidden by default — only shown once the page gutter is wide enough to pin it
+// beside the card. The threshold is the column width plus a note and its gap on
+// each side: 1180 + 2 * (190 + 40) = 1640. It was 1320 when the column was
+// 960px wide; leaving it there after widening the column pushed the note off
+// the left edge of the screen.
 .project-story-note-wrap {
   display: none;
 
-  @media (min-width: 1320px) {
+  @media (min-width: 1660px) {
     display: block;
     position: absolute;
     top: 2.5em;

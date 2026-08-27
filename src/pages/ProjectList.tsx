@@ -39,6 +39,17 @@ const yearOnly = (project: ProjectCardData) => project.year?.split('/').pop()?.t
 // How much scroll (as a fraction of one viewport height) each card holds
 // still for while its indicator dot fills — not how long the push itself
 // takes, which is a fixed-duration CSS transition, not scroll-linked.
+/**
+ * TEMPORARY: set back to `true` to restore the scroll-driven card stack.
+ *
+ * While this is false the projects lay out in ordinary vertical flow — no
+ * pinned stage, no scroll-linked push, no progress indicator, and no page
+ * colour wash (all of which are derived from the stack's scroll position and
+ * have nothing to drive them without it). Everything else about the cards is
+ * unchanged, so flipping this back is the whole revert.
+ */
+const STICKY_STACK_ENABLED = false;
+
 const HOLD_VH_PER_CARD = 60;
 
 // How long the push takes to move one card-width. On a fast scroll that
@@ -116,6 +127,8 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
   // short time regardless of how much further the reader scrolls, instead
   // of needing an extra viewport-height of scroll to play out.
   useEffect(() => {
+    if (!STICKY_STACK_ENABLED) return;
+
     const handleScroll = () => {
       const el = containerRef.current;
       if (!el) return;
@@ -186,6 +199,11 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
   // different timing) would visibly lag behind the rest. Easing the single
   // variable means all consumers read the same value on the same frame.
   useEffect(() => {
+    if (!STICKY_STACK_ENABLED) {
+      document.documentElement.style.removeProperty("--page-bg-active");
+      return;
+    }
+
     const root = document.documentElement;
     const base = parseColor(getComputedStyle(root).getPropertyValue("--bg-base")) || [255, 255, 255];
 
@@ -236,7 +254,9 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
   // 100vh of buffer past the total hold time, or the release starts mid-way
   // through the last card's hold phase and gets carried up over whatever
   // section follows (e.g. Testimonials) instead of handing off cleanly.
-  const containerHeight = `${HOLD_VH_PER_CARD * projectData.length + 100}vh`;
+  const containerHeight = STICKY_STACK_ENABLED
+    ? `${HOLD_VH_PER_CARD * projectData.length + 100}vh`
+    : undefined;
 
   const companyOf = (project?: ProjectCardData) =>
     project
@@ -244,7 +264,11 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
       : null;
 
   return (
-    <div className="project-parent" ref={containerRef} style={{ height: containerHeight }}>
+    <div
+      className={`project-parent${STICKY_STACK_ENABLED ? "" : " is-static"}`}
+      ref={containerRef}
+      style={{ height: containerHeight }}
+    >
       <div className="project-stage">
         {projectData.map((project, index) => {
           const offset = index - activeIndex;
@@ -256,7 +280,14 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
             <div
               key={project.id}
               className="project-stage-card"
-              style={{ transform: `translateY(${offset * 100}%)`, transitionDuration: pushTransitionDuration }}
+              style={
+                STICKY_STACK_ENABLED
+                  ? {
+                      transform: `translateY(${offset * 100}%)`,
+                      transitionDuration: pushTransitionDuration,
+                    }
+                  : undefined
+              }
             >
               <div className="project-stage-card__inner">
                 {/* Sits in the card's normal flow, so it scrolls and pushes
@@ -310,7 +341,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                       // `activeIndex` is 0 from mount, so keying off it alone
                       // played the first note's animation at page load, before
                       // the project list had been scrolled to.
-                      className={`project-story-note-wrap${index % 2 === 0 ? " is-left" : " is-right"}${isSectionPinned && index === activeIndex ? " is-active" : ""}`}
+                      className={`project-story-note-wrap${index % 2 === 0 ? " is-left" : " is-right"}${!STICKY_STACK_ENABLED || (isSectionPinned && index === activeIndex) ? " is-active" : ""}`}
                       style={{
                         ["--note-bg" as string]: NOTE_COLORS[index % NOTE_COLORS.length],
                         // Hold the unfurl until this card has finished its push.
@@ -331,7 +362,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
         activeIndex={activeIndex}
         progress={holdProgress}
         total={projectData.length}
-        visible={isSectionPinned}
+        visible={STICKY_STACK_ENABLED && isSectionPinned}
       />
     </div>
   );
