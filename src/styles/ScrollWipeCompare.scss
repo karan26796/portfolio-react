@@ -42,7 +42,7 @@
         position: relative;
         width: 100%;
         aspect-ratio: 3 / 2; // fallback until both images report their natural size
-        border-radius: var(--radius-card, 1em);
+        border-radius: 0;
         border: 1px solid var(--border-color);
         box-shadow: 0 16px 48px rgba(0, 0, 0, 0.2);
         overflow: hidden;
