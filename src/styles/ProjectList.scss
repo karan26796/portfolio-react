@@ -29,6 +29,13 @@
   //
   background-color: var(--bg-color);
   z-index: 1;
+
+  // Right inset that keeps text clear of the fixed scroll indicator.
+  --stage-gutter-right: 2em;
+
+  @media (max-width: 768px) {
+    --stage-gutter-right: 2.4em;
+  }
 }
 
 .project-stage-card {
@@ -53,34 +60,45 @@
     // No side padding, so the card's image runs edge to edge. The text
     // blocks below re-add their own (smaller) inset instead.
     padding: 4.5em 0 1.5em;
-    // On mobile the card content is shorter than the 100vh stage, so
-    // top-aligning dumped all the leftover height below the card. Centering
-    // splits it evenly and reads as intentional. Safe here precisely because
-    // the content is shorter than the viewport at this width.
-    align-items: center;
+    // The fallback when the content is taller than the stage and the inner's
+    // auto margins collapse — keeps the top edge (and so the company title)
+    // intact, clipping only the bottom. Centering is handled by those auto
+    // margins, not here; `align-items: center` would clip both ends.
+    align-items: flex-start;
 
-    &__header {
-      padding: 0 1em;
-    }
-
-    // Scoped to the stage so ProjectCard is unchanged everywhere else.
-    .project-card {
-      padding: 1.25em 1em 1.5em;
+    // Scoped to the stage so ProjectCard is unchanged everywhere else. The
+    // wider right inset keeps text clear of the fixed scroll indicator.
+    // Selector has to match ProjectCard.scss's own
+    // `.project-container:not(.project-container-small) .project-card` depth
+    // to win, hence the extra classes rather than a bare `.project-card`.
+    .project-container:not(.project-container-small) .project-card {
+      padding: 1.25em;
     }
   }
 
   &__inner {
     width: 100%;
     max-width: var(--max-width-container);
-    margin: 0 auto;
+    // Horizontal only — the vertical margins are left alone so the mobile
+    // rule below can use `auto` there to centre the card.
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-direction: column;
+
+    // Vertically centre the card in the phone viewport. Auto margins are
+    // used rather than `align-items: center` because they only distribute
+    // *spare* space: if the content is ever taller than the stage they
+    // collapse to 0 and the card stays top-aligned, so it can never be
+    // pushed up under the header and clipped (which is what centering did).
+    @media (max-width: 768px) {
+      margin-top: auto;
+      margin-bottom: auto;
+    }
   }
 
-  // Shown for every project: logo, company name, and the year this
-  // specific project was done. The tenure range is added only for the
-  // first project under a given company, so it isn't repeated for every
-  // one of that company's projects.
+  // Company logo, name and the year of this project, with the company's
+  // tenure on the right. In the card's normal flow, so it moves with it.
   &__header {
     display: flex;
     align-items: center;
@@ -88,6 +106,12 @@
     flex-wrap: wrap;
     gap: 0.75em;
     margin: 0 0 0.75em;
+
+    // The card has no side padding at this width, so the header supplies
+    // its own — matching the body text, and clearing the scroll indicator.
+    @media (max-width: 768px) {
+      padding: 0 1.15em;
+    }
   }
 
   &__header-info {
@@ -111,6 +135,7 @@
 
   &__year-inline {
     color: var(--secondary-text);
+    font-weight: 600;
 
     &::before {
       content: "· ";
@@ -128,22 +153,10 @@
   position: relative;
 }
 
+// Hidden by default — only shown from 1320px up, where there's a page gutter
+// wide enough to pin it into beside the card.
 .project-story-note-wrap {
   display: none;
-
-  // On mobile there's no page gutter to pin the note into, so it sits in the
-  // normal flow just under the card instead — which also uses up some of the
-  // leftover height on the shorter mobile card. Desktop (>= 1320px) keeps the
-  // gutter placement below, untouched.
-  @media (max-width: 768px) {
-    display: block;
-    position: static;
-    width: fit-content;
-    max-width: 16em;
-    margin: 1.5em 1em 0;
-    pointer-events: none;
-    perspective: 700px;
-  }
 
   @media (min-width: 1320px) {
     display: block;

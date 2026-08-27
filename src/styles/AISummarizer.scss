@@ -95,8 +95,8 @@
     }
 
     .ai-button-glow-ring {
-        padding: 5px;
-        border-radius: var(--radius-pill);
+        padding: 2px;
+        border-radius: 5em;
         background: rgba(139, 92, 246, 0.25);
         border: 1.5px solid rgba(192, 132, 252, 0.4);
         box-shadow: 0 8px 32px rgba(126, 34, 206, 0.4), 0 0 20px rgba(168, 85, 247, 0.3);
@@ -110,7 +110,7 @@
         justify-content: center;
         gap: 0.65em;
         padding: 0.75em 1.6em;
-        border-radius: var(--radius-pill);
+        border-radius: 5em;
         background: radial-gradient(120% 140% at 32% 28%, #c084fc 0%, #9333ea 45%, #6d28d9 100%);
         color: #ffffff;
         font-size: 1.1em;
@@ -368,7 +368,7 @@
         p,
         li {
             font-size: 1em;
-            font-weight: 400;
+            font-weight: 500;
             line-height: 1.55;
             letter-spacing: normal;
             color: inherit;
@@ -425,7 +425,7 @@
         p {
             margin: 0;
             font-size: 1em;
-            font-weight: 400;
+            font-weight: 500;
             line-height: 1.55;
             letter-spacing: normal;
             color: #fff;

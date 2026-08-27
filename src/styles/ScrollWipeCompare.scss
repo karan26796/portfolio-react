@@ -17,7 +17,8 @@
         // opposite side out with margin — longhand only, so neither variant's
         // declaration can be shadowed by the other via shorthand overlap.
         &--before {
-            color: #ff5555;
+            // Reads as red against the light page — #ff5555 was washing out.
+            color: #e5484d;
             background: color-mix(in srgb, #ff7e7e 4%, transparent);
             margin-bottom: 0.75em;
             margin-left: 0;
@@ -25,7 +26,9 @@
         }
 
         &--after {
-            color: #00ff99;
+            // Reads as green against the light page — #00ff99 was near
+            // invisible on white.
+            color: #30a46c;
             background: color-mix(in srgb, #00ffbf 3%, transparent);
             margin-top: 0.75em;
             margin-left: auto;

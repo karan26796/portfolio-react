@@ -1,3 +1,10 @@
+/* ============================================================================
+   CASE STUDY — DOCS LAYOUT
+   One centred content column. Sections are separated by a hairline that runs
+   out of a small label rather than by large headings, so the page reads as
+   documentation.
+   ========================================================================== */
+
 .project-details-main-content {
     position: relative;
     z-index: 2;
@@ -5,446 +12,594 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
+/* ProjectDetailsSkeleton still renders `.container-project` while the markdown
+   loads, so it keeps a plain centred column of its own. */
 .container-project {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    gap: 3.5em;
     width: 100%;
     max-width: var(--max-width-container);
     margin: 0 auto;
-    // padding: 2em;
     box-sizing: border-box;
-    align-items: start;
-    border-bottom: 1px solid var(--border-color);
+}
 
-    .project-content-wrapper {
-        min-width: 0;
-        width: 100%;
-        grid-column: 1;
+.docs-layout {
+    width: 100%;
+    // Holds the same measure the column had when the rail sat beside it.
+    max-width: 1040px;
+    margin: 0 auto;
+    padding: 0 3em 4em;
+    box-sizing: border-box;
+
+    @media (max-width: 1024px) {
+        padding: 0 1.5em 3em;
     }
 
-    .project-details {
-        position: relative;
-        counter-reset: project-section;
+    @media (max-width: 480px) {
+        padding: 0 1.15em 2em;
+    }
+}
 
-        .metadata {
-            display: flex;
-            gap: 2em;
-            margin-bottom: 2em;
-            font-size: 0.9em;
-            color: var(--highlight-color);
+/* ── Content column ──────────────────────────────────────────────────────── */
 
-            strong {
-                color: var(--primary-text);
-            }
+.docs-main {
+    min-width: 0;
+    width: 100%;
+}
+
+.docs-hero {
+    position: relative;
+    padding: 3.25em 0 2.75em;
+
+    @media (max-width: 1024px) {
+        padding: 2.5em 0 2em;
+    }
+
+    // Sits opposite the headline like the reference's install line — a quiet
+    // monospaced stamp rather than a second heading.
+    &__stamp {
+        position: absolute;
+        top: 3.9em;
+        right: 0;
+        margin: 0;
+        max-width: 30%;
+        text-align: right;
+        font-family: 'Google Sans Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+        font-size: 0.78em;
+        line-height: 1.4;
+        letter-spacing: 0;
+        color: var(--tertiary-text);
+
+        // No room beside the headline once the column narrows.
+        @media (max-width: 700px) {
+            position: static;
+            max-width: none;
+            text-align: left;
+            margin-bottom: 0.9em;
         }
+    }
 
-        .red {
-            background-color: #d50019;
-            color: white;
-            width: fit-content;
-            padding: 0.25em;
+    &__title {
+        display: flex;
+        flex-direction: column;
+        margin: 0;
+        max-width: 24ch;
+        font-size: 2.9em;
+        font-weight: 700;
+        line-height: 1.08;
+        letter-spacing: -0.03em;
+        color: var(--primary-text);
+
+        @media (max-width: 1024px) {
+            font-size: 2.4em;
+            max-width: none;
         }
+    }
 
-        // Section header (left) + body (right), side by side.
-        // NOTE: the heading is wrapped in a <ScrollReveal> div, so the section's
-        // real first child is `.scroll-reveal` (containing the <h3>), not the h3.
-        section:has(h3) {
-            display: grid;
-            grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-            column-gap: 5em;
-            align-items: start;
-            max-width: 100%;
-            padding-top: 3em;
-            padding-bottom: 2em;
+    // Accent stroke under the lead-in of the title. `align-self` shrink-wraps
+    // the span so the rule stops with the text instead of running the column.
+    &__title-lead {
+        align-self: flex-start;
 
-            // Everything except the leading heading flows into the right column.
-            >* {
-                grid-column: 2;
-                min-width: 0;
-            }
-
-            // The heading wrapper sits in the left column, top-aligned.
-            >.scroll-reveal:first-child {
-                grid-column: 1;
-                grid-row: 1;
-                margin-top: 0;
-
-                h3 {
-                    margin-top: 0;
-                    padding-top: 0;
-                }
-            }
-
-            // First body element aligns to the heading's top edge.
-            >.scroll-reveal:first-child+* {
-                margin-top: 0;
-                padding-top: 0;
-            }
-
-            // Comparison/scrolly blocks need more room than the narrow body
-            // column gives them — let them span the full section width,
-            // heading column included, instead of being squeezed next to it.
-            .scrolly-before-after,
-            .wipe-compare-wrapper,
-            .card-grid {
-                grid-column: 1 / -1;
-            }
+        &.has-accent {
+            background-image: linear-gradient(to right,
+                    color-mix(in srgb, var(--accent-purple) 55%, transparent),
+                    color-mix(in srgb, var(--accent-purple) 55%, transparent));
+            background-repeat: no-repeat;
+            background-size: 100% 0.08em;
+            background-position: 0 92%;
         }
+    }
 
-        // Sections without a heading (e.g. the FAQ block) stay full width.
-        section:not(:has(h3)),
-        section:has(.faq-container) {
-            display: block;
-            width: 100%;
-            max-width: 100%;
-            padding: 2em 0;
+    &__lede {
+        margin: 1.35em 0 0;
+        max-width: 60ch;
+        font-size: 1.15em;
+        font-weight: 400;
+        line-height: 1.6;
+        color: var(--secondary-text);
+    }
+}
 
-            >* {
-                width: 100%;
-            }
+.project-details {
+    position: relative;
+    counter-reset: project-section;
+
+    // Each markdown <section> is one documentation block: label, hairline, then
+    // body at full column width. No two-column heading/body split any more.
+    section {
+        display: block;
+        width: 100%;
+        max-width: 100%;
+        padding: 2.75em 0 0.75em;
+    }
+
+    // The label plus the hairline that runs from it to the right edge. This
+    // rule *is* the section divider, so sections carry no border of their own.
+    h3 {
+        display: flex;
+        align-items: center;
+        gap: 1em;
+        margin: 0 0 1.35em;
+        font-size: 1.25em;
+        font-weight: 600;
+        line-height: 1.3;
+        letter-spacing: 0;
+        color: var(--primary-text);
+        scroll-margin-top: 4em;
+
+        &::after {
+            content: "";
+            flex: 1 1 auto;
+            height: 1px;
+            min-width: 2em;
+            background: var(--border-color);
         }
+    }
 
-        h3 {
-            display: flex;
-            flex-direction: column;
-            gap: 0.35em;
-            margin: 0;
-            // font-size: 1.85em;
-            font-weight: 550;
-            color: var(--primary-text);
-            line-height: 1.25;
-            letter-spacing: -0.02em;
-            scroll-margin-top: 5.5em;
+    // The statement under a section label — the largest type in the body.
+    h4 {
+        margin: 0 0 0.85em;
+        max-width: 52ch;
+        font-size: 1.35em;
+        font-weight: 600;
+        line-height: 1.4;
+        letter-spacing: -0.015em;
+        color: var(--primary-text);
+        text-transform: none;
+    }
+
+    p {
+        margin: 0 0 1.1em;
+        max-width: 74ch;
+        font-size: 1.12em;
+        line-height: 1.65;
+        color: var(--secondary-text);
+
+        &:last-child {
+            margin-bottom: 0;
         }
+    }
 
-        p {
-            font-size: 1.25em;
-            line-height: 1.6;
-            color: var(--primary-text);
-            margin-bottom: 1.25em;
-        }
+    // Markdown puts a standalone image or video in its own paragraph, so the
+    // 74ch reading measure above was shrinking every one of them well inside
+    // the column. Media isn't prose — the cap applies to text only.
+    p:has(figure),
+    p:has(.scroll-reveal),
+    p:has(video) {
+        max-width: none;
+    }
 
-        ul,
-        ol {
-            font-size: 1.25em;
-            line-height: 1.6;
-            color: var(--primary-text);
-            margin-bottom: 1.25em;
-            padding-left: 1.4em;
+    // The reveal wrapper is a plain div, so it needs to be told to fill the
+    // column before the figure inside it can.
+    .scroll-reveal {
+        width: 100%;
+    }
 
-            li {
-                font-family: inherit;
-                font-size: 1em;
-                line-height: 1.6;
-                color: var(--primary-text);
-                margin-bottom: 0.6em;
-                font-weight: 400;
+    strong {
+        color: var(--primary-text);
+        font-weight: 600;
+    }
 
-                p {
-                    font-size: 1em;
-                    line-height: 1.6;
-                    color: var(--primary-text);
-                    margin-bottom: 0.4em;
-                }
+    ul,
+    ol {
+        margin: 0 0 1.1em;
+        max-width: 74ch;
+        font-size: 1.12em;
+        line-height: 1.65;
+        color: var(--secondary-text);
 
-                strong {
-                    color: var(--primary-text);
-                    font-weight: 600;
-                }
-
-                &:last-child {
-                    margin-bottom: 0;
-                }
-            }
-        }
-
-        figure {
-            width: 100%;
-            max-width: 100%;
-            margin: 1.5em 0;
-            padding: 0;
-            border: none;
-            background: transparent;
-            box-sizing: border-box;
-
-            img {
-                width: 100%;
-                max-width: 100%;
-                height: auto;
-                display: block;
-                border-radius: var(--radius-sm);
-                border: 1px solid var(--border-color);
-                box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
-                box-sizing: border-box;
-            }
-
-            figcaption {
-                // margin-top: 0.75em;
-                text-align: left;
-                // font-size: 1.05em;
-                color: var(--tertiary-text);
-            }
-        }
-
-        .card-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5em;
-            margin-top: 1.5em;
-
-            .impact-card {
-                background: var(--bg-color-high, #f9f9f9);
-                border: 1px solid var(--border-color, #eee);
-                padding: 1.5em;
-                border-radius: 0.75em;
-
-                strong {
-                    display: block;
-                    margin-bottom: 0.5em;
-                    color: var(--highlight-color);
-                }
-
-                p {
-                    margin: 0;
-                    line-height: 1.4;
-                }
-            }
-        }
-
-        .decision-container {
-            display: flex;
-            gap: 2em;
-            margin-top: 1.5em;
-
-            @media (max-width: 768px) {
-                flex-direction: column;
-            }
-
-            .decision-column {
-                flex: 1;
-
-                h4 {
-                    margin-bottom: 1em;
-                    text-transform: none;
-                }
-            }
-
-            .tag-group {
-                display: flex;
-                flex-wrap: wrap;
-                gap: 0.75em;
-            }
-
-            .not-picked {
-                .tag-parent {
-                    opacity: 0.7;
-
-                    .tag {
-                        text-decoration: line-through;
-                    }
-                }
-            }
-        }
-
-
-        .stories {
-            width: 100%;
-            border-radius: 0.75em;
-            overflow: hidden;
-        }
-
-        blockquote {
-            position: relative;
-            font-family: 'Google Sans Code', Courier, monospace;
-            font-size: var(--block-quote-size, 1.15em);
+        li {
+            font-family: inherit;
+            font-size: 1em;
+            line-height: 1.65;
+            color: inherit;
             font-weight: 500;
-            line-height: 1.4;
-            color: var(--highlight-color);
-            padding: 1em;
-            margin-left: 0;
-            margin-top: 1.5em;
-            margin-bottom: 1.5em;
-            border-left: 3px solid var(--highlight-color);
-            background: color-mix(in srgb, var(--highlight-color) 4%, transparent);
-            border-radius: 0 0.5em 0.5em 0;
-            // max-width: 80%;
+            margin-bottom: 0.55em;
+
+            p {
+                font-size: 1em;
+                margin-bottom: 0.4em;
+            }
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    // Small muted square markers instead of round bullets.
+    ul {
+        list-style: none;
+        padding-left: 1.15em;
+
+        li {
+            position: relative;
 
             &::before {
-                content: "Insight";
+                content: "";
+                position: absolute;
+                left: -1.15em;
+                top: 0.62em;
+                width: 4px;
+                height: 4px;
+                border-radius: 1px;
+                background: color-mix(in srgb, var(--tertiary-text) 55%, transparent);
+            }
+        }
+    }
+
+    ol {
+        padding-left: 1.6em;
+
+        li::marker {
+            color: var(--tertiary-text);
+            font-variant-numeric: tabular-nums;
+        }
+    }
+
+    .metadata {
+        display: flex;
+        gap: 2em;
+        margin-bottom: 2em;
+        font-size: 0.9em;
+        color: var(--highlight-color);
+
+        strong {
+            color: var(--primary-text);
+        }
+    }
+
+    .red {
+        background-color: #d50019;
+        color: white;
+        width: fit-content;
+        padding: 0.25em;
+    }
+
+    figure {
+        width: 100%;
+        max-width: 100%;
+        margin: 1.5em 0;
+        padding: 0;
+        border: none;
+        background: transparent;
+        box-sizing: border-box;
+
+        img {
+            width: 100%;
+            max-width: 100%;
+            height: auto;
+            display: block;
+            border-radius: var(--radius-sm);
+            border: 1px solid var(--border-color);
+            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+            box-sizing: border-box;
+        }
+
+        figcaption {
+            text-align: left;
+            color: var(--tertiary-text);
+        }
+    }
+
+    .card-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1.5em;
+        margin-top: 1.5em;
+
+        .impact-card {
+            background: var(--bg-color-high, #f9f9f9);
+            border: 1px solid var(--border-color, #eee);
+            padding: 1.5em;
+            border-radius: 0.75em;
+
+            strong {
                 display: block;
-                font-family: var(--font-body, inherit);
-                font-size: 0.7em;
-                font-weight: 700;
-                letter-spacing: 0.08em;
-                text-transform: uppercase;
+                margin-bottom: 0.5em;
                 color: var(--highlight-color);
-                margin-bottom: 0.4em;
-                opacity: 0.85;
             }
 
             p {
-                font-family: inherit;
-                font-size: 1em;
-                color: inherit;
                 margin: 0;
-            }
-
-            @media (max-width: 767px) {
-                width: 100%;
-                max-width: 100%;
+                line-height: 1.4;
             }
         }
+    }
 
-        .intro {
-            max-width: 52ch;
-            display: flex;
-            align-items: flex-start;
+    .decision-container {
+        display: flex;
+        gap: 2em;
+        margin-top: 1.5em;
+
+        @media (max-width: 768px) {
             flex-direction: column;
-            margin-bottom: 2em;
         }
 
-        .img-container {
+        .decision-column {
+            flex: 1;
+
             h4 {
-                text-transform: uppercase;
+                margin-bottom: 1em;
+                text-transform: none;
             }
         }
 
-        .tldr-container {
-            background: linear-gradient(145deg, var(--bg-color-high) 0%, rgba(73, 28, 255, 0.04) 100%);
-            position: relative;
-            border: 1.5px solid var(--border-color);
-            border-radius: var(--border-radius);
-            padding: 1.5em;
-            margin: 2em 0;
-            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+        .tag-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75em;
+        }
 
-            summary {
-                cursor: pointer;
-                list-style: none;
-                margin-bottom: 0;
+        .not-picked {
+            .tag-parent {
+                opacity: 0.7;
+
+                .tag {
+                    text-decoration: line-through;
+                }
+            }
+        }
+    }
+
+    .stories {
+        width: 100%;
+        border-radius: 0.75em;
+        overflow: hidden;
+    }
+
+    blockquote {
+        position: relative;
+        font-family: 'Google Sans Code', Courier, monospace;
+        font-size: var(--block-quote-size, 1.15em);
+        font-weight: 500;
+        line-height: 1.4;
+        color: var(--highlight-color);
+        padding: 1em;
+        margin-left: 0;
+        margin-top: 1.5em;
+        margin-bottom: 1.5em;
+        border-left: 3px solid var(--highlight-color);
+        background: color-mix(in srgb, var(--highlight-color) 4%, transparent);
+        border-radius: 0 0.5em 0.5em 0;
+
+        &::before {
+            content: "Insight";
+            display: block;
+            font-family: var(--font-body, inherit);
+            font-size: 0.7em;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--highlight-color);
+            margin-bottom: 0.4em;
+            opacity: 0.85;
+        }
+
+        p {
+            font-family: inherit;
+            font-size: 1em;
+            color: inherit;
+            margin: 0;
+            max-width: none;
+        }
+
+        @media (max-width: 767px) {
+            width: 100%;
+            max-width: 100%;
+        }
+    }
+
+    .intro {
+        max-width: 52ch;
+        display: flex;
+        align-items: flex-start;
+        flex-direction: column;
+        margin-bottom: 2em;
+    }
+
+    .img-container {
+        h4 {
+            text-transform: uppercase;
+        }
+    }
+
+    .tldr-container {
+        background: linear-gradient(145deg, var(--bg-color-high) 0%, rgba(73, 28, 255, 0.04) 100%);
+        position: relative;
+        border: 1.5px solid var(--border-color);
+        border-radius: var(--border-radius);
+        padding: 1.5em;
+        margin: 2em 0;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+
+        summary {
+            cursor: pointer;
+            list-style: none;
+            margin-bottom: 0;
+            display: flex;
+            flex-direction: column;
+
+            &::-webkit-details-marker {
+                display: none;
+            }
+
+            h3 {
+                font-weight: 600;
+                font-size: 1.7em;
+                margin-top: 0;
+                margin-bottom: 0.5em;
                 display: flex;
-                flex-direction: column;
+                align-items: center;
+                text-transform: none;
+                background: linear-gradient(90deg, var(--highlight-color), var(--twitter-blue-hover));
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+                color: transparent;
 
-                &::-webkit-details-marker {
-                    display: none;
+                &::before {
+                    margin-right: 12px;
+                    -webkit-text-fill-color: initial;
                 }
 
-                h3 {
-                    font-weight: 600;
-                    font-size: 1.7em;
-                    margin-top: 0;
+                // The docs hairline belongs to real section labels only.
+                &::after {
+                    content: none;
+                }
+            }
+
+            ul,
+            p {
+                color: var(--secondary-text);
+                margin-bottom: 1em;
+                line-height: var(--paragraph-line-height);
+                font-size: 0.8rem;
+                font-weight: normal;
+                padding-left: 1.5em;
+
+                li {
                     margin-bottom: 0.5em;
-                    display: flex;
-                    align-items: center;
-                    text-transform: none;
-                    background: linear-gradient(90deg, var(--highlight-color), var(--twitter-blue-hover));
-                    -webkit-background-clip: text;
-                    -webkit-text-fill-color: transparent;
-                    background-clip: text;
-                    color: transparent;
-
-                    &::before {
-                        margin-right: 12px;
-                        -webkit-text-fill-color: initial;
-                    }
-                }
-
-                ul,
-                p {
-                    color: var(--secondary-text);
-                    margin-bottom: 1em;
-                    line-height: var(--paragraph-line-height);
-                    font-size: 0.8rem;
-                    font-weight: normal;
-                    padding-left: 1.5em;
-
-                    li {
-                        margin-bottom: 0.5em;
-                        font-size: var(--text-size);
-                    }
-                }
-
-                .read-more-btn {
-                    color: var(--highlight-color);
-                    font-weight: 500;
-                    display: flex;
-                    align-items: center;
-
-                    &::after {
-                        content: "↓";
-                        margin-left: 8px;
-                        transition: transform 0.2s ease;
-                    }
+                    font-size: var(--text-size);
                 }
             }
 
-            &[open] summary {
-                margin-bottom: 1.5em;
-                border-bottom: 1px solid var(--border-color);
-                padding-bottom: 1.5em;
+            .read-more-btn {
+                color: var(--highlight-color);
+                font-weight: 500;
+                display: flex;
+                align-items: center;
 
-                .read-more-btn::after {
-                    content: "↑";
+                &::after {
+                    content: "↓";
+                    margin-left: 8px;
+                    transition: transform 0.2s ease;
+                }
+            }
+        }
+
+        &[open] summary {
+            margin-bottom: 1.5em;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5em;
+
+            .read-more-btn::after {
+                content: "↑";
+            }
+        }
+
+        .tldr-content {
+            p {
+                margin-bottom: 1em;
+            }
+
+            ul {
+                margin-top: 0.5em;
+                padding-left: 1.5em;
+
+                li {
+                    margin-bottom: 0.5em;
                 }
             }
 
-            .tldr-content {
-                p {
-                    margin-bottom: 1em;
-                }
-
-                ul {
-                    margin-top: 0.5em;
-                    padding-left: 1.5em;
-
-                    li {
-                        margin-bottom: 0.5em;
-                    }
-                }
-
-                p:last-of-type,
-                ul:last-of-type {
-                    margin-bottom: 0;
-                }
+            p:last-of-type,
+            ul:last-of-type {
+                margin-bottom: 0;
             }
         }
     }
 }
 
-@media (max-width: 1024px) {
-    .container-project {
-        grid-template-columns: 1fr;
-        padding: 0 1.5em 3em;
+/* ── Footer ──────────────────────────────────────────────────────────────── */
 
-        .project-content-wrapper {
-            grid-column: 1;
+.docs-footer {
+    margin-top: 4em;
+    padding-top: 2.25em;
+    border-top: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    gap: 2.75em;
+
+    &__links {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.9em;
+
+        button {
+            padding: 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-family: inherit;
+            font-size: 1.02em;
+            font-weight: 550;
+            letter-spacing: -0.01em;
+            color: var(--highlight-color);
+
+            span {
+                display: inline-block;
+                transition: transform 0.2s ease;
+            }
+
+            &:hover span {
+                transform: translateX(3px);
+            }
+        }
+    }
+
+    &__colophon {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1em;
+        font-size: 0.85em;
+        color: var(--tertiary-text);
+
+        button {
+            padding: 0;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-family: inherit;
+            font-size: inherit;
+            color: var(--tertiary-text);
+            text-decoration: underline;
+            text-underline-offset: 2px;
+
+            &:hover {
+                color: var(--primary-text);
+            }
         }
     }
 }
 
 @media (max-width: 768px) {
-
-    // Scoped under .container-project to match the base rule's specificity.
-    .container-project .project-details {
+    .project-details {
         max-width: 100vw;
 
-        // Stack the section heading above its body on small screens.
-        section:has(h3) {
-            display: block;
-            // padding: 2em;
-
-            >.scroll-reveal:first-child {
-                margin-bottom: 1em;
-            }
-
-            >.scroll-reveal:first-child+* {
-                margin-top: 0;
-            }
-        }
-
-        section:not(:has(h3)) {
-            padding: 0 0 2em;
+        section {
+            padding: 2.25em 0 0.5em;
         }
 
         figure {
@@ -464,23 +619,18 @@
 }
 
 @media (max-width: 480px) {
-    .container-project {
-        width: 100%;
-        padding: 0 1em 2em;
-    }
-
     .project-details {
 
         section,
         .intro {
             max-width: 100%;
         }
-    }
 
-    .container-project .project-details figure {
-        margin-left: 0;
-        margin-right: 0;
-        width: 100%;
-        max-width: 100%;
+        figure {
+            margin-left: 0;
+            margin-right: 0;
+            width: 100%;
+            max-width: 100%;
+        }
     }
 }

@@ -33,7 +33,14 @@
     animation: testimonialFadeIn 0.35s ease-out forwards;
 
     @media (max-width: 767px) {
-        min-height: 410px;
+        // Sized to the tallest testimonial at this width (they range 318–340px),
+        // so there's no surplus height for `space-between` to pump into the
+        // gaps — at 410px it was stretching them to ~58px each, well past the
+        // 1.75em intended. The floor still stops the section jumping as the
+        // quotes rotate; `center` keeps the internal rhythm even for the
+        // shorter ones by balancing their leftover space above and below.
+        min-height: 340px;
+        justify-content: center;
     }
 }
 

@@ -119,11 +119,26 @@
       border-radius: 3px;
       cursor: default;
 
-      &.level-0 { background-color: var(--bg-color-high); border: 1px solid var(--border-color); }
-      &.level-1 { background-color: #0e4429; }
-      &.level-2 { background-color: #006d32; }
-      &.level-3 { background-color: #26a641; }
-      &.level-4 { background-color: #39d353; }
+      &.level-0 {
+        background-color: var(--bg-color-high);
+        border: 1px solid var(--border-color);
+      }
+
+      &.level-1 {
+        background-color: #0e4429;
+      }
+
+      &.level-2 {
+        background-color: #006d32;
+      }
+
+      &.level-3 {
+        background-color: #26a641;
+      }
+
+      &.level-4 {
+        background-color: #39d353;
+      }
     }
 
     .grid-tooltip {
@@ -160,7 +175,7 @@
       }
 
       .grid-tooltip-date {
-        font-weight: 450;
+        font-weight: 500;
         opacity: 0.75;
       }
     }

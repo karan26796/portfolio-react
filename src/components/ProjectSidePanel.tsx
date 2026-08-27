@@ -61,11 +61,16 @@ const ProjectSidePanel: React.FC<ProjectSidePanelProps> = ({
     setActiveSection(headers[0].id);
     updateActiveSection();
 
-    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    // The panel can sit inside its own scroll container (the case-study
+    // reader body) rather than scrolling with the page. `scroll` doesn't
+    // bubble, so the listener has to go on that element — window alone would
+    // never fire and the active section would stay stuck on the first one.
+    const scrollTarget: HTMLElement | Window = scrollRootRef?.current ?? window;
+    scrollTarget.addEventListener("scroll", onScrollOrResize, { passive: true });
     window.addEventListener("resize", onScrollOrResize, { passive: true });
 
     return () => {
-      window.removeEventListener("scroll", onScrollOrResize);
+      scrollTarget.removeEventListener("scroll", onScrollOrResize);
       window.removeEventListener("resize", onScrollOrResize);
     };
   }, [headers, scrollRootRef]);

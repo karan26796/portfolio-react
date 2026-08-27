@@ -36,7 +36,9 @@
 .reader-mode-window {
   position: relative;
   width: 100%;
-  max-width: 1180px;
+  // Matches `.docs-layout`'s own max-width, so the window is exactly as wide
+  // as the content inside it rather than framing it in empty space.
+  max-width: 1040px;
   height: 100%;
   background: var(--bg-color);
   border-radius: 20px 20px 0 0;

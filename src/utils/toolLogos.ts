@@ -5,6 +5,7 @@ import snowflake from "./logos/snowflake.webp";
 import pendo from "./logos/pendo.webp";
 import claude from "./logos/claude.webp";
 import protopie from "./logos/protopie.webp";
+import xcode from "./logos/xcode.webp";
 
 /** Tool name -> logo asset, used by ProjectCard's tool-logos row. */
 export const TOOL_LOGOS: Record<string, string> = {
@@ -15,4 +16,5 @@ export const TOOL_LOGOS: Record<string, string> = {
   Pendo: pendo,
   Claude: claude,
   ProtoPie: protopie,
+  Xcode: xcode
 };

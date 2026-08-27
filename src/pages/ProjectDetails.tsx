@@ -3,9 +3,7 @@ import ReactMarkdown from 'react-markdown';
 import rehypeRaw from 'rehype-raw';
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/ProjectDetails.scss";
-import ProjectDetailHeader from "../components/ProjectHeader";
 import { useProjects } from "../utils/useProjects";
-import ProjectSidePanel from "../components/ProjectSidePanel";
 import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
 import ProjectNextProjects from "../components/ProjectNextProjects";
 import CustomVideo from "../components/CustomVideo";
@@ -56,7 +54,6 @@ const ProjectDetails: React.FC = () => {
   const navigate = useNavigate();
   const [markdownContent, setMarkdownContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [headers, setHeaders] = useState<{ text: string; id: string }[]>([]);
   const [isExpanded, setIsExpanded] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
@@ -141,34 +138,42 @@ const ProjectDetails: React.FC = () => {
     }
   }, [projectId]);
 
-  // Extract h3 headers after markdown renders
+  // Give every section heading a unique id so anchors stay stable when a case
+  // study repeats a title. The markdown renderer already slugifies each one;
+  // this only disambiguates collisions.
   useEffect(() => {
-    if (!loading && contentRef.current) {
-      const seen = new Map<string, number>();
-      const h3s = Array.from(contentRef.current.querySelectorAll("h3"));
-      const headerList = h3s.map((h3) => {
-        let id = h3.id || slugify(h3.textContent || "");
-        const count = seen.get(id) ?? 0;
-        seen.set(id, count + 1);
-        if (count > 0) id = `${id}-${count}`;
-        h3.id = id;
-        return { text: h3.textContent || "", id };
-      });
-      setHeaders(headerList);
-    }
-  }, [loading, cleanContent]);
+    if (loading || projectsLoading || !contentRef.current) return;
 
-  const handleHeaderClick = (id: string) => {
-    const el = document.getElementById(id);
-    if (el && bodyRef.current) {
-      const navOffset = 60;
-      const top = el.getBoundingClientRect().top + bodyRef.current.scrollTop - navOffset;
-      bodyRef.current.scrollTo({ top, behavior: "smooth" });
-    }
-  };
+    const seen = new Map<string, number>();
+    contentRef.current.querySelectorAll("h3").forEach((h3) => {
+      let id = h3.id || slugify(h3.textContent || "");
+      const count = seen.get(id) ?? 0;
+      seen.set(id, count + 1);
+      if (count > 0) id = `${id}-${count}`;
+      h3.id = id;
+    });
+  }, [loading, projectsLoading, cleanContent]);
 
   // Bespoke React case-study pages bypass markdown pipeline
   const CustomPage = projectId ? CUSTOM_PROJECTS[projectId] : undefined;
+
+  const nextProject =
+    validProjectList.length > 1
+      ? validProjectList[(currentIndex + 1) % validProjectList.length]
+      : null;
+
+  // The docs format accents the lead-in of the headline. Our titles read
+  // "Name : descriptor", so the name before the colon takes the accent rule
+  // and the descriptor follows on its own line.
+  const [titleLead, titleRest] = React.useMemo(() => {
+    const raw = projectSummary?.title ?? "";
+    const idx = raw.indexOf(":");
+    if (idx === -1) return [raw, ""];
+    return [raw.slice(0, idx).trim(), raw.slice(idx + 1).trim()];
+  }, [projectSummary?.title]);
+
+  const scrollToTop = () =>
+    bodyRef.current?.scrollTo({ top: 0, behavior: "smooth" });
 
   return (
     <div
@@ -201,9 +206,30 @@ const ProjectDetails: React.FC = () => {
           ) : (
             <>
               <div className="project-details-main-content">
-                <div className="container-project">
-                  <div className="project-content-wrapper">
-                    <ProjectDetailHeader data={projectSummary} />
+                <div className="docs-layout">
+                  <div className="docs-main">
+                    <header className="docs-hero">
+                      {projectSummary.year && (
+                        <p className="docs-hero__stamp">{projectSummary.year}</p>
+                      )}
+                      <h1 className="docs-hero__title">
+                        {/* The accent rule only reads as an accent when it
+                            underlines a short lead-in, so it's reserved for
+                            titles that actually split on a colon. */}
+                        <span
+                          className={`docs-hero__title-lead${titleRest ? " has-accent" : ""}`}
+                        >
+                          {titleLead}
+                        </span>
+                        {titleRest && (
+                          <span className="docs-hero__title-rest">{titleRest}</span>
+                        )}
+                      </h1>
+                      {projectSummary.description && (
+                        <p className="docs-hero__lede">{projectSummary.description}</p>
+                      )}
+                    </header>
+
                     <div ref={contentRef} className="project-details">
                       {cleanContent ? (
                         <ReactMarkdown
@@ -286,25 +312,44 @@ const ProjectDetails: React.FC = () => {
                         </ReactMarkdown>
                       ) : <div>Project content not available</div>}
                     </div>
+
+                    {faqData && (
+                      <FAQ data={faqData} hideTitle={false} title="FAQs" />
+                    )}
+
+                    {markdownContent && (
+                      <AISummarizer
+                        text={markdownContent}
+                        buttonLabel="Ask Agent Vinod"
+                        pageType="project"
+                        initialPrompts={[
+                          "Can you summarize this project?",
+                          "What was my role here?",
+                          "What was the biggest challenge?"
+                        ]}
+                      />
+                    )}
+
+                    <footer className="docs-footer">
+                      <nav className="docs-footer__links">
+                        {nextProject && (
+                          <button type="button" onClick={handleNext}>
+                            {nextProject.title} <span aria-hidden="true">→</span>
+                          </button>
+                        )}
+                        <button type="button" onClick={handleClose}>
+                          Back to all work <span aria-hidden="true">→</span>
+                        </button>
+                      </nav>
+                      <div className="docs-footer__colophon">
+                        <span>Written by Karan Kapoor</span>
+                        <button type="button" onClick={scrollToTop}>
+                          Top <span aria-hidden="true">↑</span>
+                        </button>
+                      </div>
+                    </footer>
                   </div>
                 </div>
-
-                {faqData && (
-                  <FAQ data={faqData} hideTitle={false} title="FAQs" />
-                )}
-
-                {markdownContent && (
-                  <AISummarizer
-                    text={markdownContent}
-                    buttonLabel="Ask Agent Vinod"
-                    pageType="project"
-                    initialPrompts={[
-                      "Can you summarize this project?",
-                      "What was my role here?",
-                      "What was the biggest challenge?"
-                    ]}
-                  />
-                )}
               </div>
 
               <WorkTogether />

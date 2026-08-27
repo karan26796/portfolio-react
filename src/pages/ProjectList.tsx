@@ -238,20 +238,19 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
   // section follows (e.g. Testimonials) instead of handing off cleanly.
   const containerHeight = `${HOLD_VH_PER_CARD * projectData.length + 100}vh`;
 
+  const companyOf = (project?: ProjectCardData) =>
+    project
+      ? project.company || (project.year ? project.year.split('/')[0].trim() : 'Featured Projects')
+      : null;
+
   return (
     <div className="project-parent" ref={containerRef} style={{ height: containerHeight }}>
       <div className="project-stage">
         {projectData.map((project, index) => {
-          const companyName =
-            project.company ||
-            (project.year ? project.year.split('/')[0].trim() : 'Featured Projects');
-          const prevCompanyName =
-            index > 0
-              ? projectData[index - 1].company ||
-              (projectData[index - 1].year ? projectData[index - 1].year!.split('/')[0].trim() : 'Featured Projects')
-              : null;
-          const isFirstForCompany = companyName !== prevCompanyName;
           const offset = index - activeIndex;
+          const companyName = companyOf(project);
+          // Tenure only shows on the first project under each company.
+          const isFirstForCompany = index === 0 || companyName !== companyOf(projectData[index - 1]);
 
           return (
             <div
@@ -260,23 +259,27 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
               style={{ transform: `translateY(${offset * 100}%)`, transitionDuration: pushTransitionDuration }}
             >
               <div className="project-stage-card__inner">
-                <div className="project-stage-card__header">
-                  <div className="project-stage-card__header-info">
-                    {COMPANY_LOGOS[companyName] && (
-                      <img
-                        src={COMPANY_LOGOS[companyName]}
-                        alt={`${companyName} logo`}
-                        className="project-stage-card__logo"
-                      />
+                {/* Sits in the card's normal flow, so it scrolls and pushes
+                    along with the card's content rather than holding its own
+                    position at the top of the stage. */}
+                {companyName && (
+                  <div className="project-stage-card__header">
+                    <div className="project-stage-card__header-info">
+                      {COMPANY_LOGOS[companyName] && (
+                        <img
+                          src={COMPANY_LOGOS[companyName]}
+                          alt={`${companyName} logo`}
+                          className="project-stage-card__logo"
+                        />
+                      )}
+                      <span className="project-stage-card__company">{companyName}</span>
+                      <span className="project-stage-card__year-inline">{yearOnly(project)}</span>
+                    </div>
+                    {isFirstForCompany && COMPANY_TENURES[companyName] && (
+                      <span className="project-stage-card__tenure">{COMPANY_TENURES[companyName]}</span>
                     )}
-                    <span className="project-stage-card__company">{companyName}</span>
-                    <span className="project-stage-card__year-inline">{yearOnly(project)}</span>
                   </div>
-                  {/* Tenure only repeats for the first project under each company. */}
-                  {isFirstForCompany && COMPANY_TENURES[companyName] && (
-                    <span className="project-stage-card__tenure">{COMPANY_TENURES[companyName]}</span>
-                  )}
-                </div>
+                )}
 
                 <div className="project-card-row">
                   <ProjectCard

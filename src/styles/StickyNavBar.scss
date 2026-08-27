@@ -14,6 +14,17 @@
   -webkit-backdrop-filter: blur(12px);
   // border-bottom: 1px solid var(--border-color);
   box-sizing: border-box;
+  // Slides out of the way on scroll down, back on scroll up (both widths).
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+
+  &.is-hidden {
+    transform: translateY(-100%);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    transition: none;
+  }
 
   .navbar {
     width: 100%;
@@ -52,35 +63,194 @@
     }
   }
 
-  .navbar-right-links {
+  /* Three-line toggle that opens the full-page menu. The page names live in
+     the overlay now instead of sitting exposed in the bar. */
+  .navbar-menu-toggle {
     display: flex;
     align-items: center;
-    gap: 2em;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    margin-right: -8px;
+    padding: 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--primary-text);
 
-    @media (max-width: 768px) {
-      gap: 1.1em;
+    &__bars {
+      position: relative;
+      display: block;
+      width: 22px;
+      height: 14px;
+
+      span {
+        position: absolute;
+        left: 0;
+        width: 100%;
+        height: 1.5px;
+        border-radius: 2px;
+        background: currentColor;
+        // Transform and opacity are separated so the bars can rotate about
+        // their shared centre while the middle one only fades.
+        transition: transform 0.3s cubic-bezier(0.65, 0, 0.35, 1),
+          opacity 0.18s ease;
+      }
+
+      span:nth-child(1) {
+        top: 0;
+      }
+
+      span:nth-child(2) {
+        top: 50%;
+        margin-top: -0.75px;
+      }
+
+      span:nth-child(3) {
+        bottom: 0;
+      }
     }
 
-    .a-header {
-      font-size: 0.9em;
-      font-weight: 500;
-      letter-spacing: -0.01em;
-      color: var(--secondary-text);
-      text-decoration: none;
-      transition: color 0.2s ease;
-
-      @media (max-width: 768px) {
-        font-size: 0.85em;
+    // The outer bars meet in the middle and cross; the middle one drops out.
+    // Written out rather than as `&.is-open &__bars`, which would expand to
+    // the parent selector twice over and match nothing.
+    &.is-open .navbar-menu-toggle__bars {
+      span:nth-child(1) {
+        transform: translateY(6.25px) rotate(45deg);
       }
 
-      &:hover {
-        color: var(--primary-text);
+      span:nth-child(2) {
+        opacity: 0;
       }
 
-      &.active {
-        color: var(--highlight-color);
-        font-weight: 600;
+      span:nth-child(3) {
+        transform: translateY(-6.25px) rotate(-45deg);
       }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .navbar-menu-toggle__bars span {
+        transition: none;
+      }
+    }
+  }
+}
+
+/* ============================================================================
+   FULL-PAGE MENU
+   Sits just under the nav bar's stacking order so the toggle stays visible
+   and clickable as the close button.
+   ============================================================================ */
+
+.nav-menu-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  background: var(--bg-color);
+  display: flex;
+  align-items: center;
+  padding: 6em 0 4em;
+  box-sizing: border-box;
+  overflow-y: auto;
+  animation: nav-menu-in 0.28s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes nav-menu-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-menu-list {
+  width: 100%;
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  padding: 0 2em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+
+  @media (max-width: 768px) {
+    padding: 0 1.25em;
+  }
+}
+
+@keyframes nav-menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-menu-item {
+  display: flex;
+  align-items: baseline;
+  gap: 1em;
+  padding: 0.5em 0;
+  border-bottom: 1px solid var(--border-color);
+  text-decoration: none;
+  color: var(--secondary-text);
+  transition: color 0.2s ease;
+  // Delay is set per item inline, so the rows arrive one after another.
+  animation: nav-menu-item-in 0.4s cubic-bezier(0.16, 1, 0.3, 1) both;
+
+  &:first-child {
+    border-top: 1px solid var(--border-color);
+  }
+
+  &__index {
+    flex-shrink: 0;
+    font-size: 0.85em;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    color: var(--tertiary-text);
+  }
+
+  &__label {
+    font-size: 2.6em;
+    font-weight: 650;
+    line-height: 1.15;
+    letter-spacing: -0.03em;
+    // Nudges toward the reader on hover without shifting the row's height.
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+    @media (max-width: 768px) {
+      font-size: 1.9em;
+    }
+  }
+
+  &:hover {
+    color: var(--primary-text);
+
+    .nav-menu-item__label {
+      transform: translateX(8px);
+    }
+  }
+
+  &.active {
+    color: var(--primary-text);
+
+    .nav-menu-item__index {
+      color: var(--highlight-color);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+
+    &__label {
+      transition: none;
     }
   }
 }

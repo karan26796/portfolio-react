@@ -101,7 +101,7 @@
     gap: 1em;
     align-items: start;
     width: 100%;
-    padding: 2em 1em 4em 1em;
+    padding: 2em 0;
 
     .card-meta-row {
       grid-column: 1 / -1;
@@ -187,8 +187,8 @@
     .project-card-split {
       grid-column: 1 / -1;
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      column-gap: 3.5em;
+      grid-template-columns: 3fr 2fr;
+      column-gap: 3em;
       row-gap: 2em;
       width: 100%;
 
@@ -200,6 +200,10 @@
         font-size: 0.95rem;
         font-weight: 700;
         color: var(--secondary-text);
+
+        @media screen and (max-width: 767px) {
+          margin: 0;
+        }
       }
 
       &__num {
@@ -282,9 +286,14 @@
         gap: 1em;
       }
 
-      .tag-pills,
       .tool-logos {
         width: 100%;
+      }
+
+      // Tags are dropped at this width — they crowded the card, and the tool
+      // logos already carry the same "what this involved" signal.
+      .tag-pills {
+        display: none;
       }
 
       .title-details-group {
@@ -521,7 +530,7 @@
           width: 95%;
           aspect-ratio: 7/5;
           border: 1px solid transparent;
-          border-radius: 1em;
+          // border-radius: 1em;
         }
 
         img.project-image,
@@ -638,7 +647,7 @@
     }
 
     h5 {
-      font-family: 'Circular-Book', 'Arial Narrow', Arial, sans-serif;
+      // font-family: 'Circular-Book', 'Arial Narrow', Arial, sans-serif;
       text-transform: uppercase;
       font-size: 1.2em;
     }

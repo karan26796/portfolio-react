@@ -63,17 +63,18 @@ const projectsById: Record<string, ProjectSummary> = {
   "10": {
     id: "10",
     company: "Side Projects",
-    newdesc: "Developed & designed an app to help people in gated communities get referrals for open jobs",
+    newdesc: "Gated community residents rely on external networks for job referrals.",
     description: "Developed & designed an app to help people in gated communities post jobs and get referrals",
     title: "Interconnect : Professional networking for gated societies",
     img: interconnect,
     images: [interconnect, referral],
     year: "Personal project / 2026",
     tags: ["Vibe coding", "Research"],
+    tools: ["Xcode", "Figma"],
     type: "client",
-    details: "Interconnect : Professional networking for gated societies",
+    details: "Interconnect : Platform for people in gated societies to post jobs and get referals for open jobs",
     bgColor: "#fff7e8ff",
-    story: "The time I went looking for hyperlocal problems.",
+    story: "The time I wanted to help my wife find a job.",
     meta: {
       duration: "2026",
       role: "Designer",
@@ -131,7 +132,7 @@ const projectsById: Record<string, ProjectSummary> = {
   "8": {
     id: "8",
     company: "Keka HR",
-    newdesc: "Used an AI native workflow to get stakeholder buy in & shrunk design hand off time by 50% ",
+    newdesc: "Customers were complaing about old platform due to missing features and broken loops ",
     description: "Ran the entire redesign solo using AI — research, prioritization, and engineering handoff — with no PM on the project.",
     title: "How I Revamped Keka's Awards Platform using AI workflows without a PM",
     img: awardRevamo,
@@ -139,7 +140,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["Discovery", "AI prototyping", "Product management"],
     tools: ["NotebookLM", "Descript", "Figma"],
     type: "client",
-    details: "Revamped Keka's Awards Platform using AI workflows without a PM to close 6 sales deals",
+    details: "Used AI native workflows to introduce new features and fix broken workflows to close 6 sales deals",
     accentColor: "#9333ea",
     // Page background while this project is the active card in the scrolling
     // project list. Omit it to fall back to a tone sampled from `img`.
@@ -198,7 +199,7 @@ const projectsById: Record<string, ProjectSummary> = {
   "7": {
     id: "7",
     company: "Keka HR",
-    newdesc: "Added a simple CTA to drive engagement on Keka wall visited by 1M+ users in a week",
+    newdesc: "Daily active usage fell by 50% on the peer wish feature and Keka's social wall.",
     description: "Scaled weekly engagement from 15k to 100k users by redesigning the workplace celebrations framework.",
     title: "Revived falling engagement on HR platform wall by adding delight when people wish each other on special days",
     img: wish,
@@ -221,7 +222,7 @@ const projectsById: Record<string, ProjectSummary> = {
   "1": {
     id: "1",
     company: "Looppanel",
-    newdesc: "Created a seamless pipeline between zoom recording and interview insights",
+    newdesc: "Research data was scattered across multiple tools that were not linked",
     description: "Zoom bot helped consolidate all the research data into a single view for user researchers",
     title: "Cut Research Synthesis Time by 5x with an AI-Powered Meeting Bot",
     tools: ["ProtoPie", "Figma"],
@@ -230,7 +231,7 @@ const projectsById: Record<string, ProjectSummary> = {
     year: "Looppanel / 2022",
     tags: ["Competitor study", "User research", "Prototyping"],
     type: "client",
-    details: "Created a zoom bot with question script to remove 5 external tools from the workflow ",
+    details: "Zoom bot with question script to record notes & generate transcript to remove 5 external tools from the workflow ",
     accentColor: "#8b5cf6",
     bgColor: "#ebf0fdff",
     story: "The time I replaced 5 tools with one AI bot.",
