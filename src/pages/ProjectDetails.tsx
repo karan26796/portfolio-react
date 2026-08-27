@@ -315,7 +315,7 @@ const ProjectDetails: React.FC = () => {
                         pageType="project"
                         initialPrompts={[
                           "Can you summarize this project?",
-                          "What was my role here?",
+                          "What was your role here?",
                           "What was the biggest challenge?"
                         ]}
                       />

@@ -22,9 +22,9 @@ interface AISummarizerProps {
  */
 const PROMPT_POOL: Record<'home' | 'project', string[]> = {
     home: [
-        "What roles am I looking for?",
+        "What roles are you looking for?",
         "How do you handle disagreements with PMs?",
-        "How can I contact you?",
+        "How do I contact you?",
         "What does your design process look like?",
         "Which tools do you use day to day?",
         "Tell me about your Figma training work",
@@ -35,7 +35,7 @@ const PROMPT_POOL: Record<'home' | 'project', string[]> = {
     ],
     project: [
         "Can you summarize this project?",
-        "What was my role here?",
+        "What was your role here?",
         "What was the biggest challenge?",
         "What was the outcome?",
         "How long did this take?",
@@ -86,7 +86,8 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
     const [isOpen, setIsOpen] = useState(false);
     const [messages, setMessages] = useState<ChatMessage[]>([{
         role: 'bot',
-        content: "Hey 👋 I'm Agent Vinod, Karan's AI assistant. Ask me anything about his work, process, or background — or pick a question below to get started."
+        // First person throughout, matching the voice the answers use.
+        content: "Hey 👋 Agent Vinod here, answering as Karan. Ask me anything about my work, process, or background — or pick a question below to get started."
     }]);
     const [inputText, setInputText] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
