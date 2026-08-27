@@ -35,15 +35,16 @@ import usePageSEO from "./utils/usePageSEO";
 
 const ProjectDetails = React.lazy(() => import("./pages/ProjectDetails"));
 const About = React.lazy(() => import("./pages/About"));
-const Gallery = React.lazy(() => import("./pages/Gallery"));
+// The gallery is now the canvas view. Gallery.tsx is kept as the source of the
+// photo data (locations, aspect ratios, groupings) that GalleryCanvas imports,
+// and can be routed back here if the canvas doesn't stick.
+const GalleryCanvasPage = React.lazy(() => import("./pages/GalleryCanvas"));
 const TrainingList = React.lazy(() => import("./pages/FigmaTraining"));
 const Resume = React.lazy(() => import("./components/Resume"));
 const ResumeStandalone = React.lazy(() => import("./pages/ResumeStandalone"));
 const Overview = React.lazy(() => import("./pages/Overview"));
 // Throwaway canvas spike — see src/pages/CanvasSpike.tsx.
 const CanvasSpike = React.lazy(() => import("./pages/CanvasSpike"));
-// Canvas treatment of the photo gallery, alongside the existing /gallery.
-const GalleryCanvas = React.lazy(() => import("./pages/GalleryCanvas"));
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -95,7 +96,7 @@ const AppShell: React.FC = () => {
             <Route path="/home" element={null} />
             <Route path="/project/:projectId" element={<ProjectDetails />} />
             <Route path="/about" element={<About />} />
-            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/gallery" element={<GalleryCanvasPage />} />
             <Route path="/archive" element={<Archive />} />
             <Route path="/figma-training" element={<TrainingList />} />
             <Route path="/resume" element={<Resume />} />
@@ -104,7 +105,6 @@ const AppShell: React.FC = () => {
             <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
             <Route path="/overview" element={<Overview />} />
             <Route path="/canvas-spike" element={<CanvasSpike />} />
-            <Route path="/gallery-canvas" element={<GalleryCanvas />} />
           </Routes>
         </React.Suspense>
         <Footer />

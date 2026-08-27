@@ -11,6 +11,7 @@ import {
   zoomAt,
   fitTo,
   clampCamera,
+  clampZoom,
   isVisible,
   lerpCamera,
   easeInOutCubic,
@@ -29,13 +30,16 @@ import {
  * momentum: a flung drag coasts to a halt instead of stopping dead.
  */
 
-// Zooming is the primary gesture, so the band is deliberately huge — roughly
-// 70x end to end. The low end pulls back until the whole cluster is a small
-// constellation; the high end fills the screen with one photo's detail. Above
-// about 2.5 the source files (~1800-2000px wide) start upscaling, which is
-// why the ceiling stops where it does.
-const GALLERY_MIN_ZOOM = 0.05;
+// The floor is not a constant: it's whatever zoom fits the whole cluster in the
+// current viewport, computed per render below. That makes the opening view also
+// the furthest you can pull back — there is never empty space around the
+// cluster to get lost in. The ceiling stops at 3.5 because the source files
+// (~1800-2000px wide) start upscaling much past 2.5.
 const GALLERY_MAX_ZOOM = 3.5;
+// Used only before the viewport has been measured.
+const FALLBACK_MIN_ZOOM = 0.05;
+// Breathing room around the cluster in the fit-all view.
+const FIT_ALL_PADDING = 50;
 
 // How much of a zoom each wheel notch or pinch delivers. The previous 0.0015
 // took dozens of notches to cross the band, which read as the zoom being
@@ -44,7 +48,7 @@ const ZOOM_RATE = 0.0038;
 
 const FIT_PADDING = 70;
 // Small, so a clicked photo nearly fills the screen and the zoom-in lands hard.
-const PHOTO_FIT_PADDING = 36;
+const PHOTO_FIT_PADDING = 48;
 const FLIGHT_MS = 650;
 const CULL_MARGIN_PX = 600;
 
@@ -60,26 +64,27 @@ const ALL_IMAGES = REGIONS.flatMap((r) => r.images);
 // the gallery off to the sides where it reads as a wall to scrub past rather
 // than something to explore.
 const MOBILE_BREAKPOINT = 750;
-// Width is kept close to a single screen's worth at the opening zoom, so there
-// is only a little horizontal slack and the gesture is genuinely vertical. An
-// earlier 2500 was about three screens wide, which left photos cut off at both
-// edges. Photos are correspondingly smaller so the widest still fits.
+
+// The desktop field, flipped to portrait: same photo sizes, but taller than it
+// is wide. At the opening zoom this leaves images off to the left and right as
+// well as above and below — about 1.3 screens of horizontal travel and 1.0 of
+// vertical — rather than the single column it used to be.
+//
+// 7500 tall was measured against the alternatives: it holds 44% coverage with
+// zero overlaps, where 6000 reaches 60% but starts overlapping and 9000 drops
+// to 38% and reads as empty.
 const MOBILE_SCATTER = {
-  areaWidth: 900,
-  // 9500 is the tightest this column packs before rejection sampling starts
-  // failing: measured across the range, 9500 gives 48% coverage with zero
-  // overlaps, while 8500 gives 57% but eight overlapping pairs.
-  areaHeight: 9500,
-  minHeight: 200,
-  maxHeight: 340,
-  spacing: 36,
+  areaWidth: 4400,
+  areaHeight: 7500,
+  minHeight: 380,
+  maxHeight: 620,
+  spacing: 60,
 };
-// Fitting the whole column on a phone would leave photos ~50px wide, so mobile
-// opens at the top of the column and explores downward. This is a ceiling, not
-// the zoom itself: the actual value is derived below so the widest photo in the
-// layout always fits the screen, whatever the layout is later tuned to.
-const MOBILE_MAX_OPEN_ZOOM = 0.5;
-const MOBILE_EDGE_GUTTER = 24;
+
+// How many photos should span the screen at the opening zoom. The zoom is
+// derived from this and the layout's own median photo width, so the column
+// count holds whatever the photo sizes are later tuned to.
+const MOBILE_TARGET_COLUMNS = 4.5;
 
 const GalleryCanvas: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -105,10 +110,22 @@ const GalleryCanvas: React.FC = () => {
 
   // Listeners attach once with `{ passive: false }`, so they read state through
   // refs rather than closing over stale values.
+  /**
+   * The zoom that fits the whole cluster. Doubles as the minimum, so zooming
+   * out stops exactly at the view the page opens on. Wide bounds are passed to
+   * fitTo so its own clamp can't interfere with computing the limit.
+   */
+  const minZoom = useMemo(() => {
+    if (viewport.w <= 1) return FALLBACK_MIN_ZOOM;
+    return fitTo(layout.bounds, viewport, FIT_ALL_PADDING, 0.0001, 1000).zoom;
+  }, [viewport, layout.bounds]);
+
   const cameraRef = useRef(camera);
   cameraRef.current = camera;
   const viewportRef = useRef(viewport);
   viewportRef.current = viewport;
+  const minZoomRef = useRef(minZoom);
+  minZoomRef.current = minZoom;
 
   const flightRef = useRef<number | null>(null);
   const glideRef = useRef<number | null>(null);
@@ -160,15 +177,13 @@ const GalleryCanvas: React.FC = () => {
       // The page's zoom band is passed in rather than re-clamped afterwards:
       // clamping after the fact can only lower a zoom the global cap already
       // capped, never restore it.
-      flyTo(
-        fitTo(rect, viewportRef.current, padding, GALLERY_MIN_ZOOM, GALLERY_MAX_ZOOM)
-      ),
+      flyTo(fitTo(rect, viewportRef.current, padding, minZoomRef.current, GALLERY_MAX_ZOOM)),
     [flyTo]
   );
 
   const fitAll = useCallback(() => {
     setActivePhoto(null);
-    flyToRect(layout.bounds, 50);
+    flyToRect(layout.bounds, FIT_ALL_PADDING);
   }, [flyToRect, layout.bounds]);
 
   useEffect(() => {
@@ -196,17 +211,23 @@ const GalleryCanvas: React.FC = () => {
     const b = layout.bounds;
 
     if (isMobile) {
-      const widest = Math.max(...layout.photos.map((p) => p.w));
-      const zoom = Math.min(
-        MOBILE_MAX_OPEN_ZOOM,
-        (viewport.w - MOBILE_EDGE_GUTTER * 2) / widest
+      // Median rather than mean or widest: it's the width that actually
+      // characterises a column, and one outlier landscape shot shouldn't
+      // decide the zoom for all forty.
+      const widths = layout.photos.map((p) => p.w).sort((a, b) => a - b);
+      const median = widths[Math.floor(widths.length / 2)] || 1;
+      const zoom = clampZoom(
+        viewport.w / (MOBILE_TARGET_COLUMNS * median),
+        minZoom,
+        GALLERY_MAX_ZOOM
       );
 
+      // Centred both ways, so there are photos in every direction to pan to.
       setCamera(
         clampCamera(
           {
             x: b.x + b.w / 2 - viewport.w / (2 * zoom),
-            y: b.y - 40,
+            y: b.y + b.h / 2 - viewport.h / (2 * zoom),
             zoom,
           },
           b,
@@ -216,9 +237,9 @@ const GalleryCanvas: React.FC = () => {
     } else {
       // The wide field is roughly the viewport's aspect, so the whole cluster
       // is a legible starting view rather than a wall of thumbnails.
-      setCamera(fitTo(b, viewport, 50, GALLERY_MIN_ZOOM, GALLERY_MAX_ZOOM));
+      setCamera(fitTo(b, viewport, FIT_ALL_PADDING, minZoom, GALLERY_MAX_ZOOM));
     }
-  }, [viewport, isMobile, layout.bounds]);
+  }, [viewport, isMobile, layout.bounds, minZoom]);
 
   // The page itself must not scroll while the canvas owns the viewport.
   useEffect(() => {
@@ -249,7 +270,7 @@ const GalleryCanvas: React.FC = () => {
             c,
             Math.exp(-e.deltaY * ZOOM_RATE),
             anchor,
-            GALLERY_MIN_ZOOM,
+            minZoomRef.current,
             GALLERY_MAX_ZOOM
           )
         );
@@ -424,19 +445,6 @@ const GalleryCanvas: React.FC = () => {
         </div>
       </div>
 
-      <div className="gallery-canvas-hud">
-        <p className="gallery-canvas-hud__title">
-          Photo gallery
-          <span>
-            {Math.round(camera.zoom * 100)}% · {visiblePhotos.length}/
-            {layout.photos.length} in view
-          </span>
-        </p>
-        <p className="gallery-canvas-hud__hint">
-          Drag to fling · pinch or ctrl-scroll to zoom · click a photo to fill
-          the screen · Esc to see everything
-        </p>
-      </div>
     </div>
   );
 };
