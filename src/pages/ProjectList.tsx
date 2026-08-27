@@ -282,17 +282,27 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                 )}
 
                 <div className="project-card-row">
-                  <ProjectCard
-                    data={project}
-                    variant="large"
-                    buttonType="button"
-                    onClick={
-                      project.id === '10' || project.id === '11'
-                        ? undefined
-                        : () => handleCardClick(project.id)
-                    }
-                    showDivider={false}
-                  />
+                  {/* Selection-frame chrome around the card: a hairline box
+                      with a handle straddling each corner. The handles are
+                      decorative, so they stay out of the card's hover and
+                      click handling. */}
+                  <div className="project-frame">
+                    <ProjectCard
+                      data={project}
+                      variant="large"
+                      buttonType="button"
+                      onClick={
+                        project.id === '10' || project.id === '11'
+                          ? undefined
+                          : () => handleCardClick(project.id)
+                      }
+                      showDivider={false}
+                    />
+                    <span className="project-frame__corner project-frame__corner--tl" aria-hidden="true" />
+                    <span className="project-frame__corner project-frame__corner--tr" aria-hidden="true" />
+                    <span className="project-frame__corner project-frame__corner--bl" aria-hidden="true" />
+                    <span className="project-frame__corner project-frame__corner--br" aria-hidden="true" />
+                  </div>
                   {project.story && (
                     <div
                       // `is-active` drives the unfurl. It requires the section

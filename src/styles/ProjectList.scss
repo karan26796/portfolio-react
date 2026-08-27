@@ -153,6 +153,65 @@
   position: relative;
 }
 
+/* Selection-frame chrome: a hairline box around the card with a small handle
+   straddling each corner, so the card reads as an artboard on the canvas. */
+.project-frame {
+  position: relative;
+  background-color: hsla(0, 0%, 100%, 0.507);
+  border: 1px solid var(--border-color);
+  // Squared off — the handles only read as drag handles on sharp corners.
+  border-radius: 0;
+  padding: 1.75em;
+  box-sizing: border-box;
+
+  &__corner {
+    position: absolute;
+    width: 9px;
+    height: 9px;
+    background: hsla(0, 0%, 100%, 0.507);
+    // Same hairline colour as the frame's own border.
+    border: 1.5px solid var(--border-color);
+    box-sizing: border-box;
+    // Purely decorative — must not eat the card's hover or clicks.
+    pointer-events: none;
+
+    &--tl {
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    &--tr {
+      top: 0;
+      right: 0;
+      transform: translate(50%, -50%);
+    }
+
+    &--bl {
+      bottom: 0;
+      left: 0;
+      transform: translate(-50%, 50%);
+    }
+
+    &--br {
+      bottom: 0;
+      right: 0;
+      transform: translate(50%, 50%);
+    }
+  }
+
+  // The mobile card is deliberately edge to edge, so a frame would pin its
+  // side borders to the screen edges. No frame at this width.
+  @media (max-width: 768px) {
+    border: none;
+    padding: 0;
+
+    .project-frame__corner {
+      display: none;
+    }
+  }
+}
+
 // Hidden by default — only shown from 1320px up, where there's a page gutter
 // wide enough to pin it into beside the card.
 .project-story-note-wrap {
