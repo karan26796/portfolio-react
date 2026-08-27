@@ -172,9 +172,6 @@ const ProjectDetails: React.FC = () => {
     return [raw.slice(0, idx).trim(), raw.slice(idx + 1).trim()];
   }, [projectSummary?.title]);
 
-  const scrollToTop = () =>
-    bodyRef.current?.scrollTo({ top: 0, behavior: "smooth" });
-
   return (
     <div
       className="reader-mode-overlay"
@@ -330,6 +327,7 @@ const ProjectDetails: React.FC = () => {
                       />
                     )}
 
+<<<<<<< Updated upstream
                     <footer className="docs-footer">
                       <nav className="docs-footer__links">
                         {nextProject && (
@@ -348,6 +346,8 @@ const ProjectDetails: React.FC = () => {
                         </button>
                       </div>
                     </footer>
+=======
+>>>>>>> Stashed changes
                   </div>
                 </div>
               </div>
