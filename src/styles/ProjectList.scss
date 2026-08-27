@@ -194,7 +194,7 @@
   // left the image only ~177px tall.
   @media (min-width: 769px) {
     .project-container:not(.project-container-small) .project-image-single-wrapper {
-      aspect-ratio: 2.2 / 1;
+      aspect-ratio: 1.8 / 1;
 
       img.project-image,
       video.project-image {

@@ -146,7 +146,7 @@ const projectsById: Record<string, ProjectSummary> = {
     accentColor: "#9333ea",
     // Page background while this project is the active card in the scrolling
     // project list. Omit it to fall back to a tone sampled from `img`.
-    bgColor: "#fff9f0ff",
+    bgColor: "#fffaf4ff",
     story: "The time I also donned the PM hat.",
     meta: {
       duration: "Nov 2025 – Jan 2026",
@@ -214,7 +214,7 @@ const projectsById: Record<string, ProjectSummary> = {
     type: "client",
     details: "Scaled weekly engagement from 15k to 100k users by adding delight when people wish each other on their special day",
     accentColor: "#ec4899",
-    bgColor: "#f9f5ffff",
+    bgColor: "#fdfbffff",
     story: "The time a simple CTA 6x'ed engagement.",
     meta: {
       duration: "Nov'24 – Jan'25",
