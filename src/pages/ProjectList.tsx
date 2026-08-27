@@ -64,7 +64,12 @@ const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 
 // Paper colours for the handwritten story notes, cycled by project order so
 // no two adjacent notes share one.
-const NOTE_COLORS = ["#FDF3C7", "#fff7a2ff", "#fffdcdff", "#D9E8FB", "#E8DEFB", "#FDE2CF"];
+// The palette itself lives in colors.scss as --note-color-1..N; this only
+// picks which one, so the colours stay with the other design tokens rather
+// than being duplicated in JS.
+const NOTE_COLOR_COUNT = 6;
+const noteColorVar = (index: number) =>
+  `var(--note-color-${(index % NOTE_COLOR_COUNT) + 1})`;
 
 type Rgb = [number, number, number];
 
@@ -359,7 +364,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                       // the project list had been scrolled to.
                       className={`project-story-note-wrap${index % 2 === 0 ? " is-left" : " is-right"}${!STICKY_STACK_ENABLED || (isSectionPinned && index === activeIndex) ? " is-active" : ""}`}
                       style={{
-                        ["--note-bg" as string]: NOTE_COLORS[index % NOTE_COLORS.length],
+                        ["--note-bg" as string]: noteColorVar(index),
                         // Hold the unfurl until this card has finished its push.
                         ["--note-unfurl-delay" as string]: pushTransitionDuration,
                       } as React.CSSProperties}

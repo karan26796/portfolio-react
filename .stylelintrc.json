@@ -1,0 +1,29 @@
+{
+  "comment": "Deliberately narrow. This exists for one job: stop raw colour values being written outside the token files. It intentionally does NOT extend a standard config — those bring ~180 formatting opinions (rgba vs rgb, hex casing, blank lines) that would bury the signal and start an argument nobody asked for.",
+  "customSyntax": "postcss-scss",
+  "rules": {
+    "color-no-hex": [
+      true,
+      {
+        "severity": "warning",
+        "message": "Raw hex — use a design token from colors.scss / themes.scss instead (e.g. var(--primary-text), var(--accent-red))."
+      }
+    ],
+    "color-named": [
+      "never",
+      {
+        "severity": "warning",
+        "message": "Named colour — use a design token from colors.scss / themes.scss instead."
+      }
+    ]
+  },
+  "overrides": [
+    {
+      "files": ["src/styles/colors.scss", "src/styles/themes.scss"],
+      "rules": {
+        "color-no-hex": null,
+        "color-named": null
+      }
+    }
+  ]
+}

@@ -210,7 +210,7 @@
 .project-frame {
   position: relative;
   background-color: hsla(0, 0%, 100%, 0.507);
-  border: 1px solid #008FF0;
+  border: 1px solid var(--frame-stroke);
   // Squared off — the handles only read as drag handles on sharp corners.
   border-radius: 0;
   padding: 1.75em;
@@ -223,7 +223,7 @@
     height: 9px;
     background: hsla(0, 0%, 100%, 1);
     // Same hairline colour as the frame's own border.
-    border: 1.5px solid #008FF0;
+    border: 1.5px solid var(--frame-stroke);
     box-sizing: border-box;
     // Purely decorative — must not eat the card's hover or clicks.
     pointer-events: none;

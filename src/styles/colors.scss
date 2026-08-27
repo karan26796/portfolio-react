@@ -16,6 +16,24 @@
   --accent-purple: #7000ff;
   --accent-cyan: #00d2ff;
 
+  /* Semantic accents — used for the before/after comparison captions, which
+     need to read as red and green against the light page. */
+  --accent-red: #e5484d;
+  --accent-green: #30a46c;
+
+  /* Selection-frame stroke around a project card, and its corner handles. */
+  --frame-stroke: #008ff0;
+
+  /* Sticky-note palette, cycled per project. Referenced from ProjectList,
+     which passes the chosen one through as --note-bg. */
+  --note-color-1: #fdf3c7;
+  --note-color-2: #fff7a2;
+  --note-color-3: #fffdcd;
+  --note-color-4: #d9e8fb;
+  --note-color-5: #e8defb;
+  --note-color-6: #fde2cf;
+  --note-color-count: 6;
+
   /* Glass and surface overlays */
   --surface-dark: #121820;
   --surface-card-dark: #18222d;
