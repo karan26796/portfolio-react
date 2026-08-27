@@ -60,8 +60,9 @@ const StickyNavBar: React.FC = () => {
     setIsMenuOpen(false);
   }, [location.pathname]);
 
-  // The toggle is hidden on web, so a menu left open across a resize past the
-  // breakpoint would be stranded — overlay up, no visible way to close it.
+  // Tidies the state when the viewport grows past the breakpoint. The CSS
+  // already guarantees the overlay is hidden and the page scrollable up there,
+  // so this is housekeeping rather than the actual guard.
   useEffect(() => {
     const wide = window.matchMedia("(min-width: 769px)");
     const handleChange = (e: MediaQueryListEvent) => {
@@ -81,12 +82,14 @@ const StickyNavBar: React.FC = () => {
       if (e.key === "Escape") setIsMenuOpen(false);
     };
 
-    const previousOverflow = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    // A class rather than an inline style: the lock is scoped to the mobile
+    // breakpoint in CSS, so growing the viewport past it frees the page even
+    // if no resize event ever arrives.
+    document.body.classList.add("nav-menu-open");
     window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = previousOverflow;
+      document.body.classList.remove("nav-menu-open");
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [isMenuOpen]);

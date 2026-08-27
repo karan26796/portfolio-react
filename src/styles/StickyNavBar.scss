@@ -176,10 +176,25 @@
    and clickable as the close button.
    ============================================================================ */
 
+/* Scroll lock for the open menu. Scoped to the breakpoint so that if the
+   viewport grows to web width while the menu is open, the page frees itself —
+   no resize listener required. */
+body.nav-menu-open {
+  @media (max-width: 768px) {
+    overflow: hidden;
+  }
+}
+
 .nav-menu-overlay {
   position: fixed;
   inset: 0;
   z-index: 99;
+
+  // The menu is a mobile affordance; on web the page names sit in the bar and
+  // the toggle that would close this is hidden, so it must never show here.
+  @media (min-width: 769px) {
+    display: none;
+  }
   background: var(--bg-color);
   display: flex;
   align-items: center;
