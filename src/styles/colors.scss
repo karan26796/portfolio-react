@@ -21,6 +21,21 @@
   --accent-red: #e5484d;
   --accent-green: #30a46c;
 
+  /* Agent Vinod's purple — the assistant is the one surface on the site with
+     its own accent, so that it reads as distinct from ordinary buttons. The
+     gradient is a token in its own right because it repeats six times. */
+  --ai-accent-light: #c084fc;
+  --ai-accent: #9333ea;
+  --ai-accent-deep: #6d28d9;
+  --ai-accent-ring: #a855f7;
+  --ai-accent-lip: #752eb9;
+  --ai-gradient: radial-gradient(
+    120% 140% at 32% 28%,
+    var(--ai-accent-light) 0%,
+    var(--ai-accent) 45%,
+    var(--ai-accent-deep) 100%
+  );
+
   /* Selection-frame stroke around a project card, and its corner handles. */
   --frame-stroke: #008ff0;
 

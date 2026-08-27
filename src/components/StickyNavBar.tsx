@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 import { Link, useLocation } from "react-router-dom";
+import { House, FigmaLogo, Camera } from "@phosphor-icons/react";
 import ResumePopup from "../pages/ResumePopup";
 import "../styles/StickyNavBar.scss";
 
@@ -11,11 +12,16 @@ const SCROLL_DELTA = 6;
 // reads as a glitch rather than an intent to get it out of the way.
 const ALWAYS_VISIBLE_ABOVE = 80;
 
-// The pages the menu lists, in the order they appear.
-const NAV_PAGES: { to: string; label: string }[] = [
-  { to: "/home", label: "Work" },
-  { to: "/figma-training", label: "Figma training" },
-  { to: "/gallery", label: "Travel" },
+// The pages the nav lists, in order. The icon lives here with the label so the
+// bar and the mobile overlay stay in step from one definition.
+const NAV_PAGES: {
+  to: string;
+  label: string;
+  Icon: React.ComponentType<{ size?: number; weight?: "regular" | "bold" }>;
+}[] = [
+  { to: "/home", label: "Work", Icon: House },
+  { to: "/figma-training", label: "Figma training", Icon: FigmaLogo },
+  { to: "/gallery", label: "Travel", Icon: Camera },
 ];
 
 const StickyNavBar: React.FC = () => {
@@ -111,13 +117,14 @@ const StickyNavBar: React.FC = () => {
             the three-line toggle below takes over — both read the same
             NAV_PAGES, so the list is defined once. */}
         <div className="navbar-right-links">
-          {NAV_PAGES.map((page) => (
+          {NAV_PAGES.map(({ to, label, Icon }) => (
             <Link
-              key={page.to}
-              to={page.to}
-              className={`a-header${isActive(page.to) ? " active" : ""}`}
+              key={to}
+              to={to}
+              className={`a-header${isActive(to) ? " active" : ""}`}
             >
-              <span>{page.label}</span>
+              <Icon size={18} weight={isActive(to) ? "bold" : "regular"} />
+              <span>{label}</span>
             </Link>
           ))}
         </div>
@@ -145,11 +152,11 @@ const StickyNavBar: React.FC = () => {
         createPortal(
           <div className="nav-menu-overlay" role="dialog" aria-modal="true">
             <nav className="nav-menu-list">
-              {NAV_PAGES.map((page, index) => (
+              {NAV_PAGES.map(({ to, label, Icon }, index) => (
                 <Link
-                  key={page.to}
-                  to={page.to}
-                  className={`nav-menu-item${isActive(page.to) ? " active" : ""}`}
+                  key={to}
+                  to={to}
+                  className={`nav-menu-item${isActive(to) ? " active" : ""}`}
                   // Each row rises in just behind the one above it.
                   style={{ animationDelay: `${60 + index * 55}ms` }}
                   onClick={() => setIsMenuOpen(false)}
@@ -157,7 +164,8 @@ const StickyNavBar: React.FC = () => {
                   <span className="nav-menu-item__index">
                     {String(index + 1).padStart(2, "0")}
                   </span>
-                  <span className="nav-menu-item__label">{page.label}</span>
+                  <Icon size={26} weight={isActive(to) ? "bold" : "regular"} />
+                  <span className="nav-menu-item__label">{label}</span>
                 </Link>
               ))}
             </nav>

@@ -73,7 +73,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tools: ["Xcode", "Figma"],
     type: "client",
     details: "Interconnect : Platform for people in gated societies to post jobs and get referals for open jobs",
-    bgColor: "#fff9efff",
+    bgColor: "#fffbf4ff",
     story: "The time I wanted to help my wife find a job.",
     meta: {
       duration: "2026",
@@ -142,11 +142,11 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["Discovery", "AI prototyping", "Product management"],
     tools: ["NotebookLM", "Descript", "Figma"],
     type: "client",
-    details: "Used AI native workflows to introduce new features and fix broken workflows to close 6 sales deals",
+    details: "Unblocked 10+ sales deals by removing restrictions in Awards platform, using AI-native workflows and driving the work end-to-end without a PM.",
     accentColor: "#9333ea",
     // Page background while this project is the active card in the scrolling
     // project list. Omit it to fall back to a tone sampled from `img`.
-    bgColor: "#fffaf4ff",
+    bgColor: "#fffcf8ff",
     story: "The time I also donned the PM hat.",
     meta: {
       duration: "Nov 2025 – Jan 2026",

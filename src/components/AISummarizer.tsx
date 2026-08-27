@@ -46,6 +46,10 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
     const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>(initialPrompts || []);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
+    // Anything beyond the opening greeting means the reader has already asked
+    // something.
+    const hasConversationStarted = messages.length > 1;
+
     // Sync prompts when props change (first message only)
     useEffect(() => {
         if (messages.length === 1) {
@@ -165,7 +169,10 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
         <>
             {/* ── FAB GROUP: pills + button ── */}
             <div className={`ai-fab-group ${isOpen ? 'hidden' : ''}`}>
-                {initialPrompts && initialPrompts.length > 0 && (
+                {/* Starter prompts are for starting — once the conversation has
+                    moved past the greeting they stop reappearing every time the
+                    chat is closed. In-chat follow-up chips take over from here. */}
+                {!hasConversationStarted && initialPrompts && initialPrompts.length > 0 && (
                     <div className="ai-fab-pills">
                         {initialPrompts.map((prompt, i) => (
                             <button
