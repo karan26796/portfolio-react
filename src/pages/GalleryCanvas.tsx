@@ -299,6 +299,15 @@ const GalleryCanvas: React.FC = () => {
     lastY: number;
     vx: number;
     vy: number;
+    /**
+     * Which photo the gesture began on, resolved at pointerdown.
+     *
+     * It cannot be read from the pointerup event: `setPointerCapture` below
+     * retargets every subsequent pointer event for this pointer to the
+     * viewport, so pointerup's `target` is the viewport and not the photo.
+     * Reading it there sent every click to fit-all instead of zooming in.
+     */
+    photoNum: number | null;
   } | null>(null);
 
   const startGlide = useCallback(
@@ -327,6 +336,11 @@ const GalleryCanvas: React.FC = () => {
   const handlePointerDown = (e: React.PointerEvent) => {
     if (e.button !== 0) return;
     stopMotion();
+    // Resolved here, while `e.target` is still the element actually under the
+    // pointer — pointer capture is claimed just below and rewrites the target
+    // of everything that follows.
+    const photoEl = (e.target as HTMLElement | null)?.closest?.("[data-photo]");
+
     dragRef.current = {
       id: e.pointerId,
       startX: e.clientX,
@@ -335,6 +349,7 @@ const GalleryCanvas: React.FC = () => {
       lastY: e.clientY,
       vx: 0,
       vy: 0,
+      photoNum: photoEl ? Number(photoEl.getAttribute("data-photo")) : null,
     };
     setIsPanning(true);
 
@@ -375,9 +390,10 @@ const GalleryCanvas: React.FC = () => {
       return;
     }
 
-    const photoEl = (e.target as HTMLElement | null)?.closest?.("[data-photo]");
-    const num = Number(photoEl?.getAttribute("data-photo"));
-    const photo = layout.photos.find((p) => p.num === num);
+    const photo =
+      drag.photoNum === null
+        ? undefined
+        : layout.photos.find((p) => p.num === drag.photoNum);
 
     if (!photo) {
       fitAll();
