@@ -1,0 +1,83 @@
+/* ============================================================================
+   GALLERY CANVAS — photos spread across a pannable 2D canvas.
+   Companion to the justified /gallery page, not a replacement (yet).
+   ========================================================================== */
+
+.gallery-canvas-page {
+  position: fixed;
+  inset: 0;
+  // Below the sticky nav's 100, so the bar stays visible and clickable over
+  // the canvas. Photos sliding under its translucent blur is intentional.
+  z-index: 50;
+  background: var(--bg-base);
+  overflow: hidden;
+
+  &__viewport {
+    position: absolute;
+    inset: 0;
+    // The canvas owns every gesture: otherwise the browser claims pinch-zoom
+    // and horizontal swipe (back-navigation) before the handlers see them.
+    touch-action: none;
+    cursor: grab;
+
+    &.is-panning {
+      cursor: grabbing;
+    }
+  }
+
+  // Zero-size origin box: photos position themselves in canvas coordinates and
+  // the camera transform moves this one element.
+  &__stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+  }
+}
+
+.gallery-canvas-photo {
+  position: absolute;
+  overflow: hidden;
+  background: var(--bg-color-high);
+  // Squared off, in keeping with the frame treatment elsewhere on the site.
+  border-radius: 0;
+  transition: box-shadow 0.25s ease;
+
+  img {
+    width: 100%;
+    height: 100%;
+    // The box is already the photo's native aspect ratio, so `cover` only ever
+    // guards against a rounding difference — it never actually crops.
+    object-fit: cover;
+    display: block;
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  &.is-active {
+    box-shadow: 0 0 0 2px var(--accent-purple);
+  }
+
+  &__caption {
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+    display: flex;
+    align-items: center;
+    gap: 0.35em;
+    padding: 0.4em 0.7em;
+    // Counter-scaled inline against the camera, so it holds one size on screen.
+    transform-origin: 0 100%;
+    font-size: 13px;
+    font-weight: 550;
+    white-space: nowrap;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.62);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    pointer-events: none;
+  }
+}

@@ -35,7 +35,10 @@ import usePageSEO from "./utils/usePageSEO";
 
 const ProjectDetails = React.lazy(() => import("./pages/ProjectDetails"));
 const About = React.lazy(() => import("./pages/About"));
-const Gallery = React.lazy(() => import("./pages/Gallery"));
+// The gallery is now the canvas view. Gallery.tsx is kept as the source of the
+// photo data (locations, aspect ratios, groupings) that GalleryCanvas imports,
+// and can be routed back here if the canvas doesn't stick.
+const GalleryCanvasPage = React.lazy(() => import("./pages/GalleryCanvas"));
 const TrainingList = React.lazy(() => import("./pages/FigmaTraining"));
 const Resume = React.lazy(() => import("./components/Resume"));
 const ResumeStandalone = React.lazy(() => import("./pages/ResumeStandalone"));
@@ -93,7 +96,7 @@ const AppShell: React.FC = () => {
             <Route path="/home" element={null} />
             <Route path="/project/:projectId" element={<ProjectDetails />} />
             <Route path="/about" element={<About />} />
-            <Route path="/gallery" element={<Gallery />} />
+            <Route path="/gallery" element={<GalleryCanvasPage />} />
             <Route path="/archive" element={<Archive />} />
             <Route path="/figma-training" element={<TrainingList />} />
             <Route path="/resume" element={<Resume />} />
