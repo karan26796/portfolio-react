@@ -6,7 +6,9 @@
 .gallery-canvas-page {
   position: fixed;
   inset: 0;
-  z-index: 400;
+  // Below the sticky nav's 100, so the bar stays visible and clickable over
+  // the canvas. Photos sliding under its translucent blur is intentional.
+  z-index: 50;
   background: var(--bg-base);
   overflow: hidden;
 

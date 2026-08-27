@@ -55,7 +55,15 @@ const CULL_MARGIN_PX = 600;
 // Camera momentum after a fling.
 const MOMENTUM_CUTOFF = 0.35;
 const FRICTION = 0.945;
-const CLICK_SLOP_PX = 4;
+// A pointer that ends within this distance of where it started counts as a
+// click, not a drag.
+//
+// Two things were wrong with the previous 4px: it compared *accumulated path
+// length* (the sum of every pointermove), which badly over-counts hand jitter
+// on a trackpad, and 4px is inside the jitter of an ordinary click anyway. The
+// result was clicks being silently swallowed as drags — the photo simply
+// wouldn't open. Net displacement at 10px is what a click actually looks like.
+const CLICK_SLOP_PX = 10;
 
 const ALL_IMAGES = REGIONS.flatMap((r) => r.images);
 
@@ -285,9 +293,10 @@ const GalleryCanvas: React.FC = () => {
 
   const dragRef = useRef<{
     id: number;
+    startX: number;
+    startY: number;
     lastX: number;
     lastY: number;
-    travel: number;
     vx: number;
     vy: number;
   } | null>(null);
@@ -320,9 +329,10 @@ const GalleryCanvas: React.FC = () => {
     stopMotion();
     dragRef.current = {
       id: e.pointerId,
+      startX: e.clientX,
+      startY: e.clientY,
       lastX: e.clientX,
       lastY: e.clientY,
-      travel: 0,
       vx: 0,
       vy: 0,
     };
@@ -343,7 +353,6 @@ const GalleryCanvas: React.FC = () => {
     const dy = e.clientY - drag.lastY;
     drag.lastX = e.clientX;
     drag.lastY = e.clientY;
-    drag.travel += Math.abs(dx) + Math.abs(dy);
 
     // Exponential moving average — recent movement dominates, but one stalled
     // frame right before release can't zero the fling.
@@ -359,7 +368,9 @@ const GalleryCanvas: React.FC = () => {
     setIsPanning(false);
     if (!drag || drag.id !== e.pointerId) return;
 
-    if (drag.travel > CLICK_SLOP_PX) {
+    const moved = Math.hypot(e.clientX - drag.startX, e.clientY - drag.startY);
+
+    if (moved > CLICK_SLOP_PX) {
       if (Math.hypot(drag.vx, drag.vy) >= MOMENTUM_CUTOFF) startGlide(drag.vx, drag.vy);
       return;
     }
