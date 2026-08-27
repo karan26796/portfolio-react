@@ -40,6 +40,8 @@ const TrainingList = React.lazy(() => import("./pages/FigmaTraining"));
 const Resume = React.lazy(() => import("./components/Resume"));
 const ResumeStandalone = React.lazy(() => import("./pages/ResumeStandalone"));
 const Overview = React.lazy(() => import("./pages/Overview"));
+// Throwaway canvas spike — see src/pages/CanvasSpike.tsx.
+const CanvasSpike = React.lazy(() => import("./pages/CanvasSpike"));
 
 const App: React.FC = () => {
   useEffect(() => {
@@ -99,6 +101,7 @@ const AppShell: React.FC = () => {
             <Route path="/resume-popup" element={<StandaloneResumePopup />} />
             <Route path="/resume-download" element={<ResumeDownloadRedirect />} />
             <Route path="/overview" element={<Overview />} />
+            <Route path="/canvas-spike" element={<CanvasSpike />} />
           </Routes>
         </React.Suspense>
         <Footer />

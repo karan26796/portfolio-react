@@ -41,7 +41,7 @@
     width: 180px;
     height: 180px;
     object-fit: cover;
-    border-radius: 0.75em;
+    border-radius: 0;
     border: 1px solid var(--border-color);
     background: var(--card-bg);
     flex-shrink: 0;
@@ -90,7 +90,7 @@
       width: clamp(95px, 20vw, 140px);
       height: clamp(95px, 20vw, 140px);
       object-fit: cover;
-      border-radius: 0.4em;
+      border-radius: 0;
       box-shadow: 0 2px 8px rgba(0, 0, 0, 0.10);
       border: 2px solid var(--border-color);
       transition: box-shadow 0.2s, transform 0.2s;
@@ -139,7 +139,7 @@
       .stacked-img {
         width: clamp(75px, 32vw, 120px);
         height: clamp(75px, 32vw, 120px);
-        border-radius: 0.4em;
+        border-radius: 0;
       }
     }
 
@@ -172,7 +172,7 @@
       .stacked-img {
         width: clamp(55px, 36vw, 95px);
         height: clamp(55px, 36vw, 95px);
-        border-radius: 0.4em;
+        border-radius: 0;
       }
     }
 

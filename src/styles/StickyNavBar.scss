@@ -63,10 +63,40 @@
     }
   }
 
-  /* Three-line toggle that opens the full-page menu. The page names live in
-     the overlay now instead of sitting exposed in the bar. */
-  .navbar-menu-toggle {
+  /* Page names, exposed on web. Hidden below the mobile breakpoint, where
+     the three-line toggle takes their place. */
+  .navbar-right-links {
     display: flex;
+    align-items: center;
+    gap: 2em;
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+
+    .a-header {
+      font-size: 1.15em;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      color: var(--secondary-text);
+      text-decoration: none;
+      transition: color 0.2s ease;
+
+      &:hover {
+        color: var(--primary-text);
+      }
+
+      &.active {
+        color: var(--highlight-color);
+        font-weight: 600;
+      }
+    }
+  }
+
+  /* Three-line toggle that opens the full-page menu — mobile only, now that
+     the page names sit in the bar itself on web. */
+  .navbar-menu-toggle {
+    display: none;
     align-items: center;
     justify-content: center;
     width: 40px;
@@ -128,6 +158,10 @@
       }
     }
 
+    @media (max-width: 768px) {
+      display: flex;
+    }
+
     @media (prefers-reduced-motion: reduce) {
       .navbar-menu-toggle__bars span {
         transition: none;
@@ -142,10 +176,25 @@
    and clickable as the close button.
    ============================================================================ */
 
+/* Scroll lock for the open menu. Scoped to the breakpoint so that if the
+   viewport grows to web width while the menu is open, the page frees itself —
+   no resize listener required. */
+body.nav-menu-open {
+  @media (max-width: 768px) {
+    overflow: hidden;
+  }
+}
+
 .nav-menu-overlay {
   position: fixed;
   inset: 0;
   z-index: 99;
+
+  // The menu is a mobile affordance; on web the page names sit in the bar and
+  // the toggle that would close this is hidden, so it must never show here.
+  @media (min-width: 769px) {
+    display: none;
+  }
   background: var(--bg-color);
   display: flex;
   align-items: center;

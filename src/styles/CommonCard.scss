@@ -11,7 +11,7 @@
   .card-media {
     width: 100%;
     aspect-ratio: 5/4;
-    border-radius: var(--border-radius, 12px);
+    border-radius: 0;
     overflow: hidden;
     background-color: var(--bg-color);
     border: 1px solid var(--border-color);

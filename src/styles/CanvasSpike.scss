@@ -1,0 +1,197 @@
+/* ============================================================================
+   CANVAS SPIKE — throwaway chrome for judging the pan/zoom feel.
+   Sits above the whole app shell so the spike is isolated from it.
+   ========================================================================== */
+
+.canvas-spike {
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  background: var(--bg-base);
+  overflow: hidden;
+
+  &__viewport {
+    position: absolute;
+    inset: 0;
+    // The canvas owns every gesture: without this the browser claims pinch
+    // and horizontal swipe (back-navigation) before the handlers ever see it.
+    touch-action: none;
+    cursor: grab;
+    // A faint grid, so panning at low zoom reads as movement rather than as a
+    // static empty field.
+    background-image:
+      linear-gradient(to right, color-mix(in srgb, var(--primary-text) 5%, transparent) 1px, transparent 1px),
+      linear-gradient(to bottom, color-mix(in srgb, var(--primary-text) 5%, transparent) 1px, transparent 1px);
+    background-size: 32px 32px;
+
+    &.is-panning {
+      cursor: grabbing;
+    }
+  }
+
+  // Zero-size origin box: frames position themselves in canvas coordinates
+  // and the camera transform moves this one element.
+  &__stage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 0;
+    height: 0;
+    transform-origin: 0 0;
+    will-change: transform;
+  }
+
+  &__hud {
+    position: absolute;
+    bottom: 1.25em;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6em;
+    padding: 0.85em 1.1em;
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+    background: color-mix(in srgb, var(--bg-base) 90%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+    max-width: calc(100vw - 2em);
+  }
+
+  &__readout {
+    display: flex;
+    align-items: baseline;
+    gap: 1em;
+    font-family: 'Google Sans Code', ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 0.78em;
+    color: var(--tertiary-text);
+
+    strong {
+      color: var(--primary-text);
+      font-weight: 600;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.4em;
+
+    button {
+      padding: 0.35em 0.7em;
+      font-family: inherit;
+      font-size: 0.8em;
+      font-weight: 550;
+      color: var(--secondary-text);
+      background: var(--bg-color-high);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+
+      &:hover {
+        color: var(--primary-text);
+        border-color: var(--tertiary-text);
+      }
+    }
+  }
+
+  &__hint {
+    margin: 0;
+    font-size: 0.72em;
+    color: var(--tertiary-text);
+    text-align: center;
+  }
+}
+
+/* Unclipped wrapper holding the frame plus its canvas label. Positioned in
+   canvas coordinates; the frame itself fills it and does the clipping. */
+.spike-frame-group {
+  position: absolute;
+}
+
+.spike-frame {
+  position: absolute;
+  inset: 0;
+  box-sizing: border-box;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  overflow: hidden;
+  // No transition on transform: the frame never moves under its own power,
+  // only the stage does, and a transition here would lag the camera.
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &.is-focused {
+    border-color: var(--accent-purple);
+    box-shadow: 0 0 0 1px var(--accent-purple);
+  }
+
+  &__name {
+    position: absolute;
+    top: -6px;
+    left: 0;
+    display: block;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    color: var(--tertiary-text);
+    white-space: nowrap;
+    // Lifted clear of the frame's own box so it reads as a label on the
+    // canvas, not as content. Counter-scaled inline against the camera.
+    translate: 0 -100%;
+    pointer-events: none;
+  }
+
+  &__body {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    height: 100%;
+    padding: 24px;
+    box-sizing: border-box;
+  }
+
+  &__row {
+    display: flex;
+    gap: 16px;
+    flex: 1;
+
+    > * {
+      flex: 1;
+    }
+  }
+
+  &__scroller {
+    height: 100%;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    padding: 24px;
+    box-sizing: border-box;
+    // The canvas drives this element's scrollTop directly, so the browser must
+    // not also try to chain the gesture up to an ancestor.
+    overscroll-behavior: contain;
+    scrollbar-width: thin;
+  }
+}
+
+.spike-block {
+  flex: 1;
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-sm);
+  background: var(--bg-color-high);
+  border: 1px solid var(--border-color);
+  font-size: 14px;
+  color: var(--tertiary-text);
+  flex-shrink: 0;
+
+  &--tall {
+    flex: 2;
+  }
+}

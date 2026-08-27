@@ -42,7 +42,7 @@
       width: 100%;
       max-width: 320px;
       aspect-ratio: 1 / 1;
-      border-radius: var(--border-radius, 1em);
+      border-radius: 0;
       overflow: hidden;
       border: 1px solid var(--border-color);
       background-color: var(--bg-color-high);
