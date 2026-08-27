@@ -81,3 +81,46 @@
     pointer-events: none;
   }
 }
+
+/* One-line hint, bottom centre. Deliberately unadorned — no panel, no border —
+   so it reads as a caption on the canvas rather than the instruction bar this
+   page used to carry. It disappears for good once a photo has been opened. */
+.gallery-canvas-hint {
+  position: absolute;
+  left: 50%;
+  bottom: calc(1.5em + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  margin: 0;
+  padding: 0 1em;
+  max-width: calc(100vw - 2em);
+  text-align: center;
+  white-space: nowrap;
+  font-size: 0.78em;
+  color: var(--tertiary-text);
+  // Purely advisory: it must never intercept a drag or a click on a photo.
+  pointer-events: none;
+  // Held back a beat so it arrives after the photos, rather than competing
+  // with them for attention on load.
+  animation: gallery-hint-in 0.5s ease 0.7s both;
+
+  @media (max-width: 480px) {
+    white-space: normal;
+    font-size: 0.74em;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+@keyframes gallery-hint-in {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
