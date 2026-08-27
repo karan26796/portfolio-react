@@ -35,16 +35,20 @@ import {
 // the furthest you can pull back — there is never empty space around the
 // cluster to get lost in. The ceiling stops at 3.5 because the source files
 // (~1800-2000px wide) start upscaling much past 2.5.
-const GALLERY_MAX_ZOOM = 3.5;
+// 3.5 let you push far past any photo's own fit (which lands around 1.4-1.6),
+// so the top of the range was mostly upscaled pixels. 2.0 still allows going a
+// little closer than a fitted photo for detail, without the cliff.
+const GALLERY_MAX_ZOOM = 2.0;
 // Used only before the viewport has been measured.
 const FALLBACK_MIN_ZOOM = 0.05;
 // Breathing room around the cluster in the fit-all view.
 const FIT_ALL_PADDING = 50;
 
-// How much of a zoom each wheel notch or pinch delivers. The previous 0.0015
-// took dozens of notches to cross the band, which read as the zoom being
-// limited rather than merely slow.
-const ZOOM_RATE = 0.0038;
+// How much zoom each wheel notch or pinch delivers, as an exponent — so every
+// notch is a constant *ratio* rather than a constant step. At 0.0038 a single
+// 100-unit notch multiplied the zoom by ~1.46, which overshot whatever you
+// were aiming at; 0.0016 makes it ~1.17 and gives the gesture some travel.
+const ZOOM_RATE = 0.0016;
 
 const FIT_PADDING = 70;
 // Small, so a clicked photo nearly fills the screen and the zoom-in lands hard.
