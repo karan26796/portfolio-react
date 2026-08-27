@@ -172,38 +172,51 @@ export const isVisible = (
 };
 
 /**
- * Keep the camera near the content.
+ * Keep the viewport over the content.
  *
- * Without this the camera can be zoomed or flown into empty space with no
- * content on screen and no visible way back — which the spike reached in about
- * fifteen wheel notches.
+ * Contain-style, per axis:
+ *  - When the content is larger than the viewport on that axis, the viewport is
+ *    kept inside the content, so panning can never reveal empty space beyond
+ *    the edge.
+ *  - When the content is smaller (zoomed out far enough to see all of it), the
+ *    content is centred, so whatever space is left over is even rather than
+ *    piled up on one side.
  *
- * `overlap` is the fraction of the smaller of (viewport, content) that must
- * stay intersected on each axis, so some content is always genuinely on
- * screen. Clamping the viewport's own rect rather than its centre point is
- * what makes that guarantee hold: clamping the centre to the content's edge
- * plus half a viewport leaves the viewport exactly flush with the content and
- * nothing actually visible.
+ * This replaced an overlap-based rule that only required a quarter of the
+ * viewport to intersect the content — which let three quarters of the screen be
+ * empty at the extremes, and read as a lot of dead space while panning.
+ *
+ * `edgePadding` is screen px of overshoot allowed past the content edge; 0 hugs
+ * the content exactly.
  */
 export const clampCamera = (
   c: Camera,
   content: Rect,
   viewport: Viewport,
-  overlap = 0.25
+  edgePadding = 0
 ): Camera => {
-  // The viewport's size in canvas units at this zoom.
-  const vw = viewport.w / c.zoom;
-  const vh = viewport.h / c.zoom;
+  const axis = (
+    cameraMin: number,
+    contentMin: number,
+    contentSize: number,
+    viewSize: number,
+    pad: number
+  ): number => {
+    if (viewSize >= contentSize) {
+      return contentMin + contentSize / 2 - viewSize / 2;
+    }
+    return Math.min(
+      Math.max(cameraMin, contentMin - pad),
+      contentMin + contentSize - viewSize + pad
+    );
+  };
 
-  // Taking the smaller of the two keeps this sane when the content is smaller
-  // than the screen (zoomed out) as well as larger (zoomed in).
-  const keepX = Math.min(vw, content.w) * overlap;
-  const keepY = Math.min(vh, content.h) * overlap;
+  const pad = edgePadding / c.zoom;
 
   return {
     zoom: c.zoom,
-    x: Math.min(Math.max(c.x, content.x + keepX - vw), content.x + content.w - keepX),
-    y: Math.min(Math.max(c.y, content.y + keepY - vh), content.y + content.h - keepY),
+    x: axis(c.x, content.x, content.w, viewport.w / c.zoom, pad),
+    y: axis(c.y, content.y, content.h, viewport.h / c.zoom, pad),
   };
 };
 
