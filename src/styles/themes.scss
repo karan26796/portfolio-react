@@ -36,7 +36,16 @@
      over white — a pale green that is clearly a colour rather than a grey
      cast, which is what the neutral 7% navy previously read as. Swap the hue
      here and the whole gradient follows. */
-  --hero-wash: color-mix(in srgb, var(--accent-green) 13%, transparent);
+  --hero-wash: color-mix(in srgb, var(--accent-cyan) 13%, transparent);
+
+  /* The dock is dark in both themes — it reads as a macOS dock sitting over
+     the page rather than as another page surface, so it deliberately does not
+     follow --bg-color. Translucent, with the blur behind it doing the rest. */
+  --dock-surface: rgba(28, 28, 30, 0.72);
+  --dock-stroke: rgba(255, 255, 255, 0.12);
+  --dock-divider: rgba(255, 255, 255, 0.16);
+  --dock-indicator: rgba(255, 255, 255, 0.7);
+  --dock-shadow: rgba(0, 0, 0, 0.3);
 }
 
 /* Dark mode — Modern ultra-sleek dark theme */
@@ -48,6 +57,13 @@
   --card-bg-hover: #17202e;
   --border-color: rgba(255, 255, 255, 0.1);
   --project-card-border: rgba(255, 255, 255, 0.1);
+
+  /* Lifted off the light-theme values: the same dark panel over an already
+     dark page loses its edge, so it goes a step lighter and a step more
+     opaque to stay legible as a panel. */
+  --dock-surface: rgba(46, 46, 51, 0.8);
+  --dock-stroke: rgba(255, 255, 255, 0.15);
+  --dock-shadow: rgba(0, 0, 0, 0.55);
 
   --primary-text: #f0f6fc;
   --secondary-text: #8b949e;

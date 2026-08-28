@@ -4,7 +4,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { ProjectCardData } from '../utils/interfaces';
 import ScrollReveal from "../components/ScrollReveal";
 import ProjectScrollIndicator from '../components/ProjectScrollIndicator';
-import { getDominantPastelColor } from '../utils/dominantColor';
+import { getDominantPastelColor, toAccentTint } from '../utils/dominantColor';
 
 interface ProjectListProps {
   projectData: ProjectCardData[];
@@ -290,6 +290,13 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
             <div
               key={project.id}
               className="project-stage-card"
+              // Read by useSectionAccent: the page's wash takes this project's
+              // colour while the card is the thing most on screen.
+              // Converted to a wash-strength tint: the card colours are
+              // near-white by design and show nothing as a page wash.
+              data-accent={toAccentTint(
+                project.bgColor || bgColors[project.id] || "#30a46c"
+              )}
               style={
                 STICKY_STACK_ENABLED
                   ? {
@@ -329,32 +336,17 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                 )}
 
                 <div className="project-card-row">
-                  {/* Selection-frame chrome around the card: a hairline box
-                      with a handle straddling each corner. The handles are
-                      decorative, so they stay out of the card's hover and
-                      click handling. */}
-                  <div
-                    className="project-frame"
-                    style={{
-                      backgroundColor: project.bgColor || bgColors[project.id] || "hsla(0, 0%, 100%, 0.507)",
-                    }}
-                  >
-                    <ProjectCard
-                      data={project}
-                      variant="large"
-                      buttonType="button"
-                      onClick={
-                        project.id === '10' || project.id === '11'
-                          ? undefined
-                          : () => handleCardClick(project.id)
-                      }
-                      showDivider={false}
-                    />
-                    <span className="project-frame__corner project-frame__corner--tl" aria-hidden="true" />
-                    <span className="project-frame__corner project-frame__corner--tr" aria-hidden="true" />
-                    <span className="project-frame__corner project-frame__corner--bl" aria-hidden="true" />
-                    <span className="project-frame__corner project-frame__corner--br" aria-hidden="true" />
-                  </div>
+                  <ProjectCard
+                    data={project}
+                    variant="large"
+                    buttonType="button"
+                    onClick={
+                      project.id === '10' || project.id === '11'
+                        ? undefined
+                        : () => handleCardClick(project.id)
+                    }
+                    showDivider={false}
+                  />
                   {project.story && (
                     <div
                       // `is-active` drives the unfurl. It requires the section

@@ -4,7 +4,7 @@
   margin: 0 auto;
   padding: 3em 0;
   box-sizing: border-box;
-  background-color: var(--bg-color);
+  // background-color: var(--bg-color);
 
   --masonry-column-gap: 1em;
   --masonry-row-gap: 1em;
@@ -143,6 +143,12 @@
     transition: transform 0.3s ease;
     cursor: default;
 
+    // The training gallery opts out: no tilt to sit straight from, and so
+    // nothing for the hover below to straighten either.
+    .combined-masonry-section--flat & {
+      transform: none;
+    }
+
     &[href] {
       cursor: pointer;
     }
@@ -175,6 +181,7 @@
       justify-content: center;
       gap: 0.3em;
       font-size: 1.1em;
+      font-weight: 500;
       color: var(--primary-text);
       padding: 0.5em 0.5em 0.25em;
       line-height: 1.25;

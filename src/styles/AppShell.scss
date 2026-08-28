@@ -3,11 +3,11 @@
   flex-direction: column;
   align-items: center;
   width: 100%;
-  padding-top: 4.5em;
+  // No fixed bar to clear any more — each page owns its own top spacing.
+  padding-top: 0;
 
   @media (max-width: 800px) {
     display: block;
-    padding-top: 3.75em;
   }
 }
 
@@ -23,10 +23,57 @@
   }
 }
 
-.home-main-content {
+/* Lets --page-accent animate. A custom property is an unparsed string by
+   default, so a transition on it snaps; registering it as a <color> gives the
+   browser something it can interpolate. Without this the wash would jump from
+   one section's colour to the next, which reads as a seam. */
+@property --page-accent {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+:root {
+  transition: --page-accent 700ms ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    transition: none;
+  }
+}
+
+.home-main-content,
+.figma-training-main-content {
   position: relative;
   z-index: 2;
   background-color: var(--bg-color);
+
+  /* The page's wash, pinned to the top of the viewport rather than to the
+     header, so it stays put as the page scrolls. Its colour comes from
+     whichever section is most on screen (see useSectionAccent).
+
+     z-index: -1 puts it above this element's own background but beneath every
+     in-flow child, so it lights the page without tinting the content that
+     passes over it. Fixed positioning works here because no ancestor carries
+     a transform, which would otherwise make itself the containing block. */
+  &::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 62vh;
+    z-index: -1;
+    pointer-events: none;
+    background: linear-gradient(
+      to bottom,
+      var(--page-accent, transparent) 0%,
+      color-mix(in srgb, var(--page-accent, transparent) 62%, transparent) 42%,
+      color-mix(in srgb, var(--page-accent, transparent) 22%, transparent) 74%,
+      color-mix(in srgb, var(--page-accent, transparent) 0%, transparent) 100%
+    );
+  }
   // border-bottom: 1px solid var(--border-color);
 }
 

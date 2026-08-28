@@ -36,6 +36,27 @@ $border-radius: 0.75em;
   }
 }
 
+/* Mirrors .header-container / .header-column-one on the home page: same
+   measure, same vertical rhythm, so the two mastheads sit identically on the
+   page. The type itself comes from hero.scss. */
+.training-hero {
+  width: 100%;
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  padding: 4em 0;
+  // Lifts the text above the page wash, which paints at z-index -1.
+  position: relative;
+  z-index: 1;
+
+  @media screen and (max-width: 800px) {
+    padding: 5em 1em;
+  }
+
+  .carousel-container-logo {
+    margin-top: 1.9em;
+  }
+}
+
 .intro {
   display: flex;
   flex-direction: column;

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { XLogo, FigmaLogo, Sparkle } from "@phosphor-icons/react";
+import "../styles/hero.scss";
 import "../styles/HeaderWithCarousel.scss";
 import ScrollReveal from "./ScrollReveal";
 import ResumePopup from "../pages/ResumePopup";
@@ -8,6 +9,7 @@ import grabLogo from "../utils/logos/grab.png";
 import obviousLogo from "../utils/logos/obvious.webp";
 import figmaLogo from "../utils/logos/figma.webp";
 import interconnect from "../utils/logos/interconnect.webp";
+import nidLogo from "../utils/logos/nid.webp";
 
 const SCRAMBLE_CHARS = "abcdefghijklmnopqrstuvwxyz";
 
@@ -88,11 +90,10 @@ const ScrambleText: React.FC<{ text: string; chars: ScrambleChar[] }> = ({ text,
 );
 
 const HeaderWithCarousel: React.FC = () => {
-  const greetingChars = useScrambleReveal("Hey, my name is", { delay: 0 });
-  const nameChars = useScrambleReveal("Karan", { delay: 350 });
-  const roleChars = useScrambleReveal("Designer at", { delay: 550 });
-  const trainerChars = useScrambleReveal("& Figma trainer", { delay: 700 });
-  const companyChars = useScrambleReveal("Keka HR", { delay: 1150 });
+  // Only the name scrambles now. The role and companies below it read as
+  // credentials rather than as a greeting, and settling them letter by letter
+  // made a short, plain block feel busier than the reference it follows.
+  const nameChars = useScrambleReveal("Karan Kapoor", { delay: 0 });
   const [isResumeOpen, setIsResumeOpen] = useState<boolean>(false);
 
   const closeResume = (): void => {
@@ -102,47 +103,32 @@ const HeaderWithCarousel: React.FC = () => {
   return (
     <div className="header-container">
       <div className="header-column-one">
-        <div className="header-text-content">
+        <div className="hero-text-content">
+          {/* Name, then role, then the companies as their own row — the
+              reference's shape. The intro paragraph below keeps its inline
+              badges and hover cards, so nothing is lost from it. */}
           <ScrollReveal delay={0}>
-            <h1 className="serif-line">
-              <ScrambleText text="Hey, my name is" chars={greetingChars} />{" "}
-              <span className="inline-icon-chip avatar-chip">
-                <img src="/gallery/profile.webp" alt="Karan Kapoor" />
-              </span>{" "}
-              <ScrambleText text="Karan" chars={nameChars} />
+            <h1 className="hero-name">
+              <ScrambleText text="Karan Kapoor" chars={nameChars} />
             </h1>
           </ScrollReveal>
 
-          <ScrollReveal delay={80}>
-            <h1 className="serif-line muted-line">
-              <ScrambleText text="Designer at" chars={roleChars} />{" "}
-              <span className="inline-icon-chip light-chip">
-                <img src="/project-imgs/kekalogo.webp" alt="Keka HR" />
-              </span>{" "}
-              <a
-                className="underline-link"
-                href="https://www.keka.com"
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <ScrambleText text="Keka HR" chars={companyChars} />
-              </a>
-            </h1>
-          </ScrollReveal>
-
-          <ScrollReveal delay={80}>
-            <h1 className="serif-line muted-line">
-              <ScrambleText text="& " chars={trainerChars.slice(0, 2)} />{" "}
-              <span className="inline-icon-chip light-chip">
-                <img src={figmaLogo} alt="Figma" />
-              </span>
-              <ScrambleText text="Figma trainer" chars={trainerChars.slice(2)} />{" "}
-            </h1>
+          <ScrollReveal delay={60}>
+            <p className="hero-role">AI native Designer &amp; Figma Trainer</p>
           </ScrollReveal>
 
           <ScrollReveal delay={200}>
             <h3 className="intro-paragraph">
-              AI-native design lead building products for enterprise scale companies.  I am experienced in leading and hiring teams, user research, design systems, and building 0-1 products. Previously a founding designer at{" "}
+              <span className="inline-badge">
+                <img src={nidLogo} alt="NID" className="badge-icon" />
+                <span>NID</span>
+              </span>{" "}
+              alum, currently leading design for enterprise scale at{" "}
+              <span className="inline-badge">
+                <img src="/project-imgs/kekalogo.webp" alt="Keka HR" className="badge-icon" />
+                <span>Keka HR</span>
+              </span>{" "}
+              experienced in leading and hiring teams, user research, design systems, and building 0-1 products. Previously a founding designer at{" "}
               <span className="inline-badge has-hover-card">
                 <img src="/project-imgs/Looppanel-logo.webp" alt="Looppanel" className="badge-icon" />
                 <span>Looppanel</span>
@@ -166,7 +152,7 @@ const HeaderWithCarousel: React.FC = () => {
                     <span className="hover-card-desc">AI-powered qualitative user research platform</span>
                   </span>
                 </a>
-              </span>, consultant for{" "}
+              </span> and consultant for{" "}
               <span className="inline-badge">
                 <img src={grabLogo} alt="Grab" className="badge-icon" />
                 <span>Grab</span>
@@ -175,7 +161,7 @@ const HeaderWithCarousel: React.FC = () => {
               <span className="inline-badge">
                 <img src={obviousLogo} alt="Obvious" className="badge-icon" />
                 <span>Obvious</span>
-              </span>, and lead of{" "}
+              </span>. Led{" "}
               <span className="inline-badge has-hover-card">
                 <img src="/project-imgs/figma-logo.webp" alt="Figma" className="badge-icon" />
                 <span>Friends of Figma, Delhi</span>
@@ -195,7 +181,7 @@ const HeaderWithCarousel: React.FC = () => {
                   </span>
                 </Link>
               </span>{" "}
-              for 5 years. Building{" "}
+              for 5 years; now building{" "}
               <span className="inline-badge has-hover-card">
                 <img src={interconnect} alt="Interconnect" className="badge-icon" />
                 <span>Interconnect</span>

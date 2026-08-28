@@ -6,7 +6,7 @@ import {
   Navigate,
   useLocation,
 } from "react-router-dom";
-import StickyNavBar from "./components/StickyNavBar";
+import Dock from "./components/Dock";
 import HeaderWithCarousel from "./components/HeaderwithCarousel";
 import ProjectList from "./pages/ProjectList";
 import ProjectCard from "./components/ProjectCard";
@@ -32,6 +32,7 @@ import datapeopleLogo from './utils/logos/datapeople.webp';
 import { Analytics } from "@vercel/analytics/react";
 import Archive from "./pages/Archive";
 import usePageSEO from "./utils/usePageSEO";
+import { useSectionAccent } from "./utils/useSectionAccent";
 
 const ProjectDetails = React.lazy(() => import("./pages/ProjectDetails"));
 const About = React.lazy(() => import("./pages/About"));
@@ -85,7 +86,7 @@ const AppShell: React.FC = () => {
 
   return (
     <div className="app-shell">
-      <StickyNavBar />
+      <Dock />
       <div className="app-center">
         {isHomeOrProject && <HomePage />}
         <React.Suspense fallback={<div>Loading...</div>}>
@@ -123,6 +124,17 @@ const HomePage: React.FC = () => {
   });
 
   const { projects: projectSummaries, loading } = useProjects();
+  const isProjectRoute = useLocation().pathname.startsWith("/project/");
+
+  // The wash's colour per section, in scroll order. Projects supply their own
+  // (see data-accent in ProjectList); these cover everything around them.
+  const HERO_ACCENT = "rgba(48, 164, 108, 0.13)";
+  const TESTIMONIALS_ACCENT = "rgba(0, 33, 54, 0.10)";
+  const FAQ_ACCENT = "rgba(112, 0, 255, 0.07)";
+
+  // Re-runs once the projects land, since their cards carry accents of their
+  // own and don't exist on first paint.
+  useSectionAccent(HERO_ACCENT, loading ? "loading" : projectSummaries.length);
 
   const testimonialsData: Testimonial[] = [
     {
@@ -193,15 +205,26 @@ const HomePage: React.FC = () => {
   return (
     <ScrollRevealDefaultsProvider once={false}>
       <div className="home-main-content">
-        <HeaderWithCarousel />
+        <div data-accent={HERO_ACCENT}>
+          <HeaderWithCarousel />
+        </div>
         {loading ? (
           <ProjectListSkeleton />
         ) : (
           <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
         )}
-        <Testimonials data={testimonialsData} title="Testimonials" />
-        <FAQ data={faqData} />
+        <div data-accent={TESTIMONIALS_ACCENT}>
+          <Testimonials data={testimonialsData} title="Testimonials" />
+        </div>
+        <div data-accent={FAQ_ACCENT}>
+          <FAQ data={faqData} />
+        </div>
         {/* <ExploreFolder /> */}
+        {/* A case study mounts its own assistant, and this page stays mounted
+            underneath it so closing one returns here intact. Both instances
+            listen for `open-agent-vinod`, so leaving this one mounted would
+            make a single dock click open two stacked chats. */}
+        {!isProjectRoute && (
         <AISummarizer
           text="Karan Kapoor is a Senior Product Designer & Figma Trainer with 8+ years experience leading design for products used by 2.2M+ people."
           buttonLabel="Ask Agent Vinod"
@@ -212,6 +235,7 @@ const HomePage: React.FC = () => {
             "How do I contact you?"
           ]}
         />
+        )}
       </div>
     </ScrollRevealDefaultsProvider>
   );

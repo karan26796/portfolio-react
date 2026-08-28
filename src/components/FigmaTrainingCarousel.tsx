@@ -34,11 +34,6 @@ const FigmaTrainingMasonry: React.FC = () => {
     return () => window.removeEventListener('resize', updateColumns);
   }, []);
 
-  const rotations = useMemo(
-    () => trainingItems.map((_, i) => (i % 2 === 0 ? -1 : 1) * Math.random()),
-    []
-  );
-
   const columns = useMemo(() => {
     const cols: { item: TrainingItem; index: number }[][] = Array.from(
       { length: columnCount },
@@ -50,18 +45,18 @@ const FigmaTrainingMasonry: React.FC = () => {
     return cols;
   }, [columnCount]);
 
+  // --flat: these sit square. The scattered tilt is the shared masonry's
+  // default, and it reads as charm on a photo wall but as misalignment on a
+  // row of workshop photographs.
   return (
-    <div className="combined-masonry-section">
+    <div className="combined-masonry-section combined-masonry-section--flat">
       <div className="masonry-columns">
         {columns.map((col, colIndex) => (
           <div className="masonry-column" key={colIndex}>
             {col.map(({ item, index }) => {
-              const rotate = rotations[index];
-              const style = { '--rotate': `${rotate}deg` } as React.CSSProperties;
-
               return (
                 <ScrollReveal key={item.id} delay={scrollRevealStagger(index, 70)}>
-                  <article className="masonry-photo-card" style={style}>
+                  <article className="masonry-photo-card">
                     <div className="photo-media">
                       {item.isVideo ? (
                         <video src={item.image} autoPlay loop muted playsInline />

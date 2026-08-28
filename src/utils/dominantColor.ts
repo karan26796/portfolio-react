@@ -51,6 +51,49 @@ const toPastel = (r: number, g: number, b: number): string => {
   return `rgb(${pr}, ${pg}, ${pb})`;
 };
 
+/**
+ * Turns any colour into a tint fit for the page's top wash.
+ *
+ * The project colours are chosen as card backgrounds — near-white by design —
+ * and laying one over a white page as a wash shows nothing at all. This keeps
+ * the hue, forces a mid saturation and lightness so the hue is actually
+ * visible, and carries the weight in alpha instead. A near-white source has
+ * an unstable hue, so the saturation floor is what makes it read as a colour
+ * rather than as grey.
+ */
+export const toAccentTint = (color: string, alpha = 0.13): string => {
+  const rgb = parseRgbish(color);
+  if (!rgb) return `rgba(48, 164, 108, ${alpha})`;
+
+  const { h, s } = rgbToHsl(rgb[0], rgb[1], rgb[2]);
+  const saturation = Math.max(0.45, Math.min(0.7, s));
+  const [r, g, b] = hslToRgb(h, saturation, 0.45);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
+/** Accepts #rgb, #rrggbb, #rrggbbaa and rgb()/rgba(). Alpha is ignored. */
+const parseRgbish = (input: string): [number, number, number] | null => {
+  const value = input.trim();
+
+  if (value.startsWith("#")) {
+    let hex = value.slice(1);
+    if (hex.length === 3 || hex.length === 4) {
+      hex = hex.slice(0, 3).split("").map((c) => c + c).join("");
+    }
+    if (hex.length === 8) hex = hex.slice(0, 6);
+    if (hex.length !== 6) return null;
+    const n = parseInt(hex, 16);
+    if (Number.isNaN(n)) return null;
+    return [(n >> 16) & 255, (n >> 8) & 255, n & 255];
+  }
+
+  const m = value.match(/rgba?\(([^)]+)\)/i);
+  if (!m) return null;
+  const parts = m[1].split(/[\s,\/]+/).filter(Boolean).map(Number);
+  if (parts.length < 3 || parts.slice(0, 3).some(Number.isNaN)) return null;
+  return [parts[0], parts[1], parts[2]];
+};
+
 const averageColorFromCanvas = (
   draw: (ctx: CanvasRenderingContext2D, size: number) => void
 ): string => {

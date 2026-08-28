@@ -91,7 +91,8 @@
 .gallery-canvas-hint {
   position: absolute;
   left: 50%;
-  bottom: calc(1.5em + env(safe-area-inset-bottom, 0px));
+  // Lifted clear of the dock, which occupies the same bottom-centre strip.
+  bottom: var(--dock-clearance, calc(1.5em + env(safe-area-inset-bottom, 0px)));
   transform: translateX(-50%);
   margin: 0;
   max-width: calc(100vw - 2em);

@@ -1,0 +1,108 @@
+/* ============================================================================
+   HERO — the masthead shared by the home page and the Figma training page:
+   name, then role in grey at the same size, then a row of logos, then the
+   intro paragraph.
+
+   These lived inside .header-container until the training page needed the
+   same treatment. Duplicating them was the alternative, and two copies of a
+   masthead drift apart the first time one of them is adjusted.
+   ========================================================================== */
+
+.hero-text-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  // Tight leading inside a line, a clear gap between them.
+  gap: 0.18em;
+  width: 100%;
+  text-align: left;
+}
+
+/* Name and role are one two-line masthead: same size and leading, split only
+   by colour, so they read as a single block rather than a heading with a
+   subtitle under it. */
+.hero-name,
+.hero-role {
+  margin: 0;
+  font-size: 3.4em;
+  font-weight: 700;
+  letter-spacing: -0.032em;
+  line-height: 1.08;
+
+  @media (max-width: 900px) {
+    font-size: 2.5em;
+  }
+
+  @media (max-width: 600px) {
+    font-size: 2.4em;
+    line-height: 1.2;
+  }
+}
+
+.hero-name {
+  color: var(--primary-text);
+}
+
+.hero-role {
+  color: var(--tertiary-text);
+}
+
+/* The companies as their own row, rather than only as inline mentions in the
+   paragraph. Sized off the body text so they sit under the masthead as a
+   credential line, not as a second heading. */
+.hero-logos {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6em 1.6em;
+  margin-top: 1.9em;
+
+  @media (max-width: 600px) {
+    gap: 0.55em 1.1em;
+    margin-top: 1.2em;
+  }
+}
+
+.hero-logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  font-size: 0.98em;
+  font-weight: 550;
+  color: var(--secondary-text);
+  text-decoration: none;
+  transition: color 0.2s ease;
+
+  img {
+    width: 1.35em;
+    height: 1.35em;
+    border-radius: 0.28em;
+    object-fit: contain;
+    flex-shrink: 0;
+  }
+
+  // Only the linked ones respond — Obvious and Grab are plain spans, and a
+  // hover state on them would promise a destination that isn't there.
+  &:is(a):hover {
+    color: var(--primary-text);
+  }
+}
+
+/* The paragraph that closes the masthead. Sized and spaced here; the home
+   page's inline badges and hover cards inside it stay with that component,
+   since only it has them. */
+.intro-paragraph {
+  margin: 0;
+  font-weight: 600;
+  font-size: 1.25em;
+  max-width: 65ch;
+  line-height: 1.85;
+  color: var(--secondary-text);
+  letter-spacing: -0.01em;
+  text-align: left;
+  margin-top: 1.8em;
+
+  @media (max-width: 767px) {
+    font-size: 1.1em;
+  }
+}

@@ -1,0 +1,252 @@
+/* ============================================================================
+   DOCK — a macOS/iOS style bar of icons pinned to the bottom of the viewport.
+   Pages first, then the tools behind the work, separated by a hairline.
+   ========================================================================== */
+
+/* Anything else that lives along the bottom edge — the gallery hint, the
+   assistant button on a phone — lifts clear by --dock-clearance. The component
+   overwrites it with a measured value on mount; this is the estimate that
+   holds for the first paint. */
+:root {
+  --dock-tile: 56px;
+  --dock-gap: 16px;
+  --dock-pad: 14px;
+  --dock-offset: 1.25rem;
+  --dock-clearance: calc(
+    var(--dock-tile) + (2 * var(--dock-pad)) + var(--dock-offset) + 0.85rem +
+      env(safe-area-inset-bottom, 0px)
+  );
+}
+
+.dock {
+  position: fixed;
+  left: 50%;
+  bottom: calc(var(--dock-offset) + env(safe-area-inset-bottom, 0px));
+  transform: translateX(-50%);
+  // Below the assistant button's 999, so the two never fight over a tap in the
+  // narrow band where they could sit close together.
+  z-index: 998;
+  // The wrapper spans nothing visible; only the bar itself takes pointer input,
+  // so the page stays clickable to either side of it.
+  pointer-events: none;
+  max-width: calc(100vw - 1.5rem);
+}
+
+.dock__list {
+  // Anchors the items' offsetLeft, which is what the magnification measures
+  // against — a layout value, unaffected by the transforms it produces.
+  position: relative;
+  pointer-events: auto;
+  display: flex;
+  align-items: flex-end;
+  gap: var(--dock-gap);
+  margin: 0;
+  padding: var(--dock-pad) calc(var(--dock-pad) + 2px);
+  list-style: none;
+  border-radius: 28px;
+  border: 1px solid var(--dock-stroke);
+  // Deliberately independent of --page-accent and of --bg-color: the dock is
+  // fixed chrome, dark in both themes, and a panel that changed colour under a
+  // scrolling page drew the eye away from the page itself.
+  background-color: var(--dock-surface);
+  backdrop-filter: blur(22px) saturate(180%);
+  -webkit-backdrop-filter: blur(22px) saturate(180%);
+  box-shadow:
+    0 16px 40px var(--dock-shadow),
+    // A hairline of light along the top edge, so the panel reads as a raised
+    // slab rather than a hole cut in the page.
+    inset 0 1px 0 var(--dock-stroke);
+}
+
+.dock__item {
+  // The magnification writes this per frame; the declaration here is what the
+  // dock looks like before a pointer ever arrives, and after it leaves.
+  --dock-scale: 1;
+
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  // Hairline between the pages and the tools. It sits in the middle of the gap
+  // rather than taking a slot of its own, so it never shifts the magnification
+  // geometry.
+  &--group-start::before {
+    content: "";
+    position: absolute;
+    left: calc(-1 * var(--dock-gap) / 2);
+    top: 8px;
+    bottom: 8px;
+    width: 1px;
+    background: var(--dock-divider);
+  }
+
+  // macOS's running-app dot, borrowed for the page you are on.
+  &.is-active::after {
+    content: "";
+    position: absolute;
+    bottom: -5px;
+    left: 50%;
+    width: 4px;
+    height: 4px;
+    margin-left: -2px;
+    border-radius: 50%;
+    background: var(--dock-indicator);
+  }
+}
+
+// Mirror of --desktop-only below: hidden here, shown inside the phone query.
+.dock__item--mobile-only {
+  display: none;
+}
+
+.dock__button {
+  // The pages render as <a>, but mail and the assistant render as <button>,
+  // which ships with a UA background, a 2px outset border and 1px 6px of
+  // padding. That was drawing a light frame around those two tiles, and the
+  // padding widened their slots enough to shift the magnification centres.
+  appearance: none;
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+
+  position: relative;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+  // Grows out of the dock's floor, the way a dock icon should.
+  transform: scale(var(--dock-scale));
+  transform-origin: bottom center;
+  // Short enough to still feel like it is tracking the cursor, long enough to
+  // smooth the step between frames and to ease back down on the way out.
+  transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1);
+
+  &:focus-visible {
+    outline: 2px solid var(--dock-indicator);
+    outline-offset: 3px;
+    border-radius: 14px;
+  }
+
+  // Tools name themselves on hover and do nothing else, so the cursor should
+  // not promise a destination.
+  &--static {
+    cursor: default;
+  }
+}
+
+.dock__tile {
+  display: grid;
+  place-items: center;
+  width: var(--dock-tile);
+  height: var(--dock-tile);
+  // 0.24 of the tile — the proportion iOS and macOS app icons are drawn at.
+  border-radius: calc(var(--dock-tile) * 0.24);
+  background: var(--bg-color);
+  color: var(--primary-text);
+  overflow: hidden;
+
+  // Every icon is square artwork that carries its own background, so it fills
+  // the tile edge to edge and the tile's radius does the rounding.
+  img,
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  // The assistant has no supplied artwork, so the tile itself is the icon:
+  // the same purple it carried as a floating button, with the glyph inset the
+  // way a real app icon sits on its plate.
+  &--agent {
+    background: var(--ai-gradient);
+
+    svg {
+      width: 56%;
+      height: 56%;
+      color: rgba(255, 255, 255, 0.98);
+    }
+  }
+}
+
+.dock__label {
+  position: absolute;
+  bottom: calc(100% + 9px);
+  left: 50%;
+  padding: 0.28em 0.6em;
+  border-radius: 7px;
+  font-size: 12px;
+  font-weight: 550;
+  white-space: nowrap;
+  color: var(--primary-text);
+  background: color-mix(in srgb, var(--bg-color) 88%, transparent);
+  border: 1px solid var(--border-color);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  pointer-events: none;
+  opacity: 0;
+  // Divides out the parent's magnification so the tooltip holds one size while
+  // the icon under it grows.
+  transform: translateX(-50%) scale(calc(1 / var(--dock-scale)));
+  transform-origin: bottom center;
+  transition: opacity 0.14s ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dock__button:hover .dock__label,
+  .dock__button:focus-visible .dock__label {
+    opacity: 1;
+  }
+}
+
+/* The copy confirmation has to survive the pointer leaving, so it is driven by
+   state rather than by :hover — and it sits outside the hover query so a touch
+   device gets the confirmation too. */
+.dock__item.is-copied .dock__label {
+  opacity: 1;
+}
+
+/* Announced, not shown — the tooltip is aria-hidden, so without this the copy
+   would be silent to a screen reader. */
+.dock__sr-status {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock__button {
+    transition: none;
+  }
+}
+
+/* A phone gets the three pages plus the assistant, which has no floating
+   button at this width. Mail stays behind on the desktop dock. */
+@media (max-width: 768px) {
+  :root {
+    --dock-tile: 52px;
+    --dock-gap: 12px;
+    --dock-pad: 10px;
+    --dock-offset: 0.75rem;
+  }
+
+  .dock__item--desktop-only {
+    display: none;
+  }
+
+  .dock__item--mobile-only {
+    display: flex;
+  }
+
+  // A case study runs its own control bar along the bottom edge at this width.
+  body:has(.reader-mode-overlay) .dock {
+    display: none;
+  }
+}

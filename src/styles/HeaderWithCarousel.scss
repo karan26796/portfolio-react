@@ -4,42 +4,9 @@
   margin: 0 auto;
   background-color: var(--bg-color);
   position: sticky;
-  top: 4.5em;
+  top: 0;
   z-index: -2;
 
-  /* A wash falling from the very top of the page and dissolving before the
-     hero ends, so the header sits in light rather than on a flat field.
-
-     Full-bleed via 100vw rather than the container's 960px, and lifted by the
-     shell's 4.5em top padding so it starts behind the nav bar — the nav's
-     translucent blur then picks the tint up instead of cutting a line across
-     it. `transparent` is given an explicit colour stop because bare
-     `transparent` interpolates through transparent *black* in some engines,
-     which greys the middle of the ramp. */
-  &::before {
-    content: "";
-    position: absolute;
-    top: -4.5em;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100vw;
-    height: calc(100% + 4.5em);
-    // Runs the full height rather than fading out early, so it reads as light
-    // falling across the whole header. The midpoint is held higher than a
-    // straight ramp would put it, which keeps the tint present through the
-    // headline instead of collapsing in the first third.
-    background: linear-gradient(
-      to bottom,
-      var(--hero-wash) 0%,
-      color-mix(in srgb, var(--hero-wash) 62%, transparent) 42%,
-      color-mix(in srgb, var(--hero-wash) 22%, transparent) 74%,
-      color-mix(in srgb, var(--hero-wash) 0%, transparent) 100%
-    );
-    pointer-events: none;
-    // Above the container's own background, below its content — which is why
-    // the column below is given a positioned layer of its own.
-    z-index: 0;
-  }
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -68,16 +35,8 @@
     @media screen and (max-width: 800px) {
       padding: 5em 1em;
       gap: 1em;
+      height: 55vh;
     }
-  }
-
-  .header-text-content {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    // Tight leading inside a line, a clear gap between them.
-    gap: 0.18em;
-    width: 100%;
   }
 
   .serif-line {
@@ -98,6 +57,7 @@
       font-size: var(--h1-size-mobile);
       line-height: 1.2;
     }
+
     display: flex;
     flex-wrap: wrap;
     align-items: center;
@@ -336,18 +296,4 @@
     }
   }
 
-  .intro-paragraph {
-    margin: 0.4em 0 0;
-    font-weight: 600;
-    font-size: 1.25em;
-    max-width: 65ch;
-    line-height: 1.85;
-    color: var(--secondary-text);
-    letter-spacing: -0.01em;
-    text-align: center;
-
-    @media (max-width: 767px) {
-      font-size: 1.1em;
-    }
-  }
 }

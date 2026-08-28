@@ -27,7 +27,7 @@
   // whole page. Anything less than an opaque fill here lets the hero text
   // show through the project cards.
   //
-  background-color: var(--bg-color);
+  // background-color: var(--bg-color);
   z-index: 1;
 
   // Right inset that keeps text clear of the fixed scroll indicator.
@@ -202,61 +202,6 @@
         object-fit: cover;
       }
     }
-  }
-}
-
-/* Selection-frame chrome: a hairline box around the card with a small handle
-   straddling each corner, so the card reads as an artboard on the canvas. */
-.project-frame {
-  position: relative;
-  background-color: hsla(0, 0%, 100%, 0.507);
-  border: 1px solid var(--frame-stroke);
-  // Squared off — the handles only read as drag handles on sharp corners.
-  border-radius: 0;
-  padding: 1.75em;
-  box-sizing: border-box;
-  transition: background-color 0.4s ease, border-color 0.4s ease;
-
-  &__corner {
-    position: absolute;
-    width: 9px;
-    height: 9px;
-    background: hsla(0, 0%, 100%, 1);
-    // Same hairline colour as the frame's own border.
-    border: 1.5px solid var(--frame-stroke);
-    box-sizing: border-box;
-    // Purely decorative — must not eat the card's hover or clicks.
-    pointer-events: none;
-
-    &--tl {
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
-    }
-
-    &--tr {
-      top: 0;
-      right: 0;
-      transform: translate(50%, -50%);
-    }
-
-    &--bl {
-      bottom: 0;
-      left: 0;
-      transform: translate(-50%, 50%);
-    }
-
-    &--br {
-      bottom: 0;
-      right: 0;
-      transform: translate(50%, 50%);
-    }
-  }
-
-  // Shown on mobile too, with a tighter inset — the stage card's own side
-  // padding keeps it and its corner handles clear of the screen edges.
-  @media (max-width: 768px) {
-    padding: 0.75em;
   }
 }
 

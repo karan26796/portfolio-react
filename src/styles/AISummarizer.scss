@@ -21,6 +21,14 @@
     }
 }
 
+// Higher specificity than the phone rule below, so it survives it: a case
+// study's overlay paints at z-index 9999, above the dock, which leaves the
+// dock's assistant button unreachable while one is open. The floating button
+// is the way back to the assistant there at every width.
+body:has(.reader-mode-overlay) .ai-fab-group {
+    display: flex;
+}
+
 // Story-starter pills floating above the button
 .ai-fab-pills {
     display: flex;
@@ -622,15 +630,20 @@
     // the button cover most of a phone screen — so the button opens straight
     // into the chat, where the same questions are waiting as chips.
     .ai-fab-group {
+        // The dock carries the assistant at this width, so the floating button
+        // would be a second door to the same room.
+        display: none;
         right: 1rem;
-        bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
+        // Above the dock: at this width the centred dock is wide enough that a
+        // corner button on the same line would sit on top of it.
+        bottom: var(--dock-clearance, calc(1rem + env(safe-area-inset-bottom, 0px)));
     }
 
     .ai-fab-pills {
         display: none;
     }
 
-    // A case study runs its own control bar along the bottom edge at this
+    // A case study also runs its own control bar along the bottom edge at this
     // width, so the button lifts clear of it rather than sitting on top.
     body:has(.reader-mode-overlay) .ai-fab-group {
         bottom: calc(4.5rem + env(safe-area-inset-bottom, 0px));

@@ -173,6 +173,28 @@
     }
 }
 
+/* Sits above the attribution as a closing note. Uses the footer's own type,
+   not the reference's handwriting face — content only, as asked. */
+.footer-availability {
+    margin: 0 auto;
+    max-width: 44ch;
+    padding: 2.5em 1.25em 0.5em;
+    text-align: center;
+    color: var(--secondary-text);
+    font-size: 1.05em;
+    line-height: 1.55;
+
+    a {
+        color: var(--primary-text);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+
+        &:hover {
+            color: var(--highlight-color);
+        }
+    }
+}
+
 .footer-attribution {
     margin: 0;
     text-align: center;
