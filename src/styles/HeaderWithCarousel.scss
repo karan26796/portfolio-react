@@ -6,6 +6,35 @@
   position: sticky;
   top: 4.5em;
   z-index: -2;
+
+  /* A wash falling from the very top of the page and dissolving before the
+     hero ends, so the header sits in light rather than on a flat field.
+
+     Full-bleed via 100vw rather than the container's 960px, and lifted by the
+     shell's 4.5em top padding so it starts behind the nav bar — the nav's
+     translucent blur then picks the tint up instead of cutting a line across
+     it. `transparent` is given an explicit colour stop because bare
+     `transparent` interpolates through transparent *black* in some engines,
+     which greys the middle of the ramp. */
+  &::before {
+    content: "";
+    position: absolute;
+    top: -4.5em;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100vw;
+    height: calc(100% + 4.5em);
+    background: linear-gradient(
+      to bottom,
+      var(--hero-wash) 0%,
+      color-mix(in srgb, var(--hero-wash) 35%, transparent) 38%,
+      color-mix(in srgb, var(--hero-wash) 0%, transparent) 78%
+    );
+    pointer-events: none;
+    // Above the container's own background, below its content — which is why
+    // the column below is given a positioned layer of its own.
+    z-index: 0;
+  }
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -21,6 +50,9 @@
   }
 
   .header-column-one {
+    // Lifts the text above the wash's ::before layer.
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -38,15 +70,29 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.35em;
+    // Tight leading inside a line, a clear gap between them.
+    gap: 0.18em;
     width: 100%;
   }
 
   .serif-line {
     margin: 0;
     color: var(--primary-text);
-    letter-spacing: -0.01em;
-    line-height: 1.35;
+    // Display type wants tighter tracking and leading than body copy: 1.35
+    // leading left the lines drifting apart at this size, and -0.01em was
+    // loose enough to read as default spacing rather than a considered one.
+    font-size: 3.05em;
+    letter-spacing: -0.025em;
+    line-height: 1.14;
+
+    @media (max-width: 900px) {
+      font-size: 2.4em;
+    }
+
+    @media (max-width: 600px) {
+      font-size: var(--h1-size-mobile);
+      line-height: 1.2;
+    }
     display: flex;
     flex-wrap: wrap;
     align-items: center;
