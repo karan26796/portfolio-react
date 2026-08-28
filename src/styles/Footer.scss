@@ -31,14 +31,50 @@
 .footer-marquee-item {
     position: relative;
     flex-shrink: 0;
-    width: auto;
+    // Width now comes from the component, computed from each image's aspect
+    // ratio, so the frame holds its place before the image lands.
+    overflow: hidden;
 
     img {
         height: 100%;
-        width: auto;
+        width: 100%;
         display: block;
         object-fit: cover;
-        // border-radius: 1em;
+        opacity: 0;
+        transition: opacity 0.4s ease;
+    }
+
+    &.is-loaded img {
+        opacity: 1;
+    }
+}
+
+/* Fills the frame until its image arrives. The caption sits above it, so the
+   strip reads as itself while loading rather than as a row of blank boxes. */
+.footer-marquee-skeleton {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(90deg,
+        color-mix(in srgb, var(--primary-text) 7%, transparent) 25%,
+        color-mix(in srgb, var(--primary-text) 13%, transparent) 37%,
+        color-mix(in srgb, var(--primary-text) 7%, transparent) 63%);
+    background-size: 400% 100%;
+    animation: footer-marquee-shimmer 1.5s ease infinite;
+}
+
+@keyframes footer-marquee-shimmer {
+    from {
+        background-position: 100% 0;
+    }
+
+    to {
+        background-position: 0 0;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .footer-marquee-skeleton {
+        animation: none;
     }
 }
 
@@ -176,13 +212,12 @@
 /* Sits above the attribution as a closing note. Uses the footer's own type,
    not the reference's handwriting face — content only, as asked. */
 .footer-availability {
-    margin: 0 auto;
-    max-width: 44ch;
-    padding: 2.5em 1.25em 0.5em;
-    text-align: center;
+    margin: auto;
+    padding: 0.25em 0 0;
+    text-align: left;
     color: var(--secondary-text);
-    font-size: 1.05em;
-    line-height: 1.55;
+    font-size: 0.9em;
+    line-height: 1.45;
 
     a {
         color: var(--primary-text);

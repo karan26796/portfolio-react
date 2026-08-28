@@ -55,6 +55,8 @@ export const LOCATIONS: Record<number, string> = {
   39: "Opera House, Paris",
   40: "Paris",
   41: "Zurich, Switzerland",
+  42: "Spiti Valley, Himachal",
+  43: "Langza, Spiti Valley",
 };
 
 // Real pixel dimensions of each /gallery/{n}.webp file, used to lay out rows
@@ -100,6 +102,8 @@ export const ASPECT_RATIOS: Record<number, number> = {
   39: 1638 / 2048,
   40: 2048 / 1638,
   41: 2128 / 1638,
+  42: 1200 / 857,
+  43: 1200 / 675,
 };
 
 // Curated groupings by region — kept as an explicit list rather than derived
@@ -107,7 +111,7 @@ export const ASPECT_RATIOS: Record<number, number> = {
 // don't literally contain their region's name. Note: image 11 doesn't exist
 // on disk, so it's excluded rather than 404ing.
 export const REGIONS: Region[] = [
-  { id: "himachal", name: "Himachal & Spiti", images: [1, 2, 3, 4, 6, 9, 12, 16, 14, 19, 20, 25] },
+  { id: "himachal", name: "Himachal & Spiti", images: [1, 2, 3, 4, 6, 9, 12, 16, 14, 19, 20, 25, 42, 43] },
   { id: "kashmir", name: "Kashmir", images: [13, 15, 21, 26, 27, 31, 32] },
   { id: "ladakh", name: "Ladakh", images: [17, 18, 22, 23, 24, 28, 29, 30] },
   { id: "switzerland", name: "Switzerland", images: [33, 34, 35, 36, 37, 41] },

@@ -1,6 +1,13 @@
-// Skeleton for ProjectDetails — mirrors the live single-column layout:
-// big title → description (left) + meta (right), then heading-left / body-right
-// sections separated by full-width image blocks.
+/* ============================================================================
+   SKELETON FOR THE CASE STUDY PAGE
+
+   Mirrors the docs layout it stands in for: one 840px column, a hero of
+   stamp → title → lede, then sections of label + hairline → statement → body.
+   The measurements below track .docs-layout, .docs-hero and .project-details
+   in ProjectDetails.scss — if the column or the type there changes, these
+   need to follow, or the page will visibly jump when the markdown lands.
+   ========================================================================== */
+
 .details-skeleton {
     // Theme-aware skeleton tones derived from the text colour, so they read as
     // subtle grey in both light and dark mode without extra overrides.
@@ -8,142 +15,154 @@
     --sk-shine: color-mix(in srgb, var(--primary-text) 16%, transparent);
 
     pointer-events: none;
-    display: grid;
-    grid-template-columns: minmax(0, 1fr);
-    max-width: 1120px;
-    margin: 0 auto;
-    padding: 0 2em 4em;
 
-    .project-content-wrapper {
-        display: flex;
-        flex-direction: column;
+    // Matches .docs-layout exactly, so nothing shifts sideways on load.
+    .sk-layout {
+        width: 100%;
+        max-width: 840px;
+        margin: 0 auto;
+        padding: 0 3em 4em;
+        box-sizing: border-box;
+
+        @media (max-width: 1024px) {
+            padding: 0 1.5em 3em;
+        }
+
+        @media (max-width: 480px) {
+            padding: 0 1.15em 2em;
+        }
     }
 
     // Shimmering block base — every skeleton element gets `.sk`.
     .sk {
-        background: linear-gradient(
-            90deg,
+        background: linear-gradient(90deg,
             var(--sk-base) 25%,
             var(--sk-shine) 37%,
-            var(--sk-base) 63%
-        );
+            var(--sk-base) 63%);
         background-size: 400% 100%;
         border-radius: var(--radius-sm);
         animation: sk-shimmer 1.5s ease infinite;
     }
 
-    // ── Header ──
-    .sk-header {
-        display: flex;
-        flex-direction: column;
-        gap: 2em;
-        margin-top: 3em;
-        padding: 2em 0 3em;
-    }
+    /* ── Hero: mirrors .docs-hero ─────────────────────────────────────────── */
 
-    .sk-title {
-        display: flex;
-        flex-direction: column;
-        gap: 0.4em;
+    .sk-hero {
+        position: relative;
+        padding: 3.25em 0 2.75em;
 
-        .sk-title-line {
-            height: 2.4rem;
-            border-radius: var(--radius-sm);
+        @media (max-width: 1024px) {
+            padding: 2.5em 0 2em;
         }
-    }
 
-    .sk-intro {
-        display: grid;
-        grid-template-columns: minmax(0, 2fr) minmax(0, 1fr);
-        gap: 3em;
-        align-items: start;
+        // The year stamp, opposite the headline as in the live hero.
+        &__stamp {
+            position: absolute;
+            top: 4.2em;
+            right: 0;
+            width: 5.5em;
+            height: 0.7rem;
 
-        .sk-desc {
+            @media (max-width: 700px) {
+                position: static;
+                margin-bottom: 1.4em;
+            }
+        }
+
+        &__title {
             display: flex;
             flex-direction: column;
-            gap: 0.75em;
+            gap: 0.5em;
+            max-width: 24ch;
+
+            @media (max-width: 1024px) {
+                max-width: none;
+            }
+        }
+
+        // 2.2em at 1.25 line-height is a 44px line box, and two of them plus
+        // the gap have to add up to the same as the real headline — otherwise
+        // everything below starts too high and the page lurches on load.
+        .sk-title-line {
+            height: 2.25rem;
+        }
+
+        &__lede {
+            display: flex;
+            flex-direction: column;
+            gap: 0.85em;
+            margin-top: 1.5em;
+            max-width: 60ch;
 
             .sk-line {
                 height: 1.1rem;
             }
         }
-
-        .sk-meta {
-            display: flex;
-            flex-direction: column;
-            gap: 1em;
-
-            &__row {
-                display: flex;
-                flex-direction: column;
-                gap: 0.5em;
-            }
-
-            &__label {
-                height: 0.7rem;
-                width: 45%;
-            }
-
-            &__value {
-                height: 1rem;
-                width: 80%;
-            }
-        }
     }
 
-    // ── Content sections: heading (left) + body (right) ──
+    /* ── Sections: mirrors .project-details section ───────────────────────── */
+
     .sk-section {
-        display: grid;
-        grid-template-columns: minmax(0, 260px) minmax(0, 1fr);
-        column-gap: 3.5em;
-        align-items: start;
-        padding-top: 3em;
-        padding-bottom: 2em;
+        padding: 2.75em 0 0.75em;
 
-        &__heading {
+        @media (max-width: 768px) {
+            padding: 2.25em 0 0.5em;
+        }
+
+        // Label plus the hairline that runs from it to the right edge — the
+        // same shape as the live h3 and its ::after rule.
+        &__label {
             display: flex;
-            flex-direction: column;
-            gap: 0.5em;
+            align-items: center;
+            gap: 1em;
+            margin-bottom: 1.35em;
+        }
 
-            .sk-heading-line {
-                height: 1.4rem;
-                width: 90%;
+        .sk-label {
+            width: 8.5em;
+            height: 1.1rem;
+            flex: none;
+        }
 
-                &--short {
-                    width: 55%;
-                }
-            }
+        // Static, not shimmering: in the live page this is a plain divider,
+        // not content waiting to arrive.
+        .sk-rule {
+            flex: 1 1 auto;
+            min-width: 2em;
+            height: 1px;
+            background: var(--border-color);
+        }
+
+        // The statement under the label — the largest type in the body.
+        .sk-statement {
+            height: 1.35rem;
+            width: 62%;
+            max-width: 52ch;
+            margin-bottom: 1.25em;
         }
 
         &__body {
             display: flex;
             flex-direction: column;
-            gap: 0.75em;
+            gap: 0.8em;
+            max-width: 74ch;
 
             .sk-line {
-                height: 1.05rem;
+                height: 1rem;
             }
         }
     }
 
+    // Matches the live figure: square corners and a border, full column width.
     .sk-figure {
         width: 100%;
         aspect-ratio: 16 / 9;
-        border-radius: var(--radius-sm);
-        margin-bottom: 3em;
-    }
+        margin: 1.5em 0;
+        border: 1px solid var(--border-color);
+        border-radius: 0;
+        box-sizing: border-box;
 
-    @media (max-width: 768px) {
-        padding: 0 1.5em 3em;
-
-        .sk-intro,
-        .sk-section {
-            grid-template-columns: 1fr;
-            gap: 1.5em;
-        }
-
-        .sk-section {
-            row-gap: 1em;
+        @media (max-width: 768px) {
+            border-radius: var(--radius-sm);
         }
     }
 }

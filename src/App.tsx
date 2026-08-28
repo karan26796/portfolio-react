@@ -84,6 +84,12 @@ const AppShell: React.FC = () => {
   const isHomeOrProject =
     location.pathname === "/home" || location.pathname.startsWith("/project/");
 
+  // A case study mounts its own assistant, one that knows that project. This
+  // one covers every other route. Both listen for `open-agent-vinod`, so
+  // running them together would open two stacked chats on one click.
+  const isProjectRoute = location.pathname.startsWith("/project/");
+  const isTrainingRoute = location.pathname === "/figma-training";
+
   return (
     <div className="app-shell">
       <Dock />
@@ -110,6 +116,35 @@ const AppShell: React.FC = () => {
         </React.Suspense>
         <Footer />
       </div>
+      {/* Outside .app-center on purpose: that column's stacking context would
+          trap the chat's z-index beneath the dock. */}
+      {!isProjectRoute &&
+        (isTrainingRoute ? (
+          // The training page has its own audience and its own questions. The
+          // context below is what the assistant answers from, so it carries the
+          // facts the page already states rather than the portfolio pitch.
+          <AISummarizer
+            text="Karan Kapoor runs hands-on Figma training and corporate design workshops. Over the last 5 years he has taught Figma to more than 10,000 people — beginners through to working professionals — across organisations and institutions in India and the US, including IIM Ahmedabad, IIM Sambalpur, IIT Madras, Indiana University, FLAME University and Zuddl. Sessions have covered Auto Layout, design systems, prototyping, design tokens, and design-to-development with AI, for audiences ranging from design teams to product managers to students. He also led the Figma community in Delhi (Friends of Figma, Delhi) for 5 years, running 20+ workshops and events for over 5,000 designers, including hosting Figma Config '24 at IIT Delhi."
+            buttonLabel="Ask Agent Vinod"
+            pageType="training"
+            initialPrompts={[
+              "What do you cover in a Figma workshop?",
+              "Who are these sessions for?",
+              "Can you run a session for my team?"
+            ]}
+          />
+        ) : (
+          <AISummarizer
+            text="Karan Kapoor is a Senior Product Designer & Figma Trainer with 8+ years experience leading design for products used by 2.2M+ people."
+            buttonLabel="Ask Agent Vinod"
+            pageType="home"
+            initialPrompts={[
+              "What roles are you looking for?",
+              "How do you handle disagreements with PMs?",
+              "How do I contact you?"
+            ]}
+          />
+        ))}
       <RightSidebar />
     </div>
   );
@@ -124,7 +159,6 @@ const HomePage: React.FC = () => {
   });
 
   const { projects: projectSummaries, loading } = useProjects();
-  const isProjectRoute = useLocation().pathname.startsWith("/project/");
 
   // The wash's colour per section, in scroll order. Projects supply their own
   // (see data-accent in ProjectList); these cover everything around them.
@@ -220,22 +254,6 @@ const HomePage: React.FC = () => {
           <FAQ data={faqData} />
         </div>
         {/* <ExploreFolder /> */}
-        {/* A case study mounts its own assistant, and this page stays mounted
-            underneath it so closing one returns here intact. Both instances
-            listen for `open-agent-vinod`, so leaving this one mounted would
-            make a single dock click open two stacked chats. */}
-        {!isProjectRoute && (
-        <AISummarizer
-          text="Karan Kapoor is a Senior Product Designer & Figma Trainer with 8+ years experience leading design for products used by 2.2M+ people."
-          buttonLabel="Ask Agent Vinod"
-          pageType="home"
-          initialPrompts={[
-            "What roles are you looking for?",
-            "How do you handle disagreements with PMs?",
-            "How do I contact you?"
-          ]}
-        />
-        )}
       </div>
     </ScrollRevealDefaultsProvider>
   );

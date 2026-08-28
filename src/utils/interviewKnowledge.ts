@@ -205,7 +205,136 @@ export const INTERVIEW_QA: QAItem[] = [
   }
 ];
 
-export function findInterviewAnswer(userInput: string, projectContext?: string, pageType: 'home' | 'project' = 'project'): string {
+/**
+ * Whole-word match, tolerating the common plural and tense endings.
+ *
+ * Plain `query.includes(kw)` matched any substring, so the keyword "work" fired
+ * on "workshop" — which is how "What do you cover in a Figma workshop?" came
+ * back with the work-experience answer. A bare \b...\b would fix that but then
+ * stop "work" matching "worked", so the endings are allowed explicitly.
+ */
+const matchesWord = (query: string, keyword: string): boolean => {
+  const escaped = keyword.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  return new RegExp(`\\b${escaped}(?:s|es|ed|ing)?\\b`).test(query);
+};
+
+/**
+ * Training answers, kept separate from the portfolio ones: this page draws
+ * someone weighing up a workshop, not a hiring manager.
+ *
+ * Everything factual here is on the page already. Where a question needs
+ * something only Karan can commit to — length, format, cost, availability —
+ * the answer says what is true, asks for what it needs, and does not invent a
+ * number. See docs/figma-training-qa.md; these get replaced as he fills it in.
+ */
+const TRAINING_QA: QAItem[] = [
+  {
+    id: "training-for-team",
+    category: "Training",
+    question: "Can you run a session for my team?",
+    answer: "Yes, definitely. You can reach out over **[LinkedIn](https://www.linkedin.com/in/karankapoorux)** or **[karan26796@gmail.com](mailto:karan26796@gmail.com)** and we can work out a session as per your requirements.",
+    keywords: ["my team", "our team", "your team", "run a session", "run a workshop", "hire", "book", "booking", "corporate", "company", "available", "availability", "engage", "conduct", "get in touch", "reach out"]
+  },
+  {
+    id: "training-duration",
+    category: "Training",
+    question: "How long is a typical session?",
+    answer: "Each session is catered to the unique requirement of the person or team. Ideally a training session lasts **4 hrs, spread across two days**, divided equally between theoretical and hands-on sections.",
+    keywords: ["how long", "duration", "hours", "length", "half day", "full day", "days", "time commitment", "how many hours", "session length"]
+  },
+  {
+    id: "training-formats",
+    category: "Training",
+    question: "What formats do you offer?",
+    answer: "I offer **in-person, online, and 1:1 sessions** for individuals and teams.",
+    keywords: ["format", "formats", "online", "in person", "remote", "virtual", "onsite", "cohort", "one on one", "1:1", "recorded", "workshop format"]
+  },
+  {
+    id: "training-cost",
+    category: "Training",
+    question: "What does it cost?",
+    answer: "Cost depends on topics, duration, and the size of the organization.\n\nTell me what you have in mind over **[LinkedIn](https://www.linkedin.com/in/karankapoorux)** or **[karan26796@gmail.com](mailto:karan26796@gmail.com)** and I'll send a quote.",
+    keywords: ["cost", "costs", "price", "pricing", "fee", "fees", "charge", "charges", "rate", "rates", "budget", "quote", "how much"]
+  },
+  {
+    id: "training-prerequisites",
+    category: "Training",
+    question: "What do people need to know beforehand?",
+    answer: "The sessions cover everything from basics to advanced topics, so **no prior knowledge is required**.",
+    keywords: ["prerequisite", "prerequisites", "prior knowledge", "beforehand", "prepare", "preparation", "requirement", "requirements", "laptop", "license", "experience needed", "need to know", "complete beginner"]
+  },
+  {
+    id: "training-coverage",
+    category: "Training",
+    question: "What do you cover in a Figma workshop?",
+    answer: "My expertise is in creating **scalable design systems**, making people at least **40% faster** in day-to-day Figma usage (Auto Layout basics to advanced, hidden shortcuts and so on), and **AI-native workflows** for designers.",
+    keywords: ["cover", "covered", "curriculum", "syllabus", "topics", "agenda", "content", "modules", "teach", "what do you teach", "learn", "prototyping", "variables", "shortcuts", "faster"]
+  },
+  {
+    id: "training-systems",
+    category: "Training",
+    question: "Do you teach Auto Layout and design systems?",
+    answer: "I'm a pro at **Auto Layout** and **design systems**, and have built scalable systems at multiple companies.",
+    keywords: ["auto layout", "autolayout", "design system", "design systems", "design token", "design tokens", "components", "variants", "libraries", "advanced"]
+  },
+  {
+    id: "training-audience",
+    category: "Training",
+    question: "Who are these sessions for?",
+    answer: "The sessions are for **students** studying design, pursuing an MBA, or looking for a job right after graduation. Also for **professionals and companies** looking to level up their team's Figma skills.",
+    keywords: ["who are these for", "who is it for", "audience", "suitable", "beginner", "beginners", "students", "student", "mba", "graduates", "professionals", "who should attend"]
+  },
+  {
+    id: "training-non-designers",
+    category: "Training",
+    question: "Have you taught non-designers, like PMs?",
+    answer: "Yes — I teach **PMs, founders, marketers**, and professionals across roles. My sessions are designed to be accessible and practical for people from all backgrounds.",
+    keywords: ["pms", "pm", "product managers", "non designer", "non designers", "engineers", "developers", "founders", "marketers", "across roles", "non technical"]
+  },
+  {
+    id: "training-ai",
+    category: "Training",
+    question: "Do you cover AI in the design workflow?",
+    answer: "Yes — I cover everything through the lens of AI, and I help designers become **AI-native**.",
+    keywords: ["ai", "artificial intelligence", "design to development", "design to code", "dev mode", "mcp", "automation", "ai native", "vibe coding", "cursor", "claude"]
+  },
+  {
+    id: "training-where",
+    category: "Training",
+    question: "Where have you taught?",
+    answer: "**IIM Ahmedabad, IIM Sambalpur, IIT Madras, Indiana University, FLAME University, Shaadi.com** and **Zuddl** — across India and the US.",
+    keywords: ["where have you taught", "where taught", "which institutions", "clients", "colleges", "universities", "iim", "iit", "flame", "indiana", "zuddl", "shaadi", "places", "worked with"]
+  },
+  {
+    id: "training-scale",
+    category: "Training",
+    question: "How many people have you trained?",
+    answer: "Close to **10,000 people** in the last 5 years.",
+    keywords: ["how many", "number of people", "how many people", "trained", "scale", "reach", "attendees", "count"]
+  },
+  {
+    id: "training-community",
+    category: "Training",
+    question: "Tell me about the Figma community work",
+    answer: "I led the **Friends of Figma (FoF) chapter for Delhi** for close to 5 years, and ran more than **20 events** during my tenure.",
+    keywords: ["community", "friends of figma", "fof", "delhi", "meetup", "meetups", "config", "events", "chapter", "organiser", "organizer"]
+  },
+  {
+    // Still unanswered in docs/figma-training-qa.md — this points at the
+    // testimonials already on the page rather than inventing quotes.
+    id: "training-feedback",
+    category: "Training",
+    question: "What do people say afterwards?",
+    answer: "There are testimonials further down this page from people who've been through the sessions — worth a scroll rather than me paraphrasing them.",
+    keywords: ["what do people say", "feedback", "testimonial", "testimonials", "reviews", "say afterwards", "worth it", "references", "reference"]
+  }
+];
+
+const TRAINING_FALLBACK = `Happy to answer that — ask me about what a workshop covers, who it suits, where I've taught, or getting one set up for your team.
+
+If it's something specific to your group, **[LinkedIn](https://www.linkedin.com/in/karankapoorux)** is the quickest way to reach me.`;
+
+export function findInterviewAnswer(userInput: string, projectContext?: string, pageType: 'home' | 'project' | 'training' = 'project'): string {
   const query = userInput.toLowerCase().trim();
 
   // 1. Check project summary / case study requests (only meaningful on a project page)
@@ -225,7 +354,9 @@ export function findInterviewAnswer(userInput: string, projectContext?: string, 
   let bestMatch: QAItem | null = null;
   let maxScore = 0;
 
-  for (const item of INTERVIEW_QA) {
+  const pool = pageType === "training" ? [...TRAINING_QA, ...INTERVIEW_QA] : INTERVIEW_QA;
+
+  for (const item of pool) {
     let score = 0;
     const qLower = item.question.toLowerCase();
 
@@ -236,10 +367,13 @@ export function findInterviewAnswer(userInput: string, projectContext?: string, 
 
     // Keyword matches
     for (const kw of item.keywords) {
-      if (query.includes(kw)) {
-        score += 2;
-        if (query === kw) score += 3;
-      }
+      if (!matchesWord(query, kw)) continue;
+      // A phrase is far more discriminating than a single word, so it counts
+      // for more. Single words keep their original weight: the false matches
+      // came from substring bleed, not from the scoring, and raising the bar
+      // here instead only cost real matches.
+      score += kw.includes(" ") ? 4 : 2;
+      if (query === kw) score += 3;
     }
 
     if (score > maxScore) {
@@ -248,8 +382,19 @@ export function findInterviewAnswer(userInput: string, projectContext?: string, 
     }
   }
 
-  if (bestMatch && maxScore >= 2) {
+  // On the training page a portfolio entry is almost always the wrong answer,
+  // so a lone keyword brushing against one should not win — but a training
+  // entry matching at all should. Hence the threshold applies only when the
+  // best match came from the portfolio set.
+  const fromTraining = bestMatch !== null && TRAINING_QA.includes(bestMatch);
+  const threshold = pageType === "training" && !fromTraining ? 6 : 2;
+
+  if (bestMatch && maxScore >= threshold) {
     return `### ${bestMatch.question}\n\n${bestMatch.answer}`;
+  }
+
+  if (pageType === "training") {
+    return TRAINING_FALLBACK;
   }
 
   // Fallback answer structured from interview-questions.md

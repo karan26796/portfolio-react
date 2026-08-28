@@ -30,6 +30,32 @@
   // so the page stays clickable to either side of it.
   pointer-events: none;
   max-width: calc(100vw - 1.5rem);
+  transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
+
+  // Out of the way while reading down the page, back on the way up. The
+  // centring translate has to be repeated here or the dock would jump to the
+  // left edge as it slid down.
+  &.is-hidden {
+    transform: translateX(-50%)
+      translateY(
+        calc(100% + var(--dock-offset) + env(safe-area-inset-bottom, 0px))
+      );
+    opacity: 0;
+    pointer-events: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .dock {
+    transition: none;
+  }
+}
+
+/* On a case study the dock *is* the navigation, so it has to clear that page's
+   overlay at 9999. Scoped rather than raised globally: at 10000 everywhere it
+   would also paint over the resume popup and anything else modal. */
+body:has(.reader-mode-overlay) .dock {
+  z-index: 10000;
 }
 
 .dock__list {
@@ -156,6 +182,18 @@
     object-fit: cover;
   }
 
+  // Back and forward are glyphs, not app icons — a plain tile so they read as
+  // controls sitting among the artwork rather than as apps themselves.
+  &--control {
+    background: var(--bg-color-high);
+    color: var(--primary-text);
+
+    svg {
+      width: 46%;
+      height: 46%;
+    }
+  }
+
   // The assistant has no supplied artwork, so the tile itself is the icon:
   // the same purple it carried as a floating button, with the glyph inset the
   // way a real app icon sits on its plate.
@@ -227,14 +265,31 @@
   }
 }
 
-/* A phone gets the three pages plus the assistant, which has no floating
-   button at this width. Mail stays behind on the desktop dock. */
+/* A phone gets the three pages, mail, and the assistant — the assistant has no
+   floating button at this width, so the dock is the only way to it. */
 @media (max-width: 768px) {
   :root {
-    --dock-tile: 52px;
-    --dock-gap: 12px;
-    --dock-pad: 10px;
+    // Same tile and inner padding as the desktop dock, so the icons read at one
+    // size across both. The min() is the guard: five 56px tiles need 368px of
+    // the 375px a common phone has, and a narrower one (360, or a 320px SE)
+    // would overflow — so below that the tiles divide up whatever the bar can
+    // spare, holding back 8px between each pair.
+    --dock-tile: min(
+      56px,
+      calc(
+        (100vw - 2 * var(--dock-side) - 2 * var(--dock-pad) - 4 * var(--dock-gap)) /
+          5
+      )
+    );
+    // The widest gap that still leaves room for five full-size tiles inside a
+    // 375px screen. Web's 16px does not fit at this width, and shrinking the
+    // icons to buy it back was the thing to avoid.
+    --dock-gap: 10px;
+    --dock-pad: 14px;
     --dock-offset: 0.75rem;
+    // The gap to the left and right screen edges. Matched to --dock-offset so
+    // the bar is inset by the same amount on every side.
+    --dock-side: 0.75rem;
   }
 
   .dock__item--desktop-only {
@@ -245,8 +300,28 @@
     display: flex;
   }
 
-  // A case study runs its own control bar along the bottom edge at this width.
-  body:has(.reader-mode-overlay) .dock {
+  // Sized to its icons and centred, the same as on desktop — the base rule
+  // already handles both. Only the ceiling changes: it may not grow past the
+  // screen less the gap it keeps to each edge.
+  .dock {
+    max-width: calc(100vw - 2 * var(--dock-side));
+  }
+
+  .dock__list {
+    padding: var(--dock-pad);
+  }
+
+  // space-between sets the spacing now, so the divider's fixed offset into the
+  // gap no longer lands anywhere sensible.
+  .dock__item--group-start::before {
+    display: none;
+  }
+
+  // The chat takes the whole screen at this width, and the dock's own icon is
+  // what opened it — so it has nothing left to do and would sit over the reply
+  // field. Desktop is untouched: the chat is a small panel there, well clear
+  // of the dock.
+  body:has(.ai-chat-window) .dock {
     display: none;
   }
 }

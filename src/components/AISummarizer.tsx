@@ -10,7 +10,7 @@ interface AISummarizerProps {
     text: string;
     initialPrompts?: string[];
     buttonLabel?: string;
-    pageType?: 'home' | 'project';
+    pageType?: 'home' | 'project' | 'training';
 }
 
 /**
@@ -20,7 +20,7 @@ interface AISummarizerProps {
  * reply, which reads as the assistant having nothing else to offer. Wider
  * pools plus a random draw keep the suggestions moving.
  */
-const PROMPT_POOL: Record<'home' | 'project', string[]> = {
+const PROMPT_POOL: Record<'home' | 'project' | 'training', string[]> = {
     home: [
         "What roles are you looking for?",
         "How do you handle disagreements with PMs?",
@@ -32,6 +32,23 @@ const PROMPT_POOL: Record<'home' | 'project', string[]> = {
         "Where have you worked before?",
         "What kind of team do you work best in?",
         "What are you strongest at?"
+    ],
+    // The training page draws a different audience — someone weighing up a
+    // workshop for their team or their students, not a hiring manager. Grounded
+    // in what the page already states, so the answers have something to stand
+    // on.
+    training: [
+        "What do you cover in a Figma workshop?",
+        "Who are these sessions for?",
+        "Can you run a session for my team?",
+        "How long is a typical session?",
+        "What does it cost?",
+        "What formats do you offer?",
+        "Do you teach Auto Layout and design systems?",
+        "Do you cover AI in the design workflow?",
+        "Have you taught non-designers, like PMs?",
+        "Where have you taught before?",
+        "How many people have you trained?"
     ],
     project: [
         "Can you summarize this project?",
@@ -54,7 +71,7 @@ const PROMPT_COUNT = 3;
  * back to the full pool if avoiding repeats would leave too few.
  */
 const pickPrompts = (
-    pageType: 'home' | 'project',
+    pageType: 'home' | 'project' | 'training',
     alreadyAsked: Set<string>,
     count = PROMPT_COUNT
 ): string[] => {
@@ -78,7 +95,7 @@ interface ChatMessage {
     content: string;
 }
 
-const getMatchedAnswer = (userInput: string, projectContext: string | undefined, pageType: 'home' | 'project'): string => {
+const getMatchedAnswer = (userInput: string, projectContext: string | undefined, pageType: 'home' | 'project' | 'training'): string => {
     return findInterviewAnswer(userInput, projectContext, pageType);
 };
 
@@ -279,21 +296,12 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
             {/* ── CHAT WINDOW ── */}
             {isOpen && (
                 <div className="ai-chat-window">
-                    <div className="ai-chat-topbar">
-                        <div className="ai-topbar-brand">
-                            <div className="ai-topbar-avatar">
-                                <Sparkle size={20} weight="fill" />
-                            </div>
-                            <div>
-                                <p className="ai-topbar-name">Agent Vinod</p>
-                                <p className="ai-topbar-sub">AI Assistant</p>
-                            </div>
-                        </div>
-
-                        <button className="ai-close-btn" onClick={() => setIsOpen(false)} aria-label="Close chat">
-                            <X size={18} weight="bold" />
-                        </button>
-                    </div>
+                    {/* The header is gone, but the way out cannot be: on a
+                        phone this window is the whole screen, so the close
+                        button floats over the top-right corner instead. */}
+                    <button className="ai-close-btn" onClick={() => setIsOpen(false)} aria-label="Close chat">
+                        <X size={18} weight="bold" />
+                    </button>
 
                     <div className="ai-chat-messages">
                         {messages.map((msg, index) => (

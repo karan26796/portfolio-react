@@ -41,11 +41,19 @@
   /* The dock is dark in both themes — it reads as a macOS dock sitting over
      the page rather than as another page surface, so it deliberately does not
      follow --bg-color. Translucent, with the blur behind it doing the rest. */
-  --dock-surface: rgba(28, 28, 30, 0.72);
-  --dock-stroke: rgba(255, 255, 255, 0.12);
+  --dock-surface: rgba(28, 28, 30, 0.20);
+  --dock-stroke: rgba(255, 255, 255, 0.02);
   --dock-divider: rgba(255, 255, 255, 0.16);
   --dock-indicator: rgba(255, 255, 255, 0.7);
-  --dock-shadow: rgba(0, 0, 0, 0.3);
+  --dock-shadow: rgba(0, 0, 0, 0.0);
+
+  /* Chat bubbles, in the shape of an SMS thread. Sent keeps one green across
+     both themes, the way a messages app does; received follows the theme, so
+     it stays legible against the panel rather than being dark on light. */
+  --sms-sent: #34c759;
+  --sms-sent-text: #ffffff;
+  --sms-received: #e9e9eb;
+  --sms-received-text: #0d1117;
 }
 
 /* Dark mode — Modern ultra-sleek dark theme */
@@ -64,6 +72,9 @@
   --dock-surface: rgba(46, 46, 51, 0.8);
   --dock-stroke: rgba(255, 255, 255, 0.15);
   --dock-shadow: rgba(0, 0, 0, 0.55);
+
+  --sms-received: #2c2c2e;
+  --sms-received-text: #f4f5f7;
 
   --primary-text: #f0f6fc;
   --secondary-text: #8b949e;

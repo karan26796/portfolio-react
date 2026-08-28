@@ -14,7 +14,6 @@ import NomineeRow from "../components/skeletons/NomineeRow";
 import ScrollReveal from "../components/ScrollReveal";
 import AISummarizer from "../components/AISummarizer";
 import FAQ from "../components/FAQ";
-import ReaderModeHeader from "../components/ReaderModeHeader";
 import { formatSectionTitle } from "../utils/formatSectionTitle";
 // Projects that render as bespoke React pages instead of markdown.
 const CUSTOM_PROJECTS: Record<string, React.ComponentType> = {};
@@ -52,7 +51,6 @@ const ProjectDetails: React.FC = () => {
   const navigate = useNavigate();
   const [markdownContent, setMarkdownContent] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
-  const [isExpanded, setIsExpanded] = useState(false);
   const contentRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
 
@@ -89,6 +87,20 @@ const ProjectDetails: React.FC = () => {
   const handleClose = () => {
     navigate("/home");
   };
+
+  // The dock replaced the reader's own control bar, so back and forward now
+  // arrive as events from it. Re-bound on every change to currentIndex, since
+  // the handlers close over it.
+  useEffect(() => {
+    const prev = () => handlePrev();
+    const next = () => handleNext();
+    window.addEventListener("project:prev", prev);
+    window.addEventListener("project:next", next);
+    return () => {
+      window.removeEventListener("project:prev", prev);
+      window.removeEventListener("project:next", next);
+    };
+  });
 
   const { cleanContent, faqData } = React.useMemo(() => {
     return extractFAQ(markdownContent);
@@ -173,17 +185,7 @@ const ProjectDetails: React.FC = () => {
         if (e.target === e.currentTarget) handleClose();
       }}
     >
-      <div className={`reader-mode-window${isExpanded ? " full-width" : ""}`}>
-        <ReaderModeHeader
-          currentProjectId={projectId || ""}
-          projectList={validProjectList}
-          onClose={handleClose}
-          onPrev={handlePrev}
-          onNext={handleNext}
-          isExpanded={isExpanded}
-          onToggleExpand={() => setIsExpanded(!isExpanded)}
-        />
-
+      <div className="reader-mode-window">
         <div className="reader-mode-body" ref={bodyRef}>
           {CustomPage ? (
             <CustomPage />
@@ -305,7 +307,7 @@ const ProjectDetails: React.FC = () => {
                     </div>
 
                     {faqData && (
-                      <FAQ data={faqData} hideTitle={false} title="FAQs" />
+                      <FAQ data={faqData} hideTitle={false} title="Open questions" />
                     )}
 
                     {markdownContent && (

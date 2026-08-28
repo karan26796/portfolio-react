@@ -29,7 +29,7 @@ Fed the raw call transcripts into NotebookLM to cluster recurring complaints and
 
 <section>
 
-### Descript Buy-In Clip
+### Descript clips for stakeholder buy-in
 Cut a 1-minute Descript snippet from client calls and shared it with stakeholders — hearing customers in their own words got buy-in faster than a slide of quotes.
 
 </section>

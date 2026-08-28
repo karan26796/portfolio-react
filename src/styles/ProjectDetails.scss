@@ -1,3 +1,82 @@
+/* ==========================================================================
+   CASE STUDY PAGE SHELL
+   Moved here from ReaderModeHeader.scss: the reader's own header bar is gone
+   (the dock navigates now), so these page-level rules no longer had a
+   component to travel with.
+   ========================================================================== */
+
+/* ==========================================================================
+   READER MODE TOP HEADER BAR & POPUP CONTAINER
+   ========================================================================== */
+
+/* Outer Reader Mode Modal Overlay */
+.reader-mode-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--bg-color);
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  overflow: hidden;
+  animation: overlayFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+
+  @media (min-width: 801px) {
+    align-items: flex-start;
+  }
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+/* Reader Mode Window Container */
+.reader-mode-window {
+  position: relative;
+  width: 100%;
+  // A case study is the whole page now, at every width — no framing, no
+  // rounded window sitting in a dimmed backdrop.
+  max-width: 100%;
+  height: 100%;
+  background: var(--bg-color);
+  border-radius: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  animation: readerWindowSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+
+}
+
+@keyframes readerWindowSlideUp {
+  from {
+    transform: translateY(40px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Scrollable Body inside Reader Window */
+.reader-mode-body {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+  -webkit-overflow-scrolling: touch;
+
+  @media (max-width: 800px) {
+    order: 1;
+  }
+}
+
 /* ============================================================================
    CASE STUDY — DOCS LAYOUT
    One centred content column. Sections are separated by a hairline that runs
@@ -12,19 +91,10 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
 }
 
-/* ProjectDetailsSkeleton still renders `.container-project` while the markdown
-   loads, so it keeps a plain centred column of its own. */
-.container-project {
-    width: 100%;
-    max-width: var(--max-width-container);
-    margin: 0 auto;
-    box-sizing: border-box;
-}
-
 .docs-layout {
     width: 100%;
     // Holds the same measure the column had when the rail sat beside it.
-    max-width: 1040px;
+    max-width: 840px;
     margin: 0 auto;
     padding: 0 3em 4em;
     box-sizing: border-box;
@@ -44,6 +114,8 @@
     min-width: 0;
     width: 100%;
 }
+
+
 
 .docs-hero {
     position: relative;
@@ -82,9 +154,9 @@
         flex-direction: column;
         margin: 0;
         max-width: 24ch;
-        font-size: 2.9em;
+        font-size: 2.2em;
         font-weight: 700;
-        line-height: 1.08;
+        line-height: 1.25;
         letter-spacing: -0.03em;
         color: var(--primary-text);
 

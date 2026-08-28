@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ScrollReveal from "./ScrollReveal";
 import GitHubCommitBoard from "./GitHubCommitBoard";
@@ -10,22 +10,64 @@ const MARQUEE_HIDDEN_ROUTES = ["/figma-training", "/gallery"];
 
 interface MarqueeImage {
   src: string;
+  /** Rendered height in CSS px. */
   height: number;
+  /** Rendered width at that height — the source aspect ratio, baked in. */
+  width: number;
   caption: string;
 }
 
+/**
+ * Served from /marquee rather than the originals in /gallery and
+ * /figma-training: those are full-resolution because the gallery canvas zooms
+ * into them, and at 220–340px tall here that was 4.4MB of image for a strip
+ * nobody has scrolled to yet. These copies are 2x the rendered height — enough
+ * for a retina screen — and come to 469KB.
+ */
 const MARQUEE_IMAGES: MarqueeImage[] = [
-  { src: "/gallery/1.webp", height: 260, caption: "Tabo, Himachal" },
-  { src: "/figma-training/training9.webp", height: 340, caption: "Figma Config '24, IIT Delhi" },
-  { src: "/gallery/33.webp", height: 220, caption: "Switzerland" },
-  { src: "/figma-training/training2.webp", height: 300, caption: "Indiana University, US" },
-  { src: "/gallery/21.webp", height: 260, caption: "Doodhpathri, Kashmir" },
-  { src: "/figma-training/training11.webp", height: 340, caption: "Figma Config '25, Microsoft Noida" },
-  { src: "/gallery/38.webp", height: 220, caption: "Eiffel Tower" },
-  { src: "/figma-training/training15.webp", height: 300, caption: "R&D Meetup, Mumbai" },
-  { src: "/gallery/20.webp", height: 260, caption: "Bir, Himachal" },
-  { src: "/figma-training/training14.webp", height: 340, caption: "Friends of Figma, Hyderabad" },
+  { src: "/marquee/tabo.webp", height: 260, width: 390, caption: "Tabo, Himachal" },
+  { src: "/marquee/config24.webp", height: 340, width: 432, caption: "Figma Config '24, IIT Delhi" },
+  { src: "/marquee/switzerland.webp", height: 220, width: 200, caption: "Switzerland" },
+  { src: "/marquee/indiana.webp", height: 300, width: 330, caption: "Indiana University, US" },
+  { src: "/marquee/doodhpathri.webp", height: 260, width: 405, caption: "Doodhpathri, Kashmir" },
+  { src: "/marquee/config25.webp", height: 340, width: 453, caption: "Figma Config '25, Microsoft Noida" },
+  { src: "/marquee/eiffel.webp", height: 220, width: 275, caption: "Eiffel Tower" },
+  { src: "/marquee/mumbai.webp", height: 300, width: 369, caption: "R&D Meetup, Mumbai" },
+  { src: "/marquee/bir.webp", height: 260, width: 346, caption: "Bir, Himachal" },
+  { src: "/marquee/hyderabad.webp", height: 340, width: 371, caption: "Friends of Figma, Hyderabad" },
 ];
+
+/**
+ * One frame of the strip. It holds its own width from the start, so the track
+ * has its full length before a single image arrives — the images are
+ * `width: auto`, so without this every frame was zero-wide until it loaded and
+ * the whole strip snapped outwards as they came in.
+ */
+const MarqueeFrame: React.FC<{ image: MarqueeImage }> = ({ image }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div
+      className={`footer-marquee-item${loaded ? " is-loaded" : ""}`}
+      style={{ height: image.height, width: image.width }}
+    >
+      {!loaded && <span className="footer-marquee-skeleton" aria-hidden="true" />}
+      <span className="footer-marquee-caption">{image.caption}</span>
+      <img
+        src={image.src}
+        alt={image.caption}
+        width={image.width}
+        height={image.height}
+        // The strip sits below the fold on every page that shows it, so it
+        // should cost nothing until someone scrolls that far.
+        loading="lazy"
+        decoding="async"
+        onLoad={() => setLoaded(true)}
+        onError={() => setLoaded(true)}
+      />
+    </div>
+  );
+};
 
 const Footer: React.FC = () => {
   const location = useLocation();
@@ -37,10 +79,7 @@ const Footer: React.FC = () => {
         <div className="footer-marquee" aria-hidden="true">
           <div className="footer-marquee-track">
             {[...MARQUEE_IMAGES, ...MARQUEE_IMAGES].map((img, i) => (
-              <div className="footer-marquee-item" key={i} style={{ height: img.height }}>
-                <span className="footer-marquee-caption">{img.caption}</span>
-                <img src={img.src} alt={img.caption} />
-              </div>
+              <MarqueeFrame image={img} key={i} />
             ))}
           </div>
         </div>
@@ -56,6 +95,17 @@ const Footer: React.FC = () => {
             </div>
           </div>
           <GitHubCommitBoard compact />
+          <p className="footer-availability">
+            I'm currently open to new roles,{" "}
+            <a
+              href="https://www.linkedin.com/in/karankapoorux/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              get in touch
+            </a>
+            !
+          </p>
         </div>
 
         <div className="footer-link-groups">
@@ -86,18 +136,8 @@ const Footer: React.FC = () => {
       {/* Content only — the reference sets this in a handwriting face, which
           isn't in this site's type system. It uses the footer's own styling. */}
       <p className="footer-availability">
-        I'm currently open to new roles. If the work above resonates,{" "}
-        <a
-          href="https://www.linkedin.com/in/karankapoorux/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          get in touch
-        </a>
-        !
+        Made with ❤️ in React. Hosted on Vercel
       </p>
-
-      <p className="footer-attribution">Made with ❤️ in React. Hosted on Vercel.</p>
     </ScrollReveal>
   );
 };

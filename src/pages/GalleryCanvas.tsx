@@ -220,6 +220,8 @@ const GalleryCanvas: React.FC = () => {
     };
 
     measure();
+    // The element stops short of the dock via --dock-clearance, so when the
+    // dock publishes or changes that value this fires and re-measures.
     const observer = new ResizeObserver(measure);
     observer.observe(el);
     return () => observer.disconnect();

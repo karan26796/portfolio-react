@@ -1,56 +1,60 @@
 import React from 'react';
 import '../styles/ProjectDetailsSkeleton.scss';
 
+// Fixed widths rather than Math.random(): a random skeleton reshuffles its own
+// lines on every re-render, which reads as a glitch on a placeholder that is
+// meant to sit still.
+const LINE_WIDTHS = ['96%', '89%', '93%', '72%', '97%', '84%'];
+
 const ProjectDetailsSkeleton: React.FC = () => {
-    // Fake paragraph lines with slightly varied widths for a natural look.
-    const lines = (count: number, minWidth = 80) =>
+    const lines = (count: number, offset = 0) =>
         Array.from({ length: count }).map((_, i) => (
             <div
                 key={i}
                 className="sk sk-line"
-                style={{ width: `${Math.random() * (100 - minWidth) + minWidth}%` }}
+                style={{ width: LINE_WIDTHS[(i + offset) % LINE_WIDTHS.length] }}
             />
         ));
 
-    // A content section: heading block (left) + body lines (right).
-    const Section = ({ bodyLines }: { bodyLines: number }) => (
+    // One documentation block, in the shape the markdown renders: a short
+    // label with a hairline running off it, a statement, then body copy.
+    const Section = ({ bodyLines, offset }: { bodyLines: number; offset: number }) => (
         <div className="sk-section">
-            <div className="sk-section__heading">
-                <div className="sk sk-heading-line" />
-                <div className="sk sk-heading-line sk-heading-line--short" />
+            <div className="sk-section__label">
+                <div className="sk sk-label" />
+                <span className="sk-rule" />
             </div>
-            <div className="sk-section__body">{lines(bodyLines)}</div>
+            <div className="sk sk-statement" />
+            <div className="sk-section__body">{lines(bodyLines, offset)}</div>
         </div>
     );
 
     return (
-        <div className="container-project details-skeleton" aria-hidden="true">
-            <div className="project-content-wrapper">
-                {/* Header: big title, then description (left) + meta (right) */}
-                <div className="sk-header">
-                    <div className="sk-title">
-                        <div className="sk sk-title-line" style={{ width: '92%' }} />
-                        <div className="sk sk-title-line" style={{ width: '58%' }} />
+        <div className="details-skeleton" aria-hidden="true">
+            <div className="sk-layout">
+                {/* Mirrors .docs-hero: the year stamp sits opposite the
+                    headline, then the title, then the lede. */}
+                <div className="sk-hero">
+                    <div className="sk sk-hero__stamp" />
+                    <div className="sk-hero__title">
+                        <div className="sk sk-title-line" style={{ width: '88%' }} />
+                        <div className="sk sk-title-line" style={{ width: '52%' }} />
                     </div>
-                    <div className="sk-intro">
-                        <div className="sk-desc">{lines(4, 85)}</div>
-                        <div className="sk-meta">
-                            {Array.from({ length: 2 }).map((_, i) => (
-                                <div className="sk-meta__row" key={i}>
-                                    <div className="sk sk-meta__label" />
-                                    <div className="sk sk-meta__value" />
-                                </div>
-                            ))}
-                        </div>
+                    {/* Three lines, not two: a lede at 60ch typically wraps to
+                        about this much, and two left the sections below sitting
+                        ~40px high, so the page stepped down as markdown landed. */}
+                    <div className="sk-hero__lede">
+                        <div className="sk sk-line" style={{ width: '94%' }} />
+                        <div className="sk sk-line" style={{ width: '88%' }} />
+                        <div className="sk sk-line" style={{ width: '43%' }} />
                     </div>
                 </div>
 
-                {/* Content: sections (heading left / body right) with full-width images */}
-                <Section bodyLines={4} />
+                <Section bodyLines={3} offset={0} />
                 <div className="sk sk-figure" />
-                <Section bodyLines={6} />
+                <Section bodyLines={4} offset={2} />
                 <div className="sk sk-figure" />
-                <Section bodyLines={3} />
+                <Section bodyLines={2} offset={4} />
             </div>
         </div>
     );
