@@ -24,11 +24,16 @@
     transform: translateX(-50%);
     width: 100vw;
     height: calc(100% + 4.5em);
+    // Runs the full height rather than fading out early, so it reads as light
+    // falling across the whole header. The midpoint is held higher than a
+    // straight ramp would put it, which keeps the tint present through the
+    // headline instead of collapsing in the first third.
     background: linear-gradient(
       to bottom,
       var(--hero-wash) 0%,
-      color-mix(in srgb, var(--hero-wash) 35%, transparent) 38%,
-      color-mix(in srgb, var(--hero-wash) 0%, transparent) 78%
+      color-mix(in srgb, var(--hero-wash) 62%, transparent) 42%,
+      color-mix(in srgb, var(--hero-wash) 22%, transparent) 74%,
+      color-mix(in srgb, var(--hero-wash) 0%, transparent) 100%
     );
     pointer-events: none;
     // Above the container's own background, below its content — which is why

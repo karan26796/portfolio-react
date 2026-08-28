@@ -32,11 +32,11 @@
 
   --logo-filter: invert(0.6);
 
-  /* Tint of the wash behind the hero. Cool and very light so it reads as
-     light falling on the page rather than as a colour. Swap the hue here —
-     e.g. color-mix(in srgb, var(--accent-green) 14%, transparent) — and the
-     whole gradient follows. */
-  --hero-wash: color-mix(in srgb, var(--highlight-color) 7%, transparent);
+  /* Tint of the wash behind the hero. 13% of the green lands near #e2f2ea
+     over white — a pale green that is clearly a colour rather than a grey
+     cast, which is what the neutral 7% navy previously read as. Swap the hue
+     here and the whole gradient follows. */
+  --hero-wash: color-mix(in srgb, var(--accent-green) 13%, transparent);
 }
 
 /* Dark mode — Modern ultra-sleek dark theme */
@@ -65,6 +65,7 @@
 
   --logo-filter: invert(1);
 
-  // Lighter touch in dark mode: the same 7% over a dark ground reads muddy.
-  --hero-wash: color-mix(in srgb, var(--grey-100) 6%, transparent);
+  // Lighter touch in dark mode: the same 13% over a dark ground reads muddy,
+  // so the green is halved and lifted with a little white.
+  --hero-wash: color-mix(in srgb, var(--accent-green) 7%, transparent);
 }
