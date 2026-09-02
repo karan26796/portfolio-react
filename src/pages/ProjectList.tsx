@@ -2,6 +2,7 @@ import React, { FC, useEffect, useRef, useState } from 'react';
 import '../styles/ProjectList.scss';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { ProjectCardData } from '../utils/interfaces';
+import { Sparkle } from '@phosphor-icons/react';
 import ScrollReveal from "../components/ScrollReveal";
 import ProjectScrollIndicator from '../components/ProjectScrollIndicator';
 import { getDominantPastelColor, toAccentTint } from '../utils/dominantColor';
@@ -22,7 +23,7 @@ const COMPANY_TENURES: Record<string, string> = {
   "Keka HR": "Mar 2024 – Present",
   "Keka": "Mar 2024 – Present",
   "Looppanel": "2022 - 2023",
-  "Side Projects": "2025 - Present",
+  "AI experiments": "2025 - Present",
   "Nimbuzz": "2021",
   "NID": "2017 – 2019",
 };
@@ -31,6 +32,16 @@ const COMPANY_LOGOS: Record<string, string> = {
   "Keka": "/project-imgs/kekalogo.webp",
   "Keka HR": "/project-imgs/kekalogo.webp",
   "Looppanel": "/project-imgs/Looppanel-logo.webp",
+};
+
+/**
+ * For groups that stand for a kind of work rather than an employer, so there
+ * is no logo to show. A glyph rather than another entry in COMPANY_LOGOS: that
+ * map holds image URLs for an <img>, and this needs to take its colour from
+ * the theme.
+ */
+const COMPANY_ICONS: Record<string, React.ReactNode> = {
+  "AI experiments": <Sparkle size="1.25em" weight="fill" />,
 };
 
 // `year` is pre-formatted as "Company / 2026" in the project data (not
@@ -319,12 +330,21 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                 {companyName && (
                   <div className="project-stage-card__header">
                     <div className="project-stage-card__header-info">
-                      {COMPANY_LOGOS[companyName] && (
-                        <img
-                          src={COMPANY_LOGOS[companyName]}
-                          alt={`${companyName} logo`}
-                          className="project-stage-card__logo"
-                        />
+                      {COMPANY_ICONS[companyName] ? (
+                        <span
+                          className="project-stage-card__logo project-stage-card__logo--glyph"
+                          aria-hidden="true"
+                        >
+                          {COMPANY_ICONS[companyName]}
+                        </span>
+                      ) : (
+                        COMPANY_LOGOS[companyName] && (
+                          <img
+                            src={COMPANY_LOGOS[companyName]}
+                            alt={`${companyName} logo`}
+                            className="project-stage-card__logo"
+                          />
+                        )
                       )}
                       <span className="project-stage-card__company">{companyName}</span>
                       <span className="project-stage-card__year-inline">{yearOnly(project)}</span>

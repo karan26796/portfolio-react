@@ -132,6 +132,14 @@
     flex-shrink: 0;
   }
 
+  /* Shares the logo's box so a glyph and a company mark sit on the same
+     baseline and the row's height does not change between groups. */
+  &__logo--glyph {
+    display: grid;
+    place-items: center;
+    color: var(--ai-accent);
+  }
+
   &__company {
     font-weight: 600;
     color: var(--primary-text);

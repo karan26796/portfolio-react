@@ -205,7 +205,7 @@ const HeaderWithCarousel: React.FC = () => {
                     <span className="hover-card-desc">App to connect professionals in gated communities</span>
                   </span>
                 </a>
-              </span>.
+              </span>
             </h3>
           </ScrollReveal>
 

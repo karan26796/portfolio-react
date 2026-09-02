@@ -90,72 +90,72 @@ const Footer: React.FC = () => {
     // .footer-shell in Footer.scss.
     <div className="footer-shell">
       <ScrollReveal className="footer-container" variant="fade">
-      {showMarquee && (
-        <div className="footer-marquee" aria-hidden="true">
-          <div className="footer-marquee-track">
-            {[...MARQUEE_IMAGES, ...MARQUEE_IMAGES].map((img, i) => (
-              <MarqueeFrame image={img} key={i} />
-            ))}
-          </div>
-        </div>
-      )}
-
-      <div className="footer-bottom">
-        <div className="footer-profile" id="contact">
-          <div className="footer-profile-header">
-            <img src="/gallery/profile.webp" alt="" className="footer-profile-avatar" />
-            <div className="footer-profile-text">
-              <span className="footer-profile-name">Karan Kapoor</span>
-              <span className="footer-profile-handle">@karan26796</span>
+        {showMarquee && (
+          <div className="footer-marquee" aria-hidden="true">
+            <div className="footer-marquee-track">
+              {[...MARQUEE_IMAGES, ...MARQUEE_IMAGES].map((img, i) => (
+                <MarqueeFrame image={img} key={i} />
+              ))}
             </div>
           </div>
-          <GitHubCommitBoard compact />
-          <p className="footer-availability contact">
-            I'm currently open to new roles,{" "}
-            <a
-              href="https://www.linkedin.com/in/karankapoorux/"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              get in touch
-            </a>
-            !
-          </p>
+        )}
+
+        <div className="footer-bottom">
+          <div className="footer-profile" id="contact">
+            <div className="footer-profile-header">
+              <img src="/gallery/profile.webp" alt="" className="footer-profile-avatar" />
+              <div className="footer-profile-text">
+                <span className="footer-profile-name">Karan Kapoor</span>
+                <span className="footer-profile-handle">@karan26796</span>
+              </div>
+            </div>
+            <GitHubCommitBoard compact />
+            <p className="footer-availability contact">
+              I'm currently open to new roles,{" "}
+              <a
+                href="https://www.linkedin.com/in/karankapoorux/"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                get in touch
+              </a>
+              !
+            </p>
+          </div>
+
+          <div className="footer-link-groups">
+            <div className="footer-link-column">
+              <h6>Explore</h6>
+              <Link to="/home">Home</Link>
+              <Link to="/figma-training">Figma Training</Link>
+              <Link to="/gallery">Travel</Link>
+              {/* <Link to="/archive">Archive</Link> */}
+              {/* <Link to="/about">About</Link> */}
+            </div>
+            <div className="footer-link-column">
+              <h6>Connect</h6>
+              {/* <a href="/resume-view">Resume</a> */}
+              <a href="https://calendly.com/notkarankapoor/30min" target="_blank" rel="noopener noreferrer">
+                Schedule a chat
+              </a>
+              <a href="https://www.linkedin.com/in/karankapoorux/" target="_blank" rel="noopener noreferrer">
+                LinkedIn
+              </a>
+              <a href="https://x.com/kadankapoor" target="_blank" rel="noopener noreferrer">
+                X / Twitter
+              </a>
+            </div>
+          </div>
         </div>
 
-        <div className="footer-link-groups">
-          <div className="footer-link-column">
-            <h6>Explore</h6>
-            <Link to="/home">Home</Link>
-            <Link to="/gallery">Travel</Link>
-            <Link to="/figma-training">Figma Training</Link>
-            {/* <Link to="/archive">Archive</Link> */}
-            {/* <Link to="/about">About</Link> */}
-          </div>
-          <div className="footer-link-column">
-            <h6>Connect</h6>
-            {/* <a href="/resume-view">Resume</a> */}
-            <a href="https://calendly.com/notkarankapoor/30min" target="_blank" rel="noopener noreferrer">
-              Schedule a chat
-            </a>
-            <a href="https://www.linkedin.com/in/karankapoorux/" target="_blank" rel="noopener noreferrer">
-              LinkedIn
-            </a>
-            <a href="https://x.com/kadankapoor" target="_blank" rel="noopener noreferrer">
-              X / Twitter
-            </a>
-          </div>
-        </div>
-      </div>
-
-      {/* Content only — the reference sets this in a handwriting face, which
+        {/* Content only — the reference sets this in a handwriting face, which
           isn't in this site's type system. It uses the footer's own styling. */}
-      <p className="footer-availability">
-        Made with ❤️ in React. Hosted on Vercel
-      </p>
+        <p className="footer-availability">
+          Made with ❤️ in React. Hosted on Vercel
+        </p>
 
-      {/* Last thing on the page, growing out of the footer's bottom edge. */}
-      <PixelGrass />
+        {/* Last thing on the page, growing out of the footer's bottom edge. */}
+        <PixelGrass />
       </ScrollReveal>
     </div>
   );

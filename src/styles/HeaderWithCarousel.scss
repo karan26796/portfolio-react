@@ -2,18 +2,18 @@
   width: 100%;
   max-width: var(--max-width-container);
   margin: 0 auto;
-  background-color: var(--bg-color);
-  position: sticky;
-  top: 0;
-  z-index: -2;
+  // background-color: var(--bg-color);
+  position: relative;
+  z-index: 1;
 
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 60vh;
+  min-height: 60vh;
 
   @media (max-width: 767px) {
+    min-height: auto;
     height: auto;
   }
 
@@ -167,11 +167,11 @@
     }
 
     &.has-hover-card {
-      cursor: default;
+      cursor: pointer;
 
       &:hover {
-        border-color: rgba(255, 255, 255, 0.25);
-        background-color: rgba(255, 255, 255, 0.08);
+        border-color: var(--border-color);
+        background-color: var(--card-bg-hover, rgba(0, 0, 0, 0.06));
 
         .badge-hover-card {
           opacity: 1;
@@ -188,11 +188,11 @@
         left: 50%;
         transform: translateX(-50%) translateY(6px);
         width: 250px;
-        background: var(--bg-color-high, #1c1c1f);
-        border: 1px solid var(--border-color, rgba(255, 255, 255, 0.15));
-        border-radius: var(--radius-card);
+        background: var(--card-bg, #ffffff);
+        border: 1px solid var(--border-color);
+        // border-radius: var(--radius-card, 12px);
         padding: 8px;
-        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.6), 0 4px 12px rgba(0, 0, 0, 0.3);
+        box-shadow: 0 16px 40px rgba(0, 0, 0, 0.2), 0 4px 12px rgba(0, 0, 0, 0.1);
         opacity: 0;
         visibility: hidden;
         pointer-events: none;
@@ -212,7 +212,7 @@
           transform: translateX(-50%);
           border-width: 6px;
           border-style: solid;
-          border-color: var(--bg-color-high, #1c1c1f) transparent transparent transparent;
+          border-color: var(--card-bg, #ffffff) transparent transparent transparent;
         }
 
         .hover-card-media {

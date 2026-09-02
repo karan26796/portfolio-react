@@ -62,7 +62,7 @@ export const FEATURED_PROJECT_COUNT = 3;
 const projectsById: Record<string, ProjectSummary> = {
   "10": {
     id: "10",
-    company: "Side Projects",
+    company: "AI experiments",
     newdesc: "Gated community residents rely on external networks for job referrals.",
     description: "Developed & designed an app to help people in gated communities post jobs and get referrals",
     title: "Interconnect : Professional networking for gated societies",
