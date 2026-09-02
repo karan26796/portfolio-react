@@ -1,0 +1,32 @@
+/* ============================================================================
+   PIXEL GRASS
+   A strip of pixel-art grass along the bottom of the footer, leaning in the
+   wind. The drawing is in PixelGrass.tsx; this only places it and holds the
+   palette.
+   ========================================================================== */
+
+.pixel-grass {
+    /* Palette lives in themes.scss; the canvas reads these four at runtime. */
+    position: relative;
+    width: 100%;
+    /* The canvas is exactly as wide as the whole-pixel count that fits, so it
+       can fall a few px short of the viewport. Centred, the shortfall splits
+       between the two edges instead of leaving one visible gap. */
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+    line-height: 0;
+    pointer-events: none;
+}
+
+.pixel-grass__canvas {
+    display: block;
+    /* The point of the whole thing: the canvas is tiny and CSS blows it up, so
+       every art pixel becomes a crisp block instead of being interpolated. */
+    image-rendering: pixelated;
+    /* Safari, older Chrome. */
+    image-rendering: -moz-crisp-edges;
+    image-rendering: crisp-edges;
+    image-rendering: pixelated;
+}

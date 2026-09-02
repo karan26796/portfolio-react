@@ -5,6 +5,7 @@ import { Sparkle, X, ArrowUp } from "@phosphor-icons/react";
 import Button from "./Buttons";
 import { findInterviewAnswer } from '../utils/interviewKnowledge';
 import '../styles/AISummarizer.scss';
+import { AGENT_PROMPT_QUERY, AGENT_PROMPT_VISIBILITY } from "./AgentPromptCard";
 
 interface AISummarizerProps {
     text: string;
@@ -101,6 +102,8 @@ const getMatchedAnswer = (userInput: string, projectContext: string | undefined,
 
 const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, buttonLabel, pageType = 'project' }) => {
     const [isOpen, setIsOpen] = useState(false);
+    // A question that arrived with the open request, sent once the window is up.
+    const [pendingQuestion, setPendingQuestion] = useState<string | null>(null);
     const [messages, setMessages] = useState<ChatMessage[]>([{
         role: 'bot',
         // First person throughout, matching the voice the answers use.
@@ -109,6 +112,10 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
     const [inputText, setInputText] = useState('');
     const [isGenerating, setIsGenerating] = useState(false);
     const [suggestedPrompts, setSuggestedPrompts] = useState<string[]>(initialPrompts || []);
+    // True while the page's own "A quick summary" section is on screen. That
+    // section offers the assistant with better questions than this button can,
+    // so the button stands down rather than floating on top of it.
+    const [supersededByCard, setSupersededByCard] = useState(false);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     // Anything beyond the opening greeting means the reader has already asked
@@ -151,7 +158,14 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
         const handleKeyDown = (e: KeyboardEvent) => {
             if (e.key === 'Escape' && isOpen) setIsOpen(false);
         };
-        const handleOpenEvent = () => setIsOpen(true);
+        // `open-agent-vinod` may carry a question, so a card elsewhere on the
+        // page can open the chat already asking something rather than landing
+        // the visitor on an empty thread.
+        const handleOpenEvent = (e: Event) => {
+            setIsOpen(true);
+            const asked = (e as CustomEvent<{ question?: string }>).detail?.question;
+            if (asked) setPendingQuestion(asked);
+        };
 
         window.addEventListener('keydown', handleKeyDown);
         window.addEventListener('open-agent-vinod', handleOpenEvent);
@@ -161,6 +175,30 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
             window.removeEventListener('open-agent-vinod', handleOpenEvent);
         };
     }, [isOpen]);
+
+    // Bound on its own, not with the handlers above: those re-bind on every
+    // change of `isOpen`, and this has nothing to do with whether the chat is
+    // open. See AGENT_PROMPT_VISIBILITY in AgentPromptCard.
+    useEffect(() => {
+        const onCardVisibility = (e: Event) => {
+            const visible = (e as CustomEvent<{ visible?: boolean }>).detail?.visible;
+            setSupersededByCard(Boolean(visible));
+        };
+        window.addEventListener(AGENT_PROMPT_VISIBILITY, onCardVisibility);
+        // Ask, rather than wait: the observer over there only fires when the
+        // section crosses in or out of view, so a button mounting while it is
+        // already on screen would sit on top of it until the next scroll.
+        window.dispatchEvent(new Event(AGENT_PROMPT_QUERY));
+        return () =>
+            window.removeEventListener(AGENT_PROMPT_VISIBILITY, onCardVisibility);
+    }, []);
+
+    useEffect(() => {
+        if (!isOpen || !pendingQuestion) return;
+        setPendingQuestion(null);
+        handleSendMessage(pendingQuestion);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isOpen, pendingQuestion]);
 
     const handleSendMessage = async (customText?: string) => {
         const userInput = customText || inputText.trim();
@@ -256,7 +294,9 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
     return (
         <>
             {/* ── FAB GROUP: pills + button ── */}
-            <div className={`ai-fab-group ${isOpen ? 'hidden' : ''}`}>
+            <div
+                className={`ai-fab-group ${isOpen || supersededByCard ? 'hidden' : ''}`}
+            >
                 {/* Starter prompts are for starting — once the conversation has
                     moved past the greeting they stop reappearing every time the
                     chat is closed. In-chat follow-up chips take over from here. */}

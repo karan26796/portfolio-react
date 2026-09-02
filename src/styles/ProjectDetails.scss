@@ -11,70 +11,81 @@
 
 /* Outer Reader Mode Modal Overlay */
 .reader-mode-overlay {
-  position: fixed;
-  inset: 0;
-  z-index: 9999;
-  background: var(--bg-color);
-  display: flex;
-  justify-content: center;
-  align-items: flex-end;
-  overflow: hidden;
-  animation: overlayFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    overflow: hidden;
+    animation: overlayFadeIn 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 
-  @media (min-width: 801px) {
-    align-items: flex-start;
-  }
+    @media (min-width: 801px) {
+        align-items: flex-start;
+    }
 }
 
 @keyframes overlayFadeIn {
-  from {
-    opacity: 0;
-  }
+    from {
+        opacity: 0;
+    }
 
-  to {
-    opacity: 1;
-  }
+    to {
+        opacity: 1;
+    }
 }
 
 /* Reader Mode Window Container */
 .reader-mode-window {
-  position: relative;
-  width: 100%;
-  // A case study is the whole page now, at every width — no framing, no
-  // rounded window sitting in a dimmed backdrop.
-  max-width: 100%;
-  height: 100%;
-  background: var(--bg-color);
-  border-radius: 0;
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-  animation: readerWindowSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+    position: relative;
+    width: 100%;
+    // A case study is the whole page now, at every width — no framing, no
+    // rounded window sitting in a dimmed backdrop.
+    max-width: 100%;
+    height: 100%;
+    background: var(--bg-color);
+    border-radius: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: readerWindowSlideUp 0.32s cubic-bezier(0.16, 1, 0.3, 1);
 
 }
 
 @keyframes readerWindowSlideUp {
-  from {
-    transform: translateY(40px);
-    opacity: 0;
-  }
+    from {
+        transform: translateY(40px);
+        opacity: 0;
+    }
 
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
 }
 
 /* Scrollable Body inside Reader Window */
 .reader-mode-body {
-  flex: 1;
-  overflow-y: auto;
-  overflow-x: hidden;
-  -webkit-overflow-scrolling: touch;
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
 
-  @media (max-width: 800px) {
-    order: 1;
-  }
+    @media (max-width: 800px) {
+        order: 1;
+    }
+}
+
+/* The summary card carries its own gutter and measure so it can stand alone
+   on the home page. Inside a case study the docs column already provides both,
+   so the horizontal padding only pushed the card in from the body text beside
+   it. Vertical padding stays — it is the card's separation from the section
+   above. */
+.docs-main .agent-summary {
+    max-width: none;
+    padding-left: 0;
+    padding-right: 0;
 }
 
 /* ============================================================================
@@ -93,7 +104,9 @@
 
 .docs-layout {
     width: 100%;
-    // Holds the same measure the column had when the rail sat beside it.
+    // 840px reads better than the 1190 the column briefly ran at: the prose
+    // measure is what makes a case study readable, and a wider column only
+    // stretched the media around it.
     max-width: 840px;
     margin: 0 auto;
     padding: 0 3em 4em;
@@ -118,18 +131,51 @@
 
 
 .docs-hero {
-    position: relative;
-    padding: 3.25em 0 2.75em;
+    /* The gap under the fixed controls, not just hero breathing room — the bar
+       floats over this scroller, so this is the only thing holding the title
+       and the stamp clear of it. One value for both, since the stamp is
+       absolutely positioned and would otherwise stay put while the title moved
+       — which is exactly how it ended up level with the controls.
 
+       In rem, not em: a custom property carrying an em length re-resolves
+       against whichever element uses it, and the stamp's font-size is 0.78 of
+       the hero's, so the two would land 22% apart. */
+    --hero-top: 7rem;
+
+    position: relative;
+    padding: var(--hero-top) 0 0em;
+
+    // Same standing height and internal rhythm as the home hero, so a case
+    // study opens the way the site does. The 0.18em gap is what .hero-text-content
+    // uses between the name and the role; here it separates title from lede,
+    // and together with the lede's own 1.8em margin it lands on the same 36px
+    // the home page has between those two lines.
+    // min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0.18em;
+
+    /* The tightest case: between 769 and 1024 the bar is still at the top but
+       the hero has far less room than on a wide screen. Below 769 the bar
+       moves to the bottom edge and this is ordinary spacing again. */
     @media (max-width: 1024px) {
-        padding: 2.5em 0 2em;
+        --hero-top: 4rem;
+
+        padding: var(--hero-top) 0 2.25em;
+    }
+
+    @media (max-width: 767px) {
+        min-height: 0;
     }
 
     // Sits opposite the headline like the reference's install line — a quiet
     // monospaced stamp rather than a second heading.
     &__stamp {
+        display: none;
         position: absolute;
-        top: 3.9em;
+        // Level with the title, from the same value as the hero's padding.
+        top: var(--hero-top);
         right: 0;
         margin: 0;
         max-width: 30%;
@@ -149,20 +195,30 @@
         }
     }
 
+    // The home page's masthead, to the letter — same size, weight, tracking and
+    // leading, so a case study opens at the scale the site introduces itself
+    // at. See .hero-name in hero.scss; the two are deliberately identical.
     &__title {
         display: flex;
         flex-direction: column;
         margin: 0;
-        max-width: 24ch;
-        font-size: 2.2em;
+        // A measure, unlike the home masthead: these titles run to a full
+        // sentence and would otherwise cross the whole 1100px column.
+        max-width: 30ch;
+        // font-size: 3.4em;
         font-weight: 700;
-        line-height: 1.25;
-        letter-spacing: -0.03em;
+        line-height: 1.08;
+        letter-spacing: -0.032em;
         color: var(--primary-text);
 
         @media (max-width: 1024px) {
-            font-size: 2.4em;
+            font-size: 2.5em;
             max-width: none;
+        }
+
+        @media (max-width: 600px) {
+            font-size: 2em;
+            line-height: 1.15;
         }
     }
 
@@ -181,13 +237,19 @@
         }
     }
 
+    // Matches .intro-paragraph on the home page.
     &__lede {
-        margin: 1.35em 0 0;
-        max-width: 60ch;
-        font-size: 1.15em;
-        font-weight: 400;
-        line-height: 1.6;
+        margin: 0.5em 0 0;
+        max-width: 65ch;
+        font-size: 1.25em;
+        font-weight: 600;
+        line-height: 1.85;
+        letter-spacing: -0.01em;
         color: var(--secondary-text);
+
+        @media (max-width: 767px) {
+            font-size: 1.1em;
+        }
     }
 }
 
@@ -363,7 +425,7 @@
             display: block;
             border-radius: 0;
             border: 1px solid var(--border-color);
-            box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
+            // box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
             box-sizing: border-box;
         }
 

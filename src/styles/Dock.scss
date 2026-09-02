@@ -1,47 +1,51 @@
 /* ============================================================================
    DOCK — a macOS/iOS style bar of icons pinned to the bottom of the viewport.
-   Pages first, then the tools behind the work, separated by a hairline.
+   Pages in one corner, mail in the other.
    ========================================================================== */
 
-/* Anything else that lives along the bottom edge — the gallery hint, the
-   assistant button on a phone — lifts clear by --dock-clearance. The component
-   overwrites it with a measured value on mount; this is the estimate that
-   holds for the first paint. */
+/* ============================================================================
+   The tab bar sits at the top of the page, above the header, aligned to the
+   same measure the hero uses so the first tab starts where the headline does.
+
+   No slab behind it: the reference is pills on the page itself, and a filled
+   bar across the top of a light page reads much heavier than the tabs do.
+   ========================================================================== */
+
 :root {
-  --dock-tile: 56px;
-  --dock-gap: 16px;
-  --dock-pad: 14px;
-  --dock-offset: 1.25rem;
-  --dock-clearance: calc(
-    var(--dock-tile) + (2 * var(--dock-pad)) + var(--dock-offset) + 0.85rem +
-      env(safe-area-inset-bottom, 0px)
-  );
+  --dock-gap: 4px;
+  --dock-offset: 1.5rem;
 }
 
 .dock {
   position: fixed;
+  top: 0;
   left: 50%;
-  bottom: calc(var(--dock-offset) + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);
-  // Below the assistant button's 999, so the two never fight over a tap in the
-  // narrow band where they could sit close together.
+  width: 100%;
+  max-width: var(--max-width-container);
+  padding: var(--dock-offset) 0;
+  box-sizing: border-box;
   z-index: 998;
-  // The wrapper spans nothing visible; only the bar itself takes pointer input,
-  // so the page stays clickable to either side of it.
+  // The bar spans the measure but only the tabs take pointer input, so the
+  // page stays clickable across the rest of that width.
   pointer-events: none;
-  max-width: calc(100vw - 1.5rem);
   transition: transform 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.22s ease;
 
-  // Out of the way while reading down the page, back on the way up. The
-  // centring translate has to be repeated here or the dock would jump to the
-  // left edge as it slid down.
+  // Out of the way on the way down, back on the way up — upward now that it
+  // lives at the top.
   &.is-hidden {
-    transform: translateX(-50%)
-      translateY(
-        calc(100% + var(--dock-offset) + env(safe-area-inset-bottom, 0px))
-      );
+    transform: translateX(-50%) translateY(-100%);
     opacity: 0;
     pointer-events: none;
+  }
+
+  @media (max-width: 1024px) {
+    max-width: none;
+    padding: 1rem 1.5em;
+  }
+
+  @media (max-width: 600px) {
+    padding: 0.75rem 1.15em;
   }
 }
 
@@ -51,198 +55,129 @@
   }
 }
 
-/* On a case study the dock *is* the navigation, so it has to clear that page's
-   overlay at 9999. Scoped rather than raised globally: at 10000 everywhere it
-   would also paint over the resume popup and anything else modal. */
+/* On a case study the tabs are the navigation, so they have to clear that
+   page's overlay at 9999. Scoped rather than raised globally: at 10000
+   everywhere they would also paint over the resume popup and anything else
+   modal. */
 body:has(.reader-mode-overlay) .dock {
   z-index: 10000;
 }
 
 .dock__list {
-  // Anchors the items' offsetLeft, which is what the magnification measures
-  // against — a layout value, unaffected by the transforms it produces.
-  position: relative;
-  pointer-events: auto;
+  // Full width so the trailing group can be pushed to the far edge. The list
+  // itself stays transparent to the pointer — only the tabs take input, or the
+  // strip would swallow clicks across the whole top of the page.
+  pointer-events: none;
   display: flex;
-  align-items: flex-end;
+  width: 100%;
+  align-items: center;
   gap: var(--dock-gap);
   margin: 0;
-  padding: var(--dock-pad) calc(var(--dock-pad) + 2px);
+  padding: 0;
   list-style: none;
-  border-radius: 28px;
-  border: 1px solid var(--dock-stroke);
-  // Deliberately independent of --page-accent and of --bg-color: the dock is
-  // fixed chrome, dark in both themes, and a panel that changed colour under a
-  // scrolling page drew the eye away from the page itself.
-  background-color: var(--dock-surface);
-  backdrop-filter: blur(22px) saturate(180%);
-  -webkit-backdrop-filter: blur(22px) saturate(180%);
-  box-shadow:
-    0 16px 40px var(--dock-shadow),
-    // A hairline of light along the top edge, so the panel reads as a raised
-    // slab rather than a hole cut in the page.
-    inset 0 1px 0 var(--dock-stroke);
 }
 
 .dock__item {
-  // The magnification writes this per frame; the declaration here is what the
-  // dock looks like before a pointer ever arrives, and after it leaves.
-  --dock-scale: 1;
-
   position: relative;
   display: flex;
-  flex-direction: column;
   align-items: center;
+  pointer-events: auto;
 
-  // Hairline between the pages and the tools. It sits in the middle of the gap
-  // rather than taking a slot of its own, so it never shifts the magnification
-  // geometry.
-  &--group-start::before {
-    content: "";
-    position: absolute;
-    left: calc(-1 * var(--dock-gap) / 2);
-    top: 8px;
-    bottom: 8px;
-    width: 1px;
-    background: var(--dock-divider);
-  }
-
-  // macOS's running-app dot, borrowed for the page you are on.
-  &.is-active::after {
-    content: "";
-    position: absolute;
-    bottom: -5px;
-    left: 50%;
-    width: 4px;
-    height: 4px;
-    margin-left: -2px;
-    border-radius: 50%;
-    background: var(--dock-indicator);
+  // Mail — and the assistant behind it — sit in the opposite corner from the
+  // pages. The empty span between them is the separation now, so the hairline
+  // that used to do that job has gone: on its own in open space it read as a
+  // stray mark rather than as a divider.
+  &--group-start {
+    margin-left: auto;
   }
 }
 
-// Mirror of --desktop-only below: hidden here, shown inside the phone query.
+// Mirror of --desktop-only in the phone query below: hidden out here, shown
+// down there. Without it the assistant tab, which is meant for phones only,
+// sat in the desktop row as well.
 .dock__item--mobile-only {
   display: none;
 }
 
+/* The tab itself. Every tab carries the same faint glass so its label stays
+   readable over whatever scrolls under the bar — a project screenshot, a dark
+   video frame, a coloured card. Not a solid fill: the blur is what does the
+   work, flattening the contrast of the content behind so the label always has
+   a quiet field, while the page still reads through. The current page is told
+   apart by colour and weight instead of by a slab. */
 .dock__button {
-  // The pages render as <a>, but mail and the assistant render as <button>,
-  // which ships with a UA background, a 2px outset border and 1px 6px of
-  // padding. That was drawing a light frame around those two tiles, and the
-  // padding widened their slots enough to shift the magnification centres.
   appearance: none;
-  background: none;
   border: 0;
-  padding: 0;
-  font: inherit;
 
-  position: relative;
-  display: block;
+  // Mixed from --bg-color rather than a fixed colour so it follows the theme
+  // and the scroll-driven project tint, like every other surface here.
+  //
+  // 85% and not less: the blur smooths the content behind but does nothing for
+  // contrast, so the veil's opacity is the whole guarantee. At 55% a label sat
+  // at 1.4:1 over a dark screenshot — invisible. See the note in the commit
+  // message: clearing AA over genuinely black content needs an opaque pill,
+  // which this deliberately stops short of.
+  background: color-mix(in srgb, var(--bg-color) 85%, transparent);
+  backdrop-filter: blur(10px) saturate(150%);
+  -webkit-backdrop-filter: blur(10px) saturate(150%);
+  padding: 0.5em 0.95em;
+  border-radius: 999px;
+  font: inherit;
+  // font-size: 0.95em;
+  font-weight: 550;
+  line-height: 1.2;
+  white-space: nowrap;
+  cursor: pointer;
   text-decoration: none;
-  color: inherit;
-  // Grows out of the dock's floor, the way a dock icon should.
-  transform: scale(var(--dock-scale));
-  transform-origin: bottom center;
-  // Short enough to still feel like it is tracking the cursor, long enough to
-  // smooth the step between frames and to ease back down on the way out.
-  transition: transform 0.12s cubic-bezier(0.2, 0, 0, 1);
+  color: var(--dock-tab-idle);
+  transition: color 0.18s ease;
+
+  &:hover {
+    color: var(--dock-tab-hover);
+  }
 
   &:focus-visible {
     outline: 2px solid var(--dock-indicator);
-    outline-offset: 3px;
-    border-radius: 14px;
-  }
-
-  // Tools name themselves on hover and do nothing else, so the cursor should
-  // not promise a destination.
-  &--static {
-    cursor: default;
+    outline-offset: 2px;
   }
 }
 
-.dock__tile {
-  display: grid;
-  place-items: center;
-  width: var(--dock-tile);
-  height: var(--dock-tile);
-  // 0.24 of the tile — the proportion iOS and macOS app icons are drawn at.
-  border-radius: calc(var(--dock-tile) * 0.24);
-  background: var(--bg-color);
-  color: var(--primary-text);
-  overflow: hidden;
-
-  // Every icon is square artwork that carries its own background, so it fills
-  // the tile edge to edge and the tile's radius does the rounding.
-  img,
-  svg {
-    display: block;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-  }
-
-  // Back and forward are glyphs, not app icons — a plain tile so they read as
-  // controls sitting among the artwork rather than as apps themselves.
-  &--control {
-    background: var(--bg-color-high);
-    color: var(--primary-text);
-
-    svg {
-      width: 46%;
-      height: 46%;
-    }
-  }
-
-  // The assistant has no supplied artwork, so the tile itself is the icon:
-  // the same purple it carried as a floating button, with the glyph inset the
-  // way a real app icon sits on its plate.
-  &--agent {
-    background: var(--ai-gradient);
-
-    svg {
-      width: 56%;
-      height: 56%;
-      color: rgba(255, 255, 255, 0.98);
-    }
-  }
+/* No fill of its own — a near-black semibold label among mid-grey ones is a
+   contrast step of roughly 13.8:1 against 4.6:1, which marks the current page
+   without another surface competing with the glass every tab already has. */
+.dock__item.is-active .dock__button {
+  color: var(--dock-tab-active-text);
+  font-weight: 650;
 }
 
-.dock__label {
+/* Home on a case study: the glyph alone. The label stays in the DOM for
+   screen readers, since "Home" is the whole meaning of the control and an
+   aria-label on the link would be the only thing carrying it otherwise. */
+.dock__item--icon-only .dock__label {
   position: absolute;
-  bottom: calc(100% + 9px);
-  left: 50%;
-  padding: 0.28em 0.6em;
-  border-radius: 7px;
-  font-size: 12px;
-  font-weight: 550;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
   white-space: nowrap;
-  color: var(--primary-text);
-  background: color-mix(in srgb, var(--bg-color) 88%, transparent);
-  border: 1px solid var(--border-color);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  pointer-events: none;
-  opacity: 0;
-  // Divides out the parent's magnification so the tooltip holds one size while
-  // the icon under it grows.
-  transform: translateX(-50%) scale(calc(1 / var(--dock-scale)));
-  transform-origin: bottom center;
-  transition: opacity 0.14s ease;
 }
 
-@media (hover: hover) and (pointer: fine) {
-  .dock__button:hover .dock__label,
-  .dock__button:focus-visible .dock__label {
-    opacity: 1;
-  }
+.dock__button svg {
+  flex: none;
+  vertical-align: middle;
 }
 
-/* The copy confirmation has to survive the pointer leaving, so it is driven by
-   state rather than by :hover — and it sits outside the hover query so a touch
-   device gets the confirmation too. */
-.dock__item.is-copied .dock__label {
-  opacity: 1;
+.dock__button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4em;
+}
+
+/* Only one of the two labels is ever in the layout — the short form exists so
+   five tabs fit a 375px row without truncating. */
+.dock__label--short {
+  display: none;
 }
 
 /* Announced, not shown — the tooltip is aria-hidden, so without this the copy
@@ -266,30 +201,35 @@ body:has(.reader-mode-overlay) .dock {
 }
 
 /* A phone gets the three pages, mail, and the assistant — the assistant has no
-   floating button at this width, so the dock is the only way to it. */
+   floating button at this width, so the tabs are the only way to it. */
 @media (max-width: 768px) {
   :root {
-    // Same tile and inner padding as the desktop dock, so the icons read at one
-    // size across both. The min() is the guard: five 56px tiles need 368px of
-    // the 375px a common phone has, and a narrower one (360, or a 320px SE)
-    // would overflow — so below that the tiles divide up whatever the bar can
-    // spare, holding back 8px between each pair.
-    --dock-tile: min(
-      56px,
-      calc(
-        (100vw - 2 * var(--dock-side) - 2 * var(--dock-pad) - 4 * var(--dock-gap)) /
-          5
-      )
-    );
-    // The widest gap that still leaves room for five full-size tiles inside a
-    // 375px screen. Web's 16px does not fit at this width, and shrinking the
-    // icons to buy it back was the thing to avoid.
-    --dock-gap: 10px;
-    --dock-pad: 14px;
-    --dock-offset: 0.75rem;
-    // The gap to the left and right screen edges. Matched to --dock-offset so
-    // the bar is inset by the same amount on every side.
-    --dock-side: 0.75rem;
+    --dock-gap: 2px;
+  }
+
+  // Five tabs have to fit 375px, so the long labels give way to the short
+  // ones and the text tightens.
+  .dock__button {
+    padding: 0.45em 0.55em;
+  }
+
+  .dock__label {
+    display: none;
+  }
+
+  .dock__label--short,
+  /* Was `.dock__label:only-child`, which broke the moment a button gained an
+     icon: the label stopped being an only child and vanished, leaving Next as
+     a bare arrow. What is actually meant is "show the long label unless there
+     is a short one to show instead". */
+  .dock__button:not(:has(.dock__label--short)) .dock__label {
+    display: inline;
+  }
+
+  /* …except where the icon is the whole control. This has to come after the
+     rule above, which would otherwise put Home's label back. */
+  .dock__item--icon-only .dock__label {
+    display: none;
   }
 
   .dock__item--desktop-only {
@@ -300,28 +240,29 @@ body:has(.reader-mode-overlay) .dock {
     display: flex;
   }
 
-  // Sized to its icons and centred, the same as on desktop — the base rule
-  // already handles both. Only the ceiling changes: it may not grow past the
-  // screen less the gap it keeps to each edge.
-  .dock {
-    max-width: calc(100vw - 2 * var(--dock-side));
-  }
-
-  .dock__list {
-    padding: var(--dock-pad);
-  }
-
-  // space-between sets the spacing now, so the divider's fixed offset into the
-  // gap no longer lands anywhere sensible.
-  .dock__item--group-start::before {
-    display: none;
-  }
-
-  // The chat takes the whole screen at this width, and the dock's own icon is
-  // what opened it — so it has nothing left to do and would sit over the reply
-  // field. Desktop is untouched: the chat is a small panel there, well clear
-  // of the dock.
+  // The chat takes the whole screen at this width and the tabs opened it, so
+  // they have nothing left to do while it is up.
   body:has(.ai-chat-window) .dock {
     display: none;
+  }
+}
+
+/* A long read is scrolled with a thumb, and the top of a phone screen is the
+   one place a thumb does not reach. On a case study the two controls move to
+   the bottom edge — only at this width: on a desktop the pointer reaches the
+   top corner as easily as the bottom, and a bar floating over the end of the
+   text would be in the way of it. */
+@media (max-width: 768px) {
+  body:has(.reader-mode-overlay) .dock {
+    top: auto;
+    bottom: 0;
+    padding-top: 0.75rem;
+    padding-bottom: calc(0.75rem + env(safe-area-inset-bottom, 0px));
+
+    /* Hide-on-scroll has to reverse with it: translating a bottom-anchored bar
+       upward slides it into the page rather than off the screen. */
+    &.is-hidden {
+      transform: translateX(-50%) translateY(100%);
+    }
   }
 }

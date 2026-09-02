@@ -48,8 +48,24 @@ $border-radius: 0.75em;
   position: relative;
   z-index: 1;
 
+  // The same standing height as the home hero, with the text centred in it —
+  // see .header-container in HeaderWithCarousel.scss. Without this the header
+  // was 490px against the home page's 540 and the two pages opened at
+  // noticeably different heights. min-height rather than height so a longer
+  // masthead can still grow past it.
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+
   @media screen and (max-width: 800px) {
     padding: 5em 1em;
+  }
+
+  // Matching the home hero, which drops the standing height on a phone rather
+  // than holding 60vh of mostly empty screen.
+  @media screen and (max-width: 767px) {
+    min-height: 0;
   }
 
   .carousel-container-logo {

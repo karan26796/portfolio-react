@@ -13,8 +13,10 @@ import AwardCard from "../components/skeletons/AwardCard";
 import NomineeRow from "../components/skeletons/NomineeRow";
 import ScrollReveal from "../components/ScrollReveal";
 import AISummarizer from "../components/AISummarizer";
-import FAQ from "../components/FAQ";
+import ProjectSidePanel from "../components/ProjectSidePanel";
+import AgentPromptCard from "../components/AgentPromptCard";
 import { formatSectionTitle } from "../utils/formatSectionTitle";
+import { toAccentTint } from "../utils/dominantColor";
 // Projects that render as bespoke React pages instead of markdown.
 const CUSTOM_PROJECTS: Record<string, React.ComponentType> = {};
 
@@ -148,25 +150,85 @@ const ProjectDetails: React.FC = () => {
     }
   }, [projectId]);
 
-  // Give every section heading a unique id so anchors stay stable when a case
-  // study repeats a title. The markdown renderer already slugifies each one;
-  // this only disambiguates collisions.
-  useEffect(() => {
-    if (loading || projectsLoading || !contentRef.current) return;
+  /**
+   * The section headings, read straight out of the markdown.
+   *
+   * Both the index and the headings themselves take their ids from this one
+   * list, so the two cannot disagree. It replaces an effect that assigned ids
+   * to the rendered DOM: react-markdown builds fresh nodes on every render, so
+   * anything written onto them from outside was discarded the next time the
+   * component re-rendered — and since the effect only re-ran when the content
+   * changed, the ids never came back.
+   */
+  const headings = React.useMemo(() => {
+    if (!cleanContent) return [] as { text: string; id: string; line: number }[];
 
     const seen = new Map<string, number>();
-    contentRef.current.querySelectorAll("h3").forEach((h3) => {
-      let id = h3.id || slugify(h3.textContent || "");
-      const count = seen.get(id) ?? 0;
-      seen.set(id, count + 1);
-      if (count > 0) id = `${id}-${count}`;
-      h3.id = id;
+    const found: { text: string; id: string; line: number }[] = [];
+
+    cleanContent.split("\n").forEach((raw, index) => {
+      const match = raw.match(/^###\s+(.+)$/);
+      if (!match) return;
+
+      const text = match[1].trim();
+      const base = slugify(text);
+      // A case study can use the same heading twice ("Final design" appears in
+      // both halves of one of them), so repeats get a suffix.
+      const count = seen.get(base) ?? 0;
+      seen.set(base, count + 1);
+
+      found.push({ text, id: count > 0 ? `${base}-${count}` : base, line: index + 1 });
     });
-  }, [loading, projectsLoading, cleanContent]);
+
+    return found;
+  }, [cleanContent]);
+
+  /**
+   * Heading id by its line in the markdown.
+   *
+   * The renderer looks itself up here rather than counting as it goes: React
+   * can invoke a render pass more than once, and a shared counter drifts when
+   * it does — the ids came out shifted by one heading each time.
+   */
+  const idByLine = React.useMemo(
+    () => new Map(headings.map((h) => [h.line, h.id])),
+    [headings]
+  );
+
+  /**
+   * Scrolls a section to the top of the reader.
+   *
+   * Measured against the scroll container's own top rather than the viewport's:
+   * the reader is its own scrolling element, and offsetting from the window
+   * puts every heading behind its top edge.
+   */
+  const scrollToHeader = React.useCallback((id: string) => {
+    const target = document.getElementById(id);
+    const container = bodyRef.current;
+    if (!target || !container) return;
+
+    const delta =
+      target.getBoundingClientRect().top - container.getBoundingClientRect().top;
+    container.scrollTo({ top: container.scrollTop + delta - 24, behavior: "smooth" });
+  }, []);
 
   // Bespoke React case-study pages bypass markdown pipeline
   const CustomPage = projectId ? CUSTOM_PROJECTS[projectId] : undefined;
 
+
+  /**
+   * The page wash, taken from the project's own colour.
+   *
+   * Set on the overlay rather than on :root: the home page stays mounted
+   * underneath a case study and its own observer keeps writing --page-accent
+   * there, so the two would overwrite each other. A custom property inherits,
+   * so scoping it here gives the case study its own wash and leaves the page
+   * below untouched.
+   */
+  const pageAccent = React.useMemo(
+    () => toAccentTint(projectSummary?.bgColor || "#30a46c"),
+    [projectSummary?.bgColor]
+  );
 
   // The docs format accents the lead-in of the headline. Our titles read
   // "Name : descriptor", so the name before the colon takes the accent rule
@@ -181,6 +243,7 @@ const ProjectDetails: React.FC = () => {
   return (
     <div
       className="reader-mode-overlay"
+      style={{ "--page-accent": pageAccent } as React.CSSProperties}
       onClick={(e) => {
         if (e.target === e.currentTarget) handleClose();
       }}
@@ -200,6 +263,16 @@ const ProjectDetails: React.FC = () => {
             <>
               <div className="project-details-main-content">
                 <div className="docs-layout">
+                  {/* Left of the column on a wide screen, hidden below that —
+                      see ProjectDetails.scss, where the grid decides. */}
+                  <ProjectSidePanel
+                    headers={headings}
+                    onHeaderClick={scrollToHeader}
+                    scrollRootRef={bodyRef}
+                    projectIndex={currentIndex + 1}
+                    projectCount={validProjectList.length}
+                  />
+
                   <div className="docs-main">
                     <header className="docs-hero">
                       {projectSummary.year && (
@@ -228,8 +301,15 @@ const ProjectDetails: React.FC = () => {
                         <ReactMarkdown
                           rehypePlugins={[rehypeRaw]}
                           components={{
-                            h3: ({ children, ...props }: any) => {
-                              const id = props.id || slugify(String(children));
+                            // Keyed on where the heading sits in the source,
+                            // which react-markdown carries on the node — so a
+                            // heading and its index entry always resolve to
+                            // the same anchor however often this re-renders.
+                            h3: ({ node, children, ...props }: any) => {
+                              const line = node?.position?.start?.line;
+                              const id =
+                                (line != null && idByLine.get(line)) ||
+                                slugify(String(children));
                               return (
                                 <ScrollReveal>
                                   <h3 {...props} id={id}>
@@ -306,10 +386,26 @@ const ProjectDetails: React.FC = () => {
                       ) : <div>Project content not available</div>}
                     </div>
 
+                    {/* The same handover the home page uses: the answers stated
+                        outright, then pills that open the assistant already
+                        asking. faqData is still the source, so a case study's
+                        summary cannot drift from what it says. */}
                     {faqData && (
-                      <FAQ data={faqData} hideTitle={false} title="Open questions" />
+                      <AgentPromptCard
+                        faqs={faqData}
+                        title="A quick summary"
+                        questions={[
+                          { label: "Summarise this project", ask: "Can you summarize this project?" },
+                          { label: "My role here", ask: "What was your role here?" },
+                          { label: "The biggest challenge", ask: "What was the biggest challenge?" },
+                        ]}
+                      />
                     )}
 
+                    {/* Mounted, but its floating button is hidden here — see
+                        AISummarizer.scss. The pills above are the only way in
+                        on a case study, and they need something listening for
+                        `open-agent-vinod` or they do nothing at all. */}
                     {markdownContent && (
                       <AISummarizer
                         text={markdownContent}
@@ -322,6 +418,7 @@ const ProjectDetails: React.FC = () => {
                         ]}
                       />
                     )}
+
                   </div>
                 </div>
               </div>

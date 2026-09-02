@@ -1,10 +1,115 @@
+/* ============================================================================
+   FOOTER SHELL
+   Bounds how far the footer travels over the page.
+
+   The footer is sticky to the bottom of the viewport, and sticky is clamped to
+   its containing block — so left as a child of .app-center it was pulled up
+   across the whole page, and at ~690px tall that is most of every screen. The
+   shell gives it a containing block only one screen taller than itself.
+
+   The negative top margin lifts that screen's worth of box up over the end of
+   the content, and the equal top padding gives the height straight back, so
+   the document is no taller than before: the overlap is pure paint.
+   ========================================================================== */
+.footer-shell {
+    /* How much of the page's last screen the footer travels over. */
+    --footer-ride: 70vh;
+
+    position: relative;
+    /* Over the page content, which sits at 2. Without this the footer rode up
+       behind .home-main-content's opaque background and you never saw it. */
+    z-index: 3;
+    margin-top: calc(-1 * var(--footer-ride));
+    padding-top: var(--footer-ride);
+    /* That padding is transparent and now lies on top of live content, so it
+       must not swallow clicks meant for it. The footer turns them back on. */
+    pointer-events: none;
+}
+
+/* The footer runs on a dark ground in both themes. Rather than restyling each
+   rule below, the generic tokens are remapped for this subtree — custom
+   properties inherit, so every existing rule and anything added later flips
+   with it, including GitHubCommitBoard, which reads the same tokens. */
 .footer-container {
+    /* The scroll-driven project colour is published on :root and inherits
+       down. The footer is deliberately outside that, so it is cut here and
+       --bg-color falls back to the footer's own surface. */
+    --page-bg-active: initial;
+    --bg-color: var(--footer-surface);
+    --bg-color-high: var(--footer-surface-high);
+    --primary-text: var(--footer-text);
+    --secondary-text: var(--footer-text-dim);
+    --tertiary-text: var(--footer-text-faint);
+    --border-color: var(--footer-border);
+    --highlight-color: var(--footer-highlight);
+
     width: 100%;
-    padding-top: 2em;
+    padding: 2em 0;
+    /* Sticky to the shell's bottom, so it rides up over the page's last screen
+       as the end comes into view and settles when the shell does. How far it
+       can ride is bounded by the shell's padding — see .footer-shell. */
+    position: sticky;
+    bottom: 0;
+    pointer-events: auto;
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     gap: 0;
+
+    /* No hard edge, and no painted ground up top: the first 30% is genuinely
+       transparent, so whatever the page is showing there comes through — body
+       carries --bg-color, which means this follows the theme and the
+       scroll-driven project colour for free. Painting a copy of the page
+       colour instead, as this did before, could only ever approximate it and
+       would seam the moment the two drifted apart.
+
+       From 30% the surface fades in, reaching full opacity at 50%; the last
+       stop's colour continues to the bottom of the element, so no separate
+       background-color is needed.
+
+       Four stops, not three: interpolating alpha straight from 0 to 1 passes
+       through a muddy middle and bands visibly. The 28% stop holds the page
+       longer and then lets it go — it lands on exactly the same composite the
+       old opaque mid stop did, so the fade reads as it did before, just
+       without the paint underneath it. */
+    /* Named so a page whose footer has no marquee can shorten the whole ramp
+       in one place, without restating the colours. */
+    --footer-fade-clear: 30%;
+    --footer-fade-mid: 40%;
+    --footer-fade-end: 50%;
+
+    background: linear-gradient(to bottom,
+            transparent 0,
+            transparent var(--footer-fade-clear),
+            color-mix(in srgb, var(--footer-surface) 28%, transparent) var(--footer-fade-mid),
+            var(--footer-surface) var(--footer-fade-end));
+}
+
+/* The training page hides the marquee (see MARQUEE_HIDDEN_ROUTES), so there is
+   no tall band of photos for the fade to happen across — held to 30% it ran
+   well into the links instead. It finishes in the first tenth there.
+
+   Matched on the page's own class rather than passed down as a prop: the
+   footer is a sibling of the page, not a child, so there is no ancestor to
+   hook. Same approach as the reader-overlay rules in Dock.scss. */
+body:has(.figma-training-main-content) .footer-container {
+    --footer-fade-clear: 6%;
+    --footer-fade-mid: 8%;
+    --footer-fade-end: 10%;
+
+    /* With no marquee, the first text sat 47px in while the ground was still
+       only 12% opaque — light type on the light page, i.e. invisible. The
+       ramp is short by request, so the content moves down past it instead.
+       This converges rather than chasing itself: the extra padding makes the
+       footer taller, which pushes 10% down by a tenth of what it adds. */
+    padding-top: 5.5em;
+}
+
+/* Flush with the very bottom edge: the container's own bottom padding would
+   otherwise leave a band of bare surface under the grass, which reads as the
+   strip floating rather than growing out of the footer. */
+.footer-container .pixel-grass {
+    margin-bottom: -2em;
 }
 
 // Filmstrip of travel + Figma training photos, bottom-aligned at varying
@@ -16,8 +121,6 @@
     align-items: flex-end;
     // border-bottom: 1px solid var(--border-color);
     padding-bottom: 0;
-    mask-image: linear-gradient(90deg, transparent 0, black 3%, black 97%, transparent 100%);
-    -webkit-mask-image: linear-gradient(90deg, transparent 0, black 3%, black 97%, transparent 100%);
 }
 
 .footer-marquee-track {
@@ -31,9 +134,14 @@
 .footer-marquee-item {
     position: relative;
     flex-shrink: 0;
-    // Width now comes from the component, computed from each image's aspect
-    // ratio, so the frame holds its place before the image lands.
     overflow: hidden;
+
+    // The frame's own pixel size comes from the component as two unitless
+    // custom properties, so the frame holds its place before the image lands
+    // and the scale below still has something to act on.
+    --marquee-scale: 1;
+    width: calc(var(--frame-w) * 1px * var(--marquee-scale));
+    height: calc(var(--frame-h) * 1px * var(--marquee-scale));
 
     img {
         height: 100%;
@@ -55,9 +163,9 @@
     position: absolute;
     inset: 0;
     background: linear-gradient(90deg,
-        color-mix(in srgb, var(--primary-text) 7%, transparent) 25%,
-        color-mix(in srgb, var(--primary-text) 13%, transparent) 37%,
-        color-mix(in srgb, var(--primary-text) 7%, transparent) 63%);
+            color-mix(in srgb, var(--primary-text) 7%, transparent) 25%,
+            color-mix(in srgb, var(--primary-text) 13%, transparent) 37%,
+            color-mix(in srgb, var(--primary-text) 7%, transparent) 63%);
     background-size: 400% 100%;
     animation: footer-marquee-shimmer 1.5s ease infinite;
 }
@@ -75,6 +183,22 @@
 @media (prefers-reduced-motion: reduce) {
     .footer-marquee-skeleton {
         animation: none;
+    }
+}
+
+/* On a phone the frames are 200-453px wide against a 375px viewport, so one
+   photo filled the screen and the strip read as a single image rather than as
+   a moving row. Scaled to 0.42 the average pitch is ~163px including the gap,
+   which puts 2-3 in view at any moment and keeps the jagged skyline — heights
+   land between 92 and 143px, still proportional, so nothing is distorted.
+
+   One breakpoint, matching the one .footer-bottom already uses. The files
+   themselves are unchanged: they were re-encoded for 2x the desktop height, so
+   on a phone they are now over-served rather than under. That costs no extra
+   bytes over what the strip already downloads. */
+@media (max-width: 700px) {
+    .footer-marquee-item {
+        --marquee-scale: 0.7;
     }
 }
 
@@ -117,6 +241,7 @@
 
     @media (max-width: 700px) {
         flex-direction: column;
+        padding: 1.5em;
         gap: 2em;
     }
 }
@@ -147,6 +272,7 @@
     width: 52px;
     height: 52px;
     border-radius: 50%;
+    background-color: var(--footer-text-dim);
     object-fit: cover;
     flex-shrink: 0;
 }
@@ -175,9 +301,14 @@
     justify-content: flex-end;
     flex: 1;
 
+    /* The two sections stack so each one gets the full width — which is what
+       lets its links run in a row below (see .footer-link-column). Side by
+       side they were 120px each, and "Schedule a chat" alone is wider than
+       that. */
     @media (max-width: 700px) {
+        flex-direction: column;
         justify-content: flex-start;
-        gap: 3em;
+        gap: 1.6em;
     }
 }
 
@@ -186,6 +317,24 @@
     flex-direction: column;
     gap: 0.85em;
     min-width: 120px;
+
+    /* Horizontal on a phone: three short links scan faster as a row than as a
+       stack. It costs no height either way — stacking the two sections gives
+       back what laying their links out sideways takes. */
+    @media (max-width: 700px) {
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: baseline;
+        // Row gap first, for when a section does wrap onto a second line.
+        gap: 0.5em 1.15em;
+
+        // Keeps the label a label. As a row item it would otherwise sit inline
+        // with the links, reading as a fourth one.
+        h6 {
+            // flex: 0 0 100%;
+            margin-bottom: 0;
+        }
+    }
 
     h6 {
         margin: 0 0 0.2em;
@@ -228,6 +377,10 @@
             color: var(--highlight-color);
         }
     }
+}
+
+.contact {
+    margin: 0;
 }
 
 .footer-attribution {

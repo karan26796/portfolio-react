@@ -36,17 +36,18 @@ const ProjectDetailsSkeleton: React.FC = () => {
                     headline, then the title, then the lede. */}
                 <div className="sk-hero">
                     <div className="sk sk-hero__stamp" />
+                    {/* Three lines: at the masthead scale these titles run to
+                        about that, and coming up short leaves everything below
+                        sitting high so the page steps down as markdown lands. */}
                     <div className="sk-hero__title">
-                        <div className="sk sk-title-line" style={{ width: '88%' }} />
-                        <div className="sk sk-title-line" style={{ width: '52%' }} />
+                        <div className="sk sk-title-line" style={{ width: '92%' }} />
+                        <div className="sk sk-title-line" style={{ width: '78%' }} />
+                        <div className="sk sk-title-line" style={{ width: '54%' }} />
                     </div>
-                    {/* Three lines, not two: a lede at 60ch typically wraps to
-                        about this much, and two left the sections below sitting
-                        ~40px high, so the page stepped down as markdown landed. */}
+                    {/* Two, now the wider column lets a lede wrap in fewer. */}
                     <div className="sk-hero__lede">
-                        <div className="sk sk-line" style={{ width: '94%' }} />
-                        <div className="sk sk-line" style={{ width: '88%' }} />
-                        <div className="sk sk-line" style={{ width: '43%' }} />
+                        <div className="sk sk-line" style={{ width: '86%' }} />
+                        <div className="sk sk-line" style={{ width: '39%' }} />
                     </div>
                 </div>
 

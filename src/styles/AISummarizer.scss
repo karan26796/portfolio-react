@@ -21,12 +21,13 @@
     }
 }
 
-// Higher specificity than the phone rule below, so it survives it: a case
-// study's overlay paints at z-index 9999, above the dock, which leaves the
-// dock's assistant button unreachable while one is open. The floating button
-// is the way back to the assistant there at every width.
+// On a case study the assistant is reached from the summary card's prompt
+// pills, not from a launcher of its own. The chat itself still mounts — the
+// pills need something listening — so this hides the button rather than the
+// component. Higher specificity than the phone rule further down, which sets
+// this to flex, so it survives it.
 body:has(.reader-mode-overlay) .ai-fab-group {
-    display: flex;
+    display: none;
 }
 
 // On the photo canvas the assistant lives in the dock instead: the canvas owns
@@ -626,25 +627,20 @@ body:has(.gallery-canvas-page) .ai-fab-group {
     // indicator. The starter pills stay hidden — three of them stacked above
     // the button cover most of a phone screen — so the button opens straight
     // into the chat, where the same questions are waiting as chips.
+    //
+    // This is now the only way to the assistant at this width: the tab bar no
+    // longer carries it, so the button has to be here rather than deferring to
+    // the dock as it used to.
     .ai-fab-group {
-        // The dock carries the assistant at this width, so the floating button
-        // would be a second door to the same room.
-        display: none;
+        display: flex;
         right: 1rem;
-        // Above the dock: at this width the centred dock is wide enough that a
-        // corner button on the same line would sit on top of it.
-        bottom: var(--dock-clearance, calc(1rem + env(safe-area-inset-bottom, 0px)));
+        bottom: calc(1rem + env(safe-area-inset-bottom, 0px));
     }
 
     .ai-fab-pills {
         display: none;
     }
 
-    // The dock now holds the bottom edge on a case study, so the button lifts
-    // clear of it rather than of the bar that used to be there.
-    body:has(.reader-mode-overlay) .ai-fab-group {
-        bottom: var(--dock-clearance, calc(4.5rem + env(safe-area-inset-bottom, 0px)));
-    }
 
     // The nav sheet owns the screen while it is open. The button would sit
     // behind its scrim anyway — `.home-main-content` is a stacking context, so

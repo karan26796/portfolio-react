@@ -48,10 +48,10 @@
 
     .sk-hero {
         position: relative;
-        padding: 3.25em 0 2.75em;
+        padding: 4em 0 3em;
 
         @media (max-width: 1024px) {
-            padding: 2.5em 0 2em;
+            padding: 2.75em 0 2.25em;
         }
 
         // The year stamp, opposite the headline as in the live hero.
@@ -71,27 +71,35 @@
         &__title {
             display: flex;
             flex-direction: column;
-            gap: 0.5em;
-            max-width: 24ch;
+            // Wide enough that three bars plus two gaps come to the same
+            // height as three 55px line boxes. A text block is N line boxes;
+            // a skeleton is N bars and N-1 gaps, so the gap has to carry the
+            // difference or everything below starts high.
+            gap: 1.55em;
+            max-width: 20ch;
 
             @media (max-width: 1024px) {
                 max-width: none;
             }
         }
 
-        // 2.2em at 1.25 line-height is a 44px line box, and two of them plus
-        // the gap have to add up to the same as the real headline — otherwise
-        // everything below starts too high and the page lurches on load.
+        // The headline is now the home page's masthead scale: 3.4em at 1.08,
+        // a 55px line box. Bar plus gap tracks that pitch, and there are three
+        // of them because these titles run to a full sentence.
         .sk-title-line {
-            height: 2.25rem;
+            height: 2.4rem;
         }
 
         &__lede {
             display: flex;
             flex-direction: column;
             gap: 0.85em;
-            margin-top: 1.5em;
-            max-width: 60ch;
+            margin-top: 1.8em;
+            max-width: 65ch;
+            // Same correction as the title, taken as trailing space rather
+            // than a gap — with only two bars, a gap wide enough to close it
+            // would read as a break between them.
+            padding-bottom: 1.3em;
 
             .sk-line {
                 height: 1.1rem;
@@ -115,6 +123,8 @@
             align-items: center;
             gap: 1em;
             margin-bottom: 1.35em;
+            // The live rule stops with the prose rather than crossing the
+            // whole column; this has to stop in the same place.
         }
 
         .sk-label {

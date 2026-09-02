@@ -139,7 +139,7 @@ const projectsById: Record<string, ProjectSummary> = {
     title: "How I Revamped Keka's Awards Platform using AI workflows without a PM",
     img: awardRevamo,
     year: "Keka HR / 2026",
-    tags: ["Discovery", "AI prototyping", "Product management"],
+    tags: ["UX Research", "AI prototyping", "Product management"],
     tools: ["NotebookLM", "Descript", "Figma"],
     type: "client",
     details: "Unblocked 10+ sales deals by removing restrictions in Awards platform, using AI-native workflows and driving the work end-to-end without a PM.",

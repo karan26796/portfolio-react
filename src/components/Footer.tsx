@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ScrollReveal from "./ScrollReveal";
 import GitHubCommitBoard from "./GitHubCommitBoard";
+import PixelGrass from "./PixelGrass";
 import "../styles/Footer.scss";
 
 // The marquee mixes in Figma Training + Travel photos, so showing it again
@@ -42,6 +43,12 @@ const MARQUEE_IMAGES: MarqueeImage[] = [
  * has its full length before a single image arrives — the images are
  * `width: auto`, so without this every frame was zero-wide until it loaded and
  * the whole strip snapped outwards as they came in.
+ *
+ * The dimensions go out as custom properties rather than as `width`/`height`
+ * so the stylesheet can scale them down on a phone (see --marquee-scale in
+ * Footer.scss). Setting them directly here would win over any media query, and
+ * the alternative — measuring the viewport in JS — would need a resize
+ * listener to stay right.
  */
 const MarqueeFrame: React.FC<{ image: MarqueeImage }> = ({ image }) => {
   const [loaded, setLoaded] = useState(false);
@@ -49,7 +56,12 @@ const MarqueeFrame: React.FC<{ image: MarqueeImage }> = ({ image }) => {
   return (
     <div
       className={`footer-marquee-item${loaded ? " is-loaded" : ""}`}
-      style={{ height: image.height, width: image.width }}
+      style={
+        {
+          "--frame-w": image.width,
+          "--frame-h": image.height,
+        } as React.CSSProperties
+      }
     >
       {!loaded && <span className="footer-marquee-skeleton" aria-hidden="true" />}
       <span className="footer-marquee-caption">{image.caption}</span>
@@ -74,7 +86,10 @@ const Footer: React.FC = () => {
   const showMarquee = !MARQUEE_HIDDEN_ROUTES.includes(location.pathname);
 
   return (
-    <ScrollReveal className="footer-container" variant="fade">
+    // The shell bounds how far the footer rides over the page — see
+    // .footer-shell in Footer.scss.
+    <div className="footer-shell">
+      <ScrollReveal className="footer-container" variant="fade">
       {showMarquee && (
         <div className="footer-marquee" aria-hidden="true">
           <div className="footer-marquee-track">
@@ -95,7 +110,7 @@ const Footer: React.FC = () => {
             </div>
           </div>
           <GitHubCommitBoard compact />
-          <p className="footer-availability">
+          <p className="footer-availability contact">
             I'm currently open to new roles,{" "}
             <a
               href="https://www.linkedin.com/in/karankapoorux/"
@@ -138,7 +153,11 @@ const Footer: React.FC = () => {
       <p className="footer-availability">
         Made with ❤️ in React. Hosted on Vercel
       </p>
-    </ScrollReveal>
+
+      {/* Last thing on the page, growing out of the footer's bottom edge. */}
+      <PixelGrass />
+      </ScrollReveal>
+    </div>
   );
 };
 

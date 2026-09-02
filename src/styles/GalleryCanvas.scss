@@ -14,15 +14,9 @@
 
   &__viewport {
     position: absolute;
-    // Stops above the dock rather than running under it. Doing it here rather
-    // than in the camera maths is what makes it hold at every zoom: when the
-    // cluster is larger than the screen the photos fill whatever the element
-    // covers, so the only way to keep them out from under the dock is for the
-    // element not to reach it.
-    inset: 0 0 var(--dock-clearance, 96px);
-    // Stopping the element short is not enough on its own: the stage is
-    // absolutely positioned inside it, so without this the photos simply paint
-    // on past the bottom edge and back under the dock.
+    // The tabs live at the top of the page now, so nothing occupies the
+    // bottom edge and the canvas can run the full height again.
+    inset: 0;
     overflow: hidden;
     // The canvas owns every gesture: otherwise the browser claims pinch-zoom
     // and horizontal swipe (back-navigation) before the handlers see them.
@@ -100,8 +94,7 @@
 .gallery-canvas-hint {
   position: absolute;
   left: 50%;
-  // Lifted clear of the dock, which occupies the same bottom-centre strip.
-  bottom: var(--dock-clearance, calc(1.5em + env(safe-area-inset-bottom, 0px)));
+  bottom: calc(1.5em + env(safe-area-inset-bottom, 0px));
   transform: translateX(-50%);
   margin: 0;
   max-width: calc(100vw - 2em);

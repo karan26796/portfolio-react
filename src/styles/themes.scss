@@ -1,7 +1,7 @@
 /* Light mode (default) — Sleek light theme */
 :root {
   /* The theme's own page background. */
-  --bg-base: #fff;
+  --bg-base: #F5F5F2;
   /* The single page background every surface paints.
      `--page-bg-active` is published on :root by ProjectList while the
      project list is scrolling (an interpolation from --bg-base to the
@@ -46,6 +46,56 @@
   --dock-divider: rgba(255, 255, 255, 0.16);
   --dock-indicator: rgba(255, 255, 255, 0.7);
   --dock-shadow: rgba(0, 0, 0, 0.0);
+  /* Dock tabs: the current page gets a pill, the rest are text. Light pill on
+     the dark bar, mirroring the reference's dark-on-light. */
+
+  /* The footer is dark in both themes. Like the dock, it deliberately does
+     not follow --bg-color: it closes the page rather than being one more
+     section of it, and the change in ground is what says so. */
+  --footer-surface: #17171a;
+  --footer-surface-high: #202024;
+  --footer-text: #f0f6fc;
+  --footer-text-dim: #9ba3ae;
+  --footer-text-faint: #6e7681;
+  --footer-border: rgba(255, 255, 255, 0.12);
+  /* Pixel grass along the footer's bottom edge (read by PixelGrass.tsx at
+     runtime), darkest to palest — the drawing indexes them in this order.
+     Six rather than four, and --grass-warm is a yellower green at roughly the
+     same lightness as --grass-light, so the variation is in hue as well as in
+     brightness. Lifted from the reference sprite, so they run brighter than
+     the rest of the site's greens. One palette for both themes, since the
+     footer is dark in both. */
+  --grass-shade: #2f7a3a;
+  --grass-deep: #4e9c2e;
+  --grass-mid: #78c142;
+  --grass-warm: #a3cf3e;
+  --grass-light: #9bd75f;
+  --grass-tip: #cdebac;
+
+  /* The page's highlight is a near-black navy, which would vanish here. */
+  --footer-highlight: var(--accent-cyan);
+
+  /* Primary button — a physical, pressable slab. Rest is a charcoal body with
+     a bevel along its top edge, a dark rim and a light halo lifting it off the
+     page; pressed drops the halo, darkens the body and pushes the light inside
+     so it reads as travelling down rather than just changing colour. */
+  --btn-face-top: #4a4a4a;
+  --btn-face-bottom: #383838;
+  --btn-rim: #2b2b2b;
+  --btn-halo: rgba(255, 255, 255, 0.92);
+  --btn-bevel: rgba(255, 255, 255, 0.16);
+  --btn-drop: rgba(0, 0, 0, 0.16);
+  --btn-face-top-pressed: #272727;
+  --btn-face-bottom-pressed: #1b1b1b;
+  --btn-press-inner: rgba(0, 0, 0, 0.55);
+  --btn-text: #f4f4f2;
+  /* #9a9aa2 was 2.6:1 on the page — under AA even for large text. With no
+     pill marking the current tab, the idle ones carry the navigation's
+     legibility, so they go to 4.6:1 and stay clearly the unselected state
+     against a near-black active label. */
+  --dock-tab-idle: #6e7178;
+  --dock-tab-hover: #3f4148;
+  --dock-tab-active-text: #26262c;
 
   /* Chat bubbles, in the shape of an SMS thread. Sent keeps one green across
      both themes, the way a messages app does; received follows the theme, so
@@ -73,8 +123,24 @@
   --dock-stroke: rgba(255, 255, 255, 0.15);
   --dock-shadow: rgba(0, 0, 0, 0.55);
 
+  /* Lifted a step, for the same reason the dock is: the same dark surface on
+     an already dark page loses its edge. The text tokens need no change —
+     they were already the dark theme's. */
+  --footer-surface: #202024;
+  --footer-surface-high: #2a2a2f;
+  --footer-border: rgba(255, 255, 255, 0.15);
+
   --sms-received: #2c2c2e;
   --sms-received-text: #f4f5f7;
+
+
+  /* On a dark page the halo cannot be white — it would ring the button in
+     glare. A faint light edge does the same separating job. */
+  --btn-halo: rgba(255, 255, 255, 0.07);
+  --btn-drop: rgba(0, 0, 0, 0.5);
+  --dock-tab-idle: rgba(255, 255, 255, 0.72);
+  --dock-tab-hover: rgba(255, 255, 255, 0.9);
+  --dock-tab-active-text: #f4f5f7;
 
   --primary-text: #f0f6fc;
   --secondary-text: #8b949e;

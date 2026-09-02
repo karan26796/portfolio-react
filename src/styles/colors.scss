@@ -36,6 +36,15 @@
     var(--ai-accent-deep) 100%
   );
 
+  /* Rim gradient on the assistant's prompt pills. Its own three tokens rather
+     than a reuse of --ai-gradient: that one is a radial purple wash for filled
+     surfaces, and stretched along a 1px outline it read as a flat violet line.
+     Blue through violet to pink travels far enough across a short pill to
+     actually show as a gradient. */
+  --ai-rim-start: #2b7fff;
+  --ai-rim-mid: #a855f7;
+  --ai-rim-end: #e8419b;
+
   /* Selection-frame stroke around a project card, and its corner handles. */
   --frame-stroke: #008ff0;
 

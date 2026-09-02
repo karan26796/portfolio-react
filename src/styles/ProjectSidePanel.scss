@@ -1,19 +1,26 @@
 .project-sidepanel {
-  position: sticky;
-  top: 5em;
-  align-self: start;
-  justify-self: start;
+  // Pinned to the page's left corner, out of the flow entirely. It sits inside
+  // .docs-layout, which is a plain centred column — left in the flow it stacked
+  // above the case study and pushed the whole page down. Fixed also keeps the
+  // column itself centred, since the index takes no width from it.
+  position: fixed;
+  left: 1.75rem;
+  // Clear of the tab bar, which is fixed across the top of the page.
+  top: 7rem;
+  // Bounded, but the scrolling belongs to the list inside so the fade can be
+  // applied to the thing that actually clips.
+  max-height: calc(100vh - 9rem);
+  z-index: 1;
   width: 200px;
-  height: fit-content;
-  padding-top: 2em;
+  padding-top: 0;
   display: flex;
   flex-direction: column;
-  gap: 1.5em;
+  // gap: 0.5em;
 
   // Meta grid lives at the top of the sticky column — compact and vertical
   .project-meta-grid {
     flex-direction: column;
-    gap: 1.25em;
+    gap: 0.25em;
 
     div {
       gap: 0.2em;
@@ -37,10 +44,31 @@
   }
 
   // Divider between meta and nav (only when both exist)
-  .project-meta-grid + ol {
+  .project-meta-grid+ol {
     border-top: 1px solid var(--border-color);
     padding-top: 1.25em;
     margin-top: 0;
+  }
+
+  /* Which case study this is, sitting above the section index. Tabular
+     figures so the number does not shift the slash sideways as it changes. */
+  .project-sidepanel-count {
+    margin: 0 0 0.9em;
+    padding-bottom: 0.9em;
+    border-bottom: 1px solid var(--border-color);
+    font-size: 0.78em;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+
+    &__current {
+      color: var(--primary-text);
+    }
+
+    &__total {
+      color: var(--tertiary-text);
+    }
   }
 
   .project-sidepanel-list {
@@ -50,6 +78,57 @@
     display: flex;
     flex-direction: column;
     gap: 0.1em;
+    /* Takes what is left of the panel's height rather than claiming all of it:
+       the nav controls sit below and need room. min-height: 0 is what lets a
+       flex item actually shrink below its content — without it the list keeps
+       its full height and pushes the controls off the bottom of the screen. */
+    flex: 1 1 auto;
+    min-height: 0;
+    overflow-y: auto;
+    // The scrollbar would sit on top of the fade and give the game away.
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  /* The sections still to come fade out towards the cut edge, and sharpen as
+     the reader arrives at them. A mask rather than an overlay: the panel has no
+     background of its own, so a painted gradient would need to match whatever
+     is behind it, and here that is a page wash that changes colour per project.
+
+     Only applied on the edge that is actually clipped — see the component,
+     which measures that. A list that already fits keeps every item at full
+     strength rather than dimming its last few for no reason. */
+  &.is-clipped-bottom .project-sidepanel-list {
+    mask-image: linear-gradient(to bottom, #000 60%, transparent 100%);
+  }
+
+  &.is-clipped-top .project-sidepanel-list {
+    mask-image: linear-gradient(to bottom, transparent 0, #000 12%);
+  }
+
+  &.is-clipped-top.is-clipped-bottom .project-sidepanel-list {
+    mask-image: linear-gradient(to bottom,
+        transparent 0,
+        #000 12%,
+        #000 60%,
+        transparent 100%);
+  }
+
+  li {
+    // Set per item by the component, from how far ahead of the current section
+    // it is. Transitioned so a section brightens as the reader arrives at it
+    // rather than snapping.
+    opacity: var(--section-dim, 1);
+    transition: opacity 0.35s ease;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    li {
+      transition: none;
+    }
   }
 
   a {
@@ -65,8 +144,9 @@
     padding: 0.4em 0;
     color: var(--tertiary-text);
     transition: color 0.2s ease;
-    font-weight: 450;
+    font-weight: 500;
     line-height: 1.3;
+    transition: all 0.2s ease;
 
     .section-index {
       flex-shrink: 0;
@@ -85,7 +165,7 @@
 
     &.active {
       color: var(--primary-text);
-      font-weight: 550;
+      font-weight: 650;
 
       .section-index {
         color: var(--highlight-color);
@@ -94,7 +174,10 @@
   }
 }
 
-@media (max-width: 1024px) {
+/* A corner index needs (100vw - 840) / 2 of margin beside the centred column
+   to clear it; below about 1260 there isn't enough and it would sit over the
+   prose. The headings stay anchored — only the index goes. */
+@media (max-width: 1259px) {
   .project-sidepanel {
     display: none;
   }

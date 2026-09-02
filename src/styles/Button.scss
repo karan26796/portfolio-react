@@ -49,14 +49,53 @@
   }
 
   // Variant styles
+  // A pressable slab, per the reference: charcoal face with a bevel along its
+  // top edge, a dark rim, and a light halo separating it from the page.
   &.custom-button-primary {
-    border: 1px solid transparent;
-    background: var(--button-color);
-    color: white;
+    // Not the pill the other sizes use — the reference is a rounded rectangle,
+    // and in em so the corner keeps its proportion at every size.
+    border-radius: 0.8em;
+    border: 1.5px solid var(--btn-rim);
+    background: linear-gradient(
+      to bottom,
+      var(--btn-face-top),
+      var(--btn-face-bottom)
+    );
+    color: var(--btn-text);
+    box-shadow:
+      // the halo
+      0 0 0 4px var(--btn-halo),
+      // the button's own weight on the page
+      0 5px 12px var(--btn-drop),
+      // light catching the top edge
+      inset 0 1px 0 var(--btn-bevel);
 
     &:hover {
-      background: var(--button-color-hover);
+      background: linear-gradient(
+        to bottom,
+        color-mix(in srgb, var(--btn-face-top) 88%, var(--btn-text)),
+        color-mix(in srgb, var(--btn-face-bottom) 88%, var(--btn-text))
+      );
       opacity: 1;
+    }
+
+    // Pressed: the halo and drop shadow go, the face darkens, and the light
+    // moves inside — the three together read as the slab travelling down,
+    // where any one of them alone reads as a recolour.
+    &:active:not(:disabled) {
+      transform: translateY(1px);
+      border-color: var(--btn-face-bottom-pressed);
+      background: linear-gradient(
+        to bottom,
+        var(--btn-face-top-pressed),
+        var(--btn-face-bottom-pressed)
+      );
+      box-shadow:
+        0 0 0 3px color-mix(in srgb, var(--btn-halo) 45%, transparent),
+        inset 0 2px 5px var(--btn-press-inner);
+      // Instant on the way down, eased on the way back — a press should feel
+      // like it lands, and the base 0.2s made it feel spongy.
+      transition-duration: 0s;
     }
   }
 

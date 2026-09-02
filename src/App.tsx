@@ -14,7 +14,7 @@ import ProjectListSkeleton from "./components/ProjectListSkeleton";
 import { useProjects } from "./utils/useProjects";
 import Testimonials, { Testimonial } from "./components/Testimonials";
 import ExploreFolder from "./components/ExploreFolder";
-import FAQ from "./components/FAQ";
+import AgentPromptCard from "./components/AgentPromptCard";
 import AISummarizer from "./components/AISummarizer";
 import { ScrollRevealDefaultsProvider } from "./components/ScrollRevealContext";
 import Footer from "./components/Footer";
@@ -89,6 +89,10 @@ const AppShell: React.FC = () => {
   // running them together would open two stacked chats on one click.
   const isProjectRoute = location.pathname.startsWith("/project/");
   const isTrainingRoute = location.pathname === "/figma-training";
+  // The photo canvas gets no assistant at all — not the floating button here,
+  // and not the tab in the dock either. It owns the whole viewport and has
+  // nothing to say about the photographs.
+  const isGalleryRoute = location.pathname === "/gallery";
 
   return (
     <div className="app-shell">
@@ -119,6 +123,7 @@ const AppShell: React.FC = () => {
       {/* Outside .app-center on purpose: that column's stacking context would
           trap the chat's z-index beneath the dock. */}
       {!isProjectRoute &&
+        !isGalleryRoute &&
         (isTrainingRoute ? (
           // The training page has its own audience and its own questions. The
           // context below is what the assistant answers from, so it carries the
@@ -220,7 +225,7 @@ const HomePage: React.FC = () => {
   const faqData = [
     {
       question: "My design philosophy",
-      answer: "I try to create designs that fit right into the user's daily context. Otherwise, we're just creating a solution for a problem that doesn't exist."
+      answer: "I create designs that fit right into the user's daily context. Otherwise, we're just creating a solution for a problem that doesn't exist."
     },
     {
       question: "What AI tools do I use in my design process?",
@@ -228,7 +233,7 @@ const HomePage: React.FC = () => {
     },
     {
       question: "My design process",
-      answer: "The process evolves with each project, for bigger projects I like to be sure we're building the right thing by talking to customers, for smaller projects I like to jump into prototyping and iterate quickly."
+      answer: "My process evolves with each project, for bigger projects I like to be sure we're building the right thing by talking to customers, for smaller projects I like to jump into prototyping and iterate quickly."
     },
     {
       question: "Parts of the design process I enjoy the most",
@@ -251,7 +256,31 @@ const HomePage: React.FC = () => {
           <Testimonials data={testimonialsData} title="Testimonials" />
         </div>
         <div data-accent={FAQ_ACCENT}>
-          <FAQ data={faqData} />
+          {/* This replaces the FAQ accordion that used to close the page. The
+              accordion made you open four panels to read four sentences, and
+              this says the same thing outright — faqData is still its source,
+              so the answers cannot drift apart from what was written.
+
+              Each pill reads as Karan's own shorthand but sends the phrasing
+              the knowledge base actually answers, so a short label can never
+              land the assistant on a guess. */}
+          <AgentPromptCard
+            faqs={faqData}
+            questions={[
+              {
+                label: "My experience with design systems",
+                ask: "What's your experience with design systems?",
+              },
+              // { label: "My design process", ask: "What does your design process look like?" },
+              {
+                label: "How I handle disagreements with PMs",
+                ask: "How do you handle disagreements with PMs?",
+              },
+              { label: "Roles I'm looking for", ask: "What roles are you looking for?" },
+              // { label: "Tools I use", ask: "Which tools do you use day to day?" },
+              // { label: "How to contact me?", ask: "How do I contact you?" },
+            ]}
+          />
         </div>
         {/* <ExploreFolder /> */}
       </div>
