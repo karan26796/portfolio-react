@@ -52,7 +52,7 @@ export const usePageSEO = ({ title, description, keywords, canonicalUrl, ogImage
     }
 
     // Update OG & Twitter Image
-    const targetImage = ogImage || 'https://kadankapoor.com/site-thumbnail.webp';
+    const targetImage = ogImage || 'https://kadankapoor.com/thumbnail.webp';
     let ogImg = document.querySelector('meta[property="og:image"]');
     if (ogImg) {
       ogImg.setAttribute('content', targetImage);
