@@ -80,56 +80,48 @@
     font: inherit;
     font-size: 0.95em;
     font-weight: 500;
-    color: var(--secondary-text);
     cursor: pointer;
     text-align: left;
-    /* A gradient rim, which a plain `border` cannot carry: the fill is painted
-       to the padding box and the gradient to the border box, so the outline is
-       the only place the gradient shows.
-
-       The fill has to be opaque for that to work — a translucent one lets the
-       rim show through the middle of the pill — so it takes the page's own
-       colour and the pill reads as an outline. */
-    border: 1.5px solid transparent;
-    background:
-      linear-gradient(var(--bg-color), var(--bg-color)) padding-box,
-      linear-gradient(115deg,
-        var(--ai-rim-start),
-        var(--ai-rim-mid) 50%,
-        var(--ai-rim-end)) border-box;
-    transition: color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
+    /* The rim gradient has moved onto the label; the pill itself takes the
+       page's ordinary border, so a row of these sits with the rest of the
+       site's chrome rather than glowing out of it. */
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    transition: border-color 0.18s ease, background 0.18s ease, box-shadow 0.18s ease;
 
     svg {
       flex: none;
-      /* Neutral: the rim is already carrying the colour, and a purple arrow
-         inside a blue-to-pink outline was a third hue with no reason. */
-      color: var(--tertiary-text);
-      transition: color 0.18s ease;
+      /* A solid pick from the same gradient the label carries — an SVG cannot
+         take the gradient itself. */
+      color: var(--ai-rim-mid);
     }
 
     &:hover {
-      color: var(--primary-text);
-      /* Plain white, not a tint of the rim: a purple wash inside a
-         blue-to-pink outline muddied both. --card-bg is white in the light
-         theme and a lifted surface in the dark one, so the pill reads as
-         coming forward off the page either way. */
-      background:
-        linear-gradient(var(--card-bg), var(--card-bg)) padding-box,
-        linear-gradient(115deg,
-          var(--ai-rim-start),
-          var(--ai-rim-mid) 50%,
-          var(--ai-rim-end)) border-box;
+      /* --card-bg is white in the light theme and a lifted surface in the dark
+         one, so the pill reads as coming forward off the page either way. */
+      background: var(--card-bg);
+      border-color: color-mix(in srgb, var(--ai-rim-mid) 35%, var(--border-color));
       box-shadow: 0 0 0 3px color-mix(in srgb, var(--ai-rim-mid) 12%, transparent);
-
-      svg {
-        color: var(--ai-rim-mid);
-      }
     }
 
     &:focus-visible {
       outline: 2px solid var(--highlight-color);
       outline-offset: 2px;
     }
+  }
+
+  /* The gradient that used to be the rim, clipped to the words. `color` stays
+     set as the fallback: where background-clip: text is unsupported the text
+     paints in a solid pick from the same gradient rather than vanishing. */
+  &__pill-label {
+    color: var(--ai-rim-mid);
+    background-image: linear-gradient(115deg,
+      var(--ai-rim-start),
+      var(--ai-rim-mid) 50%,
+      var(--ai-rim-end));
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 
   @media (max-width: 800px) {

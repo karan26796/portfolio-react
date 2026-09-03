@@ -14,7 +14,6 @@ import NomineeRow from "../components/skeletons/NomineeRow";
 import ScrollReveal from "../components/ScrollReveal";
 import AISummarizer from "../components/AISummarizer";
 import ProjectSidePanel from "../components/ProjectSidePanel";
-import AgentPromptCard from "../components/AgentPromptCard";
 import { formatSectionTitle } from "../utils/formatSectionTitle";
 import { toAccentTint } from "../utils/dominantColor";
 // Projects that render as bespoke React pages instead of markdown.
@@ -104,7 +103,9 @@ const ProjectDetails: React.FC = () => {
     };
   });
 
-  const { cleanContent, faqData } = React.useMemo(() => {
+  // The <faq> block is still pulled out of the markdown so it doesn't render
+  // as literal markup in the body; nothing displays it any more.
+  const { cleanContent } = React.useMemo(() => {
     return extractFAQ(markdownContent);
   }, [markdownContent]);
 
@@ -386,26 +387,11 @@ const ProjectDetails: React.FC = () => {
                       ) : <div>Project content not available</div>}
                     </div>
 
-                    {/* The same handover the home page uses: the answers stated
-                        outright, then pills that open the assistant already
-                        asking. faqData is still the source, so a case study's
-                        summary cannot drift from what it says. */}
-                    {faqData && (
-                      <AgentPromptCard
-                        faqs={faqData}
-                        title="A quick summary"
-                        questions={[
-                          { label: "Summarise this project", ask: "Can you summarize this project?" },
-                          { label: "My role here", ask: "What was your role here?" },
-                          { label: "The biggest challenge", ask: "What was the biggest challenge?" },
-                        ]}
-                      />
-                    )}
-
-                    {/* Mounted, but its floating button is hidden here — see
-                        AISummarizer.scss. The pills above are the only way in
-                        on a case study, and they need something listening for
-                        `open-agent-vinod` or they do nothing at all. */}
+                    {/* Mounted, but its floating button is hidden on a case
+                        study — see AISummarizer.scss. The summary card's pills
+                        used to be the way in; with those gone nothing on this
+                        page opens the chat, so this is here only to keep
+                        listening for `open-agent-vinod`. */}
                     {markdownContent && (
                       <AISummarizer
                         text={markdownContent}

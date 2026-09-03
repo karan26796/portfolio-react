@@ -117,3 +117,248 @@
     line-height: 1.25;
   }
 }
+
+/* Home-page layout (Experiments layout="grid"): a full-bleed stage the tiles
+   are placed across at unequal widths, heights and vertical offsets, split
+   over two depth layers that drift against each other as the section passes
+   through the viewport. Experiments.tsx holds the placement table and the
+   scroll handler that writes --px-back / --px-front here.
+
+   The stage is wider than the 1100px column the rest of the home page sits in
+   — the scatter needs the room — but stops short of the page edges, so on a
+   wide display the tiles stay a block you can take in rather than a band
+   running the full width of the screen.
+
+   Each tile is dressed as a selected frame on a design canvas rather than as
+   a card: square corners, a selection stroke, corner handles, and its name
+   above the top-left corner. */
+.experiments-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: 1.25em;
+  // Has to clear PARALLAX_BACK + |PARALLAX_FRONT| (46px) — how far two
+  // vertically adjacent tiles on opposite layers can close on each other at
+  // the extremes of the drift — plus the name label hanging above the lower
+  // tile's top edge. Anything less and the near layer covers the far one.
+  row-gap: 5em;
+  // Rows take the height of their tallest tile; `start` lets the shorter ones
+  // keep their own height instead of stretching to match, which is most of
+  // what makes the block read as scattered rather than tabulated.
+  align-items: start;
+  // Top gutter carries the first row's labels; the sides carry the corner
+  // handles, which sit half outside the tile.
+  padding: 2.5em 1.5em 2em;
+  box-sizing: border-box;
+  max-width: var(--stage-max);
+  margin-left: auto;
+  margin-right: auto;
+
+  .grid-item {
+    min-width: 0;
+    grid-row: var(--row);
+    grid-column: var(--col-start) / span var(--col-span);
+    // Layout, not transform — see the note on `offset` in Experiments.tsx.
+    margin-top: var(--offset, 0px);
+    // translate3d rather than translateY: the transform changes on every
+    // scroll frame, and this keeps each tile on its own layer instead of
+    // repainting the stage.
+    //
+    // --drag-x / --drag-y carry where the frame has been dragged to. Riding
+    // in the same transform as the drift means a moved frame keeps its grid
+    // cell — nothing else on the stage reflows around it.
+    transform: translate3d(
+      var(--drag-x, 0px),
+      calc(var(--drag-y, 0px) + var(--layer-shift, 0px) * var(--px-damp, 1)),
+      0
+    );
+    will-change: transform;
+    cursor: grab;
+    // Vertical page scrolling has to survive a finger landing on a frame, so
+    // touch selects but does not drag (see onPointerDown in Experiments.tsx).
+    touch-action: pan-y;
+    outline: none;
+
+    &:active {
+      cursor: grabbing;
+    }
+  }
+
+  /* The frame you are holding comes to the front of both layers. */
+  .is-selected {
+    z-index: 3;
+  }
+
+  .is-back {
+    --layer-shift: var(--px-back, 0px);
+    z-index: 1;
+  }
+
+  .is-front {
+    --layer-shift: var(--px-front, 0px);
+    z-index: 2;
+  }
+
+  /* Phones and small tablets get their own arrangement rather than a
+     fallback: six columns instead of twelve, its own placement table (the
+     --m-* properties), and the drift damped to suit the tighter row gap. */
+  @media (max-width: 860px) {
+    grid-template-columns: repeat(6, 1fr);
+    column-gap: 0.75em;
+    row-gap: 3.75em;
+    padding: 2em 1em 1.5em;
+    --px-damp: 0.6;
+
+    .grid-item {
+      grid-row: var(--m-row);
+      grid-column: var(--m-col-start) / span var(--m-col-span);
+      margin-top: var(--m-offset, 0px);
+    }
+  }
+}
+
+.experiment-tile {
+  position: relative;
+  // Squared off, in keeping with the frame treatment on the photo canvas.
+  border-radius: 0;
+  background: var(--bg-color-high);
+  // An outline rather than a border so the stroke sits outside the media box
+  // and takes no part in the tile's size.
+  outline: 1px solid var(--frame-stroke);
+  outline-offset: 0;
+
+  // Selected — or focused from the keyboard, which selects it too: a heavier
+  // stroke and solid handles, the way a design tool distinguishes the frame
+  // you are acting on from the ones merely on the canvas.
+  .is-selected &,
+  .grid-item:focus-visible & {
+    outline-width: 2px;
+  }
+
+  .is-selected & .experiment-tile-handle,
+  .grid-item:focus-visible & .experiment-tile-handle {
+    background: var(--frame-stroke);
+  }
+
+  .experiment-media-wrapper {
+    position: relative;
+    overflow: hidden;
+    aspect-ratio: var(--ratio, 1);
+    width: 100%;
+
+    // .image-skeleton-wrapper is the element ImageWithSkeleton actually
+    // renders around the media; without a height of its own it collapsed to
+    // the image's natural size and the media sat in the top of the frame
+    // with bare tile showing underneath.
+    //
+    // The border and rounding are undone rather than merely not set: these
+    // tiles are <figure>s, and index.scss rounds and outlines every `figure
+    // img` on the site. Square media is the whole point of the frame
+    // treatment, and the tile's own selection stroke is the only edge it
+    // should have.
+    img,
+    video,
+    .image-skeleton-wrapper {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border: 0;
+      border-radius: 0;
+    }
+  }
+
+  /* Above the top-left corner, the way a layer name sits over a selection.
+     Absolute so it never adds to the tile's height — the stage's top padding
+     and row gap carry it. */
+  .experiment-tile-label {
+    position: absolute;
+    left: 0;
+    bottom: calc(100% + 5px);
+    max-width: 100%;
+    color: var(--frame-stroke);
+    font-size: 0.75em;
+    font-weight: 550;
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    pointer-events: none;
+  }
+
+  /* Corner handles, centred on the corners so they straddle the stroke. */
+  .experiment-tile-handle {
+    position: absolute;
+    width: 7px;
+    height: 7px;
+    background: var(--bg-color);
+    border: 1px solid var(--frame-stroke);
+    box-sizing: border-box;
+    pointer-events: none;
+
+    &.is-tl {
+      top: 0;
+      left: 0;
+      transform: translate(-50%, -50%);
+    }
+
+    &.is-tr {
+      top: 0;
+      right: 0;
+      transform: translate(50%, -50%);
+    }
+
+    &.is-bl {
+      bottom: 0;
+      left: 0;
+      transform: translate(-50%, 50%);
+    }
+
+    &.is-br {
+      bottom: 0;
+      right: 0;
+      transform: translate(50%, 50%);
+    }
+  }
+
+  /* The narrowest tiles in the phone arrangement are around 110px across, so
+     the name comes down with them; it ellipsises rather than wrapping, as a
+     layer name does. */
+  @media (max-width: 860px) {
+    .experiment-tile-label {
+      font-size: 0.68em;
+      bottom: calc(100% + 4px);
+    }
+
+    .experiment-tile-handle {
+      width: 6px;
+      height: 6px;
+    }
+  }
+}
+
+/* Wrapper for the home page's experiments block. Wider than the sections
+   around it but not full-bleed; the heading shares the stage's width and
+   gutter so it lines up with the first tile's left edge. */
+.home-experiments-section {
+  // One number for the heading and the stage, so they can't drift apart.
+  --stage-max: 1280px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 4em 0;
+
+  .carousel-section-header {
+    max-width: var(--stage-max);
+    margin-left: auto;
+    margin-right: auto;
+    padding: 0 1.5em;
+    box-sizing: border-box;
+  }
+
+  @media (max-width: 860px) {
+    padding: 3em 0;
+
+    .carousel-section-header {
+      padding: 0 1em;
+    }
+  }
+}

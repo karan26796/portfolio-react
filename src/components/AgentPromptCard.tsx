@@ -183,7 +183,10 @@ const AgentPromptCard: React.FC<AgentPromptCardProps> = ({
               aria-label={`Ask Agent Vinod: ${ask}`}
             >
               <ArrowBendUpRight size="1em" aria-hidden="true" />
-              {label}
+              {/* The label carries the gradient, so it needs an element of its
+                  own to clip it to — background-clip on the button itself
+                  would take the pill's fill with it. */}
+              <span className="agent-summary__pill-label">{label}</span>
             </button>
           );
         })}

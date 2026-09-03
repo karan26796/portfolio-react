@@ -1,0 +1,155 @@
+/* ==========================================================================
+   FOLDED PANELS COMPONENT STYLES
+   Provides the container layout, visual layering, responsive scaling,
+   and graceful fallbacks (reduced motion, no WebGL).
+   ========================================================================== */
+
+.folded-panels-section {
+  position: relative;
+  width: 100%;
+  box-sizing: border-box;
+  overflow: hidden; /* Guaranteed no horizontal or vertical page leaks */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 4rem 1.5rem 6rem;
+  min-height: 640px;
+}
+
+/* Optional header content placed above the 3D showcase */
+.folded-panels-content {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 2.5rem;
+  pointer-events: auto;
+}
+
+.folded-panels-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.35rem 0.85rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #3b82f6;
+  background: rgba(59, 130, 246, 0.08);
+  border: 1px solid rgba(59, 130, 246, 0.2);
+  margin-bottom: 1rem;
+}
+
+.folded-panels-heading {
+  font-size: clamp(2rem, 4.5vw, 3.25rem);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+  margin: 0 0 1rem;
+}
+
+.folded-panels-subheading {
+  font-size: clamp(1rem, 1.8vw, 1.18rem);
+  line-height: 1.55;
+  color: #9ca3af;
+  margin: 0 auto;
+  max-width: 540px;
+}
+
+/* Three.js Canvas Container */
+.folded-panels-canvas-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 1400px;
+  height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+
+.folded-panels-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100% !important;
+  height: 100% !important;
+  display: block;
+  pointer-events: auto;
+  cursor: grab;
+}
+
+.folded-panels-canvas:active {
+  cursor: grabbing;
+}
+
+/* Fallback static cards for when WebGL is unavailable or prefers-reduced-motion */
+.folded-panels-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+  width: 100%;
+  max-width: 1200px;
+  padding: 1rem 0;
+}
+
+.folded-panels-fallback-card {
+  position: relative;
+  flex: 1;
+  max-width: 380px;
+  aspect-ratio: 16 / 11;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: #111827;
+}
+
+.folded-panels-fallback-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Responsive adjustments */
+@media (max-width: 1024px) {
+  .folded-panels-section {
+    padding: 3.5rem 1rem 4.5rem;
+    min-height: 560px;
+  }
+
+  .folded-panels-canvas-wrapper {
+    height: 460px;
+  }
+}
+
+@media (max-width: 768px) {
+  .folded-panels-section {
+    padding: 2.5rem 0.75rem 3.5rem;
+    min-height: 480px;
+  }
+
+  .folded-panels-canvas-wrapper {
+    height: 380px;
+  }
+
+  .folded-panels-fallback {
+    flex-direction: column;
+  }
+
+  .folded-panels-fallback-card {
+    max-width: 90%;
+  }
+}
+
+/* Accessibility: respect reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .folded-panels-canvas {
+    transition: none !important;
+  }
+}

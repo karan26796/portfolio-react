@@ -13,6 +13,7 @@ import ProjectCard from "./components/ProjectCard";
 import ProjectListSkeleton from "./components/ProjectListSkeleton";
 import { useProjects } from "./utils/useProjects";
 import Testimonials, { Testimonial } from "./components/Testimonials";
+import Experiments from "./components/Experiments";
 import ExploreFolder from "./components/ExploreFolder";
 import AgentPromptCard from "./components/AgentPromptCard";
 import AISummarizer from "./components/AISummarizer";
@@ -168,6 +169,7 @@ const HomePage: React.FC = () => {
   // The wash's colour per section, in scroll order. Projects supply their own
   // (see data-accent in ProjectList); these cover everything around them.
   const HERO_ACCENT = "rgba(48, 164, 108, 0.13)";
+  const EXPERIMENTS_ACCENT = "rgba(255, 138, 0, 0.09)";
   const TESTIMONIALS_ACCENT = "rgba(0, 33, 54, 0.10)";
   const FAQ_ACCENT = "rgba(112, 0, 255, 0.07)";
 
@@ -252,6 +254,9 @@ const HomePage: React.FC = () => {
         ) : (
           <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
         )}
+        <div data-accent={EXPERIMENTS_ACCENT} className="home-experiments-section">
+          <Experiments layout="grid" title="" />
+        </div>
         <div data-accent={TESTIMONIALS_ACCENT}>
           <Testimonials data={testimonialsData} title="Testimonials" />
         </div>
