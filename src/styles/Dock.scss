@@ -240,6 +240,24 @@ body:has(.reader-mode-overlay) .dock {
     display: flex;
   }
 
+  /* Home and Next, on a case study.
+     Everywhere else the dock is a row of five tabs that read as a bar — the
+     group is its own outline. A case study leaves two controls alone at
+     opposite corners, floating over whatever the reader is scrolling past, and
+     at this width the glass veil alone was not enough to say where either one
+     began. An edge does.
+
+     Mixed off the text colour rather than --border-color: that token is tuned
+     to separate surfaces that already sit on the page background, and at 1px
+     over a screenshot it disappeared. Scoped by the overlay's presence, which
+     is how the rest of the site asks "is a case study open". */
+  body:has(.reader-mode-overlay) .dock__button {
+    border: 1px solid color-mix(in srgb, var(--primary-text) 22%, transparent);
+    // The border must not push the two controls to a different height from the
+    // tabs elsewhere.
+    box-sizing: border-box;
+  }
+
   // The chat takes the whole screen at this width and the tabs opened it, so
   // they have nothing left to do while it is up.
   body:has(.ai-chat-window) .dock {

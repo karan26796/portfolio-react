@@ -106,3 +106,85 @@
     font-size: 1.1em;
   }
 }
+
+/* ── The intro sentence ──────────────────────────────────────────────────────
+   One statement that grows. Short, it is the core of what the work is; opened,
+   the same sentence carries the company names in the clauses they belong to.
+   Only the home page's masthead uses these; the training page still shows its
+   .intro-paragraph outright.
+   ========================================================================== */
+
+/* Matched to .intro-paragraph's size and colour — it is the same voice, and
+   for most visitors it is the only version of it they will read. */
+.intro-summary {
+  margin: 1.8em 0 0;
+  font-weight: 600;
+  font-size: 1.25em;
+  max-width: 62ch;
+  line-height: 1.85;
+  color: var(--secondary-text);
+  letter-spacing: -0.01em;
+  text-align: left;
+
+  @media (max-width: 767px) {
+    font-size: 1.1em;
+  }
+}
+
+/* The pieces that slot into the sentence when it opens.
+   The same treatment the masthead's letters use as they settle (see
+   .scramble-char), so an expansion and the page's own entrance read as one
+   idea rather than two different animations. */
+@keyframes intro-detail-in {
+  from {
+    opacity: 0;
+    filter: blur(5px);
+  }
+
+  to {
+    opacity: 1;
+    filter: blur(0);
+  }
+}
+
+.intro-detail-part {
+  animation: intro-detail-in 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+/* Inline: the control is the last thing in the sentence, not a button parked
+   under it — and it is set in the sentence's own type. `font: inherit` with no
+   weight of its own is the point: it is a word in the paragraph, marked out by
+   colour and an underline rather than by being heavier than everything around
+   it. */
+.intro-toggle {
+  // margin-left: 0.4em;
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--primary-text);
+  cursor: pointer;
+  white-space: nowrap;
+  text-decoration: underline;
+  // Legible at rest without shouting; full strength on hover.
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-underline-offset: 0.2em;
+  text-decoration-thickness: 1.5px;
+  transition: text-decoration-color 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    text-decoration-color: currentColor;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--highlight-color);
+    outline-offset: 3px;
+    border-radius: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-detail-part {
+    animation: none;
+  }
+}

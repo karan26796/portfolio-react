@@ -142,7 +142,7 @@ const projectsById: Record<string, ProjectSummary> = {
     tags: ["UX Research", "AI prototyping", "Product management"],
     tools: ["NotebookLM", "Descript", "Figma"],
     type: "client",
-    details: "Unblocked 10+ sales deals by removing restrictions in Awards platform, using AI-native workflows and driving the work end-to-end without a PM.",
+    details: "Unblocked 10+ sales deals by removing restrictions in Awards platform, using AI-native workflows while driving the work end-to-end without a PM.",
     accentColor: "#9333ea",
     // Page background while this project is the active card in the scrolling
     // project list. Omit it to fall back to a tone sampled from `img`.

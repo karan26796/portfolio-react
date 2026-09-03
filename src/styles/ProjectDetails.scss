@@ -107,9 +107,9 @@
     // 840px reads better than the 1190 the column briefly ran at: the prose
     // measure is what makes a case study readable, and a wider column only
     // stretched the media around it.
-    max-width: 840px;
+    max-width: var(--max-width-container);
     margin: 0 auto;
-    padding: 0 3em 4em;
+    // padding: 0 3em 4em;
     box-sizing: border-box;
 
     @media (max-width: 1024px) {
@@ -151,10 +151,20 @@
     // and together with the lede's own 1.8em margin it lands on the same 36px
     // the home page has between those two lines.
     // min-height: 60vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    gap: 0.18em;
+    // Title on the left, the summary and the facts on the right — the case
+    // study states what it is and what it took before it starts arguing.
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    align-items: start;
+    column-gap: 4em;
+    row-gap: 1.5em;
+
+    // One column once the two would each be too narrow to hold a line of the
+    // summary without breaking every few words.
+    @media (max-width: 900px) {
+        grid-template-columns: minmax(0, 1fr);
+        row-gap: 1.25em;
+    }
 
     /* The tightest case: between 769 and 1024 the bar is still at the top but
        the hero has far less room than on a wide screen. Below 769 the bar
@@ -237,9 +247,29 @@
         }
     }
 
+    // The title column. Its own flex context, since the title splits into a
+    // lead and a rest that stack.
+    &__head {
+        display: flex;
+        flex-direction: column;
+        gap: 0.18em;
+        min-width: 0;
+    }
+
+    &__aside {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+        min-width: 0;
+
+        @media (max-width: 900px) {
+            gap: 1.5em;
+        }
+    }
+
     // Matches .intro-paragraph on the home page.
     &__lede {
-        margin: 0.5em 0 0;
+        margin: 0;
         max-width: 65ch;
         font-size: 1.25em;
         font-weight: 600;
@@ -251,11 +281,138 @@
             font-size: 1.1em;
         }
     }
+
+    /* Label and value on one line, labels aligned in a column of their own.
+       A <dl>, because that is what this is: terms and their definitions. The
+       rows are wrapper divs so each pair stays together — a dt/dd pair placed
+       directly in a grid would flow as two independent cells. */
+    &__meta {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 0.55em;
+    }
+
+    &__meta-row {
+        display: grid;
+        grid-template-columns: 7.5em minmax(0, 1fr);
+        gap: 1em;
+        align-items: baseline;
+
+        @media (max-width: 600px) {
+            grid-template-columns: 6em minmax(0, 1fr);
+            gap: 0.75em;
+        }
+
+        dt {
+            margin: 0;
+            color: var(--tertiary-text);
+            font-weight: 500;
+        }
+
+        dd {
+            margin: 0;
+            color: var(--primary-text);
+            font-weight: 550;
+        }
+    }
+}
+
+/* The image that opens the case study, between the header and the body. Full
+   column width and square-cornered, in keeping with the frame treatment
+   elsewhere; `auto` height so a picture of any shape keeps its proportions
+   rather than being cropped to a ratio picked here. */
+.docs-hero-media {
+    // The full width of the content column — the same edge the pictures in the
+    // body reach out to.
+    margin: 2.5em 0 0;
+    width: 100%;
+    overflow: hidden;
+    background: var(--bg-color-high);
+
+    img,
+    video {
+        display: block;
+        width: 100%;
+        height: auto;
+        // The global `figure img` rule does not reach a div, but ProjectDetails
+        // also styles media inside .project-details; nothing should add a frame
+        // to the opener.
+        border: 0;
+        border-radius: 0;
+    }
+
+    .image-skeleton-wrapper {
+        width: 100%;
+    }
+
+    @media (max-width: 767px) {
+        margin-top: 1.75em;
+    }
 }
 
 .project-details {
     position: relative;
     counter-reset: project-section;
+
+    /* Prose and pictures want different widths. The pictures fill the column;
+       the text is held in from both of its edges, so a line never runs the
+       full 960px and every image reads as wider than the words around it.
+
+       The inset is applied to the text, not to this container.
+
+       Padding the container and then negating it on each kind of media is the
+       obvious way round and it is wrong: it makes "flush with the column" a
+       thing every media component has to opt into, so anything not on the list
+       — ScrollWipeCompare, the scrolly blocks, a component added next month —
+       silently renders 136px narrower than the pictures beside it. Insetting
+       the text instead makes full width the default and leaves media alone
+       entirely, whatever it is made of.
+
+       0 below 768 — at that width the column is already narrow, and taking
+       more off it would leave the text in a gutter. */
+    --text-inset: 0px;
+
+    /* Every block that is prose. Markdown emits a closed set of these, so the
+       list is complete for the body; anything else is media and keeps the full
+       column.
+
+       Descendants, not children: the renderer wraps headings in a ScrollReveal
+       <div>, so `section > h3` matched nothing and the headings stayed flush
+       with the column while the paragraphs beside them moved in. Matching them
+       wherever they sit means a wrapper appearing or disappearing around a
+       block cannot silently change its width again. */
+    section :is(h3, h4, h5, h6, p, ul, ol, blockquote, table),
+    .intro :is(h3, h4, p) {
+        padding-left: var(--text-inset);
+        padding-right: var(--text-inset);
+        box-sizing: border-box;
+    }
+
+    /* …except where the block is media wearing a <p>, or text that belongs to
+       a media component and follows that component's own layout. Zeroed rather
+       than left out of the rule above, since the rule matches by descent. */
+    section p:has(figure),
+    section p:has(video),
+    section p:has(img),
+    section p:has(.scroll-reveal),
+    section blockquote p,
+    section :is(figure, .card-grid, .scroll-wipe-compare, .scrolly-before-after, .custom-video) :is(h3, h4, h5, h6, p, ul, ol) {
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    /* rem, not em. An em length in a custom property re-resolves against
+       whichever element reads it: the padding here is 7 × this block's
+       font-size, but the negative margin below is 7 × the image's, and the two
+       came out 12.5px apart — every picture overshot the column. */
+    @media (min-width: 768px) {
+        --text-inset: 4rem;
+    }
+
+    @media (min-width: 1025px) {
+        --text-inset: 7rem;
+    }
 
     // Each markdown <section> is one documentation block: label, hairline, then
     // body at full column width. No two-column heading/body split any more.
@@ -409,15 +566,31 @@
         padding: 0.25em;
     }
 
+    /* Pictures run the whole width of the reader while the prose around them
+       stays on its measure — see the inset at the top of this block.
+
+       `50%` here resolves against whatever box the figure happens to sit in
+       (the padded column, a paragraph markdown wrapped it in, a reveal
+       wrapper), and `50vw` against the window, so the pair lands the edge on
+       the window's edge from any depth without knowing what it is nested in.
+       .reader-mode-body is overflow-x: hidden, which absorbs the scrollbar's
+       width where the platform draws one inside the scroller. */
     figure {
+        // Block, not the flex box index.scss gives every figure: a percentage
+        // margin on a flex item resolves against the flex container and is
+        // then re-centred by the flex algorithm, which landed the breakout
+        // below at half its offset and pushed every picture 172px left.
+        display: block;
         width: 100%;
         max-width: 100%;
-        margin: 1.5em 0;
+        margin: 2.5em 0;
         padding: 0;
         border: none;
         background: transparent;
         box-sizing: border-box;
 
+        // No breakout needed any more — the figure is already at column width,
+        // because nothing padded the container it sits in.
         img {
             width: 100%;
             max-width: 100%;
@@ -425,13 +598,19 @@
             display: block;
             border-radius: 0;
             border: 1px solid var(--border-color);
-            // box-shadow: 0 12px 48px rgba(0, 0, 0, 0.08);
             box-sizing: border-box;
         }
 
+        // Centred under its picture, and inset like the prose so a long
+        // caption wraps on the same measure as the paragraphs around it
+        // rather than running the full width of the image.
         figcaption {
-            text-align: left;
+            text-align: center;
             color: var(--tertiary-text);
+            margin-top: 0.75em;
+            padding-left: var(--text-inset);
+            padding-right: var(--text-inset);
+            box-sizing: border-box;
         }
     }
 
@@ -736,18 +915,11 @@
             padding: 2.25em 0 0.5em;
         }
 
-        figure {
-            width: 100%;
-            max-width: 100%;
-            margin-left: 0;
-            margin-right: 0;
-
-            img {
-                width: 100%;
-                max-width: 100%;
-                height: auto;
-                border-radius: var(--radius-sm);
-            }
+        /* Full bleed here too — the breakout is set on .project-details
+           figure above, and these rules only need to leave it alone. The img
+           inside still fills whatever the figure is. */
+        figure img {
+            height: auto;
         }
     }
 }
@@ -760,11 +932,5 @@
             max-width: 100%;
         }
 
-        figure {
-            margin-left: 0;
-            margin-right: 0;
-            width: 100%;
-            max-width: 100%;
-        }
     }
 }

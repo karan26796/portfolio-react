@@ -178,10 +178,16 @@
     inset: auto;
     transform: none;
     transition: none;
-    padding: 3em 2em 5em;
+    // Published as a property rather than written into the padding directly:
+    // on a phone the card's media breaks back out of this gutter to run edge
+    // to edge, and it has to cancel exactly this much. See
+    // .project-image-single-wrapper in ProjectCard.scss.
+    --card-gutter: 2em;
+    padding: 3em var(--card-gutter) 5em;
 
     @media (max-width: 768px) {
-      padding: 2em 1em;
+      --card-gutter: 1em;
+      padding: 2em var(--card-gutter);
     }
   }
 }

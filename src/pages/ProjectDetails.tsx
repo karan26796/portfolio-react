@@ -5,6 +5,7 @@ import { useParams, useNavigate } from "react-router-dom";
 import "../styles/ProjectDetails.scss";
 import { useProjects } from "../utils/useProjects";
 import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
+import ImageWithSkeleton from "../components/ImageWithSkeleton";
 import CustomVideo from "../components/CustomVideo";
 import ScrollyBeforeAfter, { ScrollyBeforeSlot, ScrollyAfterSlot } from "../components/ScrollyBeforeAfter";
 import ScrollWipeCompare from "../components/ScrollWipeCompare";
@@ -54,6 +55,15 @@ const ProjectDetails: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const contentRef = useRef<HTMLDivElement>(null);
   const bodyRef = useRef<HTMLDivElement>(null);
+  const coverRef = useRef<HTMLDivElement>(null);
+  /**
+   * Whether the cover has been scrolled past.
+   *
+   * The index of sections has nothing to point at while the reader is still on
+   * the title and the cover image — the first heading is below both — so it
+   * stays out of the way until the cover has left the top of the reader.
+   */
+  const [isPastCover, setIsPastCover] = useState(false);
 
   // Fetch the list of all projects dynamically
   const { projects: projectSummaries, loading: projectsLoading } = useProjects();
@@ -102,6 +112,76 @@ const ProjectDetails: React.FC = () => {
       window.removeEventListener("project:next", next);
     };
   });
+
+  useEffect(() => {
+    const root = bodyRef.current;
+    if (!root) return;
+
+    let ticking = false;
+
+    const measure = () => {
+      ticking = false;
+      // The cover if there is one, otherwise the body itself — a project with
+      // no image should still not show the index over its title.
+      const anchor = coverRef.current ?? contentRef.current;
+      if (!anchor) {
+        setIsPastCover(true);
+        return;
+      }
+      const rootTop = root.getBoundingClientRect().top;
+      setIsPastCover(anchor.getBoundingClientRect().bottom <= rootTop + 8);
+    };
+
+    const onScroll = () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(measure);
+    };
+
+    measure();
+    root.addEventListener("scroll", onScroll, { passive: true });
+    window.addEventListener("resize", onScroll);
+    return () => {
+      root.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
+    // Re-measured once the markdown is in: the cover only exists after the
+    // project's data has loaded, and its height decides where the line is.
+  }, [markdownContent, projectsLoading]);
+
+  /**
+   * Locks the document's scroll while a case study is open.
+   *
+   * The home page deliberately stays mounted behind this overlay (see AppShell)
+   * so that closing returns to it untouched — but it keeps its own scrollbar
+   * while it is back there, and the reader has one of its own. That is two
+   * scrollbars side by side, and a wheel gesture drives whichever happens to be
+   * under the pointer: scroll over the reader and the case study moves, scroll
+   * over the margin beside it and the page behind moves instead.
+   *
+   * Hiding the document's overflow leaves exactly one scroller. The browser
+   * keeps the scroll offset of an element it has stopped scrolling, so the home
+   * page is still where it was when the lock is lifted — nothing has to be
+   * measured or restored by hand.
+   */
+  useEffect(() => {
+    const root = document.documentElement;
+    const previousOverflow = root.style.overflow;
+    const previousPadding = root.style.paddingRight;
+
+    // Taking the scrollbar away widens the viewport by its width, which shifts
+    // the whole page sideways as the overlay opens. Padding by the difference
+    // holds it still. It is 0 where scrollbars are overlaid, as on most Macs.
+    const scrollbarWidth = window.innerWidth - root.clientWidth;
+
+    root.style.overflow = "hidden";
+    if (scrollbarWidth > 0) root.style.paddingRight = `${scrollbarWidth}px`;
+
+    return () => {
+      root.style.overflow = previousOverflow;
+      root.style.paddingRight = previousPadding;
+    };
+  }, []);
 
   // The <faq> block is still pulled out of the markdown so it doesn't render
   // as literal markup in the body; nothing displays it any more.
@@ -231,6 +311,31 @@ const ProjectDetails: React.FC = () => {
     [projectSummary?.bgColor]
   );
 
+  /**
+   * The facts beside the summary: label on the left, value on the right.
+   *
+   * Built from whatever the project actually carries rather than from a fixed
+   * list — a row with nothing behind it is worse than a missing row, and not
+   * every project records its tools. `year` arrives pre-formatted as
+   * "Company / 2026", so the year is taken off the end of it.
+   */
+  const heroMeta = React.useMemo(() => {
+    if (!projectSummary) return [] as { label: string; value: string }[];
+    const year = projectSummary.year?.split("/").pop()?.trim();
+    return [
+      { label: "Org", value: projectSummary.company || "" },
+      { label: "Tools", value: (projectSummary.tools || []).join(", ") },
+      { label: "Year", value: year || "" },
+    ].filter((row) => row.value);
+  }, [projectSummary]);
+
+  /**
+   * The media that opens the case study. `images[0]` where a project has a
+   * set, otherwise its single one — the same frame the card in the list leads
+   * with, so arriving here is continuous with clicking it. It may be a video.
+   */
+  const heroMedia = projectSummary?.images?.[0] || projectSummary?.img || "";
+
   // The docs format accents the lead-in of the headline. Our titles read
   // "Name : descriptor", so the name before the colon takes the accent rule
   // and the descriptor follows on its own line.
@@ -272,10 +377,12 @@ const ProjectDetails: React.FC = () => {
                     scrollRootRef={bodyRef}
                     projectIndex={currentIndex + 1}
                     projectCount={validProjectList.length}
+                    visible={isPastCover}
                   />
 
                   <div className="docs-main">
                     <header className="docs-hero">
+                      <div className="docs-hero__head">
                       {projectSummary.year && (
                         <p className="docs-hero__stamp">{projectSummary.year}</p>
                       )}
@@ -292,10 +399,47 @@ const ProjectDetails: React.FC = () => {
                           <span className="docs-hero__title-rest">{titleRest}</span>
                         )}
                       </h1>
-                      {projectSummary.description && (
-                        <p className="docs-hero__lede">{projectSummary.description}</p>
-                      )}
+                      </div>
+
+                      {/* Everything you need before deciding to read on: what
+                          the work was, then the facts of it. Beside the title
+                          on a wide screen, under it once the column narrows. */}
+                      <div className="docs-hero__aside">
+                        {projectSummary.description && (
+                          <p className="docs-hero__lede">{projectSummary.description}</p>
+                        )}
+
+                        {heroMeta.length > 0 && (
+                          <dl className="docs-hero__meta">
+                            {heroMeta.map(({ label, value }) => (
+                              <div className="docs-hero__meta-row" key={label}>
+                                <dt>{label}</dt>
+                                <dd>{value}</dd>
+                              </div>
+                            ))}
+                          </dl>
+                        )}
+                      </div>
                     </header>
+
+                    {/* The project's own media, between the facts and the
+                        argument — the case study proper starts below it.
+
+                        ImageWithSkeleton rather than a bare <img>: several
+                        projects lead with an .mp4 rather than a still, and it
+                        already picks the right element for the file. A <div>
+                        rather than a <figure> because index.scss gives every
+                        `figure img` a border, a radius and 140% width, none of
+                        which belong on a full-column opener. */}
+                    {heroMedia && (
+                      <div className="docs-hero-media" ref={coverRef}>
+                        <ImageWithSkeleton
+                          src={heroMedia}
+                          alt=""
+                          skeletonAspectRatio="16 / 9"
+                        />
+                      </div>
+                    )}
 
                     <div ref={contentRef} className="project-details">
                       {cleanContent ? (

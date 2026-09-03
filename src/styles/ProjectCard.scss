@@ -236,6 +236,17 @@
         color: var(--primary-text);
       }
 
+      // The way in, under the problem copy. The card as a whole is clickable,
+      // but that is a div with a mouse handler — this is the same destination
+      // as something you can see, tab to and press.
+      &__cta {
+        margin-top: 1.25em;
+
+        @media screen and (max-width: 767px) {
+          margin-top: 1em;
+        }
+      }
+
       // Stacked on mobile, solution first.
       @media screen and (max-width: 767px) {
         grid-template-columns: 1fr;
@@ -343,66 +354,45 @@
   border-width: 0 0 1px 0;
   overflow: hidden;
 
-  @media screen and (min-width: 769px) {
-    &:not(.unclickable) {
-      cursor: none !important;
+  /* ── Full-bleed media on a phone ─────────────────────────────────────────
+     The stage card holds the whole card off the edges of the screen, which is
+     right for the copy and wrong for the pictures: at this width the gutter
+     costs more than it earns and the images read as postage stamps. They
+     cancel it and run to both edges instead, while everything else keeps its
+     inset.
 
-      *,
-      a,
-      button,
-      img,
-      div,
-      p,
-      h3,
-      h6,
-      span {
-        cursor: none !important;
+     The clipping has to go with it — the media is now wider than the box it
+     sits in, and `overflow: hidden` would simply cut the breakout back off.
+     It only ever existed for the hover scale, which is desktop-only.
+
+     The breakpoint matches the stage card's own (768, not 767), so there is no
+     width at which the gutter is applied but not cancelled. */
+  @media screen and (max-width: 768px) {
+    &:not(.project-container-small) {
+      overflow: visible;
+
+      .project-image-single-wrapper,
+      .project-card-image-carousel {
+        width: calc(100% + var(--card-gutter, 1em) * 2);
+        margin-left: calc(var(--card-gutter, 1em) * -1);
+        margin-right: calc(var(--card-gutter, 1em) * -1);
       }
 
-      .carousel-dots,
-      .carousel-dot {
-        cursor: pointer !important;
+      // And the slides fill that width, rather than stopping at 90% to let the
+      // next one peek. The peek is a desktop affordance; on a phone it just
+      // made every frame smaller than the screen it was being viewed on. The
+      // dots still say there is more, and swiping still finds it.
+      .project-card-image-carousel .carousel-track {
+        .project-image-wrapper,
+        img.project-image,
+        video.project-image {
+          flex: 0 0 100%;
+          width: 100%;
+        }
       }
     }
   }
 
-  .custom-cursor-read-pill {
-    position: absolute;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 100;
-    display: inline-flex;
-    align-items: center;
-    gap: 0.45em;
-    padding: 0.55em 1.15em;
-    font-size: 0.85em;
-    font-weight: 600;
-    letter-spacing: 0.01em;
-    animation: readCursorPop 0.18s cubic-bezier(0.16, 1, 0.3, 1);
-    white-space: nowrap;
-
-    // The same slab as the primary button: rounded rectangle rather than a
-    // pill, a face that falls off toward the bottom, a halo, and light on the
-    // top edge. The pill is the cursor's version of that button, so it should
-    // not be a second, unrelated shape for the same action.
-    //
-    // No hover or press states here — it has pointer-events: none and is only
-    // ever the resting slab, following the cursor.
-    border-radius: 0.8em;
-    border: 1.5px solid var(--btn-rim);
-    background: linear-gradient(to bottom,
-        var(--btn-face-top),
-        var(--btn-face-bottom));
-    color: var(--btn-text);
-    box-shadow:
-      0 0 0 4px var(--btn-halo),
-      0 5px 12px var(--btn-drop),
-      inset 0 1px 0 var(--btn-bevel);
-
-    svg {
-      flex-shrink: 0;
-    }
-  }
 
   >* {
     position: relative;
@@ -759,17 +749,5 @@
       padding: 0.45em 0.85em;
       font-size: 0.82em;
     }
-  }
-}
-
-@keyframes readCursorPop {
-  from {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(0.5);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
   }
 }

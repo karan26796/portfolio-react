@@ -1,4 +1,14 @@
 .project-sidepanel {
+  // Fades in once the cover has been scrolled past — see `visible` in
+  // ProjectSidePanel.tsx. Being fixed, hiding it moves nothing else.
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+
+  &.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+  }
+
   // Pinned to the page's left corner, out of the flow entirely. It sits inside
   // .docs-layout, which is a plain centred column — left in the flow it stacked
   // above the case study and pushed the whole page down. Fixed also keeps the
@@ -180,5 +190,11 @@
 @media (max-width: 1259px) {
   .project-sidepanel {
     display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .project-sidepanel {
+    transition: none;
   }
 }

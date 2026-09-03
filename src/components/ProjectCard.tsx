@@ -1,5 +1,4 @@
 import React, { useState, useEffect, useRef } from "react";
-import { ArrowRight, ArrowSquareOut } from "@phosphor-icons/react";
 import "../styles/ProjectCard.scss";
 import "../styles/ProjectCardSmall.scss";
 import Buttons from "./Buttons";
@@ -42,11 +41,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   showDivider = true,
   enableTilt = true,
 }) => {
-  const [isSmallScreen, setIsSmallScreen] = useState(false);
   const [tilt, setTilt] = useState(0);
   const [activeDot, setActiveDot] = useState(0);
-  const [cursorPos, setCursorPos] = useState<{ x: number; y: number } | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
   const scrollTrackRef = useRef<HTMLDivElement>(null);
   const imageList = (data.images && data.images.length > 0) ? data.images : [data.img];
   const isCarouselEnabled = variant === "large" && imageList.length > 1;
@@ -81,17 +77,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     }
   }, [enableTilt]);
 
-  useEffect(() => {
-    const checkScreenSize = () => {
-      setIsSmallScreen(window.innerWidth < 768);
-    };
-    checkScreenSize();
-    window.addEventListener('resize', checkScreenSize);
-    return () => window.removeEventListener('resize', checkScreenSize);
-  }, []);
-
-  const handleClick = (e: React.MouseEvent) => {
-    e.preventDefault();
+  /** Where the card goes — its own case study, or an external site. */
+  const openProject = () => {
     if (onClick) {
       onClick();
     } else if (data.url) {
@@ -99,22 +86,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     }
   };
 
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (isSmallScreen || !isClickable) return;
-    const rect = e.currentTarget.getBoundingClientRect();
-    setCursorPos({
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    });
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+    openProject();
   };
 
-  const handleMouseEnter = () => {
-    if (!isSmallScreen && isClickable) setIsHovered(true);
-  };
-
-  const handleMouseLeave = () => {
-    setIsHovered(false);
-    setCursorPos(null);
+  /**
+   * The explicit control inside the card. The event is optional because
+   * Buttons types its onClick as taking none, while React hands it one at
+   * runtime — and stopping propagation is the point: without it the card's own
+   * handler fires straight after this one, opening the project twice.
+   */
+  const handleCtaClick = (e?: React.MouseEvent) => {
+    e?.preventDefault();
+    e?.stopPropagation();
+    openProject();
   };
 
   const renderButton = () => {
@@ -158,30 +144,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     <div
       className={containerClass}
       onClick={isClickable ? handleClick : undefined}
-      onMouseMove={handleMouseMove}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
       style={{
         '--card-accent': data.accentColor || '#00e676',
       } as React.CSSProperties}
     >
-      {isClickable && !isSmallScreen && isHovered && cursorPos && (
-        <div
-          className="custom-cursor-read-pill"
-          style={{
-            left: `${cursorPos.x}px`,
-            top: `${cursorPos.y}px`,
-          }}
-        >
-          <span>{variant === "large" ? "Read" : "Visit"}</span>
-          {variant === "large" ? (
-            <ArrowRight size={14} weight="bold" />
-          ) : (
-            <ArrowSquareOut size={14} weight="bold" />
-          )}
-        </div>
-      )}
-
       {isCarouselEnabled ? (
         <div className="project-card-image-carousel">
           <div
@@ -278,6 +244,28 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   className="project-card-split__problem"
                   dangerouslySetInnerHTML={{ __html: data.newdesc || data.description || "" }}
                 />
+              )}
+
+              {/* The whole card is clickable, but it is a <div> with an
+                  onClick — so until now the only way in was a mouse. This is
+                  the same destination as a real control: reachable by keyboard,
+                  announced as a button, and visible without hovering to
+                  discover the cursor pill. stopPropagation keeps the card's own
+                  handler from firing a second time behind it. */}
+              {isClickable && buttonType !== "none" && (
+                <div className="project-card-split__cta">
+                  <Buttons
+                    className="read-more-button"
+                    text="Read more"
+                    withText
+                    withIcon
+                    iconName="ArrowRight"
+                    iconDirection="right"
+                    size="s"
+                    variant="primary"
+                    onClick={handleCtaClick}
+                  />
+                </div>
               )}
             </div>
           </div>

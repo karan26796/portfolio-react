@@ -10,6 +10,13 @@ interface ProjectSidePanelProps {
   projectIndex?: number;
   /** How many there are to move between. */
   projectCount?: number;
+  /**
+   * Whether the index is showing. A case study opens on its cover, where an
+   * index of sections has nothing to point at yet; the reader raises this once
+   * the cover has been scrolled past. Hidden rather than unmounted, so the
+   * panel keeps its scroll position and its idea of the active section.
+   */
+  visible?: boolean;
 }
 
 const NAV_OFFSET = 100;
@@ -41,6 +48,7 @@ const ProjectSidePanel: React.FC<ProjectSidePanelProps> = ({
   scrollRootRef,
   projectIndex,
   projectCount,
+  visible = true,
 }) => {
   const [activeSection, setActiveSection] = useState<string>("");
   // Which ends of the list are cut off, so the fade only appears where there is
@@ -180,12 +188,17 @@ const ProjectSidePanel: React.FC<ProjectSidePanelProps> = ({
     <nav
       className={[
         "project-sidepanel",
+        visible ? "" : "is-hidden",
         clipped.top ? "is-clipped-top" : "",
         clipped.bottom ? "is-clipped-bottom" : "",
       ]
         .filter(Boolean)
         .join(" ")}
       aria-label="Page sections"
+      // Out of the reading order and the tab order while it is invisible —
+      // otherwise the section links are still reachable behind the cover.
+      aria-hidden={!visible}
+      {...(!visible ? { inert: "" as unknown as boolean } : {})}
     >
       {/* Which case study this is, above the section index. Two counters in
           one column would be confusing, so this one is the project and the
