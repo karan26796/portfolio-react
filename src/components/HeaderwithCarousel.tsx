@@ -195,7 +195,7 @@ const HeaderWithCarousel: React.FC = () => {
                   <span>Obvious</span>
                 </span>
               </IntroDetail>
-              . Experienced across research, prototyping, and code, building
+              . Experienced across research, prototyping, code, and building
               products that fit into people&rsquo;s lives.
               <IntroDetail open={isIntroOpen} step={1}>
                 {" "}Studied design at{" "}

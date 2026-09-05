@@ -73,6 +73,24 @@ const PUSH_SECONDS_PER_STEP = 0.75;
 
 const clamp01 = (n: number) => Math.max(0, Math.min(1, n));
 
+/**
+ * Where each card sits across the page, as a fraction of the space its own
+ * width leaves over: 0 is hard against the left edge, 1 hard against the
+ * right, 0.5 dead centre.
+ *
+ * Four hand-placed lanes rather than a left/right alternation. Alternating
+ * gave every card one of two positions, which reads as a zig-zag; a short
+ * sequence of uneven offsets reads as a spread, with no two consecutive cards
+ * on the same side and nothing landing in the middle. Cycles for lists longer
+ * than four.
+ *
+ * None of them reach 0 or 1. A card pinned flush to an edge reads as a layout
+ * that has run out of room rather than one that placed it there, and it left
+ * the page lopsided — all the slack in one margin. These four sit off-centre
+ * by varying amounts instead, which is the offset the middle two always had.
+ */
+const CARD_LANES = [0.3, 0.72, 0.34, 0.66];
+
 // Paper colours for the handwritten story notes, cycled by project order so
 // no two adjacent notes share one.
 // The palette itself lives in colors.scss as --note-color-1..N; this only
@@ -118,6 +136,43 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
   const handleCardClick = (projectId: string) => {
     navigate(`/project/${projectId}`);
   };
+
+  /**
+   * Marks each card while it is on screen, so its story note can come and go
+   * with it.
+   *
+   * The class is toggled on the element rather than held in state: this fires
+   * on every card as the reader passes it, and re-rendering the whole list —
+   * every card, its carousel, its copy — to show a note would be a lot of work
+   * for one piece of paper. CSS does the rest; see .project-story-note-wrap.
+   *
+   * A threshold rather than the default 0: a note that appeared as the card's
+   * first pixel crossed the edge would flicker in and out on small scrolls
+   * near the boundary. Kept low, though — this is only there to debounce the
+   * boundary, and at 0.35 a tall card had to be a third of the way up the
+   * screen before its note would appear, which read as a wait.
+   */
+  useEffect(() => {
+    const root = containerRef.current;
+    if (!root) return;
+
+    const cards = Array.from(
+      root.querySelectorAll<HTMLElement>(".project-stage-card")
+    );
+    if (cards.length === 0) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          entry.target.classList.toggle("is-in-view", entry.isIntersecting);
+        });
+      },
+      { threshold: 0.08 }
+    );
+
+    cards.forEach((card) => observer.observe(card));
+    return () => observer.disconnect();
+  }, [projectData]);
 
   // Sample each thumbnail's dominant color once, up front, so this section's
   // background can tint toward a pastel version of whichever card is active.
@@ -293,6 +348,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
       <div className="project-stage">
         {projectData.map((project, index) => {
           const offset = index - activeIndex;
+          const lane = CARD_LANES[index % CARD_LANES.length];
           const companyName = companyOf(project);
           // Tenure only shows on the first project under each company.
           const isFirstForCompany = index === 0 || companyName !== companyOf(projectData[index - 1]);
@@ -300,7 +356,11 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
           return (
             <div
               key={project.id}
-              className="project-stage-card"
+              // The side classes are kept for anything that only needs to know
+              // which half of the page the card leans to — the story note uses
+              // them to place itself opposite. The exact position comes from
+              // --card-lane below.
+              className={`project-stage-card ${lane < 0.5 ? "is-left" : "is-right"}`}
               // Read by useSectionAccent: the page's wash takes this project's
               // colour while the card is the thing most on screen.
               // Converted to a wash-strength tint: the card colours are
@@ -309,12 +369,15 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                 project.bgColor || bgColors[project.id] || "#30a46c"
               )}
               style={
-                STICKY_STACK_ENABLED
-                  ? {
-                      transform: `translateY(${offset * 100}%)`,
-                      transitionDuration: pushTransitionDuration,
-                    }
-                  : undefined
+                {
+                  ...(STICKY_STACK_ENABLED
+                    ? {
+                        transform: `translateY(${offset * 100}%)`,
+                        transitionDuration: pushTransitionDuration,
+                      }
+                    : {}),
+                  "--card-lane": lane,
+                } as React.CSSProperties
               }
             >
               {/* In flow the card fades up as it's scrolled to, like the
@@ -374,11 +437,15 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                       // `activeIndex` is 0 from mount, so keying off it alone
                       // played the first note's animation at page load, before
                       // the project list had been scrolled to.
-                      className={`project-story-note-wrap${index % 2 === 0 ? " is-left" : " is-right"}${!STICKY_STACK_ENABLED || (isSectionPinned && index === activeIndex) ? " is-active" : ""}`}
+                      // Opposite the card. The card itself alternates sides
+                      // (see .is-left / .is-right above), so matching parity
+                      // here would pin the note to the same edge the card is
+                      // already against, with the whole of the page's spare
+                      // width sitting empty on the other side. Inverting it
+                      // puts the note in that space.
+                      className={`project-story-note-wrap${lane < 0.5 ? " is-right" : " is-left"}${STICKY_STACK_ENABLED && isSectionPinned && index === activeIndex ? " is-active" : ""}`}
                       style={{
                         ["--note-bg" as string]: noteColorVar(index),
-                        // Hold the unfurl until this card has finished its push.
-                        ["--note-unfurl-delay" as string]: pushTransitionDuration,
                       } as React.CSSProperties}
                     >
                       <div className="project-story-note">{project.story}</div>

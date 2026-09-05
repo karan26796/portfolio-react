@@ -85,6 +85,22 @@
             var(--footer-surface) var(--footer-fade-end));
 }
 
+/* On a phone the whole footer is shorter, so the same percentages put the fade
+   lower down it in absolute terms: it was still filling in at 294px while the
+   profile text started at 285, which left the avatar and name sitting on
+   ground that had not finished arriving. Moved up so the ramp completes inside
+   the marquee and every line of text below it has a solid surface.
+
+   Percentages rather than pixels so this keeps tracking the footer's height as
+   its content changes. */
+@media (max-width: 700px) {
+    .footer-container {
+        --footer-fade-clear: 20%;
+        --footer-fade-mid: 28%;
+        --footer-fade-end: 36%;
+    }
+}
+
 /* The training page hides the marquee (see MARQUEE_HIDDEN_ROUTES), so there is
    no tall band of photos for the fade to happen across — held to 30% it ran
    well into the links instead. It finishes in the first tenth there.
@@ -135,6 +151,7 @@ body:has(.figma-training-main-content) .footer-container {
     position: relative;
     flex-shrink: 0;
     overflow: hidden;
+    border-radius: var(--radius-card, 16px);
 
     // The frame's own pixel size comes from the component as two unitless
     // custom properties, so the frame holds its place before the image lands
@@ -148,6 +165,7 @@ body:has(.figma-training-main-content) .footer-container {
         width: 100%;
         display: block;
         object-fit: cover;
+        border-radius: inherit;
         opacity: 0;
         transition: opacity 0.4s ease;
     }
@@ -306,7 +324,7 @@ body:has(.figma-training-main-content) .footer-container {
        side they were 120px each, and "Schedule a chat" alone is wider than
        that. */
     @media (max-width: 700px) {
-        flex-direction: column;
+        flex-direction: row;
         justify-content: flex-start;
         gap: 1.6em;
     }
@@ -322,7 +340,7 @@ body:has(.figma-training-main-content) .footer-container {
        stack. It costs no height either way — stacking the two sections gives
        back what laying their links out sideways takes. */
     @media (max-width: 700px) {
-        flex-direction: row;
+        flex-direction: column;
         flex-wrap: wrap;
         align-items: baseline;
         // Row gap first, for when a section does wrap onto a second line.

@@ -5,7 +5,8 @@ import ScrollReveal from '../components/ScrollReveal';
 
 import LogoCarousel from "../components/LogoCarousel";
 import FigmaTrainingCarousel from "../components/FigmaTrainingCarousel";
-import { trainingTestimonialsData } from '../utils/trainingData';
+import { trainingTestimonialsData, trainingFaqs } from '../utils/trainingData';
+import AgentPromptCard from '../components/AgentPromptCard';
 
 import iima from "../utils/logos/iima.webp";
 import iimsbp from "../utils/logos/iim-sbp.webp";
@@ -22,6 +23,7 @@ import "../styles/hero.scss";
 // same way the home page's sections drive theirs.
 const TRAINING_ACCENT = "rgba(255, 122, 69, 0.12)";
 const TRAINING_TESTIMONIALS_ACCENT = "rgba(0, 33, 54, 0.10)";
+const TRAINING_FAQ_ACCENT = "rgba(112, 0, 255, 0.07)";
 
 const TrainingList: React.FC = () => {
   usePageSEO({
@@ -46,6 +48,27 @@ const TrainingList: React.FC = () => {
       <FigmaTrainingCarousel />
       <div data-accent={TRAINING_TESTIMONIALS_ACCENT}>
         <TestimonialsSection />
+      </div>
+      <div data-accent={TRAINING_FAQ_ACCENT}>
+        {/* The same section the home page closes with: the questions answered
+            outright, then pills that open the assistant already asking. The
+            pills carry the phrasing its training knowledge actually answers —
+            see the training branch of AISummarizer in App.tsx — so a short
+            label can never land it on a guess. */}
+        <AgentPromptCard
+          faqs={trainingFaqs}
+          questions={[
+            {
+              label: "What a workshop looks like",
+              ask: "What do you cover in a Figma workshop?",
+            },
+            { label: "Who should attend", ask: "Who are these sessions for?" },
+            {
+              label: "Running one for my team",
+              ask: "Can you run a session for my team?",
+            },
+          ]}
+        />
       </div>
     </div>
   );

@@ -10,7 +10,7 @@
     padding: 0;
     border: none;
     background: transparent;
-    border-radius: 0;
+    border-radius: 0.75em;
     transition: transform 0.2s ease;
 
     &:hover {
@@ -24,7 +24,7 @@
         height: 100%;
         display: block;
         object-fit: cover;
-        border-radius: 0;
+        border-radius: 0.75em;
         border: 1px solid var(--border-color);
         
 

@@ -44,8 +44,66 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   const [tilt, setTilt] = useState(0);
   const [activeDot, setActiveDot] = useState(0);
   const scrollTrackRef = useRef<HTMLDivElement>(null);
+  /** The image area the overlay button is positioned inside. */
+  const mediaRef = useRef<HTMLDivElement>(null);
+  /** Latest pointer position within it, and the frame scheduled to apply it. */
+  const pointer = useRef({ x: 0, y: 0 });
+  const followFrame = useRef<number | null>(null);
+  /** Whether the button has been placed at least once on this card. */
+  const hasFollowed = useRef(false);
   const imageList = (data.images && data.images.length > 0) ? data.images : [data.img];
   const isCarouselEnabled = variant === "large" && imageList.length > 1;
+
+  /**
+   * Walks the "Read more" button along with the pointer while it is over the
+   * image.
+   *
+   * Written straight to the element as two custom properties rather than
+   * through state: this fires on every pointer move, and re-rendering the card
+   * — its carousel, its tags, its copy — at that rate to move one button would
+   * be absurd. One rAF per frame at most, so a burst of moves between paints
+   * collapses into a single write.
+   *
+   * The easing is the transform transition in the stylesheet, not a lerp here,
+   * so the button trails the cursor slightly and settles on its own.
+   */
+  const followPointer = (event: React.PointerEvent<HTMLDivElement>) => {
+    const media = mediaRef.current;
+    if (!media) return;
+
+    const rect = media.getBoundingClientRect();
+    pointer.current = { x: event.clientX - rect.left, y: event.clientY - rect.top };
+
+    const apply = () => {
+      const el = mediaRef.current;
+      if (!el) return;
+      el.style.setProperty("--cta-x", `${pointer.current.x}px`);
+      el.style.setProperty("--cta-y", `${pointer.current.y}px`);
+    };
+
+    // The first placement is written straight away rather than waiting for a
+    // frame: the button becomes visible the moment the pointer is over the
+    // image, and a frame's delay would have it fade in at its resting spot and
+    // then slide across to the cursor.
+    if (!hasFollowed.current) {
+      hasFollowed.current = true;
+      apply();
+      return;
+    }
+
+    if (followFrame.current !== null) return;
+    followFrame.current = requestAnimationFrame(() => {
+      followFrame.current = null;
+      apply();
+    });
+  };
+
+  // A card can unmount mid-gesture — scrolled out of a list, or the case study
+  // opening over it — and a frame left scheduled would run against a detached
+  // element.
+  useEffect(() => () => {
+    if (followFrame.current !== null) cancelAnimationFrame(followFrame.current);
+  }, []);
 
   const handleScroll = () => {
     if (scrollTrackRef.current) {
@@ -119,25 +177,44 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         </div>
       );
     }
-    const commonProps = {
-      className: "read-more-button",
-      withIcon: true,
-      iconDirection: "right" as const,
-      size: "s" as "s" | "m",
-    };
     return (
       <Buttons
-        {...commonProps}
         size="s"
         text={variant === "large" ? "Read" : "Visit site"}
         iconName={variant === "large" ? "ArrowRight" : "ArrowSquareOut"}
         withText={true}
-        variant="primary"
+        withIcon={true}
+        iconDirection="right"
+        variant="secondary"
       />
     );
   };
 
   const isClickable = !!(onClick || data.url) && !data.specialStatus;
+
+  /**
+   * The way into the case study.
+   *
+   * Rendered twice, into two slots that never show at the same time: over the
+   * image on a pointer device, where it appears on hover, and under the
+   * problem copy on a phone, where there is no hover to reveal it. The one
+   * that is not in use is `display: none`, which takes it out of the tab order
+   * and out of the accessibility tree too — so this is one button as far as
+   * anyone using the page is concerned, not two.
+   */
+  const readMoreButton =
+    isClickable && buttonType !== "none" ? (
+      <Buttons
+        text="Read more"
+        withText
+        withIcon
+        iconName="ArrowRight"
+        iconDirection="right"
+        size="s"
+        variant="primary"
+        onClick={handleCtaClick}
+      />
+    ) : null;
   const containerClass = `project-container${variant === "small" ? " project-container-small" : ""}${data.specialStatus ? " has-special-status" : ""}${showDivider === false ? " no-divider" : ""}${!isClickable ? " unclickable" : ""}`;
 
   return (
@@ -149,7 +226,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       } as React.CSSProperties}
     >
       {isCarouselEnabled ? (
-        <div className="project-card-image-carousel">
+        <div
+          className="project-card-image-carousel"
+          ref={mediaRef}
+          onPointerEnter={readMoreButton ? followPointer : undefined}
+          onPointerMove={readMoreButton ? followPointer : undefined}
+        >
+          {readMoreButton && <div className="image-overlay-cta">{readMoreButton}</div>}
           <div
             className="carousel-track"
             ref={scrollTrackRef}
@@ -179,7 +262,13 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
         </div>
       ) : (
-        <div className="project-image-single-wrapper">
+        <div
+          className="project-image-single-wrapper"
+          ref={mediaRef}
+          onPointerEnter={readMoreButton ? followPointer : undefined}
+          onPointerMove={readMoreButton ? followPointer : undefined}
+        >
+          {readMoreButton && <div className="image-overlay-cta">{readMoreButton}</div>}
           <ImageWithSkeleton
             containerClassName="project-image-single-inner"
             className="project-image"
@@ -226,7 +315,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           // description as the problem. The numbers are the two blocks
           // (00/01) in reading order, not the card's position in the list.
           <div className="project-card-split">
-            <div className="project-card-split__col">
+            <div className="project-card-split__col project-card-split__col--solution">
               <p className="project-card-split__label">
                 <span className="project-card-split__num">00</span>
                 Solution
@@ -234,7 +323,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               <h3 className="project-card-split__solution">{data.details}</h3>
             </div>
 
-            <div className="project-card-split__col">
+            <div className="project-card-split__col project-card-split__col--problem">
               <p className="project-card-split__label">
                 <span className="project-card-split__num">01</span>
                 Problem
@@ -246,26 +335,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                 />
               )}
 
-              {/* The whole card is clickable, but it is a <div> with an
-                  onClick — so until now the only way in was a mouse. This is
-                  the same destination as a real control: reachable by keyboard,
-                  announced as a button, and visible without hovering to
-                  discover the cursor pill. stopPropagation keeps the card's own
-                  handler from firing a second time behind it. */}
-              {isClickable && buttonType !== "none" && (
-                <div className="project-card-split__cta">
-                  <Buttons
-                    className="read-more-button"
-                    text="Read more"
-                    withText
-                    withIcon
-                    iconName="ArrowRight"
-                    iconDirection="right"
-                    size="s"
-                    variant="primary"
-                    onClick={handleCtaClick}
-                  />
-                </div>
+              {/* The phone's slot for it. On a pointer device this one is
+                  hidden and the copy over the image takes over — see
+                  .project-card-split__cta in ProjectCard.scss. */}
+              {readMoreButton && (
+                <div className="project-card-split__cta">{readMoreButton}</div>
               )}
             </div>
           </div>

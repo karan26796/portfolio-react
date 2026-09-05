@@ -1,5 +1,5 @@
-import React, { useEffect, useRef } from "react";
-import { Sparkle, ArrowBendUpRight } from "@phosphor-icons/react";
+import React, { useEffect, useId, useRef, useState } from "react";
+import { Sparkle, ArrowBendUpRight, CaretDown } from "@phosphor-icons/react";
 import "../styles/AgentPromptCard.scss";
 
 /**
@@ -10,14 +10,14 @@ import "../styles/AgentPromptCard.scss";
 export type AgentPromptQuestion = string | { label: string; ask: string };
 
 export interface AgentPromptCardProps {
-  /** The FAQ entries this summary distils. Only their answers are used. */
+  /** The questions and answers this section shows. */
   faqs: { question: string; answer: string }[];
   /** Questions offered as pills. Each opens the chat already asking it. */
   questions: AgentPromptQuestion[];
   title?: string;
   /** Text introducing the pills. */
   prompt?: string;
-  /** How many summary lines to show. */
+  /** How many entries to show. Defaults to all of them. */
   points?: number;
 }
 
@@ -62,49 +62,25 @@ const askAgent = (question?: string) =>
     new CustomEvent("open-agent-vinod", { detail: question ? { question } : undefined })
   );
 
-/**
- * The plain text of an answer.
- *
- * Answers may be HTML. The accordion these were written for rendered them with
- * dangerouslySetInnerHTML, so authors used lists and <strong> freely — see the
- * <faq> block at the end of public/projects/Project8.md. This summary is plain
- * text, so the markup has to come out rather than be printed as a literal
- * "<ul><li><strong>", which is exactly what it did.
- */
-const toPlainText = (answer: string): string => {
-  const stripped = answer.replace(/<[^>]*>/g, " ");
-  // Entities are decoded by handing the string to a textarea and reading its
-  // value back. A textarea's content model is plain text, so nothing in there
-  // can become an element or fire a handler on the way through — which
-  // assigning to innerHTML on, say, a div would allow.
-  const decoder = document.createElement("textarea");
-  decoder.innerHTML = stripped;
-  return decoder.value.replace(/\s+/g, " ").trim();
-};
-
-/**
- * The opening sentence of an answer.
- *
- * Drawn from the FAQ answers rather than written separately, so the summary can
- * never claim something the page below it does not say. Abbreviations are the
- * catch — "e.g." and the like would split a sentence in the wrong place — so
- * the break has to be a full stop followed by a capital.
- */
-const openingSentence = (answer: string): string => {
-  const trimmed = toPlainText(answer);
-  const match = trimmed.match(/^(.+?[.!?])\s+[A-Z]/);
-  const sentence = (match ? match[1] : trimmed).trim();
-  return sentence.replace(/[.]$/, "");
-};
-
 const AgentPromptCard: React.FC<AgentPromptCardProps> = ({
   faqs,
   questions,
-  title = "A quick summary",
+  title = "FAQ",
   prompt = "You might ask",
-  points = 3,
+  points = faqs.length,
 }) => {
   const sectionRef = useRef<HTMLElement>(null);
+  /**
+   * Which answer is showing. One at a time: the questions are short and the
+   * answers are not, and four open at once is the wall of text this section
+   * exists to avoid.
+   *
+   * The first one starts open. A column of four shut boxes gives no sign of
+   * what is inside them, and the opening answer both shows the shape of what a
+   * row contains and makes it obvious the rows open at all.
+   */
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
+  const panelId = useId();
   /** Last raw intersection, so a late-mounting button can be answered. */
   const onScreen = useRef(false);
 
@@ -141,8 +117,8 @@ const AgentPromptCard: React.FC<AgentPromptCardProps> = ({
     };
   }, []);
 
-  const summary = faqs.slice(0, points).map((faq) => openingSentence(faq.answer));
-  if (summary.length === 0) return null;
+  const entries = faqs.slice(0, points);
+  if (entries.length === 0) return null;
 
   return (
     <section className="agent-summary" ref={sectionRef} aria-label="Ask Agent Vinod">
@@ -156,11 +132,87 @@ const AgentPromptCard: React.FC<AgentPromptCardProps> = ({
         {title}
       </h3>
 
-      <ul className="agent-summary__points">
-        {summary.map((point) => (
-          <li key={point}>{point}</li>
-        ))}
-      </ul>
+      {/* The questions, each opening onto its answer.
+          Rows rather than a list: a question you can see the shape of is
+          easier to scan than a paragraph you have to read to skip, and the
+          answers are only a click away rather than all on the page at once.
+
+          Answers may carry markup — they were authored for an accordion that
+          rendered HTML, and several use lists and <strong>. See the <faq>
+          block at the end of public/projects/Project8.md. */}
+      <div className="agent-summary__faqs">
+        {entries.map((faq, index) => {
+          const isOpen = openIndex === index;
+          const id = `${panelId}-${index}`;
+
+          return (
+            <div
+              className={`agent-faq${isOpen ? " is-open" : ""}`}
+              key={faq.question}
+            >
+              {/* The button lives inside a heading rather than being one.
+                  It sits under the section's own h3, so the questions are h4s,
+                  and wrapping rather than replacing keeps the whole row a
+                  single control — a heading that is itself a button is not
+                  reachable by heading navigation. */}
+              <h4 className="agent-faq__heading">
+              <button
+                type="button"
+                className="agent-faq__question"
+                aria-expanded={isOpen}
+                aria-controls={id}
+                onClick={() => setOpenIndex(isOpen ? null : index)}
+              >
+                <span className="agent-faq__label">{faq.question}</span>
+                {/* The chevron sits in a disc of its own, so the control has a
+                    target and a resting shape even though the row it belongs
+                    to has no surface. It turns over rather than swapping for a
+                    second glyph. */}
+                <span className="agent-faq__toggle" aria-hidden="true">
+                  <CaretDown size="1em" weight="bold" />
+                </span>
+              </button>
+              </h4>
+
+              <div
+                id={id}
+                className="agent-faq__panel"
+                role="region"
+                // Closed, it is out of the reading order and the tab order —
+                // otherwise any link inside an answer is reachable behind a
+                // row that says it is shut.
+                aria-hidden={!isOpen}
+                {...(!isOpen ? { inert: "" as unknown as boolean } : {})}
+              >
+                {/* Two elements, not one. The outer is the clipping frame
+                    and carries no padding of its own — see __answer in
+                    AgentPromptCard.scss for why that matters — and the inner
+                    one holds the copy and its spacing.
+
+                    A paragraph, except where the answer brings its own block
+                    markup: several of these are authored as lists (see the
+                    <faq> block in public/projects/Project8.md), and a <ul>
+                    inside a <p> is invalid — the parser closes the paragraph
+                    before it, which would put the list outside the element
+                    that carries the answer's spacing. */}
+                <div className="agent-faq__answer">
+                  {/<(ul|ol|p|div|h[1-6]|blockquote|table)\b/i.test(faq.answer) ? (
+                    <div
+                      className="agent-faq__answer-body"
+                      dangerouslySetInnerHTML={{ __html: faq.answer }}
+                    />
+                  ) : (
+                    <p
+                      className="agent-faq__answer-body"
+                      dangerouslySetInnerHTML={{ __html: faq.answer }}
+                    />
+                  )}
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </div>
 
       {/* One wrapping row rather than a scrolling rail: every question is worth
           the same, and half of them parked off the right edge meant the ones

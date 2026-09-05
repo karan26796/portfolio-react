@@ -91,3 +91,33 @@ export const tagTextCompany = [
   "Figma for Product Managers",
   "Customised topics"
 ];
+
+/**
+ * The training page's FAQ.
+ *
+ * Every claim here is one the site already makes — the assistant's training
+ * context in App.tsx and the page's own intro paragraph — so the section
+ * cannot drift away from what the rest of the page says.
+ */
+export const trainingFaqs = [
+  {
+    question: "What a session covers",
+    answer:
+      "Auto Layout, design systems, prototyping, design tokens, and design-to-development with AI. The mix is set by the room rather than a fixed syllabus, so a design team and a group of product managers get different sessions.",
+  },
+  {
+    question: "Who they are for",
+    answer:
+      "Beginners through to working professionals — design teams, product managers and students. Over the last 5 years I've taught Figma to more than <strong>10,000 people</strong>.",
+  },
+  {
+    question: "Where I've taught",
+    answer:
+      "Organisations and institutions across <strong>India and the US</strong>, including IIM Ahmedabad, IIM Sambalpur, IIT Madras, Indiana University, FLAME University and Zuddl.",
+  },
+  {
+    question: "The community work behind it",
+    answer:
+      "I led <strong>Friends of Figma, Delhi</strong> for 5 years, running 20+ workshops and events for over 5,000 designers — including hosting Figma Config '24 at IIT Delhi.",
+  },
+];

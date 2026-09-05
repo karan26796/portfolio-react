@@ -45,23 +45,71 @@
   position: absolute;
   overflow: hidden;
   background: var(--bg-color-high);
-  // Squared off, in keeping with the frame treatment elsewhere on the site.
-  border-radius: 0;
-  transition: box-shadow 0.25s ease;
+  /* A shade under full size at rest, growing to it when pointed at, and to
+     whatever fills the window when opened.
 
+     Two properties compose into one transform: --photo-scale is the size, and
+     --push-x/--push-y is how far this photo has been shoved aside to make room
+     for one that is open. They have to share a single `transform` — a second
+     declaration would replace the first, not add to it — which is why they
+     are passed in as custom properties and assembled here.
+
+     Scaled rather than sized: the box stays exactly where the layout put it,
+     so nothing reflows and the field's geometry is untouched. */
+  --photo-scale: 0.92;
+  transform: translate(var(--push-x, 0px), var(--push-y, 0px)) scale(var(--photo-scale));
+  /* Quick. The photographs are rearranging around the one you clicked, and a
+     slow rearrangement reads as the layout deciding what to do rather than as
+     a response to the click. Short enough to feel like the click itself, with
+     just enough curve to not look like a jump cut. */
+  transition:
+    transform 0.18s cubic-bezier(0.33, 0.9, 0.4, 1),
+    opacity 0.18s ease;
+
+  &:hover {
+    --photo-scale: 1;
+  }
+
+  /* Over the ones it is pushing aside. Without this the photo grows *into*
+     its neighbours: they are absolutely positioned siblings, so whichever
+     comes later in the field wins, and the open photo would be half covered
+     by whatever happened to be laid out after it. */
+  &.is-active {
+    z-index: 2;
+  }
+
+  /* Arrives blurred and resolves as the file decodes.
+     The blur is the photograph's own low-resolution ghost, not a placeholder
+     colour, because the browser paints progressively: a photo half-decoded is
+     already recognisable, and clearing the blur at that point reads as the
+     image coming into focus rather than as a box being filled in. Photos the
+     browser already holds are marked loaded on mount and never blur at all,
+     so panning back over ground you have already covered stays still. */
   img {
     width: 100%;
     height: 100%;
+    border-radius: inherit;
+    filter: blur(14px);
+    opacity: 0;
+    // Scaled up a touch so the blur's soft edge falls outside the frame
+    // instead of showing as a pale border around the photograph.
+    transform: scale(1.06);
+    transition:
+      filter 0.55s ease,
+      opacity 0.4s ease,
+      transform 0.55s ease;
+
+    &.is-loaded {
+      filter: none;
+      opacity: 1;
+      transform: none;
+    }
     // The box is already the photo's native aspect ratio, so `cover` only ever
     // guards against a rounding difference — it never actually crops.
     object-fit: cover;
     display: block;
     user-select: none;
     -webkit-user-drag: none;
-  }
-
-  &.is-active {
-    box-shadow: 0 0 0 2px var(--frame-stroke);
   }
 
   &__caption {
@@ -83,6 +131,33 @@
     -webkit-backdrop-filter: blur(8px);
     pointer-events: none;
   }
+
+  /* Under the open photograph rather than inside it, in the page's own text
+     colour: with nothing else competing for attention there is no need for the
+     dark pill that makes a caption readable over an image, and a label sitting
+     below the frame reads as a title for it. */
+  &__caption--open {
+    top: calc(100% + 10px);
+    bottom: auto;
+    left: 0;
+    transform-origin: 0 0;
+    padding: 0;
+    color: var(--secondary-text);
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+  }
+}
+
+/* Everything that is not the open photo.
+   Faded rather than covered by a scrim: the page keeps its own light ground,
+   and the photographs pushed out to the edges stay legible as photographs —
+   which is what says the field is still there, waiting, rather than replaced.
+   Pointer events go with them, so the only things left to click are the open
+   photo and the empty page, and both mean "close". */
+.gallery-canvas-page.is-focused .gallery-canvas-photo:not(.is-active) {
+  opacity: 0.16;
+  pointer-events: none;
 }
 
 /* One-line hint, bottom centre. Kept deliberately quiet — no border, no
@@ -131,5 +206,21 @@
   to {
     opacity: 1;
     transform: translate(-50%, 0);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+
+  // The hold-back and the fade are worth keeping — they are depth cues, not
+  // motion — but they arrive instantly rather than growing. The blur-up goes
+  // entirely: a photograph resolving out of a haze is motion by any reading.
+  .gallery-canvas-photo {
+    transition: none;
+  }
+
+  .gallery-canvas-photo img {
+    filter: none;
+    opacity: 1;
+    transform: none;
+    transition: none;
   }
 }

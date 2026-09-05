@@ -148,11 +148,6 @@ const Footer: React.FC = () => {
           </div>
         </div>
 
-        {/* Content only — the reference sets this in a handwriting face, which
-          isn't in this site's type system. It uses the footer's own styling. */}
-        <p className="footer-availability">
-          Made with ❤️ in React. Hosted on Vercel
-        </p>
 
         {/* Last thing on the page, growing out of the footer's bottom edge. */}
         <PixelGrass />

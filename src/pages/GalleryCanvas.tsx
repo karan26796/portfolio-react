@@ -2,16 +2,13 @@ import React, { useState, useEffect, useRef, useCallback, useMemo } from "react"
 import { MapPin } from "@phosphor-icons/react";
 import "../styles/GalleryCanvas.scss";
 import { LOCATIONS, ASPECT_RATIOS, REGIONS } from "./Gallery";
-import { scatterGallery } from "../utils/galleryLayout";
+import { masonryGallery, PhotoBox } from "../utils/galleryLayout";
 import {
   Camera,
-  Rect,
   Viewport,
   panBy,
   zoomAt,
-  fitTo,
   clampCamera,
-  clampZoom,
   isVisible,
   lerpCamera,
   easeInOutCubic,
@@ -30,30 +27,39 @@ import {
  * momentum: a flung drag coasts to a halt instead of stopping dead.
  */
 
-// The floor is not a constant: it's whatever zoom fits the whole cluster in the
-// current viewport, computed per render below. That makes the opening view also
-// the furthest you can pull back — there is never empty space around the
-// cluster to get lost in. The ceiling stops at 3.5 because the source files
-// (~1800-2000px wide) start upscaling much past 2.5.
-// 3.5 let you push far past any photo's own fit (which lands around 1.4-1.6),
-// so the top of the range was mostly upscaled pixels. 2.0 still allows going a
-// little closer than a fitted photo for detail, without the cliff.
-const GALLERY_MAX_ZOOM = 2.0;
+/* How far the zoom may move either side of the opening view.
+   Five per cent is a nudge, not a journey: the photographs are meant to be
+   seen at one size, and this exists so a pinch or a wheel does something
+   rather than feeling broken. Looking closely at one photograph is the
+   lightbox's job now, not the camera's. */
+const ZOOM_RANGE = 0.4;
 // Used only before the viewport has been measured.
-const FALLBACK_MIN_ZOOM = 0.05;
-// Breathing room around the cluster in the fit-all view.
-const FIT_ALL_PADDING = 50;
+const FALLBACK_ZOOM = 1;
 
 // How much zoom each wheel notch or pinch delivers, as an exponent — so every
 // notch is a constant *ratio* rather than a constant step. At 0.0038 a single
 // 100-unit notch multiplied the zoom by ~1.46, which overshot whatever you
 // were aiming at; 0.0016 makes it ~1.17 and gives the gesture some travel.
-const ZOOM_RATE = 0.0016;
+const ZOOM_RATE = 0.002;
 
-const FIT_PADDING = 70;
-// Small, so a clicked photo nearly fills the screen and the zoom-in lands hard.
-const PHOTO_FIT_PADDING = 48;
 const FLIGHT_MS = 650;
+
+/* The flight to a photo being opened, which is a different job from crossing
+   the field: the photo it lands on is already growing to fill the screen in
+   0.18s, and a camera still gliding half a second after that has finished
+   reads as two separate animations rather than one movement. */
+const FOCUS_FLIGHT_MS = 280;
+
+/* How much of the viewport an opened photo grows to fill. Short of the whole
+   screen on purpose: the photographs it pushes aside stay visible at the
+   edges, which is what keeps this reading as one photograph coming forward out
+   of a field rather than as a slideshow that has replaced it. */
+const FOCUS_FILL = 0.78;
+
+/* How far the rest are shoved out of its way, as a multiple of how far the
+   opened photo's own edges advance. Slightly over 1, so they clear it with a
+   little daylight rather than coming to rest exactly against it. */
+const PUSH_CLEARANCE = 1.25;
 const CULL_MARGIN_PX = 600;
 
 // Camera momentum after a fling.
@@ -78,30 +84,29 @@ const ALL_IMAGES = REGIONS.flatMap((r) => r.images);
 const MOBILE_BREAKPOINT = 750;
 
 // The desktop field, flipped to portrait: same photo sizes, but taller than it
-// is wide. At the opening zoom this leaves images off to the left and right as
-// well as above and below — about 1.3 screens of horizontal travel and 1.0 of
-// vertical — rather than the single column it used to be.
-//
-// 7500 tall was measured against the alternatives: it holds 44% coverage with
-// zero overlaps, where 6000 reaches 60% but starts overlapping and 9000 drops
-// to 38% and reads as empty.
-const MOBILE_SCATTER = {
-  areaWidth: 3900,
-  areaHeight: 7600,
-  minHeight: 380,
-  maxHeight: 620,
-  // Tighter than the previous 60/4400x7500, which sat at 44% coverage and read
-  // as a lot of empty space while panning. This is 50% — a shade fuller than
-  // the desktop field — while still leaving 1.18 x 1.03 screens of travel, so
-  // the opening view can pan in both directions. Going denser still (52% at
-  // 4000x7000) cost the vertical travel entirely.
-  spacing: 34,
+// is wide, because a phone viewport is portrait and a wide field would put most
+// of the gallery off to the sides.
+const MOBILE_MASONRY = {
+  // Three columns of forty photographs: wide enough that there is somewhere to
+  // pan sideways to, narrow enough that pulling right back still leaves each
+  // photo readable rather than a speck.
+  columns: 3,
+  columnWidth: 460,
+  gap: 48,
 };
 
 // How many photos should span the screen at the opening zoom. The zoom is
 // derived from this and the layout's own median photo width, so the column
 // count holds whatever the photo sizes are later tuned to.
-const MOBILE_TARGET_COLUMNS = 4.5;
+/* A little over one: a photograph opens at nearly the full width of the phone,
+   with the edge of its neighbour showing to say the field carries on. */
+const MOBILE_TARGET_COLUMNS = 1.15;
+
+/* Under two, so the opening view holds four or five photographs and the ones
+   at the edges are cut by the frame. The overflow is the point: a screen that
+   ends mid-photograph says there is more of this in every direction, which a
+   view that tidily contains its contents does not. */
+const DESKTOP_TARGET_COLUMNS = 3;
 
 const GalleryCanvas: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -109,6 +114,12 @@ const GalleryCanvas: React.FC = () => {
   const [viewport, setViewport] = useState<Viewport>({ w: 1, h: 1 });
   const [camera, setCamera] = useState<Camera>({ x: 0, y: 0, zoom: 0.4 });
   const [activePhoto, setActivePhoto] = useState<number | null>(null);
+  /** Where the camera was before a photo was opened, so closing can go back. */
+  const cameraBeforeFocusRef = useRef<Camera | null>(null);
+  /** Read by the keydown handler, which is registered once and would not see
+      the state itself change. */
+  const activePhotoRef = useRef<number | null>(null);
+  activePhotoRef.current = activePhoto;
   const [hoveredPhoto, setHoveredPhoto] = useState<number | null>(null);
   const [isPanning, setIsPanning] = useState(false);
   // "Click" reads wrong on a phone. Resolved once on mount rather than per
@@ -123,11 +134,11 @@ const GalleryCanvas: React.FC = () => {
 
   const layout = useMemo(
     () =>
-      scatterGallery(
+      masonryGallery(
         ALL_IMAGES,
         ASPECT_RATIOS,
         LOCATIONS,
-        isMobile ? MOBILE_SCATTER : undefined
+        isMobile ? MOBILE_MASONRY : undefined
       ),
     [isMobile]
   );
@@ -135,14 +146,46 @@ const GalleryCanvas: React.FC = () => {
   // Listeners attach once with `{ passive: false }`, so they read state through
   // refs rather than closing over stale values.
   /**
-   * The zoom that fits the whole cluster. Doubles as the minimum, so zooming
-   * out stops exactly at the view the page opens on. Wide bounds are passed to
-   * fitTo so its own clamp can't interfere with computing the limit.
+   * The zoom the page opens at: whatever puts TARGET_COLUMNS photographs
+   * across the viewport. Derived rather than stored, so resizing the window
+   * re-derives it and the photographs keep their size relative to the screen.
    */
-  const minZoom = useMemo(() => {
-    if (viewport.w <= 1) return FALLBACK_MIN_ZOOM;
-    return fitTo(layout.bounds, viewport, FIT_ALL_PADDING, 0.0001, 1000).zoom;
-  }, [viewport, layout.bounds]);
+  const baseZoom = useMemo(() => {
+    if (viewport.w <= 1 || layout.photos.length === 0) return FALLBACK_ZOOM;
+
+    if (isMobile) {
+      // Median rather than mean or widest: it's the width that actually
+      // characterises a column, and one outlier landscape shot shouldn't
+      // decide the zoom for all forty.
+      const widths = layout.photos.map((p) => p.w).sort((a, b) => a - b);
+      const median = widths[Math.floor(widths.length / 2)] || 1;
+      return viewport.w / (MOBILE_TARGET_COLUMNS * median);
+    }
+
+    return viewport.w / (DESKTOP_TARGET_COLUMNS * (layout.photos[0]?.w || 520));
+  }, [viewport, isMobile, layout.photos]);
+
+  /** The band the camera may zoom within: the opening view, plus or minus 5%. */
+  const minZoom = baseZoom * (1 - ZOOM_RANGE);
+  const maxZoom = baseZoom * (1 + ZOOM_RANGE);
+
+  /**
+   * The camera the page opens at, and the one every reset returns to: the
+   * middle of the field at the base zoom, so there are photographs in every
+   * direction from the off and the edges are something you arrive at.
+   */
+  const homeCamera = useMemo<Camera>(() => {
+    const tile = layout.tile;
+    return clampCamera(
+      {
+        x: tile.w / 2 - viewport.w / (2 * baseZoom),
+        y: tile.h / 2 - viewport.h / (2 * baseZoom),
+        zoom: baseZoom,
+      },
+      tile,
+      viewport
+    );
+  }, [layout.tile, viewport, baseZoom]);
 
   const cameraRef = useRef(camera);
   cameraRef.current = camera;
@@ -150,6 +193,8 @@ const GalleryCanvas: React.FC = () => {
   viewportRef.current = viewport;
   const minZoomRef = useRef(minZoom);
   minZoomRef.current = minZoom;
+  const maxZoomRef = useRef(maxZoom);
+  maxZoomRef.current = maxZoom;
 
   const flightRef = useRef<number | null>(null);
   const glideRef = useRef<number | null>(null);
@@ -169,23 +214,29 @@ const GalleryCanvas: React.FC = () => {
    * all built on the same pre-commit camera — 24 rapid notches produced a
    * single notch of zoom. Composing through setState makes every event land.
    */
+  /**
+   * The field is bounded, so this is also where the edges are enforced: pan and
+   * fling both compose through here, and neither can put the camera anywhere
+   * the photographs are not. Zoom is bounded separately, in zoomAt, which is
+   * handed the band directly.
+   */
   const applyCamera = useCallback(
     (update: (current: Camera) => Camera) =>
       setCamera((current) =>
-        clampCamera(update(current), layout.bounds, viewportRef.current)
+        clampCamera(update(current), layout.tile, viewportRef.current)
       ),
-    [layout.bounds]
+    [layout.tile]
   );
 
   const flyTo = useCallback(
-    (target: Camera) => {
+    (target: Camera, duration = FLIGHT_MS) => {
       stopMotion();
       const from = cameraRef.current;
       const vp = viewportRef.current;
       const start = performance.now();
 
       const step = (now: number) => {
-        const t = Math.min(1, (now - start) / FLIGHT_MS);
+        const t = Math.min(1, (now - start) / duration);
         applyCamera(() => lerpCamera(from, target, easeInOutCubic(t), vp));
         if (t < 1) flightRef.current = requestAnimationFrame(step);
         else flightRef.current = null;
@@ -196,19 +247,33 @@ const GalleryCanvas: React.FC = () => {
     [stopMotion, applyCamera]
   );
 
-  const flyToRect = useCallback(
-    (rect: Rect, padding = FIT_PADDING) =>
-      // The page's zoom band is passed in rather than re-clamped afterwards:
-      // clamping after the fact can only lower a zoom the global cap already
-      // capped, never restore it.
-      flyTo(fitTo(rect, viewportRef.current, padding, minZoomRef.current, GALLERY_MAX_ZOOM)),
-    [flyTo]
-  );
-
-  const fitAll = useCallback(() => {
+  /**
+   * Back to the view the page opened at.
+   *
+   * There is no "fit everything" any more — the zoom band is five per cent
+   * wide, so the whole field never fits on a screen. What a reset can do is
+   * undo the panning and the nudge of zoom, which is what this does.
+   */
+  const resetView = useCallback(() => {
     setActivePhoto(null);
-    flyToRect(layout.bounds, FIT_ALL_PADDING);
-  }, [flyToRect, layout.bounds]);
+    cameraBeforeFocusRef.current = null;
+    flyTo(homeCamera);
+  }, [flyTo, homeCamera]);
+
+  /**
+   * Opens a photo, or closes the one that is open.
+   *
+   * The photo grows where it stands rather than being replaced by an overlay,
+   * so the camera only ever slides sideways to put it in the middle — the zoom
+   * is untouched. The camera it slid from is kept, and closing flies back to
+   * it exactly, so a photo opened near the edge of the field returns you to
+   * the corner you were looking at rather than to the middle of the gallery.
+   */
+  const toggleFocus = useCallback((num: number) => {
+    setActivePhoto((current) => (current === num ? null : num));
+  }, []);
+
+  const closeFocus = useCallback(() => setActivePhoto(null), []);
 
   useEffect(() => {
     const el = containerRef.current;
@@ -226,45 +291,65 @@ const GalleryCanvas: React.FC = () => {
     return () => observer.disconnect();
   }, []);
 
-  // Opening view, re-applied whenever the layout flips between the wide field
-  // and the tall column — the two want different starting cameras.
+  // Opening view, applied once the viewport is measured and again whenever the
+  // layout flips between the wide field and the tall column — the two want
+  // different starting cameras. Not on every homeCamera change: that would
+  // yank the camera home the moment anything resized under it.
   const openedForRef = useRef<boolean | null>(null);
   useEffect(() => {
     if (viewport.w <= 1 || openedForRef.current === isMobile) return;
     openedForRef.current = isMobile;
+    setCamera(homeCamera);
+  }, [viewport, isMobile, homeCamera]);
 
-    const b = layout.bounds;
+  /**
+   * Travels to the photo that has just been opened, and back when it closes.
+   *
+   * In an effect rather than in the click handler, because the flight belongs
+   * to the *change* of which photo is open, not to the click: it also has to
+   * run for Escape, and it used to live inside the `setActivePhoto` updater,
+   * which React may call during render and calls twice under StrictMode. A
+   * flight started from there is a side effect in render — it fired twice,
+   * with the second cancelling the first, and could be discarded entirely.
+   *
+   * Only the position moves; the zoom is left exactly as it was. The photo
+   * grows to fill the screen on its own, and a camera that also zoomed would
+   * fight the band the whole page is pinned to.
+   */
+  const flownForRef = useRef<number | null>(null);
+  useEffect(() => {
+    if (flownForRef.current === activePhoto) return;
+    flownForRef.current = activePhoto;
 
-    if (isMobile) {
-      // Median rather than mean or widest: it's the width that actually
-      // characterises a column, and one outlier landscape shot shouldn't
-      // decide the zoom for all forty.
-      const widths = layout.photos.map((p) => p.w).sort((a, b) => a - b);
-      const median = widths[Math.floor(widths.length / 2)] || 1;
-      const zoom = clampZoom(
-        viewport.w / (MOBILE_TARGET_COLUMNS * median),
-        minZoom,
-        GALLERY_MAX_ZOOM
-      );
+    const vp = viewportRef.current;
+    if (vp.w <= 1) return;
 
-      // Centred both ways, so there are photos in every direction to pan to.
-      setCamera(
-        clampCamera(
-          {
-            x: b.x + b.w / 2 - viewport.w / (2 * zoom),
-            y: b.y + b.h / 2 - viewport.h / (2 * zoom),
-            zoom,
-          },
-          b,
-          viewport
-        )
-      );
-    } else {
-      // The wide field is roughly the viewport's aspect, so the whole cluster
-      // is a legible starting view rather than a wall of thumbnails.
-      setCamera(fitTo(b, viewport, FIT_ALL_PADDING, minZoom, GALLERY_MAX_ZOOM));
+    if (activePhoto === null) {
+      // Nothing to go back to if the view was reset rather than closed —
+      // resetView clears this first, precisely so it can fly home instead.
+      const previous = cameraBeforeFocusRef.current;
+      cameraBeforeFocusRef.current = null;
+      if (previous) flyTo(previous, FOCUS_FLIGHT_MS);
+      return;
     }
-  }, [viewport, isMobile, layout.bounds, minZoom]);
+
+    const photo = layout.photos.find((p) => p.num === activePhoto);
+    if (!photo) return;
+
+    const from = cameraRef.current;
+    // Stored only on the way in, so opening a second photo without closing the
+    // first still returns to where the whole thing began.
+    if (!cameraBeforeFocusRef.current) cameraBeforeFocusRef.current = from;
+
+    flyTo(
+      {
+        zoom: from.zoom,
+        x: photo.x + photo.w / 2 - vp.w / (2 * from.zoom),
+        y: photo.y + photo.h / 2 - vp.h / (2 * from.zoom),
+      },
+      FOCUS_FLIGHT_MS
+    );
+  }, [activePhoto, layout.photos, flyTo]);
 
   // The page itself must not scroll while the canvas owns the viewport.
   useEffect(() => {
@@ -296,7 +381,7 @@ const GalleryCanvas: React.FC = () => {
             Math.exp(-e.deltaY * ZOOM_RATE),
             anchor,
             minZoomRef.current,
-            GALLERY_MAX_ZOOM
+            maxZoomRef.current
           )
         );
       } else {
@@ -369,7 +454,7 @@ const GalleryCanvas: React.FC = () => {
           (startZoom * scale) / c.zoom,
           anchorPoint,
           minZoomRef.current,
-          GALLERY_MAX_ZOOM
+          maxZoomRef.current
         )
       );
     };
@@ -487,7 +572,7 @@ const GalleryCanvas: React.FC = () => {
 
         applyCamera((c) =>
           panBy(
-            zoomAt(c, factor, now.mid, minZoomRef.current, GALLERY_MAX_ZOOM),
+            zoomAt(c, factor, now.mid, minZoomRef.current, maxZoomRef.current),
             dx,
             dy
           )
@@ -560,35 +645,94 @@ const GalleryCanvas: React.FC = () => {
         : layout.photos.find((p) => p.num === drag.photoNum);
 
     if (!photo) {
-      fitAll();
+      // With a photo open the background is the way out of it. Only once
+      // nothing is open does clicking it mean "back to the opening view".
+      if (activePhoto !== null) closeFocus();
+      else resetView();
       return;
     }
 
-    // Clicking the photo you're already on pulls back to the whole cluster, so
-    // a photo is never a dead end.
-    if (activePhoto === photo.num) {
-      setActivePhoto(null);
-      fitAll();
-    } else {
-      setActivePhoto(photo.num);
-      flyToRect(photo, PHOTO_FIT_PADDING);
-    }
+    toggleFocus(photo.num);
   };
 
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape" || e.key === "0") fitAll();
+      if (e.key !== "Escape" && e.key !== "0") return;
+      // Escape closes the open photo first and only resets the view if there
+      // isn't one — otherwise one key would do two things at once.
+      if (activePhotoRef.current !== null) closeFocus();
+      else resetView();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [fitAll]);
+  }, [resetView, closeFocus]);
 
-  const visiblePhotos = layout.photos.filter((p) =>
-    isVisible(p, camera, viewport, CULL_MARGIN_PX)
-  );
+  /**
+   * The photos currently worth mounting: the field is drawn once, so this is
+   * simply the ones near enough the viewport to matter. The margin keeps a
+   * screen's worth of photographs mounted just outside the frame, so panning
+   * reveals images that have already decoded rather than empty boxes.
+   */
+  const visiblePhotos = (() => {
+    if (viewport.w <= 1) return [];
+    return layout.photos.filter((p) => isVisible(p, camera, viewport, CULL_MARGIN_PX));
+  })();
+
+  const openPhoto =
+    activePhoto === null
+      ? null
+      : layout.photos.find((p) => p.num === activePhoto) ?? null;
+
+  /**
+   * How far the open photo grows.
+   *
+   * Worked out in canvas units against the current zoom, so the photo lands at
+   * the same size on screen whatever the camera happens to be doing and
+   * whatever shape the photograph is — a tall one is limited by the height of
+   * the window, a wide one by its width. Never below 1: a photo already larger
+   * than the frame should stay as it is rather than shrink on being opened.
+   */
+  const focusScale = (() => {
+    if (!openPhoto || viewport.w <= 1) return 1;
+    const availableW = (viewport.w * FOCUS_FILL) / camera.zoom;
+    const availableH = (viewport.h * FOCUS_FILL) / camera.zoom;
+    return Math.max(1, Math.min(availableW / openPhoto.w, availableH / openPhoto.h));
+  })();
+
+  /* How far the open photo's own edges advance, which is how far everything
+     else has to move to stay out of its way. */
+  const pushX = openPhoto ? ((focusScale - 1) * openPhoto.w * PUSH_CLEARANCE) / 2 : 0;
+  const pushY = openPhoto ? ((focusScale - 1) * openPhoto.h * PUSH_CLEARANCE) / 2 : 0;
+
+  /**
+   * Where one photo is shoved to while another is open.
+   *
+   * Pushed along each axis by the side it is on rather than radially outward:
+   * what has to be cleared is a rectangle, and a photo directly above the open
+   * one needs to move up, not diagonally. A photo sharing a centre line stays
+   * put on that axis, which is what `Math.sign` of 0 gives.
+   */
+  const shoveFor = (photo: PhotoBox) => {
+    if (!openPhoto || photo.num === openPhoto.num) return { x: 0, y: 0 };
+    const dx = photo.x + photo.w / 2 - (openPhoto.x + openPhoto.w / 2);
+    const dy = photo.y + photo.h / 2 - (openPhoto.y + openPhoto.h / 2);
+    return { x: Math.sign(dx) * pushX, y: Math.sign(dy) * pushY };
+  };
+
+  /**
+   * The blur every photo arrives through, cleared the moment its file has
+   * decoded. Written straight to the element rather than held in state: this
+   * fires for every photo that scrolls into the field, and re-rendering the
+   * canvas each time one of forty images finished loading would be absurd.
+   * Adding a class twice is harmless, which matters because React re-runs an
+   * inline ref callback on every commit.
+   */
+  const markLoaded = (el: HTMLImageElement | null) => {
+    if (el?.complete && el.naturalWidth) el.classList.add("is-loaded");
+  };
 
   return (
-    <div className="gallery-canvas-page">
+    <div className={`gallery-canvas-page${openPhoto ? " is-focused" : ""}`}>
       <div
         ref={containerRef}
         className={`gallery-canvas-page__viewport${isPanning ? " is-panning" : ""}`}
@@ -605,40 +749,67 @@ const GalleryCanvas: React.FC = () => {
           className="gallery-canvas-page__stage"
           style={{ transform: cameraTransform(camera) }}
         >
-          {visiblePhotos.map((photo) => (
-            <div
-              key={photo.num}
-              data-photo={photo.num}
-              className={`gallery-canvas-photo${activePhoto === photo.num ? " is-active" : ""}`}
-              style={{ left: photo.x, top: photo.y, width: photo.w, height: photo.h }}
-              onPointerEnter={() => setHoveredPhoto(photo.num)}
-              onPointerLeave={() => setHoveredPhoto((n) => (n === photo.num ? null : n))}
-            >
-              <img
-                src={`/gallery/${photo.num}.webp`}
-                alt={photo.location}
-                loading="lazy"
-                decoding="async"
-                draggable={false}
-              />
+          {visiblePhotos.map((photo) => {
+            const isOpen = activePhoto === photo.num;
+            const shove = shoveFor(photo);
+            // The photo's total scale, which the caption has to undo on top of
+            // the camera's if it is to hold one size on screen.
+            const scale = isOpen ? focusScale : 0.92;
 
-              {hoveredPhoto === photo.num && (
-                <span
-                  className="gallery-canvas-photo__caption"
-                  // Counter-scaled so the caption holds one size on screen.
-                  style={{ transform: `scale(${1 / camera.zoom})` }}
-                >
-                  <MapPin size={14} /> {photo.location}
-                </span>
-              )}
-            </div>
-          ))}
+            return (
+              <div
+                key={photo.num}
+                data-photo={photo.num}
+                className={`gallery-canvas-photo${isOpen ? " is-active" : ""}`}
+                style={
+                  {
+                    left: photo.x,
+                    top: photo.y,
+                    width: photo.w,
+                    height: photo.h,
+                    "--push-x": `${shove.x}px`,
+                    "--push-y": `${shove.y}px`,
+                    ...(isOpen ? { "--photo-scale": focusScale } : null),
+                  } as React.CSSProperties
+                }
+                onPointerEnter={() => setHoveredPhoto(photo.num)}
+                onPointerLeave={() => setHoveredPhoto((n) => (n === photo.num ? null : n))}
+              >
+                <img
+                  src={`/gallery/${photo.num}.webp`}
+                  alt={photo.location}
+                  loading="lazy"
+                  decoding="async"
+                  draggable={false}
+                  ref={markLoaded}
+                  onLoad={(e) => e.currentTarget.classList.add("is-loaded")}
+                  // A file that fails leaves a permanently invisible box
+                  // otherwise: the blur-up starts at opacity 0 and only `load`
+                  // ever clears it.
+                  onError={(e) => e.currentTarget.classList.add("is-loaded")}
+                />
+
+                {(isOpen || hoveredPhoto === photo.num) && (
+                  <span
+                    className={`gallery-canvas-photo__caption${
+                      isOpen ? " gallery-canvas-photo__caption--open" : ""
+                    }`}
+                    // Counter-scaled so the caption holds one size on screen.
+                    style={{ transform: `scale(${1 / (camera.zoom * scale)})` }}
+                  >
+                    <MapPin size={14} /> {photo.location}
+                  </span>
+                )}
+              </div>
+            );
+          })}
         </div>
       </div>
 
       <p className="gallery-canvas-hint">
-        {tapWord} a photo to zoom in, {tapWord.toLowerCase()} again to zoom out
+        Drag to explore. {tapWord} a photo to open it.
       </p>
+
     </div>
   );
 };

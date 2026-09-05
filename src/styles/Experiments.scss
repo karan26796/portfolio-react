@@ -124,7 +124,7 @@
    through the viewport. Experiments.tsx holds the placement table and the
    scroll handler that writes --px-back / --px-front here.
 
-   The stage is wider than the 1100px column the rest of the home page sits in
+   The stage is wider than the 960px column the rest of the home page sits in
    — the scatter needs the room — but stops short of the page edges, so on a
    wide display the tiles stay a block you can take in rather than a band
    running the full width of the screen.

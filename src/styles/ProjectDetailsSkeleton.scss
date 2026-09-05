@@ -168,7 +168,7 @@
         aspect-ratio: 16 / 9;
         margin: 1.5em 0;
         border: 1px solid var(--border-color);
-        border-radius: 0;
+        border-radius: var(--radius-card, 16px);
         box-sizing: border-box;
 
         @media (max-width: 768px) {

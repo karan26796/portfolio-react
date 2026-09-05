@@ -237,8 +237,7 @@ body.nav-menu-open {
   box-shadow: 0 -12px 40px rgba(0, 0, 0, 0.18);
   animation: nav-sheet-up 0.3s cubic-bezier(0.16, 1, 0.3, 1) both;
 
-  // Squared off, matching the frame treatment used elsewhere on the site.
-  border-radius: 0;
+  border-radius: 1.25em 1.25em 0 0;
 
   &__handle {
     width: 38px;

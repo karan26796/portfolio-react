@@ -25,7 +25,7 @@
     border: 1px solid var(--border-color);
     padding: 4em;
     // background-color: #e5f0ff;
-    // border-radius: 2em;
+    border-radius: 2em;
 
     .carousel-track {
         width: 100%;
@@ -45,6 +45,7 @@
             object-fit: cover;
             width: 100%; // Adjusted to fill the carousel-item
             height: 50vh; // Adjust height to maintain aspect ratio
+            border-radius: var(--border-radius);
         }
     }
 }

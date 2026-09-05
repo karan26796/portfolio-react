@@ -11,20 +11,50 @@
   .project-card-image-carousel {
     position: relative;
     width: 100%;
-    // border-radius: 1.25em;
+    border-radius: 1.25em;
     overflow: hidden;
 
     @media screen and (max-width: 767px) {
-      border-radius: 0;
+      border-radius: 1em;
       // margin: 0 1em;
     }
 
+    /* The web slot for "Read more": over the image, and only while the card
+       is under the pointer. Revealed on :focus-within as well as :hover, so a
+       keyboard reaching the button brings it into view instead of leaving
+       focus on something invisible. */
     .image-overlay-cta {
       position: absolute;
-      top: 1em;
-      right: 1em;
+      /* Pinned to the wrapper's origin and moved entirely by the transform —
+         --cta-x / --cta-y are written by followPointer in ProjectCard.tsx as
+         the pointer moves, the first of them synchronously so the button is
+         already in the right place when it fades in.
+
+         The fallbacks are only ever used before a pointer has touched the
+         card, while the button is invisible. They are 0 rather than 50%
+         because a percentage in `translate` resolves against the element's own
+         box — 50% here would be half a button, not the middle of the image. */
+      top: 0;
+      left: 0;
       z-index: 10;
-      pointer-events: auto;
+      opacity: 0;
+      transform:
+        translate3d(var(--cta-x, 0px), var(--cta-y, 0px), 0)
+        translate(-50%, -50%)
+        translateY(var(--cta-lift, 8px));
+      // Off until it is shown, so an invisible button can never take a click
+      // meant for the card underneath it.
+      pointer-events: none;
+      /* Two speeds on purpose: the fade is its own, while the move is quick
+         enough to keep up with a cursor but slow enough to trail it a little
+         rather than being welded to it. */
+      transition: opacity 0.25s ease, transform 0.16s cubic-bezier(0.22, 1, 0.36, 1);
+
+      // The phone shows it under the problem copy instead, where there is no
+      // hover to reveal anything.
+      @media screen and (max-width: 768px) {
+        display: none;
+      }
 
       .read-more-button,
       button.custom-button {
@@ -52,12 +82,12 @@
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       width: 100%;
-      // border-radius: 1.25em;
+      border-radius: 1.25em;
       -ms-overflow-style: none;
       scrollbar-width: none;
 
       @media screen and (max-width: 767px) {
-        border-radius: 0;
+        border-radius: 1em;
         // margin: 0 1em;
       }
 
@@ -70,13 +100,13 @@
         width: 90%;
         scroll-snap-align: start;
         scroll-snap-stop: always;
-        // border-radius: 1.25em;
+        border-radius: 1.25em;
         border: 1px solid var(--border-color);
         box-sizing: border-box;
         overflow: hidden;
 
         @media screen and (max-width: 767px) {
-          // border-radius: 1em;
+          border-radius: 1em;
         }
 
         img.project-image,
@@ -85,10 +115,10 @@
           height: 100%;
           display: block;
           object-fit: cover;
-          // border-radius: 1.25em;
+          border-radius: 1.25em;
 
           @media screen and (max-width: 767px) {
-            // border-radius: 1em;
+            border-radius: 1em;
           }
         }
       }
@@ -196,17 +226,18 @@
         display: flex;
         align-items: baseline;
         gap: 0.7em;
-        margin: 0 0 0.7em;
+        margin: 0 0 0.2em;
         font-size: 0.95rem;
         font-weight: 700;
         color: var(--secondary-text);
 
         @media screen and (max-width: 767px) {
-          margin: 0;
+          display: none;
         }
       }
 
       &__num {
+        display: none;
         font-family: 'Google Sans Code', Courier, monospace;
         font-weight: 500;
         color: var(--secondary-text);
@@ -229,8 +260,8 @@
 
       &__solution {
         margin: 0;
-        font-size: 1.75em;
-        font-weight: 700;
+        // font-size: 1.75em;
+        font-weight: 650;
         line-height: 1.28;
         letter-spacing: -0.01em;
         color: var(--primary-text);
@@ -239,15 +270,23 @@
       // The way in, under the problem copy. The card as a whole is clickable,
       // but that is a div with a mouse handler — this is the same destination
       // as something you can see, tab to and press.
+      /* The phone's slot. On a pointer device the same button sits over the
+         image and appears on hover, so this one goes — `display: none` rather
+         than `visibility`, to keep it out of the tab order and leave exactly
+         one Read more for anyone tabbing through. */
       &__cta {
         margin-top: 1.25em;
+
+        @media screen and (min-width: 769px) {
+          display: none;
+        }
 
         @media screen and (max-width: 767px) {
           margin-top: 1em;
         }
       }
 
-      // Stacked on mobile, solution first.
+      // Stacked on mobile
       @media screen and (max-width: 767px) {
         grid-template-columns: 1fr;
         column-gap: 0;
@@ -342,6 +381,23 @@
   }
 }
 
+/* Revealed while the card is under the pointer, or when the keyboard has
+   reached the button inside it. Spelled out to the same depth as the rule that
+   hides it — a shorter selector loses on specificity and the button stays
+   invisible. */
+.project-container:not(.project-container-small):hover,
+.project-container:not(.project-container-small):focus-within {
+
+  .project-image-single-wrapper .image-overlay-cta,
+  .project-card-image-carousel .image-overlay-cta {
+    opacity: 1;
+    // Only the resting lift is dropped; the pointer's own offset stays, which
+    // is what the transform above is mostly made of.
+    --cta-lift: 0px;
+    pointer-events: auto;
+  }
+}
+
 .project-container {
   display: flex;
   flex-direction: column;
@@ -373,9 +429,9 @@
 
       .project-image-single-wrapper,
       .project-card-image-carousel {
-        width: calc(100% + var(--card-gutter, 1em) * 2);
-        margin-left: calc(var(--card-gutter, 1em) * -1);
-        margin-right: calc(var(--card-gutter, 1em) * -1);
+        // width: calc(100% + var(--card-gutter, 1em) * 2);
+        // margin-left: calc(var(--card-gutter, 1em) * -1);
+        // margin-right: calc(var(--card-gutter, 1em) * -1);
       }
 
       // And the slides fill that width, rather than stopping at 90% to let the
@@ -383,6 +439,7 @@
       // made every frame smaller than the screen it was being viewed on. The
       // dots still say there is more, and swiping still finds it.
       .project-card-image-carousel .carousel-track {
+
         .project-image-wrapper,
         img.project-image,
         video.project-image {
@@ -451,7 +508,7 @@
     @media screen and (max-width: 767px) {
       aspect-ratio: 6/4;
       border: 1px solid transparent;
-      border-radius: 0 !important;
+      border-radius: 1em !important;
     }
 
     .project-image-single-inner {
@@ -460,7 +517,7 @@
       border-radius: inherit;
 
       @media screen and (max-width: 767px) {
-        border-radius: 0 !important;
+        border-radius: 1em !important;
       }
     }
 
@@ -476,7 +533,7 @@
       transition: all 0.3s linear;
 
       @media screen and (max-width: 767px) {
-        border-radius: 0 !important;
+        border-radius: 1em !important;
       }
     }
   }
@@ -495,7 +552,7 @@
     @media screen and (max-width: 767px) {
       aspect-ratio: 6/4;
       border: 1px solid transparent;
-      border-radius: 0 !important;
+      border-radius: 1em !important;
     }
   }
 
@@ -503,7 +560,7 @@
     position: relative;
     width: 100%;
     overflow: hidden;
-    // border-radius: 1em;
+    border-radius: 1em;
 
     .carousel-track {
       display: flex;
@@ -512,7 +569,7 @@
       scroll-snap-type: x mandatory;
       scroll-behavior: smooth;
       width: 100%;
-      // border-radius: 1em;
+      border-radius: 1em;
       -ms-overflow-style: none;
       scrollbar-width: none;
 
@@ -525,7 +582,7 @@
         width: 92%;
         scroll-snap-align: start;
         scroll-snap-stop: always;
-        // border-radius: 1em;
+        border-radius: 1em;
         border: 1px solid var(--border-color);
         box-sizing: border-box;
 
@@ -534,7 +591,7 @@
           width: 95%;
           aspect-ratio: 7/5;
           border: 1px solid transparent;
-          // border-radius: 1em;
+          border-radius: 1em;
         }
 
         img.project-image,
@@ -749,5 +806,13 @@
       padding: 0.45em 0.85em;
       font-size: 0.82em;
     }
+  }
+}
+/* Following a cursor is the whole idea here, so with reduced motion the button
+   stops trailing and simply sits where the pointer is. The fade stays — it is
+   a change of state, not movement across the screen. */
+@media (prefers-reduced-motion: reduce) {
+  .project-container .image-overlay-cta {
+    transition: opacity 0.2s ease;
   }
 }

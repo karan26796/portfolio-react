@@ -138,3 +138,115 @@ export function scatterGallery(
     bounds: { x: minX, y: minY, w: maxX - minX, h: maxY - minY },
   };
 }
+
+/** A layout that repeats, so panning never reaches an edge. */
+export interface TiledLayout {
+  photos: PhotoBox[];
+  /**
+   * The repeating unit. Every photo sits inside [0,w) × [0,h); the canvas
+   * draws the same set again at every multiple of this in both directions.
+   */
+  tile: Rect;
+}
+
+export interface MasonryOptions {
+  /** Every photo is this wide; height follows from its aspect ratio. */
+  columnWidth?: number;
+  columns?: number;
+  /** Minimum clear space between photos, in canvas units. */
+  gap?: number;
+}
+
+/**
+ * Seven columns, not five.
+ *
+ * The field's proportions decide how much of it a fitted view can use. Forty
+ * photographs in five columns make a tall narrow field, which fits a landscape
+ * screen by its height and wastes most of the width; seven brings the shape
+ * close to a screen's own, so pulling right back fills it. Photo sizes here
+ * are canvas units, not pixels — how large a photograph looks is the opening
+ * zoom's business, in GalleryCanvas.
+ */
+const MASONRY_DEFAULTS: Required<MasonryOptions> = {
+  columnWidth: 520,
+  columns: 7,
+  gap: 64,
+};
+
+/**
+ * Photos on a masonry lattice.
+ *
+ * Columns share one width and sit on a regular pitch; heights come from each
+ * photo's own aspect ratio, so the rows fall out of the pictures rather than
+ * being ruled in advance. That is what separates this from a grid.
+ *
+ * Every column is made *exactly* the same height, which is what gives the
+ * field a straight bottom edge instead of a ragged one — worth having now that
+ * the canvas has edges you can pan to. Columns are filled shortest-first so
+ * their natural heights land close together, then each column's gaps are
+ * stretched by the few pixels needed to meet the common height. Distributing
+ * the difference across every gap in a column keeps it invisible; putting it
+ * all in one gap would read as a hole.
+ */
+export function masonryGallery(
+  images: number[],
+  aspectRatios: Record<number, number>,
+  locations: Record<number, string>,
+  options: MasonryOptions = {}
+): TiledLayout {
+  const { columnWidth, columns, gap } = { ...MASONRY_DEFAULTS, ...options };
+
+  const pitch = columnWidth + gap;
+  const buckets: { num: number; h: number }[][] = Array.from(
+    { length: columns },
+    () => []
+  );
+  const heights = new Array(columns).fill(0);
+
+  // Shortest column first, so no column ends up carrying every tall photo and
+  // needing its gaps stretched much further than its neighbours.
+  for (const num of images) {
+    const aspect = aspectRatios[num] || 1.5;
+    const h = columnWidth / aspect;
+    let shortest = 0;
+    for (let i = 1; i < columns; i++) {
+      if (heights[i] < heights[shortest]) shortest = i;
+    }
+    buckets[shortest].push({ num, h });
+    heights[shortest] += h + gap;
+  }
+
+  // The tile is as tall as the tallest column needs, so no column has to be
+  // squeezed — only stretched.
+  const tileHeight = Math.ceil(Math.max(...heights));
+
+  const photos: PhotoBox[] = [];
+
+  buckets.forEach((bucket, column) => {
+    if (bucket.length === 0) return;
+
+    const content = bucket.reduce((sum, item) => sum + item.h, 0);
+    // Shared out over the gaps *including* the one that wraps past the bottom
+    // edge onto the next copy, which is why it is divided by the count rather
+    // than by the count minus one.
+    const columnGap = (tileHeight - content) / bucket.length;
+
+    let y = 0;
+    bucket.forEach((item) => {
+      photos.push({
+        num: item.num,
+        location: locations[item.num] || "",
+        x: column * pitch,
+        y,
+        w: columnWidth,
+        h: item.h,
+      });
+      y += item.h + columnGap;
+    });
+  });
+
+  return {
+    photos,
+    tile: { x: 0, y: 0, w: columns * pitch, h: tileHeight },
+  };
+}

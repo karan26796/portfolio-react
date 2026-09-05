@@ -73,16 +73,20 @@
     // `.project-container:not(.project-container-small) .project-card` depth
     // to win, hence the extra classes rather than a bare `.project-card`.
     .project-container:not(.project-container-small) .project-card {
-      padding: 1.25em;
+      padding: 1.25em 0;
     }
   }
 
   &__inner {
     width: 100%;
-    // Wider than the site's 960px container: the project image is the point of
-    // the card, and it reads better with the extra width. The text columns
-    // below follow it.
-    max-width: 1100px;
+    // The site's own container width, the same one the masthead above uses.
+    // It was 1100 to give the project image more room; matching the page
+    // reads as more deliberate than the extra width bought.
+    //
+    // The card keeps this measure but no longer sits in the middle of the
+    // page — see .is-left / .is-right below, which push it to one edge or the
+    // other so the run of projects spreads across the full width.
+    max-width: var(--max-width-container);
     // Horizontal only — the vertical margins are left alone so the mobile
     // rule below can use `auto` there to centre the card.
     margin-left: auto;
@@ -111,10 +115,9 @@
     gap: 0.75em;
     margin: 0 0 0.75em;
 
-    // The frame below now supplies the inset at this width, so the header
-    // only needs to clear the frame's own padding.
+    // Hide the gutter heading on mobile
     @media (max-width: 768px) {
-      padding: 0;
+      display: none;
     }
   }
 
@@ -186,9 +189,33 @@
     padding: 3em var(--card-gutter) 5em;
 
     @media (max-width: 768px) {
-      --card-gutter: 1em;
-      padding: 2em var(--card-gutter);
+      --card-gutter: 1.5em;
+      padding: var(--card-gutter);
     }
+  }
+}
+
+.project-stage-card.is-in-view .project-story-note-wrap {
+  opacity: 1;
+}
+
+/* Where each card sits across the page.
+   The card keeps its 960px measure and is placed within whatever room that
+   leaves: --card-lane is a 0–1 fraction set per card in ProjectList.tsx, so 0
+   is hard left, 1 is hard right, and the values in between are what stop the
+   run reading as a two-position zig-zag.
+
+   A margin rather than a transform: the card stays in layout, so nothing
+   overlaps and nothing overflows the page. max() guards the narrow case where
+   the column is wider than the space available and the slack would go
+   negative.
+
+   Centred again below 900, where there is no spare width to place into and an
+   offset card would only be a narrower one. */
+@media (min-width: 900px) {
+  .project-stage-card .project-stage-card__inner {
+    margin-left: calc(var(--card-lane, 0.5) * max(0px, 100% - var(--max-width-container)));
+    margin-right: auto;
   }
 }
 
@@ -227,8 +254,19 @@
 .project-story-note-wrap {
   display: none;
 
-  @media (min-width: 1660px) {
+  /* 1660 was the threshold while the card sat in the middle of the page: the
+     note needed a clear 230px beyond the card on *both* sides, since either
+     could be the one in use. The card now sits against one edge and the note
+     goes opposite it, so the space only has to exist on that side — 960 of
+     card, 64 of gutter, 190 of note and a 40px gap comes to about 1254. */
+  @media (min-width: 1260px) {
     display: block;
+    /* Hidden until its card is on screen, and hidden again once it leaves —
+       see the IntersectionObserver in ProjectList.tsx. Four notes standing in
+       the margins for the whole page read as clutter; one arriving as you
+       reach its project reads as a margin note. */
+    opacity: 0;
+    transition: opacity 0.35s ease;
     position: absolute;
     top: 2.5em;
     width: 190px;
@@ -257,8 +295,15 @@
     transform: rotate(var(--note-rotate)) rotateX(-88deg) translateY(-10px);
   }
 
-  60% {
+  /* Up to full opacity in the first quarter of the animation rather than over
+     two thirds of it. The tipping motion can take its time; the paper being
+     *there* cannot, or the note reads as arriving late however short the
+     animation is. */
+  25% {
     opacity: 1;
+  }
+
+  60% {
     transform: rotate(var(--note-rotate)) rotateX(7deg) translateY(0);
   }
 
@@ -296,21 +341,22 @@
     --note-rotate: 3deg;
   }
 
+  .project-stage-card.is-in-view .project-story-note-wrap &,
   .project-story-note-wrap.is-active & {
     animation-name: note-unfurl;
-    animation-duration: 0.7s;
+    animation-duration: 0.45s;
     animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
-    // Held until the card has finished sliding into place (the delay is set
-    // inline to the card's push duration). Without it the unfurl runs while
-    // the card is still travelling up from off-screen, so it's over before
-    // the note is ever visible — only the very first note, whose card is
-    // already in place, appeared to animate. `both` keeps the note in its
-    // rolled-up first frame during the wait.
-    animation-delay: var(--note-unfurl-delay, 0s);
+    /* No delay. This used to be held back by the card's push duration, on the
+       reasoning that the unfurl was wasted while the card was still travelling
+       — but the wait was the thing you actually noticed, and a note that
+       unfurls on its way in reads better than one that waits its turn.
+       `both` still holds the first frame if a delay is ever set again. */
     animation-fill-mode: both;
   }
 
   @media (prefers-reduced-motion: reduce) {
+
+    .project-stage-card.is-in-view .project-story-note-wrap &,
     .project-story-note-wrap.is-active & {
       animation-name: none;
     }

@@ -52,9 +52,7 @@
   // A pressable slab, per the reference: charcoal face with a bevel along its
   // top edge, a dark rim, and a light halo separating it from the page.
   &.custom-button-primary {
-    // Not the pill the other sizes use — the reference is a rounded rectangle,
-    // and in em so the corner keeps its proportion at every size.
-    border-radius: 0.8em;
+    border-radius: var(--radius-sm);
     border: 1.5px solid var(--btn-rim);
     background: linear-gradient(
       to bottom,

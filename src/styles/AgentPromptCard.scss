@@ -8,11 +8,11 @@
   // width: 100%;
   max-width: var(--max-width-container);
   margin: 0 auto;
-  padding: 2em;
-  background-color: var(--bg-color);
+  padding: 2em 0 6em 0;
+  // background-color: var(--bg-color);
   box-sizing: border-box;
-  border: 1px solid var(--border-color);
-  border-radius: var(--radius-sm);
+  // border: 1px solid var(--border-color);
+  // border-radius: var(--radius-sm);
 
   @media (max-width: 767px) {
     margin: 4em 1em 4em 1em;
@@ -21,12 +21,15 @@
 
 
   &__title {
-    display: flex;
+    display: none;
     align-items: center;
     gap: 0.45em;
-    margin: 0 0 0.9em;
-    font-size: 1.15em;
-    font-weight: 650;
+    margin: 0 0 0.6em;
+    // Matched to the section headings above it — at 1.15em this one read as a
+    // label belonging to the section before it rather than the start of a new
+    // one.
+    // font-size: 1.5em;
+    // font-weight: 650;
     letter-spacing: -0.015em;
     color: var(--primary-text);
   }
@@ -36,33 +39,197 @@
     color: var(--ai-accent);
   }
 
-  &__points {
-    margin: 0 0 1.6em;
-    padding-left: 1.2em;
-    list-style: none;
+  /* Each question carries its own border now, so the rows are separated by a
+     gap rather than by a shared hairline — two bordered boxes stacked flush
+     would read as one double-ruled box. */
+  &__faqs {
     display: flex;
     flex-direction: column;
-    gap: 0.9em;
+    gap: 1em;
+    margin: 0 0 1.8em;
+  }
+}
 
-    li {
-      position: relative;
-      font-size: 1.02em;
-      line-height: 1.5;
-      color: var(--secondary-text);
+/* One bordered box per question, holding its answer as well.
+   The border is on the row rather than on the button inside it, so opening an
+   answer grows the same box downwards instead of adding a second frame under
+   the first. Its four sides and its corners are the same whether the answer is
+   open or shut — a frame that changed shape on opening would make the row look
+   like it had become a different kind of thing. */
+.agent-faq {
+  background-color: var(--bg-color-high);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-lg, 10px);
+  transition: border-color 0.18s ease;
 
-      &::before {
-        content: "";
-        position: absolute;
-        left: -1.2em;
-        top: 0.62em;
-        width: 4px;
-        height: 4px;
-        border-radius: 50%;
-        background: var(--tertiary-text);
-      }
+  &:hover {
+    // border-color: color-mix(in srgb, var(--primary-text) 24%, var(--border-color));
+  }
+
+  /* The heading is structure only — it carries no size, weight or spacing of
+     its own, so the row looks exactly as it did when it was a bare button. */
+  &__heading {
+    margin: 0;
+    font: inherit;
+    color: inherit;
+  }
+
+  &__question {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.25em;
+    width: 100%;
+    // Horizontal padding to match the box it now sits inside: text running to
+    // the edge of the frame reads as a box that is too small rather than as a
+    // label sitting inside one.
+    padding: 1.15em;
+    border: 0;
+    background: none;
+    font: inherit;
+    // Clearly above the answer it opens onto, which is what makes a closed
+    // list scannable; still short of the section heading.
+    // font-size: 1.2em;
+    // Regular-ish: the row is a question, not a heading, and the hairline
+    // already separates one from the next.
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: left;
+    color: var(--primary-text);
+    cursor: pointer;
+
+    &:focus-visible {
+      outline: 2px solid var(--highlight-color);
+      // Drawn inside the button. It fills the top of the box edge to edge, so
+      // an outward ring would sit on top of the box's own border and read as
+      // a thickened frame rather than as focus.
+      outline-offset: -3px;
+      border-radius: var(--radius-sm, 10px);
+    }
+
+    @media (max-width: 767px) {
+      padding: 1.1em 1em;
+      font-size: 1.1em;
+      gap: 0.9em;
     }
   }
 
+  &__label {
+    min-width: 0;
+    font-size: 1.25em;
+    font-weight: 600;
+  }
+
+  /* The disc. Its own resting shape, since the row has none. */
+  &__toggle {
+    flex: none;
+    display: grid;
+    place-items: center;
+    width: 1.9em;
+    height: 1.9em;
+    border-radius: 50%;
+    // background: color-mix(in srgb, var(--primary-text) 7%, transparent);
+    color: var(--secondary-text);
+    transition:
+      transform 0.28s cubic-bezier(0.4, 0, 0.2, 1),
+      background 0.2s ease,
+      color 0.2s ease;
+  }
+
+  &__question:hover &__toggle {
+    // background: color-mix(in srgb, var(--primary-text) 12%, transparent);
+    color: var(--primary-text);
+  }
+
+  &.is-open &__toggle {
+    // Turned over, rather than swapped for a second glyph.
+    transform: rotate(180deg);
+    color: var(--primary-text);
+  }
+
+  /* The answer.
+     grid-template-rows 0fr -> 1fr animates to the content's own height. A
+     max-height would have to be guessed: too small clips the longer answers,
+     too large spends most of the transition crossing empty space, which makes
+     opening look slow and closing look like a snap. */
+  &__panel {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  &.is-open &__panel {
+    grid-template-rows: 1fr;
+  }
+
+  /* The clipping frame, and nothing else.
+     Both properties are needed for the row to collapse: overflow hides the
+     copy mid-transition, min-height: 0 stops the grid item insisting on its
+     content's height.
+
+     Nothing may be padded here. `overflow: hidden` clips to the *padding* box,
+     so a padded grid item never collapses past its own padding — a
+     padding-bottom on this element left a strip of every answer showing above
+     its closed question, and held each closed row open by that much. Spacing
+     goes on __answer-body inside it, which is free to have any height it
+     likes because its parent is the thing being measured. */
+  &__answer {
+    overflow: hidden;
+    min-height: 0;
+  }
+
+  &__answer-body {
+    // A paragraph brings its own margins; the spacing here is deliberate.
+    margin: 0;
+    // Body size, not the question's: __question is scaled up from the row, and
+    // an answer inheriting that would read as a second heading.
+    font-size: 1em;
+    line-height: 1.6;
+    color: var(--secondary-text);
+    /* Indented to where the question's own text starts, so the answer reads as
+       belonging to the box above it rather than starting a new column. Held
+       clear of the chevron on the right so a long answer does not run under
+       it, and given room below before the next question begins. */
+    padding: 0.9em 3.4em 1.1em 1.15em;
+
+    >* {
+      margin: 0 0 0.6em;
+
+      &:first-child {
+        margin-top: 0;
+      }
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+    }
+
+    ul,
+    ol {
+      padding-left: 1.2em;
+    }
+
+    strong,
+    b {
+      color: var(--primary-text);
+      font-weight: 600;
+    }
+
+    @media (max-width: 767px) {
+      padding: 0.8em 1em 1em;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .agent-faq__panel,
+  .agent-faq__toggle {
+    transition: none;
+  }
+}
+
+.agent-summary {
   /* ── The questions ────────────────────────────────────────────────────── */
 
   &__ask {
