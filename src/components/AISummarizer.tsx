@@ -116,6 +116,15 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
     // section offers the assistant with better questions than this button can,
     // so the button stands down rather than floating on top of it.
     const [supersededByCard, setSupersededByCard] = useState(false);
+    /**
+     * Which suggested question is armed for Enter.
+     *
+     * The panel offers its questions as a list to move through rather than as
+     * chips to hit, so one of them is always the one Select would send. Reset
+     * to the top whenever the list changes, since the old index would point at
+     * a different question.
+     */
+    const [choiceIndex, setChoiceIndex] = useState(0);
     const messagesEndRef = useRef<HTMLDivElement>(null);
 
     // Anything beyond the opening greeting means the reader has already asked
@@ -153,6 +162,8 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
     useEffect(() => {
         if (isOpen) scrollToBottom();
     }, [messages, isOpen, isGenerating, suggestedPrompts]);
+
+    useEffect(() => setChoiceIndex(0), [suggestedPrompts]);
 
     useEffect(() => {
         const handleKeyDown = (e: KeyboardEvent) => {
@@ -285,9 +296,45 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
         }
     };
 
-    const handleKeyDownInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
-        if (e.key === 'Enter' && !isGenerating) handleSendMessage();
+    /** What Select (and Enter) will send: your own words if you have any. */
+    const armedChoice = suggestedPrompts[choiceIndex];
+    const canSend = !isGenerating && Boolean(inputText.trim() || armedChoice);
+
+    const submit = () => {
+        if (isGenerating) return;
+        if (inputText.trim()) handleSendMessage();
+        else if (armedChoice) handleSendMessage(armedChoice);
     };
+
+    /**
+     * The arrow keys move between the offered questions, so the whole panel can
+     * be worked from the keyboard without tabbing through it — which is the
+     * point of a list of choices rather than a row of chips. Typing anything
+     * takes precedence: the moment there are words in the field, Enter sends
+     * those instead of the armed question.
+     */
+    const handleKeyDownInput = (e: React.KeyboardEvent<HTMLInputElement>) => {
+        if (isGenerating) return;
+
+        if ((e.key === 'ArrowDown' || e.key === 'ArrowUp') && suggestedPrompts.length > 0) {
+            e.preventDefault();
+            const step = e.key === 'ArrowDown' ? 1 : -1;
+            setChoiceIndex((i) => (i + step + suggestedPrompts.length) % suggestedPrompts.length);
+            return;
+        }
+
+        if (e.key === 'Enter') submit();
+    };
+
+    /* The current turn, read off the transcript rather than tracked
+       separately: the thread is still the source of truth, this is only a
+       different way of showing it. */
+    const lastMessage = messages[messages.length - 1];
+    const spokenLine = lastMessage?.content ?? '';
+    /* No echo of the question above the answer: every reply from
+       findInterviewAnswer already opens with the matched question as a
+       heading, so a "you asked" line printed the same sentence twice. That
+       heading is styled as the question line instead — see __line h3. */
 
     if (!text) return null;
 
@@ -333,79 +380,102 @@ const AISummarizer: React.FC<AISummarizerProps> = ({ text, initialPrompts, butto
                 </button>
             </div>
 
-            {/* ── CHAT WINDOW ── */}
+            {/* ── DIALOGUE PANEL ──
+                A single spoken line with the choices under it, rather than a
+                scrolling thread. The exchange runs the same way it always did
+                — greeting, questions on offer, an answer, fresh questions —
+                but only the current turn is on screen, which is what lets the
+                panel be a band across the bottom instead of a window. */}
             {isOpen && (
-                <div className="ai-chat-window">
-                    {/* The header is gone, but the way out cannot be: on a
-                        phone this window is the whole screen, so the close
-                        button floats over the top-right corner instead. */}
-                    <button className="ai-close-btn" onClick={() => setIsOpen(false)} aria-label="Close chat">
-                        <X size={18} weight="bold" />
-                    </button>
+                <div className="ai-dialogue" role="dialog" aria-label="Agent Vinod">
+                    <div className="ai-dialogue__panel">
+                        <div className="ai-dialogue__bar">
+                            <span className="ai-agent-label-row">
+                                <span className="ai-avatar">
+                                    <Sparkle size={12} weight="fill" />
+                                </span>
+                                <span className="ai-agent-name">Agent Vinod · AI</span>
+                            </span>
+                            <button
+                                className="ai-dialogue__close"
+                                onClick={() => setIsOpen(false)}
+                                aria-label="Close"
+                            >
+                                <X size={16} weight="bold" />
+                            </button>
+                        </div>
 
-                    <div className="ai-chat-messages">
-                        {messages.map((msg, index) => (
-                            <div key={index} className={`ai-msg-row ${msg.role}`}>
-                                {msg.role === 'bot' && (
-                                    <div className="ai-agent-label-row">
-                                        <div className="ai-avatar">
-                                            <Sparkle size={12} weight="fill" />
-                                        </div>
-                                        <span className="ai-agent-name">Agent Vinod · AI</span>
-                                    </div>
+                        {/* The line being spoken. Long answers scroll inside
+                            here rather than growing the panel off the screen. */}
+                        <div className="ai-dialogue__body">
+                            {/* The received bubble the thread used to be made
+                                of, tail and all — there is simply only ever
+                                one of them now. */}
+                            <div className="ai-dialogue__line ai-bubble bot" aria-live="polite">
+                                {spokenLine === '' && isGenerating ? (
+                                    <span className="ai-typing-indicator">
+                                        <span />
+                                        <span />
+                                        <span />
+                                    </span>
+                                ) : (
+                                    <ReactMarkdown rehypePlugins={[rehypeRaw]}>
+                                        {spokenLine}
+                                    </ReactMarkdown>
                                 )}
-
-                                <div className={`ai-bubble ${msg.role}`}>
-                                    {msg.content === '' && isGenerating ? (
-                                        <div className="ai-typing-indicator">
-                                            <span />
-                                            <span />
-                                            <span />
-                                        </div>
-                                    ) : (
-                                        <ReactMarkdown rehypePlugins={[rehypeRaw]}>
-                                            {msg.content}
-                                        </ReactMarkdown>
-                                    )}
-                                </div>
                             </div>
-                        ))}
 
-                        {/* Suggested Follow-up Prompts inside chat body */}
+                            <div ref={messagesEndRef} />
+                        </div>
+
                         {!isGenerating && suggestedPrompts.length > 0 && (
-                            <div className="ai-chips">
+                            <ul className="ai-dialogue__choices">
                                 {suggestedPrompts.map((prompt, idx) => (
-                                    <button
-                                        key={idx}
-                                        className="ai-chip"
-                                        onClick={() => handleSendMessage(prompt)}
-                                    >
-                                        {prompt}
-                                    </button>
+                                    <li key={idx}>
+                                        <button
+                                            className={`ai-dialogue__choice${
+                                                idx === choiceIndex ? ' is-armed' : ''
+                                            }`}
+                                            // Pointing at a choice arms it, so the
+                                            // mouse and the arrow keys drive the
+                                            // same one thing rather than each
+                                            // having its own idea of what is next.
+                                            onMouseEnter={() => setChoiceIndex(idx)}
+                                            onFocus={() => setChoiceIndex(idx)}
+                                            onClick={() => handleSendMessage(prompt)}
+                                        >
+                                            {prompt}
+                                        </button>
+                                    </li>
                                 ))}
-                            </div>
+                            </ul>
                         )}
 
-                        <div ref={messagesEndRef} />
-                    </div>
-
-                    <div className="ai-chat-footer">
-                        <input
-                            type="text"
-                            value={inputText}
-                            onChange={(e) => setInputText(e.target.value)}
-                            onKeyDown={handleKeyDownInput}
-                            placeholder={isGenerating ? "Agent Vinod is typing…" : "Reply to Agent Vinod…"}
-                            disabled={isGenerating}
-                        />
-                        <button
-                            className="ai-send-btn"
-                            onClick={() => handleSendMessage()}
-                            disabled={!inputText.trim() || isGenerating}
-                            aria-label="Send message"
-                        >
-                            <ArrowUp size={18} weight="bold" />
-                        </button>
+                        <div className="ai-dialogue__footer">
+                            <input
+                                type="text"
+                                className="ai-dialogue__input"
+                                value={inputText}
+                                onChange={(e) => setInputText(e.target.value)}
+                                onKeyDown={handleKeyDownInput}
+                                placeholder={
+                                    isGenerating ? 'Thinking…' : 'Or type your own question…'
+                                }
+                                disabled={isGenerating}
+                                autoFocus
+                            />
+                            <button
+                                className="ai-send-btn"
+                                onClick={submit}
+                                disabled={!canSend}
+                                // It sends whichever is in play: your own words
+                                // if you have typed any, otherwise the question
+                                // currently armed in the list above.
+                                aria-label={inputText.trim() ? 'Send message' : 'Ask the selected question'}
+                            >
+                                <ArrowUp size={18} weight="bold" />
+                            </button>
+                        </div>
                     </div>
                 </div>
             )}
