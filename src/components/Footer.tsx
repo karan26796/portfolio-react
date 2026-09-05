@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import ScrollReveal from "./ScrollReveal";
-import GitHubCommitBoard from "./GitHubCommitBoard";
+import GitHubCommitBoard, { useGitHubActivity } from "./GitHubCommitBoard";
 import PixelGrass from "./PixelGrass";
 import "../styles/Footer.scss";
 
@@ -84,6 +84,15 @@ const MarqueeFrame: React.FC<{ image: MarqueeImage }> = ({ image }) => {
 const Footer: React.FC = () => {
   const location = useLocation();
   const showMarquee = !MARQUEE_HIDDEN_ROUTES.includes(location.pathname);
+  const { activity, loading, failed } = useGitHubActivity();
+
+  /* The handle's slot, filled with the account's own numbers. It holds the
+     handle while the figure is on its way and if it never arrives, so the line
+     is never empty and never jumps from one thing to nothing. */
+  const commitSummary =
+    loading || failed || !activity
+      ? "@karan26796"
+      : `${activity.totalCommits} commits / 6 months`;
 
   return (
     // The shell bounds how far the footer rides over the page — see
@@ -106,7 +115,10 @@ const Footer: React.FC = () => {
               <img src="/gallery/profile.webp" alt="" className="footer-profile-avatar" />
               <div className="footer-profile-text">
                 <span className="footer-profile-name">Karan Kapoor</span>
-                <span className="footer-profile-handle">@karan26796</span>
+                {/* What the account has actually been doing, rather than what
+                    it is called — the grid below is the same figure drawn out,
+                    and the handle is a click away on any of the links. */}
+                <span className="footer-profile-handle">{commitSummary}</span>
               </div>
             </div>
             <GitHubCommitBoard compact />

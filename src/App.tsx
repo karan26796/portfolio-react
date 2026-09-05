@@ -41,6 +41,7 @@ const About = React.lazy(() => import("./pages/About"));
 // photo data (locations, aspect ratios, groupings) that GalleryCanvas imports,
 // and can be routed back here if the canvas doesn't stick.
 const GalleryCanvasPage = React.lazy(() => import("./pages/GalleryCanvas"));
+import PortfolioLoader from "./components/PortfolioLoader";
 const TrainingList = React.lazy(() => import("./pages/FigmaTraining"));
 const Resume = React.lazy(() => import("./components/Resume"));
 const ResumeStandalone = React.lazy(() => import("./pages/ResumeStandalone"));
@@ -97,6 +98,9 @@ const AppShell: React.FC = () => {
 
   return (
     <div className="app-shell">
+      {/* Over everything, and its own decision whether to appear at all — it
+          shows once a session and leaves as soon as the page is ready. */}
+      <PortfolioLoader />
       <Dock />
       <div className="app-center">
         {isHomeOrProject && <HomePage />}

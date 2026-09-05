@@ -98,8 +98,18 @@
       text-transform: uppercase;
       letter-spacing: 0.05em;
     }
+
+    // The coverage note is a caveat, not part of the label — set back so the
+    // heading still reads as one word.
+    .grid-header-note {
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: normal;
+      color: var(--tertiary-text, var(--secondary-text));
+    }
   }
 
+  // A square a day, a week to a row.
   .contribution-grid {
     display: grid;
     grid-template-columns: repeat(7, 1fr);
