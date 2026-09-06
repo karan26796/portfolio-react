@@ -102,11 +102,12 @@ const MOBILE_MASONRY = {
    with the edge of its neighbour showing to say the field carries on. */
 const MOBILE_TARGET_COLUMNS = 1.15;
 
-/* Under two, so the opening view holds four or five photographs and the ones
-   at the edges are cut by the frame. The overflow is the point: a screen that
-   ends mid-photograph says there is more of this in every direction, which a
-   view that tidily contains its contents does not. */
-const DESKTOP_TARGET_COLUMNS = 3;
+/* Read off the view this was tuned to by hand: photographs a fifth of the
+   screen wide, so roughly four columns are in frame and the ones at the edges
+   are cut by it. The overflow is the point — a screen that ends
+   mid-photograph says there is more of this in every direction, which a view
+   that tidily contains its contents does not. */
+const DESKTOP_TARGET_COLUMNS = 4.4;
 
 const GalleryCanvas: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);

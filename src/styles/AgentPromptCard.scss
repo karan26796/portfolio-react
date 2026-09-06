@@ -107,10 +107,18 @@
       border-radius: var(--radius-sm, 10px);
     }
 
+    /* Smaller here than on a wide screen, not larger.
+       It was set at 1.1em, which made a question on a phone bigger than the
+       same question on a laptop — and with four of them boxed and stacked, the
+       column read as four headings rather than four things to open. The
+       padding comes in with it, so the box stays proportionate to its type. */
     @media (max-width: 767px) {
-      padding: 1.1em 1em;
-      font-size: 1.1em;
-      gap: 0.9em;
+      padding: 0.85em 0.9em;
+      /* Down from 1.1em, and no further. At 0.95em the question came out
+         smaller than the answer it opens onto, which inverts the two — the
+         weight is what separates them from here, not the size. */
+      font-size: 1em;
+      gap: 0.75em;
     }
   }
 
@@ -216,7 +224,9 @@
     }
 
     @media (max-width: 767px) {
-      padding: 0.8em 1em 1em;
+      // Matched to the question's own inset above, so the answer still starts
+      // where the question does.
+      padding: 0.6em 0.9em 0.9em;
     }
   }
 }

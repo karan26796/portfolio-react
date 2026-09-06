@@ -1,0 +1,337 @@
+/* ============================================================================
+   RESOURCE DECK
+   Figma community files and videos, fanned out. Ordinary cards rather than
+   polaroids — a frame and a caption strip, no white border, no tape — held at
+   slight angles so the row reads as a handful of things rather than a grid of
+   them.
+   ========================================================================== */
+.resource-deck {
+  /* A band across the page rather than another column of content.
+     Every other section on the home page sits in the same measure on the same
+     ground, which is what made this one read as more of the same. Breaking the
+     container and standing the whole thing on its own slab separates it before
+     a single card is looked at.
+
+     The horizontal padding does the work `max-width` used to: enough to keep
+     the heading on the container's measure, and never less than 2em however
+     narrow the window. */
+  margin-inline: calc(50% - 50vw);
+  padding: 4.5em max(2em, calc(50vw - var(--max-width-container) / 2 + 2em));
+  box-sizing: border-box;
+  /* Faintly darker than the page, mixed from the text colour rather than set
+     as a colour of its own, so it holds in both themes and against the wash
+     the page moves through as you scroll. */
+  background: color-mix(in srgb, var(--primary-text) 4%, var(--bg-color));
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+
+  @media (max-width: 767px) {
+    padding: 5em 1em;
+  }
+
+  &__head {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 0.4em;
+    text-align: center;
+  }
+
+  &__title {
+    margin: 0;
+    font-size: 1.5em;
+    font-weight: 650;
+    letter-spacing: -0.015em;
+    color: var(--primary-text);
+  }
+
+  /* The deck. Cards overlap by a third or so; the fan itself comes from the
+     per-card tilt below. */
+  &__row {
+    list-style: none;
+    margin: 0;
+    padding: 2.4em 0 3em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__slot {
+    /* Negative margin is what makes it a deck rather than a row. How much is
+       set per deck in ResourceDeck.tsx, from how many cards there are — see
+       overlapEm. The first card keeps its full width so the fan stays
+       centred. */
+    margin-left: calc(-1 * var(--overlap, 3.2em));
+    flex: none;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    /* Later cards sit on top of earlier ones, so the fan reads as a deck dealt
+       left to right — and the one in play sits above all of them. */
+    z-index: calc(var(--slot) + 1);
+    position: relative;
+
+    &.is-active {
+      z-index: 50;
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    width: 24em;
+    text-decoration: none;
+    color: inherit;
+    background: var(--card-bg, var(--bg-color));
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-sm, 10px);
+    overflow: hidden;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    transform: rotate(var(--tilt, 0deg));
+
+    /* The entrance: each card comes up out of a blur as the section is
+       reached.
+       Carried on `scale` rather than folded into `transform`, because
+       `transform` is already spoken for — the fan's tilt here, the deck's
+       offset on the slot — and the two compose rather than overwrite each
+       other. Opacity and the blur live here too, and not on the slot, whose
+       own opacity is the depth fade in the stack. */
+    opacity: 0;
+    scale: 0.9;
+    filter: blur(10px);
+
+    /* Per-property delays: the entrance waits its turn, the hover does not.
+       One delay on the whole shorthand would have made every hover lag by up
+       to a quarter of a second. */
+    transition:
+      transform 0.26s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.26s ease,
+      border-color 0.26s ease,
+      opacity 0.5s ease var(--enter-delay, 0ms),
+      scale 0.6s cubic-bezier(0.22, 1, 0.36, 1) var(--enter-delay, 0ms),
+      filter 0.5s ease var(--enter-delay, 0ms);
+
+    /* Straightens and comes forward. The tilt is cancelled rather than
+       reversed, so whichever way a card was leaning it ends up square to the
+       reader — which is what makes it read as picked up. */
+    &:hover,
+    &:focus-visible {
+      transform: rotate(0deg) translateY(-14px) scale(1.06);
+      box-shadow: 0 20px 44px rgba(0, 0, 0, 0.2);
+      border-color: color-mix(in srgb, var(--primary-text) 20%, var(--border-color));
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--highlight-color);
+      outline-offset: 3px;
+    }
+  }
+
+  /* Longer than it was. At 4:3 the card read as stubby, and with no title
+     under the picture there is room for the picture to be the card. Square
+     rather than portrait because both sources — Figma community covers and
+     YouTube stills — are 16:9, and a taller frame than this would crop the
+     sides off every one of them. */
+  &.has-entered &__card {
+    opacity: 1;
+    scale: 1;
+    filter: none;
+  }
+
+  &__media {
+    display: block;
+    aspect-ratio: 2 / 1;
+    background: var(--bg-color-high);
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: left;
+      display: block;
+    }
+  }
+
+  &__foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6em;
+    padding: 0.7em 0.85em;
+    border-top: 1px solid var(--border-color);
+    font-size: 0.78em;
+  }
+
+  &__kind {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4em;
+    font-weight: 600;
+    color: var(--secondary-text);
+  }
+
+  &__go {
+    flex: none;
+    color: var(--tertiary-text, var(--secondary-text));
+  }
+
+  /* ── Narrow screens ────────────────────────────────────────────────────
+     A pile, not a row.
+
+     The fan needs hover to pull a card out of it and a phone has none, but
+     the swipe row that replaced it was the fourth horizontal scroller on the
+     page — every project card above has one — so it read as more of the same
+     furniture and the section stopped standing out. Piling the cards up gives
+     one card most of the screen and the rest a visible edge behind it, and
+     nothing is hidden off to the side. See useIsStacked in ResourceDeck.tsx
+     for the half of this that decides what a tap means. */
+  @media (max-width: 900px) {
+
+    &__row {
+      /* Every card in one grid cell, so the deck sizes itself to a card rather
+         than needing a height set by hand. */
+      display: grid;
+      place-items: center;
+      justify-content: center;
+      padding: 1.2em 0 1em;
+      /* Out to the full width of the screen, past the section's own padding.
+         The deck needs every pixel it can get: the card either side has to
+         clear the front one by enough to read as a card, and the wider the
+         front card the less room is left for them. The padding still applies
+         to the heading and the dots, which want it. */
+      margin-inline: calc(50% - 50vw);
+      /* The cards either side reach almost to the screen edges. Clipped on the
+         one axis only: `overflow: hidden` would force the other axis to scroll
+         and cut the cards' shadows off top and bottom. */
+      overflow-x: clip;
+      overflow-y: visible;
+      /* Vertical scrolling still belongs to the page; horizontal movement is
+         the deck's, which is what makes the swipe possible at all. */
+      touch-action: pan-y;
+    }
+
+    &__slot {
+      grid-area: 1 / 1;
+      margin-left: 0;
+      /* The front card above both its neighbours, and each of those above
+         whatever is behind it. */
+      z-index: calc(40 - var(--distance));
+      /* Pushed out to the side rather than down: a percentage, so it is a
+         proportion of the card and the peek holds at any width. 18% leaves
+         about 40px of the next card showing past the front one. Scaled back
+         and leaned outward so the two edges read as cards behind rather than
+         as a border. */
+      /* 15%, down from 18%: the front card is wider now, and the offset is a
+         proportion of it, so holding the old figure pushed the neighbours a
+         few pixels past the edge of the screen — where the clip squared off
+         their rounded corners, which reads as a rendering fault rather than
+         as a card continuing beyond the frame. */
+      transform:
+        translateX(calc(var(--offset) * 15%)) scale(calc(1 - var(--distance) * 0.075)) rotate(calc(var(--offset) * 3deg));
+      opacity: calc(1 - var(--distance) * 0.25);
+      transition:
+        transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+        opacity 0.36s ease;
+    }
+
+    /* Further out than the two on show. Kept in the document — a tab still
+       reaches them, and reaching one brings it to the front — but out of the
+       way, and moving out sideways so it leaves the way it would arrive. */
+    &__slot.is-buried {
+      opacity: 0;
+      pointer-events: none;
+      transform: translateX(calc(var(--offset) * 26%)) scale(0.82);
+    }
+
+    &__card {
+      /* As wide as the deck can take. Past about 80vw the cards either side
+         have nowhere left to peek from — they are offset by a proportion of
+         this width, so every pixel the front card gains is one they lose. */
+      width: min(80vw, 22em);
+      transform: none;
+
+      // The lift on hover means nothing here; the pile's own motion is the
+      // feedback, and a touch-hold would otherwise leave a card stuck raised.
+      &:hover,
+      &:focus-visible {
+        transform: none;
+      }
+    }
+  }
+
+  /* Back and forth, with the count between them. Replaces the row of dots:
+     the dots showed position but asked for a 7px target, and moving one card
+     at a time is what people actually want from a deck. */
+  &__nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.9em;
+    margin-top: 0.6em;
+  }
+
+  &__nav-button {
+    display: grid;
+    place-items: center;
+    /* A real target, in pixels rather than ems at the floor: the section's
+       type is small on a phone, and 2.6em of it came out at 35px — under the
+       44px a finger can be relied on to hit, on the one control here that
+       exists to be tapped. */
+    width: max(2.6em, 44px);
+    height: max(2.6em, 44px);
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    background: var(--bg-color);
+    color: var(--secondary-text);
+    cursor: pointer;
+    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+
+    &:hover {
+      border-color: color-mix(in srgb, var(--primary-text) 24%, var(--border-color));
+      color: var(--primary-text);
+    }
+
+    &:active {
+      background: var(--bg-color-high);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--highlight-color);
+      outline-offset: 2px;
+    }
+  }
+
+  &__nav-count {
+    min-width: 3.2em;
+    text-align: center;
+    font-size: 0.78em;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+    color: var(--tertiary-text, var(--secondary-text));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .resource-deck__card,
+  .resource-deck__slot {
+    transition: none;
+  }
+
+  /* Already arrived. The cards are still held until the section is reached, so
+     nothing is drawn before its time — they simply appear rather than growing
+     out of a blur. */
+  .resource-deck__card {
+    opacity: 1;
+    scale: 1;
+    filter: none;
+  }
+
+  .resource-deck__card:hover,
+  .resource-deck__card:focus-visible {
+    transform: rotate(0deg);
+  }
+}
