@@ -115,9 +115,15 @@
     gap: 0.75em;
     margin: 0 0 0.75em;
 
-    // Hide the gutter heading on mobile
+    /* Kept on a phone too. It was hidden here, which left the cards running
+       one into the next with nothing to say whose work each one was — the
+       thing the header exists to answer. Scaled down instead of removed: the
+       logo and the type come in, and the tenure is free to drop onto its own
+       line rather than squeezing the company name. */
     @media (max-width: 768px) {
-      display: none;
+      gap: 0.4em 0.6em;
+      margin-bottom: 0.6em;
+      font-size: 0.92em;
     }
   }
 
@@ -133,6 +139,11 @@
     object-fit: contain;
     border-radius: var(--radius-sm);
     flex-shrink: 0;
+
+    @media (max-width: 768px) {
+      width: 22px;
+      height: 22px;
+    }
   }
 
   /* Shares the logo's box so a glyph and a company mark sit on the same
