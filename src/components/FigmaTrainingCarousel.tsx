@@ -1,6 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import ImageWithSkeleton from './ImageWithSkeleton';
+import {
+  IS_CANVAS_CARD,
+  tileClassName,
+  tileLabelClassName,
+  tiltFor,
+} from '../utils/tileDressing';
 import '../styles/HorizontalCarousel.scss';
+import '../styles/canvasCard.scss';
+import '../styles/dottedBoard.scss';
 import '../styles/Experiments.scss';
 
 interface TrainingItem {
@@ -102,6 +110,7 @@ const GRID_SCATTER = [
 
 const PARALLAX_BACK = 28;
 const PARALLAX_FRONT = -18;
+// Only drawn under the 'figma-frame' dressing — see utils/tileDressing.
 const SELECTION_HANDLES = ['tl', 'tr', 'bl', 'br'] as const;
 const NUDGE_STEP = 8;
 const NUDGE_STEP_LARGE = 40;
@@ -241,7 +250,11 @@ const FigmaTrainingCarousel: React.FC = () => {
   };
 
   return (
-    <div className="experiments-section horizontal-carousel-section home-experiments-section">
+    /* The same dotted ground the photo canvas stands on, and the same one the
+       home page's experiments and community sections share — so the training
+       gallery reads as another surface in the same room rather than as its own
+       invention. Fades in and out at the two ends; see dottedBoard.scss. */
+    <div className="experiments-section horizontal-carousel-section home-experiments-section dotted-board">
       <div
         className="experiments-grid"
         ref={stageRef}
@@ -314,21 +327,23 @@ const FigmaTrainingCarousel: React.FC = () => {
                   '--m-col-span': place.mSpan,
                   '--m-offset': `${place.mOffset}px`,
                   '--ratio': ratio,
+                  '--card-tilt': `${tiltFor(index)}deg`,
                 } as React.CSSProperties
               }
             >
-              <div className="experiment-tile">
-                <figcaption className="experiment-tile-label">
+              <div className={tileClassName()}>
+                <figcaption className={tileLabelClassName()}>
                   {label}
                 </figcaption>
                 <div className="experiment-media-wrapper">{media}</div>
-                {SELECTION_HANDLES.map((corner) => (
-                  <span
-                    key={corner}
-                    className={`experiment-tile-handle is-${corner}`}
-                    aria-hidden="true"
-                  />
-                ))}
+                {!IS_CANVAS_CARD &&
+                  SELECTION_HANDLES.map((corner) => (
+                    <span
+                      key={corner}
+                      className={`experiment-tile-handle is-${corner}`}
+                      aria-hidden="true"
+                    />
+                  ))}
               </div>
             </figure>
           );

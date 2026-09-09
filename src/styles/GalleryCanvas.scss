@@ -1,6 +1,11 @@
 /* ============================================================================
-   GALLERY CANVAS — photos spread across a pannable 2D canvas.
+   GALLERY CANVAS — photos spread across an endless pannable canvas.
    Companion to the justified /gallery page, not a replacement (yet).
+
+   The card treatment is lifted from a reference playground: a dotted ground,
+   photographs mounted behind a thick white edge with a soft layered shadow
+   under it, each hung a degree or two off level, popping up from three-quarter
+   size as it comes into frame.
    ========================================================================== */
 
 .gallery-canvas-page {
@@ -12,6 +17,12 @@
   background: var(--bg-base);
   overflow: hidden;
 
+  /* The dotted ground's colour lives in dottedBoard.scss, and the card's own
+     palette — the mount, the lip, the three shadow strengths — in
+     canvasCard.scss. Neither is this page's alone any more: the experiments
+     stage, the community deck and the training gallery all stand on the same
+     ground and wear the same card. */
+
   &__viewport {
     position: absolute;
     // The tabs live at the top of the page now, so nothing occupies the
@@ -21,7 +32,19 @@
     // The canvas owns every gesture: otherwise the browser claims pinch-zoom
     // and horizontal swipe (back-navigation) before the handlers see them.
     touch-action: none;
-    cursor: grab;
+    /* Crosshair, not grab: the field has no edges, so there is nothing to take
+       hold of and pull against. A crosshair says "this is a surface with a
+       position", which is what an endless canvas is. */
+    cursor: crosshair;
+
+    /* The dotted ground. Cell size and origin are written inline against the
+       camera, so the dots scale and travel with the photographs; only the
+       colour and the dot's own radius live here. */
+    background-image: radial-gradient(
+      var(--canvas-dot) var(--dot-radius, 2px),
+      transparent var(--dot-radius, 2px)
+    );
+    background-repeat: repeat;
 
     &.is-panning {
       cursor: grabbing;
@@ -41,34 +64,15 @@
   }
 }
 
+/* The box the layout put a photograph in. Holds nothing but position, size and
+   the arrival: every other transform belongs to the card inside it. */
 .gallery-canvas-photo {
   position: absolute;
-  overflow: hidden;
-  background: var(--bg-color-high);
-  /* A shade under full size at rest, growing to it when pointed at, and to
-     whatever fills the window when opened.
-
-     Two properties compose into one transform: --photo-scale is the size, and
-     --push-x/--push-y is how far this photo has been shoved aside to make room
-     for one that is open. They have to share a single `transform` — a second
-     declaration would replace the first, not add to it — which is why they
-     are passed in as custom properties and assembled here.
-
-     Scaled rather than sized: the box stays exactly where the layout put it,
-     so nothing reflows and the field's geometry is untouched. */
-  --photo-scale: 0.92;
-  transform: translate(var(--push-x, 0px), var(--push-y, 0px)) scale(var(--photo-scale));
-  /* Quick. The photographs are rearranging around the one you clicked, and a
-     slow rearrangement reads as the layout deciding what to do rather than as
-     a response to the click. Short enough to feel like the click itself, with
-     just enough curve to not look like a jump cut. */
-  transition:
-    transform 0.18s cubic-bezier(0.33, 0.9, 0.4, 1),
-    opacity 0.18s ease;
-
-  &:hover {
-    --photo-scale: 1;
-  }
+  /* Up from three-quarter size as it enters the frame. Photos are mounted only
+     once they are near the viewport, so mounting *is* entering, and an
+     animation on mount is all this needs to be. Overshoot in the curve, so it
+     arrives with a small settle rather than easing flatly into place. */
+  animation: gallery-photo-pop 0.42s cubic-bezier(0.22, 1.12, 0.36, 1) both;
 
   /* Over the ones it is pushing aside. Without this the photo grows *into*
      its neighbours: they are absolutely positioned siblings, so whichever
@@ -76,6 +80,50 @@
      by whatever happened to be laid out after it. */
   &.is-active {
     z-index: 2;
+    // The arrival must not hold a stale scale over the opening photograph.
+    animation: none;
+  }
+
+  /* The card. Everything visible is here — the white edge, the shadow under
+     it, the tilt, the shove aside, the growth on opening.
+
+     --photo-scale is the size, --push-x/--push-y is how far this card has been
+     shoved aside to make room for one that is open, and --photo-tilt is the
+     degree or two it hangs off level. All four have to share a single
+     `transform` — a second declaration would replace the first, not add to it
+     — which is why they are passed in as custom properties and assembled
+     here.
+
+     Scaled rather than sized: the box stays exactly where the layout put it,
+     so nothing reflows and the field's geometry is untouched. */
+  &__frame {
+    position: absolute;
+    inset: 0;
+    --photo-scale: 1;
+    --photo-tilt: 0deg;
+    transform: translate(var(--push-x, 0px), var(--push-y, 0px))
+      rotate(var(--photo-tilt)) scale(var(--photo-scale));
+    transform-origin: center center;
+
+    /* The chrome — radius, white mount, the six-layer shadow — comes from
+       the shared `canvas-card` class on the element itself, sized against the
+       --canvas-k this page publishes on the stage so it holds its screen size
+       as the camera zooms. Nothing about it is repeated here.
+
+       Quick. The photographs are rearranging around the one you clicked, and a
+       slow rearrangement reads as the layout deciding what to do rather than as
+       a response to the click. Short enough to feel like the click itself, with
+       just enough curve to not look like a jump cut. */
+    transition:
+      transform 0.18s cubic-bezier(0.33, 0.9, 0.4, 1),
+      opacity 0.18s ease;
+  }
+
+  /* A nudge, not a jump. The reference leaves its cards perfectly still under
+     the cursor, but nothing there is clickable; here a card opens, so it has
+     to answer being pointed at. */
+  &__frame:hover {
+    --photo-scale: 1.025;
   }
 
   /* Arrives blurred and resolves as the file decodes.
@@ -88,7 +136,6 @@
   img {
     width: 100%;
     height: 100%;
-    border-radius: inherit;
     filter: blur(14px);
     opacity: 0;
     // Scaled up a touch so the blur's soft edge falls outside the frame
@@ -112,40 +159,47 @@
     -webkit-user-drag: none;
   }
 
+  /* The pill itself — shape, padding, colour — is the shared
+     `canvas-card-label` class on the element. Only where it sits and how it
+     resists the camera belong here. */
+  /* Inside the bottom-left corner, whether the photograph is merely being
+     pointed at or opened. The two used to differ — an opened photo swapped the
+     pill for plain text hung under the frame — but a pill that vanishes at the
+     moment you zoom in reads as the label being lost rather than as a change
+     of treatment, and the label matters more once the photograph is the only
+     thing on screen, not less.
+
+     14px on screen at any zoom, and at any size the photo has grown to.
+     --canvas-k undoes the camera (it is 1/zoom) and --photo-scale undoes the
+     opening growth, because both scale this element's coordinate space: a flat
+     14px is 14 *canvas* units, which at the opening zoom is barely ten on
+     screen, and three times that once a photo has grown to fill the window.
+     The pill's corner crossed the card's rounded corner and its white mount at
+     one end of that range and floated a long way inside it at the other. */
   &__caption {
     position: absolute;
-    left: 10px;
-    bottom: 10px;
-    display: flex;
-    align-items: center;
-    gap: 0.35em;
-    padding: 0.4em 0.7em;
-    // Counter-scaled inline against the camera, so it holds one size on screen.
+    left: calc(14px * var(--canvas-k, 1) / var(--photo-scale, 1));
+    bottom: calc(14px * var(--canvas-k, 1) / var(--photo-scale, 1));
+    // Counter-scaled and counter-rotated inline against the camera, the
+    // opening growth and the card's own tilt, so it holds one size on screen
+    // and sits level.
     transform-origin: 0 100%;
-    font-size: 13px;
-    font-weight: 550;
-    white-space: nowrap;
-    color: #fff;
-    background: rgba(0, 0, 0, 0.62);
-    backdrop-filter: blur(8px);
-    -webkit-backdrop-filter: blur(8px);
-    pointer-events: none;
   }
 
-  /* Under the open photograph rather than inside it, in the page's own text
-     colour: with nothing else competing for attention there is no need for the
-     dark pill that makes a caption readable over an image, and a label sitting
-     below the frame reads as a title for it. */
-  &__caption--open {
-    top: calc(100% + 10px);
-    bottom: auto;
-    left: 0;
-    transform-origin: 0 0;
-    padding: 0;
-    color: var(--secondary-text);
-    background: none;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+}
+
+/* The arrival: up from three-quarter size, as in the reference. Only opacity
+   and scale — the tilt belongs to the card inside, so this can animate a
+   transform of its own without having to know about it. */
+@keyframes gallery-photo-pop {
+  from {
+    opacity: 0;
+    transform: scale(0.75);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
   }
 }
 
@@ -154,8 +208,14 @@
    and the photographs pushed out to the edges stay legible as photographs —
    which is what says the field is still there, waiting, rather than replaced.
    Pointer events go with them, so the only things left to click are the open
-   photo and the empty page, and both mean "close". */
-.gallery-canvas-page.is-focused .gallery-canvas-photo:not(.is-active) {
+   photo and the empty page, and both mean "close".
+
+   Faded on the card and not on the box around it, because the box's own
+   opacity is the arrival animation's to control — an animation filling `both`
+   would hold its final opacity here and win. */
+.gallery-canvas-page.is-focused
+  .gallery-canvas-photo:not(.is-active)
+  .gallery-canvas-photo__frame {
   opacity: 0.16;
   pointer-events: none;
 }
@@ -211,9 +271,14 @@
 @media (prefers-reduced-motion: reduce) {
 
   // The hold-back and the fade are worth keeping — they are depth cues, not
-  // motion — but they arrive instantly rather than growing. The blur-up goes
-  // entirely: a photograph resolving out of a haze is motion by any reading.
+  // motion — but they arrive instantly rather than growing. The pop-in and the
+  // blur-up go entirely: a photograph springing up out of a haze is motion by
+  // any reading.
   .gallery-canvas-photo {
+    animation: none;
+  }
+
+  .gallery-canvas-photo__frame {
     transition: none;
   }
 

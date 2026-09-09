@@ -1,0 +1,195 @@
+/* ============================================================================
+   DOTTED BOARD — a section standing on the same ground as the photo canvas.
+
+   The dot matrix from /gallery, laid behind a run of one or more sections so
+   they read as things arranged on a surface rather than as blocks stacked down
+   a page. The dots fade in at the top of the board and out again at the bottom,
+   so the surface has no edge you can point at — it arrives and leaves the way
+   the page's own colour wash does, rather than starting at a seam.
+
+   The board is a *ground*, not a container: it holds no layout of its own, so
+   whatever is wrapped in it keeps the width, padding and full-bleed tricks it
+   already had.
+   ========================================================================== */
+
+:root {
+  /* The dot's colour, shared with the photo canvas — which is the point: the
+     canvas at /gallery and these sections are meant to be the same surface. */
+  --canvas-dot: #d6dce1;
+}
+
+/* A fixed light grey over a near-black page is a visible mesh, not a texture. */
+[data-theme="dark"] {
+  --canvas-dot: rgba(255, 255, 255, 0.085);
+}
+
+.dotted-board {
+  position: relative;
+  /* Makes this a stacking context, so the dot layer's `z-index: -1` puts it
+     behind the board's contents and no further — without it the dots sink
+     behind the page's own background and disappear entirely. */
+  isolation: isolate;
+
+  /* How deep the fade at each end runs, as a share of the board's height.
+     A share rather than a fixed distance because the board's height varies a
+     lot — one section on the training page, two on the home page — and a fixed
+     120px fade is most of a short board and a hairline on a tall one. */
+  --dot-fade: 16%;
+
+  /* The cell, and the dot inside it. Both fixed: unlike the photo canvas there
+     is no camera here, so there is no zoom for them to hold their size
+     against. 40px and 2px are the canvas's own numbers at its opening view. */
+  --dot-cell: 40px;
+  --dot-radius: 2px;
+
+  &::before {
+    content: '';
+    position: absolute;
+    z-index: -1;
+    pointer-events: none;
+
+    /* Full-bleed, whatever measure the board's contents sit on. The sections
+       wrapped in this are centred columns, so a dot layer confined to the
+       board's own box would end in two hard vertical lines a third of the way
+       in from each side of the screen. Running it to the viewport edges is
+       what makes it a ground rather than a panel — and it means the only
+       edges left to soften are the two the fade below handles.
+
+       `calc(50% - 50vw)` is the same full-bleed step .resource-deck already
+       uses, so the two agree on where the page's edge is. */
+    top: 0;
+    bottom: 0;
+    left: calc(50% - 50vw);
+    width: 100vw;
+
+    background-image: radial-gradient(
+      var(--canvas-dot) var(--dot-radius),
+      transparent var(--dot-radius)
+    );
+    background-size: var(--dot-cell) var(--dot-cell);
+    /* Anchored to the board's own top-left rather than the page's, so the grid
+       starts cleanly at the board instead of wherever the section happens to
+       fall in the scroll. */
+    background-position: 0 0;
+
+    /* The fade. Masked rather than done with a gradient overlay in the page
+       colour, because the page colour is not constant — it moves through a
+       wash as you scroll (see --page-accent) — and a fixed overlay would show
+       as a pale band the moment the wash moved under it. A mask takes the dots
+       away instead of painting over them, so it is right whatever is behind. */
+    -webkit-mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 var(--dot-fade),
+      #000 calc(100% - var(--dot-fade)),
+      transparent 100%
+    );
+    mask-image: linear-gradient(
+      to bottom,
+      transparent 0%,
+      #000 var(--dot-fade),
+      #000 calc(100% - var(--dot-fade)),
+      transparent 100%
+    );
+  }
+
+  /* Phones: the same dots would be a much denser texture relative to a 390px
+     screen, so the cell opens up and the dot comes down with it. */
+  @media (max-width: 860px) {
+    --dot-cell: 32px;
+    --dot-radius: 1.5px;
+    // Shorter viewport, taller board: a 16% fade at each end would eat a third
+    // of it.
+    --dot-fade: 10%;
+  }
+}
+
+/* A section that paints its own slab has to stop doing so once it is standing
+   on the board: the whole point of a combined board is one continuous ground
+   under everything on it, and .resource-deck's band — a faint fill plus a rule
+   top and bottom — cut that ground in half and hid the dots behind the half it
+   covered. The full-bleed measure it sets stays; only the surface goes. */
+.dotted-board .resource-deck {
+  background: none;
+  border-top: 0;
+  border-bottom: 0;
+}
+
+/* ============================================================================
+   THE SAME GROUND UNDER THE WHOLE SITE — an experiment.
+
+   Switched by SITE_DOT_GRID in App.tsx, which puts `site-dot-grid` on the root
+   element. One class, one place, nothing else touched: set it to false and the
+   site is exactly as it was, with the dots back to being a thing two sections
+   stand on rather than the page's own surface.
+
+   The layer goes on each page's content wrapper rather than on the root,
+   because those wrappers paint an opaque `--bg-color` of their own — anything
+   drawn further back is simply covered. `z-index: -1` puts it above that
+   background and beneath every child, the same trick the page's accent wash
+   already uses in AppShell.scss.
+
+   `::after` and not `::before`, which the wash has. The dots therefore paint
+   over the wash rather than under it; at the wash's opacity that is a
+   distinction you cannot see, and the alternative is moving a working thing.
+   ========================================================================== */
+.site-dot-grid {
+  /* The other three wrappers are already `position: relative` — they need to
+     be, for the accent wash. This one is not, and without it the dot layer
+     sizes itself to the nearest positioned ancestor instead of to the page. */
+  .archive-container {
+    position: relative;
+  }
+
+  :is(
+      .home-main-content,
+      .figma-training-main-content,
+      .project-details-main-content,
+      .archive-container
+    )::after {
+    content: '';
+    position: absolute;
+    /* The wrapper's full scroll height, not the viewport's: the dots are the
+       surface the page is printed on, so they have to travel with it. A fixed
+       layer would have the content sliding over a stationary grid, which reads
+       as the text moving and the paper standing still. */
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+
+    background-image: radial-gradient(
+      var(--canvas-dot) var(--site-dot-radius, 2px),
+      transparent var(--site-dot-radius, 2px)
+    );
+    background-size: var(--site-dot-cell, 40px) var(--site-dot-cell, 40px);
+
+    @media (max-width: 860px) {
+      --site-dot-cell: 32px;
+      --site-dot-radius: 1.5px;
+    }
+  }
+
+  /* No fade at the ends, unlike a board. A board fades because it is a surface
+     laid *on* the page and needs no edge; this one *is* the page, and a page
+     that faded out at the top and bottom of every route would read as the
+     ground running out. */
+
+  /* With the ground everywhere, the two boards must stop laying their own on
+     top of it. Both grids are 40px, but they are anchored differently — the
+     board's to its own top-left, this one's to the page's — so the two never
+     line up, and two 40px grids a few pixels out of phase read as one blurred
+     grid rather than as two. The boards keep everything else they do. */
+  .dotted-board::before {
+    display: none;
+  }
+
+  /* Same problem, different grid. The archive corkboard paints its own dots at
+     18px on its own panel, which was fine when the page around it was plain —
+     it was the only grid on screen. On the site's 40px ground it reads as a
+     finer second grid inside the first, and the eye goes straight to the
+     mismatch. The panel stays: a board you pin things to should be a surface
+     sitting on the desk, not a hole in it. Only its dots go. */
+  .experiments-corkboard {
+    background-image: none;
+  }
+}

@@ -4,7 +4,9 @@ import communityFiles from '../utils/communityFiles';
 import Button from './Buttons';
 import ImageWithSkeleton from './ImageWithSkeleton';
 import ScrollReveal from './ScrollReveal';
+import { cardDressingClass } from '../utils/tileDressing';
 import '../styles/HorizontalCarousel.scss';
+import '../styles/canvasCard.scss';
 import '../styles/CommunityDeck.scss';
 
 const SWIPE_INTERVAL = 4200;
@@ -67,6 +69,8 @@ const CommunityDeck: React.FC = () => {
           const isLeaving = stackPos === 0 && leavingDir;
           const className = [
             'deck-card',
+            // One switch for every card on a board — see utils/tileDressing.
+            cardDressingClass(),
             `stack-${Math.min(stackPos, 2)}`,
             isLeaving ? `leaving-${leavingDir}` : '',
           ]

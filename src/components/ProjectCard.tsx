@@ -192,6 +192,8 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
   const isClickable = !!(onClick || data.url) && !data.specialStatus;
 
+  const hasReadMore = isClickable && buttonType !== "none";
+
   /**
    * The way into the case study.
    *
@@ -201,20 +203,31 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
    * that is not in use is `display: none`, which takes it out of the tab order
    * and out of the accessibility tree too — so this is one button as far as
    * anyone using the page is concerned, not two.
+   *
+   * A function rather than one shared element, because the two slots want
+   * different weights. Over the image the button has to hold its own against a
+   * photograph and appears only when pointed at, so it is primary. On a phone
+   * it sits in the card's own copy, permanently, directly under the problem
+   * statement — and a filled button there competes with the card's title for
+   * the first thing you look at, when the whole card is already tappable and
+   * this is only the visible, tabbable way to the same place. Secondary.
    */
-  const readMoreButton =
-    isClickable && buttonType !== "none" ? (
-      <Buttons
-        text="Read more"
-        withText
-        withIcon
-        iconName="ArrowRight"
-        iconDirection="right"
-        size="s"
-        variant="primary"
-        onClick={handleCtaClick}
-      />
-    ) : null;
+  const readMore = (emphasis: "primary" | "secondary") => (
+    <Buttons
+      text="Read more"
+      withText
+      withIcon
+      iconName="ArrowRight"
+      iconDirection="right"
+      size="s"
+      // Named `emphasis` rather than `variant`: the component already has a
+      // prop by that name, for the card's own size, and shadowing it here
+      // would make this read as though the card's variant decided the
+      // button's weight.
+      variant={emphasis}
+      onClick={handleCtaClick}
+    />
+  );
   const containerClass = `project-container${variant === "small" ? " project-container-small" : ""}${data.specialStatus ? " has-special-status" : ""}${showDivider === false ? " no-divider" : ""}${!isClickable ? " unclickable" : ""}`;
 
   return (
@@ -229,10 +242,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div
           className="project-card-image-carousel"
           ref={mediaRef}
-          onPointerEnter={readMoreButton ? followPointer : undefined}
-          onPointerMove={readMoreButton ? followPointer : undefined}
+          onPointerEnter={hasReadMore ? followPointer : undefined}
+          onPointerMove={hasReadMore ? followPointer : undefined}
         >
-          {readMoreButton && <div className="image-overlay-cta">{readMoreButton}</div>}
+          {hasReadMore && (
+            <div className="image-overlay-cta">{readMore("primary")}</div>
+          )}
           <div
             className="carousel-track"
             ref={scrollTrackRef}
@@ -265,10 +280,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div
           className="project-image-single-wrapper"
           ref={mediaRef}
-          onPointerEnter={readMoreButton ? followPointer : undefined}
-          onPointerMove={readMoreButton ? followPointer : undefined}
+          onPointerEnter={hasReadMore ? followPointer : undefined}
+          onPointerMove={hasReadMore ? followPointer : undefined}
         >
-          {readMoreButton && <div className="image-overlay-cta">{readMoreButton}</div>}
+          {hasReadMore && (
+            <div className="image-overlay-cta">{readMore("primary")}</div>
+          )}
           <ImageWithSkeleton
             containerClassName="project-image-single-inner"
             className="project-image"
@@ -338,8 +355,10 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
               {/* The phone's slot for it. On a pointer device this one is
                   hidden and the copy over the image takes over — see
                   .project-card-split__cta in ProjectCard.scss. */}
-              {readMoreButton && (
-                <div className="project-card-split__cta">{readMoreButton}</div>
+              {hasReadMore && (
+                <div className="project-card-split__cta">
+                  {readMore("secondary")}
+                </div>
               )}
             </div>
           </div>

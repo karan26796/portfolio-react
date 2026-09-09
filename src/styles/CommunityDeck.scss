@@ -12,12 +12,32 @@
     display: flex;
     flex-direction: column;
     text-decoration: none;
-    background-color: var(--card-bg, var(--bg-color-high));
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-card, 1.25em);
-    overflow: hidden;
-    box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
     transition: transform 0.55s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.55s ease;
+
+    /* The chrome is chosen by TILE_DRESSING in utils/tileDressing.
+
+       Dressing A — the shared mount, so a community file reads as the same
+       object as a photograph on /gallery and a tile on the experiments stage.
+       Radius and mount come down a little from the canvas's own: this card is
+       420px wide and carries a heading, a byline and a button, and the
+       canvas's 4.5px edge around all that read as a frame around a poster.
+       Everything else — the six-layer shadow, the lip, the dark palette —
+       is the `canvas-card` class carried alongside this one. */
+    &.is-canvas-card {
+      --canvas-card-radius: 20px;
+      --canvas-card-edge-width: 4px;
+      --canvas-card-fill: var(--card-bg, var(--bg-color-high));
+    }
+
+    /* Dressing B — the original: a hairline border, the site's card radius,
+       one soft drop shadow. */
+    &.is-own-card {
+      background-color: var(--card-bg, var(--bg-color-high));
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-card, 1.25em);
+      overflow: hidden;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, 0.22);
+    }
 
     &.stack-0 {
       transform: none;

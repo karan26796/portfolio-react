@@ -1,6 +1,14 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import experiments from "../utils/experiments";
+import {
+  IS_CANVAS_CARD,
+  tileClassName,
+  tileLabelClassName,
+  tiltFor,
+} from '../utils/tileDressing';
 import '../styles/HorizontalCarousel.scss';
+import '../styles/canvasCard.scss';
+import '../styles/dottedBoard.scss';
 import '../styles/Experiments.scss';
 import ImageWithSkeleton from './ImageWithSkeleton';
 import ScrollReveal from './ScrollReveal';
@@ -60,6 +68,7 @@ const PARALLAX_BACK = 28;
 const PARALLAX_FRONT = -18;
 
 // The four corner squares of the selection frame, clockwise from top-left.
+// Only drawn under the 'figma-frame' dressing — see utils/tileDressing.
 const SELECTION_HANDLES = ['tl', 'tr', 'bl', 'br'] as const;
 
 // How far an arrow key moves the selected frame, and how far it moves with
@@ -283,11 +292,11 @@ const Experiments: React.FC<ExperimentsProps> = ({
             );
 
           if (isGrid) {
-            // Dressed as a selected frame on a design canvas — square corners,
-            // a stroke, corner handles and the name sitting above the top-left
-            // corner — rather than as a card. The stroke colour is the site's
-            // existing --frame-stroke, the same selection blue the photo
-            // canvas uses.
+            // Dressed per TILE_DRESSING in utils/tileDressing, which the
+            // training gallery reads too: mounted like a photograph on the
+            // photo canvas, or as a selected frame on a design canvas. Either
+            // way the tile keeps its grid placement, its parallax layer and
+            // its drag-to-move.
             const place = GRID_SCATTER[index % GRID_SCATTER.length];
             const at = positions[index] ?? ORIGIN;
             return (
@@ -316,23 +325,25 @@ const Experiments: React.FC<ExperimentsProps> = ({
                     '--m-col-span': place.mSpan,
                     '--m-offset': `${place.mOffset}px`,
                     '--ratio': place.ratio,
+                    '--card-tilt': `${tiltFor(index)}deg`,
                   } as React.CSSProperties
                 }
               >
-                <div className="experiment-tile">
+                <div className={tileClassName()}>
                   {experiment.caption && (
-                    <figcaption className="experiment-tile-label">
+                    <figcaption className={tileLabelClassName()}>
                       {experiment.caption}
                     </figcaption>
                   )}
                   <div className="experiment-media-wrapper">{media}</div>
-                  {SELECTION_HANDLES.map((corner) => (
-                    <span
-                      key={corner}
-                      className={`experiment-tile-handle is-${corner}`}
-                      aria-hidden="true"
-                    />
-                  ))}
+                  {!IS_CANVAS_CARD &&
+                    SELECTION_HANDLES.map((corner) => (
+                      <span
+                        key={corner}
+                        className={`experiment-tile-handle is-${corner}`}
+                        aria-hidden="true"
+                      />
+                    ))}
                 </div>
               </figure>
             );
