@@ -290,7 +290,19 @@
       @media screen and (max-width: 767px) {
         grid-template-columns: 1fr;
         column-gap: 0;
-        row-gap: 1.5em;
+        /* Tighter than the 1.5em the two columns get side by side, because on
+           a phone this gap is doing a different job. Across two columns it
+           only ever separates a block from the card's edges; stacked, it falls
+           between the headline and the description — and the "00 Solution" /
+           "01 Problem" labels that would have marked them as two separate
+           blocks are hidden at this width, so the space was the only thing
+           left saying they were separate, and it said it far too loudly. At
+           0.75em they read as one passage, which is what they are.
+
+           This is the whole of that gap: both blocks have no margins, so the
+           row gap is all of it. The description-to-button distance is the
+           button's own margin-top and is untouched. */
+        row-gap: 0.75em;
 
         &__solution {
           font-size: 1.5em;
