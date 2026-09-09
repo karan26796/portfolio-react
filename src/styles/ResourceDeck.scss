@@ -209,18 +209,77 @@
   }
 
   /* ── Narrow screens ────────────────────────────────────────────────────
-     A pile, not a row.
-
-     The fan needs hover to pull a card out of it and a phone has none, but
-     the swipe row that replaced it was the fourth horizontal scroller on the
-     page — every project card above has one — so it read as more of the same
-     furniture and the section stopped standing out. Piling the cards up gives
-     one card most of the screen and the rest a visible edge behind it, and
-     nothing is hidden off to the side. See useIsStacked in ResourceDeck.tsx
-     for the half of this that decides what a tap means. */
+     The fan needs hover to pull a card out of it and a phone has none, so
+     below this width the cards take one of the two arrangements below.
+     NARROW_LAYOUT in ResourceDeck.tsx chooses, and puts the matching class on
+     the row; the pile's own machinery — autoplay, swipe, a front card, the
+     arrow pair — is gated on the same switch, so only one of these two can
+     ever be live. */
   @media (max-width: 900px) {
 
-    &__row {
+    /* ── Arrangement A — a scatter, as on the experiments stage ───────────
+       Six columns and the same hand-placed mosaic of unequal widths and
+       vertical offsets, with every card on screen at once. These cards and
+       the experiments tiles stand on one dotted board a few hundred pixels
+       apart, and a phone that saw a mosaic and then a single card with arrows
+       under it read as two unrelated blocks that happened to be adjacent.
+
+       The numbers deliberately echo .experiments-grid's own phone block: six
+       columns, a 0.75em column gap, cards placed by --m-*. The row gap does
+       not: 3.75em there has to clear a parallax drift and a name hanging above
+       each tile, and neither exists here, so the offsets do the staggering and
+       the gap only has to separate rows. */
+    &__row.is-scattered {
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      column-gap: 0.75em;
+      row-gap: 2em;
+      // Rows take their tallest card; the shorter ones keep their own height,
+      // which is most of what makes this read as scattered and not tabulated.
+      align-items: start;
+      justify-content: initial;
+      padding: 2em 1em 1.5em;
+      box-sizing: border-box;
+      // The pile broke out to the full width of the screen because it needed
+      // every pixel for the cards peeking either side. A grid does not.
+      margin-inline: 0;
+      // Nothing is clipped and nothing is swiped: the page owns both axes.
+      overflow: visible;
+      touch-action: auto;
+
+      .resource-deck__slot {
+        grid-row: var(--m-row);
+        grid-column: var(--m-col-start) / span var(--m-col-span);
+        // Layout, not transform, so a row grows to contain an offset card
+        // instead of letting it ride over the one above.
+        margin-top: var(--m-offset, 0px);
+        // The deck's overlap, and the depth fade and shove that went with it.
+        margin-left: 0;
+        transform: none;
+        opacity: 1;
+      }
+
+      .resource-deck__card {
+        // The slot's grid column is the measure now, not a fixed card width.
+        width: 100%;
+        transform: rotate(var(--tilt, 0deg));
+
+        /* Straightens under a press. There is no hover to speak of here, but
+           :focus-visible reaches these by tab and the card should answer it. */
+        &:hover,
+        &:focus-visible {
+          transform: rotate(0deg);
+        }
+      }
+    }
+
+    /* ── Arrangement B — the pile (the original) ──────────────────────────
+       One card with most of the screen and the rest showing a visible edge
+       behind it, dealt by tapping or swiping. The swipe row this replaced was
+       the fourth horizontal scroller on the page — every project card above
+       has one — so it read as more of the same furniture and the section
+       stopped standing out. */
+    &__row.is-stacked {
       /* Every card in one grid cell, so the deck sizes itself to a card rather
          than needing a height set by hand. */
       display: grid;
@@ -241,53 +300,50 @@
       /* Vertical scrolling still belongs to the page; horizontal movement is
          the deck's, which is what makes the swipe possible at all. */
       touch-action: pan-y;
-    }
 
-    &__slot {
-      grid-area: 1 / 1;
-      margin-left: 0;
-      /* The front card above both its neighbours, and each of those above
-         whatever is behind it. */
-      z-index: calc(40 - var(--distance));
-      /* Pushed out to the side rather than down: a percentage, so it is a
-         proportion of the card and the peek holds at any width. 18% leaves
-         about 40px of the next card showing past the front one. Scaled back
-         and leaned outward so the two edges read as cards behind rather than
-         as a border. */
-      /* 15%, down from 18%: the front card is wider now, and the offset is a
-         proportion of it, so holding the old figure pushed the neighbours a
-         few pixels past the edge of the screen — where the clip squared off
-         their rounded corners, which reads as a rendering fault rather than
-         as a card continuing beyond the frame. */
-      transform:
-        translateX(calc(var(--offset) * 15%)) scale(calc(1 - var(--distance) * 0.075)) rotate(calc(var(--offset) * 3deg));
-      opacity: calc(1 - var(--distance) * 0.25);
-      transition:
-        transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
-        opacity 0.36s ease;
-    }
+      .resource-deck__slot {
+        grid-area: 1 / 1;
+        margin-left: 0;
+        /* The front card above both its neighbours, and each of those above
+           whatever is behind it. */
+        z-index: calc(40 - var(--distance));
+        /* Pushed out to the side rather than down: a percentage, so it is a
+           proportion of the card and the peek holds at any width.
+           15%, down from 18%: the front card is wider now, and the offset is a
+           proportion of it, so holding the old figure pushed the neighbours a
+           few pixels past the edge of the screen — where the clip squared off
+           their rounded corners, which reads as a rendering fault rather than
+           as a card continuing beyond the frame. */
+        transform:
+          translateX(calc(var(--offset) * 15%)) scale(calc(1 - var(--distance) * 0.075)) rotate(calc(var(--offset) * 3deg));
+        opacity: calc(1 - var(--distance) * 0.25);
+        transition:
+          transform 0.36s cubic-bezier(0.22, 1, 0.36, 1),
+          opacity 0.36s ease;
+      }
 
-    /* Further out than the two on show. Kept in the document — a tab still
-       reaches them, and reaching one brings it to the front — but out of the
-       way, and moving out sideways so it leaves the way it would arrive. */
-    &__slot.is-buried {
-      opacity: 0;
-      pointer-events: none;
-      transform: translateX(calc(var(--offset) * 26%)) scale(0.82);
-    }
+      /* Further out than the two on show. Kept in the document — a tab still
+         reaches them, and reaching one brings it to the front — but out of the
+         way, and moving out sideways so it leaves the way it would arrive. */
+      .resource-deck__slot.is-buried {
+        opacity: 0;
+        pointer-events: none;
+        transform: translateX(calc(var(--offset) * 26%)) scale(0.82);
+      }
 
-    &__card {
-      /* As wide as the deck can take. Past about 80vw the cards either side
-         have nowhere left to peek from — they are offset by a proportion of
-         this width, so every pixel the front card gains is one they lose. */
-      width: min(80vw, 22em);
-      transform: none;
-
-      // The lift on hover means nothing here; the pile's own motion is the
-      // feedback, and a touch-hold would otherwise leave a card stuck raised.
-      &:hover,
-      &:focus-visible {
+      .resource-deck__card {
+        /* As wide as the deck can take. Past about 80vw the cards either side
+           have nowhere left to peek from — they are offset by a proportion of
+           this width, so every pixel the front card gains is one they lose. */
+        width: min(80vw, 22em);
         transform: none;
+
+        // The lift on hover means nothing here; the pile's own motion is the
+        // feedback, and a touch-hold would otherwise leave a card stuck raised.
+        &:hover,
+        &:focus-visible {
+          transform: none;
+        }
       }
     }
   }
@@ -306,32 +362,53 @@
   &__nav-button {
     display: grid;
     place-items: center;
-    /* A real target, in pixels rather than ems at the floor: the section's
-       type is small on a phone, and 2.6em of it came out at 35px — under the
-       44px a finger can be relied on to hit, on the one control here that
-       exists to be tapped. */
-    width: max(2.6em, 44px);
-    height: max(2.6em, 44px);
+    position: relative;
+    /* Just big enough for the caret in it. The filled, bordered circle these
+       used to sit in was the largest thing in the section by contrast, on a
+       control that only has to be found once — two chevrons either side of a
+       count read as navigation without any of it. */
+    width: 1.7em;
+    height: 1.7em;
     padding: 0;
-    border: 1px solid var(--border-color);
+    border: 0;
+    // Kept, though nothing is drawn: it is the shape the focus ring takes.
     border-radius: 50%;
-    background: var(--bg-color);
+    background: none;
     color: var(--secondary-text);
     cursor: pointer;
-    transition: background 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+    transition: color 0.18s ease, opacity 0.18s ease;
+
+    /* The tap target, at 44px, kept off the layout.
+       The button is now only as wide as its caret — about 23px on a phone,
+       well under the 44px a finger can be relied on to hit, and this is the
+       one control in the section that exists to be tapped. An absolutely
+       positioned pseudo-element centred on the button takes those taps
+       instead: clicks on it land on the button because it is inside it, and
+       being out of flow it cannot push the row apart the way padding would.
+       It overhangs the button by 11px a side, and the gaps either side of the
+       count are 12px, so no two targets ever meet. */
+    &::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: max(100%, 44px);
+      height: max(100%, 44px);
+      transform: translate(-50%, -50%);
+    }
 
     &:hover {
-      border-color: color-mix(in srgb, var(--primary-text) 24%, var(--border-color));
       color: var(--primary-text);
     }
 
+    // No fill left to darken, so the press is carried by the caret itself.
     &:active {
-      background: var(--bg-color-high);
+      opacity: 0.55;
     }
 
     &:focus-visible {
       outline: 2px solid var(--highlight-color);
-      outline-offset: 2px;
+      outline-offset: 4px;
     }
   }
 

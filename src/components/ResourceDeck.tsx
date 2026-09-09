@@ -7,7 +7,7 @@ import {
   CaretRight,
 } from "@phosphor-icons/react";
 import resources, { Resource } from "../utils/resources";
-import { cardDressingClass } from "../utils/tileDressing";
+import { cardDressingClass, tiltFor } from "../utils/tileDressing";
 import "../styles/canvasCard.scss";
 import "../styles/ResourceDeck.scss";
 
@@ -37,9 +37,46 @@ const MAX_DECK_EM = 54;
 /** The least two cards may overlap, however few there are. */
 const MIN_OVERLAP_EM = 3.2;
 
-/* Below this the fan becomes a stack — matched to the breakpoint in the
-   stylesheet, which is the other half of the same decision. */
-const STACK_QUERY = "(max-width: 900px)";
+/* Below this the fan gives way to the narrow arrangement — matched to the
+   breakpoint in the stylesheet, which is the other half of the same decision. */
+const NARROW_QUERY = "(max-width: 900px)";
+
+/**
+ * What the cards do on a narrow screen — the one switch for the whole
+ * arrangement.
+ *
+ * 'scatter' lays them out the way the experiments stage lays out its tiles a
+ * few hundred pixels above: a scattered grid of tilted cards at unequal widths
+ * and vertical offsets, all of them on screen at once, scrolled past rather
+ * than moved through. The two sections stand on one dotted board, so a phone
+ * seeing a mosaic and then a single card with arrows read as two unrelated
+ * blocks that happened to be adjacent.
+ *
+ * 'pile' is the original: the cards stacked one behind another, dealt by
+ * tapping or swiping, with an arrow pair and a count beneath. It brings its
+ * own machinery with it — autoplay, the swipe, a front card, the nav — all of
+ * which this switch turns off together, because every piece of it is gated on
+ * `stacked` below.
+ *
+ * Both are fully implemented, here and in ResourceDeck.scss. Flip this one
+ * value to change back; nothing else needs touching.
+ */
+const NARROW_LAYOUT: 'scatter' | 'pile' = 'scatter';
+
+/**
+ * Where each card sits in the scatter, by index.
+ *
+ * Six columns and hand-placed, exactly as GRID_SCATTER is on the experiments
+ * stage — the point is that the two read as the same arrangement, and a rule
+ * that packed them automatically would not look hand-arranged. `offset` (px)
+ * drops a card below the top of its row, applied as a margin so the row grows
+ * to contain it and no card can ever be pushed over its neighbour. Cycles for
+ * decks longer than the table. */
+const SCATTER = [
+  { row: 1, col: 1, span: 5, offset: 0 },
+  { row: 2, col: 2, span: 5, offset: 22 },
+  { row: 3, col: 1, span: 4, offset: 0 },
+];
 
 /** How many cards show either side of the one in front. */
 const SIDE_CARDS = 1;
@@ -70,34 +107,39 @@ const KIND_LABEL: Record<Resource["kind"], string> = {
 };
 
 /**
- * Whether the deck is stacked rather than fanned.
+ * Whether the screen is too narrow for the fan.
  *
- * A fan needs hover to pull a card out of it, and a phone has none — so at
- * this width the cards pile up instead and are dealt by tapping. The layout
- * is the stylesheet's business; this exists because the tap has to mean two
- * different things in the two arrangements, and only the component can decide
- * that.
+ * A fan needs hover to pull a card out of it, and a phone has none, so below
+ * this width the cards take one of the two arrangements NARROW_LAYOUT chooses
+ * between. Which one they take is the stylesheet's business; this exists
+ * because a tap means something different in each, and only the component can
+ * decide that.
  */
-function useIsStacked(): boolean {
-  const [stacked, setStacked] = useState(
-    () => typeof window !== "undefined" && window.matchMedia?.(STACK_QUERY).matches
+function useIsNarrow(): boolean {
+  const [narrow, setNarrow] = useState(
+    () => typeof window !== "undefined" && window.matchMedia?.(NARROW_QUERY).matches
   );
 
   useEffect(() => {
-    const query = window.matchMedia?.(STACK_QUERY);
+    const query = window.matchMedia?.(NARROW_QUERY);
     if (!query) return;
-    const update = () => setStacked(query.matches);
+    const update = () => setNarrow(query.matches);
     update();
     query.addEventListener("change", update);
     return () => query.removeEventListener("change", update);
   }, []);
 
-  return stacked;
+  return narrow;
 }
 
 const ResourceDeck: React.FC<ResourceDeckProps> = ({ title = "Downloaded 25k+ times", items }) => {
   const deck = items ?? resources;
-  const stacked = useIsStacked();
+  const narrow = useIsNarrow();
+  /* Every piece of the pile's behaviour hangs off `stacked`, so leaving it
+     false is the whole of turning the pile off: no autoplay, no swipe, no
+     front card, no arrows. */
+  const stacked = narrow && NARROW_LAYOUT === 'pile';
+  const scattered = narrow && NARROW_LAYOUT === 'scatter';
 
   /**
    * Which card is in front. Only meaningful while stacked, but kept whatever
@@ -236,7 +278,9 @@ const ResourceDeck: React.FC<ResourceDeckProps> = ({ title = "Downloaded 25k+ ti
       </header>
 
       <ul
-        className={`resource-deck__row${stacked ? " is-stacked" : ""}`}
+        className={`resource-deck__row${stacked ? " is-stacked" : ""}${
+          scattered ? " is-scattered" : ""
+        }`}
         onPointerDown={handlePointerDown}
         onPointerUp={handlePointerUp}
         onPointerCancel={() => {
@@ -254,7 +298,14 @@ const ResourceDeck: React.FC<ResourceDeckProps> = ({ title = "Downloaded 25k+ ti
              card leans one way, the rightmost the other, and the tilt is
              carried in a custom property so the hover state can cancel it
              without having to know which card it is. */
-          const tilt = (index - (deck.length - 1) / 2) * 4.5;
+          /* Scattered, the tilt comes from the same cycle the experiments
+             tiles use, so the two arrangements lean alike — and never at zero,
+             which the fan's symmetric spread gives its middle card and which
+             reads as one card hung straight by mistake. */
+          const tilt = scattered
+            ? tiltFor(index)
+            : (index - (deck.length - 1) / 2) * 4.5;
+          const place = SCATTER[index % SCATTER.length];
           /* Where this card sits in the deck: 0 is the one in front, the one
              a tap would follow. Anything further out than the cards peeking
              either side is held back, so a long deck does not become a
@@ -279,6 +330,10 @@ const ResourceDeck: React.FC<ResourceDeckProps> = ({ title = "Downloaded 25k+ ti
                   // Passed separately because the transforms need the distance
                   // without its sign, and CSS abs() is too new to rely on.
                   "--distance": distance,
+                  "--m-row": place.row,
+                  "--m-col-start": place.col,
+                  "--m-col-span": place.span,
+                  "--m-offset": `${place.offset}px`,
                 } as React.CSSProperties
               }
             >
@@ -355,7 +410,7 @@ const ResourceDeck: React.FC<ResourceDeckProps> = ({ title = "Downloaded 25k+ ti
             }}
             aria-label="Previous"
           >
-            <CaretLeft size={16} weight="bold" />
+            <CaretLeft size={13} weight="bold" />
           </button>
 
           {/* Polite, not announced: the cards themselves are the content, and
@@ -373,7 +428,7 @@ const ResourceDeck: React.FC<ResourceDeckProps> = ({ title = "Downloaded 25k+ ti
             }}
             aria-label="Next"
           >
-            <CaretRight size={16} weight="bold" />
+            <CaretRight size={13} weight="bold" />
           </button>
         </div>
       )}

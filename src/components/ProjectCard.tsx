@@ -216,9 +216,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     <Buttons
       text="Read more"
       withText
-      withIcon
-      iconName="ArrowRight"
-      iconDirection="right"
+      // No arrow. "Read more" already says which way this goes, and the
+      // chevron was a second, smaller way of saying it. Dropping the icon
+      // props rather than passing `withIcon={false}`: that is the default, and
+      // an iconName left behind would read as an icon that had been switched
+      // off rather than one that was never wanted.
       size="s"
       // Named `emphasis` rather than `variant`: the component already has a
       // prop by that name, for the card's own size, and shadowing it here
