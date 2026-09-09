@@ -84,12 +84,33 @@
     width: 24em;
     text-decoration: none;
     color: inherit;
-    background: var(--card-bg, var(--bg-color));
-    border: 1px solid var(--border-color);
-    border-radius: var(--radius-sm, 10px);
-    overflow: hidden;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
     transform: rotate(var(--tilt, 0deg));
+
+    /* The chrome is chosen by TILE_DRESSING in utils/tileDressing, the same
+       switch the experiments tiles read — these cards stand on the same board
+       a few hundred pixels below them, and two different card treatments on
+       one continuous ground read as two sections that happen to overlap.
+
+       Dressing A — the shared mount. Radius and edge come down from the photo
+       canvas's own: this card is 24em wide and mostly picture, and the
+       canvas's 26px corner on a 2:1 frame closed the thumbnail's own corners
+       in. The rest — the six-layer shadow, the lip, the dark palette — is the
+       `canvas-card` class carried alongside this one. */
+    &.is-canvas-card {
+      --canvas-card-radius: 18px;
+      --canvas-card-edge-width: 4px;
+      --canvas-card-fill: var(--card-bg, var(--bg-color));
+    }
+
+    /* Dressing B — the original: a hairline border, the site's small radius,
+       one soft drop shadow. */
+    &.is-own-card {
+      background: var(--card-bg, var(--bg-color));
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-sm, 10px);
+      overflow: hidden;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    }
 
     /* The entrance: each card comes up out of a blur as the section is
        reached.
@@ -119,6 +140,16 @@
     &:hover,
     &:focus-visible {
       transform: rotate(0deg) translateY(-14px) scale(1.06);
+    }
+
+    /* Only the plain card deepens its shadow on hover. The mounted one must
+       not: its shadow is a single six-layer stack — a lit inset along the top
+       edge, the solid lip under the bottom, then the drops — and replacing the
+       whole property with one soft blur threw all of that away, so a card
+       being picked up lost its mount's edge at the moment you looked at it. It
+       is already rising 14px and growing 6%, which is plenty. */
+    &.is-own-card:hover,
+    &.is-own-card:focus-visible {
       box-shadow: 0 20px 44px rgba(0, 0, 0, 0.2);
       border-color: color-mix(in srgb, var(--primary-text) 20%, var(--border-color));
     }

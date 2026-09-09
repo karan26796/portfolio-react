@@ -23,6 +23,7 @@ import Footer from "./components/Footer";
 import RightSidebar from "./components/RightSidebar";
 import ResumePopup from "./pages/ResumePopup";
 import "./styles/AboutRedirect.scss";
+import "./styles/dottedBoard.scss";
 
 import kritika from './utils/testimonials/pfp-02.jpg';
 import malavika from './utils/testimonials/pfp-03.jpg';
@@ -50,7 +51,35 @@ const Overview = React.lazy(() => import("./pages/Overview"));
 // Throwaway canvas spike — see src/pages/CanvasSpike.tsx.
 const CanvasSpike = React.lazy(() => import("./pages/CanvasSpike"));
 
+/**
+ * Experiment: the photo canvas's dot grid as the ground under every page,
+ * rather than a surface that two sections stand on.
+ *
+ * One switch. `true` puts `site-dot-grid` on the root element and the rules in
+ * dottedBoard.scss do the rest — including telling the per-section boards to
+ * stop drawing their own grid, since two 40px grids anchored differently read
+ * as one blurred grid. `false` and the site is exactly as it was.
+ *
+ * Written to the root element rather than carried down through props because
+ * every page's wrapper needs it and none of them are rendered from here.
+ *
+ * Tried and turned back off: under the hero the texture was the first thing
+ * you saw rather than the name, and it flattened the difference between the
+ * sections that are meant to read as a board and the sections that are just
+ * page. The ground is back to being something two runs of sections stand on —
+ * the combined experiments/community board and the training gallery — where it
+ * fades in and out at the ends. The whole experiment is still here behind this
+ * one flag if it is worth another look.
+ */
+const SITE_DOT_GRID = false;
+
 const App: React.FC = () => {
+  useEffect(() => {
+    const root = document.documentElement;
+    root.classList.toggle("site-dot-grid", SITE_DOT_GRID);
+    return () => root.classList.remove("site-dot-grid");
+  }, []);
+
   useEffect(() => {
     const handleHashChange = (e: HashChangeEvent) => {
       e.preventDefault();
@@ -262,11 +291,25 @@ const HomePage: React.FC = () => {
         ) : (
           <ProjectList projectData={projectSummaries} cardComponent={ProjectCard} />
         )}
-        <div data-accent={EXPERIMENTS_ACCENT} className="home-experiments-section">
-          <Experiments layout="grid" title="" />
-        </div>
-        <div data-accent={RESOURCES_ACCENT}>
-          <ResourceDeck />
+        {/* One board under both. The experiments and the Figma community
+            files are the same kind of thing — work put out to be looked at,
+            arranged rather than listed — and they used to be separated by the
+            resource deck's own slab, which read as two unrelated sections that
+            happened to be adjacent. Standing them on one dotted ground, with
+            the dots fading in at the top and out at the bottom, makes the pair
+            one surface.
+
+            The two inner wrappers keep their own `data-accent`: the board is a
+            ground, not a section, and the page's wash should still change as
+            you move from one half of it to the other. useSectionAccent finds
+            them by a document-wide query, so nesting them changes nothing. */}
+        <div className="dotted-board">
+          <div data-accent={EXPERIMENTS_ACCENT} className="home-experiments-section">
+            <Experiments layout="grid" title="" />
+          </div>
+          <div data-accent={RESOURCES_ACCENT}>
+            <ResourceDeck />
+          </div>
         </div>
         <div data-accent={TESTIMONIALS_ACCENT}>
           <Testimonials data={testimonialsData} title="Testimonials" />

@@ -1,0 +1,107 @@
+/* ============================================================================
+   CANVAS CARD — the mounted-photograph treatment, in one place.
+
+   A thick white mount, generously rounded corners, and a layered shadow with
+   a solid page-coloured lip under the bottom edge, so the thing reads as a
+   physical print resting a few millimetres off the surface rather than as a
+   rectangle with a gradient beneath it.
+
+   Three places wear it: the photo canvas (/gallery), the experiments stage,
+   and the Figma community deck. It lives here rather than in any one of them
+   because it is the same object in all three, and three copies of a
+   six-layer box-shadow would have drifted apart within a month.
+
+   PAINT ONLY. No transform, no position, no size. Each host composes its own
+   transform — the canvas has a tilt and an opening scale, the experiments
+   stage has a parallax drift and a drag offset, the deck has its shuffle —
+   and a transform in here would be overwritten by every one of them.
+   ========================================================================== */
+
+:root {
+  --canvas-card-edge: #ffffff;
+  /* The one shadow layer that is not a shadow: a solid, offset, un-blurred
+     band the colour of the page just under the bottom edge. It is what makes
+     the card read as sitting off the surface rather than printed on it. */
+  --canvas-card-lip: #e7eaec;
+  /* The drop shadow's three strengths, tight to wide. Cool and slightly
+     violet, not neutral grey — a grey drop shadow on a warm page reads as
+     dirt. Three whole colours rather than one hue and three alphas, so the
+     dark theme can swap the hue out and not only dim it. */
+  --canvas-shadow-near: rgba(183, 181, 203, 0.31);
+  --canvas-shadow-mid: rgba(183, 181, 203, 0.27);
+  --canvas-shadow-far: rgba(183, 181, 203, 0.16);
+}
+
+/* Dark mode. The white mount goes: a 4.5px white edge around every image is
+   the brightest thing on a near-black screen by some margin. The shadow loses
+   its hue and becomes plain black — a violet shadow needs a light ground to
+   read against. */
+[data-theme="dark"] {
+  --canvas-card-edge: rgba(255, 255, 255, 0.09);
+  --canvas-card-lip: rgba(0, 0, 0, 0.4);
+  --canvas-shadow-near: rgba(0, 0, 0, 0.5);
+  --canvas-shadow-mid: rgba(0, 0, 0, 0.34);
+  --canvas-shadow-far: rgba(0, 0, 0, 0.22);
+}
+
+.canvas-card {
+  /* --canvas-k is the reciprocal of any scale the card is being drawn at, so
+     the chrome can be written at the size it should *appear* and hold that
+     size regardless. The photo canvas publishes 1/zoom; everywhere else the
+     card is drawn at life size and the default of 1 is right.
+
+     --canvas-card-radius and --canvas-card-edge-width are the two dials a
+     host may want: a 110px-wide tile on a phone cannot carry a 26px radius
+     and a 4.5px mount without becoming mostly mount. */
+  border-radius: calc(var(--canvas-card-radius, 26px) * var(--canvas-k, 1));
+  border: calc(var(--canvas-card-edge-width, 4.5px) * var(--canvas-k, 1)) solid
+    var(--canvas-card-edge);
+  /* The mount has to eat into the box rather than grow it: every host sizes
+     these from the outside — a grid cell, a stacked deck, a masonry slot. */
+  box-sizing: border-box;
+  background: var(--canvas-card-fill, var(--bg-color-high));
+  overflow: hidden;
+
+  /* Six layers, and each one is doing a job: an inset highlight along the top
+     edge so the white mount looks lit from above; the solid lip just under the
+     bottom edge; then four drop shadows, the tight ones grounding the card and
+     the wide ones lifting it. Written as one stack because a box-shadow is a
+     single property — there is no adding to it later. */
+  box-shadow:
+    0 calc(-10.48px * var(--canvas-k, 1)) calc(7.86px * var(--canvas-k, 1))
+      rgba(20, 51, 77, 0.04) inset,
+    0 calc(5.89px * var(--canvas-k, 1)) 0 var(--canvas-card-lip),
+    0 calc(0.92px * var(--canvas-k, 1)) calc(2.3px * var(--canvas-k, 1))
+      var(--canvas-shadow-near),
+    0 calc(4.6px * var(--canvas-k, 1)) calc(4.6px * var(--canvas-k, 1))
+      var(--canvas-shadow-mid),
+    0 calc(9.66px * var(--canvas-k, 1)) calc(5.98px * var(--canvas-k, 1))
+      var(--canvas-shadow-far),
+    0 calc(11.51px * var(--canvas-k, 1)) calc(7.12px * var(--canvas-k, 1))
+      var(--canvas-shadow-far);
+}
+
+/* The small label a card carries: a pill, the shape every other short label on
+   the site takes — the tags, the dock, the scroll indicator. Dark and
+   translucent, because it sits over a photograph and has no ground of its own
+   to borrow contrast from.
+
+   Position is the host's business, not this class's: the photo canvas hangs it
+   from the bottom-left inside the frame and counter-scales it against the
+   camera; the experiments stage simply places it. */
+.canvas-card-label {
+  display: flex;
+  align-items: center;
+  gap: 0.35em;
+  padding: 0.35em 0.85em;
+  border-radius: var(--radius-pill, 999px);
+  font-size: 13px;
+  font-weight: 550;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.62);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  pointer-events: none;
+}

@@ -7,6 +7,8 @@ import {
   CaretRight,
 } from "@phosphor-icons/react";
 import resources, { Resource } from "../utils/resources";
+import { cardDressingClass } from "../utils/tileDressing";
+import "../styles/canvasCard.scss";
 import "../styles/ResourceDeck.scss";
 
 /**
@@ -281,7 +283,9 @@ const ResourceDeck: React.FC<ResourceDeckProps> = ({ title = "Downloaded 25k+ ti
               }
             >
               <a
-                className="resource-deck__card"
+                /* Dressed like everything else on the board it stands on —
+                   see utils/tileDressing. */
+                className={`resource-deck__card ${cardDressingClass()}`}
                 href={item.href}
                 target="_blank"
                 rel="noopener noreferrer"

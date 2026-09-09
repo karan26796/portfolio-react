@@ -129,9 +129,10 @@
    wide display the tiles stay a block you can take in rather than a band
    running the full width of the screen.
 
-   Each tile is dressed as a selected frame on a design canvas rather than as
-   a card: square corners, a selection stroke, corner handles, and its name
-   above the top-left corner. */
+   How each tile is *dressed* is chosen by GRID_TILE_DRESSING in
+   Experiments.tsx and lives in the two blocks at the bottom of this file —
+   a photograph mounted as on the photo canvas, or a selected frame on a design
+   canvas. The stage itself is the same either way. */
 .experiments-grid {
   display: grid;
   grid-template-columns: repeat(12, 1fr);
@@ -218,29 +219,22 @@
 
 .experiment-tile {
   position: relative;
-  // Squared off, in keeping with the frame treatment on the photo canvas.
-  border-radius: 0;
   background: var(--bg-color-high);
-  // An outline rather than a border so the stroke sits outside the media box
-  // and takes no part in the tile's size.
-  outline: 1px solid var(--frame-stroke);
-  outline-offset: 0;
-
-  // Selected — or focused from the keyboard, which selects it too: a heavier
-  // stroke and solid handles, the way a design tool distinguishes the frame
-  // you are acting on from the ones merely on the canvas.
-  .is-selected &,
-  .grid-item:focus-visible & {
-    outline-width: 2px;
-  }
-
-  .is-selected & .experiment-tile-handle,
-  .grid-item:focus-visible & .experiment-tile-handle {
-    background: var(--frame-stroke);
-  }
 
   .experiment-media-wrapper {
     position: relative;
+    /* Contains the media's own stacking, which is the whole point of this
+       line. ImageWithSkeleton layers a skeleton at z-index 1 and the loaded
+       image at z-index 2, and those numbers were competing with the tile's —
+       so the photograph painted over the name pill (z-index 1) on every image
+       tile. The one tile whose name you could read was the colour-picker one,
+       because it is a <video> and carries no z-index at all.
+
+       Giving the wrapper a z-index of its own makes it a stacking context, so
+       the skeleton's 1 and the image's 2 are settled inside it and cannot
+       out-bid anything outside. Cheaper and more durable than raising the
+       pill to 3, which would only have moved the argument along by one. */
+    z-index: 0;
     overflow: hidden;
     aspect-ratio: var(--ratio, 1);
     width: 100%;
@@ -267,71 +261,163 @@
     }
   }
 
-  /* Above the top-left corner, the way a layer name sits over a selection.
-     Absolute so it never adds to the tile's height — the stage's top padding
-     and row gap carry it. */
-  .experiment-tile-label {
-    position: absolute;
-    left: 0;
-    bottom: calc(100% + 5px);
-    max-width: 100%;
-    color: var(--frame-stroke);
-    font-size: 0.75em;
-    font-weight: 550;
-    line-height: 1;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    pointer-events: none;
-  }
+  /* ------------------------------------------------------------------------
+     Dressing A — mounted like a photograph on the photo canvas. The chrome
+     itself (radius, white mount, layered shadow) is the shared `canvas-card`
+     class carried alongside this one; what belongs here is the tilt and where
+     the name sits.
+     Selected by GRID_TILE_DRESSING in Experiments.tsx.
+     --------------------------------------------------------------------- */
+  &.is-canvas-card {
+    /* The tilt. Safe to own the whole `transform` here: the drag offset and
+       the parallax drift both live on .grid-item, the element above, so
+       nothing else is competing for this one. */
+    transform: rotate(var(--card-tilt, 0deg));
+    transform-origin: center center;
 
-  /* Corner handles, centred on the corners so they straddle the stroke. */
-  .experiment-tile-handle {
-    position: absolute;
-    width: 7px;
-    height: 7px;
-    background: var(--bg-color);
-    border: 1px solid var(--frame-stroke);
-    box-sizing: border-box;
-    pointer-events: none;
-
-    &.is-tl {
-      top: 0;
-      left: 0;
-      transform: translate(-50%, -50%);
+    /* A focus ring, not decoration. These tiles are focusable and nudgeable
+       with the arrow keys, and the only thing that showed which one had the
+       keyboard used to be the frame dressing's heavier selection stroke —
+       dropping that would have left a keyboard user moving a tile they cannot
+       see they have hold of. Offset clear of the white mount, and outside the
+       card's own box so it never eats into the picture. */
+    .is-selected &,
+    .grid-item:focus-visible & {
+      outline: 2px solid var(--frame-stroke);
+      outline-offset: 3px;
     }
 
-    &.is-tr {
-      top: 0;
-      right: 0;
-      transform: translate(50%, -50%);
-    }
-
-    &.is-bl {
-      bottom: 0;
-      left: 0;
-      transform: translate(-50%, 50%);
-    }
-
-    &.is-br {
-      bottom: 0;
-      right: 0;
-      transform: translate(50%, 50%);
-    }
-  }
-
-  /* The narrowest tiles in the phone arrangement are around 110px across, so
-     the name comes down with them; it ellipsises rather than wrapping, as a
-     layer name does. */
-  @media (max-width: 860px) {
+    /* Inside the bottom-left corner, on a pill, exactly as the location tag
+       sits on a photograph in /gallery — rather than hanging above the top
+       edge, which is a layer name's place and not a caption's. */
     .experiment-tile-label {
-      font-size: 0.68em;
-      bottom: calc(100% + 4px);
+      position: absolute;
+      left: 10px;
+      bottom: 10px;
+      right: auto;
+      max-width: calc(100% - 20px);
+      /* Block, not the pill class's flex: there is no icon here, and
+         `text-overflow` has nothing to act on inside a flex container — the
+         text becomes an anonymous flex item and the name would be cut off
+         mid-letter rather than ellipsised. */
+      display: block;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      // Held level while the card it labels hangs crooked.
+      transform: rotate(calc(-1 * var(--card-tilt, 0deg)));
+      transform-origin: 0 100%;
+      z-index: 1;
     }
 
+    /* A 110px-wide tile cannot carry a 26px radius and a 4.5px mount without
+       becoming mostly mount, so both come down with the tiles. */
+    @media (max-width: 860px) {
+      --canvas-card-radius: 16px;
+      --canvas-card-edge-width: 3px;
+
+      .experiment-tile-label {
+        left: 6px;
+        bottom: 6px;
+        max-width: calc(100% - 12px);
+        padding: 0.25em 0.6em;
+        font-size: 11px;
+      }
+    }
+  }
+
+  /* ------------------------------------------------------------------------
+     Dressing B — a selected frame on a design canvas. The original treatment,
+     kept whole: square corners, a selection stroke in the site's existing
+     --frame-stroke (the same selection blue the photo canvas used to use),
+     corner handles, and the name above the top-left corner.
+     --------------------------------------------------------------------- */
+  &.is-figma-frame {
+    // Squared off, in keeping with the frame treatment.
+    border-radius: 0;
+    // An outline rather than a border so the stroke sits outside the media box
+    // and takes no part in the tile's size.
+    outline: 1px solid var(--frame-stroke);
+    outline-offset: 0;
+
+    // Selected — or focused from the keyboard, which selects it too: a heavier
+    // stroke and solid handles, the way a design tool distinguishes the frame
+    // you are acting on from the ones merely on the canvas.
+    .is-selected &,
+    .grid-item:focus-visible & {
+      outline-width: 2px;
+    }
+
+    .is-selected & .experiment-tile-handle,
+    .grid-item:focus-visible & .experiment-tile-handle {
+      background: var(--frame-stroke);
+    }
+
+    /* Above the top-left corner, the way a layer name sits over a selection.
+       Absolute so it never adds to the tile's height — the stage's top padding
+       and row gap carry it. */
+    .experiment-tile-label {
+      position: absolute;
+      left: 0;
+      bottom: calc(100% + 5px);
+      max-width: 100%;
+      color: var(--frame-stroke);
+      font-size: 0.75em;
+      font-weight: 550;
+      line-height: 1;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      pointer-events: none;
+    }
+
+    /* Corner handles, centred on the corners so they straddle the stroke. */
     .experiment-tile-handle {
-      width: 6px;
-      height: 6px;
+      position: absolute;
+      width: 7px;
+      height: 7px;
+      background: var(--bg-color);
+      border: 1px solid var(--frame-stroke);
+      box-sizing: border-box;
+      pointer-events: none;
+
+      &.is-tl {
+        top: 0;
+        left: 0;
+        transform: translate(-50%, -50%);
+      }
+
+      &.is-tr {
+        top: 0;
+        right: 0;
+        transform: translate(50%, -50%);
+      }
+
+      &.is-bl {
+        bottom: 0;
+        left: 0;
+        transform: translate(-50%, 50%);
+      }
+
+      &.is-br {
+        bottom: 0;
+        right: 0;
+        transform: translate(50%, 50%);
+      }
+    }
+
+    /* The narrowest tiles in the phone arrangement are around 110px across, so
+       the name comes down with them; it ellipsises rather than wrapping, as a
+       layer name does. */
+    @media (max-width: 860px) {
+      .experiment-tile-label {
+        font-size: 0.68em;
+        bottom: calc(100% + 4px);
+      }
+
+      .experiment-tile-handle {
+        width: 6px;
+        height: 6px;
+      }
     }
   }
 }
