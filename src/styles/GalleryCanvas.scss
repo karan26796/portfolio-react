@@ -162,43 +162,30 @@
   /* The pill itself — shape, padding, colour — is the shared
      `canvas-card-label` class on the element. Only where it sits and how it
      resists the camera belong here. */
+  /* Inside the bottom-left corner, whether the photograph is merely being
+     pointed at or opened. The two used to differ — an opened photo swapped the
+     pill for plain text hung under the frame — but a pill that vanishes at the
+     moment you zoom in reads as the label being lost rather than as a change
+     of treatment, and the label matters more once the photograph is the only
+     thing on screen, not less.
+
+     14px on screen at any zoom, and at any size the photo has grown to.
+     --canvas-k undoes the camera (it is 1/zoom) and --photo-scale undoes the
+     opening growth, because both scale this element's coordinate space: a flat
+     14px is 14 *canvas* units, which at the opening zoom is barely ten on
+     screen, and three times that once a photo has grown to fill the window.
+     The pill's corner crossed the card's rounded corner and its white mount at
+     one end of that range and floated a long way inside it at the other. */
   &__caption {
     position: absolute;
-    /* Inset in screen pixels rather than canvas units — hence --canvas-k. A
-       flat 10px is 10 *canvas* units, which at this zoom is barely seven on
-       screen, and the pill's bottom-left then crossed the card's rounded
-       corner and its white mount. 14px on screen clears both at any zoom. */
-    left: calc(14px * var(--canvas-k, 1));
-    bottom: calc(14px * var(--canvas-k, 1));
-    // Counter-scaled and counter-rotated inline against the camera and the
-    // card's own tilt, so it holds one size on screen and sits level.
+    left: calc(14px * var(--canvas-k, 1) / var(--photo-scale, 1));
+    bottom: calc(14px * var(--canvas-k, 1) / var(--photo-scale, 1));
+    // Counter-scaled and counter-rotated inline against the camera, the
+    // opening growth and the card's own tilt, so it holds one size on screen
+    // and sits level.
     transform-origin: 0 100%;
   }
 
-}
-
-/* Under the open photograph rather than inside it, in the page's own text
-   colour: with nothing else competing for attention there is no need for the
-   dark pill that makes a caption readable over an image, and a label sitting
-   below the frame reads as a title for it.
-
-   Written as a compound selector rather than nested, so it carries two classes
-   and beats the shared single-class `canvas-card-label` it is undoing. Nested,
-   both would be one class deep and which won would depend on the order the two
-   stylesheets happened to be imported in. */
-.gallery-canvas-photo__caption.gallery-canvas-photo__caption--open {
-  top: calc(100% + 10px);
-  bottom: auto;
-  // Flush with the open photograph's left edge, so it reads as its title.
-  left: 0;
-  transform-origin: 0 0;
-  padding: 0;
-  // No pill here — there is no background left for it to be the shape of.
-  border-radius: 0;
-  color: var(--secondary-text);
-  background: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
 }
 
 /* The arrival: up from three-quarter size, as in the reference. Only opacity

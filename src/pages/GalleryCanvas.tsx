@@ -176,6 +176,23 @@ const GalleryCanvas: React.FC = () => {
       : "Click"
   );
 
+  /**
+   * Whether every photograph carries its location, or only the one being
+   * pointed at.
+   *
+   * Keyed on `(hover: none)` rather than on a width, and not on the `isMobile`
+   * below: the reason to show them all is not that the screen is narrow, it is
+   * that a device with no pointer can never produce the hover that reveals
+   * one, so on a phone the label would otherwise only ever appear on a photo
+   * you had already opened. Resolved once on mount, like `tapWord` — the
+   * pointer type does not change mid-visit.
+   */
+  const [labelsAlwaysOn] = useState(
+    () =>
+      typeof window !== "undefined" &&
+      window.matchMedia("(hover: none)").matches
+  );
+
   const isMobile = viewport.w > 1 && viewport.w < MOBILE_BREAKPOINT;
 
   const layout = useMemo(
@@ -907,14 +924,13 @@ const GalleryCanvas: React.FC = () => {
                     onError={(e) => e.currentTarget.classList.add("is-loaded")}
                   />
 
-                  {(isOpen || hoveredKey === photo.key) && (
+                  {(isOpen || labelsAlwaysOn || hoveredKey === photo.key) && (
                     <span
-                      className={`gallery-canvas-photo__caption canvas-card-label${
-                        isOpen ? " gallery-canvas-photo__caption--open" : ""
-                      }`}
-                      /* Counter-scaled so the caption holds one size on screen,
-                         and counter-rotated so it sits level while the
-                         photograph it labels hangs crooked. */
+                      className="gallery-canvas-photo__caption canvas-card-label"
+                      /* Counter-scaled so the pill holds one size on screen
+                         however far the camera is zoomed and however far the
+                         photograph has grown, and counter-rotated so it sits
+                         level while the photograph it labels hangs crooked. */
                       style={{
                         transform: `rotate(${-photo.tilt}deg) scale(${
                           1 / (camera.zoom * scale)
