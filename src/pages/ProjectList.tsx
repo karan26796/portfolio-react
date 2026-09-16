@@ -6,6 +6,7 @@ import { Sparkle } from '@phosphor-icons/react';
 import ScrollReveal from "../components/ScrollReveal";
 import ProjectScrollIndicator from '../components/ProjectScrollIndicator';
 import { getDominantPastelColor, toAccentTint } from '../utils/dominantColor';
+import { NO_CASE_STUDY_IDS } from '../utils/ProjectSummaries';
 
 interface ProjectListProps {
   projectData: ProjectCardData[];
@@ -424,7 +425,7 @@ const ProjectList: React.FC<ProjectListProps> = ({ projectData, cardComponent: P
                     variant="large"
                     buttonType="button"
                     onClick={
-                      project.id === '10' || project.id === '11'
+                      NO_CASE_STUDY_IDS.has(project.id)
                         ? undefined
                         : () => handleCardClick(project.id)
                     }

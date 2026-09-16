@@ -1,6 +1,6 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { mainProjectSummaries } from '../utils/ProjectSummaries';
+import { projectSummaries, NO_CASE_STUDY_IDS } from '../utils/ProjectSummaries';
 import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
 import '../styles/ProjectNextProjects.scss';
 
@@ -11,9 +11,11 @@ interface ProjectNextProjectsProps {
 const ProjectNextProjects: React.FC<ProjectNextProjectsProps> = ({ currentProjectId }) => {
   const navigate = useNavigate();
   // Show exactly two "more projects" so they can sit as equal-width cards
-  // that fill the available container width.
-  const otherProjects = mainProjectSummaries
-    .filter((project) => project.id !== currentProjectId)
+  // that fill the available container width. Drawn from the whole list rather
+  // than the featured few: the top of the list is a card-only project, and a
+  // suggestion that opens nothing is worse than one further down the list.
+  const otherProjects = projectSummaries
+    .filter((project) => project.id !== currentProjectId && !NO_CASE_STUDY_IDS.has(project.id))
     .slice(0, 2);
 
   if (otherProjects.length === 0) return null;

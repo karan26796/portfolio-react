@@ -25,6 +25,7 @@ const loopdata = "/project-imgs/loop-research/loop-research.gif";
 
 //interconnect
 const interconnect = "/project-imgs/interconnect/interconnect-thumb.webp";
+const engagementAgent = "/project-imgs/engagement-agent/engagement-agent.mp4";
 const referral = "/project-imgs/interconnect/referral.webp";
 const holidayCalendar = "/project-imgs/holiday-calendar/thumb.webp";
 
@@ -44,6 +45,7 @@ export type ProjectSummary = ProjectCardData & { meta: ProjectMeta };
  * - Reorder ids to change display order
  */
 export const PROJECT_DISPLAY_ORDER: string[] = [
+  "12",
   "8",
   "7",
   // "9",
@@ -55,6 +57,12 @@ export const PROJECT_DISPLAY_ORDER: string[] = [
   // "11",
   // "10",
 ];
+
+/**
+ * Projects that are a card and nothing more — there is no case study behind
+ * them, so they don't open, and nothing links to them.
+ */
+export const NO_CASE_STUDY_IDS = new Set(["10", "11", "12"]);
 
 /** Number of featured projects shown as large cards on the home page. */
 export const FEATURED_PROJECT_COUNT = 3;
@@ -80,6 +88,26 @@ const projectsById: Record<string, ProjectSummary> = {
       role: "Designer",
       scope: "Scope",
       impact: "Impact",
+    },
+  },
+  "12": {
+    id: "12",
+    company: "Keka HR",
+    newdesc: "HR teams only learn someone is disengaged once they have already resigned.",
+    description: "Built a chat copilot prototype that shows HR who is at risk of leaving and walks a manager through the conversation.",
+    title: "An HR copilot that spots disengagement before people quit",
+    img: engagementAgent,
+    year: "Keka HR / 2025",
+    tags: ["AI Agent", "Prototyping", "Enterprise UX"],
+    type: "client",
+    details: "Co-pilot to help HRBPs identify early attrition; Managers engage their team members; and employees be a communicate upwards effectively.",
+    accentColor: "#4f46e5",
+    bgColor: "#f4f6ffff",
+    meta: {
+      duration: "2026",
+      role: "Design & build",
+      scope: "HR copilot prototype",
+      impact: "A working demo of how an AI agent could sit inside an HR workflow.",
     },
   },
   "11": {

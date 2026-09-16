@@ -4,6 +4,7 @@ import rehypeRaw from 'rehype-raw';
 import { useParams, useNavigate } from "react-router-dom";
 import "../styles/ProjectDetails.scss";
 import { useProjects } from "../utils/useProjects";
+import { NO_CASE_STUDY_IDS } from "../utils/ProjectSummaries";
 import ProjectDetailsSkeleton from "../components/ProjectDetailsSkeleton";
 import ImageWithSkeleton from "../components/ImageWithSkeleton";
 import CustomVideo from "../components/CustomVideo";
@@ -20,8 +21,8 @@ import { toAccentTint } from "../utils/dominantColor";
 // Projects that render as bespoke React pages instead of markdown.
 const CUSTOM_PROJECTS: Record<string, React.ComponentType> = {};
 
-// Explicit IDs of projects that do NOT have a detailed case study or should be skipped in navigation
-const EXCLUDED_PROJECT_IDS = new Set(["10", "11"]);
+// Projects with no case study are skipped in the reader's prev/next navigation.
+const EXCLUDED_PROJECT_IDS = NO_CASE_STUDY_IDS;
 
 // Deterministic slug from a heading's text
 const slugify = (text: string) =>
