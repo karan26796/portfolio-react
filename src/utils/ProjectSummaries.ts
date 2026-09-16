@@ -100,7 +100,7 @@ const projectsById: Record<string, ProjectSummary> = {
     year: "Keka HR / 2025",
     tags: ["AI Agent", "Prototyping", "Enterprise UX"],
     type: "client",
-    details: "Co-pilot to help HRBPs identify early attrition; Managers engage their team members; and employees communicate upwards.",
+    details: "AI co-pilot to help HRBPs identify early attrition; Managers engage their team members; and employees communicate upwards.",
     accentColor: "#4f46e5",
     bgColor: "#f4f6ffff",
     meta: {
