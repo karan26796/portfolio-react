@@ -1,0 +1,231 @@
+/* Same measure and rhythm as the About page, so the two read as siblings. The
+   notes themselves sit in a narrower column — they are prose, and a 960px line
+   is too long to read comfortably. */
+.writing-page {
+  width: 100%;
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  padding: 3em 2em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 3.5em;
+  // Carries the page wash (see AppShell.scss), which needs its own stacking
+  // context and a background to sit on.
+  position: relative;
+  z-index: 2;
+  background-color: var(--bg-color);
+
+  @media (max-width: 600px) {
+    padding: 2em 1.15em;
+    gap: 2.5em;
+  }
+}
+
+/* Mirrors .training-hero: the same standing height with the masthead centred
+   in it, so the page opens like the home and training pages do. The type
+   itself comes from hero.scss. */
+.writing-hero {
+  min-height: calc(60vh - 3em);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 1em 0;
+  // Above the page wash, which paints at z-index -1.
+  position: relative;
+  z-index: 1;
+
+  @media screen and (max-width: 767px) {
+    min-height: 0;
+    padding: 2em 0 0;
+  }
+}
+
+/* One line per note, fixed to the left edge. Only where there is room beside
+   the 960px column for it — any narrower and it would sit on the text. */
+.writing-index {
+  position: fixed;
+  top: 50%;
+  left: max(1.5em, calc((100vw - var(--max-width-container)) / 4 - 1.25em));
+  transform: translateY(-50%);
+  z-index: 5;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s ease, visibility 0s linear 0.4s;
+
+  &.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.4s ease, visibility 0s;
+  }
+
+  ol {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+  }
+
+  @media (max-width: 1119px) {
+    display: none;
+  }
+}
+
+.writing-index__line {
+  display: block;
+  // The hit area is taller than the line, so each is easy to point at.
+  padding: 7px 0;
+  width: 2.5em;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 1em;
+    height: 1.5px;
+    border-radius: 1px;
+    background: var(--primary-text);
+    opacity: 0.25;
+    transition:
+      width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+      opacity 0.3s ease;
+  }
+
+  &:hover::before {
+    opacity: 0.5;
+  }
+
+  &.is-active::before {
+    width: 2.25em;
+    opacity: 0.9;
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-text);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .writing-index,
+  .writing-index__line::before {
+    transition: none;
+  }
+}
+
+.writing-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.writing-note {
+  padding: 2.5em 0;
+  border-top: 1px solid var(--border-color);
+  // Clears the fixed dock when jumping to /writing#<id>.
+  scroll-margin-top: 5em;
+
+  article {
+    max-width: 40em;
+  }
+
+  &__number {
+    display: block;
+    margin-bottom: 0.75em;
+    font-size: var(--text-size);
+    font-weight: 550;
+    font-variant-numeric: tabular-nums;
+    color: var(--secondary-text);
+  }
+
+  &__title {
+    margin: 0 0 0.9em;
+    font-size: var(--h3-size);
+    font-weight: 600;
+    color: var(--primary-text);
+    letter-spacing: var(--heading-letter-spacing);
+    line-height: var(--heading-line-height);
+  }
+
+  &__body {
+    font-size: var(--p-size);
+    line-height: var(--paragraph-line-height);
+    color: var(--secondary-text);
+
+    p,
+    ul,
+    ol {
+      margin: 0 0 1em;
+    }
+
+    > :last-child {
+      margin-bottom: 0;
+    }
+
+    ul,
+    ol {
+      padding-left: 1.25em;
+      line-height: var(--list-line-height);
+    }
+
+    li + li {
+      margin-top: 0.2em;
+    }
+
+    strong {
+      color: var(--primary-text);
+      font-weight: 600;
+    }
+
+    em {
+      color: var(--primary-text);
+    }
+  }
+
+  &__figure {
+    margin: 1.75em 0 0;
+    border-radius: var(--radius-card);
+    border: 1px solid var(--border-color);
+    overflow: hidden;
+    background-color: var(--bg-color-high);
+
+    img,
+    video {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__tags {
+    list-style: none;
+    margin: 1.5em 0 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4em;
+
+    li {
+      padding: 0.3em 0.8em;
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-pill);
+      font-size: 0.9em;
+      color: var(--secondary-text);
+    }
+  }
+
+  @media (max-width: 600px) {
+    padding: 2em 0;
+
+    &__title {
+      font-size: var(--h3-size-mobile);
+    }
+
+    &__body {
+      font-size: var(--p-size-mobile);
+    }
+  }
+}

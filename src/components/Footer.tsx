@@ -5,9 +5,12 @@ import GitHubCommitBoard, { useGitHubActivity } from "./GitHubCommitBoard";
 import PixelGrass from "./PixelGrass";
 import "../styles/Footer.scss";
 
-// The marquee mixes in Figma Training + Travel photos, so showing it again
-// at the bottom of those same pages is redundant — only show it elsewhere.
-const MARQUEE_HIDDEN_ROUTES = ["/figma-training", "/gallery"];
+// The photo strip belongs to the work page only. A case study opens over the
+// work page, which stays mounted beneath it, so those routes keep the strip
+// too — otherwise the footer under the home page would change on the way in
+// and out of every case study.
+const isWorkRoute = (pathname: string) =>
+  pathname === "/" || pathname === "/home" || pathname.startsWith("/project/");
 
 interface MarqueeImage {
   src: string;
@@ -83,7 +86,7 @@ const MarqueeFrame: React.FC<{ image: MarqueeImage }> = ({ image }) => {
 
 const Footer: React.FC = () => {
   const location = useLocation();
-  const showMarquee = !MARQUEE_HIDDEN_ROUTES.includes(location.pathname);
+  const showMarquee = isWorkRoute(location.pathname);
   const { activity, loading, failed } = useGitHubActivity();
 
   /* The handle's slot, filled with the account's own numbers. It holds the
@@ -98,7 +101,10 @@ const Footer: React.FC = () => {
     // The shell bounds how far the footer rides over the page — see
     // .footer-shell in Footer.scss.
     <div className="footer-shell">
-      <ScrollReveal className="footer-container" variant="fade">
+      <ScrollReveal
+        className={`footer-container${showMarquee ? "" : " footer-container--no-marquee"}`}
+        variant="fade"
+      >
         {showMarquee && (
           <div className="footer-marquee" aria-hidden="true">
             <div className="footer-marquee-track">

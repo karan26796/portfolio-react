@@ -101,14 +101,11 @@
     }
 }
 
-/* The training page hides the marquee (see MARQUEE_HIDDEN_ROUTES), so there is
-   no tall band of photos for the fade to happen across — held to 30% it ran
-   well into the links instead. It finishes in the first tenth there.
-
-   Matched on the page's own class rather than passed down as a prop: the
-   footer is a sibling of the page, not a child, so there is no ancestor to
-   hook. Same approach as the reader-overlay rules in Dock.scss. */
-body:has(.figma-training-main-content) .footer-container {
+/* Every page but the work page hides the marquee (see isWorkRoute in
+   Footer.tsx), so there is no tall band of photos for the fade to happen
+   across — held to 30% it ran well into the links instead. It finishes in the
+   first tenth there. The footer sets this class itself when it drops the strip. */
+.footer-container.footer-container--no-marquee {
     --footer-fade-clear: 6%;
     --footer-fade-mid: 8%;
     --footer-fade-end: 10%;

@@ -35,7 +35,9 @@
 }
 
 :root {
-  transition: --page-accent 700ms ease;
+  // Long and eased at both ends, so one section's colour dissolves into the
+  // next instead of visibly switching.
+  transition: --page-accent 1200ms cubic-bezier(0.45, 0, 0.55, 1);
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -46,7 +48,9 @@
 
 .home-main-content,
 .figma-training-main-content,
-.project-details-main-content {
+.project-details-main-content,
+.writing-page,
+.details-page {
   position: relative;
   z-index: 2;
   background-color: var(--bg-color);
@@ -68,12 +72,29 @@
     height: 62vh;
     z-index: -1;
     pointer-events: none;
+    /* An eased falloff rather than a few straight segments. Linear
+       interpolation between three or four stops leaves a visible kink at each
+       one — the eye reads the change in slope as a line across the page. These
+       stops trace an ease-in-out curve, so the wash thins out evenly and has
+       no edge anywhere. */
     background: linear-gradient(
       to bottom,
       var(--page-accent, transparent) 0%,
-      color-mix(in srgb, var(--page-accent, transparent) 62%, transparent) 42%,
-      color-mix(in srgb, var(--page-accent, transparent) 22%, transparent) 74%,
-      color-mix(in srgb, var(--page-accent, transparent) 0%, transparent) 100%
+      color-mix(in srgb, var(--page-accent, transparent) 98.7%, transparent) 8.1%,
+      color-mix(in srgb, var(--page-accent, transparent) 95.1%, transparent) 15.5%,
+      color-mix(in srgb, var(--page-accent, transparent) 89.6%, transparent) 22.5%,
+      color-mix(in srgb, var(--page-accent, transparent) 82.5%, transparent) 29%,
+      color-mix(in srgb, var(--page-accent, transparent) 74.1%, transparent) 35.3%,
+      color-mix(in srgb, var(--page-accent, transparent) 64.8%, transparent) 41.2%,
+      color-mix(in srgb, var(--page-accent, transparent) 55%, transparent) 47.1%,
+      color-mix(in srgb, var(--page-accent, transparent) 45%, transparent) 52.9%,
+      color-mix(in srgb, var(--page-accent, transparent) 35.2%, transparent) 58.8%,
+      color-mix(in srgb, var(--page-accent, transparent) 25.9%, transparent) 64.7%,
+      color-mix(in srgb, var(--page-accent, transparent) 17.5%, transparent) 71%,
+      color-mix(in srgb, var(--page-accent, transparent) 10.4%, transparent) 77.5%,
+      color-mix(in srgb, var(--page-accent, transparent) 4.9%, transparent) 84.5%,
+      color-mix(in srgb, var(--page-accent, transparent) 1.3%, transparent) 91.9%,
+      transparent 100%
     );
   }
   // border-bottom: 1px solid var(--border-color);

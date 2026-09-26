@@ -48,6 +48,10 @@ const TrainingList = React.lazy(() => import("./pages/FigmaTraining"));
 const Resume = React.lazy(() => import("./components/Resume"));
 const ResumeStandalone = React.lazy(() => import("./pages/ResumeStandalone"));
 const Overview = React.lazy(() => import("./pages/Overview"));
+const Writing = React.lazy(() => import("./pages/Writing"));
+// Hidden for now — no route or tab points at it. Uncomment this and the route
+// below (and the tab in Dock.tsx) to bring it back.
+// const Details = React.lazy(() => import("./pages/Details"));
 // Throwaway canvas spike — see src/pages/CanvasSpike.tsx.
 const CanvasSpike = React.lazy(() => import("./pages/CanvasSpike"));
 
@@ -144,6 +148,8 @@ const AppShell: React.FC = () => {
             <Route path="/about" element={<About />} />
             <Route path="/gallery" element={<GalleryCanvasPage />} />
             <Route path="/archive" element={<Archive />} />
+            <Route path="/writing" element={<Writing />} />
+            {/* <Route path="/details" element={<Details />} /> */}
             <Route path="/figma-training" element={<TrainingList />} />
             <Route path="/resume" element={<Resume />} />
             <Route path="/resume-view" element={<ResumeStandalone />} />

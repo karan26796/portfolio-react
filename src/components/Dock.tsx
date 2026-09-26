@@ -1,7 +1,8 @@
 import React, { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { ArrowRight, House } from "@phosphor-icons/react";
+import { ArrowRight, House, List, ReadCvLogo, X } from "@phosphor-icons/react";
 import { burstConfetti } from "../utils/confetti";
+import ResumePopup from "../pages/ResumePopup";
 import "../styles/Dock.scss";
 
 const SCROLL_DELTA = 6;
@@ -31,6 +32,10 @@ type DockItem = {
   ariaLabel?: string;
   /** Which viewports show this. Omitted means both. */
   show?: "mobile" | "desktop";
+  /** What the item reads in the phone menu, where it has room to say what it does. */
+  menuLabel?: string;
+  /** On a phone, moves this item out of the row and into the menu. */
+  inMenuOnMobile?: boolean;
   /** Pushes this item, and everything after it, to the opposite corner. */
   startsGroup?: boolean;
   icon?: React.ReactNode;
@@ -74,11 +79,27 @@ const buildProjectItems = (): DockItem[] => [
 
 const buildItems = (
   copyEmail: (e: React.MouseEvent<HTMLButtonElement>) => void,
-  copied: boolean
+  copied: boolean,
+  openResume: () => void
 ): DockItem[] => [
     { id: "work", label: "Work", to: "/home" },
     { id: "figma-training", label: "Figma training", shortLabel: "Figma training", to: "/figma-training" },
+    { id: "writing", label: "Writing", to: "/writing" },
     { id: "travel", label: "Travel", to: "/gallery" },
+    // Hidden for now, along with its route in App.tsx.
+    // { id: "details", label: "Details", to: "/details" },
+
+    // An icon beside the email on a desktop; a line in the menu on a phone.
+    {
+      id: "resume",
+      label: "Resume",
+      ariaLabel: "View resume",
+      onSelect: openResume,
+      icon: <ReadCvLogo size="1.15em" weight="bold" />,
+      iconOnly: true,
+      startsGroup: true,
+      inMenuOnMobile: true,
+    },
 
     // Clicking copies the address. No mailto: it would hand the visitor off to
     // whatever mail client the OS decides to open, which on a desktop is often
@@ -87,12 +108,12 @@ const buildItems = (
     {
       id: "mail",
       label: copied ? "Copied" : EMAIL_MASKED,
-      // The masked address is too wide for a phone row of five, so there the tab
-      // goes back to reading "Email" — the copy it performs is the same.
-      shortLabel: copied ? "Copied" : "Email",
+      // In the menu the address would only be half the story — it says what
+      // pressing it does.
+      menuLabel: copied ? "Copied" : "Copy email",
       ariaLabel: `Copy email address, ${EMAIL}`,
       onSelect: copyEmail,
-      startsGroup: true,
+      inMenuOnMobile: true,
     },
   ];
 
@@ -100,6 +121,15 @@ const Dock: React.FC = () => {
   const location = useLocation();
   const [copied, setCopied] = useState(false);
   const [hidden, setHidden] = useState(false);
+  // The phone menu. Not every tab fits a 375px row, so below 768px the ones
+  // marked inMenuOnMobile leave the row for a menu button in the top-right.
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [resumeOpen, setResumeOpen] = useState(false);
+  const openResume = useCallback(() => {
+    setMenuOpen(false);
+    setResumeOpen(true);
+  }, []);
+  const menuRef = useRef<HTMLDivElement>(null);
   // Which element is being scrolled, and where it was last time we looked.
   const scrollState = useRef<{ y: number; target: EventTarget | null }>({
     y: 0,
@@ -186,8 +216,30 @@ const Dock: React.FC = () => {
   // the baseline belongs to a scroller that may no longer exist.
   useEffect(() => {
     setHidden(false);
+    setMenuOpen(false);
     scrollState.current = { y: 0, target: null };
   }, [location.pathname]);
+
+  // An open menu closes on Escape or a tap anywhere outside it, and keeps the
+  // bar on screen — hiding the bar would take the open menu with it.
+  useEffect(() => {
+    if (!menuOpen) return;
+    setHidden(false);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setMenuOpen(false);
+    };
+    const onPointer = (e: PointerEvent) => {
+      if (menuRef.current && !menuRef.current.contains(e.target as Node)) {
+        setMenuOpen(false);
+      }
+    };
+    document.addEventListener("keydown", onKey);
+    document.addEventListener("pointerdown", onPointer);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("pointerdown", onPointer);
+    };
+  }, [menuOpen, hidden]);
 
   const copyEmail = useCallback((e: React.MouseEvent<HTMLButtonElement>) => {
     // Captured now: by the time the clipboard promise settles the event is
@@ -240,8 +292,8 @@ const Dock: React.FC = () => {
   onProjectRef.current = onProject;
   const items = useMemo(
     () =>
-      onProject ? buildProjectItems() : buildItems(copyEmail, copied),
-    [copyEmail, copied, onProject]
+      onProject ? buildProjectItems() : buildItems(copyEmail, copied, openResume),
+    [copyEmail, copied, onProject, openResume]
   );
 
   const isActive = (item: DockItem) =>
@@ -256,64 +308,97 @@ const Dock: React.FC = () => {
     []
   );
 
+  // A pill is its own label, so the text sits in the element rather than in a
+  // tooltip beside it. The short form only exists where the row has to fit a
+  // phone, so the menu, which has room, always takes the long one.
+  const renderItem = (item: DockItem, inMenu = false) => {
+    const active = Boolean(item.to) && isActive(item);
+    const iconAfter = item.iconDirection === "right";
+    // The menu is a list of words, so its rows drop the icons the row uses.
+    const icon = inMenu ? null : item.icon;
+    const pill = (
+      <>
+        {!iconAfter && icon}
+        <span className="dock__label">
+          {inMenu ? item.menuLabel ?? item.label : item.label}
+        </span>
+        {item.shortLabel && !inMenu && (
+          <span className="dock__label dock__label--short">{item.shortLabel}</span>
+        )}
+        {iconAfter && icon}
+      </>
+    );
+
+    const className = [
+      "dock__item",
+      item.show ? `dock__item--${item.show}-only` : "",
+      item.startsGroup && !inMenu ? "dock__item--group-start" : "",
+      item.iconOnly && !inMenu ? "dock__item--icon-only" : "",
+      item.inMenuOnMobile && !inMenu ? "dock__item--menu-on-mobile" : "",
+      active ? "is-active" : "",
+    ]
+      .filter(Boolean)
+      .join(" ");
+
+    return (
+      <li key={item.id} className={className}>
+        {item.to ? (
+          <Link
+            to={item.to}
+            className="dock__button"
+            aria-current={active ? "page" : undefined}
+          >
+            {pill}
+          </Link>
+        ) : (
+          <button
+            type="button"
+            className="dock__button"
+            onClick={item.onSelect}
+            aria-label={item.ariaLabel ?? item.label}
+            // An icon on its own needs its name on hover too.
+            title={item.iconOnly && !inMenu ? item.label : undefined}
+          >
+            {pill}
+          </button>
+        )}
+      </li>
+    );
+  };
+
   return (
     <div
-      className={`dock${hidden ? " is-hidden" : ""}`}
+      className={`dock${hidden ? " is-hidden" : ""}${onProject ? "" : " dock--has-menu"}`}
       role="navigation"
       aria-label="Dock"
     >
-      <ul className="dock__list">
-        {items.map((item) => {
-          const active = Boolean(item.to) && isActive(item);
-          // A pill is its own label, so the text sits in the element rather
-          // than in a tooltip beside it. The short form only exists where the
-          // row has to fit a phone.
-          const iconAfter = item.iconDirection === "right";
-          const pill = (
-            <>
-              {!iconAfter && item.icon}
-              <span className="dock__label">{item.label}</span>
-              {item.shortLabel && (
-                <span className="dock__label dock__label--short">{item.shortLabel}</span>
-              )}
-              {iconAfter && item.icon}
-            </>
-          );
-
-          const className = [
-            "dock__item",
-            item.show ? `dock__item--${item.show}-only` : "",
-            item.startsGroup ? "dock__item--group-start" : "",
-            item.iconOnly ? "dock__item--icon-only" : "",
-            active ? "is-active" : "",
-          ]
-            .filter(Boolean)
-            .join(" ");
-
-          return (
-            <li key={item.id} className={className}>
-              {item.to ? (
-                <Link
-                  to={item.to}
-                  className="dock__button"
-                  aria-current={active ? "page" : undefined}
-                >
-                  {pill}
-                </Link>
-              ) : (
-                <button
-                  type="button"
-                  className="dock__button"
-                  onClick={item.onSelect}
-                  aria-label={item.ariaLabel ?? item.label}
-                >
-                  {pill}
-                </button>
-              )}
-            </li>
-          );
-        })}
-      </ul>
+      <ul className="dock__list">{items.map((item) => renderItem(item))}</ul>
+      {/* On a phone, the tabs that do not fit the row. Not rendered on a case
+          study, whose two controls fit a phone row as they are. */}
+      {!onProject && (
+        <div className={`dock__menu${menuOpen ? " is-open" : ""}`} ref={menuRef}>
+          <button
+            type="button"
+            className="dock__button dock__menu-toggle"
+            aria-expanded={menuOpen}
+            aria-controls="dock-menu"
+            aria-label={menuOpen ? "Close menu" : "Open menu"}
+            onClick={() => setMenuOpen((open) => !open)}
+          >
+            {menuOpen ? (
+              <X size="1.2em" weight="bold" />
+            ) : (
+              <List size="1.2em" weight="bold" />
+            )}
+          </button>
+          <ul id="dock-menu" className="dock__menu-list">
+            {items
+              .filter((item) => item.inMenuOnMobile)
+              .map((item) => renderItem(item, true))}
+          </ul>
+        </div>
+      )}
+      <ResumePopup isOpen={resumeOpen} onClose={() => setResumeOpen(false)} />
       <span className="dock__sr-status" role="status" aria-live="polite">
         {copied ? "Email address copied to clipboard" : ""}
       </span>

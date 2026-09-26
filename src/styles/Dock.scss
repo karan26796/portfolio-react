@@ -210,7 +210,7 @@ body:has(.reader-mode-overlay) .dock {
   // Five tabs have to fit 375px, so the long labels give way to the short
   // ones and the text tightens.
   .dock__button {
-    padding: 0.45em 0.55em;
+    padding: 0.45em 0.5em;
   }
 
   .dock__label {
@@ -282,5 +282,122 @@ body:has(.reader-mode-overlay) .dock {
     &.is-hidden {
       transform: translateX(-50%) translateY(100%);
     }
+  }
+}
+/* ============================================================================
+   Phone menu. Below 768px the row keeps the four pages and the actions
+   (.dock__item--menu-on-mobile — resume and copy email) move into a list
+   behind one button in the top-right corner. A case study keeps its own two
+   controls and never gets the menu (no .dock--has-menu).
+   ========================================================================== */
+
+.dock__menu {
+  display: none;
+}
+
+@media (max-width: 768px) {
+  // The row and the menu button share one line: tabs from the left, the button
+  // in the far corner.
+  .dock--has-menu {
+    display: flex;
+    align-items: center;
+    gap: var(--dock-gap);
+  }
+
+  .dock--has-menu .dock__list {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .dock__item--menu-on-mobile {
+    display: none;
+  }
+
+  .dock--has-menu .dock__menu {
+    display: block;
+    position: relative;
+    flex-shrink: 0;
+    margin-left: auto;
+    pointer-events: auto;
+  }
+
+  .dock__menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.6em;
+    height: 2.6em;
+    padding: 0;
+    color: var(--dock-tab-active-text);
+    border: 1px solid color-mix(in srgb, var(--primary-text) 12%, transparent);
+    box-sizing: border-box;
+  }
+
+  .dock__menu-list {
+    position: absolute;
+    top: calc(100% + 0.5em);
+    right: 0;
+    min-width: 13.5em;
+    margin: 0;
+    padding: 0.35em;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    border: 1px solid color-mix(in srgb, var(--primary-text) 12%, transparent);
+    border-radius: 1.1em;
+    background: color-mix(in srgb, var(--bg-color) 92%, transparent);
+    backdrop-filter: blur(16px) saturate(150%);
+    -webkit-backdrop-filter: blur(16px) saturate(150%);
+    box-shadow: 0 12px 32px -12px rgba(0, 0, 0, 0.18);
+    transform-origin: top right;
+
+    // Closed, it is out of the tab order and the accessibility tree as well as
+    // out of sight — visibility does all three. It eases in and out rather
+    // than blinking, with visibility held until the fade has finished.
+    opacity: 0;
+    transform: translateY(-4px) scale(0.98);
+    visibility: hidden;
+    transition:
+      opacity 0.18s ease,
+      transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0s linear 0.22s;
+
+    .dock__item {
+      display: flex;
+    }
+
+    // The list is one surface, so the rows drop the glass each pill carries
+    // in the row.
+    .dock__button {
+      flex: 1;
+      justify-content: flex-start;
+      padding: 0.75em 0.9em;
+      border-radius: 0.75em;
+      background: transparent;
+      backdrop-filter: none;
+      -webkit-backdrop-filter: none;
+    }
+
+    .dock__item.is-active .dock__button {
+      background: color-mix(in srgb, var(--primary-text) 6%, transparent);
+    }
+  }
+
+  .dock__menu.is-open .dock__menu-list {
+    opacity: 1;
+    transform: none;
+    visibility: visible;
+    transition:
+      opacity 0.18s ease,
+      transform 0.22s cubic-bezier(0.16, 1, 0.3, 1),
+      visibility 0s;
+  }
+}
+
+@media (max-width: 768px) and (prefers-reduced-motion: reduce) {
+  .dock__menu-list,
+  .dock__menu.is-open .dock__menu-list {
+    transition: none;
   }
 }

@@ -1,0 +1,232 @@
+/* Design details — a masonry of small cards, each one interaction or decision,
+   under a sticky row of category filters. */
+.details-page {
+  // Where the filter row sticks. It sits under the tab bar while that is
+  // showing and moves up into its place when the tab bar hides.
+  --details-toolbar-top: 4.25rem;
+
+  width: 100%;
+  max-width: var(--max-width-container);
+  margin: 0 auto;
+  padding: 3em 2em;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  // Carries the page wash (see AppShell.scss).
+  position: relative;
+  z-index: 2;
+  background-color: var(--bg-color);
+
+  @media (max-width: 600px) {
+    --details-toolbar-top: 3.4rem;
+    padding: 2em 1.15em;
+  }
+}
+
+body:has(.dock.is-hidden) .details-page {
+  --details-toolbar-top: 0.75rem;
+}
+
+.details-intro {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75em;
+  max-width: 40em;
+
+  h2 {
+    font-size: var(--h2-size);
+    font-weight: 600;
+    color: var(--primary-text);
+    margin: 0;
+    letter-spacing: var(--heading-letter-spacing);
+    line-height: var(--heading-line-height);
+  }
+
+  p {
+    margin: 0;
+    font-size: var(--p-size);
+    line-height: var(--paragraph-line-height);
+    color: var(--secondary-text);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Filter row
+   ------------------------------------------------------------------------- */
+
+.details-toolbar {
+  position: sticky;
+  top: var(--details-toolbar-top);
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75em;
+  padding: 0.5em 0;
+  transition: top 0.32s cubic-bezier(0.16, 1, 0.3, 1);
+
+  /* The cards blur out as they pass under the row rather than being cut off
+     by it. The layer reaches up to the top of the viewport, so nothing shows
+     sharp between the row and the tab bar either, and its lower edge fades
+     out over an eased ramp — no line where the blur stops. */
+  &::before {
+    content: "";
+    position: absolute;
+    top: calc(-1 * var(--details-toolbar-top));
+    bottom: -1.75em;
+    left: -2em;
+    right: -2em;
+    z-index: -1;
+    pointer-events: none;
+    background: color-mix(in srgb, var(--bg-color) 72%, transparent);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    mask-image: linear-gradient(
+      to bottom,
+      #000 0%,
+      #000 calc(100% - 2.75em),
+      rgba(0, 0, 0, 0.82) calc(100% - 2.1em),
+      rgba(0, 0, 0, 0.5) calc(100% - 1.4em),
+      rgba(0, 0, 0, 0.18) calc(100% - 0.7em),
+      transparent 100%
+    );
+    // Off until the row is stuck (see Details.tsx), then faded in rather
+    // than switched on.
+    opacity: 0;
+    transition: top 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.4s ease;
+  }
+
+  &.is-stuck::before {
+    opacity: 1;
+  }
+
+  &__filters {
+    display: flex;
+    gap: 0.4em;
+    min-width: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  @media (max-width: 640px) {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.5em;
+
+    .details-pill--sort {
+      align-self: flex-end;
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .details-toolbar,
+  .details-toolbar::before {
+    transition: none;
+  }
+}
+
+.details-pill {
+  appearance: none;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45em;
+  padding: 0.5em 1em;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-pill);
+  background: color-mix(in srgb, var(--bg-color) 85%, transparent);
+  font: inherit;
+  font-weight: 550;
+  line-height: 1.2;
+  white-space: nowrap;
+  color: var(--secondary-text);
+  cursor: pointer;
+  transition: color 0.18s ease, background-color 0.18s ease, border-color 0.18s ease;
+
+  &:hover {
+    color: var(--primary-text);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--primary-text);
+    outline-offset: 2px;
+  }
+
+  &[aria-pressed="true"] {
+    background: var(--primary-text);
+    border-color: var(--primary-text);
+    color: var(--bg-color);
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Grid
+   ------------------------------------------------------------------------- */
+
+.details-grid {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.25em;
+
+  &__column {
+    flex: 1 1 0;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1.25em;
+  }
+}
+
+.detail-card {
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  border-radius: 1.5em;
+  background: color-mix(in srgb, var(--primary-text) 3%, var(--bg-color));
+  scroll-margin-top: 9em;
+
+  &__media {
+    border-bottom: 1px solid var(--border-color);
+    background: color-mix(in srgb, var(--primary-text) 5%, var(--bg-color));
+
+    img,
+    video {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    gap: 0.35em;
+    padding: 1.25em 1.4em 1.5em;
+  }
+
+  &__category {
+    font-size: var(--text-size);
+    color: var(--secondary-text);
+  }
+
+  &__title {
+    margin: 0;
+    font-size: var(--h4-size);
+    font-weight: 600;
+    color: var(--primary-text);
+    letter-spacing: var(--heading-letter-spacing);
+    line-height: var(--heading-line-height);
+  }
+
+  &__description {
+    margin: 0.35em 0 0;
+    font-size: var(--text-size);
+    line-height: var(--paragraph-line-height);
+    color: var(--secondary-text);
+  }
+}
