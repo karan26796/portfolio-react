@@ -10,6 +10,7 @@ import '../styles/HorizontalCarousel.scss';
 import '../styles/canvasCard.scss';
 import '../styles/dottedBoard.scss';
 import '../styles/Experiments.scss';
+import { PausableVideo } from './MediaPlayToggle';
 
 interface TrainingItem {
   id: string;
@@ -267,7 +268,7 @@ const FigmaTrainingCarousel: React.FC = () => {
           const ratio = mediaRatios[item.id] || item.aspectRatio;
 
           const media = item.isVideo ? (
-            <video
+            <PausableVideo
               src={item.image}
               autoPlay
               loop

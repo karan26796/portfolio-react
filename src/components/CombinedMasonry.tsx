@@ -7,6 +7,7 @@ import ImageWithSkeleton from './ImageWithSkeleton';
 import ScrollReveal, { scrollRevealStagger } from './ScrollReveal';
 import '../styles/HorizontalCarousel.scss';
 import '../styles/CombinedMasonry.scss';
+import { PausableVideo } from './MediaPlayToggle';
 
 interface WorkshopItem {
   id: string;
@@ -89,7 +90,7 @@ const renderEntry = (entry: (typeof CARD_ORDER)[number], rotate: number) => {
         rotate={rotate}
         media={
           entry.data.isVideo ? (
-            <video src={entry.data.image} autoPlay loop muted playsInline />
+            <PausableVideo src={entry.data.image} autoPlay loop muted playsInline />
           ) : (
             <ImageWithSkeleton src={entry.data.image} alt={entry.data.title} loading="lazy" />
           )
@@ -105,7 +106,7 @@ const renderEntry = (entry: (typeof CARD_ORDER)[number], rotate: number) => {
       rotate={rotate}
       media={
         entry.data.type === 'video' ? (
-          <video src={entry.data.src} autoPlay loop muted playsInline />
+          <PausableVideo src={entry.data.src} autoPlay loop muted playsInline />
         ) : (
           <ImageWithSkeleton src={entry.data.src} alt={entry.data.caption ?? 'Experiment'} loading="lazy" />
         )

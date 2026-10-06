@@ -1,0 +1,58 @@
+// Matches the CustomVideo play/pause button, scaled down for cards.
+.media-play-toggle {
+  position: absolute;
+  z-index: 11;
+  width: 32px;
+  height: 32px;
+  margin: 0;
+  padding: 0;
+  // `top` is the media's bottom edge less the inset; lift by the button's
+  // own height so its bottom sits there.
+  transform: translateY(-100%);
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  opacity: 0;
+  transition: opacity 0.2s ease, background 0.2s ease;
+
+  @media (hover: hover) {
+    &:hover {
+      background: rgba(0, 0, 0, 0.8);
+    }
+  }
+
+  &:focus-visible {
+    opacity: 1;
+    outline: 2px solid #fff;
+    outline-offset: 2px;
+  }
+
+  // Stays up while paused, so a still frame never reads as a broken image.
+  &.is-paused {
+    opacity: 1;
+  }
+
+  // Touch has no hover to reveal it.
+  @media (hover: none) {
+    opacity: 0.85;
+  }
+}
+
+// Revealed while the pointer is anywhere over the media's container.
+*:hover > .media-play-toggle {
+  opacity: 1;
+}
+
+.media-play-toggle__freeze {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  border-radius: inherit;
+}

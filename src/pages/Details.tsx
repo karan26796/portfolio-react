@@ -5,6 +5,7 @@ import usePageSEO from "../utils/usePageSEO";
 import { useSectionAccent } from "../utils/useSectionAccent";
 import { details, DesignDetail } from "../utils/details";
 import "../styles/Details.scss";
+import { PausableImage, PausableVideo } from "../components/MediaPlayToggle";
 
 const DETAILS_ACCENT = "rgba(0, 128, 128, 0.09)";
 
@@ -23,7 +24,7 @@ const useColumnCount = () => {
 
 const DetailMedia: React.FC<{ media: DesignDetail["media"] }> = ({ media }) =>
   media.type === "video" ? (
-    <video
+    <PausableVideo
       src={media.src}
       aria-label={media.alt}
       autoPlay
@@ -33,7 +34,7 @@ const DetailMedia: React.FC<{ media: DesignDetail["media"] }> = ({ media }) =>
       preload="metadata"
     />
   ) : (
-    <img src={media.src} alt={media.alt} loading="lazy" />
+    <PausableImage src={media.src} alt={media.alt} loading="lazy" />
   );
 
 const DetailCard: React.FC<{ detail: DesignDetail }> = ({ detail }) => (

@@ -12,6 +12,7 @@ import '../styles/dottedBoard.scss';
 import '../styles/Experiments.scss';
 import ImageWithSkeleton from './ImageWithSkeleton';
 import ScrollReveal from './ScrollReveal';
+import { PausableVideo } from "./MediaPlayToggle";
 
 interface ExperimentsProps {
   title?: string;
@@ -279,7 +280,7 @@ const Experiments: React.FC<ExperimentsProps> = ({
           const label = experiment.caption ?? `Experiment ${index + 1}`;
           const media =
             experiment.type === "video" ? (
-              <video
+              <PausableVideo
                 src={experiment.src}
                 autoPlay
                 loop

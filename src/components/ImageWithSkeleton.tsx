@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import "../styles/ImageWithSkeleton.scss";
+import MediaPlayToggle, { isGifSrc } from "./MediaPlayToggle";
 
 export interface ImageWithSkeletonProps
   extends React.ImgHTMLAttributes<HTMLImageElement> {
@@ -107,6 +108,9 @@ const ImageWithSkeleton: React.FC<ImageWithSkeletonProps> = ({
           style={mediaStyle}
           {...props}
         />
+      )}
+      {isLoaded && (isVideo || isGifSrc(src)) && (
+        <MediaPlayToggle mediaRef={isVideo ? videoRef : imgRef} />
       )}
     </div>
   );

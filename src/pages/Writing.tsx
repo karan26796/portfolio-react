@@ -6,6 +6,7 @@ import { useSectionAccent } from "../utils/useSectionAccent";
 import { writings } from "../utils/writings";
 import "../styles/hero.scss";
 import "../styles/Writing.scss";
+import { PausableImage, PausableVideo } from "../components/MediaPlayToggle";
 
 // The same wash the home and training pages use, taken from whichever note is
 // most on screen. The notes cycle through the home page's section colours so
@@ -152,7 +153,7 @@ const Writing: React.FC = () => {
                 {note.media && (
                   <figure className="writing-note__figure">
                     {note.media.type === "video" ? (
-                      <video
+                      <PausableVideo
                         src={note.media.src}
                         aria-label={note.media.alt}
                         autoPlay
@@ -162,7 +163,7 @@ const Writing: React.FC = () => {
                         preload="metadata"
                       />
                     ) : (
-                      <img src={note.media.src} alt={note.media.alt} loading="lazy" />
+                      <PausableImage src={note.media.src} alt={note.media.alt} loading="lazy" />
                     )}
                   </figure>
                 )}

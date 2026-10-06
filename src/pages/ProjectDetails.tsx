@@ -18,6 +18,7 @@ import AISummarizer from "../components/AISummarizer";
 import ProjectSidePanel from "../components/ProjectSidePanel";
 import { formatSectionTitle } from "../utils/formatSectionTitle";
 import { toAccentTint } from "../utils/dominantColor";
+import { PausableImage } from "../components/MediaPlayToggle";
 // Projects that render as bespoke React pages instead of markdown.
 const CUSTOM_PROJECTS: Record<string, React.ComponentType> = {};
 
@@ -469,7 +470,7 @@ const ProjectDetails: React.FC = () => {
                               return (
                                 <ScrollReveal variant="image-reveal">
                                   <figure>
-                                    <img alt={captionText} {...props} />
+                                    <PausableImage alt={captionText} {...props} />
                                     {captionText && <figcaption>{captionText}</figcaption>}
                                   </figure>
                                 </ScrollReveal>
